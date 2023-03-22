@@ -42,11 +42,13 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public init(
       reviewAdded: ReviewAdded? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Subscription
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "reviewAdded": reviewAdded._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Subscription.typename,
+        "reviewAdded": reviewAdded._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// ReviewAdded
@@ -75,13 +77,15 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         stars: Int,
         commentary: String? = nil
       ) {
-        let objectType = StarWarsAPI.Objects.Review
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "episode": episode,
-            "stars": stars,
-            "commentary": commentary
-          ]))
+          "__typename": StarWarsAPI.Objects.Review.typename,
+          "episode": episode,
+          "stars": stars,
+          "commentary": commentary,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

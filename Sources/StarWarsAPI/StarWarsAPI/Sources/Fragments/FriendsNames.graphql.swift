@@ -29,15 +29,13 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
     __typename: String,
     friends: [Friend?]? = nil
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-        "friends": friends._fieldData
-      ]))
+      "__typename": __typename,
+      "friends": friends._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 
   /// Friend
@@ -59,15 +57,13 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
       __typename: String,
       name: String
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          StarWarsAPI.Interfaces.Character
-      ])
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "name": name
-        ]))
+        "__typename": __typename,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
   }
 }

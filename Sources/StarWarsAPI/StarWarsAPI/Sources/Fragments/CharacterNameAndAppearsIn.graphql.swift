@@ -31,15 +31,13 @@ public struct CharacterNameAndAppearsIn: StarWarsAPI.SelectionSet, Fragment {
     name: String,
     appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-        "name": name,
-        "appearsIn": appearsIn
-      ]))
+      "__typename": __typename,
+      "name": name,
+      "appearsIn": appearsIn,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 }

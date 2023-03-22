@@ -31,16 +31,12 @@ public struct PetDetailsMutation: MyCustomProject.MutableSelectionSet, Fragment 
     __typename: String,
     owner: Owner? = nil
   ) {
-    let objectType = Apollo.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        MyCustomProject.Interfaces.Pet
-    ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "owner": owner._fieldData
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "owner": owner._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -64,12 +60,12 @@ public struct PetDetailsMutation: MyCustomProject.MutableSelectionSet, Fragment 
     public init(
       firstName: String
     ) {
-      let objectType = MyCustomProject.Objects.Human
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "firstName": firstName
+      self.init(_dataDict: DataDict(data: [
+        "__typename": MyCustomProject.Objects.Human.typename,
+        "firstName": firstName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
   }

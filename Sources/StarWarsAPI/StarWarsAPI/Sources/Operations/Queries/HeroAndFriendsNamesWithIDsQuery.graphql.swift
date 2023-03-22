@@ -46,11 +46,13 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Hero
@@ -80,17 +82,15 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
         name: String,
         friends: [Friend?]? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "name": name,
-            "friends": friends._fieldData
-          ]))
+          "__typename": __typename,
+          "id": id,
+          "name": name,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// Hero.Friend
@@ -116,16 +116,14 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           id: StarWarsAPI.ID,
           name: String
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              StarWarsAPI.Interfaces.Character
-          ])
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "id": id,
-              "name": name
-            ]))
+            "__typename": __typename,
+            "id": id,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
         }
       }
     }

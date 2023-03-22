@@ -42,11 +42,13 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
     public init(
       pets: [Pet]
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "pets": pets._fieldData
-        ]))
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "pets": pets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Pet
@@ -76,16 +78,14 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
         id: AnimalKingdomAPI.ID,
         humanName: String? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Pet
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "humanName": humanName
-          ]))
+          "__typename": __typename,
+          "id": id,
+          "humanName": humanName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

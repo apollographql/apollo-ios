@@ -47,11 +47,13 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Hero
@@ -73,14 +75,12 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-          ]))
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// Hero.AsHuman
@@ -102,11 +102,14 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(
           property: String? = nil
         ) {
-          let objectType = StarWarsAPI.Objects.Human
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "property": property
-            ]))
+            "__typename": StarWarsAPI.Objects.Human.typename,
+            "property": property,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
+          ]))
         }
       }
 
@@ -129,11 +132,14 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(
           property: String? = nil
         ) {
-          let objectType = StarWarsAPI.Objects.Droid
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "property": property
-            ]))
+            "__typename": StarWarsAPI.Objects.Droid.typename,
+            "property": property,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
+          ]))
         }
       }
     }

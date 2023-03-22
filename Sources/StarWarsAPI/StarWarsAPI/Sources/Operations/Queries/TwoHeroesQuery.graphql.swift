@@ -41,12 +41,14 @@ public class TwoHeroesQuery: GraphQLQuery {
       r2: R2? = nil,
       luke: Luke? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "r2": r2._fieldData,
-          "luke": luke._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "r2": r2._fieldData,
+        "luke": luke._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// R2
@@ -68,15 +70,13 @@ public class TwoHeroesQuery: GraphQLQuery {
         __typename: String,
         name: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "name": name
-          ]))
+          "__typename": __typename,
+          "name": name,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
 
@@ -99,15 +99,13 @@ public class TwoHeroesQuery: GraphQLQuery {
         __typename: String,
         name: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "name": name
-          ]))
+          "__typename": __typename,
+          "name": name,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

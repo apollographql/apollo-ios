@@ -26,12 +26,12 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      let objectType = MySchemaModule.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "allAnimals": allAnimals._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": MySchemaModule.Objects.Query.typename,
+        "allAnimals": allAnimals._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -68,17 +68,13 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         species: String,
         skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            MySchemaModule.Interfaces.Animal
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "species": species,
-            "skinCovering": skinCovering
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "skinCovering": skinCovering,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -113,14 +109,15 @@ class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           species: String,
           skinCovering: GraphQLEnum<MySchemaModule.SkinCovering>? = nil
         ) {
-          let objectType = MySchemaModule.Objects.Bird
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "wingspan": wingspan,
-              "species": species,
-              "skinCovering": skinCovering
+          self.init(_dataDict: DataDict(data: [
+            "__typename": MySchemaModule.Objects.Bird.typename,
+            "wingspan": wingspan,
+            "species": species,
+            "skinCovering": skinCovering,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(AllAnimal.self)
+            ])
           ]))
         }
       }

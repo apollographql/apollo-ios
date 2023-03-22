@@ -48,11 +48,13 @@ public class HeroDetailsQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Hero
@@ -79,15 +81,13 @@ public class HeroDetailsQuery: GraphQLQuery {
         __typename: String,
         name: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "name": name
-          ]))
+          "__typename": __typename,
+          "name": name,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// Hero.AsHuman
@@ -112,12 +112,15 @@ public class HeroDetailsQuery: GraphQLQuery {
           height: Double? = nil,
           name: String
         ) {
-          let objectType = StarWarsAPI.Objects.Human
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "height": height,
-              "name": name
-            ]))
+            "__typename": StarWarsAPI.Objects.Human.typename,
+            "height": height,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
+          ]))
         }
       }
 
@@ -143,12 +146,15 @@ public class HeroDetailsQuery: GraphQLQuery {
           primaryFunction: String? = nil,
           name: String
         ) {
-          let objectType = StarWarsAPI.Objects.Droid
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "primaryFunction": primaryFunction,
-              "name": name
-            ]))
+            "__typename": StarWarsAPI.Objects.Droid.typename,
+            "primaryFunction": primaryFunction,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
+          ]))
         }
       }
     }

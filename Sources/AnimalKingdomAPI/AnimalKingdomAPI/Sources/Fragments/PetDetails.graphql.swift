@@ -36,17 +36,15 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     favoriteToy: String,
     owner: Owner? = nil
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        AnimalKingdomAPI.Interfaces.Pet
-    ])
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-        "humanName": humanName,
-        "favoriteToy": favoriteToy,
-        "owner": owner._fieldData
-      ]))
+      "__typename": __typename,
+      "humanName": humanName,
+      "favoriteToy": favoriteToy,
+      "owner": owner._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 
   /// Owner
@@ -66,11 +64,13 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(
       firstName: String
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Human
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "firstName": firstName
-        ]))
+        "__typename": AnimalKingdomAPI.Objects.Human.typename,
+        "firstName": firstName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
   }
 }

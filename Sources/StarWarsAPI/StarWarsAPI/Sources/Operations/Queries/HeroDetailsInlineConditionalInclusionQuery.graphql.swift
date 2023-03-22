@@ -44,11 +44,13 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Hero
@@ -68,14 +70,12 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-          ]))
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// Hero.IfIncludeDetails
@@ -102,16 +102,15 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           name: String,
           appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              StarWarsAPI.Interfaces.Character
-          ])
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "name": name,
-              "appearsIn": appearsIn
-            ]))
+            "__typename": __typename,
+            "name": name,
+            "appearsIn": appearsIn,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
+          ]))
         }
       }
     }

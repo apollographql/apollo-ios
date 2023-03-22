@@ -41,11 +41,13 @@ public class HumanQuery: GraphQLQuery {
     public init(
       human: Human? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "human": human._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "human": human._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Human
@@ -70,12 +72,14 @@ public class HumanQuery: GraphQLQuery {
         name: String,
         mass: Double? = nil
       ) {
-        let objectType = StarWarsAPI.Objects.Human
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "name": name,
-            "mass": mass
-          ]))
+          "__typename": StarWarsAPI.Objects.Human.typename,
+          "name": name,
+          "mass": mass,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

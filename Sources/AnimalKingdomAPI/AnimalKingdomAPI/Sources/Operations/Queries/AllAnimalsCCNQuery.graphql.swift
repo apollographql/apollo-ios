@@ -37,11 +37,13 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "allAnimals": allAnimals._fieldData
-        ]))
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "allAnimals": allAnimals._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// AllAnimal
@@ -62,15 +64,13 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
         __typename: String,
         height: Height? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Animal
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "height": height._fieldData
-          ]))
+          "__typename": __typename,
+          "height": height._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// AllAnimal.Height
@@ -93,12 +93,14 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           feet: Int? = nil,
           inches: Int
         ) {
-          let objectType = AnimalKingdomAPI.Objects.Height
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "feet": feet,
-              "inches": inches
-            ]))
+            "__typename": AnimalKingdomAPI.Objects.Height.typename,
+            "feet": feet,
+            "inches": inches,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
         }
       }
     }

@@ -37,14 +37,12 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
   public init(
     __typename: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-      ]))
+      "__typename": __typename,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 
   /// AsHuman
@@ -66,11 +64,14 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
     public init(
       friends: [Friend?]? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Human
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "friends": friends._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Human.typename,
+        "friends": friends._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(CharacterNameWithInlineFragment.self)
+        ])
+      ]))
     }
 
     /// AsHuman.Friend
@@ -92,15 +93,13 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
         __typename: String,
         appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "appearsIn": appearsIn
-          ]))
+          "__typename": __typename,
+          "appearsIn": appearsIn,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }
@@ -136,12 +135,17 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
       name: String,
       friends: [FriendsNames.Friend?]? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Droid
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "name": name,
-          "friends": friends._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "name": name,
+        "friends": friends._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(CharacterNameWithInlineFragment.self),
+          ObjectIdentifier(CharacterName.self),
+          ObjectIdentifier(FriendsNames.self)
+        ])
+      ]))
     }
   }
 }

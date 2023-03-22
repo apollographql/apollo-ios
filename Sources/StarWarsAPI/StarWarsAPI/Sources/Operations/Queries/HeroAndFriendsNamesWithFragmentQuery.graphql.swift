@@ -42,11 +42,13 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
-        ]))
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// Hero
@@ -79,16 +81,15 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         name: String,
         friends: [FriendsNames.Friend?]? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "name": name,
-            "friends": friends._fieldData
-          ]))
+          "__typename": __typename,
+          "name": name,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(FriendsNames.self)
+          ])
+        ]))
       }
     }
   }

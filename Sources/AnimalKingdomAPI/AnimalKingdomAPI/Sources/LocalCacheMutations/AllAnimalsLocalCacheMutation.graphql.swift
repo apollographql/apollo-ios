@@ -25,11 +25,13 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "allAnimals": allAnimals._fieldData
-        ]))
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "allAnimals": allAnimals._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// AllAnimal
@@ -65,16 +67,14 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         species: String,
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Animal
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-            "species": species,
-            "skinCovering": skinCovering
-          ]))
+          "__typename": __typename,
+          "species": species,
+          "skinCovering": skinCovering,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       /// AllAnimal.AsBird
@@ -108,13 +108,16 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           species: String,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
         ) {
-          let objectType = AnimalKingdomAPI.Objects.Bird
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "wingspan": wingspan,
-              "species": species,
-              "skinCovering": skinCovering
-            ]))
+            "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+            "wingspan": wingspan,
+            "species": species,
+            "skinCovering": skinCovering,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(AllAnimal.self)
+            ])
+          ]))
         }
       }
     }

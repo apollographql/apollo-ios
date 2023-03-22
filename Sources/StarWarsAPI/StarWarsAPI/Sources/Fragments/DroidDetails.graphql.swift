@@ -30,11 +30,13 @@ public struct DroidDetails: StarWarsAPI.SelectionSet, Fragment {
     name: String,
     primaryFunction: String? = nil
   ) {
-    let objectType = StarWarsAPI.Objects.Droid
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-        "name": name,
-        "primaryFunction": primaryFunction
-      ]))
+      "__typename": StarWarsAPI.Objects.Droid.typename,
+      "name": name,
+      "primaryFunction": primaryFunction,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 }

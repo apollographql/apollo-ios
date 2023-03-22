@@ -33,15 +33,13 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     __typename: String,
     name: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
     self.init(_dataDict: DataDict(data: [
-        "__typename": objectType.typename,
-        "name": name
-      ]))
+      "__typename": __typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
   }
 
   /// AsDroid
@@ -66,12 +64,15 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
       name: String
     ) {
-      let objectType = StarWarsAPI.Objects.Droid
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "appearsIn": appearsIn,
-          "name": name
-        ]))
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "appearsIn": appearsIn,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
+        ])
+      ]))
     }
   }
 }

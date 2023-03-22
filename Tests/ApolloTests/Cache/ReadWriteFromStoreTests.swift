@@ -1652,9 +1652,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       convenience init(
         hero: Hero
       ) {
-        let objectType = Types.Query
         self.init(_dataDict: DataDict(data: [
-          "__typename": Types.Query,
+          "__typename": Types.Query.typename,
           "hero": hero._fieldData,
           "__fulfilled": Set([
             ObjectIdentifier(Self.self)

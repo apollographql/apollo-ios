@@ -43,12 +43,12 @@ public extension MyGraphQLSchema {
       public init(
         pets: [Pet]
       ) {
-        let objectType = MyGraphQLSchema.Objects.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "pets": pets._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Query.typename,
+          "pets": pets._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -79,17 +79,13 @@ public extension MyGraphQLSchema {
           id: MyGraphQLSchema.ID,
           humanName: String? = nil
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              MyGraphQLSchema.Interfaces.Pet
-          ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "id": id,
-              "humanName": humanName
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "id": id,
+            "humanName": humanName,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       }

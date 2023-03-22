@@ -34,11 +34,13 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     public init(
       classroomPets: [ClassroomPet]? = nil
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
       self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "classroomPets": classroomPets._fieldData
-        ]))
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "classroomPets": classroomPets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
 
     /// ClassroomPet
@@ -65,13 +67,13 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
-          ]))
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(ClassroomPetDetailsCCN.self)
+          ])
+        ]))
       }
 
       /// ClassroomPet.AsAnimal
@@ -97,15 +99,15 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           __typename: String,
           height: ClassroomPetDetailsCCN.AsAnimal.Height
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              AnimalKingdomAPI.Interfaces.Animal
-          ])
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "height": height._fieldData
-            ]))
+            "__typename": __typename,
+            "height": height._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetDetailsCCN.self)
+            ])
+          ]))
         }
       }
     }
