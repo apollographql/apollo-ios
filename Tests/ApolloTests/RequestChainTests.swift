@@ -210,7 +210,7 @@ class RequestChainTests: XCTestCase {
 
   // MARK: Multipart subscription tests
   
-  struct CallbackInterceptor: ApolloInterceptor {
+  struct RequestTrapInterceptor: ApolloInterceptor {
     let callback: (URLRequest) -> (Void)
 
     init(_ callback: @escaping (URLRequest) -> (Void)) {
@@ -227,22 +227,10 @@ class RequestChainTests: XCTestCase {
     }
   }
 
-  struct MockInterceptorProvider: InterceptorProvider {
-    let interceptors: [ApolloInterceptor]
-
-    init(_ interceptors: [ApolloInterceptor]) {
-      self.interceptors = interceptors
-    }
-
-    func interceptors<Operation>(for operation: Operation) -> [ApolloInterceptor] {
-      self.interceptors
-    }
-  }
-
   func test__request__givenSubscription_shouldAddMultipartAcceptHeader() {
     let expectation = self.expectation(description: "Request header verified")
 
-    let interceptor = CallbackInterceptor { request in
+    let interceptor = RequestTrapInterceptor { request in
       guard let header = request.allHTTPHeaderFields?["Accept"] else {
         XCTFail()
         return
@@ -254,7 +242,7 @@ class RequestChainTests: XCTestCase {
 
     let transport = RequestChainNetworkTransport(
       interceptorProvider: MockInterceptorProvider([interceptor]),
-      endpointURL: URL(string: "https://apollographql.com")!
+      endpointURL: TestURL.mockServer.url
     )
 
     _ = transport.send(operation: MockSubscription.mock()) { result in
@@ -267,7 +255,7 @@ class RequestChainTests: XCTestCase {
   func test__request__givenSubscription_whenTransportInitializedWithAdditionalHeaders_shouldOverwriteOnlyAcceptHeader() {
     let expectation = self.expectation(description: "Request header verified")
 
-    let interceptor = CallbackInterceptor { request in
+    let interceptor = RequestTrapInterceptor { request in
       guard let header = request.allHTTPHeaderFields?["Accept"] else {
         XCTFail()
         return
@@ -280,7 +268,7 @@ class RequestChainTests: XCTestCase {
 
     let transport = RequestChainNetworkTransport(
       interceptorProvider: MockInterceptorProvider([interceptor]),
-      endpointURL: URL(string: "https://apollographql.com")!,
+      endpointURL: TestURL.mockServer.url,
       additionalHeaders: [
         "Accept": "multipart/mixed",
         "Random": "still-here"
@@ -297,7 +285,7 @@ class RequestChainTests: XCTestCase {
   func test__request__givenQuery_shouldNotAddMultipartAcceptHeader() {
     let expectation = self.expectation(description: "Request header verified")
 
-    let interceptor = CallbackInterceptor { request in
+    let interceptor = RequestTrapInterceptor { request in
       if let header = request.allHTTPHeaderFields?["Accept"] {
         XCTAssertFalse(header.contains("multipart/mixed"))
       }
@@ -307,7 +295,7 @@ class RequestChainTests: XCTestCase {
 
     let transport = RequestChainNetworkTransport(
       interceptorProvider: MockInterceptorProvider([interceptor]),
-      endpointURL: URL(string: "https://apollographql.com")!
+      endpointURL: TestURL.mockServer.url
     )
 
     _ = transport.send(operation: MockQuery.mock()) { result in
@@ -320,7 +308,7 @@ class RequestChainTests: XCTestCase {
   func test__request__givenMutation_shouldNotAddMultipartAcceptHeader() {
     let expectation = self.expectation(description: "Request header verified")
 
-    let interceptor = CallbackInterceptor { request in
+    let interceptor = RequestTrapInterceptor { request in
       if let header = request.allHTTPHeaderFields?["Accept"] {
         XCTAssertFalse(header.contains("multipart/mixed"))
       }
@@ -330,7 +318,7 @@ class RequestChainTests: XCTestCase {
 
     let transport = RequestChainNetworkTransport(
       interceptorProvider: MockInterceptorProvider([interceptor]),
-      endpointURL: URL(string: "https://apollographql.com")!
+      endpointURL: TestURL.mockServer.url
     )
 
     _ = transport.send(operation: MockMutation.mock()) { result in

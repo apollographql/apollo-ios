@@ -730,6 +730,7 @@
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
 		E660A4D129CA56A4001EA373 /* MockHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D029CA56A4001EA373 /* MockHTTPRequest.swift */; };
 		E660A4D329CA5890001EA373 /* MockHTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */; };
+		E660A4D529CAEA0F001EA373 /* MockInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
 		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
@@ -1888,6 +1889,7 @@
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
 		E660A4D029CA56A4001EA373 /* MockHTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPRequest.swift; sourceTree = "<group>"; };
 		E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPResponse.swift; sourceTree = "<group>"; };
+		E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterceptorProvider.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
 		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
 		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
@@ -2446,6 +2448,7 @@
 				9F3910262549741400AF54A6 /* MockGraphQLServer.swift */,
 				E660A4D029CA56A4001EA373 /* MockHTTPRequest.swift */,
 				E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */,
+				E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */,
 				9B21FD762422C8CC00998B5C /* TestFileHelper.swift */,
 				9BCF0CD923FC9CA50031D2A2 /* TestCacheProvider.swift */,
 				9B7BDAEC23FDED9700ACD198 /* SQLiteTestCacheProvider.swift */,
@@ -5131,6 +5134,7 @@
 				DEC2EA8A291D5E2E0088D3BB /* TestIsolatedFileManager.swift in Sources */,
 				DED45E6B261B9EAC0086EF63 /* SQLiteTestCacheProvider.swift in Sources */,
 				DE5EB9C226EFCBD40004176A /* MockApolloStore.swift in Sources */,
+				E660A4D529CAEA0F001EA373 /* MockInterceptorProvider.swift in Sources */,
 				9BEEDC2B24E61995001D1294 /* TestURLs.swift in Sources */,
 				DED4600D261CE9260086EF63 /* TestFileHelper.swift in Sources */,
 				DE5EB9CB26EFE5510004176A /* MockOperation.swift in Sources */,
