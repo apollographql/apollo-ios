@@ -402,7 +402,7 @@ struct SelectionSetTemplate {
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
     let isConcreteType = selectionSet.parentType is GraphQLObjectType
-    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
+    let allFields = selectionSet.selections.makeFieldIterator()
 
     return TemplateString("""
     \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
@@ -424,7 +424,7 @@ struct SelectionSetTemplate {
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
     let isConcreteType = selectionSet.parentType is GraphQLObjectType
-    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
+    let allFields = selectionSet.selections.makeFieldIterator()
 
     return TemplateString("""
     "__typename": \
@@ -449,26 +449,35 @@ struct SelectionSetTemplate {
   private func InitializerFulfilledFragments(
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
+    var fulfilledFragments: [String] = ["Self"]
+
     var next = selectionSet.scopePath.last.value.scopePath.head
+    while next.next != nil {
+      defer { next = next.next.unsafelyUnwrapped }
+
+      let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+        from: selectionSet.scopePath.head,
+        to: next,
+        withFieldPath: selectionSet.entity.fieldPath.head,
+        removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+        pluralizer: config.pluralizer
+      )
+
+      fulfilledFragments.append(selectionSetName)
+    }
+
+    let allFragments = IteratorSequence(selectionSet.selections.makeFragmentIterator())
+    for fragment in allFragments {
+      if let conditions = fragment.inclusionConditions,
+         !selectionSet.typeInfo.scope.matches(conditions) {
+        continue
+      }
+      fulfilledFragments.append(fragment.definition.name.firstUppercased)
+    }
 
     return """
     "__fulfilled": Set([
-      ObjectIdentifier(Self.self)\(if: next.next != nil, ",")
-      \(while: next.next != nil, {
-        defer { next = next.next.unsafelyUnwrapped }
-
-        let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
-          from: selectionSet.scopePath.head,
-          to: next,
-          withFieldPath: selectionSet.entity.fieldPath.head,
-          removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
-          pluralizer: config.pluralizer
-        )
-
-        return """
-        ObjectIdentifier(\(selectionSetName).self)
-        """
-      })
+      \(fulfilledFragments.map { "ObjectIdentifier(\($0).self)" })
     ])
     """
   }
@@ -788,23 +797,39 @@ fileprivate extension IR.Field {
 }
 
 extension IR.SelectionSet.Selections {
-  fileprivate struct FieldIterator: IteratorProtocol {
-    let selections: IR.SelectionSet.Selections
-    private var directIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>?
-    private var mergedIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>
+  fileprivate func makeFieldIterator() -> SelectionsIterator<IR.Field> {
+    SelectionsIterator(direct: direct?.fields, merged: merged.fields)
+  }
 
-    var isEmpty: Bool {
-      return (selections.direct?.fields.isEmpty ?? true) && selections.merged.fields.isEmpty
+  fileprivate func makeFragmentIterator() -> SelectionsIterator<IR.FragmentSpread> {
+    SelectionsIterator(direct: direct?.fragments, merged: merged.fragments)
+  }
+
+  fileprivate struct SelectionsIterator<SelectionType>: IteratorProtocol {
+    typealias SelectionDictionary = OrderedDictionary<String, SelectionType>
+
+    private let direct: SelectionDictionary?
+    private let merged: SelectionDictionary
+    private var directIterator: IndexingIterator<SelectionDictionary.Values>?
+    private var mergedIterator: IndexingIterator<SelectionDictionary.Values>
+
+    fileprivate init(
+      direct: SelectionDictionary?,
+      merged: SelectionDictionary
+    ) {
+      self.direct = direct
+      self.merged = merged
+      self.directIterator = self.direct?.values.makeIterator()
+      self.mergedIterator = self.merged.values.makeIterator()
     }
 
-    init(selections: IR.SelectionSet.Selections) {
-      self.selections = selections
-      self.directIterator = self.selections.direct?.fields.values.makeIterator()
-      self.mergedIterator = self.selections.merged.fields.values.makeIterator()
-    }
-
-    mutating func next() -> IR.Field? {
+    mutating func next() -> SelectionType? {
       directIterator?.next() ?? mergedIterator.next()
     }
+
+    var isEmpty: Bool {
+      return (direct?.isEmpty ?? true) && merged.isEmpty
+    }
+
   }
 }

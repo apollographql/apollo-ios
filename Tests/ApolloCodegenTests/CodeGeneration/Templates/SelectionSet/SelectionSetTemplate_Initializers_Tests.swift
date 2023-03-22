@@ -143,7 +143,6 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  #warning("TODO: Write tests that included named fragments are included in initializer.")
   #warning("TODO: Write tests that union type cases are included in initializer.")
 
   func test__render_givenNestedTypeCaseSelectionSetOnInterfaceTypeNotInheritingFromParentInterface_fulfilledFragmentsIncludesAllTypeCasesInScope() throws {
@@ -742,6 +741,265 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
+  // MARK: Named Fragment Tests
+
+  func test__render_givenNamedFragmentSelection_fulfilledFragmentsIncludesNamedFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AnimalDetails.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragmentSelectionNestedInNamedFragment_fulfilledFragmentsIncludesNamedFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+      ...Fragment2
+    }
+
+    fragment Fragment2 on Animal {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "name": name,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AnimalDetails.self),
+            ObjectIdentifier(Fragment2.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 24, ignoringExtraLines: true))
+  }
+
+  func test__render_givenTypeCaseWithNamedFragmentMergedFromParent_fulfilledFragmentsIncludesNamedFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    interface Pet {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Pet {
+          ...AnimalDetails
+        }
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(AnimalDetails.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  func test__render_givenNamedFragmentWithNonMatchingType_fulfilledFragmentsOnlyIncludesNamedFragmentOnTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    interface Pet {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...AnimalDetails
+      }
+    }
+
+    fragment AnimalDetails on Pet {
+      species
+    }
+    """
+
+    let allAnimals_expected =
+    """
+      public init(
+        __typename: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+    """
+
+    let allAnimals_asPet_expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(AnimalDetails.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+    let allAnimals_asPet = try XCTUnwrap(allAnimals[as: "Pet"])
+
+    let allAnimals_actual = subject.render(field: allAnimals)
+    let allAnimals_asPet_actual = subject.render(inlineFragment: allAnimals_asPet)
+
+    // then
+    expect(allAnimals_actual).to(equalLineByLine(
+      allAnimals_expected, atLine: 15, ignoringExtraLines: true))
+
+    expect(allAnimals_asPet_actual).to(equalLineByLine(
+      allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
+  }
+
   // MARK: - Include/Skip Tests
 
   func test__render_given_inlineFragmentWithInclusionCondition_rendersInitializerWithFulfilledFragments() throws {
@@ -975,5 +1233,87 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
+
+  // MARK: Named Fragment & Include/Skip Tests
+
+  func test__render_givenNamedFragmentWithInclusionCondition_fulfilledFragmentsOnlyIncludesNamedFragmentOnInlineFragmentForInclusionCondition() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    interface Pet {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ...AnimalDetails @include(if: $a)
+      }
+    }
+
+    fragment AnimalDetails on Animal {
+      species
+    }
+    """
+
+    let allAnimals_expected =
+    """
+      public init(
+        __typename: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+    """
+
+    let allAnimals_ifA_expected =
+    """
+      public init(
+        __typename: String,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "species": species,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(AnimalDetails.self)
+          ])
+        ]))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let allAnimals_actual = subject.render(field: allAnimals)
+
+    let allAnimals_ifA = try XCTUnwrap(allAnimals[if: "a"])
+
+    let allAnimals_ifA_actual = subject.render(inlineFragment: allAnimals_ifA)
+
+    // then
+    expect(allAnimals_actual).to(equalLineByLine(
+      allAnimals_expected, atLine: 22, ignoringExtraLines: true))
+    expect(allAnimals_ifA_actual).to(equalLineByLine(
+      allAnimals_ifA_expected, atLine: 20, ignoringExtraLines: true))
   }
 }
