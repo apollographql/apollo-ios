@@ -51,11 +51,15 @@ public struct DataDict: Hashable {
     lhs._data == rhs._data
   }
 
-  @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
-    guard let fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
+  @inlinable public func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
+    guard let __fulfilledFragments else {
       return false
     }
-    return fulfilledFragments.contains(ObjectIdentifier(T.self))
+    return __fulfilledFragments.contains(ObjectIdentifier(T.self))
+  }
+
+  @inlinable public var __fulfilledFragments: Set<ObjectIdentifier>? {
+    _data["__fulfilled"] as? Set<ObjectIdentifier>
   }
 }
 

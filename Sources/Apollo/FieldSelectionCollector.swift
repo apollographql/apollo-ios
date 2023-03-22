@@ -5,7 +5,7 @@ import ApolloAPI
 
 struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
-  private(set) var fulfilledFragments: Set<ObjectIdentifier> = []
+  fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier> = []
 
   init(info: ObjectExecutionInfo) {
     self.fulfilledFragments = info.fulfilledFragments
@@ -32,7 +32,9 @@ struct FieldSelectionGrouping: Sequence {
   }
 }
 
-protocol FieldSelectionCollector {
+protocol FieldSelectionCollector<Data> {
+
+  associatedtype Data
 
   /// Groups fields that share the same response key for simultaneous resolution.
   ///
@@ -43,7 +45,7 @@ protocol FieldSelectionCollector {
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: Data,
     info: ObjectExecutionInfo
   ) throws
 
@@ -101,7 +103,7 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: DataDict,
     info: ObjectExecutionInfo
   ) throws {
     try collectFields(
@@ -116,15 +118,17 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: DataDict,
     info: ObjectExecutionInfo,
     asConditionalFields: Bool
   ) throws {
+    groupedFields.fulfilledFragments = object.__fulfilledFragments ?? []
+
     for selection in selections {
       switch selection {
       case let .field(field):
         if asConditionalFields && !field.type.isNullable {
-          guard let value = object[field.responseKey], !(value is NSNull) else {
+          guard let value = object._data[field.responseKey], !(value is NSNull) else {
             continue
           }
         }
@@ -138,7 +142,6 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           asConditionalFields: true)
 
       case let .fragment(fragment):
-        groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
                           into: &groupedFields,
                           for: object,
@@ -146,9 +149,7 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           asConditionalFields: asConditionalFields)
 
       case let .inlineFragment(typeCase):
-        if let runtimeType = info.runtimeObjectType(for: object),
-           typeCase.__parentType.canBeConverted(from: runtimeType) {
-          groupedFields.addFulfilledFragment(typeCase)
+        if object.fragmentIsFulfilled(typeCase.self) {
           try collectFields(from: typeCase.__selections,
                             into: &groupedFields,
                             for: object,

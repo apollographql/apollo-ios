@@ -317,14 +317,18 @@ public class ApolloStore {
     ) throws {
       let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
       let executor = GraphQLExecutor(
-        fieldCollector: CustomCacheDataWritingFieldSelectionCollector()
-      ) { object, info in
-        return object[info.responseKeyForField]
-      }
+        fieldCollector: CustomCacheDataWritingFieldSelectionCollector(),
+        fieldResolver: { object, info in
+          return object._data[info.responseKeyForField]
+        },
+        cacheKeyResolver: { object, _ in
+          SelectionSet.Schema.cacheKey(for: object._data)
+        }
+      )
 
       let records = try executor.execute(
         selectionSet: SelectionSet.self,
-        on: selectionSet.__data._data,
+        on: selectionSet.__data,
         withRootCacheReference: CacheReference(key),
         variables: variables,
         accumulator: normalizer
