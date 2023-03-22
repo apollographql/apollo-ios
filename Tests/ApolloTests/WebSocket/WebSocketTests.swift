@@ -62,7 +62,7 @@ class WebSocketTests: XCTestCase {
   func testLocalSingleSubscription() throws {
     let expectation = self.expectation(description: "Single subscription")
     
-    client.subscribe(
+    _ = client.subscribe(
       subscription: MockSubscription<ReviewAddedData>()
     ) { result in
       defer { expectation.fulfill() }
@@ -99,7 +99,7 @@ class WebSocketTests: XCTestCase {
     let expectation = self.expectation(description: "Missing subscription")
     expectation.isInverted = true
 
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { _ in
+    _ = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { _ in
       expectation.fulfill()
     }
     
@@ -109,7 +109,7 @@ class WebSocketTests: XCTestCase {
   func testLocalErrorUnknownId() throws {
     let expectation = self.expectation(description: "Unknown id for subscription")
     
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
+    _ = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       
       switch result {
@@ -166,7 +166,7 @@ class WebSocketTests: XCTestCase {
       ))
     client = ApolloClient(networkTransport: networkTransport!, store: store)
     
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
+    _ = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       switch result {
       case .success(let graphQLResult):
