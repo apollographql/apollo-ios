@@ -1654,8 +1654,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       ) {
         let objectType = Types.Query
         self.init(_dataDict: DataDict(data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+          "__typename": Types.Query,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -1693,7 +1696,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               "__typename": objectType.typename,
               "name": name,
               "friend": friend._fieldData,
-              "other": other
+              "other": other,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
             ]))
           }
 
@@ -1713,7 +1720,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               let objectType = Types.Human
               self.init(_dataDict: DataDict(data: [
                 "__typename": objectType.typename,
-                "name": name
+                "name": name,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Friend.self),
+                ])
               ]))
             }
 
@@ -1728,7 +1738,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           convenience init() {
             let objectType = Types.Human
             self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename
+              "__typename": objectType.typename,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
             ]))
           }
         }
