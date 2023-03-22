@@ -148,17 +148,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
         predators: [Predator]
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Animal
-        ])
         self.init(_dataDict: DataDict(data: [
-            "__typename": objectType.typename,
+            "__typename": __typename,
             "height": height._fieldData,
             "species": species,
             "skinCovering": skinCovering,
-            "predators": predators._fieldData
+            "predators": predators._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
       }
 
@@ -814,17 +812,16 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator]
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              AnimalKingdomAPI.Interfaces.Animal
-          ])
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
+              "__typename": __typename,
               "height": height._fieldData,
               "species": species,
               "skinCovering": skinCovering,
-              "predators": predators._fieldData
+              "predators": predators._fieldData,
+              "__fulfilled": Set([
+                ObjectIdentifier(AllAnimal.self),
+                ObjectIdentifier(Self.self),
+              ])
             ]))
         }
 

@@ -3793,7 +3793,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Inline Fragment Accessors - Include/Skip
 
-  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithCondition_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3820,7 +3820,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment(if: "a") }
+      public var asPet: AsPet? { _asInlineFragment() }
     """
 
     // when
@@ -3835,7 +3835,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithSkipCondition_rendersWithConditionInTypeCaseConversionFunction() throws {
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithSkipCondition_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3862,7 +3862,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment(if: !"a") }
+      public var asPet: AsPet? { _asInlineFragment() }
     """
 
     // when
@@ -3877,7 +3877,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithMultipleConditions_rendersWithConditionInTypeCaseConversionFunction() throws {
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnDifferentTypeWithMultipleConditions_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3904,7 +3904,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment(if: "a" && !"b") }
+      public var asPet: AsPet? { _asInlineFragment() }
     """
 
     // when
@@ -3919,7 +3919,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_inlineFragmentAccessors__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSetAccessor() throws {
+  func test__render_inlineFragmentAccessors__givenInlineFragmentOnSameTypeWithMultipleConditions_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3946,7 +3946,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment() }
     """
 
     // when
@@ -3961,7 +3961,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_inlineFragmentAccessor__givenNamedFragmentOnSameTypeWithInclusionCondition_rendersConditionalSelectionSetAccessor() throws {
+  func test__render_inlineFragmentAccessor__givenNamedFragmentOnSameTypeWithInclusionCondition_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3987,7 +3987,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var ifA: IfA? { _asInlineFragment(if: "a") }
+      public var ifA: IfA? { _asInlineFragment() }
     """
 
     // when
@@ -4116,7 +4116,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: - Fragment Accessors - Include Skip
 
-  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionCondition_rendersFragmentAccessorAsOptionalWithInclusionCondition() throws {
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionCondition_rendersFragmentAccessorAsOptional() throws {
     // given
     schemaSDL = """
     type Query {
@@ -4151,7 +4151,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var fragmentA: FragmentA? { _toFragment(if: "a") }
+        public var fragmentA: FragmentA? { _toFragment() }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
       }
     """
@@ -4214,7 +4214,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
   }
 
-  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionConditionThatPartiallyMatchesScope_rendersFragmentAccessorAsOptionalWithConditions() throws {
+  func test__render_fragmentAccessor__givenFragmentOnSameTypeWithInclusionConditionThatPartiallyMatchesScope_rendersFragmentAccessorAsOptional() throws {
     // given
     schemaSDL = """
     type Query {
@@ -4244,7 +4244,7 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var fragmentA: FragmentA? { _toFragment(if: "a" && "b") }
+        public var fragmentA: FragmentA? { _toFragment() }
       }
     """
 
@@ -5030,7 +5030,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
-  func test__render_nestedSelectionSet__givenInlineFragmentOnSameTypeWithMultipleConditions_rendersConditionalSelectionSet() throws {
+  func test__render_nestedSelectionSet__givenInlineFragmentOnSameTypeWithMultipleConditions_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -5057,7 +5057,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment(if: "a" && !"b") }
+      public var ifAAndNotB: IfAAndNotB? { _asInlineFragment() }
 
       /// AllAnimal.IfAAndNotB
       public struct IfAAndNotB: TestSchema.InlineFragment {

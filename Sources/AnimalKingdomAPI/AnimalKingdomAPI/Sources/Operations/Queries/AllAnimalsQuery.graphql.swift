@@ -877,19 +877,24 @@ public class AllAnimalsQuery: GraphQLQuery {
           humanName: String? = nil,
           owner: PetDetails.Owner? = nil
         ) {
-          let objectType = AnimalKingdomAPI.Objects.Dog
           self.init(_dataDict: DataDict(data: [
-              "__typename": objectType.typename,
-              "favoriteToy": favoriteToy,
-              "birthdate": birthdate,
-              "height": height._fieldData,
-              "species": species,
-              "skinCovering": skinCovering,
-              "predators": predators._fieldData,
-              "bodyTemperature": bodyTemperature,
-              "humanName": humanName,
-              "owner": owner._fieldData
-            ]))
+            "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+            "favoriteToy": favoriteToy,
+            "birthdate": birthdate,
+            "height": height._fieldData,
+            "species": species,
+            "skinCovering": skinCovering,
+            "predators": predators._fieldData,
+            "bodyTemperature": bodyTemperature,
+            "humanName": humanName,
+            "owner": owner._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AsPet.self),
+              ObjectIdentifier(AsWarmBlooded.self),
+              ObjectIdentifier(AsDog.self)
+            ])
+          ]))
         }
 
         /// AllAnimal.AsDog.Height

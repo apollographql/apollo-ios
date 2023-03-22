@@ -391,10 +391,9 @@ struct SelectionSetTemplate {
     public init(
       \(InitializerSelectionParametersTemplate(selectionSet))
     ) {
-      \(InitializerObjectType(selectionSet))
       self.init(_dataDict: DataDict(data: [
-          \(InitializerDataDictTemplate(selectionSet.selections))
-        ]))
+        \(InitializerDataDictTemplate(selectionSet))
+      ]))
     }
     """
   }
@@ -421,34 +420,19 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func InitializerObjectType(_ selectionSet: IR.SelectionSet) -> TemplateString {
-    let isConcreteType = selectionSet.parentType is GraphQLObjectType
-    let implementedInterfaces = selectionSet.scope.matchingTypes
-      .filter({ $0 is GraphQLInterfaceType })
-
-    return """
-    let objectType = \
-    \(if: isConcreteType,
-      GeneratedTypeReference(selectionSet.parentType),
-      else: """
-      \(config.ApolloAPITargetName).Object(
-        typename: __typename,
-        implementedInterfaces: [
-          \(implementedInterfaces.map(GeneratedTypeReference(_:)))
-      ])
-      """
-    )
-    """
-  }
-
   private func InitializerDataDictTemplate(
-    _ selections: IR.SelectionSet.Selections
+    _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
-    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
 
     return TemplateString("""
-    "__typename": objectType.typename,
-    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)))
+    "__typename": \
+    \(if: isConcreteType,
+      "\(GeneratedTypeReference(selectionSet.parentType)).typename,",
+      else: "__typename,")
+    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)), terminator: ",")
+    \(InitializerFulfilledFragments(selectionSet))
     """
     )
   }
@@ -459,6 +443,33 @@ struct SelectionSetTemplate {
     """
     "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
     \(if: field is IR.EntityField, "._fieldData")
+    """
+  }
+
+  private func InitializerFulfilledFragments(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    var next = selectionSet.scopePath.last.value.scopePath.head
+
+    return """
+    "__fulfilled": Set([
+      ObjectIdentifier(Self.self)\(if: next.next != nil, ",")
+      \(while: next.next != nil, {
+        defer { next = next.next.unsafelyUnwrapped }
+
+        let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+          from: selectionSet.scopePath.head,
+          to: next,
+          withFieldPath: selectionSet.entity.fieldPath.head,
+          removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+          pluralizer: config.pluralizer
+        )
+
+        return """
+        ObjectIdentifier(\(selectionSetName).self)
+        """
+      })
+    ])
     """
   }
 

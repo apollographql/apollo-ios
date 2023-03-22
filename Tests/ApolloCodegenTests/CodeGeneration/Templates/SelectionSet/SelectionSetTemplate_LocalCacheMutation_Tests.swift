@@ -369,7 +369,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
-  func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorWithGetterAndSetter() throws {
+  func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorAsOptionalWithGetterAndSetter() throws {
     // given
     schemaSDL = """
     type Query {
@@ -395,7 +395,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
         public var animalDetails: AnimalDetails? {
-          get { _toFragment(if: "a") }
+          get { _toFragment() }
           _modify { var f = animalDetails; yield &f; if let newData = f?.__data { __data = newData } }
           @available(*, unavailable, message: "mutate properties of the fragment instead.")
           set { preconditionFailure() }

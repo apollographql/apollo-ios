@@ -1056,7 +1056,7 @@ class SelectionSetTests: XCTestCase {
 
         convenience init(
           name: String
-        ) {          
+        ) {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
