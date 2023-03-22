@@ -6,7 +6,7 @@ import ApolloAPI
 /// Parses multipart response data into chunks and forwards each on to the next interceptor.
 public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
-  public enum MultipartResponseParsingError: Error, LocalizedError {
+  public enum MultipartResponseParsingError: Error, LocalizedError, Equatable {
     case noResponseToParse
     case cannotParseResponseData
     case unsupportedContentType(type: String)
