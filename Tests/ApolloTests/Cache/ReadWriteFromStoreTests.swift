@@ -386,16 +386,20 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         if let name = json["name"] as? String, name == "Luke" {
 
           /// Test nested entities are json not DataDict
-          guard json["friend"] is JSONObject else {
+          guard let friend = json["friend"] as? JSONObject else {
             fail("expected friend data to be JSONObject")
             return nil
           }
 
           /// Test custom scalars are deserialized
-          guard json["name"] is String else {
-            fail("expected name data to be String")
+          expect(["Leia", "Han"]).to(contain(friend["name"] as? String))
+
+          guard let friendsOfFriend = friend["friends"] as? [JSONObject] else {
+            fail("expected friends of friend data to be [JSONObject]")
             return nil
           }
+
+          expect(friendsOfFriend.first?["name"] as? String).to(equal("Lando"))
         }
 
         return try? CacheKeyInfo(jsonValue: json["name"])
@@ -423,7 +427,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         static var __parentType: ParentType { Types.Human }
         static var __selections: [Selection] { [
           .field("name", MockCustomScalar<String>.self),
-          .field("friend", Friend.self)
+          .field("friend", Friend?.self)
         ]}
 
         var name: MockCustomScalar<String> {
@@ -431,7 +435,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           set { __data["name"] = newValue }
         }
 
-        var friend: Friend {
+        var friend: Friend? {
           get { __data["friend"] }
           set { __data["friend"] = newValue }
         }
@@ -442,12 +446,18 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
           static var __parentType: ParentType { Types.Human }
           static var __selections: [Selection] { [
-            .field("name", MockCustomScalar<String>.self)
+            .field("name", MockCustomScalar<String>.self),
+            .field("friends", [Friend]?.self)
           ]}
 
           var name: MockCustomScalar<String> {
             get { __data["name"] }
             set { __data["name"] = newValue }
+          }
+
+          var friends: [Friend]? {
+            get { __data["friend"] }
+            set { __data["friend"] = newValue }
           }
         }
       }
@@ -458,7 +468,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     mergeRecordsIntoCache([
       "QUERY_ROOT": ["hero": CacheReference("Luke")],
       "Luke": ["__typename": "Human", "name": "Luke", "friend": CacheReference("Leia")],
-      "Leia": ["__typename": "Human", "name": "Leia"]
+      "Leia": ["__typename": "Human", "name": "Leia", "friends": [CacheReference("Lando")]],
+      "Lando": ["__typename": "Human", "name": "Lando", "friend": NSNull()]
     ])
 
     runActivity("update mutation") { _ in
@@ -466,7 +477,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         try transaction.update(cacheMutation) { data in
-          data.hero.friend.name = MockCustomScalar(value: "Han")
+          data.hero.friend?.name = MockCustomScalar(value: "Han")
         }
       }, completion: { result in
         defer { updateCompletedExpectation.fulfill() }
@@ -484,7 +495,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         XCTAssertNil(graphQLResult.errors)
 
         let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero.friend.name.value, "Han")
+        XCTAssertEqual(data.hero.friend?.name.value, "Han")
       }
     }
   }
