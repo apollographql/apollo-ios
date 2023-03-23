@@ -122,7 +122,7 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
     info: ObjectExecutionInfo,
     asConditionalFields: Bool
   ) throws {
-    groupedFields.fulfilledFragments = object.__fulfilledFragments ?? []
+    groupedFields.fulfilledFragments = (object._data["__fulfilled"] as? Set<ObjectIdentifier>) ?? []
 
     for selection in selections {
       switch selection {
@@ -142,21 +142,29 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           asConditionalFields: true)
 
       case let .fragment(fragment):
-        try collectFields(from: fragment.__selections,
-                          into: &groupedFields,
-                          for: object,
-                          info: info,
-                          asConditionalFields: asConditionalFields)
+        if groupedFields.fulfilledFragments.contains(type: fragment) {
+          try collectFields(from: fragment.__selections,
+                            into: &groupedFields,
+                            for: object,
+                            info: info,
+                            asConditionalFields: false)
+        }
 
       case let .inlineFragment(typeCase):
-        if object.fragmentIsFulfilled(typeCase.self) {
+        if groupedFields.fulfilledFragments.contains(type: typeCase) {
           try collectFields(from: typeCase.__selections,
                             into: &groupedFields,
                             for: object,
                             info: info,
-                            asConditionalFields: asConditionalFields)
+                            asConditionalFields: false)
         }
       }
     }
+  }
+}
+
+fileprivate extension Set<ObjectIdentifier> {
+  func contains(type: Any.Type) -> Bool {
+    contains(ObjectIdentifier(type.self))
   }
 }
