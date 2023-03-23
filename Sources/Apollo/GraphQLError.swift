@@ -32,6 +32,11 @@ public struct GraphQLError: Error, Hashable {
     return (self["locations"] as? [JSONObject])?.compactMap(Location.init)
   }
 
+  /// A path to the field that triggered the error, represented by an array of Path Entries.
+  public var path: [PathEntry]? {
+    return (self["path"] as? [JSONValue])?.compactMap(PathEntry.init)
+  }
+
   /// A dictionary which services can use however they see fit to provide additional information in errors to clients.
   public var extensions: [String : Any]? {
     return self["extensions"] as? [String : Any]
@@ -48,6 +53,24 @@ public struct GraphQLError: Error, Hashable {
       guard let line = object["line"] as? Int, let column = object["column"] as? Int else { return nil }
       self.line = line
       self.column = column
+    }
+  }
+
+  /// Represents a path in a GraphQL query.
+  public enum PathEntry: Equatable {
+    /// A String value for a field in a GraphQL query
+    case field(String)
+    /// An Int value for an index in a GraphQL List
+    case index(Int)
+
+    init?(_ value: JSONValue) {
+      if let string = value as? String {
+        self = .field(string)
+      } else if let int = value as? Int {
+        self = .index(int)
+      } else {
+        return nil
+      }
     }
   }
 }
