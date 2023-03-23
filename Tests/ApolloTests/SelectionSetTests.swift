@@ -813,6 +813,54 @@ class SelectionSetTests: XCTestCase {
     expect(actual.asCharacter).to(beNil())
   }
 
+  func test__asInlineFragment_givenInterfaceTypeOnOperationRoot_typeImplementsInterface_returnsType() {
+    // given
+    struct Types {
+      static let AdminQuery = Interface(name: "AdminQuery")
+      static let Query = Object(typename: "Query", implementedInterfaces: [AdminQuery])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      default: XCTFail(); return nil
+      }
+    }
+
+    class RootData: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .inlineFragment(AsAdminQuery.self),
+      ]}
+
+      var asAdminQuery: AsAdminQuery? { _asInlineFragment() }
+
+      class AsAdminQuery: MockTypeCase {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.AdminQuery }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+      }
+
+    }
+
+    let object: JSONObject = [
+      // JSON does not include typename for the operation root
+      "name": "Admin"
+    ]
+
+    // when
+    let actual = try! RootData(data: object)
+
+    // then
+    expect(actual.asAdminQuery).toNot(beNil())
+  }
+
+
   // MARK: - To Fragment Conversion Tests
 
   func test__toFragment_givenInclusionCondition_true_returnsFragment() {

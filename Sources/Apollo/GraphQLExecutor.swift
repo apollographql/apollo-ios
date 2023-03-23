@@ -49,6 +49,9 @@ struct ObjectExecutionInfo {
     for json: JSONObject
   ) -> Object? {
     guard let __typename = json["__typename"] as? String else {
+      if responsePath.isEmpty {
+        return schema.objectType(forTypename: rootType.__parentType.__typename)
+      }
       return nil
     }
     return schema.objectType(forTypename: __typename)
@@ -239,8 +242,7 @@ final class GraphQLExecutor<
                                  accumulator: accumulator)
         fieldEntries.append(fieldEntry)
       }
-
-      print(fieldEntries)
+      
       return compactLazilyEvaluateAll(fieldEntries).map {
         try accumulator.accept(fieldEntries: $0, info: info)
       }
