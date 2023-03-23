@@ -121,4 +121,15 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     expect(response.multipartBoundary).to(equal(" apollo"))
   }
 
+  func test__multipartBoundary__givenBoundaryMarkerWithQuotations_shouldReturnBoundaryMarkerWithoutQuotations() {
+    // given
+    let response = createResponse(
+      statusCode: 0,
+      headers: ["Content-Type": "multipart/mixed; boundary=\"apollo\""]
+    )
+
+    // then
+    expect(response.multipartBoundary).to(equal("apollo"))
+  }
+
 }

@@ -23,9 +23,16 @@ extension HTTPURLResponse {
       let directive = component.trimmingCharacters(in: .whitespaces)
       if directive.prefix(markerLength) == marker {
         if let markerEndIndex = directive.firstIndex(of: "=") {
-          let startIndex = directive.index(markerEndIndex, offsetBy: 1)
+          var startIndex = directive.index(markerEndIndex, offsetBy: 1)
+          if directive[startIndex] == "\"" {
+            startIndex = directive.index(after: startIndex)
+          }
+          var endIndex = directive.index(before: directive.endIndex)
+          if directive[endIndex] == "\"" {
+            endIndex = directive.index(before: endIndex)
+          }
 
-          return String(directive[startIndex...])
+          return String(directive[startIndex...endIndex])
         }
       }
     }
