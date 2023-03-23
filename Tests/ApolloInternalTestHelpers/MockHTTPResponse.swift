@@ -7,17 +7,29 @@ extension HTTPResponse {
     headerFields: [String : String] = [:],
     data: Data = Data()
   ) -> HTTPResponse {
-    let urlResponse = HTTPURLResponse(
-      url: TestURL.mockServer.url,
-      statusCode: statusCode,
-      httpVersion: nil,
-      headerFields: headerFields
-    )!
-
     return HTTPResponse(
-      response: urlResponse,
+      response: .mock(
+        statusCode: statusCode,
+        headerFields: headerFields
+      ),
       rawData: data,
       parsedResponse: nil
     )
+  }
+}
+
+extension HTTPURLResponse {
+  public static func mock(
+    url: URL = TestURL.mockServer.url,
+    statusCode: Int = 200,
+    httpVersion: String? = nil,
+    headerFields: [String : String]? = nil
+  ) -> HTTPURLResponse {
+    return HTTPURLResponse(
+      url: url,
+      statusCode: statusCode,
+      httpVersion: httpVersion,
+      headerFields: headerFields
+    )!
   }
 }

@@ -14,59 +14,36 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     func kickoff<Operation>(
       request: Apollo.HTTPRequest<Operation>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>
-    ) -> Void) {}
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {}
 
     func proceedAsync<Operation>(
       request: Apollo.HTTPRequest<Operation>,
       response: Apollo.HTTPResponse<Operation>?,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>
-    ) -> Void) {}
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {}
 
     func cancel() {}
 
     func retry<Operation>(
       request: Apollo.HTTPRequest<Operation>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>
-    ) -> Void) {}
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {}
 
     func handleErrorAsync<Operation>(
       _ error: Error,
       request: Apollo.HTTPRequest<Operation>,
       response: Apollo.HTTPResponse<Operation>?,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>
-    ) -> Void) {
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
       self.error = error
     }
 
     func returnValueAsync<Operation>(
       for request: Apollo.HTTPRequest<Operation>,
       value: Apollo.GraphQLResult<Operation.Data>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>
-    ) -> Void) {}
-  }
-
-  private class TestProvider: InterceptorProvider {
-    let mockClient: MockURLSessionClient = {
-      let client = MockURLSessionClient()
-
-      client.response = HTTPURLResponse(
-        url: TestURL.mockServer.url,
-        statusCode: 200,
-        httpVersion: nil,
-        headerFields: nil
-      )
-      client.data = Data()
-
-      return client
-    }()
-    
-    func interceptors<Operation>(for operation: Operation) -> [ApolloInterceptor] {
-      [
-        NetworkFetchInterceptor(client: mockClient),
-        MultipartResponseParsingInterceptor()
-      ]
-    }
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {}
   }
 
   // MARK: - Error tests
@@ -76,7 +53,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
+      request: .mock(operation: MockSubscription.mock()),
       response: nil
     ) { result in }
 
@@ -89,8 +66,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
-      response: HTTPResponse.mock(headerFields: ["Content-Type": "multipart/mixed"])
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(headerFields: ["Content-Type": "multipart/mixed"])
     ) { result in }
 
     expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
@@ -102,8 +79,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
-      response: HTTPResponse.mock(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
         data: """
           --graphql
@@ -128,8 +105,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
-      response: HTTPResponse.mock(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
         data: """
           --graphql
@@ -157,8 +134,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
-      response: HTTPResponse.mock(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
         data: """
           --graphql
@@ -181,8 +158,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
-      request: HTTPRequest.mock(operation: MockSubscription.mock()),
-      response: HTTPResponse.mock(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
         data: """
           --graphql
@@ -198,7 +175,131 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       .to(equal(.cannotParseChunkData))
   }
 
-  // heartbeat no error test
+  // MARK: Parsing tests
+
+  private class Time: MockSelectionSet, SelectionSet {
+    typealias Schema = MockSchemaMetadata
+
+    override class var __selections: [Selection] {[
+      .field("__typename", String.self),
+      .field("ticker", Int.self)
+    ]}
+
+    var ticker: Int { __data["ticker"] }
+  }
+
+  private func buildNetworkTransport(
+    responseData: Data
+  ) -> RequestChainNetworkTransport {
+    let client = MockURLSessionClient(
+      response: .mock(headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"]),
+      data: responseData
+    )
+
+    let provider = MockInterceptorProvider([
+      NetworkFetchInterceptor(client: client),
+      MultipartResponseParsingInterceptor(),
+      JSONResponseParsingInterceptor()
+    ])
+
+    return RequestChainNetworkTransport(
+      interceptorProvider: provider,
+      endpointURL: TestURL.mockServer.url
+    )
+  }
+
+  func test__parsing__givenSingleChunk_shouldReturnSuccess() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 1
+          }
+        }
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectedData = Time(data: DataDict([
+      "__typename": "Time",
+      "ticker": 1
+    ], variables: nil))
+
+    let expectation = expectation(description: "Multipart data received")
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        expect(data.data).to(equal(expectedData))
+      case .failure:
+        fail("Unexpected failure result!")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__parsing__givenMultipleChunks_shouldReturnMultipleSuccesses() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 2
+          }
+        }
+      }
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 3
+          }
+        }
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Multipart data received")
+    expectation.expectedFulfillmentCount = 2
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      switch (result) {
+      case let .success(data):
+        guard let time = data.data else {
+          fail("Unexpected missing data!")
+          return
+        }
+
+        expect(time.__typename).to(equal("Time"))
+        switch time.ticker {
+        case 2...3: expectation.fulfill()
+        default: fail("Unexpected data value!")
+        }
+
+      case .failure:
+        fail("Unexpected failure result!")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
 }
 
 fileprivate extension String {
