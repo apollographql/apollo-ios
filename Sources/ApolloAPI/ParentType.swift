@@ -16,22 +16,30 @@ public protocol ParentType {
   /// - Parameter objectType: An ``Object`` type to determine conversion compatibility for
   /// - Returns: A `Bool` indicating if the type is compatible for conversion to the receiver type
   @inlinable func canBeConverted(from objectType: Object) -> Bool
+
+  @inlinable var __typename: String { get }
 }
 
 extension Object: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     objectType.typename == self.typename
   }
+
+  @inlinable public var __typename: String { self.typename }
 }
 
 extension Interface: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     objectType.implements(self)
   }
+
+  @inlinable public var __typename: String { self.name }
 }
 
 extension Union: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     possibleTypes.contains(where: { $0 == objectType })
   }
+  
+  @inlinable public var __typename: String { self.name }
 }

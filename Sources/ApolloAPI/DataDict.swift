@@ -7,10 +7,9 @@ public struct DataDict: Hashable {
   ///
   /// * Values for entity fields are represented by ``DataDict`` values
   /// * Custom scalars are serialized and converted to their concrete types.
-  /// * The `implementedInterfaces` used for fulfilling type conditions are
-  ///   on the `_objectType` of the `DataDict`.
-  /// * The variables used for fulfilling inclusion conditions are included
-  ///   in the `_variables` of the `DataDict`.
+  /// * The `_data` dictionary includes a key `"_fulfilled"` that contains a `Set<ObjectIdentifier>`
+  ///   containing all of the fragments that have been fulfilled for the object represented by
+  ///   the `DataDict`.
   ///
   /// The process of converting a JSON response into ``SelectionSetData`` is done by using a
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
@@ -18,18 +17,10 @@ public struct DataDict: Hashable {
   /// the `Apollo` library.
   public typealias SelectionSetData = [String: AnyHashable]
 
-  public let _objectType: Object?
   public var _data: SelectionSetData
-  public let _variables: GraphQLOperation.Variables?
 
-  public init(
-    objectType: Object?,
-    data: SelectionSetData,
-    variables: GraphQLOperation.Variables? = nil
-  ) {
+  public init(data: SelectionSetData) {
     self._data = data
-    self._objectType = objectType
-    self._variables = variables
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
@@ -54,12 +45,17 @@ public struct DataDict: Hashable {
 
   @inlinable public func hash(into hasher: inout Hasher) {
     hasher.combine(_data)
-    hasher.combine(_variables?._jsonEncodableValue?._jsonValue)
   }
 
   @inlinable public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
-    lhs._data == rhs._data &&
-    lhs._variables?._jsonEncodableValue?._jsonValue == rhs._variables?._jsonEncodableValue?._jsonValue
+    lhs._data == rhs._data
+  }
+
+  @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
+    guard let __fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
+      return false
+    }
+    return __fulfilledFragments.contains(ObjectIdentifier(T.self))
   }
 }
 

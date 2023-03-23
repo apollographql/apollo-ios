@@ -41,12 +41,12 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -67,15 +67,11 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -108,13 +104,15 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
           name: String,
           primaryFunction: String? = nil
         ) {
-          let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name,
-              "primaryFunction": primaryFunction
+          self.init(_dataDict: DataDict(data: [
+            "__typename": StarWarsAPI.Objects.Droid.typename,
+            "name": name,
+            "primaryFunction": primaryFunction,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
+              ObjectIdentifier(DroidDetails.self)
+            ])
           ]))
         }
       }

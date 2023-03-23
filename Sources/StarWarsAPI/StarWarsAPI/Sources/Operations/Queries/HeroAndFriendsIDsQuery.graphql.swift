@@ -45,12 +45,12 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -81,18 +81,14 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
         name: String,
         friends: [Friend?]? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "name": name,
-            "friends": friends._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "name": name,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -115,16 +111,12 @@ public class HeroAndFriendsIDsQuery: GraphQLQuery {
           __typename: String,
           id: StarWarsAPI.ID
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              StarWarsAPI.Interfaces.Character
-          ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "id": id
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "id": id,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
       }

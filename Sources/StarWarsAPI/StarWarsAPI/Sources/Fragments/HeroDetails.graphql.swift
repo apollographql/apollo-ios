@@ -39,16 +39,12 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     __typename: String,
     name: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "name": name
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -74,13 +70,14 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       height: Double? = nil,
       name: String
     ) {
-      let objectType = StarWarsAPI.Objects.Human
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "height": height,
-          "name": name
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Human.typename,
+        "height": height,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(HeroDetails.self)
+        ])
       ]))
     }
   }
@@ -107,13 +104,14 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       primaryFunction: String? = nil,
       name: String
     ) {
-      let objectType = StarWarsAPI.Objects.Droid
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "primaryFunction": primaryFunction,
-          "name": name
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "primaryFunction": primaryFunction,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(HeroDetails.self)
+        ])
       ]))
     }
   }

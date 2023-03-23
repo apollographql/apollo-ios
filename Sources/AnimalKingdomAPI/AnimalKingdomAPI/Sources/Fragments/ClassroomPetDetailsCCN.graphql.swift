@@ -29,14 +29,11 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     __typename: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-    ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -59,16 +56,13 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       height: Height
     ) {
-      let objectType = ApolloAPI.Object(
-        typename: __typename,
-        implementedInterfaces: [
-          AnimalKingdomAPI.Interfaces.Animal
-      ])
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "height": height._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "height": height._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(ClassroomPetDetailsCCN.self)
+        ])
       ]))
     }
 
@@ -89,12 +83,12 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       public init(
         inches: Int
       ) {
-        let objectType = AnimalKingdomAPI.Objects.Height
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "inches": inches
+        self.init(_dataDict: DataDict(data: [
+          "__typename": AnimalKingdomAPI.Objects.Height.typename,
+          "inches": inches,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

@@ -813,6 +813,54 @@ class SelectionSetTests: XCTestCase {
     expect(actual.asCharacter).to(beNil())
   }
 
+  func test__asInlineFragment_givenInterfaceTypeOnOperationRoot_typeImplementsInterface_returnsType() {
+    // given
+    struct Types {
+      static let AdminQuery = Interface(name: "AdminQuery")
+      static let Query = Object(typename: "Query", implementedInterfaces: [AdminQuery])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      default: XCTFail(); return nil
+      }
+    }
+
+    class RootData: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .inlineFragment(AsAdminQuery.self),
+      ]}
+
+      var asAdminQuery: AsAdminQuery? { _asInlineFragment() }
+
+      class AsAdminQuery: MockTypeCase {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.AdminQuery }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+      }
+
+    }
+
+    let object: JSONObject = [
+      // JSON does not include typename for the operation root
+      "name": "Admin"
+    ]
+
+    // when
+    let actual = try! RootData(data: object)
+
+    // then
+    expect(actual.asAdminQuery).toNot(beNil())
+  }
+
+
   // MARK: - To Fragment Conversion Tests
 
   func test__toFragment_givenInclusionCondition_true_returnsFragment() {
@@ -831,7 +879,7 @@ class SelectionSetTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+        public var givenFragment: GivenFragment? { _toFragment() }
       }
     }
 
@@ -863,7 +911,7 @@ class SelectionSetTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var givenFragment: GivenFragment? { _toFragment(if: "includeFragment") }
+        public var givenFragment: GivenFragment? { _toFragment() }
       }
     }
 
@@ -918,17 +966,15 @@ class SelectionSetTests: XCTestCase {
           __typename: String,
           name: String
         ) {
-          let objectType = Object(
-            typename: __typename,
-            implementedInterfaces: [Types.Animal]
-          )
           self.init(_dataDict: DataDict(
-            objectType: objectType,
             data: [
-              "__typename": objectType.typename,
-              "name": name
-            ]
-          ))
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self),
+              ])
+            ]))
         }
       }
 
@@ -968,15 +1014,14 @@ class SelectionSetTests: XCTestCase {
 
       convenience init(
         hero: Hero
-      ) {
-        let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+      ) {        
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1002,17 +1047,14 @@ class SelectionSetTests: XCTestCase {
             __typename: String,
             name: String
           ) {
-            let objectType = Object(
-              typename: __typename,
-              implementedInterfaces: [Types.Animal]
-            )
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name
-              ]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self),
+              ])
+            ]))
           }
         }
       }
@@ -1048,7 +1090,7 @@ class SelectionSetTests: XCTestCase {
         .include(if: "a", .inlineFragment(IfA.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
+      var ifA: IfA? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata
@@ -1063,15 +1105,14 @@ class SelectionSetTests: XCTestCase {
         convenience init(
           name: String
         ) {
-          let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ],
-            variables: ["a": true]
-          ))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
+            ])
+          ]))
         }
       }
 
@@ -1106,8 +1147,8 @@ class SelectionSetTests: XCTestCase {
         .include(if: "b", .inlineFragment(IfB.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
-      var ifB: IfB? { _asInlineFragment(if: "b") }
+      var ifA: IfA? { _asInlineFragment() }
+      var ifB: IfB? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata
@@ -1120,15 +1161,14 @@ class SelectionSetTests: XCTestCase {
         convenience init(
           name: String
         ) {
-          let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ],
-            variables: ["a": true]
-          ))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
+            ])
+          ]))
         }
       }
       class IfB: ConcreteMockTypeCase<Hero> {
@@ -1174,14 +1214,13 @@ class SelectionSetTests: XCTestCase {
       convenience init(
         hero: Hero
       ) {
-        let objectType = Types.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "hero": hero._fieldData
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
 
       class Hero: MockSelectionSet {
@@ -1193,15 +1232,15 @@ class SelectionSetTests: XCTestCase {
           .include(if: "b", .inlineFragment(IfB.self))
         ]}
 
-        var ifA: IfA? { _asInlineFragment(if: "a") }
-        var ifB: IfB? { _asInlineFragment(if: "b") }
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
 
         class IfA: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata
           override class var __parentType: ParentType { Types.Human }
           override class var __selections: [Selection] {[
             .field("name", String.self),
-            .include(if: !"c", .field("friend", Friend.self))
+            .field("friend", Friend.self)
           ]}
           var name: String { __data["name"] }
           var friend: Friend { __data["friend"] }
@@ -1210,16 +1249,15 @@ class SelectionSetTests: XCTestCase {
             name: String,
             friend: Friend? = nil
           ) {
-            let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "name": name,
-                "friend": friend._fieldData
-              ],
-              variables: ["a": true]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "name": name,
+              "friend": friend._fieldData,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self),
+              ])
+            ]))
           }
 
           class Friend: MockSelectionSet {
@@ -1227,11 +1265,10 @@ class SelectionSetTests: XCTestCase {
 
             override class var __parentType: ParentType { Types.Human }
             override class var __selections: [Selection] {[
-              .include(if: "a", .inlineFragment(IfA.self)),
-              .include(if: "b", .inlineFragment(IfB.self))
+              .include(if: !"c", .inlineFragment(IfNotC.self))
             ]}
 
-            var ifNotC: IfNotC? { _asInlineFragment(if: !"c") }
+            var ifNotC: IfNotC? { _asInlineFragment() }
 
             class IfNotC: ConcreteMockTypeCase<Friend> {
               typealias Schema = MockSchemaMetadata
@@ -1244,15 +1281,14 @@ class SelectionSetTests: XCTestCase {
               convenience init(
                 name: String
               ) {
-                let objectType = Types.Human
-                self.init(_dataDict: DataDict(
-                  objectType: objectType,
-                  data: [
-                    "__typename": objectType.typename,
-                    "name": name
-                  ],
-                  variables: ["c": false]
-                ))
+                self.init(_dataDict: DataDict(data: [
+                  "__typename": Types.Human.typename,
+                  "name": name,
+                  "__fulfilled": Set([
+                    ObjectIdentifier(Self.self),
+                    ObjectIdentifier(Friend.self),
+                  ])
+                ]))
               }
             }
           }
@@ -1261,17 +1297,16 @@ class SelectionSetTests: XCTestCase {
         class IfB: ConcreteMockTypeCase<Hero> {
           typealias Schema = MockSchemaMetadata
           override class var __parentType: ParentType { Types.Human }
-          override class var __selections: [Selection] {[
-          ]}
+          override class var __selections: [Selection] {[]}
+
           convenience init() {
-            let objectType = Types.Human
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename
-              ],
-              variables: ["b": true]
-            ))
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self),
+              ])
+            ]))
           }
         }
       }
@@ -1312,7 +1347,7 @@ class SelectionSetTests: XCTestCase {
         .include(if: "a", .inlineFragment(IfA.self))
       ]}
 
-      var ifA: IfA? { _asInlineFragment(if: "a") }
+      var ifA: IfA? { _asInlineFragment() }
 
       class IfA: ConcreteMockTypeCase<Hero> {
         typealias Schema = MockSchemaMetadata
@@ -1325,15 +1360,14 @@ class SelectionSetTests: XCTestCase {
         convenience init(
           name: String
         ) {
-          let objectType = Types.Human
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
-            ],
-            variables: ["a": true]
-          ))
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
+            ])
+          ]))
         }
       }
 
@@ -1374,14 +1408,13 @@ class SelectionSetTests: XCTestCase {
       convenience init(
         name: String? = nil
       ) {
-        let objectType = Types.Human
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name
-          ]
-        ))
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Human.typename,
+          "name": name,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
       }
     }
 

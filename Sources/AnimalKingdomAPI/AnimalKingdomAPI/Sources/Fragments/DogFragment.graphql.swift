@@ -24,12 +24,12 @@ public struct DogFragment: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     species: String
   ) {
-    let objectType = AnimalKingdomAPI.Objects.Dog
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "species": species
+    self.init(_dataDict: DataDict(data: [
+      "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+      "species": species,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 }

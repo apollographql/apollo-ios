@@ -51,12 +51,12 @@ public class PetSearchQuery: GraphQLQuery {
     public init(
       pets: [Pet]
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "pets": pets._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "pets": pets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -81,17 +81,13 @@ public class PetSearchQuery: GraphQLQuery {
         id: AnimalKingdomAPI.ID,
         humanName: String? = nil
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Pet
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "id": id,
-            "humanName": humanName
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "humanName": humanName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

@@ -26,16 +26,12 @@ public struct CharacterName: StarWarsAPI.SelectionSet, Fragment {
     __typename: String,
     name: String
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        StarWarsAPI.Interfaces.Character
-    ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "name": name
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 }

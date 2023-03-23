@@ -321,21 +321,12 @@ struct SelectionSetTemplate {
     \(if: isMutable,
       """
 
-        get { \(InlineFragmentGetter(inlineFragment)) }
+        get { _asInlineFragment() }
         set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
       """,
-      else: " \(InlineFragmentGetter(inlineFragment)) }"
+      else: " _asInlineFragment() }"
     )
-    """
-  }
-
-  private func InlineFragmentGetter(_ inlineFragment: IR.SelectionSet) -> TemplateString {
-    """
-    _asInlineFragment\
-    (\(ifLet: inlineFragment.inclusionConditions, {
-      "if: \($0.conditionVariableExpression())"
-    }))
     """
   }
 
@@ -372,18 +363,13 @@ struct SelectionSetTemplate {
     let isOptional = fragment.inclusionConditions != nil &&
     !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
 
-    let getter = FragmentGetter(
-      fragment,
-      if: isOptional ? fragment.inclusionConditions.unsafelyUnwrapped : nil
-    )
-
     return """
     public var \(propertyName): \(typeName)\
     \(if: isOptional, "?") {\
     \(if: isMutable,
       """
 
-        get { \(getter) }
+        get { _toFragment() }
         _modify { var f = \(propertyName); yield &f; \(
           if: isOptional,
             "if let newData = f?.__data { __data = newData }",
@@ -393,20 +379,8 @@ struct SelectionSetTemplate {
         set { preconditionFailure() }
       }
       """,
-      else: " \(getter) }"
+      else: " _toFragment() }"
     )
-    """
-  }
-
-  private func FragmentGetter(
-    _ fragment: IR.FragmentSpread,
-    if inclusionConditions: AnyOf<IR.InclusionConditions>?
-  ) -> TemplateString {
-    """
-    _toFragment(\
-    \(ifLet: inclusionConditions, {
-      "if: \($0.conditionVariableExpression)"
-    }))
     """
   }
 
@@ -417,17 +391,8 @@ struct SelectionSetTemplate {
     public init(
       \(InitializerSelectionParametersTemplate(selectionSet))
     ) {
-      \(InitializerObjectType(selectionSet))
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          \(InitializerDataDictTemplate(selectionSet.selections))
-        \(ifLet: selectionSet.typeInfo.scope.matchingConditions, { conditions in
-        """
-        ],
-        variables: [
-          \(conditions.map { "\"\($0.variable)\": \((!$0.isInverted).description)"})
-        """})
+      self.init(_dataDict: DataDict(data: [
+        \(InitializerDataDictTemplate(selectionSet))
       ]))
     }
     """
@@ -437,7 +402,7 @@ struct SelectionSetTemplate {
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
     let isConcreteType = selectionSet.parentType is GraphQLObjectType
-    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selectionSet.selections)
+    let allFields = selectionSet.selections.makeFieldIterator()
 
     return TemplateString("""
     \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
@@ -455,34 +420,19 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func InitializerObjectType(_ selectionSet: IR.SelectionSet) -> TemplateString {
-    let isConcreteType = selectionSet.parentType is GraphQLObjectType
-    let implementedInterfaces = selectionSet.scope.matchingTypes
-      .filter({ $0 is GraphQLInterfaceType })
-
-    return """
-    let objectType = \
-    \(if: isConcreteType,
-      GeneratedTypeReference(selectionSet.parentType),
-      else: """
-      \(config.ApolloAPITargetName).Object(
-        typename: __typename,
-        implementedInterfaces: [
-          \(implementedInterfaces.map(GeneratedTypeReference(_:)))
-      ])
-      """
-    )
-    """
-  }
-
   private func InitializerDataDictTemplate(
-    _ selections: IR.SelectionSet.Selections
+    _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
-    let allFields = IR.SelectionSet.Selections.FieldIterator(selections: selections)
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = selectionSet.selections.makeFieldIterator()
 
     return TemplateString("""
-    "__typename": objectType.typename,
-    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)))
+    "__typename": \
+    \(if: isConcreteType,
+      "\(GeneratedTypeReference(selectionSet.parentType)).typename,",
+      else: "__typename,")
+    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)), terminator: ",")
+    \(InitializerFulfilledFragments(selectionSet))
     """
     )
   }
@@ -493,6 +443,42 @@ struct SelectionSetTemplate {
     """
     "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
     \(if: field is IR.EntityField, "._fieldData")
+    """
+  }
+
+  private func InitializerFulfilledFragments(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    var fulfilledFragments: [String] = ["Self"]
+
+    var next = selectionSet.scopePath.last.value.scopePath.head
+    while next.next != nil {
+      defer { next = next.next.unsafelyUnwrapped }
+
+      let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+        from: selectionSet.scopePath.head,
+        to: next,
+        withFieldPath: selectionSet.entity.fieldPath.head,
+        removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+        pluralizer: config.pluralizer
+      )
+
+      fulfilledFragments.append(selectionSetName)
+    }
+
+    let allFragments = IteratorSequence(selectionSet.selections.makeFragmentIterator())
+    for fragment in allFragments {
+      if let conditions = fragment.inclusionConditions,
+         !selectionSet.typeInfo.scope.matches(conditions) {
+        continue
+      }
+      fulfilledFragments.append(fragment.definition.name.firstUppercased)
+    }
+
+    return """
+    "__fulfilled": Set([
+      \(fulfilledFragments.map { "ObjectIdentifier(\($0).self)" })
+    ])
     """
   }
 
@@ -811,23 +797,39 @@ fileprivate extension IR.Field {
 }
 
 extension IR.SelectionSet.Selections {
-  fileprivate struct FieldIterator: IteratorProtocol {
-    let selections: IR.SelectionSet.Selections
-    private var directIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>?
-    private var mergedIterator: IndexingIterator<OrderedDictionary<String, IR.Field>.Values>
+  fileprivate func makeFieldIterator() -> SelectionsIterator<IR.Field> {
+    SelectionsIterator(direct: direct?.fields, merged: merged.fields)
+  }
 
-    var isEmpty: Bool {
-      return (selections.direct?.fields.isEmpty ?? true) && selections.merged.fields.isEmpty
+  fileprivate func makeFragmentIterator() -> SelectionsIterator<IR.FragmentSpread> {
+    SelectionsIterator(direct: direct?.fragments, merged: merged.fragments)
+  }
+
+  fileprivate struct SelectionsIterator<SelectionType>: IteratorProtocol {
+    typealias SelectionDictionary = OrderedDictionary<String, SelectionType>
+
+    private let direct: SelectionDictionary?
+    private let merged: SelectionDictionary
+    private var directIterator: IndexingIterator<SelectionDictionary.Values>?
+    private var mergedIterator: IndexingIterator<SelectionDictionary.Values>
+
+    fileprivate init(
+      direct: SelectionDictionary?,
+      merged: SelectionDictionary
+    ) {
+      self.direct = direct
+      self.merged = merged
+      self.directIterator = self.direct?.values.makeIterator()
+      self.mergedIterator = self.merged.values.makeIterator()
     }
 
-    init(selections: IR.SelectionSet.Selections) {
-      self.selections = selections
-      self.directIterator = self.selections.direct?.fields.values.makeIterator()
-      self.mergedIterator = self.selections.merged.fields.values.makeIterator()
-    }
-
-    mutating func next() -> IR.Field? {
+    mutating func next() -> SelectionType? {
       directIterator?.next() ?? mergedIterator.next()
     }
+
+    var isEmpty: Bool {
+      return (direct?.isEmpty ?? true) && merged.isEmpty
+    }
+
   }
 }

@@ -52,12 +52,12 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -83,16 +83,12 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         __typename: String,
         name: String
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "name": name,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -115,12 +111,13 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         public init(
           name: String
         ) {
-          let objectType = StarWarsAPI.Objects.Droid
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "name": name
+          self.init(_dataDict: DataDict(data: [
+            "__typename": StarWarsAPI.Objects.Droid.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
+            ])
           ]))
         }
       }

@@ -1403,11 +1403,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let data = try! GivenSelectionSet(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
         let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
 
@@ -1470,7 +1470,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Hero", implementedInterfaces: []),
           data: ["hero": "name"]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
@@ -1491,7 +1490,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-  func test_writeDataForCacheMutation_givenNilValueForOptionalField_writesFieldWithNilValue() throws {
+  func test_writeDataForCacheMutation_givenNilValueForOptionalField_writesFieldWithNullValue() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = .empty()
@@ -1527,11 +1526,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          objectType: Object(typename: "Hero", implementedInterfaces: []),
-          data: ["hero": [
-            "__typename": "Hero",
-            "name": Optional<String>.none
-          ]]
+          data: ["hero": DataDict(
+            data: [
+              "__typename": "Hero",
+              "name": Optional<String>.none
+            ]
+          )]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
@@ -1595,11 +1595,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       store.withinReadWriteTransaction({ transaction in
         let fragment = try! GivenFragment(data:
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
 
         try transaction.write(selectionSet: fragment, withKey: CacheReference.RootQuery.key)
@@ -1624,6 +1624,545 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     }
   }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithInclusionConditions_writesFieldsForInclusionConditions() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Data: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .include(if: "a", .inlineFragment(IfA.self)),
+          .include(if: "b", .inlineFragment(IfB.self))
+        ]}
+
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
+
+        class IfA: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+            .field("name", String.self),
+            .include(if: !"c", .field("friend", Friend.self)),
+            .include(if: !"d", .field("other", String.self))
+          ]}
+          var name: String { __data["name"] }
+          var friend: Friend? { __data["friend"] }
+          var other: String? { __data["name"] }
+
+          convenience init(
+            name: String,
+            friend: Friend? = nil,
+            other: String? = nil
+          ) {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "name": name,
+              "friend": friend._fieldData,
+              "other": other,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
+          }
+
+          class Friend: MockSelectionSet {
+            typealias Schema = MockSchemaMetadata
+
+            override class var __parentType: ParentType { Types.Human }
+            override class var __selections: [Selection] {[
+              .field("name", String.self)
+            ]}
+
+            var name: String { __data["name"] }
+
+            convenience init(
+              name: String
+            ) {
+              self.init(_dataDict: DataDict(data: [
+                "__typename": Types.Human.typename,
+                "name": name,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Friend.self),
+                ])
+              ]))
+            }
+
+          }
+        }
+
+        class IfB: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+          ]}
+          convenience init() {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
+          }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = Data(
+        hero: .IfA(
+          name: "Han Solo",
+          friend: Data.Hero.IfA.Friend(name: "Leia Organa")
+        ).asRootEntityType
+      )
+      let query = MockQuery<Data>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<Data>()
+      query.__variables = ["a": true, "b": false, "c": false, "d": true]
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.hero.ifA?.name).to(equal("Han Solo"))
+      expect(resultData.hero.ifB).to(beNil())
+      expect(resultData.hero.ifA?.friend?.name).to(equal("Leia Organa"))
+      expect(resultData.hero.ifA?.friend?.other).to(beNil())
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithTypeCases_writesFieldForTypeCasesWithManuallyProvidedImplementedInterfaces() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+      static let Character = Interface(name: "Character")
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: return nil
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .inlineFragment(AsCharacter.self)
+        ]}
+
+        var asCharacter: AsCharacter? { _asInlineFragment() }
+
+        class AsCharacter: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Character }
+          override class var __selections: [Selection] {[
+            .field("name", String.self)
+          ]}
+
+          var name: String { __data["name"] }
+
+          convenience init(
+            __typename: String,
+            name: String
+          ) {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self)
+              ])
+            ]))
+          }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery(
+        hero: .AsCharacter(
+          __typename: "Person",
+          name: "Han Solo"
+        ).asRootEntityType
+      )
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      let heroKey = "QUERY_ROOT.hero"
+      let records = try? self.cache.loadRecords(forKeys: [heroKey])
+      let heroRecord = records?[heroKey]
+
+      expect(heroRecord?.fields["name"] as? String).to(equal("Han Solo"))
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithNamedFragmentInInclusionConditionIsFulfilled_writesFieldsForNamedFragment() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __parentType: ParentType { Types.Query }
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ParentType { Types.Human }
+        static var __selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        init(
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .include(if: "a", [.inlineFragment(IfA.self)])
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      convenience init() {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+      class IfA: ConcreteMockTypeCase<GivenQuery> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Query }
+        override class var __selections: [Selection] {[
+          .fragment(GivenFragment.self)
+        ]}
+
+        public var hero: GivenFragment.Hero { __data["hero"] }
+
+        convenience init(
+          hero: GivenFragment.Hero
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Query.typename,
+            "hero": hero._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(GivenQuery.self),
+              ObjectIdentifier(GivenFragment.self)
+            ])
+          ]))
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery.IfA(
+        hero: .init(name: "Han Solo")
+      ).asRootEntityType
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<GivenQuery>()
+      query.__variables = ["a": true]
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.ifA?.hero.name).to(equal("Han Solo"))
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithNamedFragmentInInclusionConditionNotFulfilled_doesNotAttemptToWriteFieldsForNamedFragment() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        init(
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .include(if: "a", [.inlineFragment(IfA.self)])
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      convenience init() {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+      class IfA: ConcreteMockTypeCase<GivenQuery> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Query }
+        override class var __selections: [Selection] {[
+          .fragment(GivenFragment.self)
+        ]}
+
+        public var hero: GivenFragment.Hero { __data["hero"] }
+
+        convenience init(
+          hero: GivenFragment.Hero
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Query.typename,
+            "hero": hero._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(GivenQuery.self),
+              ObjectIdentifier(GivenFragment.self)
+            ])
+          ]))
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery()
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  // MARK: - Update Object With Key Tests
 
   func test_updateObjectWithKey_readAfterUpdateWithinSameTransaction_hasUpdatedValue() throws {
     // given

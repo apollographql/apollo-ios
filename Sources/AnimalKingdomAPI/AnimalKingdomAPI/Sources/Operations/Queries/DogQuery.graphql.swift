@@ -37,12 +37,12 @@ public class DogQuery: GraphQLQuery {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "allAnimals": allAnimals._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Query.typename,
+        "allAnimals": allAnimals._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -67,16 +67,12 @@ public class DogQuery: GraphQLQuery {
         __typename: String,
         id: AnimalKingdomAPI.ID
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            AnimalKingdomAPI.Interfaces.Animal
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "id": id
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -107,13 +103,15 @@ public class DogQuery: GraphQLQuery {
           id: AnimalKingdomAPI.ID,
           species: String
         ) {
-          let objectType = AnimalKingdomAPI.Objects.Dog
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "id": id,
-              "species": species
+          self.init(_dataDict: DataDict(data: [
+            "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+            "id": id,
+            "species": species,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(DogFragment.self)
+            ])
           ]))
         }
       }

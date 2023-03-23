@@ -26,12 +26,12 @@ public extension MyGraphQLSchema {
       public init(
         allAnimals: [AllAnimal]
       ) {
-        let objectType = MyGraphQLSchema.Objects.Query
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "allAnimals": allAnimals._fieldData
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
 
@@ -68,17 +68,13 @@ public extension MyGraphQLSchema {
           species: String,
           skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
         ) {
-          let objectType = ApolloAPI.Object(
-            typename: __typename,
-            implementedInterfaces: [
-              MyGraphQLSchema.Interfaces.Animal
-          ])
-          self.init(_dataDict: DataDict(
-            objectType: objectType,
-            data: [
-              "__typename": objectType.typename,
-              "species": species,
-              "skinCovering": skinCovering
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "species": species,
+            "skinCovering": skinCovering,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
           ]))
         }
 
@@ -113,14 +109,15 @@ public extension MyGraphQLSchema {
             species: String,
             skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? = nil
           ) {
-            let objectType = MyGraphQLSchema.Objects.Bird
-            self.init(_dataDict: DataDict(
-              objectType: objectType,
-              data: [
-                "__typename": objectType.typename,
-                "wingspan": wingspan,
-                "species": species,
-                "skinCovering": skinCovering
+            self.init(_dataDict: DataDict(data: [
+              "__typename": MyGraphQLSchema.Objects.Bird.typename,
+              "wingspan": wingspan,
+              "species": species,
+              "skinCovering": skinCovering,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(AllAnimal.self)
+              ])
             ]))
           }
         }

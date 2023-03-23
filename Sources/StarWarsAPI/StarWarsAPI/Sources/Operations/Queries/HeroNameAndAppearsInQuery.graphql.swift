@@ -41,12 +41,12 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      let objectType = StarWarsAPI.Objects.Query
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "hero": hero._fieldData
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
 
@@ -73,17 +73,13 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
         name: String,
         appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
       ) {
-        let objectType = ApolloAPI.Object(
-          typename: __typename,
-          implementedInterfaces: [
-            StarWarsAPI.Interfaces.Character
-        ])
-        self.init(_dataDict: DataDict(
-          objectType: objectType,
-          data: [
-            "__typename": objectType.typename,
-            "name": name,
-            "appearsIn": appearsIn
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "name": name,
+          "appearsIn": appearsIn,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
         ]))
       }
     }

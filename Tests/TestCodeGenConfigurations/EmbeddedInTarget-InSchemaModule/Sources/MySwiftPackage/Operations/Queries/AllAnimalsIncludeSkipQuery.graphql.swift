@@ -125,17 +125,17 @@ public extension MyGraphQLSchema {
         public var skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? { __data["skinCovering"] }
         public var predators: [Predator] { __data["predators"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
+        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
         public var asPet: AsPet? { _asInlineFragment() }
-        public var asCat: AsCat? { _asInlineFragment(if: "getCat") }
+        public var asCat: AsCat? { _asInlineFragment() }
         public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
-        public var ifNotSkipHeightInMeters: IfNotSkipHeightInMeters? { _asInlineFragment(if: !"skipHeightInMeters") }
+        public var ifNotSkipHeightInMeters: IfNotSkipHeightInMeters? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
+          public var heightInMeters: HeightInMeters? { _toFragment() }
         }
 
         /// AllAnimal.Height
@@ -170,7 +170,7 @@ public extension MyGraphQLSchema {
 
           public var species: String? { __data["species"] }
 
-          public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment(if: "getWarmBlooded") }
+          public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
 
           /// AllAnimal.Predator.AsWarmBlooded
           ///
@@ -274,7 +274,7 @@ public extension MyGraphQLSchema {
             public init(_dataDict: DataDict) { __data = _dataDict }
 
             public var petDetails: PetDetails { _toFragment() }
-            public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
+            public var heightInMeters: HeightInMeters? { _toFragment() }
           }
 
           /// AllAnimal.AsPet.Height
@@ -420,7 +420,7 @@ public extension MyGraphQLSchema {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public var heightInMeters: HeightInMeters? { _toFragment(if: !"skipHeightInMeters") }
+            public var heightInMeters: HeightInMeters? { _toFragment() }
           }
 
           /// AllAnimal.AsClassroomPet.AsBird

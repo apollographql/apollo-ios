@@ -28,16 +28,12 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     __typename: String,
     height: Height
   ) {
-    let objectType = ApolloAPI.Object(
-      typename: __typename,
-      implementedInterfaces: [
-        AnimalKingdomAPI.Interfaces.Animal
-    ])
-    self.init(_dataDict: DataDict(
-      objectType: objectType,
-      data: [
-        "__typename": objectType.typename,
-        "height": height._fieldData
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "height": height._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
     ]))
   }
 
@@ -58,12 +54,12 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(
       meters: Int
     ) {
-      let objectType = AnimalKingdomAPI.Objects.Height
-      self.init(_dataDict: DataDict(
-        objectType: objectType,
-        data: [
-          "__typename": objectType.typename,
-          "meters": meters
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Height.typename,
+        "meters": meters,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
       ]))
     }
   }
