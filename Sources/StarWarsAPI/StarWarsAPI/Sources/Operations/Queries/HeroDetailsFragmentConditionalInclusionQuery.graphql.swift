@@ -59,7 +59,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
-        .include(if: "includeDetails", .fragment(HeroDetails.self)),
+        .include(if: "includeDetails", .inlineFragment(IfIncludeDetails.self)),
       ] }
 
       public var ifIncludeDetails: IfIncludeDetails? { _asInlineFragment() }
@@ -91,6 +91,9 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
 
         public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(HeroDetails.self),
+        ] }
 
         /// The name of the character
         public var name: String { __data["name"] }

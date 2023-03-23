@@ -1379,6 +1379,6 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     expect(allAnimals_actual).to(equalLineByLine(
       allAnimals_expected, atLine: 22, ignoringExtraLines: true))
     expect(allAnimals_ifA_actual).to(equalLineByLine(
-      allAnimals_ifA_expected, atLine: 20, ignoringExtraLines: true))
+      allAnimals_ifA_expected, atLine: 23, ignoringExtraLines: true))
   }
 }
