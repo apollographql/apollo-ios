@@ -39,9 +39,9 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     case unknown
   }
 
-  private let dataLineSeparator: String = "\r\n\r\n"
-  private let contentTypeHeader: String = "content-type:"
-  private let heartbeat: String = "{}"
+  private static let dataLineSeparator: StaticString = "\r\n\r\n"
+  private static let contentTypeHeader: StaticString = "content-type:"
+  private static let heartbeat: StaticString = "{}"
 
   public init() { }
 
@@ -83,7 +83,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     for chunk in dataString.components(separatedBy: "--\(boundaryString)") {
       if chunk.isEmpty { continue }
 
-      for dataLine in chunk.components(separatedBy: dataLineSeparator) {
+      for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
         switch (parse(dataLine: dataLine.trimmingCharacters(in: .newlines))) {
         case .heartbeat:
           // Periodically sent by the router - noop
@@ -156,11 +156,11 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
   /// Parses the data line of a multipart response chunk
   private func parse(dataLine: String) -> ChunkedDataLine {
-    if dataLine == heartbeat {
+    if dataLine == Self.heartbeat.description {
       return .heartbeat
     }
 
-    if dataLine.starts(with: contentTypeHeader) {
+    if dataLine.starts(with: Self.contentTypeHeader.description) {
       return .contentHeader(type: (dataLine.components(separatedBy: ":").last ?? dataLine)
         .trimmingCharacters(in: .whitespaces)
       )
