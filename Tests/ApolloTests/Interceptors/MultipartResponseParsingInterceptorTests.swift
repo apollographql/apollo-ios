@@ -240,8 +240,8 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       switch (result) {
       case let .success(data):
         expect(data.data).to(equal(expectedData))
-      case .failure:
-        fail("Unexpected failure result!")
+      case let .failure(error):
+        fail("Unexpected failure result - \(error)")
       }
     }
 
@@ -293,8 +293,54 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
         default: fail("Unexpected data value!")
         }
 
-      case .failure:
-        fail("Unexpected failure result!")
+      case let .failure(error):
+        fail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__parsing__givenChunkWithGraphQLError_shouldReturnSuccessWithGraphQLError() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 4
+          },
+          "errors": [
+            {
+              "message": "test error"
+            }
+          ]
+        }
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Multipart data received")
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      switch (result) {
+      case let .success(data):
+        guard let time = data.data else {
+          fail("Unexpected missing data!")
+          return
+        }
+
+        expect(time.__typename).to(equal("Time"))
+        expect(time.ticker).to(equal(4))
+        expect(data.errors).to(equal([GraphQLError("test error")]))
+
+        expectation.fulfill()
+
+      case let .failure(error):
+        fail("Unexpected failure result - \(error)")
       }
     }
 
