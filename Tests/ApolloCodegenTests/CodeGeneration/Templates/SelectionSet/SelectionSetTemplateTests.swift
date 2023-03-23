@@ -1573,7 +1573,7 @@ class SelectionSetTemplateTests: XCTestCase {
           .field("fieldA", String.self),
           .field("fieldB", String.self),
           .inlineFragment(AsPet.self),
-          .fragment(FragmentA.self),
+          .inlineFragment(IfA.self),
         ]),
       ] }
     """
@@ -4151,8 +4151,8 @@ class SelectionSetTemplateTests: XCTestCase {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public var fragmentA: FragmentA? { _toFragment() }
         public var lowercaseFragment: LowercaseFragment { _toFragment() }
+        public var fragmentA: FragmentA? { _toFragment() }
       }
     """
 
@@ -4303,7 +4303,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let actual = subject.render(inlineFragment: allAnimals_ifA)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   // MARK: - Nested Selection Sets
