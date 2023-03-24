@@ -78,9 +78,6 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 // MARK: - Selection Set Conversion
 
 public extension RootSelectionSet {
-#warning("""
-TODO: Test missing values for required fields
-""")
   static func from<O: MockObject>(
     _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
