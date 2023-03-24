@@ -81,6 +81,7 @@ let package = Package(
     .target(
       name: "ApolloTestSupport",
       dependencies: [
+        "Apollo",
         "ApolloAPI"
       ],
       exclude: [

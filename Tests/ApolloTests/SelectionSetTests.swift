@@ -867,9 +867,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class GivenFragment: MockFragment { }
 
-    class Hero: AbstractMockSelectionSet<Hero.Fragments> {
-      typealias Schema = MockSchemaMetadata
-
+    class Hero: AbstractMockSelectionSet<Hero.Fragments, MockSchemaMetadata> {
       override class var __selections: [Selection] {[
         .field("__typename", String.self),
         .include(if: "includeFragment", .fragment(GivenFragment.self))
@@ -899,9 +897,7 @@ class SelectionSetTests: XCTestCase {
     // given
     class GivenFragment: MockFragment { }
 
-    class Hero: AbstractMockSelectionSet<Hero.Fragments> {
-      typealias Schema = MockSchemaMetadata
-
+    class Hero: AbstractMockSelectionSet<Hero.Fragments, MockSchemaMetadata> {
       override class var __selections: [Selection] {[
         .field("__typename", String.self),
         .include(if: "includeFragment", .fragment(GivenFragment.self))

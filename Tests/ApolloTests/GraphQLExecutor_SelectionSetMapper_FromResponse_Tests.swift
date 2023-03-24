@@ -893,9 +893,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    class GivenSelectionSet: AbstractMockSelectionSet<GivenSelectionSet.Fragments> {
-      typealias Schema = MockSchemaMetadata
-
+    class GivenSelectionSet: AbstractMockSelectionSet<GivenSelectionSet.Fragments, MockSchemaMetadata> {
       override class var __parentType: ParentType { Types.MockChildObject }
       override class var __selections: [Selection] {[
         .fragment(GivenFragment.self)

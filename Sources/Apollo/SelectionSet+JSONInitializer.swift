@@ -21,7 +21,7 @@ extension RootSelectionSet {
     variables: GraphQLOperation.Variables? = nil
   ) throws {
     let accumulator = GraphQLSelectionSetMapper<Self>(
-      allowMissingValuesForOptionalFields: true
+      handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor { object, info in
       return object[info.responseKeyForField]
