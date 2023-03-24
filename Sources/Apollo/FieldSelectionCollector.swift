@@ -32,9 +32,7 @@ struct FieldSelectionGrouping: Sequence {
   }
 }
 
-protocol FieldSelectionCollector<Data> {
-
-  associatedtype Data
+protocol FieldSelectionCollector {
 
   /// Groups fields that share the same response key for simultaneous resolution.
   ///
@@ -45,7 +43,7 @@ protocol FieldSelectionCollector<Data> {
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: Data,
+    for object: JSONObject,
     info: ObjectExecutionInfo
   ) throws
 
@@ -100,10 +98,14 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
 /// ignoring the inclusion condition and variables. This ensures that object data for these fields
 /// will be written to the cache.
 struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
+  enum Error: Swift.Error {
+    case fulfilledFragmentsMissing
+  }
+
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: DataDict,
+    for object: JSONObject,
     info: ObjectExecutionInfo
   ) throws {
     try collectFields(
@@ -118,17 +120,23 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
   func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: DataDict,
+    for object: JSONObject,
     info: ObjectExecutionInfo,
     asConditionalFields: Bool
   ) throws {
-    groupedFields.fulfilledFragments = (object._data["__fulfilled"] as? Set<ObjectIdentifier>) ?? []
+    guard let fulfilledFragments = object["__fulfilled"] as? Set<ObjectIdentifier> else {
+      throw GraphQLExecutionError(
+        path: info.responsePath,
+        underlying: Error.fulfilledFragmentsMissing
+      )
+    }
+    groupedFields.fulfilledFragments = fulfilledFragments
 
     for selection in selections {
       switch selection {
       case let .field(field):
         if asConditionalFields && !field.type.isNullable {
-          guard let value = object._data[field.responseKey], !(value is NSNull) else {
+          guard let value = object[field.responseKey], !(value is NSNull) else {
             continue
           }
         }
