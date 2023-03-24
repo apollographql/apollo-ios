@@ -327,4 +327,159 @@ class RequestChainTests: XCTestCase {
 
     wait(for: [expectation], timeout: 1)
   }
+
+  // MARK: Memory tests
+
+  private class Hero: MockSelectionSet, SelectionSet {
+    typealias Schema = MockSchemaMetadata
+
+    override class var __selections: [Selection] {[
+      .field("__typename", String.self),
+      .field("name", String.self)
+    ]}
+
+    var name: String { __data["name"] }
+  }
+
+  func test__retain_release__givenQuery_shouldNotHaveRetainCycle() {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = Hero(data: DataDict([
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil))
+
+    let expectation = expectation(description: "Response received")
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
+
+  func test__retain_release__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"]
+      ),
+      data: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Hero",
+            "name": "R2-D2"
+          }
+        }
+      }
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Hero",
+            "name": "R2-D2"
+          }
+        }
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      NetworkFetchInterceptor(client: client),
+      MultipartResponseParsingInterceptor(),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = Hero(data: DataDict([
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil))
+
+    let expectation = expectation(description: "Response received")
+    expectation.expectedFulfillmentCount = 2
+
+    let request = JSONRequest(
+      operation: MockSubscription<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain?.cancel()
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
 }
