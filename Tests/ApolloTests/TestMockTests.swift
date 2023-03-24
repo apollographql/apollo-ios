@@ -286,7 +286,7 @@ class TestMockTests: XCTestCase {
     mock.customScalar = customScalar
 
     let actual = mock._selectionSetMockData
-    let actualCustomScalar = actual["customScalar"] as? MockCustomScalar
+    let actualCustomScalar = actual["customScalar"] as? MockCustomScalar<Int>
     // then
     expect(actualCustomScalar?.value).to(equal(12))
   }
@@ -366,7 +366,7 @@ class Dog: MockObject {
     @Field<String>("id") public var id
     @Field<String>("species") public var species
     @Field<GraphQLEnum<Species>>("speciesType") public var speciesType
-    @Field<MockCustomScalar>("customScalar") public var customScalar
+    @Field<MockCustomScalar<Int>>("customScalar") public var customScalar
     @Field<Height>("height") public var height
     @Field<[String]>("listOfStrings") public var listOfStrings
     @Field<Animal>("bestFriend") public var bestFriend
@@ -411,15 +411,15 @@ enum Species: String, EnumType {
   case feline
 }
 
-struct MockCustomScalar: CustomScalarType, Hashable {
-  let value: Int
+struct MockCustomScalar<T: Hashable>: CustomScalarType, Hashable {
+  let value: T
 
-  init(value: Int) {
+  init(value: T) {
     self.value = value
   }
 
   init(_jsonValue value: ApolloAPI.JSONValue) throws {
-    self.value = value as! Int
+    self.value = value as! T
   }
 
   var _jsonValue: ApolloAPI.JSONValue { value }

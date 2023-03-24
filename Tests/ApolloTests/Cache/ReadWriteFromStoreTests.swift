@@ -1470,7 +1470,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          data: ["hero": "name"]
+          data: [
+            "hero": "name",
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+          ]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
@@ -1526,13 +1529,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          data: ["hero": DataDict(
-            data: [
+          data: [
+            "hero": [
               "__typename": "Hero",
-              "name": Optional<String>.none
-            ]
-          )]
-        ))
+              "name": Optional<String>.none,
+              "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+            ],
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.self)])
+          ]))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
