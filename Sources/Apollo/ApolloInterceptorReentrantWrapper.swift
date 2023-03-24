@@ -54,8 +54,6 @@ class ApolloInterceptorReentrantWrapper: RequestChain {
     if let cancellableInterceptor = wrappedInterceptor as? Cancellable {
       cancellableInterceptor.cancel()
     }
-
-    requestChain.takeUnretainedValue().cancel()
   }
 
   func retry<Operation>(
