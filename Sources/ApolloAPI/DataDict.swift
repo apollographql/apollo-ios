@@ -74,14 +74,14 @@ extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   @inlinable public init(_fieldData data: AnyHashable?) {
-    guard let data = data as? DataDict else {
-      fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
+    guard let data = data as? DataDict.SelectionSetData else {
+      fatalError("\(Self.self) expected JSONObject for entity, got \(type(of: data)).")
     }
 
-    self.init(_dataDict: data)
+    self.init(_dataDict: DataDict(data: data))
   }
 
-  @inlinable public var _fieldData: AnyHashable { __data }
+  @inlinable public var _fieldData: AnyHashable { __data._data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
