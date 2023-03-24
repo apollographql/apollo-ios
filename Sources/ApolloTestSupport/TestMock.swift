@@ -86,7 +86,7 @@ TODO: Test missing values for required fields
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     let accumulator = GraphQLSelectionSetMapper<Self>(
-      allowMissingValuesForOptionalFields: true
+      handleMissingValues: .allowForAllFields
     )
     let executor = GraphQLExecutor { object, info in
       return object[info.responseKeyForField]

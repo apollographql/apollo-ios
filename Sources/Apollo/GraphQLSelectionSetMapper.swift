@@ -8,14 +8,22 @@ import Foundation
 final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
   let stripNullValues: Bool
-  let allowMissingValuesForOptionalFields: Bool
+  let handleMissingValues: HandleMissingValues
+
+  enum HandleMissingValues {
+    case disallow
+    case allowForOptionalFields
+    /// Using this option will result in an unsafe `SelectionSet` that will crash
+    /// when a required field that has missing data is accessed.
+    case allowForAllFields
+  }
 
   init(
     stripNullValues: Bool = true,
-    allowMissingValuesForOptionalFields: Bool = false
+    handleMissingValues: HandleMissingValues = .disallow
   ) {
     self.stripNullValues = stripNullValues
-    self.allowMissingValuesForOptionalFields = allowMissingValuesForOptionalFields
+    self.handleMissingValues = handleMissingValues
   }
 
   func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
@@ -45,10 +53,14 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   }
 
   func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
-    guard allowMissingValuesForOptionalFields && info.field.type.isNullable else {
+    switch handleMissingValues {
+    case .allowForOptionalFields where info.field.type.isNullable: fallthrough
+    case .allowForAllFields:
+      return nil
+
+    default:
       throw JSONDecodingError.missingValue
     }
-    return nil
   }
 
   func accept(list: [AnyHashable?], info: FieldExecutionInfo) -> AnyHashable? {

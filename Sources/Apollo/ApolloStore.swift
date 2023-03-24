@@ -284,7 +284,7 @@ public class ApolloStore {
         variables: variables,
         accumulator: GraphQLSelectionSetMapper<SelectionSet>(
           stripNullValues: false,
-          allowMissingValuesForOptionalFields: true
+          handleMissingValues: .allowForOptionalFields
         )
       )
 

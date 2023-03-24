@@ -322,7 +322,7 @@ class TestMockTests: XCTestCase {
 
   // MARK: - Selection Set Conversion Tests
 
-  func test__givenSelectionSetWithVariableForInclusionCondition_isTrue_canAccessConditionalField() throws {
+  func test__convertToSelectionSet_givenSelectionSetWithVariableForInclusionCondition_isTrue_canAccessConditionalField() throws {
     // given
     class Animal: TestMockSchema.MockSelectionSet {
       override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
@@ -332,7 +332,7 @@ class TestMockTests: XCTestCase {
 
       var ifA: IfA? { _asInlineFragment() }
 
-      class IfA: TestMockSchema.ConcreteMockTypeCase<Animal> {        
+      class IfA: TestMockSchema.ConcreteMockTypeCase<Animal> {
         override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
         override class var __selections: [Selection] {[
           .field("species", String.self),
@@ -352,7 +352,7 @@ class TestMockTests: XCTestCase {
     expect(selectionSet.ifA?.species).to(equal("Canine"))
   }
 
-  func test__givenSelectionSetWithVariableForInclusionCondition_isFalse_canNotAccessConditionalField() throws {
+  func test__convertToSelectionSet_givenSelectionSetWithVariableForInclusionCondition_isFalse_canNotAccessConditionalField() throws {
     // given
     class Animal: TestMockSchema.MockSelectionSet {
       override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
@@ -382,7 +382,7 @@ class TestMockTests: XCTestCase {
     expect(selectionSet.ifA).to(beNil())
   }
 
-  func test__givenSelectionSetWithTypeCondition_canConvert_canAccessConditionalField() throws {
+  func test__convertToSelectionSet_givenSelectionSetWithTypeCondition_canConvert_canAccessConditionalField() throws {
     // given
     class Animal: TestMockSchema.MockSelectionSet {
       override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
@@ -412,7 +412,7 @@ class TestMockTests: XCTestCase {
     expect(selectionSet.asDog?.species).to(equal("Canine"))
   }
 
-  func test__givenSelectionSetWithTypeCondition_canNotConvert_canNotAccessConditionalField() throws {
+  func test__convertToSelectionSet_givenSelectionSetWithTypeCondition_canNotConvert_canNotAccessConditionalField() throws {
     // given
     class Animal: TestMockSchema.MockSelectionSet {
       override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
@@ -440,6 +440,26 @@ class TestMockTests: XCTestCase {
 
     // then
     expect(selectionSet.asDog).to(beNil())
+  }
+
+  func test__convertToSelectionSet_givenRequiredFieldNotInitialized_doesNotThrow() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .field("species", String.self),
+      ]}
+
+      var species: String { __data["species"] }
+    }
+
+    // when
+    let dog = Mock<Dog>()
+
+    let selectionSet = Animal.from(dog)
+
+    // then
+    expect(selectionSet.__data._data["species"]).to(beNil())
   }
 }
 
