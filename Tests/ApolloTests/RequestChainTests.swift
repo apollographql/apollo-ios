@@ -236,7 +236,7 @@ class RequestChainTests: XCTestCase {
         return
       }
 
-      XCTAssertEqual(header, "multipart/mixed; boundary=\"graphql\"; subscriptionSpec=1.0, application/json")
+      XCTAssertEqual(header, "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json")
       expectation.fulfill()
     }
 
@@ -261,7 +261,7 @@ class RequestChainTests: XCTestCase {
         return
       }
 
-      XCTAssertEqual(header, "multipart/mixed; boundary=\"graphql\"; subscriptionSpec=1.0, application/json")
+      XCTAssertEqual(header, "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json")
       XCTAssertNotNil(request.allHTTPHeaderFields?["Random"])
       expectation.fulfill()
     }
