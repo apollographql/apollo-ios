@@ -14,11 +14,6 @@
   "testTargets" : [
     {
       "parallelizable" : true,
-      "skippedTests" : [
-        "GraphQLFileTests",
-        "MultipartFormDataTests",
-        "StoreConcurrencyTests"
-      ],
       "target" : {
         "containerPath" : "container:Apollo.xcodeproj",
         "identifier" : "9FC7504D1D2A532D00458D91",

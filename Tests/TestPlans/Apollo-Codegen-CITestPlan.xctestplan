@@ -14,9 +14,6 @@
   "testTargets" : [
     {
       "parallelizable" : true,
-      "skippedTests" : [
-        "URLDownloaderTests\/testDownloader_withCorrectResponse_shouldNotThrow()"
-      ],
       "target" : {
         "containerPath" : "container:Apollo.xcodeproj",
         "identifier" : "9BAEEBFB234BB8FD00808306",
