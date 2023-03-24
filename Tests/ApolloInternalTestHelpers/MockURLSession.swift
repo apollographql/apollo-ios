@@ -70,4 +70,6 @@ private final class URLSessionDataTaskMock: URLSessionDataTask, URLSessionDataTa
   override func resume() {
     // No-op
   }
+
+  override func cancel() {}
 }
