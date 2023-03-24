@@ -44,11 +44,10 @@ open class MockSubscription<SelectionSet: RootSelectionSet>: MockOperation<Selec
 // MARK: - MockSelectionSets
 
 @dynamicMemberLookup
-open class AbstractMockSelectionSet<F>: RootSelectionSet, Hashable {
-  public typealias Schema = MockSchemaMetadata
+open class AbstractMockSelectionSet<F, S: SchemaMetadata>: RootSelectionSet, Hashable {
+  public typealias Schema = S
   public typealias Fragments = F
 
-  open class var __schema: SchemaMetadata.Type { MockSchemaMetadata.self }
   open class var __selections: [Selection] { [] }
   open class var __parentType: ParentType { Object.mock }
 
@@ -75,7 +74,7 @@ open class AbstractMockSelectionSet<F>: RootSelectionSet, Hashable {
   }
 }
 
-public typealias MockSelectionSet = AbstractMockSelectionSet<NoFragments>
+public typealias MockSelectionSet = AbstractMockSelectionSet<NoFragments, MockSchemaMetadata>
 
 open class MockFragment: MockSelectionSet, Fragment {
   public typealias Schema = MockSchemaMetadata

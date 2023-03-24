@@ -2,6 +2,7 @@ import XCTest
 import Nimble
 @testable import Apollo
 import ApolloTestSupport
+import ApolloInternalTestHelpers
 import ApolloAPI
 
 class TestMockTests: XCTestCase {
@@ -319,24 +320,160 @@ class TestMockTests: XCTestCase {
     expect(mocks).to(equal(Set([mock1, mock2, mock3])))
   }
 
+  // MARK: - Selection Set Conversion Tests
+
+  func test__givenSelectionSetWithVariableForInclusionCondition_isTrue_canAccessConditionalField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .include(if: "a", .inlineFragment(IfA.self)),
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      class IfA: TestMockSchema.ConcreteMockTypeCase<Animal> {        
+        override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+        override class var __selections: [Selection] {[
+          .field("species", String.self),
+        ]}
+
+        var species: String { __data["species"] }
+      }
+    }
+
+    // when
+    let dog = Mock<Dog>()
+    dog.species = "Canine"
+
+    let selectionSet = Animal.from(dog, withVariables: ["a": true])
+
+    // then
+    expect(selectionSet.ifA?.species).to(equal("Canine"))
+  }
+
+  func test__givenSelectionSetWithVariableForInclusionCondition_isFalse_canNotAccessConditionalField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .include(if: "a", .inlineFragment(IfA.self)),
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      class IfA: TestMockSchema.ConcreteMockTypeCase<Animal> {
+        override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+        override class var __selections: [Selection] {[
+          .field("species", String.self),
+        ]}
+
+        var species: String { __data["species"] }
+      }
+    }
+
+    // when
+    let dog = Mock<Dog>()
+    dog.species = "Canine"
+
+    let selectionSet = Animal.from(dog, withVariables: ["a": false])
+
+    // then
+    expect(selectionSet.ifA).to(beNil())
+  }
+
+  func test__givenSelectionSetWithTypeCondition_canConvert_canAccessConditionalField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .inlineFragment(AsDog.self),
+      ]}
+
+      var asDog: AsDog? { _asInlineFragment() }
+
+      class AsDog: TestMockSchema.ConcreteMockTypeCase<Animal> {
+        override class var __parentType: ParentType { TestMockSchema.Types.Dog }
+        override class var __selections: [Selection] {[
+          .field("species", String.self),
+        ]}
+
+        var species: String { __data["species"] }
+      }
+    }
+
+    // when
+    let dog = Mock<Dog>()
+    dog.species = "Canine"
+
+    let selectionSet = Animal.from(dog)
+
+    // then
+    expect(selectionSet.asDog?.species).to(equal("Canine"))
+  }
+
+  func test__givenSelectionSetWithTypeCondition_canNotConvert_canNotAccessConditionalField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .inlineFragment(AsDog.self),
+      ]}
+
+      var asDog: AsDog? { _asInlineFragment() }
+
+      class AsDog: TestMockSchema.ConcreteMockTypeCase<Animal> {
+        override class var __parentType: ParentType { TestMockSchema.Types.Dog }
+        override class var __selections: [Selection] {[
+          .field("species", String.self),
+        ]}
+
+        var species: String { __data["species"] }
+      }
+    }
+
+    // when
+    let cat = Mock<Cat>()
+    cat.species = "Feline"
+
+    let selectionSet = Animal.from(cat)
+
+    // then
+    expect(selectionSet.asDog).to(beNil())
+  }
 }
 
 // MARK: - Generated Example
 
 // MARK: Generated Schema
-enum TestMockSchema: SchemaConfiguration {
-  static func objectType(forTypename typename: String) -> Object? {
-    return nil
+enum TestMockSchema: SchemaMetadata {
+  typealias MockSelectionSet = AbstractMockSelectionSet<NoFragments, TestMockSchema>
+  open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFragment {
+    public typealias RootEntityType = T
   }
 
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
-    return nil
+  static func objectType(forTypename typename: String) -> Object? {
+    switch typename {
+    case Types.Dog.typename: return Types.Dog
+    case Types.Cat.typename: return Types.Cat
+    case Types.Height.typename: return Types.Height
+    default: return nil
+    }
+  }
+
+  static var configuration: SchemaConfiguration.Type { Configuration.self }
+
+  enum Configuration: SchemaConfiguration {
+    static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      return nil
+    }
   }
 
   struct Interfaces {
     static let Animal = Interface(name: "Animal")
   }
   struct Types {
+    static let Query = Object(typename: "Query", implementedInterfaces: [])
     static let Dog = Object(
       typename: "Dog",
       implementedInterfaces: [TestMockSchema.Interfaces.Animal]

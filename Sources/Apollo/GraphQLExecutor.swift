@@ -245,6 +245,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   ) throws -> FieldSelectionGrouping {
     var grouping = FieldSelectionGrouping(info: info)
 
+    #warning("TODO: When executing on a selection set that isn't operation root. This will be wrong.")
     // Add __typename field to all selection sets other than the root of the operation.
     if !info.responsePath.isEmpty {
       grouping.append(field: .init("__typename", type: .scalar(String.self)), withInfo: info)
