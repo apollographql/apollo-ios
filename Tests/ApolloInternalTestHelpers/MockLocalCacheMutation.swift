@@ -29,7 +29,9 @@ public extension MockMutableRootSelectionSet {
   static var __parentType: ParentType { Object.mock }
 
   init() {
-    self.init(_dataDict: .empty())
+    self.init(_dataDict: DataDict(data: [
+      "__fulfilled": Set<ObjectIdentifier>([ObjectIdentifier(Self.self)])
+    ]))
   }
 }
 

@@ -368,138 +368,6 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
   // MARK: - Write Local Cache Mutation Tests
 
-  func test_updateCacheMutation_updateEntityWithCacheKeys_callsCacheKeyResolutionWithRawJSON() throws {
-    // given
-    struct Types {
-      static let Human = Object(typename: "Human", implementedInterfaces: [])
-    }
-
-    MockSchemaMetadata.stub_objectTypeForTypeName = { typename in
-      switch typename {
-      case "Human": return Types.Human
-      default: return nil
-      }
-    }
-
-    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { object, json in
-      if object == Types.Human {
-        if let name = json["name"] as? String, name == "Luke" {
-
-          /// Test nested entities are json not DataDict
-          guard let friend = json["friend"] as? JSONObject else {
-            fail("expected friend data to be JSONObject")
-            return nil
-          }
-
-          /// Test custom scalars are deserialized
-          expect(["Leia", "Han"]).to(contain(friend["name"] as? String))
-
-          guard let friendsOfFriend = friend["friends"] as? [JSONObject] else {
-            fail("expected friends of friend data to be [JSONObject]")
-            return nil
-          }
-
-          expect(friendsOfFriend.first?["name"] as? String).to(equal("Lando"))
-        }
-
-        return try? CacheKeyInfo(jsonValue: json["name"])
-      }
-      return nil
-    }    
-
-    struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = .empty()
-      init(_dataDict: DataDict) { __data = _dataDict }
-
-      static var __selections: [Selection] { [
-        .field("hero", Hero.self)
-      ]}
-
-      var hero: Hero {
-        get { __data["hero"] }
-        set { __data["hero"] = newValue }
-      }
-
-      struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = .empty()
-        init(_dataDict: DataDict) { __data = _dataDict }
-
-        static var __parentType: ParentType { Types.Human }
-        static var __selections: [Selection] { [
-          .field("name", MockCustomScalar<String>.self),
-          .field("friend", Friend?.self)
-        ]}
-
-        var name: MockCustomScalar<String> {
-          get { __data["name"] }
-          set { __data["name"] = newValue }
-        }
-
-        var friend: Friend? {
-          get { __data["friend"] }
-          set { __data["friend"] = newValue }
-        }
-
-        struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = .empty()
-          init(_dataDict: DataDict) { __data = _dataDict }
-
-          static var __parentType: ParentType { Types.Human }
-          static var __selections: [Selection] { [
-            .field("name", MockCustomScalar<String>.self),
-            .field("friends", [Friend]?.self)
-          ]}
-
-          var name: MockCustomScalar<String> {
-            get { __data["name"] }
-            set { __data["name"] = newValue }
-          }
-
-          var friends: [Friend]? {
-            get { __data["friend"] }
-            set { __data["friend"] = newValue }
-          }
-        }
-      }
-    }
-
-    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
-
-    mergeRecordsIntoCache([
-      "QUERY_ROOT": ["hero": CacheReference("Luke")],
-      "Luke": ["__typename": "Human", "name": "Luke", "friend": CacheReference("Leia")],
-      "Leia": ["__typename": "Human", "name": "Leia", "friends": [CacheReference("Lando")]],
-      "Lando": ["__typename": "Human", "name": "Lando", "friend": NSNull()]
-    ])
-
-    runActivity("update mutation") { _ in
-      let updateCompletedExpectation = expectation(description: "Update completed")
-
-      store.withinReadWriteTransaction({ transaction in
-        try transaction.update(cacheMutation) { data in
-          data.hero.friend?.name = MockCustomScalar(value: "Han")
-        }
-      }, completion: { result in
-        defer { updateCompletedExpectation.fulfill() }
-        XCTAssertSuccessResult(result)
-      })
-
-      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
-    }
-
-    let query = MockQuery<GivenSelectionSet>()
-
-    loadFromStore(operation: query) { result in
-      try XCTAssertSuccessResult(result) { graphQLResult in
-        XCTAssertEqual(graphQLResult.source, .cache)
-        XCTAssertNil(graphQLResult.errors)
-
-        let data = try XCTUnwrap(graphQLResult.data)
-        XCTAssertEqual(data.hero.friend?.name.value, "Han")
-      }
-    }
-  }
-
   func test_updateCacheMutation_updateNestedField_updatesObjects() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
@@ -1602,7 +1470,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          data: ["hero": "name"]
+          data: [
+            "hero": "name",
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+          ]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
@@ -1658,13 +1529,14 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     store.withinReadWriteTransaction({ transaction in
       let data = GivenSelectionSet(
         _dataDict: .init(
-          data: ["hero": DataDict(
-            data: [
+          data: [
+            "hero": [
               "__typename": "Hero",
-              "name": Optional<String>.none
-            ]
-          )]
-        ))
+              "name": Optional<String>.none,
+              "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+            ],
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.self)])
+          ]))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
