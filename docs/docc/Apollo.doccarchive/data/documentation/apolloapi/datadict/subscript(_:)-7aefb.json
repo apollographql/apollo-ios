@@ -291,12 +291,13 @@
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "text" : "A structure that wraps the underlying data used by ",
       "type" : "text"
     },
     {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "s.",
@@ -371,6 +372,37 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/subscript(_:)-7aefb"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selectionset"
 }
 }
 }

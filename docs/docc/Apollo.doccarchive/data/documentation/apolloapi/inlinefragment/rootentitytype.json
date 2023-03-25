@@ -1,50 +1,40 @@
 {
-  "abstract" : [
-    {
-      "text" : "Designated Initializer",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/init(data:)"
+    "url" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment\/RootEntityType"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI15AnySelectionSetP4dataxAA8DataDictV_tcfc",
+    "externalID" : "s:9ApolloAPI14InlineFragmentP14RootEntityTypeQa",
     "fragments" : [
       {
+        "kind" : "keyword",
+        "text" : "associatedtype"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
         "kind" : "identifier",
-        "text" : "init"
+        "text" : "RootEntityType"
       },
       {
         "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "data"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
+        "text" : " : "
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
-        "text" : "DataDict"
-      },
-      {
-        "kind" : "text",
-        "text" : ")"
+        "preciseIdentifier" : "s:9ApolloAPI16RootSelectionSetP",
+        "text" : "RootSelectionSet"
       }
     ],
     "modules" : [
@@ -54,9 +44,9 @@
     ],
     "required" : true,
     "role" : "symbol",
-    "roleHeading" : "Initializer",
-    "symbolKind" : "init",
-    "title" : "init(data:)"
+    "roleHeading" : "Associated Type",
+    "symbolKind" : "associatedtype",
+    "title" : "RootEntityType"
   },
   "primaryContentSections" : [
     {
@@ -71,61 +61,30 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "init"
+              "text" : "associatedtype"
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : " "
             },
             {
-              "kind" : "externalParam",
-              "text" : "data"
+              "kind" : "identifier",
+              "text" : "RootEntityType"
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
-              "text" : "DataDict"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
+              "preciseIdentifier" : "s:9ApolloAPI16RootSelectionSetP",
+              "text" : "RootSelectionSet"
             }
           ]
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The data of the underlying GraphQL object represented by generated",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "selection set.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "data"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -139,7 +98,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apolloapi\/anyselectionset\/init(data:)"
+        "\/documentation\/apolloapi\/inlinefragment\/rootentitytype"
       ],
       "traits" : [
         {
@@ -202,9 +161,20 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/InlineFragment": {
   "abstract" : [
-
+    {
+      "text" : "A selection set that represents an inline fragment nested inside a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -217,72 +187,81 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "InlineFragment"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "InlineFragment"
     }
   ],
   "role" : "symbol",
-  "title" : "AnySelectionSet",
+  "title" : "InlineFragment",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset"
+  "url" : "\/documentation\/apolloapi\/inlinefragment"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet/init(data:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/InlineFragment/RootEntityType": {
   "abstract" : [
-    {
-      "text" : "Designated Initializer",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
       "kind" : "identifier",
-      "text" : "init"
+      "text" : "RootEntityType"
     },
     {
       "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "data"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
+      "text" : " : "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
-      "text" : "DataDict"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "preciseIdentifier" : "s:9ApolloAPI16RootSelectionSetP",
+      "text" : "RootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet\/init(data:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment\/RootEntityType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "init(data:)",
+  "title" : "RootEntityType",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset\/init(data:)"
+  "url" : "\/documentation\/apolloapi\/inlinefragment\/rootentitytype"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
+"doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "text" : "A selection set that represents the root selections on its ",
       "type" : "text"
     },
     {
-      "code" : "SelectionSet",
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Nested selection",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "sets for type cases are not ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
       "type" : "codeVoice"
     },
     {
@@ -293,7 +272,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "struct"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -301,21 +280,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "DataDict"
+      "text" : "RootSelectionSet"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "DataDict"
+      "text" : "RootSelectionSet"
     }
   ],
   "role" : "symbol",
-  "title" : "DataDict",
+  "title" : "RootSelectionSet",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/datadict"
+  "url" : "\/documentation\/apolloapi\/rootselectionset"
 }
 }
 }

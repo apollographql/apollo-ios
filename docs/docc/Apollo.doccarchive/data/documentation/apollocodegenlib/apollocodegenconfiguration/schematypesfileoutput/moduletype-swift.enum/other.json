@@ -21,7 +21,7 @@
       "type" : "text"
     },
     {
-      "code" : "schemaName",
+      "code" : "schemaNamespace",
       "type" : "codeVoice"
     },
     {
@@ -308,7 +308,7 @@
       "type" : "text"
     },
     {
-      "code" : "schemaName",
+      "code" : "schemaNamespace",
       "type" : "codeVoice"
     },
     {

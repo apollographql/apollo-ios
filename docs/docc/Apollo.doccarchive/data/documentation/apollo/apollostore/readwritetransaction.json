@@ -106,7 +106,8 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/removeObjects(matching:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/update(_:_:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/updateObject(ofType:withKey:variables:_:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-9mzaz",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-y0jm",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(selectionSet:withKey:variables:)"
       ],
       "title" : "Instance Methods"
@@ -613,7 +614,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/updateobject(oftype:withkey:variables:_:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)-9mzaz": {
   "abstract" : [
 
   ],
@@ -687,12 +688,93 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-9mzaz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "write(data:for:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)"
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-9mzaz"
+},
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)-y0jm": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "write"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "data"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "for"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-y0jm",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "write(data:for:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-y0jm"
 },
 "doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(selectionSet:withKey:variables:)": {
   "abstract" : [
