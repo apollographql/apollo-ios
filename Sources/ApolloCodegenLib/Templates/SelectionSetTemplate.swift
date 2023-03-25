@@ -445,9 +445,16 @@ struct SelectionSetTemplate {
   private func InitializerDataDictFieldTemplate(
     _ field: IR.Field
   ) -> TemplateString {
-    """
+    let isEntityField: Bool = {
+      switch field.type.innerType {
+      case .entity: return true
+      default: return false
+      }
+    }()
+
+    return """
     "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
-    \(if: field is IR.EntityField, "._fieldData")
+    \(if: isEntityField, "._fieldData")
     """
   }
 
