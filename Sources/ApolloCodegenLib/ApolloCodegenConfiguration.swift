@@ -567,28 +567,51 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// method should only be used if you are manually persisting your queries to an Apollo Server.
     case persistedOperationsOnly
   }
-
-  #warning("TODO: Inline Documentation")
-  #warning("TODO: Usage Docs")
+  
+  /// The ``SelectionSetInitializers`` configuration is used to determine if you would like
+  /// initializers to be generated for your generated selection set models.
+  ///
+  /// There are three categories of selection set models that initializers can be generated for:
+  /// - Operations
+  /// - Named fragments
+  /// - Local cache mutations
+  ///
+  /// By default, initializers are only generated for local cache mutations.
+  ///
+  /// ``SelectionSetInitializers`` functions like an `OptionSet`, allowing you to combine multiple
+  /// different instances together to indicate all the types you would like to generate
+  /// initializers for.
   public struct SelectionSetInitializers: Codable, Equatable, ExpressibleByArrayLiteral {
     private var options: SelectionSetInitializers.Options
     private var definitions: Set<String>
 
+    /// Option to generate initializers for all named fragments.
     public static let namedFragments: SelectionSetInitializers = .init(.namedFragments)
-    public static let localCacheMutations: SelectionSetInitializers = .init(.localCacheMutations)
+
+    /// Option to generate initializers for all operations (queries, mutations, subscriptions)
+    /// that are not local cache mutations.
     public static let operations: SelectionSetInitializers = .init(.operations)
+
+    /// Option to generate initializers for all local cache mutations.
+    public static let localCacheMutations: SelectionSetInitializers = .init(.localCacheMutations)
+
+    /// Option to generate initializers for all models.
+    /// This includes named fragments, operations, and local cache mutations.
     public static let all: SelectionSetInitializers = [
-      .namedFragments, .localCacheMutations, .operations
+      .namedFragments, .operations, .localCacheMutations
     ]
 
+    /// An option to generate initializers for a single operation with a given name.
     public static func operation(named: String) -> SelectionSetInitializers {
       .init(definitionName: named)
     }
 
+    /// An option to generate initializers for a single fragment with a given name.
     public static func fragment(named: String) -> SelectionSetInitializers {
       .init(definitionName: named)
     }
 
+    /// Initializes a `SelectionSetInitializer` with an array of values.
     public init(arrayLiteral elements: SelectionSetInitializers...) {
       guard var options = elements.first else {
         self.options = []
@@ -601,6 +624,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self = options
     }
 
+    /// Inserts a `SelectionSetInitializer` into the receiver.
     public mutating func insert(_ member: SelectionSetInitializers) {
       self.options = self.options.union(member.options)
       self.definitions = self.definitions.union(member.definitions)

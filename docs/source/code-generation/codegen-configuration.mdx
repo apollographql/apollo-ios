@@ -424,6 +424,7 @@ The top-level properties are:
 | [`queryStringLiteralFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/querystringliteralformat) | Formatting of the GraphQL query string literal that is included in each generated operation object. |
 | [`deprecatedEnumCases`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/deprecatedenumcases) | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`schemaDocumentation`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/schemadocumentation) | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
+| [`selectionSetInitializers`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/selectionsetinitializers) | Generate initializers for your generated selection set models. |
 | [`apqs`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/apqs) | Whether the generated operations should use Automatic Persisted Queries. |
 | [`cocoapodsCompatibleImportStatements`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/cocoapodscompatibleimportstatements) | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
 | [`warningsOnDeprecatedUsage`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/warningsondeprecatedusage) | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
@@ -443,6 +444,15 @@ The top-level properties are:
 	"queryStringLiteralFormat": "multiline",
 	"deprecatedEnumCases": "include",
 	"schemaDocumentation": "include",
+	"selectionSetInitializers" : {
+		"operations": false,
+		"namedFragments": false,
+		"localCacheMutations" : true,
+		"definitionsNamed": [
+			"MyOperation",
+			"MyFragment"
+		]
+	},
 	"apqs": "disabled",
 	"cocoapodsCompatibleImportStatements": false,
 	"warningsOnDeprecatedUsage": "include",
@@ -466,6 +476,11 @@ let configuration = ApolloCodegenConfiguration(
 		queryStringLiteralFormat: .multiline,
 		deprecatedEnumCases: .include,
 		schemaDocumentation: .include,
+		selectionSetInitializers: [
+			.localCacheMutations,
+			.operation(named: "MyOperation"),
+			.fragment(named: "MyFragment)
+		],
 		apqs: .disabled,
 		cocoapodsCompatibleImportStatements: false,
 		warningsOnDeprecatedUsage: .include,
