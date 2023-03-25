@@ -37,11 +37,17 @@ class ParsingPerformanceTests: XCTestCase {
 
   // MARK - Helpers
 
-  func loadResponse<Query: GraphQLQuery>(for query: Query, file: StaticString = #file, line: UInt = #line) throws -> GraphQLResponse<Query.Data> {
+  func loadResponse<Query: GraphQLQuery>(
+    for query: Query,
+    file: StaticString = #file,
+    line: UInt = #line
+  ) throws -> GraphQLResponse<Query.Data> {
     let bundle = Bundle(for: type(of: self))
 
     guard let url = bundle.url(forResource: Query.operationName, withExtension: "json") else {
-      throw XCTFailure("Missing response file for query: \(Query.operationName)", file: file, line: line)
+      throw XCTFailure("Missing response file for query: \(Query.operationName)",
+                       file: file,
+                       line: line)
     }
 
     let data = try Data(contentsOf: url)

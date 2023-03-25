@@ -31,6 +31,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
+      generateInitializers: false,
       config: ApolloCodegen.ConfigurationContext(config: .mock())
     )
   }
@@ -60,7 +61,7 @@ class SelectionSetTemplate_RenderOperation_Tests: XCTestCase {
     let expected = """
     public struct Data: TestSchema.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
     """

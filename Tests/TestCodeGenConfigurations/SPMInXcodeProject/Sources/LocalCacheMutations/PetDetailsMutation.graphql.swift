@@ -15,10 +15,11 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     """ }
 
   public var __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("owner", Owner?.self),
   ] }
 
@@ -27,21 +28,47 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     set { __data["owner"] = newValue }
   }
 
+  public init(
+    __typename: String,
+    owner: Owner? = nil
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "owner": owner._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
+  }
+
   /// Owner
   ///
   /// Parent Type: `Human`
   public struct Owner: AnimalKingdomAPI.MutableSelectionSet {
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("firstName", String.self),
     ] }
 
     public var firstName: String {
       get { __data["firstName"] }
       set { __data["firstName"] = newValue }
+    }
+
+    public init(
+      firstName: String
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Human.typename,
+        "firstName": firstName,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
     }
   }
 }

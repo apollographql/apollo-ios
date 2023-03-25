@@ -27,7 +27,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
   public struct Data: MyCustomProject.MutableSelectionSet {
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -39,15 +39,28 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       set { __data["pets"] = newValue }
     }
 
+    public init(
+      pets: [Pet]
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": MyCustomProject.Objects.Query.typename,
+        "pets": pets._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
+
     /// Pet
     ///
     /// Parent Type: `Pet`
     public struct Pet: MyCustomProject.MutableSelectionSet {
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("id", MyCustomProject.ID.self),
         .field("humanName", String?.self),
       ] }
@@ -59,6 +72,21 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
       public var humanName: String? {
         get { __data["humanName"] }
         set { __data["humanName"] = newValue }
+      }
+
+      public init(
+        __typename: String,
+        id: MyCustomProject.ID,
+        humanName: String? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "id": id,
+          "humanName": humanName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

@@ -265,6 +265,8 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
 
     expected = (
       fields: [
+        .mock("predators",
+              type: .nonNull(.list(.nonNull(.entity(.mock("Animal")))))),
         .mock("laysEggs",
               type: .nonNull(.scalar(GraphQLScalarType.boolean()))),
       ],

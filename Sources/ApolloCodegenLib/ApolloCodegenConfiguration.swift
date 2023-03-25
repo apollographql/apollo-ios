@@ -248,15 +248,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// No module will be created for the generated schema types.
       ///
       /// - Note: Generated files must be manually added to your application target. The generated
-      /// schema types files will be namespaced with the value of your configuration's `schemaName`
-      /// to prevent naming conflicts.
+      /// schema types files will be namespaced with the value of your configuration's
+      /// `schemaNamespace` to prevent naming conflicts.
       case embeddedInTarget(name: String)
       /// Generates a `Package.swift` file that is suitable for linking the generated schema types
       /// files to your project using Swift Package Manager.
       case swiftPackageManager
       /// No module will be created for the generated types and you are required to create the
       /// module to support your preferred dependency manager. You must specify the name of the
-      /// module you will create in the `schemaName` property as this will be used in `import`
+      /// module you will create in the `schemaNamespace` property as this will be used in `import`
       /// statements of generated operation files.
       ///
       /// Use this option for dependency managers, such as CocoaPods. Example usage would be to 
@@ -295,7 +295,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// test target using Swift Package Manager.
     ///
     /// The name of the test mock target can be specified with the `targetName` value.
-    /// If no target name is provided, the target name defaults to "\(schemaName)TestMocks".
+    /// If no target name is provided, the target name defaults to "\(schemaNamespace)TestMocks".
     ///
     /// - Note: This requires your `SchemaTypesFileOutput.ModuleType` to be `.swiftPackageManager`.
     /// If this option is provided without the `.swiftPackageManager` module type, code generation
@@ -314,6 +314,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let deprecatedEnumCases: Composition
     /// Whether schema documentation is added to the generated files.
     public let schemaDocumentation: Composition
+    /// Which generated selection sets should include generated initializers.
+    public let selectionSetInitializers: SelectionSetInitializers
     /// Whether the generated operations should use Automatic Persisted Queries.
     ///
     /// See `APQConfig` for more information on Automatic Persisted Queries.
@@ -361,6 +363,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let queryStringLiteralFormat: QueryStringLiteralFormat = .multiline
       public static let deprecatedEnumCases: Composition = .include
       public static let schemaDocumentation: Composition = .include
+      public static let selectionSetInitializers: SelectionSetInitializers = [.localCacheMutations]
       public static let apqs: APQConfig = .disabled
       public static let cocoapodsCompatibleImportStatements: Bool = false
       public static let warningsOnDeprecatedUsage: Composition = .include
@@ -377,6 +380,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  included in each generated operation object.
     ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
+    ///  - selectionSetInitializers: Which generated selection sets should include
+    ///    generated initializers.
     ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
     ///  - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
     ///    including `Apollo` via Cocoapods.
@@ -391,6 +396,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       queryStringLiteralFormat: QueryStringLiteralFormat = Default.queryStringLiteralFormat,
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
       schemaDocumentation: Composition = Default.schemaDocumentation,
+      selectionSetInitializers: SelectionSetInitializers = Default.selectionSetInitializers,
       apqs: APQConfig = Default.apqs,
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
@@ -401,6 +407,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.queryStringLiteralFormat = queryStringLiteralFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
+      self.selectionSetInitializers = selectionSetInitializers
       self.apqs = apqs
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
@@ -415,6 +422,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case queryStringLiteralFormat
       case deprecatedEnumCases
       case schemaDocumentation
+      case selectionSetInitializers
       case apqs
       case cocoapodsCompatibleImportStatements
       case warningsOnDeprecatedUsage
@@ -444,6 +452,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         Composition.self,
         forKey: .schemaDocumentation
       ) ?? Default.schemaDocumentation
+
+      selectionSetInitializers = try values.decodeIfPresent(
+        SelectionSetInitializers.self,
+        forKey: .selectionSetInitializers
+      ) ?? Default.selectionSetInitializers
 
       apqs = try values.decodeIfPresent(
         APQConfig.self,
@@ -554,6 +567,69 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// method should only be used if you are manually persisting your queries to an Apollo Server.
     case persistedOperationsOnly
   }
+  
+  /// The ``SelectionSetInitializers`` configuration is used to determine if you would like
+  /// initializers to be generated for your generated selection set models.
+  ///
+  /// There are three categories of selection set models that initializers can be generated for:
+  /// - Operations
+  /// - Named fragments
+  /// - Local cache mutations
+  ///
+  /// By default, initializers are only generated for local cache mutations.
+  ///
+  /// ``SelectionSetInitializers`` functions like an `OptionSet`, allowing you to combine multiple
+  /// different instances together to indicate all the types you would like to generate
+  /// initializers for.
+  public struct SelectionSetInitializers: Codable, Equatable, ExpressibleByArrayLiteral {
+    private var options: SelectionSetInitializers.Options
+    private var definitions: Set<String>
+
+    /// Option to generate initializers for all named fragments.
+    public static let namedFragments: SelectionSetInitializers = .init(.namedFragments)
+
+    /// Option to generate initializers for all operations (queries, mutations, subscriptions)
+    /// that are not local cache mutations.
+    public static let operations: SelectionSetInitializers = .init(.operations)
+
+    /// Option to generate initializers for all local cache mutations.
+    public static let localCacheMutations: SelectionSetInitializers = .init(.localCacheMutations)
+
+    /// Option to generate initializers for all models.
+    /// This includes named fragments, operations, and local cache mutations.
+    public static let all: SelectionSetInitializers = [
+      .namedFragments, .operations, .localCacheMutations
+    ]
+
+    /// An option to generate initializers for a single operation with a given name.
+    public static func operation(named: String) -> SelectionSetInitializers {
+      .init(definitionName: named)
+    }
+
+    /// An option to generate initializers for a single fragment with a given name.
+    public static func fragment(named: String) -> SelectionSetInitializers {
+      .init(definitionName: named)
+    }
+
+    /// Initializes a `SelectionSetInitializer` with an array of values.
+    public init(arrayLiteral elements: SelectionSetInitializers...) {
+      guard var options = elements.first else {
+        self.options = []
+        self.definitions = []
+        return
+      }
+      for element in elements.suffix(from: 1) {
+        options.insert(element)
+      }
+      self = options
+    }
+
+    /// Inserts a `SelectionSetInitializer` into the receiver.
+    public mutating func insert(_ member: SelectionSetInitializers) {
+      self.options = self.options.union(member.options)
+      self.definitions = self.definitions.union(member.definitions)
+    }
+  }
 
   public struct ExperimentalFeatures: Codable, Equatable {
     /**
@@ -627,7 +703,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   // MARK: - Properties
 
   /// Name used to scope the generated schema type files.
-  public let schemaName: String
+  public let schemaNamespace: String
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
@@ -657,20 +733,20 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// Designated initializer.
   ///
   /// - Parameters:
-  ///  - schemaName: Name used to scope the generated schema type files.
+  ///  - schemaNamespace: Name used to scope the generated schema type files.
   ///  - input: The input files required for code generation.
   ///  - output: The paths and files output by code generation.
   ///  - options: Rules and options to customize the generated code.
   ///  - experimentalFeatures: Allows users to enable experimental features.
   public init(
-    schemaName: String,
+    schemaNamespace: String,
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
     schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
   ) {
-    self.schemaName = schemaName
+    self.schemaNamespace = schemaNamespace
     self.input = input
     self.output = output
     self.options = options
@@ -683,6 +759,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   enum CodingKeys: CodingKey {
     case schemaName
+    case schemaNamespace
     case input
     case output
     case options
@@ -690,10 +767,42 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case schemaDownloadConfiguration
   }
 
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(self.schemaNamespace, forKey: .schemaNamespace)
+    try container.encode(self.input, forKey: .input)
+    try container.encode(self.output, forKey: .output)
+    try container.encode(self.options, forKey: .options)
+    try container.encode(experimentalFeatures, forKey: .experimentalFeatures)
+
+    if let schemaDownloadConfiguration {
+      try container.encode(schemaDownloadConfiguration, forKey: .schemaDownloadConfiguration)
+    }
+  }
+
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+
+    func getSchemaNamespaceValue() throws -> String {
+      if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
+        return value
+      }
+      if let value = try values.decodeIfPresent(String.self, forKey: .schemaName) {
+        return value
+      }
+
+      throw DecodingError.keyNotFound(
+        CodingKeys.schemaNamespace,
+        .init(
+          codingPath: [CodingKeys.schemaNamespace],
+          debugDescription: "Cannot find value for 'schemaNamespace' key"
+        )
+      )
+    }
+
     self.init(
-      schemaName: try values.decode(String.self, forKey: .schemaName),
+      schemaNamespace: try getSchemaNamespaceValue(),
       input: try values.decode(FileInput.self, forKey: .input),
       output: try values.decode(FileOutput.self, forKey: .output),
       options: try values.decodeIfPresent(
@@ -731,5 +840,143 @@ extension ApolloCodegenConfiguration.OperationsFileOutput {
     case .inSchemaModule: return true
     case .absolute, .relative: return false
     }
+  }
+}
+
+extension ApolloCodegenConfiguration.OutputOptions {
+  /// Determine whether the operations files are output to the schema types module.
+  func shouldGenerateSelectionSetInitializers(for operation: IR.Operation) -> Bool {
+    switch operation.definition.isLocalCacheMutation {
+    case true where selectionSetInitializers.contains(.localCacheMutations):
+      return true
+
+    case false where selectionSetInitializers.contains(.operations):
+      return true
+
+    default:
+      return selectionSetInitializers.contains(definitionNamed: operation.definition.name)
+    }
+  }
+
+  /// Determine whether the operations files are output to the schema types module.
+  func shouldGenerateSelectionSetInitializers(for fragment: IR.NamedFragment) -> Bool {
+    if selectionSetInitializers.contains(.namedFragments) { return true }
+
+    if fragment.definition.isLocalCacheMutation &&
+        selectionSetInitializers.contains(.localCacheMutations) {
+      return true
+    }
+
+    return selectionSetInitializers.contains(definitionNamed: fragment.definition.name)
+  }
+}
+
+// MARK: - SelectionSetInitializers - Private Implementation
+extension ApolloCodegenConfiguration.SelectionSetInitializers {
+  struct Options: OptionSet, Codable, Equatable {
+    let rawValue: Int
+    static let localCacheMutations = Options(rawValue: 1 << 0)
+    static let namedFragments      = Options(rawValue: 1 << 1)
+    static let operations          = Options(rawValue: 1 << 2)
+  }
+
+  private init(_ options: Options) {
+    self.options = options
+    self.definitions = []
+  }
+
+  private init(definitionName: String) {
+    self.options = []
+    self.definitions = [definitionName]
+  }
+
+  func contains(_ options: Self.Options) -> Bool {
+    self.options.contains(options)
+  }
+
+  func contains(definitionNamed definitionName: String) -> Bool {
+    self.definitions.contains(definitionName)
+  }
+
+  // MARK: Codable
+
+  enum CodingKeys: CodingKey {
+    case operations
+    case namedFragments
+    case localCacheMutations
+    case definitionsNamed
+  }
+
+  public init(from decoder: Decoder) throws {
+    let values = try decoder.container(keyedBy: CodingKeys.self)
+    var options: Options = []
+
+    func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
+      if let value = try values.decodeIfPresent(Bool.self, forKey: key), value {
+        options.insert(option())
+      }
+    }
+
+    try decode(option: .operations, forKey: .operations)
+    try decode(option: .namedFragments, forKey: .namedFragments)
+    try decode(option: .localCacheMutations, forKey: .localCacheMutations)
+
+    self.options = options
+    self.definitions = try values.decodeIfPresent(
+      Set<String>.self,
+      forKey: .definitionsNamed) ?? []
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    func encodeIfPresent(option: Options, forKey key: CodingKeys) throws {
+      if options.contains(option) {
+        try container.encode(true, forKey: key)
+      }
+    }
+
+    try encodeIfPresent(option: .operations, forKey: .operations)
+    try encodeIfPresent(option: .namedFragments, forKey: .namedFragments)
+    try encodeIfPresent(option: .localCacheMutations, forKey: .localCacheMutations)
+
+    if !definitions.isEmpty {
+      try container.encode(definitions.sorted(), forKey: .definitionsNamed)
+    }
+  }
+}
+
+// MARK: - Deprecations
+
+extension ApolloCodegenConfiguration {
+  /// Name used to scope the generated schema type files.
+  @available(*, deprecated, renamed: "schemaNamespace")
+  public var schemaName: String { schemaNamespace }
+
+  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+  /// instead.
+  ///
+  /// - Parameters:
+  ///  - schemaName: Name used to scope the generated schema type files.
+  ///  - input: The input files required for code generation.
+  ///  - output: The paths and files output by code generation.
+  ///  - options: Rules and options to customize the generated code.
+  ///  - experimentalFeatures: Allows users to enable experimental features.
+  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
+  public init(
+    schemaName: String,
+    input: FileInput,
+    output: FileOutput,
+    options: OutputOptions = Default.options,
+    experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+  ) {
+    self.init(
+      schemaNamespace: schemaName,
+      input: input,
+      output: output,
+      options: options,
+      experimentalFeatures: experimentalFeatures,
+      schemaDownloadConfiguration: schemaDownloadConfiguration)
   }
 }

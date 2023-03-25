@@ -13,10 +13,11 @@ public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .fragment(CharacterName.self),
     .fragment(DroidPrimaryFunction.self),
   ] }
@@ -28,9 +29,25 @@ public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
 
   public struct Fragments: FragmentContainer {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public var characterName: CharacterName { _toFragment() }
     public var droidPrimaryFunction: DroidPrimaryFunction { _toFragment() }
+  }
+
+  public init(
+    primaryFunction: String? = nil,
+    name: String
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": StarWarsAPI.Objects.Droid.typename,
+      "primaryFunction": primaryFunction,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self),
+        ObjectIdentifier(CharacterName.self),
+        ObjectIdentifier(DroidPrimaryFunction.self)
+      ])
+    ]))
   }
 }

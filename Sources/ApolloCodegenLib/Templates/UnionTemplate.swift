@@ -30,7 +30,7 @@ struct UnionTemplate: TemplateRenderer {
     _ type: GraphQLObjectType
   ) -> TemplateString {
     """
-    \(if: !config.output.schemaTypes.isInModule, "\(config.schemaName.firstUppercased).")\
+    \(if: !config.output.schemaTypes.isInModule, "\(config.schemaNamespace.firstUppercased).")\
     Objects.\(type.name.firstUppercased).self
     """
   }

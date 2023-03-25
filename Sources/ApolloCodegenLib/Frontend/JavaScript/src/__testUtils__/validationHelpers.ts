@@ -7,7 +7,7 @@ const disallowedFieldNames: DisallowedFieldNames = {
 }
 
 export const emptyValidationOptions: ValidationOptions = {
-  schemaName: "TestSchema",
+  schemaNamespace: "TestSchema",
   disallowedFieldNames: disallowedFieldNames,
   disallowedInputParameterNames: [],
 };

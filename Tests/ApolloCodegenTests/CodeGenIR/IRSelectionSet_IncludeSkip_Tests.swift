@@ -1773,30 +1773,32 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let allAnimals = self.subject[field: "allAnimals"]
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a")]),
       ],
       mergedSelections: [
-        .inlineFragment(parentType: Interface_Animal,
-                              inclusionConditions: [.include(if: "a")]),
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")])
       ],
-      mergedSources: []
+      mergedSources: [
+        .mock(allAnimals)
+      ]
     )
 
     let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
-      mergedSelections: [
-        .field("a", type: .nonNull(.scalar(.string()))),
+      directSelections: [
         .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+      ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -1911,30 +1913,32 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let allAnimals = self.subject[field: "allAnimals"]
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a")]),
       ],
       mergedSelections: [
-        .inlineFragment(parentType: Interface_Animal,
-                              inclusionConditions: [.include(if: "a")]),
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
-      mergedSources: []
+      mergedSources: [
+        .mock(allAnimals)
+      ]
     )
 
     let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
-      mergedSelections: [
-        .field("a", type: .nonNull(.scalar(.string()))),
+      directSelections: [
         .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+      ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -1977,53 +1981,49 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
 
     let allAnimals = self.subject[field: "allAnimals"]
-    let fragmentASpread: ShallowSelectionMatcher = .fragmentSpread(
-      FragmentA,
-      inclusionConditions: AnyOf([
-        .init(.include(if: "a")),
-        .init(.include(if: "b"))
-      ]))
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        fragmentASpread
-      ],
-      mergedSelections: [
         .inlineFragment(parentType: Interface_Animal,
                         inclusionConditions: [.include(if: "a")]),
         .inlineFragment(parentType: Interface_Animal,
                         inclusionConditions: [.include(if: "b")]),
       ],
-      mergedSources: []
+      mergedSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "b")])
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+      ]
     )
 
     let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")])
+      ],
       mergedSelections: [
         .field("a", type: .nonNull(.scalar(.string()))),
-        fragmentASpread
       ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
       ]
     )
 
     let expected_allAnimal_ifB = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "b")],
-      directSelections: nil,
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "b")])
+      ],
       mergedSelections: [
         .field("a", type: .nonNull(.scalar(.string()))),
-        fragmentASpread
       ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "b"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -2066,54 +2066,49 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     let FragmentA = try XCTUnwrap(ir.compilationResult[fragment: "FragmentA"])
 
     let allAnimals = self.subject[field: "allAnimals"]
-    let fragmentASpread: ShallowSelectionMatcher = .fragmentSpread(
-      FragmentA,
-      inclusionConditions: AnyOf([
-        try .allOf([IR.InclusionCondition.include(if: "a"),
-                    IR.InclusionCondition.include(if: "b")]).conditions.xctUnwrapped(),
-        .init(.include(if: "c"))
-      ]))
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        fragmentASpread
-      ],
-      mergedSelections: [
         .inlineFragment(parentType: Interface_Animal,
                         inclusionConditions: [.include(if: "a"), .include(if: "b")]),
         .inlineFragment(parentType: Interface_Animal,
                         inclusionConditions: [.include(if: "c")]),
       ],
-      mergedSources: []
+      mergedSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "c")])
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+      ]
     )
 
     let expected_allAnimal_ifAAndB = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a"), .include(if: "b")],
-      directSelections: nil,
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a"), .include(if: "b")])
+      ],
       mergedSelections: [
         .field("a", type: .nonNull(.scalar(.string()))),
-        fragmentASpread
       ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a" && "b"]?[fragment: "FragmentA"]),
       ]
     )
 
     let expected_allAnimal_ifC = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "c")],
-      directSelections: nil,
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "c")])
+      ],
       mergedSelections: [
         .field("a", type: .nonNull(.scalar(.string()))),
-        fragmentASpread
       ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "c"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -2163,34 +2158,36 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let allAnimals = self.subject[field: "allAnimals"]
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
-        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "a")]),
-      ],
-      mergedSelections: [
         .inlineFragment(parentType: Interface_Animal,
                               inclusionConditions: [.include(if: "a")]),
       ],
-      mergedSources: []
-    )
-
-    let expected_allAnimal_ifA = try SelectionSetMatcher(
-      parentType: Interface_Animal,
-      inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
       mergedSelections: [
-        .field("a", type: .nonNull(.scalar(.string()))),
-        .field("b", type: .nonNull(.scalar(.string()))),
         .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
         .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "a")]),
       ],
       mergedSources: [
         .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
-        .mock(allAnimals?[fragment: "FragmentB"]),
+      ]
+    )
+
+    let expected_allAnimal_ifA = try SelectionSetMatcher(
+      parentType: Interface_Animal,
+      inclusionConditions: [.include(if: "a")],
+      directSelections: [
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+        .fragmentSpread(FragmentB, inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+        .field("b", type: .nonNull(.scalar(.string()))),
+      ],
+      mergedSources: [
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentB"]),
       ]
     )
 
@@ -2242,30 +2239,33 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let allAnimals = self.subject[field: "allAnimals"]
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a")]),
         .inlineFragment(parentType: Interface_Pet),
       ],
       mergedSelections: [
-        .inlineFragment(parentType: Interface_Animal,
-                        inclusionConditions: [.include(if: "a")]),],
-      mergedSources: []
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+      ],
+      mergedSources: [
+        .mock(allAnimals),
+      ]
     )
 
     let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
-      mergedSelections: [
-        .field("a", type: .nonNull(.scalar(.string()))),
+      directSelections: [
         .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+      ],
       mergedSources: [
-        .mock(allAnimals?[fragment: "FragmentA"]),
-        .mock(allAnimals),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -2325,30 +2325,32 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
 
     let allAnimals = self.subject[field: "allAnimals"]
 
-    let expected_allAnimal = SelectionSetMatcher(
+    let expected_allAnimal = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
-        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.include(if: "a")]),
       ],
       mergedSelections: [
-        .inlineFragment(parentType: Interface_Animal,
-                              inclusionConditions: [.include(if: "a")]),
+        .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
-      mergedSources: []
+      mergedSources: [
+        .mock(allAnimals),
+      ]
     )
 
     let expected_allAnimal_ifA = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.include(if: "a")],
-      directSelections: nil,
-      mergedSelections: [
-        .field("a", type: .nonNull(.scalar(.string()))),
+      directSelections: [
         .fragmentSpread(FragmentA, inclusionConditions: [.include(if: "a")]),
       ],
+      mergedSelections: [
+        .field("a", type: .nonNull(.scalar(.string()))),
+      ],
       mergedSources: [
-        .mock(allAnimals),
-        .mock(allAnimals?[fragment: "FragmentA"]),
+        .mock(allAnimals?[if: "a"]?[fragment: "FragmentA"]),
       ]
     )
 
@@ -2546,21 +2548,23 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
       allAnimals[as: "WarmBlooded", if: "c"]?[fragment: "FragmentContainingChildFragment"]
     )
 
-    let expected_allAnimals = SelectionSetMatcher(
+    let expected_allAnimals = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: nil,
       directSelections: [
         .field("child", type: .nonNull(.entity(Object_Child))),
+        .inlineFragment(parentType: Interface_Animal,
+                        inclusionConditions: [.skip(if: "b")]),
         .inlineFragment(parentType: Interface_WarmBlooded,
                         inclusionConditions: [.include(if: "c")]),
+      ],
+      mergedSelections: [
         .fragmentSpread(ChildFragment.definition,
                         inclusionConditions: [.skip(if: "b")]),
       ],
-      mergedSelections: [
-        .inlineFragment(parentType: Interface_Animal,
-                        inclusionConditions: [.skip(if: "b")]),
-      ],
-      mergedSources: []
+      mergedSources: [
+        .mock(allAnimals),
+      ]
     )
 
     let expected_allAnimals_child = SelectionSetMatcher(
@@ -2576,11 +2580,12 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     let expected_allAnimals_ifB = try SelectionSetMatcher(
       parentType: Interface_Animal,
       inclusionConditions: [.skip(if: "b")],
-      directSelections: nil,
-      mergedSelections: [
-        .field("child", type: .nonNull(.entity(Object_Child))),
+      directSelections: [
         .fragmentSpread(ChildFragment.definition,
                         inclusionConditions: [.skip(if: "b")])
+      ],
+      mergedSelections: [
+        .field("child", type: .nonNull(.entity(Object_Child))),
       ],
       mergedSources: [
         .mock(allAnimals),
@@ -2889,8 +2894,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Interface_Animal = try XCTUnwrap(schema[interface: "Animal"])
     let Interface_Pet = try XCTUnwrap(schema[interface: "Pet"])
-    let FragmentB = try XCTUnwrap(ir.compilationResult[fragment: "FragB"])
     let FragmentG = try XCTUnwrap(ir.compilationResult[fragment: "FragG"])
     let allAnimals = self.subject[field: "allAnimals"]
 
@@ -2924,10 +2929,10 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
           .mock("a", type: .string(), inclusionConditions: AnyOf(.include(if: "a"))),
         ],
         typeCases: [
+          .mock(parentType: Interface_Animal, inclusionConditions: [.include(if: "a")]),
           .mock(parentType: Interface_Pet, inclusionConditions: [.include(if: "a")])
         ],
         fragments: [
-          .mock(FragmentB, inclusionConditions: AnyOf(.include(if: "a")))
         ]),
       AnyOf(.include(if: "c")): (
         fields: [

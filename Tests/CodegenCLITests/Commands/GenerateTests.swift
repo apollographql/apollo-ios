@@ -206,7 +206,7 @@ class GenerateTests: XCTestCase {
   func test__generate__givenParameters_fetchTrue_whenNilSchemaDownloadConfiguration_shouldThrow() throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.init(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       input: .init(
         schemaPath: "./schema.graphqls"
       ),

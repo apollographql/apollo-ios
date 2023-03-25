@@ -35,7 +35,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -44,30 +44,57 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
     public var hero: Hero? { __data["hero"] }
 
+    public init(
+      hero: Hero? = nil
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "hero": hero._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
+
     /// Hero
     ///
     /// Parent Type: `Character`
     public struct Hero: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .include(if: "includeFriendsDetails", .field("friends", [Friend?]?.self)),
       ] }
 
       /// The friends of the character, or an empty list if they have none
       public var friends: [Friend?]? { __data["friends"] }
 
+      public init(
+        __typename: String,
+        friends: [Friend?]? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": __typename,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
       /// Hero.Friend
       ///
       /// Parent Type: `Character`
       public struct Friend: StarWarsAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("name", String.self),
           .inlineFragment(AsDroid.self),
         ] }
@@ -77,13 +104,27 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
         public var asDroid: AsDroid? { _asInlineFragment() }
 
+        public init(
+          __typename: String,
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+
         /// Hero.Friend.AsDroid
         ///
         /// Parent Type: `Droid`
         public struct AsDroid: StarWarsAPI.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
+          public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("primaryFunction", String?.self),
@@ -93,6 +134,21 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           public var primaryFunction: String? { __data["primaryFunction"] }
           /// The name of the character
           public var name: String { __data["name"] }
+
+          public init(
+            primaryFunction: String? = nil,
+            name: String
+          ) {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "primaryFunction": primaryFunction,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.Friend.self)
+              ])
+            ]))
+          }
         }
       }
     }

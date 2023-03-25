@@ -9,10 +9,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable
 A configuration object that defines behavior for code generation.
 
 ## Properties
-### `schemaName`
+### `schemaNamespace`
 
 ```swift
-public let schemaName: String
+public let schemaNamespace: String
 ```
 
 Name used to scope the generated schema type files.
@@ -61,11 +61,11 @@ public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
 Schema download configuration.
 
 ## Methods
-### `init(schemaName:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+### `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
 
 ```swift
 public init(
-  schemaName: String,
+  schemaNamespace: String,
   input: FileInput,
   output: FileOutput,
   options: OutputOptions = OutputOptions(),
@@ -77,7 +77,7 @@ public init(
 Designated initializer.
 
 - Parameters:
- - schemaName: Name used to scope the generated schema type files.
+ - schemaNamespace: Name used to scope the generated schema type files.
  - input: The input files required for code generation.
  - output: The paths and files output by code generation.
  - options: Rules and options to customize the generated code.

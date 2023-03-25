@@ -30,7 +30,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Subscription }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -39,15 +39,28 @@ public class ReviewAddedSubscription: GraphQLSubscription {
 
     public var reviewAdded: ReviewAdded? { __data["reviewAdded"] }
 
+    public init(
+      reviewAdded: ReviewAdded? = nil
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Subscription.typename,
+        "reviewAdded": reviewAdded._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
+
     /// ReviewAdded
     ///
     /// Parent Type: `Review`
     public struct ReviewAdded: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("episode", GraphQLEnum<StarWarsAPI.Episode>?.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),
@@ -59,6 +72,22 @@ public class ReviewAddedSubscription: GraphQLSubscription {
       public var stars: Int { __data["stars"] }
       /// Comment about the movie
       public var commentary: String? { __data["commentary"] }
+
+      public init(
+        episode: GraphQLEnum<StarWarsAPI.Episode>? = nil,
+        stars: Int,
+        commentary: String? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": StarWarsAPI.Objects.Review.typename,
+          "episode": episode,
+          "stars": stars,
+          "commentary": commentary,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
     }
   }
 }

@@ -76,7 +76,7 @@ class ApolloCodegenConfigurationTests: XCTestCase {
   func test__initializer__givenMinimalApolloCodegenConfiguration_buildsCorrectDefaults() {
     // given
     let config = ApolloCodegenConfiguration(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       input: .init(schemaPath: fileURL.path),
       output: .init(schemaTypes: .init(path: directoryURL.path, moduleType: .other))
     )

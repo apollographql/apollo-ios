@@ -28,7 +28,7 @@ struct SchemaModuleFileGenerator {
 
     case .embeddedInTarget:
       filePath = pathURL
-        .appendingPathComponent("\(config.schemaName.firstUppercased).graphql.swift").path
+        .appendingPathComponent("\(config.schemaNamespace.firstUppercased).graphql.swift").path
       rendered = SchemaModuleNamespaceTemplate(
         config: config
         ).render()

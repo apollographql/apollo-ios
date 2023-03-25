@@ -9,12 +9,12 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
 
   private func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
-    schemaName: String = "testSchema",
+    schemaNamespace: String = "testSchema",
     operations: ApolloCodegenConfiguration.OperationsFileOutput,
     cocoapodsCompatibleImportStatements: Bool = false
   ) -> ApolloCodegenConfiguration {
     ApolloCodegenConfiguration.mock(
-      schemaName: schemaName,
+      schemaNamespace: schemaNamespace,
       input: .init(schemaPath: "MockInputPath", operationSearchPaths: []),
       output: .mock(moduleType: moduleType, operations: operations),
       options: .init(cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements)
@@ -968,7 +968,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "testschema",
+      schemaNamespace: "testschema",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .union)
@@ -988,7 +988,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "TESTSCHEMA",
+      schemaNamespace: "TESTSCHEMA",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .union)
@@ -1008,7 +1008,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .union)
@@ -1028,7 +1028,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "testschema",
+      schemaNamespace: "testschema",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .customScalar)
@@ -1048,7 +1048,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "TESTSCHEMA",
+      schemaNamespace: "TESTSCHEMA",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .customScalar)
@@ -1068,7 +1068,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     // given
     let config = buildConfig(
       moduleType: .embeddedInTarget(name: "MockApplication"),
-      schemaName: "TestSchema",
+      schemaNamespace: "TestSchema",
       operations: .inSchemaModule)
 
     let subject = buildSubject(config: config, targetFileType: .customScalar)

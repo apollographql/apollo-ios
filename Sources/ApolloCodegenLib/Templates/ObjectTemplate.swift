@@ -24,7 +24,7 @@ struct ObjectTemplate: TemplateRenderer {
     return """
     [\(list: graphqlObject.interfaces.map({ interface in
           TemplateString("""
-          \(if: !config.output.schemaTypes.isInModule, "\(config.schemaName.firstUppercased).")\
+          \(if: !config.output.schemaTypes.isInModule, "\(config.schemaNamespace.firstUppercased).")\
           Interfaces.\(interface.name.firstUppercased).self
           """)
       }))]

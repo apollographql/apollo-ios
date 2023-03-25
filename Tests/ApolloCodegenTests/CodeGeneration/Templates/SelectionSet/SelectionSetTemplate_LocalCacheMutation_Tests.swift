@@ -27,7 +27,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
   // MARK: - Helpers
 
   func buildSubjectAndOperation(
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     named operationName: String = "TestOperation"
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
@@ -35,7 +35,8 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
       mutable: true,
-      config: .init(config: .mock(schemaName: schemaName))
+      generateInitializers: false,
+      config: .init(config: .mock(schemaNamespace: schemaNamespace))
     )
   }
 
@@ -154,7 +155,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   // MARK: - Accessor Tests
@@ -181,7 +182,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when
@@ -224,7 +225,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let expected = """
       public struct Fragments: FragmentContainer {
         public var __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when
@@ -236,7 +237,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__rendersFieldAccessorWithGetterAndSetter() throws {
@@ -275,7 +276,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_inlineFragmentAccessors__rendersAccessorWithGetterAndSetter() throws {
@@ -320,7 +321,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_namedFragmentAccessors__givenFragmentWithNoConditions_rendersAccessorWithGetterModifierAndSetterUnavailable() throws {
@@ -365,10 +366,10 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 21, ignoringExtraLines: true))
   }
 
-  func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorWithGetterAndSetter() throws {
+  func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorAsOptionalWithGetterAndSetter() throws {
     // given
     schemaSDL = """
     type Query {
@@ -394,7 +395,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
     let expected = """
         public var animalDetails: AnimalDetails? {
-          get { _toFragment(if: "a") }
+          get { _toFragment() }
           _modify { var f = animalDetails; yield &f; if let newData = f?.__data { __data = newData } }
           @available(*, unavailable, message: "mutate properties of the fragment instead.")
           set { preconditionFailure() }
@@ -410,7 +411,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 21, ignoringExtraLines: true))
   }
 
   // MARK: - Casing Tests
@@ -436,7 +437,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "myschema")
+    try buildSubjectAndOperation(schemaNamespace: "myschema")
     let actual = subject.render(for: operation)
 
     // then
@@ -468,7 +469,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    try buildSubjectAndOperation(schemaNamespace: "MYSCHEMA")
     let actual = subject.render(for: operation)
 
     // then
@@ -500,7 +501,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MySchema")
+    try buildSubjectAndOperation(schemaNamespace: "MySchema")
     let actual = subject.render(for: operation)
 
     // then
@@ -538,7 +539,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "myschema")
+    try buildSubjectAndOperation(schemaNamespace: "myschema")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
@@ -550,7 +551,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: Myschema.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   func test__casingForMutableInlineFragment__givenUppercasedSchemaName_generatesUppercasedNamespace() throws {
@@ -580,7 +581,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MYSCHEMA")
+    try buildSubjectAndOperation(schemaNamespace: "MYSCHEMA")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
@@ -592,7 +593,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: MYSCHEMA.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   func test__casingForMutableInlineFragment__givenCapitalizedSchemaName_generatesCapitalizedNamespace() throws {
@@ -622,7 +623,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(schemaName: "MySchema")
+    try buildSubjectAndOperation(schemaNamespace: "MySchema")
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
     )
@@ -634,6 +635,6 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: MySchema.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 }

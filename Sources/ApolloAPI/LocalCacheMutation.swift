@@ -27,7 +27,7 @@ public protocol MutableSelectionSet: SelectionSet {
 }
 
 public extension MutableSelectionSet {
-  @inlinable var __typename: String {
+  @inlinable var __typename: String? {
     get { __data["__typename"] }
     set { __data["__typename"] = newValue }
   }
@@ -35,9 +35,9 @@ public extension MutableSelectionSet {
 
 public extension MutableSelectionSet where Fragments: FragmentContainer {
   @inlinable var fragments: Fragments {
-    get { Self.Fragments(data: __data) }
+    get { Self.Fragments(_dataDict: __data) }
     _modify {
-      var f = Self.Fragments(data: __data)
+      var f = Self.Fragments(_dataDict: __data)
       yield &f
       self.__data._data = f.__data._data
     }

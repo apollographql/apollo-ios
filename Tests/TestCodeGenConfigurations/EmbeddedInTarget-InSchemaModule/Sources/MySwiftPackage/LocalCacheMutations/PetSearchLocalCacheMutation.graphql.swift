@@ -28,7 +28,7 @@ public extension MyGraphQLSchema {
 
     public struct Data: MyGraphQLSchema.MutableSelectionSet {
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Query }
       public static var __selections: [ApolloAPI.Selection] { [
@@ -40,15 +40,28 @@ public extension MyGraphQLSchema {
         set { __data["pets"] = newValue }
       }
 
+      public init(
+        pets: [Pet]
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Query.typename,
+          "pets": pets._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
       /// Pet
       ///
       /// Parent Type: `Pet`
       public struct Pet: MyGraphQLSchema.MutableSelectionSet {
         public var __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("id", MyGraphQLSchema.ID.self),
           .field("humanName", String?.self),
         ] }
@@ -60,6 +73,21 @@ public extension MyGraphQLSchema {
         public var humanName: String? {
           get { __data["humanName"] }
           set { __data["humanName"] = newValue }
+        }
+
+        public init(
+          __typename: String,
+          id: MyGraphQLSchema.ID,
+          humanName: String? = nil
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": __typename,
+            "id": id,
+            "humanName": humanName,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
         }
       }
     }

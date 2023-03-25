@@ -2,7 +2,7 @@
 
 extension ApolloCodegenConfiguration {
   public static func mock(
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     input: FileInput = .init(
       schemaPath: "**/*.graphqls",
       operationSearchPaths: []
@@ -17,7 +17,7 @@ extension ApolloCodegenConfiguration {
     experimentalFeatures: ExperimentalFeatures = .init()
   ) -> Self {
     .init(
-      schemaName: schemaName,
+      schemaNamespace: schemaNamespace,
       input: input,
       output: output,
       options: options,
@@ -28,11 +28,11 @@ extension ApolloCodegenConfiguration {
   public static func mock(
     _ moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType,
     options: ApolloCodegenConfiguration.OutputOptions = .init(),
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     to path: String = "MockModulePath"
   ) -> Self {
     .init(
-      schemaName: schemaName,
+      schemaNamespace: schemaNamespace,
       input: .init(
         schemaPath: "schema.graphqls",
         operationSearchPaths: ["*.graphql"]

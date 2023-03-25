@@ -39,8 +39,8 @@ public class ApolloCodegen {
           """
       case let .schemaNameConflict(name):
         return """
-          Schema name '\(name)' conflicts with name of a type in the generated code. Please choose \
-          a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API.
+          Schema namespace '\(name)' conflicts with name of a type in the generated code. Please \
+          choose a different schema name. Suggestions: \(name)Schema, \(name)GraphQL, \(name)API.
           """
       case .cannotLoadSchema:
         return "A GraphQL schema could not be found. Please verify the schema search paths."
@@ -49,7 +49,7 @@ public class ApolloCodegen {
       case let .invalidConfiguration(message):
         return "The codegen configuration has conflicting values: \(message)"
       case let .invalidSchemaName(name, message):
-        return "The schema name `\(name)` is invalid: \(message)"
+        return "The schema namespace `\(name)` is invalid: \(message)"
       }
     }
   }
@@ -144,19 +144,19 @@ public class ApolloCodegen {
 
   static private func validate(_ context: ConfigurationContext) throws {
     guard
-      !context.schemaName.isEmpty,
-      !context.schemaName.contains(where: { $0.isWhitespace })
+      !context.schemaNamespace.isEmpty,
+      !context.schemaNamespace.contains(where: { $0.isWhitespace })
     else {
-      throw Error.invalidSchemaName(context.schemaName, message: """
-        Cannot be empty nor contain spaces. If your schema name has spaces consider replacing them \
-        with the underscore character.
+      throw Error.invalidSchemaName(context.schemaNamespace, message: """
+        Cannot be empty nor contain spaces. If your schema namespace has spaces consider \
+        replacing them with the underscore character.
         """)
     }
 
     guard
-      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaName.lowercased())
+      !SwiftKeywords.DisallowedSchemaNamespaceNames.contains(context.schemaNamespace.lowercased())
     else {
-      throw Error.schemaNameConflict(name: context.schemaName)
+      throw Error.schemaNameConflict(name: context.schemaNamespace)
     }
 
     if case .swiftPackage = context.output.testMocks,
@@ -192,13 +192,13 @@ public class ApolloCodegen {
   static func validate(_ context: ConfigurationContext, with compilationResult: CompilationResult) throws {
     guard
       !compilationResult.referencedTypes.contains(where: { namedType in
-        namedType.swiftName == context.schemaName.firstUppercased
+        namedType.swiftName == context.schemaNamespace.firstUppercased
       }),
       !compilationResult.fragments.contains(where: { fragmentDefinition in
-        fragmentDefinition.name == context.schemaName.firstUppercased
+        fragmentDefinition.name == context.schemaNamespace.firstUppercased
       })
     else {
-      throw Error.schemaNameConflict(name: context.schemaName)
+      throw Error.schemaNameConflict(name: context.schemaNamespace)
     }
   }
 

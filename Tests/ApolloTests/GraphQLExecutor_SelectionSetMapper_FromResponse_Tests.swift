@@ -841,25 +841,26 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   // MARK: - Inline Fragments
 
-  func test__inlineFragment__withoutExplicitTypeNameSelection_selectsTypenameField() throws {
+  func test__inlineFragment__withoutTypenameMatchingCondition_selectsTypeCaseField() throws {
     // given
     struct Types {
       static let Human = Object(typename: "Human", implementedInterfaces: [])
       static let MockChildObject = Object(typename: "MockChildObject", implementedInterfaces: [])
     }
 
-    class GivenSelectionSet: MockSelectionSet, SelectionSet {
+    class GivenSelectionSet: MockSelectionSet {
       typealias Schema = MockSchemaMetadata
       override class var __parentType: ParentType { Object.mock }
       override class var __selections: [Selection] {[
         .field("child", Child.self),
       ]}
 
-      class Child: MockSelectionSet, SelectionSet {
+      class Child: MockSelectionSet {
         typealias Schema = MockSchemaMetadata
 
         override class var __parentType: ParentType { Types.MockChildObject }
         override class var __selections: [Selection] {[
+          .field("__typename", String.self),
           .inlineFragment(AsHuman.self)
         ]}
 
@@ -918,9 +919,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
 
-    class GivenSelectionSet: MockSelectionSet, SelectionSet {
-      typealias Schema = MockSchemaMetadata
-
+    class GivenSelectionSet: AbstractMockSelectionSet<GivenSelectionSet.Fragments, MockSchemaMetadata> {
       override class var __parentType: ParentType { Types.MockChildObject }
       override class var __selections: [Selection] {[
         .fragment(GivenFragment.self)
@@ -930,7 +929,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
         let __data: DataDict
         var childFragment: GivenFragment { _toFragment() }
 
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
       }
     }
 

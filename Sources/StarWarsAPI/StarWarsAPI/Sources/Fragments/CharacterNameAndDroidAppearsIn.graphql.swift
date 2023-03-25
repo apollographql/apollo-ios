@@ -16,10 +16,11 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("name", String.self),
     .inlineFragment(AsDroid.self),
   ] }
@@ -29,13 +30,27 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
 
   public var asDroid: AsDroid? { _asInlineFragment() }
 
+  public init(
+    __typename: String,
+    name: String
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
+  }
+
   /// AsDroid
   ///
   /// Parent Type: `Droid`
   public struct AsDroid: StarWarsAPI.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = CharacterNameAndDroidAppearsIn
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("appearsIn", [GraphQLEnum<StarWarsAPI.Episode>?].self),
@@ -45,5 +60,20 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     public var appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?] { __data["appearsIn"] }
     /// The name of the character
     public var name: String { __data["name"] }
+
+    public init(
+      appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
+      name: String
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "appearsIn": appearsIn,
+        "name": name,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self),
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
+        ])
+      ]))
+    }
   }
 }

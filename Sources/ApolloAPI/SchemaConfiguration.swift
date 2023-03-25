@@ -8,6 +8,24 @@ public protocol SchemaConfiguration {
   ///
   /// The default generated implementation always returns `nil`, disabling all cache normalization.
   ///
+  /// > Warning:
+  /// Because cache key resolution is performed both on raw JSON (from a network response or cache
+  /// hit) and `SelectionSet` model data (when writing to the cache directly), the underlying
+  /// `object` will have different formats.
+  ///
+  /// This means that cache key resolution has a few notable limitations:
+  /// 1. Computing cache keys from fields on nested objects is only allowed if the nested object
+  /// does not have its own cache key. If the nested object has its own cache key, it will be
+  /// normalized as a seperate cache entity. Cache keys for entities cannot be dependent on
+  /// other entities.
+  /// 2. When computing a cache key using a field of a ``CustomScalarType``, the underlying type of
+  /// the value in the `object` dictionary will vary. It may be the raw JSON value for the scalar
+  /// (when the source is a network response or cache hit) or the specific custom scalar type for
+  /// the field (when the source is a `SelectionSet` model to write to the cache). When using a
+  /// custom scalar field to compute a cache key, make sure to check the type and handle both of
+  /// these possibilities
+  ///
+  ///
   /// # See Also
   /// ``CacheKeyInfo``
   ///
