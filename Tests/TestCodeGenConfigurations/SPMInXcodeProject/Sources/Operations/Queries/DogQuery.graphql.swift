@@ -44,6 +44,7 @@ public class DogQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", AnimalKingdomAPI.ID.self),
         .inlineFragment(AsDog.self),
       ] }

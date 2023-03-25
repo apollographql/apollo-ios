@@ -108,6 +108,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("height", Height.self),
         .field("skinCovering", GraphQLEnum<GraphQLAPI.SkinCovering>?.self),
         .field("predators", [Predator].self),
@@ -146,6 +147,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("feet", Int.self),
           .field("inches", Int?.self),
         ] }
@@ -163,6 +165,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .include(if: "includeSpecies", .field("species", String.self)),
           .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
         ] }
@@ -325,6 +328,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
           public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .include(if: "varA", [
               .field("relativeSize", GraphQLEnum<GraphQLAPI.RelativeSize>.self),
               .field("centimeters", Double.self),

@@ -60,6 +60,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("id", MyCustomProject.ID.self),
         .field("humanName", String?.self),
       ] }

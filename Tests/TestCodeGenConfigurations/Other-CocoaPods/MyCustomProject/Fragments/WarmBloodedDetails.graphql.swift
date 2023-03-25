@@ -17,6 +17,7 @@ public struct WarmBloodedDetails: MyCustomProject.SelectionSet, Fragment {
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),
   ] }

@@ -43,6 +43,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<GraphQLAPI.SkinCovering>?.self),
         .inlineFragment(AsBird.self),

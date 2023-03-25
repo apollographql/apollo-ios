@@ -19,6 +19,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("height", Height.self),
   ] }
 
@@ -46,6 +47,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("meters", Int.self),
     ] }
 

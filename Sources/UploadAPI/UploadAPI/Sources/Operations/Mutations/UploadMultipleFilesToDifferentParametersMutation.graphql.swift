@@ -59,6 +59,7 @@ public class UploadMultipleFilesToDifferentParametersMutation: GraphQLMutation {
 
       public static var __parentType: ApolloAPI.ParentType { UploadAPI.Objects.File }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", UploadAPI.ID.self),
         .field("path", String.self),
         .field("filename", String.self),

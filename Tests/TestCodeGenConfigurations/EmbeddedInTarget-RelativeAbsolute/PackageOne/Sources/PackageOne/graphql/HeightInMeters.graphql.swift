@@ -20,6 +20,7 @@ struct HeightInMeters: MySchemaModule.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("height", Height.self),
   ] }
 
@@ -34,6 +35,7 @@ struct HeightInMeters: MySchemaModule.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("meters", Int.self),
     ] }
 

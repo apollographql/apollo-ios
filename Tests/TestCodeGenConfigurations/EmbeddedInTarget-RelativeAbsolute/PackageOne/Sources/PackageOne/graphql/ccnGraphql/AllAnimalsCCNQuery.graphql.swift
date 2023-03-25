@@ -44,6 +44,7 @@ class AllAnimalsCCNQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("height", Height?.self),
       ] }
 
@@ -58,6 +59,7 @@ class AllAnimalsCCNQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("feet", Int?.self),
           .field("inches", Int.self),
         ] }

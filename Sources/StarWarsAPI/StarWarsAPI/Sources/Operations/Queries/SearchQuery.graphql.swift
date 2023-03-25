@@ -72,6 +72,7 @@ public class SearchQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Unions.SearchResult }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .inlineFragment(AsHuman.self),
         .inlineFragment(AsDroid.self),
         .inlineFragment(AsStarship.self),

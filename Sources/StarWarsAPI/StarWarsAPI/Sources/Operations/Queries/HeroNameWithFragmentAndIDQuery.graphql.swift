@@ -60,6 +60,7 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", StarWarsAPI.ID.self),
         .fragment(CharacterName.self),
       ] }

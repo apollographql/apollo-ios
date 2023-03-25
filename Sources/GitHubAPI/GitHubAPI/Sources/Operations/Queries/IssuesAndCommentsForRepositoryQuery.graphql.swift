@@ -67,6 +67,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("name", String.self),
         .field("issues", Issues.self, arguments: ["last": 100]),
       ] }
@@ -85,6 +86,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.IssueConnection }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("nodes", [Node?]?.self),
         ] }
 
@@ -100,6 +102,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Issue }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("title", String.self),
             .field("author", Author?.self),
             .field("body", String.self),
@@ -124,6 +127,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .fragment(AuthorDetails.self),
             ] }
 
@@ -173,6 +177,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.IssueCommentConnection }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("nodes", [Node?]?.self),
             ] }
 
@@ -188,6 +193,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
               public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.IssueComment }
               public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
                 .field("body", String.self),
                 .field("author", Author?.self),
               ] }
@@ -206,6 +212,7 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
 
                 public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
                 public static var __selections: [ApolloAPI.Selection] { [
+                  .field("__typename", String.self),
                   .fragment(AuthorDetails.self),
                 ] }
 

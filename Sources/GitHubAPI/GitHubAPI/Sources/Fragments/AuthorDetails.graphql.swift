@@ -21,6 +21,7 @@ public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("login", String.self),
     .inlineFragment(AsUser.self),
   ] }

@@ -68,6 +68,7 @@ public class RepositoryQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("issueOrPullRequest", IssueOrPullRequest?.self, arguments: ["number": 13]),
       ] }
 
@@ -83,6 +84,7 @@ public class RepositoryQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Unions.IssueOrPullRequest }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .inlineFragment(AsIssue.self),
           .inlineFragment(AsReactable.self),
         ] }
@@ -123,6 +125,7 @@ public class RepositoryQuery: GraphQLQuery {
 
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("avatarUrl", GitHubAPI.URI.self),
             ] }
 
@@ -179,6 +182,7 @@ public class RepositoryQuery: GraphQLQuery {
 
               public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
               public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
                 .field("login", String.self),
               ] }
 

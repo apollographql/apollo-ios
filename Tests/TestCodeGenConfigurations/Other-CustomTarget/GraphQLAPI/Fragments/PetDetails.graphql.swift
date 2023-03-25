@@ -21,6 +21,7 @@ public struct PetDetails: GraphQLAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -39,6 +40,7 @@ public struct PetDetails: GraphQLAPI.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("firstName", String.self),
     ] }
 

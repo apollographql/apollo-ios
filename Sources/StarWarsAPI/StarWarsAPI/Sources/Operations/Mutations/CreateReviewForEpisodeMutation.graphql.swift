@@ -70,6 +70,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Review }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("stars", Int.self),
         .field("commentary", String?.self),
       ] }

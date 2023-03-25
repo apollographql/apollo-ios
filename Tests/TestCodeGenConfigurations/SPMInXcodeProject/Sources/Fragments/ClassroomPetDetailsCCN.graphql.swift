@@ -22,6 +22,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
   ] }
 
@@ -51,6 +52,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("inches", Int.self),
       ] }
 

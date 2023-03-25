@@ -91,6 +91,7 @@ public extension MyGraphQLSchema {
 
         public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("height", Height.self),
           .field("species", String.self),
           .field("skinCovering", GraphQLEnum<MyGraphQLSchema.SkinCovering>?.self),
@@ -130,6 +131,7 @@ public extension MyGraphQLSchema {
 
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Height }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("feet", Int.self),
             .field("inches", Int?.self),
           ] }
@@ -148,6 +150,7 @@ public extension MyGraphQLSchema {
 
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("species", String.self),
             .inlineFragment(AsWarmBlooded.self),
           ] }
@@ -194,6 +197,7 @@ public extension MyGraphQLSchema {
 
               public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Animal }
               public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
                 .field("species", String.self),
               ] }
 
@@ -286,6 +290,7 @@ public extension MyGraphQLSchema {
 
             public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Height }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("relativeSize", GraphQLEnum<MyGraphQLSchema.RelativeSize>.self),
               .field("centimeters", Double.self),
             ] }

@@ -23,6 +23,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
   ] }
 
@@ -52,6 +53,7 @@ struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("inches", Int.self),
       ] }
 
