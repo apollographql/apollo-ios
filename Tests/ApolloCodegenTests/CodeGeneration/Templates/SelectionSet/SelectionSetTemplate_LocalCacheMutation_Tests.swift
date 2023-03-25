@@ -155,7 +155,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   // MARK: - Accessor Tests
@@ -237,7 +237,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__rendersFieldAccessorWithGetterAndSetter() throws {
@@ -276,7 +276,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_inlineFragmentAccessors__rendersAccessorWithGetterAndSetter() throws {
@@ -321,7 +321,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
   func test__render_namedFragmentAccessors__givenFragmentWithNoConditions_rendersAccessorWithGetterModifierAndSetterUnavailable() throws {
@@ -366,7 +366,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 21, ignoringExtraLines: true))
   }
 
   func test__render_namedFragmentAccessors__givenFragmentWithConditions_rendersAccessorAsOptionalWithGetterAndSetter() throws {
@@ -411,7 +411,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 21, ignoringExtraLines: true))
   }
 
   // MARK: - Casing Tests
@@ -551,7 +551,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: Myschema.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   func test__casingForMutableInlineFragment__givenUppercasedSchemaName_generatesUppercasedNamespace() throws {
@@ -593,7 +593,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: MYSCHEMA.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 
   func test__casingForMutableInlineFragment__givenCapitalizedSchemaName_generatesCapitalizedNamespace() throws {
@@ -635,6 +635,6 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       public struct AsDog: MySchema.MutableInlineFragment {
     """
 
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 18, ignoringExtraLines: true))
   }
 }

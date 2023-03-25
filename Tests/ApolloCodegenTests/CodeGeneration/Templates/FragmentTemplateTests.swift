@@ -286,7 +286,42 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
-  func test__render__givenFragmentWithOnlyTypenameField_generatesFragmentDefinition_withNoSelections() throws {
+  func test__render__givenFragmentOnRootOperationTypeWithOnlyTypenameField_generatesFragmentDefinition_withNoSelections() throws {
+    // given
+    document = """
+    fragment TestFragment on Query {
+      __typename
+    }
+    """
+
+    try buildSubjectAndFragment()
+
+    let expected = """
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
+        fragment TestFragment on Query {
+          __typename
+        }
+        ""\" }
+
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
+      public static var __selections: [ApolloAPI.Selection] { [
+      ] }
+    }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenFragmentWithOnlyTypenameField_generatesFragmentDefinition_withTypeNameSelection() throws {
     // given
     document = """
     fragment TestFragment on Animal {
@@ -309,6 +344,7 @@ class FragmentTemplateTests: XCTestCase {
 
       public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
       ] }
     }
 
@@ -365,7 +401,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragment_configIncludesSpecificFragment_rendersInitializer() throws {
@@ -410,7 +446,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragment_configDoesNotIncludeNamedFragments_doesNotRenderInitializer() throws {
@@ -440,7 +476,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 18, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine("}", atLine: 19, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragments_configIncludeSpecificFragmentWithOtherName_doesNotRenderInitializer() throws {
@@ -470,7 +506,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 18, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine("}", atLine: 19, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragments_asLocalCacheMutation_configIncludeLocalCacheMutations_rendersInitializer() throws {
@@ -515,7 +551,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
   }
 
   // MARK: - Local Cache Mutation Tests

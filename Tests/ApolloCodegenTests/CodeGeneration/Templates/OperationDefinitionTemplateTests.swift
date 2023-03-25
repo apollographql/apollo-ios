@@ -307,7 +307,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 54, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 55, ignoringExtraLines: true))
     }
 
     func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
@@ -355,7 +355,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 54, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 55, ignoringExtraLines: true))
     }
 
     func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
@@ -386,7 +386,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine("    }", atLine: 41, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine("    }", atLine: 42, ignoringExtraLines: true))
     }
 
     func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
@@ -419,7 +419,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine("    }", atLine: 41, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine("    }", atLine: 42, ignoringExtraLines: true))
     }
 
 

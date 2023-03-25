@@ -63,9 +63,12 @@ extension SelectionSet {
 
   @inlinable public static var __selections: [Selection] { [] }
 
-  @inlinable public var __objectType: Object? { Schema.objectType(forTypename: __typename) }
+  @inlinable public var __objectType: Object? {
+    guard let __typename else { return nil }
+    return Schema.objectType(forTypename: __typename)
+  }
 
-  @inlinable public var __typename: String { __data["__typename"] }
+  @inlinable public var __typename: String? { __data["__typename"] }
 
   /// Verifies if a `SelectionSet` may be converted to an `InlineFragment` and performs
   /// the conversion.

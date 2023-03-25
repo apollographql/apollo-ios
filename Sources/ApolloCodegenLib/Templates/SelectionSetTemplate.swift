@@ -157,6 +157,7 @@ struct SelectionSetTemplate {
 
     let selectionsTemplate = TemplateString("""
     public static var __selections: [\(config.ApolloAPITargetName).Selection] { [
+      \(if: shouldIncludeTypenameSelection(for: scope), ".field(\"__typename\", String.self),")
       \(renderedSelections(groupedSelections.unconditionalSelections, &deprecatedArguments), terminator: ",")
       \(groupedSelections.inclusionConditionGroups.map {
         renderedConditionalSelectionGroup($0, $1, in: scope, &deprecatedArguments)
@@ -172,6 +173,10 @@ struct SelectionSetTemplate {
       """)
     \(selectionsTemplate)
     """
+  }
+
+  private func shouldIncludeTypenameSelection(for scope: IR.ScopeDescriptor) -> Bool {
+    return scope.scopePath.count == 1 && !scope.type.isRootFieldType
   }
 
   private func renderedSelections(
