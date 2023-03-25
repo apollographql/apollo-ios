@@ -138,7 +138,6 @@ extension ApolloClient: ApolloClientProtocol {
     }
   }
   
-  @discardableResult
   public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
                                                            queue: DispatchQueue = .main,
                                                            resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable {

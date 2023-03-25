@@ -62,7 +62,7 @@ class WebSocketTests: XCTestCase {
   func testLocalSingleSubscription() throws {
     let expectation = self.expectation(description: "Single subscription")
     
-    client.subscribe(
+    let subject = client.subscribe(
       subscription: MockSubscription<ReviewAddedData>()
     ) { result in
       defer { expectation.fulfill() }
@@ -93,23 +93,27 @@ class WebSocketTests: XCTestCase {
     networkTransport.write(message: message)
         
     waitForExpectations(timeout: 5, handler: nil)
+
+    subject.cancel()
   }
   
   func testLocalMissingSubscription() throws {
     let expectation = self.expectation(description: "Missing subscription")
     expectation.isInverted = true
 
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { _ in
+    let subject = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { _ in
       expectation.fulfill()
     }
     
     waitForExpectations(timeout: 2, handler: nil)
+
+    subject.cancel()
   }
   
   func testLocalErrorUnknownId() throws {
     let expectation = self.expectation(description: "Unknown id for subscription")
     
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
+    let subject = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       
       switch result {
@@ -148,6 +152,8 @@ class WebSocketTests: XCTestCase {
     networkTransport.write(message: message)
     
     waitForExpectations(timeout: 2, handler: nil)
+
+    subject.cancel()
   }
   
   func testSingleSubscriptionWithCustomOperationMessageIdCreator() throws {
@@ -166,7 +172,7 @@ class WebSocketTests: XCTestCase {
       ))
     client = ApolloClient(networkTransport: networkTransport!, store: store)
     
-    client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
+    let subject = client.subscribe(subscription: MockSubscription<ReviewAddedData>()) { result in
       defer { expectation.fulfill() }
       switch result {
       case .success(let graphQLResult):
@@ -194,5 +200,7 @@ class WebSocketTests: XCTestCase {
     networkTransport.write(message: message)
     
     waitForExpectations(timeout: 2, handler: nil)
+
+    subject.cancel()
   }
 }
