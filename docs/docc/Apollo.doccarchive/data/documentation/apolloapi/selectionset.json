@@ -71,16 +71,6 @@
               "text" : " : "
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI15AnySelectionSetP",
-              "text" : "AnySelectionSet"
-            },
-            {
-              "kind" : "text",
-              "text" : ", "
-            },
-            {
               "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:SH",
               "text" : "Hashable"
@@ -94,8 +84,6 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
         "doc:\/\/ApolloAPI\/SQ",
         "doc:\/\/ApolloAPI\/SH"
       ],
@@ -105,8 +93,11 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableRootSelectionSet",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/MutableSelectionSet",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet"
       ],
       "kind" : "relationships",
       "title" : "Inherited By",
@@ -220,9 +211,21 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/AnySelectionSet": {
+"doc://ApolloAPI/documentation/ApolloAPI/Fragment": {
   "abstract" : [
-
+    {
+      "text" : "A protocol representing a fragment that a ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " object may be converted to.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -235,21 +238,63 @@
     },
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "Fragment"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnySelectionSet",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "AnySelectionSet"
+      "text" : "Fragment"
     }
   ],
   "role" : "symbol",
-  "title" : "AnySelectionSet",
+  "title" : "Fragment",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/anyselectionset"
+  "url" : "\/documentation\/apolloapi\/fragment"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/InlineFragment": {
+  "abstract" : [
+    {
+      "text" : "A selection set that represents an inline fragment nested inside a ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineFragment"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InlineFragment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineFragment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineFragment",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/inlinefragment"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/MutableRootSelectionSet": {
   "abstract" : [
@@ -312,6 +357,64 @@
   "title" : "MutableSelectionSet",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/mutableselectionset"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/RootSelectionSet": {
+  "abstract" : [
+    {
+      "text" : "A selection set that represents the root selections on its ",
+      "type" : "text"
+    },
+    {
+      "code" : "__parentType",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Nested selection",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "sets for type cases are not ",
+      "type" : "text"
+    },
+    {
+      "code" : "RootSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootSelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/RootSelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RootSelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RootSelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/rootselectionset"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [
@@ -558,37 +661,6 @@
   "title" : "fragments",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionset\/fragments-swift.property"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/SelectionSetEntityValue": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SelectionSetEntityValue"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSetEntityValue",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SelectionSetEntityValue"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "SelectionSetEntityValue",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
 }
 }
 }

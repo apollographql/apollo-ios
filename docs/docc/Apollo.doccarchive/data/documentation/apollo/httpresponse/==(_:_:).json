@@ -55,29 +55,13 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "Operation.Data",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "Equatable",
-          "type" : "codeVoice"
-        },
-        {
           "text" : ".",
           "type" : "text"
         }
       ]
     },
     "extendedModule" : "Apollo",
-    "externalID" : "s:6Apollo12HTTPResponseCAASQ4DataRpzrlE2eeoiySbACyxG_AGtFZ",
+    "externalID" : "s:6Apollo12HTTPResponseC2eeoiySbACyxG_AEtFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -357,22 +341,6 @@
       },
       {
         "code" : "GraphQLOperation",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Operation.Data",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Equatable",
         "type" : "codeVoice"
       },
       {

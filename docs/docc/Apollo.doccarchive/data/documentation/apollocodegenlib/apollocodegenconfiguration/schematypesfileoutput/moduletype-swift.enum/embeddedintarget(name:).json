@@ -153,19 +153,19 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "schema types files will be namespaced with the value of your configuration’s ",
+                  "text" : "schema types files will be namespaced with the value of your configuration’s",
                   "type" : "text"
-                },
-                {
-                  "code" : "schemaName",
-                  "type" : "codeVoice"
                 },
                 {
                   "text" : " ",
                   "type" : "text"
                 },
                 {
-                  "text" : "to prevent naming conflicts.",
+                  "code" : "schemaNamespace",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " to prevent naming conflicts.",
                   "type" : "text"
                 }
               ],

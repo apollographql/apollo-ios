@@ -121,6 +121,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/innerType",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/isNullable",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/namedType",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/typeReference"
       ],
@@ -376,6 +377,40 @@
   "title" : "GraphQLType.inputObject(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/graphqltype\/inputobject(_:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/isNullable": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isNullable"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/GraphQLType\/isNullable",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isNullable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/graphqltype\/isnullable"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/GraphQLType/list(_:)": {
   "abstract" : [

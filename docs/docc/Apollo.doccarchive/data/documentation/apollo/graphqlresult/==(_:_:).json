@@ -55,21 +55,13 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "Equatable",
-          "type" : "codeVoice"
-        },
-        {
           "text" : ".",
           "type" : "text"
         }
       ]
     },
     "extendedModule" : "Apollo",
-    "externalID" : "s:6Apollo13GraphQLResultVAASQRzrlE2eeoiySbACyxG_AEtFZ",
+    "externalID" : "s:6Apollo13GraphQLResultV2eeoiySbACyxG_AEtFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -349,14 +341,6 @@
       },
       {
         "code" : "RootSelectionSet",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Equatable",
         "type" : "codeVoice"
       },
       {

@@ -1,6 +1,6 @@
 {
   "title": "Client (iOS)",
-  "version": "1.0",
+  "version": "v1",
   "algoliaFilters": [
     "docset:apollo-ios"
   ],

@@ -232,8 +232,13 @@
                     "type" : "method"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)",
+                    "path" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-9mzaz",
                     "title" : "func write<CacheMutation>(data: CacheMutation.Data, for: CacheMutation) throws",
+                    "type" : "method"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-y0jm",
+                    "title" : "func write<Operation>(data: Operation.Data, for: Operation) throws",
                     "type" : "method"
                   },
                   {

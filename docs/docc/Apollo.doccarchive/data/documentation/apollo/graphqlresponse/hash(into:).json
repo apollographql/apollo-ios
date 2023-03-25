@@ -55,21 +55,13 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "Hashable",
-          "type" : "codeVoice"
-        },
-        {
           "text" : ".",
           "type" : "text"
         }
       ]
     },
     "extendedModule" : "Apollo",
-    "externalID" : "s:6Apollo15GraphQLResponseCAASHRzrlE4hash4intoys6HasherVz_tF",
+    "externalID" : "s:6Apollo15GraphQLResponseC4hash4intoys6HasherVz_tF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -298,14 +290,6 @@
       },
       {
         "code" : "RootSelectionSet",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
         "type" : "codeVoice"
       },
       {

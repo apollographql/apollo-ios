@@ -332,6 +332,187 @@
           "type" : "paragraph"
         },
         {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Because cache key resolution is performed both on raw JSON (from a network response or cache",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "hit) and ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "SelectionSet",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " model data (when writing to the cache directly), the underlying",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "object",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " will have different formats.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Warning",
+          "style" : "warning",
+          "type" : "aside"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This means that cache key resolution has a few notable limitations:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "items" : [
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "Computing cache keys from fields on nested objects is only allowed if the nested object",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "does not have its own cache key. If the nested object has its own cache key, it will be",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "normalized as a seperate cache entity. Cache keys for entities cannot be dependent on",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "other entities.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "When computing a cache key using a field of a ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : ", the underlying type of",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "the value in the ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "object",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " dictionary will vary. It may be the raw JSON value for the scalar",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "(when the source is a network response or cache hit) or the specific custom scalar type for",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "the field (when the source is a ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "SelectionSet",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " model to write to the cache). When using a",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "custom scalar field to compute a cache key, make sure to check the type and handle both of",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "these possibilities",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            }
+          ],
+          "type" : "orderedList"
+        },
+        {
           "anchor" : "See-Also",
           "level" : 1,
           "text" : "See Also",
@@ -509,6 +690,48 @@
   "title" : "CacheReference",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
+  "abstract" : [
+    {
+      "text" : "A protocol a custom GraphQL “",
+      "type" : "text"
+    },
+    {
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” must conform to.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CustomScalarType"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CustomScalarType"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CustomScalarType",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/customscalartype"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
   "abstract" : [
