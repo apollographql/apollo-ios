@@ -10,11 +10,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-y0jm"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo0A5StoreC20ReadWriteTransactionC5write4data3fory4DataQz_xtK0A3API18LocalCacheMutationRzlF",
+    "externalID" : "s:6Apollo0A5StoreC20ReadWriteTransactionC5write4data3fory4DataQz_xtK0A3API16GraphQLOperationRzlF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -34,7 +34,7 @@
       },
       {
         "kind" : "genericParameter",
-        "text" : "CacheMutation"
+        "text" : "Operation"
       },
       {
         "kind" : "text",
@@ -50,7 +50,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "CacheMutation"
+        "text" : "Operation"
       },
       {
         "kind" : "text",
@@ -74,7 +74,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "CacheMutation"
+        "text" : "Operation"
       },
       {
         "kind" : "text",
@@ -124,7 +124,7 @@
             },
             {
               "kind" : "genericParameter",
-              "text" : "CacheMutation"
+              "text" : "Operation"
             },
             {
               "kind" : "text",
@@ -140,7 +140,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "CacheMutation"
+              "text" : "Operation"
             },
             {
               "kind" : "text",
@@ -164,7 +164,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "cacheMutation"
+              "text" : "operation"
             },
             {
               "kind" : "text",
@@ -172,7 +172,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "CacheMutation"
+              "text" : "Operation"
             },
             {
               "kind" : "text",
@@ -196,7 +196,7 @@
             },
             {
               "kind" : "typeIdentifier",
-              "text" : "CacheMutation"
+              "text" : "Operation"
             },
             {
               "kind" : "text",
@@ -204,8 +204,8 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI18LocalCacheMutationP",
-              "text" : "LocalCacheMutation"
+              "preciseIdentifier" : "s:9ApolloAPI16GraphQLOperationP",
+              "text" : "GraphQLOperation"
             }
           ]
         }
@@ -224,7 +224,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)"
+        "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-y0jm"
       ],
       "traits" : [
         {
@@ -322,7 +322,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction"
 },
-"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)": {
+"doc://Apollo/documentation/Apollo/ApolloStore/ReadWriteTransaction/write(data:for:)-y0jm": {
   "abstract" : [
 
   ],
@@ -345,7 +345,7 @@
     },
     {
       "kind" : "genericParameter",
-      "text" : "CacheMutation"
+      "text" : "Operation"
     },
     {
       "kind" : "text",
@@ -361,7 +361,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "CacheMutation"
+      "text" : "Operation"
     },
     {
       "kind" : "text",
@@ -385,7 +385,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "CacheMutation"
+      "text" : "Operation"
     },
     {
       "kind" : "text",
@@ -396,12 +396,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloStore\/ReadWriteTransaction\/write(data:for:)-y0jm",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "write(data:for:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)"
+  "url" : "\/documentation\/apollo\/apollostore\/readwritetransaction\/write(data:for:)-y0jm"
 }
 }
 }

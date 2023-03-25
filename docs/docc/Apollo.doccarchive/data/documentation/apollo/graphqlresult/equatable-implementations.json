@@ -182,14 +182,6 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Equatable",
-        "type" : "codeVoice"
-      },
-      {
         "text" : ".",
         "type" : "text"
       }

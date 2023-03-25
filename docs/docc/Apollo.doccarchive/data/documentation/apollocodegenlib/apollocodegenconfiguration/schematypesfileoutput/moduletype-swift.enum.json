@@ -409,7 +409,7 @@
       "type" : "text"
     },
     {
-      "code" : "schemaName",
+      "code" : "schemaNamespace",
       "type" : "codeVoice"
     },
     {

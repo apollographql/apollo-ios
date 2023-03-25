@@ -1,5 +1,24 @@
 # Change Log
 
+## v1.1.0-beta.1
+
+This is the first Beta Release of Apollo iOS 1.1. Version 1.1 primarily focuses on adding generated initializers to the generated operation models.
+
+While no breaking changes were made to official public APIs, some *underscore prefixed* APIs that are `public` but intended for internal usage only have been changed.
+
+### Added
+- **Configuration option for generating initializers on SelectionSet models:** You can now get initializers for your generated selection set models by setting the `selectionSetInitializers` option on your code generation configuration. Manually initialized selection sets can be used for a number of purposes, including:
+  * Adding custom data to the normalized cache
+  * Setting up fixture data for SwiftUI previews or loading states
+  * An alternative to Test Mocks for unit testing      
+- **Safe initialization of `SelectionSet` models with raw JSON:** In 1.0, initializing `SelectionSet` models with raw JSON was unsafe and required usage of *underscore prefixed* APIs that were intended for internal usage only. Apollo iOS 1.1 introduces a new, safe initializer: `RootSelectionSet.init(data: variables)`.
+  * Previously, if you provided invalid JSON, your selection set's were unsafe and may cause crashes when used. The new initializer runs a lightweight version of GraphQL execution over the provided JSON data. This quickly parses, validates, and transforms the JSON data into the format required by the `SelectionSet` models. If the provided data is invalid, this initializer `throws` an error, ensuring that your model usage is always safe.
+- **Added support for multipart subscriptions over HTTP.**   
+### Changed
+- **SelectionSet fulfilled fragment tracking:** `SelectionSet` models now keep track of which fragments were fulfilled during GraphQL execution in order to enable conversions between type cases. While this does not cause functional changes while using public APIs, this is a fundamental change to the way that the underlying data for a `SelectionSet` is formatted, it is now required that all `SelectionSet` creation must be processed by the `GraphQLExecutor` or a generated initializer that is guaranteed to correctly format the data. **This means that initializing a `SelectionSet` using raw JSON data directly will no longer work.** Please ensure that raw JSON data is only used with the new `RootSelectionSet.init(data: variables)` initializer.   
+- **Generate `__typename` selection for generated models:** In 1.1, the code generator adds the `__typename` field to each root object. In previous versions, this selection was automatically inferred by the `GraphQLExecutor`, however generating it directly should improve performance of GraphQL execution. 
+- **Changed generated fragment accessors with inclusion conditions:** When conditionally spreading a fragment with an `@include/@skip` directive that has a different parent type than the selection set it is being spread into, the shape of the generated models has changed. This does not affect generated call sites, but only affects the generated `selection` metadata used internally by the `GraphQLExecutor`.
+
 ## v1.0.7
 
 ### Fixed

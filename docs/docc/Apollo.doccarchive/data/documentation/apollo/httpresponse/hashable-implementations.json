@@ -119,22 +119,6 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Operation.Data",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
         "text" : ".",
         "type" : "text"
       }

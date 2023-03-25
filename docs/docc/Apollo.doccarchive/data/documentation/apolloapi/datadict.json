@@ -1,12 +1,13 @@
 {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "text" : "A structure that wraps the underlying data used by ",
       "type" : "text"
     },
     {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "s.",
@@ -114,7 +115,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:)"
       ],
       "title" : "Initializers"
     },
@@ -130,6 +131,12 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb"
       ],
       "title" : "Subscripts"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/SelectionSetData"
+      ],
+      "title" : "Type Aliases"
     },
     {
       "generated" : true,
@@ -218,12 +225,13 @@
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data dictionary used by ",
+      "text" : "A structure that wraps the underlying data used by ",
       "type" : "text"
     },
     {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : "s.",
@@ -332,6 +340,48 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/equatable-implementations"
 },
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/SelectionSetData": {
+  "abstract" : [
+    {
+      "text" : "A type representing the underlying data for a ",
+      "type" : "text"
+    },
+    {
+      "code" : "SelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSetData"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/SelectionSetData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSetData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DataDict.SelectionSetData",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/datadict\/selectionsetdata"
+},
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict/hash(into:)": {
   "abstract" : [
 
@@ -386,7 +436,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/hash(into:)"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(_:variables:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(data:)": {
   "abstract" : [
 
   ],
@@ -400,47 +450,38 @@
       "text" : "("
     },
     {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-      "text" : "JSONObject"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
       "kind" : "externalParam",
-      "text" : "variables"
+      "text" : "data"
     },
     {
       "kind" : "text",
-      "text" : ": ["
+      "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
+      "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
+      "text" : "DataDict"
     },
     {
       "kind" : "text",
-      "text" : " : "
+      "text" : "."
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI29GraphQLOperationVariableValueP",
-      "text" : "GraphQLOperationVariableValue"
+      "preciseIdentifier" : "s:9ApolloAPI8DataDictV012SelectionSetC0a",
+      "text" : "SelectionSetData"
     },
     {
       "kind" : "text",
-      "text" : "]?)"
+      "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(_:variables:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(_:variables:)",
+  "title" : "init(data:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/datadict\/init(_:variables:)"
+  "url" : "\/documentation\/apolloapi\/datadict\/init(data:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict/subscript(_:)-5tqti": {
   "abstract" : [
@@ -525,6 +566,37 @@
   "title" : "subscript(_:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/subscript(_:)-7aefb"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/SelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/selectionset"
 }
 }
 }

@@ -233,7 +233,7 @@
         },
         {
           "code" : [
-            "public extension MySchema {",
+            "enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {",
             "  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {",
             "    switch type {",
             "    case Objects.Dog:",
@@ -341,7 +341,7 @@
         },
         {
           "code" : [
-            "public extension MySchema {",
+            "enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {",
             "  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {",
             "    if type.implements(Interfaces.Pet) {",
             "      return try? CacheKeyInfo(jsonValue: object[\"id\"])",
@@ -410,7 +410,7 @@
         },
         {
           "code" : [
-            "public extension MySchema {",
+            "enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {",
             "  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {",
             "    if type.implements(Interfaces.Pet) {",
             "      return try? CacheKeyInfo(jsonValue: object[\"id\"], uniqueKeyGroup: Interfaces.Pet.name)",
