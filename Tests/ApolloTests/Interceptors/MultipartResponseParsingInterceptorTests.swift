@@ -177,7 +177,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
   // MARK: Parsing tests
 
-  private class Time: MockSelectionSet, SelectionSet {
+  private class Time: MockSelectionSet {
     typealias Schema = MockSchemaMetadata
 
     override class var __selections: [Selection] {[
@@ -225,10 +225,10 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       """.crlfFormattedData()
     )
 
-    let expectedData = Time(data: DataDict([
+    let expectedData = try Time(data: [
       "__typename": "Time",
       "ticker": 1
-    ], variables: nil))
+    ], variables: nil)
 
     let expectation = expectation(description: "Multipart data received")
 

@@ -330,7 +330,7 @@ class RequestChainTests: XCTestCase {
 
   // MARK: Memory tests
 
-  private class Hero: MockSelectionSet, SelectionSet {
+  private class Hero: MockSelectionSet {
     typealias Schema = MockSchemaMetadata
 
     override class var __selections: [Selection] {[
@@ -341,7 +341,7 @@ class RequestChainTests: XCTestCase {
     var name: String { __data["name"] }
   }
 
-  func test__retain_release__givenQuery_shouldNotHaveRetainCycle() {
+  func test__retain_release__givenQuery_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -366,10 +366,10 @@ class RequestChainTests: XCTestCase {
     ])
     weak var weakRequestChain: RequestChain? = requestChain
 
-    let expectedData = Hero(data: DataDict([
+    let expectedData = try Hero(data: [
       "__typename": "Hero",
       "name": "R2-D2"
-    ], variables: nil))
+    ], variables: nil)
 
     let expectation = expectation(description: "Response received")
 
@@ -402,7 +402,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__retain_release__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() {
+  func test__retain_release__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -445,10 +445,10 @@ class RequestChainTests: XCTestCase {
     ])
     weak var weakRequestChain: RequestChain? = requestChain
 
-    let expectedData = Hero(data: DataDict([
+    let expectedData = try Hero(data: [
       "__typename": "Hero",
       "name": "R2-D2"
-    ], variables: nil))
+    ], variables: nil)
 
     let expectation = expectation(description: "Response received")
     expectation.expectedFulfillmentCount = 2
