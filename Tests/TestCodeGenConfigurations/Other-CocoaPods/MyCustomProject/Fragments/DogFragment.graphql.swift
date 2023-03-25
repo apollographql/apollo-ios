@@ -16,6 +16,7 @@ public struct DogFragment: MyCustomProject.SelectionSet, Fragment {
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Dog }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .field("species", String.self),
   ] }
 

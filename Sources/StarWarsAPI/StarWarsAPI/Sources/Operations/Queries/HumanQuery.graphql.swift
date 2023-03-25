@@ -59,6 +59,7 @@ public class HumanQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("name", String.self),
         .field("mass", Double?.self),
       ] }

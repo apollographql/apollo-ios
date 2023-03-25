@@ -20,6 +20,7 @@ public extension MyGraphQLSchema {
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("owner", Owner?.self),
     ] }
 
@@ -50,6 +51,7 @@ public extension MyGraphQLSchema {
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Human }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("firstName", String.self),
       ] }
 

@@ -19,6 +19,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .field("height", Height.self),
   ] }
 
@@ -33,6 +34,7 @@ public struct HeightInMeters: MyCustomProject.SelectionSet, Fragment {
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
     public static var __selections: [Apollo.Selection] { [
+      .field("__typename", String.self),
       .field("meters", Int.self),
     ] }
 

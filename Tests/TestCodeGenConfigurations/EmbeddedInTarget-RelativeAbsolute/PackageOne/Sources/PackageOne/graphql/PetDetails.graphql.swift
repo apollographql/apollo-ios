@@ -22,6 +22,7 @@ struct PetDetails: MySchemaModule.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -40,6 +41,7 @@ struct PetDetails: MySchemaModule.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Human }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("firstName", String.self),
     ] }
 

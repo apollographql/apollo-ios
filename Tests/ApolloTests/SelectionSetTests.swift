@@ -925,6 +925,127 @@ class SelectionSetTests: XCTestCase {
 
   // MARK: - Initializer Tests
 
+  func test__selectionInitializer_givenOptionalListOfOptionalEntitiesField__setsFieldDataCorrectly() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .field("friends", [Friend?]?.self)
+      ]}
+
+      var friends: [Friend?]? { __data["friends"] }
+
+      convenience init(
+        friends: [Friend?]? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Human.typename,
+          "friends": friends._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+      class Friend: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .field("name", String.self)
+        ]}
+        var name: String { __data["name"] }
+
+        convenience init(
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+            ])
+          ]))
+        }
+      }
+    }
+
+    // when
+    let actual = Hero(friends: [
+      .init(name: "Han"),
+      nil,
+      .init(name: "Leia"),
+    ])
+
+    // then
+    expect(actual.friends?[0]?.name).to(equal("Han"))
+    expect(actual.friends?[1]).to(beNil())
+    expect(actual.friends?[2]?.name).to(equal("Leia"))
+  }
+
+  func test__selectionInitializer_givenOptionalListOfOptionalScalarsField__setsFieldDataCorrectly() {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Hero: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Human }
+      override class var __selections: [Selection] {[
+        .field("names", [String?]?.self)
+      ]}
+
+      var names: [String?]? { __data["names"] }
+
+      convenience init(
+        names: [String?]? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Human.typename,
+          "names": names,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+    }
+
+    // when
+    let actual = Hero(names: [
+      "Han",
+      nil,
+      "Leia",
+    ])
+
+    // then
+    expect(actual.names?[0]).to(equal("Han"))
+    expect(actual.names?[1]).to(beNil())
+    expect(actual.names?[2]).to(equal("Leia"))
+  }
+
   func test__selectionInitializer_givenInitTypeWithTypeCondition__canConvertToConditionalType() {
     // given
     struct Types {

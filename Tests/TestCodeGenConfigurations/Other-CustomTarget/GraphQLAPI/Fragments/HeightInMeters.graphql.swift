@@ -19,6 +19,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("height", Height.self),
   ] }
 
@@ -33,6 +34,7 @@ public struct HeightInMeters: GraphQLAPI.SelectionSet, Fragment {
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("meters", Int.self),
     ] }
 

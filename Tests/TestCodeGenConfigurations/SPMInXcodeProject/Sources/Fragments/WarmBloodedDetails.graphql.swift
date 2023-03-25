@@ -17,6 +17,7 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("bodyTemperature", Int.self),
     .fragment(HeightInMeters.self),
   ] }

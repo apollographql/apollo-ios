@@ -40,6 +40,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .fragment(ClassroomPetDetailsCCN.self),
       ] }
 

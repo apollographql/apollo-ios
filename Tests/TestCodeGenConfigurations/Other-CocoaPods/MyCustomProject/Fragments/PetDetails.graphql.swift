@@ -21,6 +21,7 @@ public struct PetDetails: MyCustomProject.SelectionSet, Fragment {
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .field("humanName", String?.self),
     .field("favoriteToy", String.self),
     .field("owner", Owner?.self),
@@ -39,6 +40,7 @@ public struct PetDetails: MyCustomProject.SelectionSet, Fragment {
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Human }
     public static var __selections: [Apollo.Selection] { [
+      .field("__typename", String.self),
       .field("firstName", String.self),
     ] }
 

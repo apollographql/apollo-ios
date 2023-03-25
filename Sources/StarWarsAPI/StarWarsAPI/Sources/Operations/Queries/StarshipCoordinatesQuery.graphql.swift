@@ -60,6 +60,7 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("name", String.self),
         .field("coordinates", [[Double]]?.self),
         .field("length", Double?.self),

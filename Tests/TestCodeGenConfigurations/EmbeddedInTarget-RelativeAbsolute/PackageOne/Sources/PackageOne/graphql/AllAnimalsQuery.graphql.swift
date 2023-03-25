@@ -87,6 +87,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("height", Height.self),
         .field("species", String.self),
         .field("skinCovering", GraphQLEnum<MySchemaModule.SkinCovering>?.self),
@@ -126,6 +127,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("feet", Int.self),
           .field("inches", Int?.self),
         ] }
@@ -144,6 +146,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("species", String.self),
           .inlineFragment(AsWarmBlooded.self),
         ] }
@@ -265,6 +268,7 @@ class AllAnimalsQuery: GraphQLQuery {
 
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Height }
           public static var __selections: [ApolloAPI.Selection] { [
+            .field("__typename", String.self),
             .field("relativeSize", GraphQLEnum<MySchemaModule.RelativeSize>.self),
             .field("centimeters", Double.self),
           ] }

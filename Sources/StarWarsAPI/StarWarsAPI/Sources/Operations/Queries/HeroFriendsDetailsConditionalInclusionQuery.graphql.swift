@@ -65,6 +65,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .include(if: "includeFriendsDetails", .field("friends", [Friend?]?.self)),
       ] }
 
@@ -93,6 +94,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("name", String.self),
           .inlineFragment(AsDroid.self),
         ] }

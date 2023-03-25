@@ -34,6 +34,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),

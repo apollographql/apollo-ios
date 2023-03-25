@@ -21,6 +21,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
   ] }
 
@@ -50,6 +51,7 @@ public struct ClassroomPetDetailsCCN: MyCustomProject.SelectionSet, Fragment {
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Height }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .field("inches", Int.self),
       ] }
 

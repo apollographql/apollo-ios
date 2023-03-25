@@ -41,6 +41,7 @@ struct ClassroomPetDetails: MySchemaModule.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),

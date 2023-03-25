@@ -27,7 +27,7 @@ public protocol MutableSelectionSet: SelectionSet {
 }
 
 public extension MutableSelectionSet {
-  @inlinable var __typename: String {
+  @inlinable var __typename: String? {
     get { __data["__typename"] }
     set { __data["__typename"] = newValue }
   }

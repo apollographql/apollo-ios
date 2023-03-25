@@ -49,10 +49,10 @@ struct ObjectExecutionInfo {
     for json: JSONObject
   ) -> Object? {
     guard let __typename = json["__typename"] as? String else {
-      if responsePath.isEmpty {
-        return schema.objectType(forTypename: rootType.__parentType.__typename)
+      guard let objectType = rootType.__parentType as? Object else {
+        return nil
       }
-      return nil
+      return schema.objectType(forTypename: objectType.typename)
     }
     return schema.objectType(forTypename: __typename)
   }
@@ -245,11 +245,6 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   ) throws -> FieldSelectionGrouping {
     var grouping = FieldSelectionGrouping(info: info)
 
-    #warning("TODO: When executing on a selection set that isn't operation root. This will be wrong.")
-    // Add __typename field to all selection sets other than the root of the operation.
-    if !info.responsePath.isEmpty {
-      grouping.append(field: .init("__typename", type: .scalar(String.self)), withInfo: info)
-    }
     try fieldCollector.collectFields(from: selections,
                                      into: &grouping,
                                      for: object,

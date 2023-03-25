@@ -91,7 +91,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
     
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
   
   func test__render_givenSelectionSetOnInterfaceType_parametersIncludeTypenameField() throws {
@@ -140,7 +140,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
     
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_givenSelectionSetOnUnionType_parametersIncludeFulfilledFragmentsWithUnion() throws {
@@ -413,7 +413,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
     
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 61, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 62, ignoringExtraLines: true))
   }
 
   func test__render_given_fieldWithAlias_rendersInitializer() throws {
@@ -460,7 +460,157 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render_given_listField_rendersInitializerWithListFieldTransformedToFieldData() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friends: [Animal!]!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friends {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          friends: [Friend]
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "friends": friends._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render_given_optionalListField_rendersInitializerWithListFieldTransformedToFieldData() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friends: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friends {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          friends: [Friend]? = nil
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "friends": friends._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render_given_optionalListOfOptionalsField_rendersInitializerWithListFieldTransformedToFieldData() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friends: [Animal]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        friends {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          friends: [Friend?]? = nil
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "friends": friends._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
   
   func test__render_given_entityFieldSelection_rendersInitializer() throws {
@@ -510,7 +660,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_given_abstractEntityFieldSelectionWithNoFields_rendersInitializer() throws {
@@ -566,7 +716,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_given_entityFieldListSelection_rendersInitializer() throws {
@@ -616,7 +766,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_given_entityFieldSelection_nullable_rendersInitializer() throws {
@@ -666,7 +816,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
 
 
@@ -859,7 +1009,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 22, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragmentSelectionNestedInNamedFragment_fulfilledFragmentsIncludesNamedFragment() throws {
@@ -922,7 +1072,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     let actual = subject.render(field: allAnimals)
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 24, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 25, ignoringExtraLines: true))
   }
 
   func test__render_givenTypeCaseWithNamedFragmentMergedFromParent_fulfilledFragmentsIncludesNamedFragment() throws {
@@ -1059,7 +1209,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     // then
     expect(allAnimals_actual).to(equalLineByLine(
-      allAnimals_expected, atLine: 15, ignoringExtraLines: true))
+      allAnimals_expected, atLine: 16, ignoringExtraLines: true))
 
     expect(allAnimals_asPet_actual).to(equalLineByLine(
       allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
@@ -1377,7 +1527,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     // then
     expect(allAnimals_actual).to(equalLineByLine(
-      allAnimals_expected, atLine: 22, ignoringExtraLines: true))
+      allAnimals_expected, atLine: 23, ignoringExtraLines: true))
     expect(allAnimals_ifA_actual).to(equalLineByLine(
       allAnimals_ifA_expected, atLine: 23, ignoringExtraLines: true))
   }

@@ -46,6 +46,7 @@ public class PetAdoptionMutation: GraphQLMutation {
 
       public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", AnimalKingdomAPI.ID.self),
         .field("humanName", String?.self),
       ] }

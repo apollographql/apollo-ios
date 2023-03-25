@@ -43,6 +43,7 @@ public class RepoURLQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("url", GitHubAPI.URI.self),
       ] }
 

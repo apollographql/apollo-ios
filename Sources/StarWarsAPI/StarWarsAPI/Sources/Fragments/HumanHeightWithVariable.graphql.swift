@@ -16,6 +16,7 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("height", Double?.self, arguments: ["unit": .variable("heightUnit")]),
   ] }
 

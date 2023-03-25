@@ -57,6 +57,7 @@ public class PetSearchQuery: GraphQLQuery {
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", GraphQLAPI.ID.self),
         .field("humanName", String?.self),
       ] }

@@ -18,6 +18,7 @@ public extension MyGraphQLSchema {
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.WarmBlooded }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("bodyTemperature", Int.self),
       .fragment(HeightInMeters.self),
     ] }

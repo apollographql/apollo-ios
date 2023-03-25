@@ -1670,6 +1670,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         override class var __parentType: ParentType { Types.Human }
         override class var __selections: [Selection] {[
+          .field("__typename", String.self),
           .include(if: "a", .inlineFragment(IfA.self)),
           .include(if: "b", .inlineFragment(IfB.self))
         ]}
@@ -1711,6 +1712,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
             override class var __parentType: ParentType { Types.Human }
             override class var __selections: [Selection] {[
+              .field("__typename", String.self),
               .field("name", String.self)
             ]}
 
@@ -2237,6 +2239,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
+        .field("__typename", String.self),
         .field("id", String.self),
         .field("friends", [Friend].self),
       ]}
@@ -2251,6 +2254,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
+          .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
         ]}

@@ -40,7 +40,7 @@ extension IR {
     ///
     /// For example, given the set of nested selections sets:
     /// ```
-    /// object {
+    /// object { // object field is of type "Object"
     ///  ... on A {
     ///   ... on B {
     ///     ... on C {
@@ -50,7 +50,7 @@ extension IR {
     /// }
     /// ```
     /// The scopePath for the `SelectionSet` that includes field `fieldOnABC` would be:
-    /// `[A, B, C]`.
+    /// `[Object, A, B, C]`.
     let scopePath: LinkedList<ScopeCondition>
 
     /// All of the types that the `SelectionSet` implements. That is, all of the types in the
