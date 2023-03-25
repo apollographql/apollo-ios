@@ -841,7 +841,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
   // MARK: - Inline Fragments
 
-  func test__inlineFragment__withoutExplicitTypeNameSelection_selectsTypenameField() throws {
+  func test__inlineFragment__withoutTypenameMatchingCondition_selectsTypeCaseField() throws {
     // given
     struct Types {
       static let Human = Object(typename: "Human", implementedInterfaces: [])
@@ -860,6 +860,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
 
         override class var __parentType: ParentType { Types.MockChildObject }
         override class var __selections: [Selection] {[
+          .field("__typename", String.self),
           .inlineFragment(AsHuman.self)
         ]}
 
