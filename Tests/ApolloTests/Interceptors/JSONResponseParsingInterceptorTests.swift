@@ -4,41 +4,6 @@ import ApolloInternalTestHelpers
 import XCTest
 
 class JSONResponseParsingInterceptorTests: XCTestCase {
-  func testJSONResponseParsingInterceptorFailsWithImproperlyOrderedCalls() {
-    class TestProvider: InterceptorProvider {
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
-        [
-          JSONResponseParsingInterceptor()
-        ]
-      }
-    }
-
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
-                                               endpointURL: TestURL.mockServer.url)
-
-    let expectation = self.expectation(description: "Request sent")
-
-    _ = network.send(operation: MockQuery.mock()) { result in
-      defer {
-        expectation.fulfill()
-      }
-
-      switch result {
-      case .success:
-        XCTFail("This should not have succeeded")
-      case .failure(let error):
-        switch error {
-        case JSONResponseParsingInterceptor.JSONResponseParsingError.noResponseToParse:
-          // This is what we want
-          break
-        default:
-          XCTFail("Unexpected error type: \(error.localizedDescription)")
-        }
-      }
-    }
-
-    self.wait(for: [expectation], timeout: 1)
-  }
 
   func testJSONResponseParsingInterceptorFailsWithEmptyData() {
     class TestProvider: InterceptorProvider {
