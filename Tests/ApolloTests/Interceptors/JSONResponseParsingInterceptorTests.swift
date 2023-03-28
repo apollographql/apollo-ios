@@ -5,15 +5,11 @@ import XCTest
 
 class JSONResponseParsingInterceptorTests: XCTestCase {
   func testJSONResponseParsingInterceptorFailsWithImproperlyOrderedCalls() {
-    class TestProvider: InterceptorProvider {
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
-        [
-          JSONResponseParsingInterceptor()
-        ]
-      }
-    }
+    let provider = MockInterceptorProvider([
+      JSONResponseParsingInterceptor()
+    ])
 
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: TestURL.mockServer.url)
 
     let expectation = self.expectation(description: "Request sent")
