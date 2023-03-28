@@ -21,8 +21,10 @@ public final class MockURLSessionClient: URLSessionClient {
   
   private let callbackQueue: DispatchQueue
   
-  public init(callbackQueue: DispatchQueue? = nil) {
+  public init(callbackQueue: DispatchQueue? = nil, response: HTTPURLResponse? = nil, data: Data? = nil) {
     self.callbackQueue = callbackQueue ?? .main
+    self.response = response
+    self.data = data
   }
 
   public override func sendRequest(_ request: URLRequest,
@@ -30,7 +32,7 @@ public final class MockURLSessionClient: URLSessionClient {
                                    completion: @escaping URLSessionClient.Completion) -> URLSessionTask {
     self.$lastRequest.mutate { $0 = request }
     self.$requestCount.increment()
-        
+
     // Capture data, response, and error instead of self to ensure we complete with the current state
     // even if it is changed before the block runs.
     callbackQueue.async { [responseData, response, error] in
@@ -68,4 +70,6 @@ private final class URLSessionDataTaskMock: URLSessionDataTask, URLSessionDataTa
   override func resume() {
     // No-op
   }
+
+  override func cancel() {}
 }

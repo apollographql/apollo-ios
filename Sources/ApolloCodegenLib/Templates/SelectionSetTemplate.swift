@@ -1,17 +1,21 @@
 import InflectorKit
+import OrderedCollections
 
 struct SelectionSetTemplate {
 
   let isMutable: Bool
+  let generateInitializers: Bool
   let config: ApolloCodegen.ConfigurationContext
 
   private let nameCache: SelectionSetNameCache
 
   init(
     mutable: Bool = false,
+    generateInitializers: Bool,
     config: ApolloCodegen.ConfigurationContext
   ) {
     self.isMutable = mutable
+    self.generateInitializers = generateInitializers
     self.config = config
 
     self.nameCache = SelectionSetNameCache(config: config)
@@ -66,7 +70,7 @@ struct SelectionSetTemplate {
       selectionSetTypeName = "MutableInlineFragment"
     }
 
-    return "\(config.schemaName.firstUppercased).\(selectionSetTypeName)"
+    return "\(config.schemaNamespace.firstUppercased).\(selectionSetTypeName)"
   }
 
   // MARK: - Selection Set Name Documentation
@@ -91,6 +95,7 @@ struct SelectionSetTemplate {
     return """
     \(DataFieldAndInitializerTemplate())
 
+    \(RootEntityTypealias(selectionSet))
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
 
@@ -99,6 +104,8 @@ struct SelectionSetTemplate {
     \(section: InlineFragmentAccessorsTemplate(selections))
 
     \(section: FragmentAccessorsTemplate(selections, in: scope))
+
+    \(section: "\(if: generateInitializers, InitializerTemplate(selectionSet))")
 
     \(section: ChildEntityFieldSelectionSets(selections))
 
@@ -109,15 +116,33 @@ struct SelectionSetTemplate {
   private func DataFieldAndInitializerTemplate() -> String {
     """
     public \(isMutable ? "var" : "let") __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
+    """
+  }
+
+  private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    guard !selectionSet.isEntityRoot else { return "" }
+    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
+      from: selectionSet.scopePath.head,
+      to: selectionSet.scopePath.last.value.scopePath.head,
+      withFieldPath: selectionSet.entity.fieldPath.head,
+      removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+      pluralizer: config.pluralizer
+    )
+    return """
+    public typealias RootEntityType = \(rootEntityName)
     """
   }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     """
     public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
-    \(config.schemaName.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased) }
+    \(GeneratedTypeReference(type)) }
     """
+  }
+
+  private func GeneratedTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
+    "\(config.schemaNamespace.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
   }
 
   // MARK: - Selections
@@ -132,6 +157,7 @@ struct SelectionSetTemplate {
 
     let selectionsTemplate = TemplateString("""
     public static var __selections: [\(config.ApolloAPITargetName).Selection] { [
+      \(if: shouldIncludeTypenameSelection(for: scope), ".field(\"__typename\", String.self),")
       \(renderedSelections(groupedSelections.unconditionalSelections, &deprecatedArguments), terminator: ",")
       \(groupedSelections.inclusionConditionGroups.map {
         renderedConditionalSelectionGroup($0, $1, in: scope, &deprecatedArguments)
@@ -147,6 +173,10 @@ struct SelectionSetTemplate {
       """)
     \(selectionsTemplate)
     """
+  }
+
+  private func shouldIncludeTypenameSelection(for scope: IR.ScopeDescriptor) -> Bool {
+    return scope.scopePath.count == 1 && !scope.type.isRootFieldType
   }
 
   private func renderedSelections(
@@ -296,21 +326,12 @@ struct SelectionSetTemplate {
     \(if: isMutable,
       """
 
-        get { \(InlineFragmentGetter(inlineFragment)) }
+        get { _asInlineFragment() }
         set { if let newData = newValue?.__data._data { __data._data = newData }}
       }
       """,
-      else: " \(InlineFragmentGetter(inlineFragment)) }"
+      else: " _asInlineFragment() }"
     )
-    """
-  }
-
-  private func InlineFragmentGetter(_ inlineFragment: IR.SelectionSet) -> TemplateString {
-    """
-    _asInlineFragment\
-    (\(ifLet: inlineFragment.inclusionConditions, {
-      "if: \($0.conditionVariableExpression())"
-    }))
     """
   }
 
@@ -330,7 +351,9 @@ struct SelectionSetTemplate {
       \(ifLet: selections.direct?.fragments.values, {
         "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
         })
-      \(selections.merged.fragments.values.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")
+      \(selections.merged.fragments.values.map {
+          FragmentAccessorTemplate($0, in: scope)
+        }, separator: "\n")
     }
     """
   }
@@ -345,18 +368,13 @@ struct SelectionSetTemplate {
     let isOptional = fragment.inclusionConditions != nil &&
     !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
 
-    let getter = FragmentGetter(
-      fragment,
-      if: isOptional ? fragment.inclusionConditions.unsafelyUnwrapped : nil
-    )
-
     return """
     public var \(propertyName): \(typeName)\
     \(if: isOptional, "?") {\
     \(if: isMutable,
       """
 
-        get { \(getter) }
+        get { _toFragment() }
         _modify { var f = \(propertyName); yield &f; \(
           if: isOptional,
             "if let newData = f?.__data { __data = newData }",
@@ -366,20 +384,113 @@ struct SelectionSetTemplate {
         set { preconditionFailure() }
       }
       """,
-      else: " \(getter) }"
+      else: " _toFragment() }"
     )
     """
   }
 
-  private func FragmentGetter(
-    _ fragment: IR.FragmentSpread,
-    if inclusionConditions: AnyOf<IR.InclusionConditions>?
+  // MARK: - SelectionSet Initializer
+
+  private func InitializerTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    return """
+    public init(
+      \(InitializerSelectionParametersTemplate(selectionSet))
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        \(InitializerDataDictTemplate(selectionSet))
+      ]))
+    }
+    """
+  }
+
+  private func InitializerSelectionParametersTemplate(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = selectionSet.selections.makeFieldIterator()
+
+    return TemplateString("""
+    \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
+    \(IteratorSequence(allFields).map(InitializerParameterTemplate(_:)))
+    """
+    )
+  }
+
+  private func InitializerParameterTemplate(
+    _ field: IR.Field
   ) -> TemplateString {
     """
-    _toFragment(\
-    \(ifLet: inclusionConditions, {
-      "if: \($0.conditionVariableExpression)"
-    }))
+    \(field.responseKey.asInputParameterName): \(typeName(for: field))\
+    \(if: field.type.isNullable, " = nil")
+    """
+  }
+
+  private func InitializerDataDictTemplate(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    let isConcreteType = selectionSet.parentType is GraphQLObjectType
+    let allFields = selectionSet.selections.makeFieldIterator()
+
+    return TemplateString("""
+    "__typename": \
+    \(if: isConcreteType,
+      "\(GeneratedTypeReference(selectionSet.parentType)).typename,",
+      else: "__typename,")
+    \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)), terminator: ",")
+    \(InitializerFulfilledFragments(selectionSet))
+    """
+    )
+  }
+
+  private func InitializerDataDictFieldTemplate(
+    _ field: IR.Field
+  ) -> TemplateString {
+    let isEntityField: Bool = {
+      switch field.type.innerType {
+      case .entity: return true
+      default: return false
+      }
+    }()
+
+    return """
+    "\(field.responseKey)": \(field.responseKey.asInputParameterName)\
+    \(if: isEntityField, "._fieldData")
+    """
+  }
+
+  private func InitializerFulfilledFragments(
+    _ selectionSet: IR.SelectionSet
+  ) -> TemplateString {
+    var fulfilledFragments: [String] = ["Self"]
+
+    var next = selectionSet.scopePath.last.value.scopePath.head
+    while next.next != nil {
+      defer { next = next.next.unsafelyUnwrapped }
+
+      let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+        from: selectionSet.scopePath.head,
+        to: next,
+        withFieldPath: selectionSet.entity.fieldPath.head,
+        removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+        pluralizer: config.pluralizer
+      )
+
+      fulfilledFragments.append(selectionSetName)
+    }
+
+    let allFragments = IteratorSequence(selectionSet.selections.makeFragmentIterator())
+    for fragment in allFragments {
+      if let conditions = fragment.inclusionConditions,
+         !selectionSet.typeInfo.scope.matches(conditions) {
+        continue
+      }
+      fulfilledFragments.append(fragment.definition.name.firstUppercased)
+    }
+
+    return """
+    "__fulfilled": Set([
+      \(fulfilledFragments.map { "ObjectIdentifier(\($0).self)" })
+    ])
     """
   }
 
@@ -586,26 +697,38 @@ fileprivate struct SelectionSetNameGenerator {
 
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
+    to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
     withFieldPath fieldPathNode: IR.Entity.FieldPath.Node,
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
     var currentTypePathNode = Optional(typePathNode)
     var currentFieldPathNode = Optional(fieldPathNode)
-    var fieldPathIndex = 0
 
     var components: [String] = []
 
-    repeat {
+    iterateEntityScopes: repeat {
       let fieldName = currentFieldPathNode.unsafelyUnwrapped.value
         .formattedSelectionSetName(with: pluralizer)
       components.append(fieldName)
 
-      if let conditionNodes = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next {
-        ConditionPath.add(conditionNodes, to: &components)
+      var currentConditionNode = Optional(currentTypePathNode.unsafelyUnwrapped.value.scopePath.head)
+      guard currentConditionNode !== endingNode else {
+        break iterateEntityScopes
       }
 
-      fieldPathIndex += 1
+      currentConditionNode = currentTypePathNode.unsafelyUnwrapped.value.scopePath.head.next
+      iterateConditionScopes: while currentConditionNode !== nil {
+        let node = currentConditionNode.unsafelyUnwrapped
+
+        components.append(node.value.selectionSetNameComponent)
+        guard node !== endingNode else {
+          break iterateEntityScopes
+        }
+
+        currentConditionNode = node.next
+      }
+
       currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
       currentFieldPathNode = currentFieldPathNode.unsafelyUnwrapped.next
     } while currentTypePathNode !== nil
@@ -618,15 +741,6 @@ fileprivate struct SelectionSetNameGenerator {
   fileprivate struct ConditionPath {
     static func path(for conditions: LinkedList<IR.ScopeCondition>.Node) -> String {
       conditions.map(\.selectionSetNameComponent).joined(separator: ".")
-    }
-
-    static func add(
-      _ conditionNodes: LinkedList<IR.ScopeCondition>.Node,
-      to components: inout [String]
-    ) {
-      for condition in conditionNodes {
-        components.append(condition.selectionSetNameComponent)
-      }
     }
   }
 }
@@ -694,3 +808,40 @@ fileprivate extension IR.Field {
   }
 }
 
+extension IR.SelectionSet.Selections {
+  fileprivate func makeFieldIterator() -> SelectionsIterator<IR.Field> {
+    SelectionsIterator(direct: direct?.fields, merged: merged.fields)
+  }
+
+  fileprivate func makeFragmentIterator() -> SelectionsIterator<IR.FragmentSpread> {
+    SelectionsIterator(direct: direct?.fragments, merged: merged.fragments)
+  }
+
+  fileprivate struct SelectionsIterator<SelectionType>: IteratorProtocol {
+    typealias SelectionDictionary = OrderedDictionary<String, SelectionType>
+
+    private let direct: SelectionDictionary?
+    private let merged: SelectionDictionary
+    private var directIterator: IndexingIterator<SelectionDictionary.Values>?
+    private var mergedIterator: IndexingIterator<SelectionDictionary.Values>
+
+    fileprivate init(
+      direct: SelectionDictionary?,
+      merged: SelectionDictionary
+    ) {
+      self.direct = direct
+      self.merged = merged
+      self.directIterator = self.direct?.values.makeIterator()
+      self.mergedIterator = self.merged.values.makeIterator()
+    }
+
+    mutating func next() -> SelectionType? {
+      directIterator?.next() ?? mergedIterator.next()
+    }
+
+    var isEmpty: Bool {
+      return (direct?.isEmpty ?? true) && merged.isEmpty
+    }
+
+  }
+}

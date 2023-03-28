@@ -1,5 +1,5 @@
 import XCTest
-import Apollo
+@testable import Apollo
 import ApolloAPI
 import ApolloInternalTestHelpers
 
@@ -25,7 +25,7 @@ class RequestChainTests: XCTestCase {
         XCTFail("This should not have succeeded")
       case .failure(let error):
         switch error {
-        case RequestChain.ChainError.noInterceptors:
+        case InterceptorRequestChain.ChainError.noInterceptors:
           // This is what we want.
           break
         default:
@@ -206,5 +206,280 @@ class RequestChainTests: XCTestCase {
     case .none:
       XCTFail("Error interceptor did not receive an error!")
     }
+  }
+
+  // MARK: Multipart subscription tests
+  
+  struct RequestTrapInterceptor: ApolloInterceptor {
+    let callback: (URLRequest) -> (Void)
+
+    init(_ callback: @escaping (URLRequest) -> (Void)) {
+      self.callback = callback
+    }
+
+    func interceptAsync<Operation>(
+      chain: RequestChain,
+      request: HTTPRequest<Operation>,
+      response: HTTPResponse<Operation>?,
+      completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
+    ) -> Void) {
+      callback(try! request.toURLRequest())
+    }
+  }
+
+  func test__request__givenSubscription_shouldAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = RequestTrapInterceptor { request in
+      guard let header = request.allHTTPHeaderFields?["Accept"] else {
+        XCTFail()
+        return
+      }
+
+      XCTAssertEqual(header, "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json")
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: TestURL.mockServer.url
+    )
+
+    _ = transport.send(operation: MockSubscription.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__request__givenSubscription_whenTransportInitializedWithAdditionalHeaders_shouldOverwriteOnlyAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = RequestTrapInterceptor { request in
+      guard let header = request.allHTTPHeaderFields?["Accept"] else {
+        XCTFail()
+        return
+      }
+
+      XCTAssertEqual(header, "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json")
+      XCTAssertNotNil(request.allHTTPHeaderFields?["Random"])
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: TestURL.mockServer.url,
+      additionalHeaders: [
+        "Accept": "multipart/mixed",
+        "Random": "still-here"
+      ]
+    )
+
+    _ = transport.send(operation: MockSubscription.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__request__givenQuery_shouldNotAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = RequestTrapInterceptor { request in
+      if let header = request.allHTTPHeaderFields?["Accept"] {
+        XCTAssertFalse(header.contains("multipart/mixed"))
+      }
+
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: TestURL.mockServer.url
+    )
+
+    _ = transport.send(operation: MockQuery.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__request__givenMutation_shouldNotAddMultipartAcceptHeader() {
+    let expectation = self.expectation(description: "Request header verified")
+
+    let interceptor = RequestTrapInterceptor { request in
+      if let header = request.allHTTPHeaderFields?["Accept"] {
+        XCTAssertFalse(header.contains("multipart/mixed"))
+      }
+
+      expectation.fulfill()
+    }
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: MockInterceptorProvider([interceptor]),
+      endpointURL: TestURL.mockServer.url
+    )
+
+    _ = transport.send(operation: MockMutation.mock()) { result in
+      // noop
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  // MARK: Memory tests
+
+  private class Hero: MockSelectionSet {
+    typealias Schema = MockSchemaMetadata
+
+    override class var __selections: [Selection] {[
+      .field("__typename", String.self),
+      .field("name", String.self)
+    ]}
+
+    var name: String { __data["name"] }
+  }
+
+  func test__retain_release__givenQuery_shouldNotHaveRetainCycle() throws {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil)
+
+    let expectation = expectation(description: "Response received")
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
+
+  func test__retain_release__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"]
+      ),
+      data: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Hero",
+            "name": "R2-D2"
+          }
+        }
+      }
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Hero",
+            "name": "R2-D2"
+          }
+        }
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      NetworkFetchInterceptor(client: client),
+      MultipartResponseParsingInterceptor(),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil)
+
+    let expectation = expectation(description: "Response received")
+    expectation.expectedFulfillmentCount = 2
+
+    let request = JSONRequest(
+      operation: MockSubscription<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain?.cancel()
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
   }
 }

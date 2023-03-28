@@ -29,7 +29,7 @@ public class HumanQuery: GraphQLQuery {
 
   public struct Data: StarWarsAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -38,15 +38,28 @@ public class HumanQuery: GraphQLQuery {
 
     public var human: Human? { __data["human"] }
 
+    public init(
+      human: Human? = nil
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": StarWarsAPI.Objects.Query.typename,
+        "human": human._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
+
     /// Human
     ///
     /// Parent Type: `Human`
     public struct Human: StarWarsAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("name", String.self),
         .field("mass", Double?.self),
       ] }
@@ -55,6 +68,20 @@ public class HumanQuery: GraphQLQuery {
       public var name: String { __data["name"] }
       /// Mass in kilograms, or null if unknown
       public var mass: Double? { __data["mass"] }
+
+      public init(
+        name: String,
+        mass: Double? = nil
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": StarWarsAPI.Objects.Human.typename,
+          "name": name,
+          "mass": mass,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
     }
   }
 }

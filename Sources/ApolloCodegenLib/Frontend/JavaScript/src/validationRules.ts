@@ -18,7 +18,7 @@ export interface DisallowedFieldNames {
 }
 
 export interface ValidationOptions {
-  schemaName?: string
+  schemaNamespace?: string
   disallowedFieldNames?: DisallowedFieldNames
   disallowedInputParameterNames?: Array<string>
 }

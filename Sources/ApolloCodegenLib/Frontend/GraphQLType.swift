@@ -49,6 +49,11 @@ public indirect enum GraphQLType: Hashable {
       return innerType.innerType
     }
   }
+
+  public var isNullable: Bool {
+    if case .nonNull = self { return false }
+    return true
+  }
 }
 
 extension GraphQLType: CustomDebugStringConvertible {

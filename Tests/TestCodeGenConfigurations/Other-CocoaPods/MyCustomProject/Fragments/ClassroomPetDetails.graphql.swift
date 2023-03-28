@@ -30,10 +30,11 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
   public static var __selections: [Apollo.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),
@@ -54,8 +55,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
     public static var __selections: [Apollo.Selection] { [
       .field("species", String.self),
@@ -69,8 +71,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Pet`
   public struct AsPet: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Pet }
     public static var __selections: [Apollo.Selection] { [
       .field("humanName", String?.self),
@@ -84,8 +87,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `WarmBlooded`
   public struct AsWarmBlooded: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.WarmBlooded }
     public static var __selections: [Apollo.Selection] { [
       .field("laysEggs", Bool.self),
@@ -100,8 +104,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Cat`
   public struct AsCat: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Cat }
     public static var __selections: [Apollo.Selection] { [
       .field("bodyTemperature", Int.self),
@@ -120,8 +125,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `Bird`
   public struct AsBird: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
     public static var __selections: [Apollo.Selection] { [
       .field("wingspan", Double.self),
@@ -138,8 +144,9 @@ public struct ClassroomPetDetails: MyCustomProject.SelectionSet, Fragment {
   /// Parent Type: `PetRock`
   public struct AsPetRock: MyCustomProject.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.PetRock }
     public static var __selections: [Apollo.Selection] { [
       .field("favoriteToy", String.self),

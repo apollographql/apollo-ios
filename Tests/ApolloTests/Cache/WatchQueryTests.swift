@@ -828,8 +828,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testWatchedQueryGetsUpdatedWhenObjectIsChangedByDirectStoreUpdate() throws {
     struct HeroAndFriendsNamesSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] {[
         .field("hero", Hero?.self)
@@ -841,8 +841,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] {[
           .field("__typename", String.self),
@@ -861,8 +861,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] {[
             .field("__typename", String.self),
@@ -955,8 +955,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   func testWatchedQuery_givenCachePolicyReturnCacheDataDontFetch_doesNotRefetchFromServerAfterOtherQueryUpdatesListWithIncompleteObject() throws {
     // given
     struct HeroAndFriendsNamesSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] {[
         .field("hero", Hero.self)
@@ -968,8 +968,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] {[
           .field("__typename", String.self),
@@ -994,8 +994,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] {[
             .field("__typename", String.self),
@@ -1017,8 +1017,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     struct HeroAndFriendsIDsOnlySelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] {[
         .field("hero", Hero.self)
@@ -1030,8 +1030,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] {[
           .field("__typename", String.self),
@@ -1050,8 +1050,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] {[
             .field("__typename", String.self),
@@ -1079,8 +1079,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       let writeToStoreExpectation = expectation(description: "Initial Data written to store")
 
       client.store.withinReadWriteTransaction({ transaction in
-        let data = HeroAndFriendsNamesSelectionSet(
-          data: DataDict(
+        let data = try! HeroAndFriendsNamesSelectionSet(
+          data:
             [
               "hero": [
                 "id": "2001",
@@ -1094,7 +1094,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
               ]
             ],
             variables: nil
-          ))
+          )
 
         let cacheMutation = MockLocalCacheMutation<HeroAndFriendsNamesSelectionSet>()
         try transaction.write(data: data, for: cacheMutation)
@@ -1366,8 +1366,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
   func testWatchedQueryDependentKeysAreUpdatedAfterDirectStoreUpdate() {
     // given
     struct HeroAndFriendsNamesWithIDsSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] {[
         .field("hero", Hero.self)
@@ -1379,8 +1379,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] {[
           .field("__typename", String.self),
@@ -1405,8 +1405,8 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] {[
             .field("__typename", String.self),

@@ -1,6 +1,7 @@
 #if !COCOAPODS
-@_exported import ApolloAPI
+@_exported @testable import ApolloAPI
 #endif
+@testable import Apollo
 import Foundation
 
 @dynamicMemberLookup
@@ -76,12 +77,25 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
 // MARK: - Selection Set Conversion
 
-public extension SelectionSet {
-  static func from(
-    _ mock: AnyMock,
+public extension RootSelectionSet {
+  static func from<O: MockObject>(
+    _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
-    Self.init(data: DataDict(mock._selectionSetMockData, variables: variables))
+    let accumulator = GraphQLSelectionSetMapper<Self>(
+      handleMissingValues: .allowForAllFields
+    )
+    let executor = GraphQLExecutor { object, info in
+      return object[info.responseKeyForField]
+    }
+    executor.shouldComputeCachePath = false
+
+    return try! executor.execute(
+      selectionSet: Self.self,
+      on: mock._selectionSetMockData,
+      variables: variables,
+      accumulator: accumulator
+    )
   }
 }
 

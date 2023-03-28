@@ -14,7 +14,7 @@ struct FragmentTemplate: TemplateRenderer {
     TemplateString(
     """
     \(embeddedAccessControlModifier)\
-    struct \(fragment.name.firstUppercased): \(config.schemaName.firstUppercased)\
+    struct \(fragment.name.firstUppercased): \(config.schemaNamespace.firstUppercased)\
     .\(if: isMutable, "Mutable")SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
@@ -22,6 +22,7 @@ struct FragmentTemplate: TemplateRenderer {
 
       \(SelectionSetTemplate(
         mutable: isMutable,
+        generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
         config: config
       ).BodyTemplate(fragment.rootField.selectionSet))
     }

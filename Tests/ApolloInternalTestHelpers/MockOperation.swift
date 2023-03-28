@@ -44,15 +44,17 @@ open class MockSubscription<SelectionSet: RootSelectionSet>: MockOperation<Selec
 // MARK: - MockSelectionSets
 
 @dynamicMemberLookup
-open class AbstractMockSelectionSet: AnySelectionSet {
-  open class var __schema: SchemaMetadata.Type { MockSchemaMetadata.self }
+open class AbstractMockSelectionSet<F, S: SchemaMetadata>: RootSelectionSet, Hashable {
+  public typealias Schema = S
+  public typealias Fragments = F
+
   open class var __selections: [Selection] { [] }
   open class var __parentType: ParentType { Object.mock }
 
-  public var __data: DataDict = DataDict([:], variables: nil)
+  public var __data: DataDict = .empty()
 
-  public required init(data: DataDict) {
-    self.__data = data
+  public required init(_dataDict: DataDict) {
+    self.__data = _dataDict
   }
 
   public subscript<T: AnyScalarType & Hashable>(dynamicMember key: String) -> T? {
@@ -62,10 +64,7 @@ open class AbstractMockSelectionSet: AnySelectionSet {
   public subscript<T: MockSelectionSet>(dynamicMember key: String) -> T? {
     __data[key]
   }
-  
-}
 
-open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet, Hashable {
   public static func == (lhs: MockSelectionSet, rhs: MockSelectionSet) -> Bool {
     lhs.__data == rhs.__data
   }
@@ -75,8 +74,24 @@ open class MockSelectionSet: AbstractMockSelectionSet, RootSelectionSet, Hashabl
   }
 }
 
-open class MockFragment: AbstractMockSelectionSet, RootSelectionSet, Fragment {
+public typealias MockSelectionSet = AbstractMockSelectionSet<NoFragments, MockSchemaMetadata>
+
+open class MockFragment: MockSelectionSet, Fragment {
+  public typealias Schema = MockSchemaMetadata
+
   open class var fragmentDefinition: StaticString { "" }
 }
 
-open class MockTypeCase: AbstractMockSelectionSet, InlineFragment { }
+open class MockTypeCase: MockSelectionSet, InlineFragment {
+  public typealias RootEntityType = MockSelectionSet
+}
+
+open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFragment {
+  public typealias RootEntityType = T
+}
+
+extension DataDict {
+  public static func empty() -> DataDict {
+    DataDict(data: [:])
+  }
+}

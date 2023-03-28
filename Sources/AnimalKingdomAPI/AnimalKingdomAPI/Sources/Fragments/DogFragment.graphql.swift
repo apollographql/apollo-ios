@@ -12,12 +12,25 @@ public struct DogFragment: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Dog }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("species", String.self),
   ] }
 
   public var species: String { __data["species"] }
+
+  public init(
+    species: String
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+      "species": species,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
+  }
 }

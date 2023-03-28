@@ -1,7 +1,19 @@
 {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer - use ",
+      "type" : "text"
+    },
+    {
+      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "instead.",
       "type" : "text"
     }
   ],
@@ -19,6 +31,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "ApolloCodegenLib",
     "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV10schemaName5input6output7options20experimentalFeatures0e8DownloadD0ACSS_AC9FileInputVAC0M6OutputVAC0O7OptionsVAC012ExperimentalK0VAA0a6SchemalD0VSgtcfc",
     "fragments" : [
       {
@@ -172,6 +185,9 @@
       {
         "name" : "ApolloCodegenLib"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Initializer",
@@ -634,10 +650,23 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/init(schemaName:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)": {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer - use ",
+      "type" : "text"
+    },
+    {
+      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "instead.",
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "identifier",

@@ -46,7 +46,7 @@ public class RepositoryQuery: GraphQLQuery {
 
   public struct Data: GitHubAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -64,10 +64,11 @@ public class RepositoryQuery: GraphQLQuery {
     /// Parent Type: `Repository`
     public struct Repository: GitHubAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("issueOrPullRequest", IssueOrPullRequest?.self, arguments: ["number": 13]),
       ] }
 
@@ -79,10 +80,11 @@ public class RepositoryQuery: GraphQLQuery {
       /// Parent Type: `IssueOrPullRequest`
       public struct IssueOrPullRequest: GitHubAPI.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Unions.IssueOrPullRequest }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .inlineFragment(AsIssue.self),
           .inlineFragment(AsReactable.self),
         ] }
@@ -95,8 +97,9 @@ public class RepositoryQuery: GraphQLQuery {
         /// Parent Type: `Issue`
         public struct AsIssue: GitHubAPI.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
+          public typealias RootEntityType = Repository.IssueOrPullRequest
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Issue }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("body", String.self),
@@ -118,10 +121,11 @@ public class RepositoryQuery: GraphQLQuery {
           /// Parent Type: `Actor`
           public struct Author: GitHubAPI.SelectionSet {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
             public static var __selections: [ApolloAPI.Selection] { [
+              .field("__typename", String.self),
               .field("avatarUrl", GitHubAPI.URI.self),
             ] }
 
@@ -137,8 +141,9 @@ public class RepositoryQuery: GraphQLQuery {
         /// Parent Type: `Reactable`
         public struct AsReactable: GitHubAPI.InlineFragment {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
+          public typealias RootEntityType = Repository.IssueOrPullRequest
           public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Reactable }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("viewerCanReact", Bool.self),
@@ -155,8 +160,9 @@ public class RepositoryQuery: GraphQLQuery {
           /// Parent Type: `Comment`
           public struct AsComment: GitHubAPI.InlineFragment {
             public let __data: DataDict
-            public init(data: DataDict) { __data = data }
+            public init(_dataDict: DataDict) { __data = _dataDict }
 
+            public typealias RootEntityType = Repository.IssueOrPullRequest
             public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Comment }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("author", Author?.self),
@@ -172,10 +178,11 @@ public class RepositoryQuery: GraphQLQuery {
             /// Parent Type: `Actor`
             public struct Author: GitHubAPI.SelectionSet {
               public let __data: DataDict
-              public init(data: DataDict) { __data = data }
+              public init(_dataDict: DataDict) { __data = _dataDict }
 
               public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Interfaces.Actor }
               public static var __selections: [ApolloAPI.Selection] { [
+                .field("__typename", String.self),
                 .field("login", String.self),
               ] }
 

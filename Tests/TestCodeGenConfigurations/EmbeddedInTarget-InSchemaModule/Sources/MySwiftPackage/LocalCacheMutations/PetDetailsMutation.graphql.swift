@@ -16,10 +16,11 @@ public extension MyGraphQLSchema {
       """ }
 
     public var __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Interfaces.Pet }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("owner", Owner?.self),
     ] }
 
@@ -28,21 +29,47 @@ public extension MyGraphQLSchema {
       set { __data["owner"] = newValue }
     }
 
+    public init(
+      __typename: String,
+      owner: Owner? = nil
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": __typename,
+        "owner": owner._fieldData,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
+
     /// Owner
     ///
     /// Parent Type: `Human`
     public struct Owner: MyGraphQLSchema.MutableSelectionSet {
       public var __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Human }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("firstName", String.self),
       ] }
 
       public var firstName: String {
         get { __data["firstName"] }
         set { __data["firstName"] = newValue }
+      }
+
+      public init(
+        firstName: String
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": MyGraphQLSchema.Objects.Human.typename,
+          "firstName": firstName,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
       }
     }
   }

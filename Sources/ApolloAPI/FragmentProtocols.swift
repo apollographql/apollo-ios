@@ -4,7 +4,7 @@
 ///
 /// A ``SelectionSet`` can be converted to any ``Fragment`` included in it's
 /// `Fragments` object via its ``SelectionSet/fragments-swift.property`` property.
-public protocol Fragment: AnySelectionSet {
+public protocol Fragment: SelectionSet {
   /// The definition of the fragment in GraphQL syntax.
   static var fragmentDefinition: StaticString { get }
 }
@@ -54,8 +54,8 @@ public protocol FragmentContainer {
   var __data: DataDict { get }
 
   /// Designated Initializer
-  /// - Parameter data: The data of the underlying GraphQL object represented by the parent ``SelectionSet``
-  init(data: DataDict)
+  /// - Parameter dataDict: The data of the underlying GraphQL object represented by the parent ``SelectionSet``
+  init(_dataDict: DataDict)
 }
 
 extension FragmentContainer {
@@ -72,69 +72,26 @@ extension FragmentContainer {
   }
 
   @usableFromInline func _convertToFragment<T: Fragment>()-> T {
-    return T.init(data: __data)
+    return T.init(_dataDict: __data)
   }
 
-  /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the given
-  /// `@include/@skip` conditions are met.
+  /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the fragment
+  /// was fulfilled.
   ///
-  /// For more information on `@include/@skip` conditions, see ``Selection/Condition``
+  /// A fragment may not be fulfilled if it is condtionally included useing an `@include/@skip`
+  /// directive. For more information on `@include/@skip` conditions, see ``Selection/Conditions``
   ///
   /// > Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
   ///
-  /// - Parameter conditions: The `@include/@skip` conditions to evaluate prior to
-  /// fragment conversion.
-  /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to, or `nil` if
-  /// the `@include/@skip` conditions are not met.
-  @inlinable public func _toFragment<T: Fragment>(
-    if conditions: Selection.Conditions? = nil
-  ) -> T? {
-    guard let conditions = conditions else {
-      return _convertToFragment()
-    }
-
-    return conditions.evaluate(with: __data._variables) ? _convertToFragment() : nil
+  /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to, or `nil` if the
+  /// fragment was not fulfilled.
+  @inlinable public func _toFragment<T: Fragment>() -> T? {
+    guard __data.fragmentIsFulfilled(T.self) else { return nil }
+    return T.init(_dataDict: __data)
   }
 
-  /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the given
-  /// `@include/@skip` conditions are met.
-  ///
-  /// For more information on `@include/@skip` conditions, see ``Selection/Condition``
-  ///
-  /// > Warning: This function is not supported for use outside of generated call sites.
-  /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
-  /// Unsupported usage may result in unintended consequences including crashes.
-  ///
-  /// - Parameter conditions: The `@include/@skip` conditions to evaluate prior to
-  /// fragment conversion.
-  /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to, or `nil` if
-  /// the `@include/@skip` conditions are not met.
-  @inlinable public func _toFragment<T: Fragment>(
-    if conditions: [Selection.Condition]
-  ) -> T? {
-    return _toFragment(if: Selection.Conditions([conditions]))
-  }
-
-  /// Converts a ``SelectionSet`` to a ``Fragment`` given a generic fragment type if the given
-  /// `@include/@skip` condition is met.
-  ///
-  /// For more information on `@include/@skip` conditions, see ``Selection/Condition``
-  ///
-  /// > Warning: This function is not supported for use outside of generated call sites.
-  /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
-  /// Unsupported usage may result in unintended consequences including crashes.
-  ///
-  /// - Parameter conditions: The `@include/@skip` condition to evaluate prior to
-  /// fragment conversion.
-  /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to, or `nil` if
-  /// the `@include/@skip` condition is not met.
-  @inlinable public func _toFragment<T: Fragment>(
-    if condition: Selection.Condition
-  ) -> T? {
-    return _toFragment(if: Selection.Conditions(condition))
-  }
 }
 
 /// A ``FragmentContainer`` to be used by ``SelectionSet``s that have no fragments.

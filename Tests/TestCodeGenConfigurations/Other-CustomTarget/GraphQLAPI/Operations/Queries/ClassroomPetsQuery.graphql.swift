@@ -22,7 +22,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
   public struct Data: GraphQLAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -36,10 +36,11 @@ public class ClassroomPetsQuery: GraphQLQuery {
     /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: GraphQLAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Unions.ClassroomPet }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .fragment(ClassroomPetDetails.self),
       ] }
 
@@ -52,7 +53,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
       }
@@ -62,15 +63,16 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct AsAnimal: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Animal }
 
         public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -81,15 +83,16 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `Pet`
       public struct AsPet: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
 
         public var humanName: String? { __data["humanName"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -100,8 +103,9 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `WarmBlooded`
       public struct AsWarmBlooded: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.WarmBlooded }
 
         public var species: String { __data["species"] }
@@ -109,7 +113,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -120,8 +124,9 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `Cat`
       public struct AsCat: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Cat }
 
         public var species: String { __data["species"] }
@@ -132,7 +137,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -143,8 +148,9 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `Bird`
       public struct AsBird: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Bird }
 
         public var species: String { __data["species"] }
@@ -154,7 +160,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }
@@ -165,8 +171,9 @@ public class ClassroomPetsQuery: GraphQLQuery {
       /// Parent Type: `PetRock`
       public struct AsPetRock: GraphQLAPI.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.PetRock }
 
         public var humanName: String? { __data["humanName"] }
@@ -174,7 +181,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetails: ClassroomPetDetails { _toFragment() }
         }

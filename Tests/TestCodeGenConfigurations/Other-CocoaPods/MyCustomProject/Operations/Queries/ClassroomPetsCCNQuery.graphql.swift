@@ -22,7 +22,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
   public struct Data: MyCustomProject.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Query }
     public static var __selections: [Apollo.Selection] { [
@@ -36,10 +36,11 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     /// Parent Type: `ClassroomPet`
     public struct ClassroomPet: MyCustomProject.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: Apollo.ParentType { MyCustomProject.Unions.ClassroomPet }
       public static var __selections: [Apollo.Selection] { [
+        .field("__typename", String.self),
         .fragment(ClassroomPetDetailsCCN.self),
       ] }
 
@@ -47,7 +48,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
 
       public struct Fragments: FragmentContainer {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
       }
@@ -57,15 +58,16 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       /// Parent Type: `Animal`
       public struct AsAnimal: MyCustomProject.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = ClassroomPet
         public static var __parentType: Apollo.ParentType { MyCustomProject.Interfaces.Animal }
 
         public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var classroomPetDetailsCCN: ClassroomPetDetailsCCN { _toFragment() }
         }

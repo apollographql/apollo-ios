@@ -12,13 +12,26 @@ public struct DroidName: StarWarsAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("name", String.self),
   ] }
 
   /// What others call this droid
   public var name: String { __data["name"] }
+
+  public init(
+    name: String
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": StarWarsAPI.Objects.Droid.typename,
+      "name": name,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
+  }
 }

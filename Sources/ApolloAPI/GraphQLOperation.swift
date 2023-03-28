@@ -45,9 +45,9 @@ public enum DocumentType {
 /// - See: [GraphQLSpec - Document](https://spec.graphql.org/draft/#Document)
 public struct OperationDefinition {
   let operationDefinition: String
-  let fragments: [Fragment.Type]?
+  let fragments: [any Fragment.Type]?
 
-  public init(_ definition: String, fragments: [Fragment.Type]? = nil) {
+  public init(_ definition: String, fragments: [any Fragment.Type]? = nil) {
     self.operationDefinition = definition
     self.fragments = fragments
   }

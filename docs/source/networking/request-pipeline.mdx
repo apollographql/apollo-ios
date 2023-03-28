@@ -468,7 +468,7 @@ struct NetworkInterceptorProvider: InterceptorProvider {
       NetworkFetchInterceptor(client: self.client),
       ResponseLoggingInterceptor(),
       ResponseCodeInterceptor(),
-      JSONResponseParsingInterceptor(cacheKeyForObject: self.store.cacheKeyForObject),
+      JSONResponseParsingInterceptor(),
       AutomaticPersistedQueryInterceptor(),
       CacheWriteInterceptor(store: self.store)
     ]

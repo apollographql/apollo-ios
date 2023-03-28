@@ -311,14 +311,6 @@
   "sections" : [
 
   ],
-  "topicSections" : [
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer\/init(data:)"
-      ],
-      "title" : "Initializers"
-    }
-  ],
   "variants" : [
     {
       "paths" : [
@@ -470,48 +462,6 @@
   "title" : "FragmentContainer",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/fragmentcontainer"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/FragmentContainer/init(data:)": {
-  "abstract" : [
-    {
-      "text" : "Designated Initializer",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "data"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
-      "text" : "DataDict"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer\/init(data:)",
-  "kind" : "symbol",
-  "required" : true,
-  "role" : "symbol",
-  "title" : "init(data:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/fragmentcontainer\/init(data:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SelectionSet": {
   "abstract" : [

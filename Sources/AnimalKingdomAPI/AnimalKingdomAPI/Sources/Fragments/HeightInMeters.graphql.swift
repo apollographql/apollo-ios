@@ -15,27 +15,54 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .field("height", Height.self),
   ] }
 
   public var height: Height { __data["height"] }
+
+  public init(
+    __typename: String,
+    height: Height
+  ) {
+    self.init(_dataDict: DataDict(data: [
+      "__typename": __typename,
+      "height": height._fieldData,
+      "__fulfilled": Set([
+        ObjectIdentifier(Self.self)
+      ])
+    ]))
+  }
 
   /// Height
   ///
   /// Parent Type: `Height`
   public struct Height: AnimalKingdomAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Height }
     public static var __selections: [ApolloAPI.Selection] { [
+      .field("__typename", String.self),
       .field("meters", Int.self),
     ] }
 
     public var meters: Int { __data["meters"] }
+
+    public init(
+      meters: Int
+    ) {
+      self.init(_dataDict: DataDict(data: [
+        "__typename": AnimalKingdomAPI.Objects.Height.typename,
+        "meters": meters,
+        "__fulfilled": Set([
+          ObjectIdentifier(Self.self)
+        ])
+      ]))
+    }
   }
 }

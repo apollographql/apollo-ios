@@ -119,14 +119,6 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
         "text" : ".",
         "type" : "text"
       }

@@ -21,10 +21,12 @@ SUBCOMMANDS:
 ```
 OVERVIEW: Initialize a new configuration with defaults.
 
-USAGE: apollo-ios-cli init --schema-name <schema-name> --module-type <module-type> [--target-name <target-name>] [--path <path>] [--overwrite] [--print]
+USAGE: apollo-ios-cli init --schema-namespace <schema-namespace> --module-type <module-type> [--target-name <target-name>] [--path <path>] [--overwrite] [--print]
 
 OPTIONS:
-  -n, --schema-name <schema-name>
+  --schema-name <schema-name>
+                          DEPRECATED - Use --schema-namespace instead.
+  -n, --schema-namespace <schema-namespace>
                           Name used to scope the generated schema type files.
   -m, --module-type <module-type>
                           How to package the schema types for dependency management. Possible types: embeddedInTarget, 

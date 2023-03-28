@@ -23,7 +23,7 @@ extension IR {
     }
   }
 
-  typealias TypeScope = Set<GraphQLCompositeType>
+  typealias TypeScope = OrderedSet<GraphQLCompositeType>
 
   /// Defines the scope for an `IR.SelectionSet`. The "scope" indicates where in the entity the
   /// selection set is located, what types the `SelectionSet` implements, and what inclusion
@@ -40,7 +40,7 @@ extension IR {
     ///
     /// For example, given the set of nested selections sets:
     /// ```
-    /// object {
+    /// object { // object field is of type "Object"
     ///  ... on A {
     ///   ... on B {
     ///     ... on C {
@@ -50,7 +50,7 @@ extension IR {
     /// }
     /// ```
     /// The scopePath for the `SelectionSet` that includes field `fieldOnABC` would be:
-    /// `[A, B, C]`.
+    /// `[Object, A, B, C]`.
     let scopePath: LinkedList<ScopeCondition>
 
     /// All of the types that the `SelectionSet` implements. That is, all of the types in the
@@ -112,7 +112,7 @@ extension IR {
       if let scope = scope, scope.contains(newType) { return scope }
 
       var newScope = scope ?? []
-      newScope.insert(newType)
+      newScope.append(newType)        
 
       if let newType = newType as? GraphQLInterfaceImplementingType {
         newScope.formUnion(newType.interfaces)

@@ -28,7 +28,7 @@ public class PetAdoptionMutation: GraphQLMutation {
 
   public struct Data: GraphQLAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Objects.Mutation }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -42,10 +42,11 @@ public class PetAdoptionMutation: GraphQLMutation {
     /// Parent Type: `Pet`
     public struct AdoptPet: GraphQLAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLAPI.Interfaces.Pet }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", GraphQLAPI.ID.self),
         .field("humanName", String?.self),
       ] }

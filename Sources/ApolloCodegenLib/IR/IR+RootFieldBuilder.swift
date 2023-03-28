@@ -195,8 +195,9 @@ extension IR {
           guard let typeCondition = scope.type else { return true }
           return selectionSetScope.matches(typeCondition)
         }
+        let matchesScope = selectionSetScope.matches(scope)
 
-        if matchesType {
+        if matchesScope {
           let irFragmentSpread = buildFragmentSpread(
             fromFragment: fragmentSpread,
             with: scope,
@@ -215,6 +216,13 @@ extension IR {
           )
 
           target.mergeIn(irTypeCaseEnclosingFragment)
+
+          if matchesType {
+            typeInfo.entity.selectionTree.mergeIn(
+              selections: irTypeCaseEnclosingFragment.selections.direct.unsafelyUnwrapped.readOnlyView,
+              with: typeInfo
+            )
+          }
         }
       }
     }

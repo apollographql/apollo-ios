@@ -162,7 +162,7 @@
               "type" : "text"
             },
             {
-              "text" : "If no target name is provided, the target name defaults to “(schemaName)TestMocks”.",
+              "text" : "If no target name is provided, the target name defaults to “(schemaNamespace)TestMocks”.",
               "type" : "text"
             }
           ],

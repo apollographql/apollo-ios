@@ -32,12 +32,12 @@ class CompilationTests: XCTestCase {
   }
 
   func compileFrontend(
-    schemaName: String = "TestSchema",
+    schemaNamespace: String = "TestSchema",
     enableCCN: Bool = false
   ) throws -> CompilationResult {
     let frontend = try GraphQLJSFrontend()
     let config = ApolloCodegen.ConfigurationContext(config: .mock(
-      schemaName: schemaName,
+      schemaNamespace: schemaNamespace,
       experimentalFeatures: .init(clientControlledNullability: enableCCN)
     ))
 
@@ -312,7 +312,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertNoThrow(try compileFrontend(schemaName: "MySchema"))
+    XCTAssertNoThrow(try compileFrontend(schemaNamespace: "MySchema"))
   }
 
   func test__compile__givenSchemaName_matchingScalarFieldAndInputValueName_shouldNotThrow() throws {
@@ -344,7 +344,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertNoThrow(try compileFrontend(schemaName: "species"))
+    XCTAssertNoThrow(try compileFrontend(schemaNamespace: "species"))
   }
 
   func test__compile__givenSchemaName_matchingEntityFieldName_shouldThrow() throws {
@@ -379,7 +379,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertThrowsError(try compileFrontend(schemaName: "height")) { error in
+    XCTAssertThrowsError(try compileFrontend(schemaNamespace: "height")) { error in
       XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
         Schema name "height" conflicts with name of a generated object API. \
         Please choose a different schema name.
@@ -420,7 +420,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
+    XCTAssertThrowsError(try compileFrontend(schemaNamespace: "predator")) { error in
       XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
         Schema name "predator" conflicts with name of a generated object API. \
         Please choose a different schema name.
@@ -461,7 +461,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertThrowsError(try compileFrontend(schemaName: "predator")) { error in
+    XCTAssertThrowsError(try compileFrontend(schemaNamespace: "predator")) { error in
       XCTAssertTrue((error as! ApolloCodegenLib.JavaScriptError).description.contains("""
         Schema name "predator" conflicts with name of a generated object API. \
         Please choose a different schema name.
@@ -502,7 +502,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertNoThrow(try compileFrontend(schemaName: "predators"))
+    XCTAssertNoThrow(try compileFrontend(schemaNamespace: "predators"))
   }
 
   func test__compile__givenPluralizedSchemaName_matchingPluralizedNonNullListFieldName_shouldNotThrow() throws {
@@ -537,7 +537,7 @@ class CompilationTests: XCTestCase {
     """
 
     // then
-    XCTAssertNoThrow(try compileFrontend(schemaName: "predators"))
+    XCTAssertNoThrow(try compileFrontend(schemaNamespace: "predators"))
   }
 
 }

@@ -21,7 +21,7 @@ public class RepoURLQuery: GraphQLQuery {
 
   public struct Data: GitHubAPI.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -39,10 +39,11 @@ public class RepoURLQuery: GraphQLQuery {
     /// Parent Type: `Repository`
     public struct Repository: GitHubAPI.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.Repository }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("url", GitHubAPI.URI.self),
       ] }
 

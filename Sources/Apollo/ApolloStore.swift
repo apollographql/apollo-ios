@@ -284,7 +284,7 @@ public class ApolloStore {
         variables: variables,
         accumulator: GraphQLSelectionSetMapper<SelectionSet>(
           stripNullValues: false,
-          allowMissingValuesForOptionalFields: true
+          handleMissingValues: .allowForOptionalFields
         )
       )
 
@@ -301,15 +301,28 @@ public class ApolloStore {
                 variables: cacheMutation.__variables)
     }
 
-    public func write<SelectionSet: MutableRootSelectionSet>(
+    public func write<Operation: GraphQLOperation>(
+      data: Operation.Data,
+      for operation: Operation
+    ) throws {
+      try write(selectionSet: data,
+                withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
+                variables: operation.__variables)
+    }
+
+    public func write<SelectionSet: RootSelectionSet>(
       selectionSet: SelectionSet,
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil
     ) throws {
       let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
-      let executor = GraphQLExecutor { object, info in
-        return object[info.responseKeyForField]
-      }
+
+      let executor = GraphQLExecutor(
+        fieldCollector: CustomCacheDataWritingFieldSelectionCollector(),
+        fieldResolver: { object, info in
+          return object[info.responseKeyForField]
+        }
+      )
 
       let records = try executor.execute(
         selectionSet: SelectionSet.self,

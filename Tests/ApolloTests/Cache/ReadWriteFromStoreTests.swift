@@ -263,7 +263,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     }
 
-    class GivenSelectionSet: MockFragment, SelectionSet {
+    class GivenSelectionSet: MockFragment {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] { [
@@ -274,7 +274,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       var asDroid: AsDroid? { _asInlineFragment() }
 
-      class AsDroid: MockTypeCase, SelectionSet {
+      class AsDroid: MockTypeCase {
         typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
@@ -319,7 +319,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
     }
 
-    class GivenSelectionSet: MockFragment, SelectionSet {
+    class GivenSelectionSet: MockFragment {
       typealias Schema = MockSchemaMetadata
 
       override class var __selections: [Selection] { [
@@ -330,7 +330,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       var asDroid: AsDroid? { _asInlineFragment() }
 
-      class AsDroid: MockTypeCase, SelectionSet {
+      class AsDroid: MockTypeCase {
         typealias Schema = MockSchemaMetadata
         override class var __parentType: ParentType { Types.Droid }
 
@@ -371,8 +371,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_updateNestedField_updatesObjects() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -384,8 +384,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -436,8 +436,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutationWithOptionalField_containingNull_updateNestedField_updatesObjectsMaintainingNullValue() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -449,8 +449,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self),
@@ -513,8 +513,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutationWithOptionalField_omittingOptionalField_updateNestedField_updatesObjectsMaintainingNilValue_throwsMissingValueErrorOnRead() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -526,8 +526,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self),
@@ -578,8 +578,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutationWithNonNullField_withNilValue_updateNestedField_throwsMissingValueOnInitialReadForUpdate() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -591,8 +591,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self),
@@ -637,8 +637,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -650,8 +650,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -707,8 +707,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self, arguments: ["episode": .variable("episode")])
@@ -720,8 +720,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -811,8 +811,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -824,8 +824,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("__typename", String.self),
@@ -844,9 +844,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
 
         struct AsDroid: MockMutableInlineFragment {
-          public var __data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = .empty()
+
+          public typealias RootEntityType = Hero
           static let __parentType: ParentType = Types.Droid
-          init(data: DataDict) { __data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("primaryFunction", String.self),
@@ -912,8 +914,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       typealias Schema = MockSchemaMetadata
       static let fragmentDefinition: StaticString = ""
 
-      var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("__typename", String.self),
@@ -932,9 +934,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct AsDroid: MockMutableInlineFragment {
-        public var __data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = .empty()
+        public typealias RootEntityType = GivenFragment
         static let __parentType: ParentType = Types.Droid
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -948,8 +951,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -961,8 +964,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("__typename", String.self),
@@ -977,7 +980,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment {
             get { _toFragment() }
@@ -1043,8 +1046,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       typealias Schema = MockSchemaMetadata
       static let fragmentDefinition: StaticString = ""
 
-      var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("__typename", String.self),
@@ -1063,9 +1066,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct AsDroid: MockMutableInlineFragment {
-        public var __data: DataDict = DataDict([:], variables: nil)
+        public var __data: DataDict = .empty()
+        public typealias RootEntityType = GivenFragment
         static let __parentType: ParentType = Types.Droid
-        init(data: DataDict) { __data = data }
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("primaryFunction", String.self),
@@ -1079,8 +1083,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1092,8 +1096,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("__typename", String.self),
@@ -1112,9 +1116,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
 
         struct AsDroid: MockMutableInlineFragment {
-          public var __data: DataDict = DataDict([:], variables: nil)
+          public var __data: DataDict = .empty()
+          public typealias RootEntityType = GivenFragment
           static let __parentType: ParentType = Types.Droid
-          init(data: DataDict) { __data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("primaryFunction", String.self),
@@ -1128,7 +1133,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
         struct Fragments: FragmentContainer {
           var __data: DataDict
-          init(data: DataDict) { self.__data = data }
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           var givenFragment: GivenFragment? {
             get { _toFragment() }
@@ -1180,8 +1185,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_updateCacheMutation_givenAddNewReferencedEntity_entityIsIncludedOnRead() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1193,8 +1198,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("id", String.self),
@@ -1213,8 +1218,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("id", String.self),
@@ -1301,8 +1306,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
 
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1314,8 +1319,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("type", GraphQLEnum<HeroType>.self)
@@ -1366,8 +1371,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_writeDataForCacheMutation_givenMutationOperation_updateNestedField_updatesObjectAtMutationRoot() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1379,8 +1384,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -1397,12 +1402,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let updateCompletedExpectation = expectation(description: "Update completed")
 
       store.withinReadWriteTransaction({ transaction in
-        let data = GivenSelectionSet(data: DataDict(
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil)
+        let data = try! GivenSelectionSet(data:
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
         let cacheMutation = MockLocalCacheMutationFromMutation<GivenSelectionSet>()
 
@@ -1432,8 +1437,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_writeDataForCacheMutation_givenInvalidData_throwsError() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1445,8 +1450,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String?.self)
@@ -1463,7 +1468,13 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     let writeCompletedExpectation = expectation(description: "Write completed")
 
     store.withinReadWriteTransaction({ transaction in
-      let data = GivenSelectionSet(data: DataDict(["hero": "name"], variables: nil))
+      let data = GivenSelectionSet(
+        _dataDict: .init(
+          data: [
+            "hero": "name",
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+          ]
+        ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
@@ -1482,13 +1493,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-  func test_writeDataForSelectionSet_givenFragment_updateNestedField_updatesObject() throws {
+  func test_writeDataForCacheMutation_givenNilValueForOptionalField_writesFieldWithNullValue() throws {
     // given
-    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { "" }
-
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1500,8 +1509,79 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __selections: [Selection] { [
+          .field("name", String?.self)
+        ]}
+
+        var name: String? {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenSelectionSet(
+        _dataDict: .init(
+          data: [
+            "hero": [
+              "__typename": "Hero",
+              "name": Optional<String>.none,
+              "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
+            ],
+            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.self)])
+          ]))
+      let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+      try transaction.write(data: data, for: cacheMutation)
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<GivenSelectionSet>()
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.hero.name).to(beNil())
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForSelectionSet_givenFragment_updateNestedField_updatesObject() throws {
+    // given
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -1518,12 +1598,12 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let updateCompletedExpectation = expectation(description: "Update completed")
 
       store.withinReadWriteTransaction({ transaction in
-        let fragment = GivenFragment(data: DataDict(
-          ["hero": [
-            "__typename": "Droid",
-            "name": "Artoo"
-          ]],
-          variables: nil)
+        let fragment = try! GivenFragment(data:
+                                            ["hero": [
+                                              "__typename": "Droid",
+                                              "name": "Artoo"
+                                            ]],
+                                          variables: nil
         )
 
         try transaction.write(selectionSet: fragment, withKey: CacheReference.RootQuery.key)
@@ -1549,11 +1629,552 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     }
   }
 
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithInclusionConditions_writesFieldsForInclusionConditions() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Data: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .include(if: "a", .inlineFragment(IfA.self)),
+          .include(if: "b", .inlineFragment(IfB.self))
+        ]}
+
+        var ifA: IfA? { _asInlineFragment() }
+        var ifB: IfB? { _asInlineFragment() }
+
+        class IfA: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+            .field("name", String.self),
+            .include(if: !"c", .field("friend", Friend.self)),
+            .include(if: !"d", .field("other", String.self))
+          ]}
+          var name: String { __data["name"] }
+          var friend: Friend? { __data["friend"] }
+          var other: String? { __data["name"] }
+
+          convenience init(
+            name: String,
+            friend: Friend? = nil,
+            other: String? = nil
+          ) {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "name": name,
+              "friend": friend._fieldData,
+              "other": other,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
+          }
+
+          class Friend: MockSelectionSet {
+            typealias Schema = MockSchemaMetadata
+
+            override class var __parentType: ParentType { Types.Human }
+            override class var __selections: [Selection] {[
+              .field("__typename", String.self),
+              .field("name", String.self)
+            ]}
+
+            var name: String { __data["name"] }
+
+            convenience init(
+              name: String
+            ) {
+              self.init(_dataDict: DataDict(data: [
+                "__typename": Types.Human.typename,
+                "name": name,
+                "__fulfilled": Set([
+                  ObjectIdentifier(Friend.self),
+                ])
+              ]))
+            }
+
+          }
+        }
+
+        class IfB: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Human }
+          override class var __selections: [Selection] {[
+          ]}
+          convenience init() {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": Types.Human.typename,
+              "__fulfilled": Set([
+                ObjectIdentifier(Hero.self),
+                ObjectIdentifier(Self.self)
+              ])
+            ]))
+          }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = Data(
+        hero: .IfA(
+          name: "Han Solo",
+          friend: Data.Hero.IfA.Friend(name: "Leia Organa")
+        ).asRootEntityType
+      )
+      let query = MockQuery<Data>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<Data>()
+      query.__variables = ["a": true, "b": false, "c": false, "d": true]
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.hero.ifA?.name).to(equal("Han Solo"))
+      expect(resultData.hero.ifB).to(beNil())
+      expect(resultData.hero.ifA?.friend?.name).to(equal("Leia Organa"))
+      expect(resultData.hero.ifA?.friend?.other).to(beNil())
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithTypeCases_writesFieldForTypeCasesWithManuallyProvidedImplementedInterfaces() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+      static let Character = Interface(name: "Character")
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: return nil
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      public var hero: Hero { __data["hero"] }
+
+      convenience init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      class Hero: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Human }
+        override class var __selections: [Selection] {[
+          .inlineFragment(AsCharacter.self)
+        ]}
+
+        var asCharacter: AsCharacter? { _asInlineFragment() }
+
+        class AsCharacter: ConcreteMockTypeCase<Hero> {
+          typealias Schema = MockSchemaMetadata
+          override class var __parentType: ParentType { Types.Character }
+          override class var __selections: [Selection] {[
+            .field("name", String.self)
+          ]}
+
+          var name: String { __data["name"] }
+
+          convenience init(
+            __typename: String,
+            name: String
+          ) {
+            self.init(_dataDict: DataDict(data: [
+              "__typename": __typename,
+              "name": name,
+              "__fulfilled": Set([
+                ObjectIdentifier(Self.self),
+                ObjectIdentifier(Hero.self)
+              ])
+            ]))
+          }
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery(
+        hero: .AsCharacter(
+          __typename: "Person",
+          name: "Han Solo"
+        ).asRootEntityType
+      )
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      let heroKey = "QUERY_ROOT.hero"
+      let records = try? self.cache.loadRecords(forKeys: [heroKey])
+      let heroRecord = records?[heroKey]
+
+      expect(heroRecord?.fields["name"] as? String).to(equal("Han Solo"))
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithNamedFragmentInInclusionConditionIsFulfilled_writesFieldsForNamedFragment() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __parentType: ParentType { Types.Query }
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __parentType: ParentType { Types.Human }
+        static var __selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        init(
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .include(if: "a", [.inlineFragment(IfA.self)])
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      convenience init() {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+      class IfA: ConcreteMockTypeCase<GivenQuery> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Query }
+        override class var __selections: [Selection] {[
+          .fragment(GivenFragment.self)
+        ]}
+
+        public var hero: GivenFragment.Hero { __data["hero"] }
+
+        convenience init(
+          hero: GivenFragment.Hero
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Query.typename,
+            "hero": hero._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(GivenQuery.self),
+              ObjectIdentifier(GivenFragment.self)
+            ])
+          ]))
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery.IfA(
+        hero: .init(name: "Han Solo")
+      ).asRootEntityType
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+
+    let readCompletedExpectation = expectation(description: "Read completed")
+
+    store.withinReadTransaction({ transaction in
+      let query = MockQuery<GivenQuery>()
+      query.__variables = ["a": true]
+      let resultData = try transaction.read(query: query)
+
+      expect(resultData.ifA?.hero.name).to(equal("Han Solo"))
+
+    }, completion: { result in
+      defer { readCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [readCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  func test_writeDataForOperation_givenSelectionSetManuallyInitializedWithNamedFragmentInInclusionConditionNotFulfilled_doesNotAttemptToWriteFieldsForNamedFragment() throws {
+    // given
+    struct Types {
+      static let Human = Object(typename: "Human", implementedInterfaces: [])
+      static let Query = Object(typename: "Query", implementedInterfaces: [])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Query": return Types.Query
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    struct GivenFragment: MockMutableRootSelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { "" }
+
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      init(
+        hero: Hero
+      ) {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "hero": hero._fieldData,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self)
+          ])
+        ]))
+      }
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self)
+        ]}
+
+        init(
+          name: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Human.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+      }
+    }
+
+    class GivenQuery: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Query }
+      override class var __selections: [Selection] {[
+        .include(if: "a", [.inlineFragment(IfA.self)])
+      ]}
+
+      var ifA: IfA? { _asInlineFragment() }
+
+      convenience init() {
+        self.init(_dataDict: DataDict(data: [
+          "__typename": Types.Query.typename,
+          "__fulfilled": Set([
+            ObjectIdentifier(Self.self),
+          ])
+        ]))
+      }
+
+      class IfA: ConcreteMockTypeCase<GivenQuery> {
+        typealias Schema = MockSchemaMetadata
+        override class var __parentType: ParentType { Types.Query }
+        override class var __selections: [Selection] {[
+          .fragment(GivenFragment.self)
+        ]}
+
+        public var hero: GivenFragment.Hero { __data["hero"] }
+
+        convenience init(
+          hero: GivenFragment.Hero
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": Types.Query.typename,
+            "hero": hero._fieldData,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(GivenQuery.self),
+              ObjectIdentifier(GivenFragment.self)
+            ])
+          ]))
+        }
+      }
+    }
+
+    // when
+    let writeCompletedExpectation = expectation(description: "Write completed")
+
+    store.withinReadWriteTransaction({ transaction in
+      let data = GivenQuery()
+      let query = MockQuery<GivenQuery>()
+      try transaction.write(data: data, for: query)
+
+    }, completion: { result in
+      defer { writeCompletedExpectation.fulfill() }
+      XCTAssertSuccessResult(result)
+    })
+
+    self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
+  }
+
+  // MARK: - Update Object With Key Tests
+
   func test_updateObjectWithKey_readAfterUpdateWithinSameTransaction_hasUpdatedValue() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1565,8 +2186,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("name", String.self)
@@ -1614,10 +2235,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     struct GivenFragment: MockMutableRootSelectionSet, Fragment {
       static var fragmentDefinition: StaticString { "" }
 
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
+        .field("__typename", String.self),
         .field("id", String.self),
         .field("friends", [Friend].self),
       ]}
@@ -1628,10 +2250,11 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Friend: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
+          .field("__typename", String.self),
           .field("id", String.self),
           .field("name", String.self),
         ]}
@@ -1732,8 +2355,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
   func test_removeObject_givenReferencedByOtherRecord_thenReadQueryReferencingRemovedRecord_throwsError() throws {
     /// given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
-      public var __data: DataDict = DataDict([:], variables: nil)
-      init(data: DataDict) { __data = data }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
 
       static var __selections: [Selection] { [
         .field("hero", Hero.self)
@@ -1745,8 +2368,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }
 
       struct Hero: MockMutableRootSelectionSet {
-        public var __data: DataDict = DataDict([:], variables: nil)
-        init(data: DataDict) { __data = data }
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
 
         static var __selections: [Selection] { [
           .field("id", String.self),
@@ -1765,8 +2388,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         }
 
         struct Friend: MockMutableRootSelectionSet {
-          public var __data: DataDict = DataDict([:], variables: nil)
-          init(data: DataDict) { __data = data }
+          public var __data: DataDict = .empty()
+          init(_dataDict: DataDict) { __data = _dataDict }
 
           static var __selections: [Selection] { [
             .field("id", String.self),

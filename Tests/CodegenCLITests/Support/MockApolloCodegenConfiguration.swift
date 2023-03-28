@@ -4,7 +4,7 @@ import ApolloCodegenLib
 extension ApolloCodegenConfiguration {
   static func mock() -> Self {
     return self.init(
-      schemaName: "MockSchema",
+      schemaNamespace: "MockSchema",
       input: .init(
         schemaPath: "./schema.graphqls"
       ),
