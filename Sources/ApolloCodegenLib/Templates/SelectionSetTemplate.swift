@@ -137,11 +137,11 @@ struct SelectionSetTemplate {
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
     """
     public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
-    \(GeneratedTypeReference(type)) }
+    \(GeneratedSchemaTypeReference(type)) }
     """
   }
 
-  private func GeneratedTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
+  private func GeneratedSchemaTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
     "\(config.schemaNamespace.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
   }
 
@@ -434,7 +434,7 @@ struct SelectionSetTemplate {
     return TemplateString("""
     "__typename": \
     \(if: isConcreteType,
-      "\(GeneratedTypeReference(selectionSet.parentType)).typename,",
+      "\(GeneratedSchemaTypeReference(selectionSet.parentType)).typename,",
       else: "__typename,")
     \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)), terminator: ",")
     \(InitializerFulfilledFragments(selectionSet))
@@ -748,15 +748,10 @@ fileprivate struct SelectionSetNameGenerator {
 fileprivate extension IR.ScopeCondition {
 
   var selectionSetNameComponent: String {
-    if let type = type {
-      return "As\(type.name.firstUppercased)"
-    }
-
-    if let conditions = conditions {
-      return "If\(conditions.typeNameComponents)"
-    }
-
-    fatalError("ScopeCondition is empty!")
+    return TemplateString("""
+    \(ifLet: type, { "As\($0.name.firstUppercased)" })\
+    \(ifLet: conditions, { "If\($0.typeNameComponents)"})
+    """).description
   }
   
 }
