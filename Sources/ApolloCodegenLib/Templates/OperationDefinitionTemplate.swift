@@ -38,7 +38,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
   private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
     return """
-    \(embeddedAccessControlModifier)\
+    \(embeddedAccessControlModifier(target: target))\
     class \(operation.nameWithSuffix.firstUppercased): \(operation.operationType.renderedProtocolName) {
       public static let operationName: String = "\(operation.name)"
     """

@@ -142,10 +142,46 @@ extension TemplateRenderer {
     ).description
   }
 
-  var embeddedAccessControlModifier: String {
-    guard config.output.schemaTypes.isInModule else { return "" }
+  func embeddedAccessControlModifier(target: TemplateTarget) -> String {
+    switch target {
+    case .schemaFile: return schemaTypeEmbeddedAccessControlModifier
+    case .operationFile: return operationTypeEmbeddedAccessControlModifier
+    case .testMockFile: return testMockTypeEmbeddedAccessControlModifier
+    case .moduleFile: return ""
+    }
+  }
+
+  private var schemaTypeEmbeddedAccessControlModifier: String {
+    guard config.output.schemaTypes.isInModule else {
+      switch config.output.schemaTypes.moduleType {
+      case .embeddedInTarget(_, .public):
+        return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+      case .embeddedInTarget(_, .internal), .swiftPackageManager, .other:
+        return ""
+      }
+    }
 
     return "public "
+  }
+
+  private var operationTypeEmbeddedAccessControlModifier: String {
+    switch config.output.operations {
+    case .inSchemaModule:
+      return schemaTypeEmbeddedAccessControlModifier
+    case .absolute(_, .public), .relative(_, .public):
+      return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+    case .absolute(_, .internal), .relative(_, .internal):
+      return ""
+    }
+  }
+
+  private var testMockTypeEmbeddedAccessControlModifier: String {
+    switch config.config.output.testMocks {
+    case .none, .absolute(_, .internal):
+      return ""
+    case .swiftPackage, .absolute(_, .public):
+      return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+    }
   }
 }
 
@@ -222,7 +258,7 @@ struct ImportStatementTemplate {
 fileprivate extension ApolloCodegenConfiguration {
   var schemaModuleName: String {
     switch output.schemaTypes.moduleType {
-    case let .embeddedInTarget(targetName): return targetName
+    case let .embeddedInTarget(targetName, _): return targetName
     case .swiftPackageManager, .other: return schemaNamespace.firstUppercased
     }
   }

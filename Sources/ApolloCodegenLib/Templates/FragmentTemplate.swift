@@ -13,7 +13,7 @@ struct FragmentTemplate: TemplateRenderer {
   var template: TemplateString {
     TemplateString(
     """
-    \(embeddedAccessControlModifier)\
+    \(embeddedAccessControlModifier(target: target))\
     struct \(fragment.name.firstUppercased): \(config.schemaNamespace.firstUppercased)\
     .\(if: isMutable, "Mutable")SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"

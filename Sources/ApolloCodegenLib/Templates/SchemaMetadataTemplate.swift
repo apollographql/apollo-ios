@@ -16,40 +16,42 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   /// Swift code that can be embedded within a namespace.
   var embeddableTemplate: TemplateString {
-    TemplateString(
+    let accessLevel = embeddedAccessControlModifier(target: target)
+
+    return TemplateString(
     """
-    \(embeddedAccessControlModifier)\
+    \(accessLevel)\
     typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      \(embeddedAccessControlModifier)\
+      \(accessLevel)\
       typealias SelectionSet = \(schemaNamespace)_SelectionSet
 
-      \(embeddedAccessControlModifier)\
+      \(accessLevel)\
       typealias InlineFragment = \(schemaNamespace)_InlineFragment
 
-      \(embeddedAccessControlModifier)\
+      \(accessLevel)\
       typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
 
-      \(embeddedAccessControlModifier)\
+      \(accessLevel)\
       typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaNamespace: schemaNamespace))
 
     \(documentation: schema.documentation, config: config)
-    \(embeddedAccessControlModifier)\
+    \(accessLevel)\
     enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
       public static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }
 
-    \(embeddedAccessControlModifier)\
+    \(accessLevel)\
     enum Objects {}
-    \(embeddedAccessControlModifier)\
+    \(accessLevel)\
     enum Interfaces {}
-    \(embeddedAccessControlModifier)\
+    \(accessLevel)\
     enum Unions {}
 
     """
