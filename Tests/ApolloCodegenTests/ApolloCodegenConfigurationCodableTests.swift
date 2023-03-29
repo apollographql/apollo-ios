@@ -32,9 +32,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         output: .init(
           schemaTypes: .init(
             path: "/output/path",
-            moduleType: .embeddedInTarget(name: "SomeTarget")
+            moduleType: .embeddedInTarget(name: "SomeTarget", accessModifier: .public)
           ),
-          operations: .absolute(path: "/absolute/path"),
+          operations: .absolute(path: "/absolute/path", accessModifier: .internal),
           testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
           operationIdentifiersPath: "/operation/identifiers/path"
         ),
@@ -100,12 +100,14 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "operationIdentifiersPath" : "/operation/identifiers/path",
           "operations" : {
             "absolute" : {
+              "accessModifier" : "internal",
               "path" : "/absolute/path"
             }
           },
           "schemaTypes" : {
             "moduleType" : {
               "embeddedInTarget" : {
+                "accessModifier" : "public",
                 "name" : "SomeTarget"
               }
             },
