@@ -37,26 +37,17 @@ class JSONResponseParsingInterceptorTests: XCTestCase {
   }
 
   func testJSONResponseParsingInterceptorFailsWithEmptyData() {
-    class TestProvider: InterceptorProvider {
-      let mockClient: MockURLSessionClient = {
-        let client = MockURLSessionClient()
-        client.response = HTTPURLResponse(url: TestURL.mockServer.url,
-                                          statusCode: 200,
-                                          httpVersion: nil,
-                                          headerFields: nil)
-        client.data = Data()
-        return client
-      }()
+    let client = MockURLSessionClient(
+      response: .mock(),
+      data: Data()
+    )
+    
+    let provider = MockInterceptorProvider([
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor(),
+    ])
 
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
-        [
-          NetworkFetchInterceptor(client: self.mockClient),
-          JSONResponseParsingInterceptor(),
-        ]
-      }
-    }
-
-    let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
+    let network = RequestChainNetworkTransport(interceptorProvider: provider,
                                                endpointURL: TestURL.mockServer.url)
 
     let expectation = self.expectation(description: "Request sent")
