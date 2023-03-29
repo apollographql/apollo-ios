@@ -486,6 +486,9 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       }, completion: { result in
         defer { updateCompletedExpectation.fulfill() }
         XCTAssertSuccessResult(result)
+
+        let record = try! self.cache.loadRecords(forKeys: ["QUERY_ROOT.hero"]).first?.value
+        expect(record?["nickname"]).to(equal(NSNull()))
       })
 
       self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
@@ -502,6 +505,68 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         XCTAssertEqual(data.hero.name, "Artoo")
         XCTAssertNil(data.hero.nickname)
       }
+    }
+  }
+
+  /// This test ensures the fix for issue [#2861](https://github.com/apollographql/apollo-ios/issues/2861)
+  func test_updateCacheMutationWithOptionalField_containiningNull_retrievingOptionalField_returns_nil() throws {
+    // given
+    struct GivenSelectionSet: MockMutableRootSelectionSet {
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
+
+      static var __selections: [Selection] { [
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero {
+        get { __data["hero"] }
+        set { __data["hero"] = newValue }
+      }
+
+      struct Hero: MockMutableRootSelectionSet {
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
+
+        static var __selections: [Selection] { [
+          .field("name", String.self),
+          .field("nickname", String?.self)
+        ]}
+
+        var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
+
+        var nickname: String? {
+          get { __data["nickname"] }
+          set { __data["nickname"] = newValue }
+        }
+      }
+    }
+
+    let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
+
+    mergeRecordsIntoCache([
+      "QUERY_ROOT": ["hero": CacheReference("QUERY_ROOT.hero")],
+      "QUERY_ROOT.hero": ["__typename": "Droid", "name": "R2-D2", "nickname": NSNull()]
+    ])
+
+    runActivity("update mutation") { _ in
+      let updateCompletedExpectation = expectation(description: "Update completed")
+
+      store.withinReadWriteTransaction({ transaction in
+        try transaction.update(cacheMutation) { data in
+          // doing a nil-coalescing to replace nil with <not-populated>
+          let nickname = data.hero.nickname
+          expect(nickname).to(beNil())
+        }
+      }, completion: { result in
+        defer { updateCompletedExpectation.fulfill() }
+        XCTAssertSuccessResult(result)
+      })
+
+      self.wait(for: [updateCompletedExpectation], timeout: Self.defaultWaitTimeout)
     }
   }
 

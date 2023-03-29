@@ -49,7 +49,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   }
 
   func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
-    return stripNullValues ? nil : NSNull()
+    return stripNullValues ? nil : Optional<AnyHashable>.none
   }
 
   func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
