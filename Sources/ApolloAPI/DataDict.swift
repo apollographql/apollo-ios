@@ -88,11 +88,16 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   @inlinable public init(_fieldData data: AnyHashable?) {
-    guard case let .some(data) = data else {
-      self = .none
-      return
+    switch data {
+      case .none:
+        self = .none
+      case .some(let hashable):
+        if let optional = hashable.base as? Optional<AnyHashable>, optional == nil {
+          self = .none
+          return
+        }
+        self = .some(Wrapped.init(_fieldData: data))
     }
-    self = .some(Wrapped.init(_fieldData: data))
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
