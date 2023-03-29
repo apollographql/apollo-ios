@@ -268,6 +268,40 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// create the podspec file that is expecting the generated files in the configured output 
       /// location.
       case other
+
+      public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        guard let key = container.allKeys.first else {
+          throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+            codingPath: container.codingPath,
+            debugDescription: "Invalid number of keys found, expected one.",
+            underlyingError: nil
+          ))
+        }
+
+        switch key {
+        case .embeddedInTarget:
+          let nestedContainer = try container.nestedContainer(
+            keyedBy: EmbeddedInTargetCodingKeys.self,
+            forKey: .embeddedInTarget
+          )
+
+          let name = try nestedContainer.decode(String.self, forKey: .name)
+          let accessModifier = try nestedContainer.decodeIfPresent(
+            AccessModifier.self,
+            forKey: .accessModifier
+          ) ?? .internal
+
+          self = .embeddedInTarget(name: name, accessModifier: accessModifier)
+
+        case .swiftPackageManager:
+          self = .swiftPackageManager
+
+        case .other:
+          self = .other
+        }
+      }
     }
   }
 
@@ -282,6 +316,51 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case relative(subpath: String? = nil, accessModifier: AccessModifier = .public)
     /// All operation object files will be located in the specified path.
     case absolute(path: String, accessModifier: AccessModifier = .public)
+
+    public init(from decoder: Decoder) throws {
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+
+      guard let key = container.allKeys.first else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: container.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
+
+      switch key {
+      case .inSchemaModule:
+        self = .inSchemaModule
+
+      case .relative:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: RelativeCodingKeys.self,
+          forKey: .relative
+        )
+
+        let subpath = try nestedContainer.decodeIfPresent(String.self, forKey: .subpath)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .relative(subpath: subpath, accessModifier: accessModifier)
+
+      case .absolute:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: AbsoluteCodingKeys.self,
+          forKey: .absolute
+        )
+
+        let path = try nestedContainer.decode(String.self, forKey: .path)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .absolute(path: path, accessModifier: accessModifier)
+      }
+    }
   }
 
   /// The local path structure for the generated test mock object files.
