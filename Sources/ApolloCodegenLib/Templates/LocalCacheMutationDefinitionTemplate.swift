@@ -13,7 +13,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
     return TemplateString(
     """
-    \(embeddedAccessControlModifier)\
+    \(embeddedAccessControlModifier(target: target))\
     class \(operation.generatedDefinitionName): LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .\(operation.definition.operationType.rawValue)
 

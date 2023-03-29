@@ -20,7 +20,7 @@ struct CustomScalarTemplate: TemplateRenderer {
     TemplateString(
     """
     \(documentation: documentationTemplate, config: config)
-    \(embeddedAccessControlModifier)\
+    \(embeddedAccessControlModifier(target: target))\
     typealias \(graphqlScalar.name.firstUppercased) = String
     
     """

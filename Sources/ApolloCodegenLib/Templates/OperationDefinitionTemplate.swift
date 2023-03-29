@@ -43,7 +43,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
   private func OperationDeclaration() -> TemplateString {
     return """
-    \(embeddedAccessControlModifier)\
+    \(embeddedAccessControlModifier(target: target))\
     class \(operation.generatedDefinitionName): \
     \(operation.definition.operationType.renderedProtocolName) {
       public static let operationName: String = "\(operation.definition.name)"
