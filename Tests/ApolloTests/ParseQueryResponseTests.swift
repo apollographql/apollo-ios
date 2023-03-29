@@ -103,6 +103,26 @@ class ParseQueryResponseTests: XCTestCase {
     XCTAssertEqual(result.errors?.first?.locations?.first?.column, 2)
   }
 
+  func testErrorResponseWithPath() throws {
+    let query = MockQuery.mock()
+
+    let response = GraphQLResponse(operation: query, body: [
+      "errors": [
+        [
+          "message": "Some error",
+          "path": ["Some field", 1]
+        ]
+      ]
+    ])
+
+    let (result, _) = try response.parseResult()
+
+    XCTAssertNil(result.data)
+    XCTAssertEqual(result.errors?.first?.message, "Some error")
+    XCTAssertEqual(result.errors?.first?.path?[0], .field("Some field"))
+    XCTAssertEqual(result.errors?.first?.path?[1], .index(1))
+  }
+
   func testErrorResponseWithCustomError() throws {
     let query = MockQuery.mock()
 
