@@ -134,11 +134,11 @@ enum FileTarget: Equatable {
 
       return url.appendingPathComponent(subpath).path
 
-    case let .absolute(path):
+    case let .absolute(path, _):
       return URL(fileURLWithPath: path, relativeTo: config.rootURL)
         .appendingPathComponent(subpath).path
 
-    case let .relative(subpath):
+    case let .relative(subpath, _):
       return resolveRelativePath(
         sourceURL: URL(fileURLWithPath: fragment.filePath),
         withSubpath: subpath
@@ -174,11 +174,11 @@ enum FileTarget: Equatable {
         .appendingPathComponent(subpath)
         .path
 
-    case let .absolute(path):
+    case let .absolute(path, _):
       return URL(fileURLWithPath: path, relativeTo: config.rootURL)
         .appendingPathComponent(subpath).path
 
-    case let .relative(subpath):
+    case let .relative(subpath, _):
       return resolveRelativePath(
         sourceURL: URL(fileURLWithPath: operation.filePath),
         withSubpath: subpath
@@ -195,7 +195,7 @@ enum FileTarget: Equatable {
     case let .swiftPackage(targetName):
       return URL(fileURLWithPath: config.output.schemaTypes.path, relativeTo: config.rootURL)
         .appendingPathComponent(targetName ?? "TestMocks").path
-    case let .absolute(path):
+    case let .absolute(path, _):
       return URL(fileURLWithPath: path, relativeTo: config.rootURL).path
     }
   }

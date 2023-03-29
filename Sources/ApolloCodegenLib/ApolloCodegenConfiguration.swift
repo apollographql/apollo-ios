@@ -222,6 +222,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
+  public enum AccessModifier: String, Codable, Equatable {
+    case `public`
+    case `internal`
+  }
+
   /// The local path structure for the generated schema types files.
   public struct SchemaTypesFileOutput: Codable, Equatable {
     /// Local path where the generated schema types files should be stored.
@@ -250,7 +255,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// - Note: Generated files must be manually added to your application target. The generated
       /// schema types files will be namespaced with the value of your configuration's
       /// `schemaNamespace` to prevent naming conflicts.
-      case embeddedInTarget(name: String)
+      case embeddedInTarget(name: String, accessModifier: AccessModifier = .internal)
       /// Generates a `Package.swift` file that is suitable for linking the generated schema types
       /// files to your project using Swift Package Manager.
       case swiftPackageManager
@@ -274,9 +279,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// file. If `subpath` is specified a subfolder will be created relative to the `.graphql` file
     /// and the operation object files will be generated there. If no `subpath` is defined then all
     /// operation object files will be generated alongside the `.graphql` file.
-    case relative(subpath: String?)
+    case relative(subpath: String? = nil, accessModifier: AccessModifier = .public)
     /// All operation object files will be located in the specified path.
-    case absolute(path: String)
+    case absolute(path: String, accessModifier: AccessModifier = .public)
   }
 
   /// The local path structure for the generated test mock object files.
@@ -289,7 +294,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// - Note: Generated files must be manually added to your test target. Test mocks generated
     /// this way may also be manually embedded in a test utility module that is imported by your
     /// test target.
-    case absolute(path: String)
+    case absolute(path: String, accessModifier: AccessModifier = .public)
     /// Generated test mock files will be included in a target defined in the generated
     /// `Package.swift` file that is suitable for linking the generated test mock files to your
     /// test target using Swift Package Manager.
