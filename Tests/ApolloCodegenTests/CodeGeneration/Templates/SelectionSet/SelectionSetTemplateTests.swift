@@ -1593,7 +1593,7 @@ class SelectionSetTemplateTests: XCTestCase {
         .include(if: "a", [
           .field("fieldA", String.self),
           .field("fieldB", String.self),
-          .inlineFragment(AsPet.self),
+          .inlineFragment(AsPetIfA.self),
           .inlineFragment(IfA.self),
         ]),
       ] }
@@ -1644,7 +1644,7 @@ class SelectionSetTemplateTests: XCTestCase {
     let expected = """
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
-        .include(if: "a", .inlineFragment(AsPet.self)),
+        .include(if: "a", .inlineFragment(AsPetIfA.self)),
       ] }
     """
 
@@ -3966,7 +3966,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment() }
+      public var asPetIfA: AsPetIfA? { _asInlineFragment() }
     """
 
     // when
@@ -4008,7 +4008,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment() }
+      public var asPetIfNotA: AsPetIfNotA? { _asInlineFragment() }
     """
 
     // when
@@ -4050,7 +4050,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public var asPet: AsPet? { _asInlineFragment() }
+      public var asPetIfAAndNotB: AsPetIfAAndNotB? { _asInlineFragment() }
     """
 
     // when
@@ -4107,7 +4107,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
-  func test__render_inlineFragmentAccessor__givenNamedFragmentOnSameTypeWithInclusionCondition_renders() throws {
+  func test__render_inlineFragmentAccessor__givenNamedFragmentMatchingParentTypeWithInclusionCondition_renders() throws {
     // given
     schemaSDL = """
     type Query {
@@ -4146,6 +4146,56 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_inlineFragmentAccessor__givenInlineFragmentAndNamedFragmentOnSameTypeWithInclusionCondition_rendersBothInlineFragments() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      string: String!
+      int: Int!
+    }
+
+    type Bird implements Animal {
+      string: String!
+      int: Int!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        ... on Bird {
+          string
+        }
+        ...FragmentA @include(if: $a)
+      }
+    }
+
+    fragment FragmentA on Bird {
+      int
+    }
+    """
+
+    let expected = """
+      public var asBird: AsBird? { _asInlineFragment() }
+      public var asBirdIfA: AsBirdIfA? { _asInlineFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 13, ignoringExtraLines: true))
   }
 
   // MARK: - Fragment Accessors
