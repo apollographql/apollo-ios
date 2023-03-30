@@ -24,7 +24,13 @@ public struct DataDict: Hashable {
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
-    get { _data[key]?.base as! T }
+    get {
+#if swift(>=5.4)
+        _data[key] as! T
+#else
+        _data[key]?.base as! T
+#endif
+    }
     set { _data[key] = newValue }
     _modify {
       var value = _data[key] as! T
@@ -110,7 +116,13 @@ extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue 
     guard let data = data as? [AnyHashable?] else {
       fatalError("\(Self.self) expected list of data for entity.")
     }
-    self = data.map { Element.init(_fieldData:$0?.base as? AnyHashable) }
+    self = data.map {
+#if swift(>=5.4)
+        Element.init(_fieldData:$0)
+#else
+        Element.init(_fieldData:$0?.base as? AnyHashable)
+#endif
+    }
   }
 
   @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
