@@ -15,19 +15,20 @@ class MockObjectTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "Dog",
     interfaces: [GraphQLInterfaceType] = [],
     schemaNamespace: String = "TestSchema",
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .swiftPackage(),
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) {
     let config = ApolloCodegenConfiguration.mock(
-      moduleType,
-      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage),
-      schemaNamespace: schemaNamespace
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, testMocks: testMocks),
+      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage)
     )
     ir = IR.mock(compilationResult: .mock())
 
@@ -50,7 +51,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSchemaType_generatesExtension() {
+  func test__render__givenSchemaType_generatesExtension() {
     // given
     buildSubject(name: "Dog", moduleType: .swiftPackageManager)
 
@@ -75,7 +76,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Casing Tests
 
-  func test_render_givenSchemaTypeWithLowercaseName_generatesCapitalizedClassName() {
+  func test__render__givenSchemaTypeWithLowercaseName_generatesCapitalizedClassName() {
     // given
     buildSubject(name: "dog")
 
@@ -98,7 +99,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
+  func test__render__givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "lowercased")
 
@@ -113,7 +114,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
+  func test__render__givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "UPPER")
 
@@ -128,7 +129,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
+  func test__render__givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "MySchema")
 
@@ -145,7 +146,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Mock Field Tests
 
-  func test_render_givenSchemaType_generatesFieldAccessors() {
+  func test__render__givenSchemaType_generatesFieldAccessors() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -186,7 +187,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldsWithLowercaseTypeNames_generatesFieldAccessors() {
+  func test__render__givenFieldsWithLowercaseTypeNames_generatesFieldAccessors() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -219,7 +220,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
+  func test__render__givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -354,7 +355,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Interface_named_Actor_generatesFieldsWithNamespace() {
+  func test__render__givenFieldType_Interface_named_Actor_generatesFieldsWithNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -383,7 +384,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Union_named_Actor_generatesFieldsWithNamespace() {
+  func test__render__givenFieldType_Union_named_Actor_generatesFieldsWithNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -412,7 +413,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Object_named_Actor_generatesFieldsWithoutNamespace() {
+  func test__render__givenFieldType_Object_named_Actor_generatesFieldsWithoutNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -475,7 +476,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Convenience Initializer Tests
 
-  func test_render_givenSchemaType_generatesConvenienceInitializer() {
+  func test__render__givenSchemaType_generatesConvenienceInitializer() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -563,7 +564,7 @@ class MockObjectTemplateTests: XCTestCase {
     )
   }
   
-  func test_render_givenSchemaTypeWithoutFields_doesNotgenerateConvenienceInitializer() {
+  func test__render__givenSchemaTypeWithoutFields_doesNotgenerateConvenienceInitializer() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -582,7 +583,7 @@ class MockObjectTemplateTests: XCTestCase {
     )
   }
 
-  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
+  func test__render__givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -781,6 +782,101 @@ class MockObjectTemplateTests: XCTestCase {
       atLine: 8 + self.subject.graphqlObject.fields.count,
       ignoringExtraLines: false)
     )
+  }
+
+  // MARK: Access Level Tests
+
+  func test__render__givenSchemaTypeAndFields_whenTestMocksIsSwiftPackage_shouldRenderWithPublicAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .swiftPackage())
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    public class Dog: MockObject {
+    """
+
+    let expectedExtensionDefinition = """
+    public extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaType_whenTestMocksAbsolute_withPublicAccessModifier_shouldRenderWithPublicAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .absolute(path: "", accessModifier: .public))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    public class Dog: MockObject {
+    """
+
+    let expectedExtensionDefinition = """
+    public extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaType_whenTestMocksAbsolute_withInternalAccessModifier_shouldRenderWithInternalAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .absolute(path: "", accessModifier: .internal))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    class Dog: MockObject {
+    """
+
+    let expectedExtensionDefinition = """
+    extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
   }
 
   // MARK: - Deprecation Warnings
