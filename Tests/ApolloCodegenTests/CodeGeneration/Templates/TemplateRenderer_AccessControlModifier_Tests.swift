@@ -31,7 +31,7 @@ final class TemplateRenderer_AccessControlModifier_Tests: XCTestCase {
     )
   }
 
-  // MARK: SchemaFile target tests
+  // MARK: SchemaFile Target Tests
 
   func test__accessLevel__givenSchemaFileTargets_whenSchemaModuleTypeIsEmbeddedInTarget_withPublicAccessModifier_shouldRenderAsPublic() throws {
     // given
@@ -89,7 +89,7 @@ final class TemplateRenderer_AccessControlModifier_Tests: XCTestCase {
     }
   }
 
-  // MARK: Operation target tests
+  // MARK: Operation Target Tests
 
   func test__accessLevel__givenOperationFileTarget_whenOperationsInSchemaModule_withSchemaModuleTypeEmbeddedInTarget_publicAccessModifier_shouldRenderAsPublic() throws {
     // given + when
@@ -187,7 +187,7 @@ final class TemplateRenderer_AccessControlModifier_Tests: XCTestCase {
     expect(renderer.embeddedAccessControlModifier).to(equal(swiftInternal))
   }
 
-  // MARK: TestMock target tests
+  // MARK: TestMock Target Tests
 
   func test__accessLevel__givenTestMockFileTarget_whenTestMocksInSwiftPackage_shouldRenderAsPublic() throws {
     // given + when

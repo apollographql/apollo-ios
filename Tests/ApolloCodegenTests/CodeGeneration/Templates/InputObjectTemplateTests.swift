@@ -56,7 +56,9 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_swiftPackageManager_generatesInputObject_withPublicModifier() {
+  // MARK: Access Level Tests
+
+  func test_render_givenModuleType_swiftPackageManager_generatesInputObject_withPublicAccess() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
@@ -71,7 +73,7 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_other_generatesInputObject_withPublicModifier() {
+  func test_render_givenModuleType_other_generatesInputObject_withPublicAccess() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -86,9 +88,28 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_embeddedInTarget_generatesInputObject_noPublicModifier() {
+  func test_render_givenModuleType_embeddedInTarget_withPublicAccessModifier_generatesInputObject_withPublicAccess() {
     // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    buildSubject(
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public))
+    )
+
+    let expected = """
+    public struct MockInput: InputObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_withInternalAccessModifier_generatesInputObject_withInternalAccess() {
+    // given
+    buildSubject(
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal))
+    )
 
     let expected = """
     struct MockInput: InputObject {
