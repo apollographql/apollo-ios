@@ -220,10 +220,14 @@ class SelectionSet_JSONInitializerTests: XCTestCase {
           var heroName: String? { __data["heroName"] }
           var asHuman: AsHuman? { _asInlineFragment() }
 
-          class AsHuman: ConcreteMockTypeCase<Character.AsHuman.Friend> {
+          class AsHuman: ConcreteMockTypeCase<Character.AsHuman.Friend>, MergedOnlyInlineFragment {
             typealias Schema = MockSchemaMetadata
 
             override class var __parentType: ParentType { Types.Human }
+            class var __mergedSources: [any SelectionSet.Type] { [
+              Character.Friend.AsHuman.self,
+              Character.AsHero.Friend.self
+            ] }
 
             var name: String? { __data["name"] }
             var heroName: String? { __data["heroName"] }

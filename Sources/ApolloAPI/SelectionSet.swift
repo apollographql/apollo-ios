@@ -76,8 +76,15 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
+  @_disfavoredOverload
   @inlinable public func _asInlineFragment<T: SelectionSet>() -> T? {
     guard __data.fragmentIsFulfilled(T.self) else { return nil }
+    return T.init(_dataDict: __data)
+  }
+
+  @inlinable public func _asInlineFragment<T: MergedOnlyInlineFragment>() -> T? {
+    let allFulfilled = T.__mergedSources.allSatisfy({ __data.fragmentIsFulfilled($0) })
+    guard allFulfilled else { return nil }
     return T.init(_dataDict: __data)
   }
 
@@ -99,4 +106,10 @@ extension InlineFragment {
   @inlinable public var asRootEntityType: RootEntityType {
     RootEntityType.init(_dataDict: __data)
   }
+}
+
+public protocol MergedOnlyInlineFragment: InlineFragment {
+
+  static var __mergedSources: [any SelectionSet.Type] { get }
+
 }
