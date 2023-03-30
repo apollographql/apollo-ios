@@ -29,6 +29,22 @@ public protocol InlineFragment: SelectionSet {
   associatedtype RootEntityType: RootSelectionSet
 }
 
+/// A selection set that is comprised of only fields merged from other selection sets.
+///
+/// A `CompositeSelectionSet` has no direct selections of its own, rather it is composed of
+/// selections merged from multiple other selection sets. A `CompositeSelectionSet` is generated
+/// when an entity in a given scope would include distinct selections from multiple other scopes
+/// but is not defined in the operation/fragment definition itself.
+public protocol CompositeSelectionSet: SelectionSet {}
+
+/// An `InlineFragment` that is also a `CompositeSelectionSet`.
+public protocol CompositeInlineFragment: CompositeSelectionSet, InlineFragment {
+
+  /// A list of the selection sets that the selection set is composed of.
+  static var __mergedSources: [any SelectionSet.Type] { get }
+
+}
+
 // MARK: - SelectionSet
 public protocol SelectionSet: Hashable {
   associatedtype Schema: SchemaMetadata
@@ -82,9 +98,8 @@ extension SelectionSet {
     return T.init(_dataDict: __data)
   }
 
-  @inlinable public func _asInlineFragment<T: MergedOnlyInlineFragment>() -> T? {
-    let allFulfilled = T.__mergedSources.allSatisfy({ __data.fragmentIsFulfilled($0) })
-    guard allFulfilled else { return nil }
+  @inlinable public func _asInlineFragment<T: CompositeInlineFragment>() -> T? {
+    guard __data.fragmentsAreFulfilled(T.__mergedSources) else { return nil }
     return T.init(_dataDict: __data)
   }
 
@@ -106,10 +121,4 @@ extension InlineFragment {
   @inlinable public var asRootEntityType: RootEntityType {
     RootEntityType.init(_dataDict: __data)
   }
-}
-
-public protocol MergedOnlyInlineFragment: InlineFragment {
-
-  static var __mergedSources: [any SelectionSet.Type] { get }
-
 }

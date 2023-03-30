@@ -220,7 +220,7 @@ class SelectionSet_JSONInitializerTests: XCTestCase {
           var heroName: String? { __data["heroName"] }
           var asHuman: AsHuman? { _asInlineFragment() }
 
-          class AsHuman: ConcreteMockTypeCase<Character.AsHuman.Friend>, MergedOnlyInlineFragment {
+          class AsHuman: ConcreteMockTypeCase<Character.AsHuman.Friend>, CompositeInlineFragment {
             typealias Schema = MockSchemaMetadata
 
             override class var __parentType: ParentType { Types.Human }
