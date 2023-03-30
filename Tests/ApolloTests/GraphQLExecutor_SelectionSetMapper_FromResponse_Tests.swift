@@ -1770,4 +1770,78 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
       }
     }
   }
+
+  // MARK: Fulfilled Fragment Tests
+
+  func test__nestedEntity_andTypeCaseWithAdditionalMergedNestedEntityFields_givenChildEntityCanConvertToTypeCase_fulfilledFragmentsContainsTypeCase() throws {
+    struct Types {
+      static let Character = Interface(name: "Character")
+      static let Hero = Interface(name: "Hero")
+      static let Human = Object(typename: "Human", implementedInterfaces: [Character.self, Hero.self])
+    }
+
+    MockSchemaMetadata.stub_objectTypeForTypeName = {
+      switch $0 {
+      case "Human": return Types.Human
+      default: XCTFail(); return nil
+      }
+    }
+
+    class Character: MockSelectionSet {
+      typealias Schema = MockSchemaMetadata
+
+      override class var __parentType: ParentType { Types.Character }
+      override class var __selections: [Selection] {[
+        .field("__typename", String.self),
+        .field("friend", Friend.self),
+        .inlineFragment(AsHero.self)
+      ]}
+
+      var friend: Friend { __data["friend"] }
+
+      class Friend: MockSelectionSet {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Character }
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+        ]}
+      }
+
+      class AsHero: ConcreteMockTypeCase<Character> {
+        typealias Schema = MockSchemaMetadata
+
+        override class var __parentType: ParentType { Types.Hero }
+        override class var __selections: [Selection] {[
+          .field("friend", Friend.self),
+        ]}
+
+        var friend: Friend { __data["friend"] }
+
+        class Friend: MockSelectionSet {
+          typealias Schema = MockSchemaMetadata
+
+          override class var __parentType: ParentType { Types.Character }
+          override class var __selections: [Selection] {[
+            .field("heroName", String.self),
+          ]}
+
+          var heroName: String? { __data["heroName"] }
+        }
+      }
+
+    }
+
+    let jsonObject: JSONObject = [
+      "__typename": "Human", "friend": [
+        "__typename": "Human",
+        "name": "Han",
+        "heroName": "Han Solo"
+      ]
+    ]
+
+    let data = try Character(data: jsonObject)
+    expect(data.friend.__data.fragmentIsFulfilled(Character.Friend.self)).to(beTrue())
+    expect(data.friend.__data.fragmentIsFulfilled(Character.AsHero.Friend.self)).to(beTrue())
+  }
 }
