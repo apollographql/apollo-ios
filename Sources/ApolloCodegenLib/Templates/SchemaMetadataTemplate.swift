@@ -84,17 +84,19 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   }
 
   private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
+    let accessLevel = embeddedAccessControlModifier(target: target)
+
     return TemplateString("""
-      public protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
+      \(accessLevel)protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
+      \(accessLevel)protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
+      \(accessLevel)protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
+      \(accessLevel)protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaNamespace).SchemaMetadata {}
       """
     )

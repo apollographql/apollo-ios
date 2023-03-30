@@ -12,7 +12,7 @@ class UnionTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "ClassroomPet",
@@ -113,7 +113,7 @@ class UnionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
   }
 
-  // MARK: Enum Generation Tests
+  // MARK: Class Generation Tests
 
   func test_render_generatesSwiftEnumDefinition() throws {
     // given
@@ -214,51 +214,6 @@ class UnionTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 3, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.swiftPackageManager))
-
-    let expected = """
-    static let ClassroomPet = Union(
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_other_generatesSwiftEnum_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.other))
-
-    let expected = """
-    static let ClassroomPet = Union(
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_embeddedInTarget_generatesSwiftEnum_noPublicModifier() {
-    // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
-
-    let expected = """
-    static let ClassroomPet = Union(
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Documentation Tests

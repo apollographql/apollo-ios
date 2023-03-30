@@ -103,7 +103,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.SchemaType.template(for: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
-    \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
+    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: embeddedAccessControlModifier(target: target)) }, else: template)
     """
     ).description
   }
@@ -115,8 +115,10 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.Operation.template(for: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
-      template.wrappedInNamespace(config.schemaNamespace.firstUppercased),
-    else:
+      template.wrappedInNamespace(
+        config.schemaNamespace.firstUppercased,
+        accessModifier: embeddedAccessControlModifier(target: target)
+    ), else:
       template)
     """
     ).description
@@ -144,10 +146,9 @@ extension TemplateRenderer {
 
   func embeddedAccessControlModifier(target: TemplateTarget) -> String {
     switch target {
-    case .schemaFile: return schemaTypeEmbeddedAccessControlModifier
+    case .schemaFile, .moduleFile: return schemaTypeEmbeddedAccessControlModifier
     case .operationFile: return operationTypeEmbeddedAccessControlModifier
     case .testMockFile: return testMockTypeEmbeddedAccessControlModifier
-    case .moduleFile: return ""
     }
   }
 
@@ -186,11 +187,11 @@ extension TemplateRenderer {
 }
 
 extension TemplateString {
-  /// Wraps `namespace` in a public `enum` extension.
-  fileprivate func wrappedInNamespace(_ namespace: String) -> Self {
+  /// Wraps `self` in an extension on `namespace`.
+  fileprivate func wrappedInNamespace(_ namespace: String, accessModifier: String) -> Self {
     TemplateString(
     """
-    public extension \(namespace) {
+    \(accessModifier)extension \(namespace) {
       \(self)
     }
     """

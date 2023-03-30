@@ -60,7 +60,7 @@ class FragmentTemplateTests: XCTestCase {
     subject.template.description
   }
 
-  // MARK: - Fragment Definition
+  // MARK: Fragment Definition
 
   func test__render__givenFragment_generatesFragmentDeclarationDefinitionAndBoilerplate() throws {
     // given
@@ -89,51 +89,6 @@ class FragmentTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
     expect(String(actual.reversed())).to(equalLineByLine("\n}", ignoringExtraLines: true))
-  }
-
-  func test__render__givenModuleType_swiftPackageManager_generatesFragmentDefinition_withPublicModifier() throws {
-    // given
-    try buildSubjectAndFragment(config: .mock(.swiftPackageManager))
-
-    let expected = """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__render__givenModuleType_other_generatesFragmentDefinition_withPublicModifier() throws {
-    // given
-    try buildSubjectAndFragment(config: .mock(.other))
-
-    let expected = """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__render__givenModuleType_embeddedInTarget_generatesFragmentDefinition_noPublicModifier() throws {
-    // given
-    try buildSubjectAndFragment(config: .mock(.embeddedInTarget(name: "TestTarget")))
-
-    let expected = """
-    struct TestFragment: TestSchema.SelectionSet, Fragment {
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   func test__render__givenLowercaseFragment_generatesTitleCaseTypeName() throws {
@@ -357,7 +312,73 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  // MARK: - Initializer Tests
+  // MARK: Access Level Tests
+
+  func test__render__givenModuleType_swiftPackageManager_generatesFragmentDefinition_withPublicAccess() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(.swiftPackageManager))
+
+    let expected = """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleType_other_generatesFragmentDefinition_withPublicAccess() throws {
+    // given
+    try buildSubjectAndFragment(config: .mock(.other))
+
+    let expected = """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleType_embeddedInTarget_withInternalAccessModifier_generatesFragmentDefinition_withInternalAccess() throws {
+    // given
+    try buildSubjectAndFragment(
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal))
+    )
+
+    let expected = """
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleType_embeddedInTarget_withPublicAccessModifier_generatesFragmentDefinition_withPublicAccess() throws {
+    // given
+    try buildSubjectAndFragment(
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public))
+    )
+
+    let expected = """
+    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Initializer Tests
 
   func test__render_givenInitializerConfigIncludesNamedFragments_rendersInitializer() throws {
     // given
@@ -554,7 +575,7 @@ class FragmentTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
   }
 
-  // MARK: - Local Cache Mutation Tests
+  // MARK: Local Cache Mutation Tests
   func test__render__givenFragment__asLocalCacheMutation_generatesFragmentDeclarationDefinitionAsMutableSelectionSetAndBoilerplate() throws {
     // given
     document = """
