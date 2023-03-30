@@ -35,7 +35,7 @@ struct MockObjectTemplate: TemplateRenderer {
       }
 
     return """
-    public class \(objectName): MockObject {
+    \(embeddedAccessControlModifier(target: target))class \(objectName): MockObject {
       public static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
       public static let _mockFields = MockFields()
       public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
@@ -52,7 +52,7 @@ struct MockObjectTemplate: TemplateRenderer {
     \(!fields.isEmpty ?
       TemplateString("""
       
-      public extension Mock where O == \(objectName) {
+      \(embeddedAccessControlModifier(target: target))extension Mock where O == \(objectName) {
         convenience init(
           \(fields.map { """
             \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil

@@ -14,12 +14,13 @@ class MockUnionsTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
-    unions: OrderedSet<GraphQLUnionType>
+    unions: OrderedSet<GraphQLUnionType>,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .swiftPackage()
   ) {
-    let config = ApolloCodegenConfiguration.mock()
+    let config = ApolloCodegenConfiguration.mock(output: .mock(testMocks: testMocks))
 
     subject = MockUnionsTemplate(
       graphQLUnions: unions,
@@ -39,7 +40,9 @@ class MockUnionsTemplateTests: XCTestCase {
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSingleUnionType_generatesExtensionWithTypealias() {
+  // MARK: Typealias Tests
+
+  func test__render__givenSingleUnionType_generatesExtensionWithTypealias() {
     // given
     let Pet = GraphQLUnionType.mock("Pet")
     buildSubject(unions: [Pet])
@@ -58,7 +61,7 @@ class MockUnionsTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test_render_givenMultipleUnionTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
+  func test__render__givenMultipleUnionTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
     // given
     let UnionA = GraphQLUnionType.mock("UnionA")
     let UnionB = GraphQLUnionType.mock("unionB")
@@ -79,5 +82,55 @@ class MockUnionsTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
+  }
+
+  // MARK: Access Level Tests
+
+  func test_render_givenUnionType_whenTestMocksIsSwiftPackage_shouldRenderWithPublicAccess() {
+    // given
+    let Pet = GraphQLUnionType.mock("Pet")
+    buildSubject(unions: [Pet], testMocks: .swiftPackage())
+
+    let expected = """
+    public extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenUnionType_whenTestMocksAbsolute_withPublicAccessModifier_shouldRenderWithPublicAccess() {
+    // given
+    let Pet = GraphQLUnionType.mock("Pet")
+    buildSubject(unions: [Pet], testMocks: .absolute(path: "", accessModifier: .public))
+
+    let expected = """
+    public extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenUnionType_whenTestMocksAbsolute_withInternalAccessModifier_shouldRenderWithInternalAccess() {
+    // given
+    let Pet = GraphQLUnionType.mock("Pet")
+    buildSubject(unions: [Pet], testMocks: .absolute(path: "", accessModifier: .internal))
+
+    let expected = """
+    extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }
