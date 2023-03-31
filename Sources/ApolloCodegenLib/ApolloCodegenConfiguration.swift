@@ -222,8 +222,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
+  /// Swift access control configuration.
   public enum AccessModifier: String, Codable, Equatable {
+    /// Enable entities to be used within any source file from their defining module, and also in
+    /// a source file from another module that imports the defining module.
     case `public`
+    /// Enable entities to be used within any source file from their defining module, but not in
+    /// any source file outside of that module.
     case `internal`
   }
 
@@ -250,7 +255,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Compatible dependency manager automation.
     public enum ModuleType: Codable, Equatable {
       /// Generated schema types will be manually embedded in a target with the specified `name`.
-      /// No module will be created for the generated schema types.
+      /// No module will be created for the generated schema types. Use `accessModifier` to control
+      /// the visibility of generated code, defaults to `.internal`.
       ///
       /// - Note: Generated files must be manually added to your application target. The generated
       /// schema types files will be namespaced with the value of your configuration's
@@ -312,9 +318,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Operation object files will be co-located relative to the defining operation `.graphql`
     /// file. If `subpath` is specified a subfolder will be created relative to the `.graphql` file
     /// and the operation object files will be generated there. If no `subpath` is defined then all
-    /// operation object files will be generated alongside the `.graphql` file.
+    /// operation object files will be generated alongside the `.graphql` file. Use `accessModifier`
+    /// to control the visibility of generated code, defaults to `.public`.
     case relative(subpath: String? = nil, accessModifier: AccessModifier = .public)
-    /// All operation object files will be located in the specified path.
+    /// All operation object files will be located in the specified `path`. Use `accessModifier` to
+    /// control the visibility of generated code, defaults to `.public`.
     case absolute(path: String, accessModifier: AccessModifier = .public)
 
     public init(from decoder: Decoder) throws {
@@ -367,7 +375,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public enum TestMockFileOutput: Codable, Equatable {
     /// Test mocks will not be generated. This is the default value.
     case none
-    /// Generated test mock files will be located in the specified path.
+    /// Generated test mock files will be located in the specified `path`. Use `accessModifier` to
+    /// control the visibility of generated code, defaults to `.public`.
     /// No module will be created for the generated test mocks.
     ///
     /// - Note: Generated files must be manually added to your test target. Test mocks generated
