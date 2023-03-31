@@ -49,7 +49,9 @@ struct SelectionSetTemplate {
     TemplateString(
     """
     \(SelectionSetNameDocumentation(inlineFragment))
-    public struct \(inlineFragment.renderedTypeName): \(SelectionSetType(asInlineFragment: true)) {
+    public struct \(inlineFragment.renderedTypeName): \(SelectionSetType(asInlineFragment: true))\
+    \(if: inlineFragment.isCompositeSelectionSet, ", \(config.ApolloAPITargetName).CompositeInlineFragment") \
+    {
       \(BodyTemplate(inlineFragment))
     }
     """
@@ -98,6 +100,7 @@ struct SelectionSetTemplate {
     \(RootEntityTypealias(selectionSet))
     \(ParentTypeTemplate(selectionSet.parentType))
     \(ifLet: selections.direct?.groupedByInclusionCondition, { SelectionsTemplate($0, in: scope) })
+    \(if: selectionSet.isCompositeInlineFragment, MergedSourcesTemplate(selectionSet))
 
     \(section: FieldAccessorsTemplate(selections, in: scope))
 
@@ -138,6 +141,23 @@ struct SelectionSetTemplate {
     """
     public static var __parentType: \(config.ApolloAPITargetName).ParentType { \
     \(GeneratedSchemaTypeReference(type)) }
+    """
+  }
+
+  private func MergedSourcesTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
+    return """
+    public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet] { [
+      \(selectionSet.selections.merged.mergedSources.map {
+        let scopePath = $0.typeInfo.scopePath
+        let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+          from: scopePath.head,
+          withFieldPath: $0.typeInfo.entity.fieldPath.head,
+          removingFirst: scopePath.head.value.type.isRootFieldType,
+          pluralizer: config.pluralizer
+        )
+        return "\(selectionSetName).self"
+      })
+    ] }
     """
   }
 
@@ -530,14 +550,18 @@ fileprivate class SelectionSetNameCache {
     self.config = config
   }
 
-  // MARK: Entity Field
-  func selectionSetName(for field: IR.EntityField) -> String {
-    let objectId = ObjectIdentifier(field)
+  func selectionSetName(for selectionSet: IR.SelectionSet) -> String {
+    let objectId = ObjectIdentifier(selectionSet)
     if let name = generatedSelectionSetNames[objectId] { return name }
 
-    let name = computeGeneratedSelectionSetName(for: field)
+    let name = computeGeneratedSelectionSetName(for: selectionSet)
     generatedSelectionSetNames[objectId] = name
     return name
+  }
+
+  // MARK: Entity Field
+  func selectionSetName(for field: IR.EntityField) -> String {
+    return selectionSetName(for: field.selectionSet)
   }
 
   func selectionSetType(for field: IR.EntityField) -> String {
@@ -549,10 +573,9 @@ fileprivate class SelectionSetNameCache {
   }
 
   // MARK: Name Computation
-  func computeGeneratedSelectionSetName(for field: IR.EntityField) -> String {
-    let selectionSet = field.selectionSet
+  func computeGeneratedSelectionSetName(for selectionSet: IR.SelectionSet) -> String {
     if selectionSet.shouldBeRendered {
-      return field.formattedSelectionSetName(
+      return selectionSet.entity.fieldPath.last.value.formattedSelectionSetName(
         with: config.pluralizer
       )
 
@@ -560,7 +583,7 @@ fileprivate class SelectionSetNameCache {
       return selectionSet.selections.merged.mergedSources
         .first.unsafelyUnwrapped
         .generatedSelectionSetName(
-          for: selectionSet,
+          for: selectionSet.typeInfo,
           pluralizer: config.pluralizer
         )
     }
@@ -582,6 +605,14 @@ fileprivate extension IR.SelectionSet {
 
   var renderedTypeName: String {
     self.scope.scopePath.last.value.selectionSetNameComponent
+  }
+
+  var isCompositeSelectionSet: Bool {
+    return selections.direct?.isEmpty ?? true
+  }
+
+  var isCompositeInlineFragment: Bool {
+    return !self.isEntityRoot && isCompositeSelectionSet
   }
 
 }
@@ -626,7 +657,7 @@ fileprivate extension GraphQLType {
 fileprivate extension IR.MergedSelections.MergedSource {
 
   func generatedSelectionSetName(
-    for selectionSet: IR.SelectionSet,
+    for targetTypeInfo: IR.SelectionSet.TypeInfo,
     pluralizer: Pluralizer
   ) -> String {
     if let fragment = fragment {
@@ -636,7 +667,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
       )
     }
 
-    var targetTypePathCurrentNode = selectionSet.typeInfo.scopePath.last
+    var targetTypePathCurrentNode = targetTypeInfo.scopePath.last
     var sourceTypePathCurrentNode = typeInfo.scopePath.last
     var nodesToSharedRoot = 0
 

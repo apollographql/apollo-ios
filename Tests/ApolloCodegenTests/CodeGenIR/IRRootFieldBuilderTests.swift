@@ -3940,8 +3940,8 @@ class IRRootFieldBuilderTests: XCTestCase {
         .fragmentSpread(Fragment_PredatorDetails_HeightInMeters.definition),
       ],
       mergedSources: [
+        try .mock(for: Fragment_PredatorDetails_HeightInMeters.fragment.rootField, from: Fragment_PredatorDetails_HeightInMeters),
         try .mock(for: PredatorDetails_Predator_Height, from: Fragment_PredatorDetails),
-        try .mock(for: Fragment_PredatorDetails_HeightInMeters.fragment.rootField, from: Fragment_PredatorDetails_HeightInMeters)
       ]
     )
 
