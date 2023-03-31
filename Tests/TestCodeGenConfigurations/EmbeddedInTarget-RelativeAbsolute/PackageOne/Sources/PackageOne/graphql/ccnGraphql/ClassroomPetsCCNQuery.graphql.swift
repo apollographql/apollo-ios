@@ -63,7 +63,7 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetailsCCN.AsAnimal.self
         ] }

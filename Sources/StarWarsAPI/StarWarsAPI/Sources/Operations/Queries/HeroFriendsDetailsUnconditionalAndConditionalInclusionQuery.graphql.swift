@@ -198,7 +198,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
 
           public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
-          public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+          public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
             Hero.Friend.self,
             Hero.Friend.AsDroid.self
           ] }

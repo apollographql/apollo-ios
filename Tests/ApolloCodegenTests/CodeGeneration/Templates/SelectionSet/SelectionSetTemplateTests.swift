@@ -1923,7 +1923,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+      public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
         AllAnimal.Predator.AsPet.self,
         AllAnimal.AsDog.Predator.self
       ] }
@@ -1986,7 +1986,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+      public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
         AllAnimal.Predator.self,
         PredatorDetails.AsPet.self
       ] }

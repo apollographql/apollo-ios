@@ -68,7 +68,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self
         ] }
@@ -92,7 +92,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsPet.self
         ] }
@@ -116,7 +116,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsWarmBlooded.self
@@ -142,7 +142,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsPet.self,
@@ -173,7 +173,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsPet.self,
@@ -203,7 +203,7 @@ class ClassroomPetsQuery: GraphQLQuery {
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.PetRock }
-        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
           ClassroomPet.self,
           ClassroomPetDetails.AsPet.self,
           ClassroomPetDetails.AsPetRock.self

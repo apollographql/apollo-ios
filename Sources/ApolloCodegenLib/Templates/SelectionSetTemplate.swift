@@ -146,7 +146,7 @@ struct SelectionSetTemplate {
 
   private func MergedSourcesTemplate(_ selectionSet: IR.SelectionSet) -> TemplateString {
     return """
-    public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet] { [
+    public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet.Type] { [
       \(selectionSet.selections.merged.mergedSources.map {
         let scopePath = $0.typeInfo.scopePath
         let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
