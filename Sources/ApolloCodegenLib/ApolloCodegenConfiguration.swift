@@ -385,6 +385,47 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// If this option is provided without the `.swiftPackageManager` module type, code generation
     /// will fail.
     case swiftPackage(targetName: String? = nil)
+
+    public init(from decoder: Decoder) throws {
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+
+      guard let key = container.allKeys.first else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: container.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
+
+      switch key {
+      case .none:
+        self = .none
+
+      case .absolute:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: AbsoluteCodingKeys.self,
+          forKey: .absolute
+        )
+
+        let path = try nestedContainer.decode(String.self, forKey: .path)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .absolute(path: path, accessModifier: accessModifier)
+
+      case .swiftPackage:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: SwiftPackageCodingKeys.self,
+          forKey: .swiftPackage
+        )
+
+        let targetName = try nestedContainer.decode(String.self, forKey: .targetName)
+
+        self = .swiftPackage(targetName: targetName)
+      }
+    }
   }
 
   // MARK: - Other Types

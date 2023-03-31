@@ -746,4 +746,57 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
       try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
     ).to(throwError())
   }
+
+  // MARK: - Optional Tests
+
+  func test__decodeTestMockFileOutput__givenAbsoluteWithAccessModifier_shouldReturnEnum() throws {
+    // given
+    let subject = """
+    {
+      "absolute" : {
+        "path" : "x",
+        "accessModifier" : "internal"
+      }
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.TestMockFileOutput.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(
+      equal(ApolloCodegenConfiguration.TestMockFileOutput.absolute(
+        path: "x",
+        accessModifier: .internal
+      ))
+    )
+  }
+
+  func test__decodeTestMockFileOutput__givenAbsoluteMissingAccessModifier_shouldReturnEnumWithDefaultAccessModifier() throws {
+    // given
+    let subject = """
+    {
+      "absolute" : {
+        "path" : "y"
+      }
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.TestMockFileOutput.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(
+      equal(ApolloCodegenConfiguration.TestMockFileOutput.absolute(
+        path: "y",
+        accessModifier: .public
+      ))
+    )
+  }
 }
