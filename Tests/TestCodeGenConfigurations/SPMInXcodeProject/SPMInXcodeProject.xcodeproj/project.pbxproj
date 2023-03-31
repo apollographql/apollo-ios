@@ -14,7 +14,7 @@
 		DE3511F728E22137000F1E52 /* SPMInXcodeProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3511F628E22137000F1E52 /* SPMInXcodeProjectTests.swift */; };
 		DE35120128E22137000F1E52 /* SPMInXcodeProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */; };
 		DE35120328E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */; };
-		DE35121628E22254000F1E52 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DE35121528E22254000F1E52 /* Apollo */; };
+		DEE1F79129D765330050C4DA /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F79029D765330050C4DA /* Apollo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE35121628E22254000F1E52 /* Apollo in Frameworks */,
+				DEE1F79129D765330050C4DA /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 			);
 			name = SPMInXcodeProject;
 			packageProductDependencies = (
-				DE35121528E22254000F1E52 /* Apollo */,
+				DEE1F79029D765330050C4DA /* Apollo */,
 			);
 			productName = SPMInXcodeProject;
 			productReference = DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */;
@@ -198,7 +198,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					DE3511E028E22136000F1E52 = {
 						CreatedOnToolsVersion = 14.0;
@@ -223,7 +223,7 @@
 			);
 			mainGroup = DE3511D828E22136000F1E52;
 			packageReferences = (
-				DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = DE3511E228E22136000F1E52 /* Products */;
 			projectDirPath = "";
@@ -338,6 +338,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -398,6 +399,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -427,6 +429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SPMInXcodeProject/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -452,6 +455,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SPMInXcodeProject/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -475,6 +479,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
@@ -493,6 +498,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
@@ -510,6 +516,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.SPMInXcodeProjectUITests;
@@ -526,6 +533,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.SPMInXcodeProjectUITests;
@@ -578,20 +586,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
-				branch = release/1.0;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DE35121528E22254000F1E52 /* Apollo */ = {
+		DEE1F79029D765330050C4DA /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			package = DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
 		};
 /* End XCSwiftPackageProductDependency section */
