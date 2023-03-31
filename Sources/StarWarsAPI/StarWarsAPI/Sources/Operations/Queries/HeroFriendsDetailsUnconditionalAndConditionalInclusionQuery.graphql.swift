@@ -192,12 +192,16 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         /// Hero.Friend.AsDroid
         ///
         /// Parent Type: `Droid`
-        public struct AsDroid: StarWarsAPI.InlineFragment {
+        public struct AsDroid: StarWarsAPI.InlineFragment, ApolloAPI.CompositeInlineFragment {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
           public typealias RootEntityType = Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+          public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+            Hero.Friend.self,
+            Hero.Friend.AsDroid.self
+          ] }
 
           /// The name of the character
           public var name: String { __data["name"] }

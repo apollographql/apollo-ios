@@ -93,12 +93,17 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       /// Hero.AsHuman
       ///
       /// Parent Type: `Human`
-      public struct AsHuman: StarWarsAPI.InlineFragment {
+      public struct AsHuman: StarWarsAPI.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+          HeroDetails.self,
+          Hero.self,
+          HeroDetails.AsHuman.self
+        ] }
 
         /// The name of the character
         public var name: String { __data["name"] }
@@ -132,12 +137,17 @@ public class HeroDetailsWithFragmentQuery: GraphQLQuery {
       /// Hero.AsDroid
       ///
       /// Parent Type: `Droid`
-      public struct AsDroid: StarWarsAPI.InlineFragment {
+      public struct AsDroid: StarWarsAPI.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet] { [
+          HeroDetails.self,
+          Hero.self,
+          HeroDetails.AsDroid.self
+        ] }
 
         /// The name of the character
         public var name: String { __data["name"] }
