@@ -113,12 +113,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             )
           }
 
-          if let done = object["done"] as? Bool, done {
-            // Exit at this point because the router will close the connection; errors would have
-            // been reported or the subscription is complete.
-            return
-          }
-
           guard
             let payload = object["payload"] as? JSONObject,
             let data: Data = try? JSONSerializationFormat.serialize(value: payload)
