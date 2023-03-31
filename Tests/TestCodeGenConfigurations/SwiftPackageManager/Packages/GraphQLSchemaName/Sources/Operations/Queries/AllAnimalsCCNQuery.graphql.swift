@@ -25,7 +25,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
 
   public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -39,10 +39,11 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: GraphQLSchemaName.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("height", Height?.self),
       ] }
 
@@ -53,10 +54,11 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
       /// Parent Type: `Height`
       public struct Height: GraphQLSchemaName.SelectionSet {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Height }
         public static var __selections: [ApolloAPI.Selection] { [
+          .field("__typename", String.self),
           .field("feet", Int?.self),
           .field("inches", Int.self),
         ] }

@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   struct HeightInMeters: MyGraphQLSchema.SelectionSet, Fragment {
     public static var fragmentDefinition: StaticString { """
       fragment HeightInMeters on Animal {

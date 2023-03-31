@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
+extension MySchemaModule {
   struct PetSearchFilters: InputObject {
     public private(set) var __data: InputDict
 

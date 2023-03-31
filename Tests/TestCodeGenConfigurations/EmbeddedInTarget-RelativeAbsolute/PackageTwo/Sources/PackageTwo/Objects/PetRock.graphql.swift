@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule.Objects {
+extension MySchemaModule.Objects {
   static let PetRock = Object(
     typename: "PetRock",
     implementedInterfaces: [MySchemaModule.Interfaces.Pet.self]

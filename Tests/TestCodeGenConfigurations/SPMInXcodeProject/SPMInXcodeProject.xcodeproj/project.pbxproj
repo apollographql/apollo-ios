@@ -14,7 +14,6 @@
 		DE3511F728E22137000F1E52 /* SPMInXcodeProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3511F628E22137000F1E52 /* SPMInXcodeProjectTests.swift */; };
 		DE35120128E22137000F1E52 /* SPMInXcodeProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */; };
 		DE35120328E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */; };
-		DE35121628E22254000F1E52 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DE35121528E22254000F1E52 /* Apollo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +45,7 @@
 		DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPMInXcodeProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITests.swift; sourceTree = "<group>"; };
 		DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E6E90E9129D6802700D89124 /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE35121628E22254000F1E52 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +76,7 @@
 		DE3511D828E22136000F1E52 = {
 			isa = PBXGroup;
 			children = (
+				E6E90E9029D6802700D89124 /* Packages */,
 				DE3511E328E22136000F1E52 /* SPMInXcodeProject */,
 				DE3511F528E22137000F1E52 /* SPMInXcodeProjectTests */,
 				DE3511FF28E22137000F1E52 /* SPMInXcodeProjectUITests */,
@@ -131,6 +131,14 @@
 			path = SPMInXcodeProjectUITests;
 			sourceTree = "<group>";
 		};
+		E6E90E9029D6802700D89124 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				E6E90E9129D6802700D89124 /* apollo-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,7 +156,6 @@
 			);
 			name = SPMInXcodeProject;
 			packageProductDependencies = (
-				DE35121528E22254000F1E52 /* Apollo */,
 			);
 			productName = SPMInXcodeProject;
 			productReference = DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */;
@@ -223,7 +230,6 @@
 			);
 			mainGroup = DE3511D828E22136000F1E52;
 			packageReferences = (
-				DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = DE3511E228E22136000F1E52 /* Products */;
 			projectDirPath = "";
@@ -576,25 +582,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
-			requirement = {
-				branch = release/1.0;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DE35121528E22254000F1E52 /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DE35121428E22254000F1E52 /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DE3511D928E22136000F1E52 /* Project object */;
 }

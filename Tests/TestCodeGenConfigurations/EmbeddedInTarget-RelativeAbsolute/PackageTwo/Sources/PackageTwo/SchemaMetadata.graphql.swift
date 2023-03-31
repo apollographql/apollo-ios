@@ -3,19 +3,19 @@
 
 import ApolloAPI
 
-public protocol MySchemaModule_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+protocol MySchemaModule_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == MySchemaModule.SchemaMetadata {}
 
-public protocol MySchemaModule_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+protocol MySchemaModule_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
 where Schema == MySchemaModule.SchemaMetadata {}
 
-public protocol MySchemaModule_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+protocol MySchemaModule_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
 where Schema == MySchemaModule.SchemaMetadata {}
 
-public protocol MySchemaModule_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+protocol MySchemaModule_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
 where Schema == MySchemaModule.SchemaMetadata {}
 
-public extension MySchemaModule {
+extension MySchemaModule {
   typealias ID = String
 
   typealias SelectionSet = MySchemaModule_SelectionSet

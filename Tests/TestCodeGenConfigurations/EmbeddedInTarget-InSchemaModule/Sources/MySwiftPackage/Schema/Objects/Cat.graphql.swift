@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema.Objects {
+extension MyGraphQLSchema.Objects {
   static let Cat = Object(
     typename: "Cat",
     implementedInterfaces: [

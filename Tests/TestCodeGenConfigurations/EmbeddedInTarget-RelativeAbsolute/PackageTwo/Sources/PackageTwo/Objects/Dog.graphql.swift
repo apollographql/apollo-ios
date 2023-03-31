@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule.Objects {
+extension MySchemaModule.Objects {
   static let Dog = Object(
     typename: "Dog",
     implementedInterfaces: [

@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   struct PetAdoptionInput: InputObject {
     public private(set) var __data: InputDict
 

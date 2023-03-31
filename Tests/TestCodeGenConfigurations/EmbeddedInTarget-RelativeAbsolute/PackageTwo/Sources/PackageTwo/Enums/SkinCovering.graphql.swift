@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
+extension MySchemaModule {
   enum SkinCovering: String, EnumType {
     case fur = "FUR"
     case hair = "HAIR"

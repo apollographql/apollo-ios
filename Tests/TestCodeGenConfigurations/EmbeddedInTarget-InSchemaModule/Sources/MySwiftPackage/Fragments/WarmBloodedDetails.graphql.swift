@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   struct WarmBloodedDetails: MyGraphQLSchema.SelectionSet, Fragment {
     public static var fragmentDefinition: StaticString { """
       fragment WarmBloodedDetails on WarmBlooded {

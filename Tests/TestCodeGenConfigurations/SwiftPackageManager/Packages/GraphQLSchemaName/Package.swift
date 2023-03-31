@@ -12,7 +12,7 @@ let package = Package(
   ],
   products: [
     .library(name: "GraphQLSchemaName", targets: ["GraphQLSchemaName"]),
-    .library(name: "GraphQLSchemaNameTestMocks", targets: ["GraphQLSchemaNameTestMocks"]),
+    .library(name: "TestMocks", targets: ["TestMocks"]),
   ],
   dependencies: [
     .package(url: "https://github.com/apollographql/apollo-ios.git", from: "1.0.0"),
@@ -26,7 +26,7 @@ let package = Package(
       path: "./Sources"
     ),
     .target(
-      name: "GraphQLSchemaNameTestMocks",
+      name: "TestMocks",
       dependencies: [
         .product(name: "ApolloTestSupport", package: "apollo-ios"),
         .target(name: "GraphQLSchemaName"),

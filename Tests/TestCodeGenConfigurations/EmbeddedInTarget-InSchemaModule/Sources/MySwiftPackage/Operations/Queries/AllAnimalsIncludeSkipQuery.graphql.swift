@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   class AllAnimalsIncludeSkipQuery: GraphQLQuery {
     public static let operationName: String = "AllAnimalsIncludeSkipQuery"
     public static let document: ApolloAPI.DocumentType = .notPersisted(

@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   class DogQuery: GraphQLQuery {
     public static let operationName: String = "DogQuery"
     public static let document: ApolloAPI.DocumentType = .notPersisted(

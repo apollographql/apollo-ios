@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   class ClassroomPetsQuery: GraphQLQuery {
     public static let operationName: String = "ClassroomPets"
     public static let document: ApolloAPI.DocumentType = .notPersisted(

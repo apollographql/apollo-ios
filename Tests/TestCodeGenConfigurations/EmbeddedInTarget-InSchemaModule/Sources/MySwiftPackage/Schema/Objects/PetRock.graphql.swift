@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema.Objects {
+extension MyGraphQLSchema.Objects {
   static let PetRock = Object(
     typename: "PetRock",
     implementedInterfaces: [MyGraphQLSchema.Interfaces.Pet.self]

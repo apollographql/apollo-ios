@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule.Unions {
+extension MySchemaModule.Unions {
   static let ClassroomPet = Union(
     name: "ClassroomPet",
     possibleTypes: [

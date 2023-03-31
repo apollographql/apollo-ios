@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "apollo-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apollographql/apollo-ios.git",
-      "state" : {
-        "branch" : "release/1.0",
-        "revision" : "2c0d707eee1501955143ed97e281484327aec337"
-      }
-    },
-    {
       "identity" : "inflectorkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattt/InflectorKit",
@@ -32,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-argument-parser.git",
       "state" : {
-        "revision" : "9f39744e025c7d377987f30b03770805dcb0bcd1",
-        "version" : "1.1.4"
+        "revision" : "fee6933f37fde9a5e12a1e4aeaa93fe60116ff2a",
+        "version" : "1.2.2"
       }
     },
     {

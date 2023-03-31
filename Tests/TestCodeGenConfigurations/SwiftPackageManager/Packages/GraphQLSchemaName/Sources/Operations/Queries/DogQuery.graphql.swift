@@ -26,7 +26,7 @@ public class DogQuery: GraphQLQuery {
 
   public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -40,10 +40,11 @@ public class DogQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: GraphQLSchemaName.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", GraphQLSchemaName.ID.self),
         .inlineFragment(AsDog.self),
       ] }
@@ -57,8 +58,9 @@ public class DogQuery: GraphQLQuery {
       /// Parent Type: `Dog`
       public struct AsDog: GraphQLSchemaName.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Dog }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(DogFragment.self),
@@ -69,7 +71,7 @@ public class DogQuery: GraphQLQuery {
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var dogFragment: DogFragment { _toFragment() }
         }

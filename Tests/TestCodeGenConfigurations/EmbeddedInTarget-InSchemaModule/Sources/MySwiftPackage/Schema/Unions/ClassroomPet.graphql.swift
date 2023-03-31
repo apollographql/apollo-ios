@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema.Unions {
+extension MyGraphQLSchema.Unions {
   static let ClassroomPet = Union(
     name: "ClassroomPet",
     possibleTypes: [

@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-struct WarmBloodedDetails: MySchemaModule.SelectionSet, Fragment {
+public struct WarmBloodedDetails: MySchemaModule.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment WarmBloodedDetails on WarmBlooded {
       __typename

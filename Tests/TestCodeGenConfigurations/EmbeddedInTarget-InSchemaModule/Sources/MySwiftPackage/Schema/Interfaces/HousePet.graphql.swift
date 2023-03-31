@@ -3,6 +3,6 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema.Interfaces {
+extension MyGraphQLSchema.Interfaces {
   static let HousePet = Interface(name: "HousePet")
 }

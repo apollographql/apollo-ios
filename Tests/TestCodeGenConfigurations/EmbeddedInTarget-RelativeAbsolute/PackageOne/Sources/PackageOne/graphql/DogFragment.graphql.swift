@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-struct DogFragment: MySchemaModule.SelectionSet, Fragment {
+public struct DogFragment: MySchemaModule.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment dogFragment on Dog {
       __typename

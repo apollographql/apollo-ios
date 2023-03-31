@@ -3,7 +3,7 @@
 
 @_exported import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public static let operationType: GraphQLOperationType = .query
 

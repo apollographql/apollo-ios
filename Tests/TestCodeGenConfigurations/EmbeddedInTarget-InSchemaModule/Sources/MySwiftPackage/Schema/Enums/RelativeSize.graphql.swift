@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   enum RelativeSize: String, EnumType {
     case large = "LARGE"
     case average = "AVERAGE"

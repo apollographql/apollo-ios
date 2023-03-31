@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-class PetAdoptionMutation: GraphQLMutation {
+public class PetAdoptionMutation: GraphQLMutation {
   public static let operationName: String = "PetAdoptionMutation"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(

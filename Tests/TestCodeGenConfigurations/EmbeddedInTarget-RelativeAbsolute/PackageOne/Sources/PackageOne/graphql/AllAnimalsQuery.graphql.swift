@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-class AllAnimalsQuery: GraphQLQuery {
+public class AllAnimalsQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsQuery"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(

@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   enum SkinCovering: String, EnumType {
     case fur = "FUR"
     case hair = "HAIR"

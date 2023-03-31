@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-class AllAnimalsCCNQuery: GraphQLQuery {
+public class AllAnimalsCCNQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsCCN"
   public static let document: ApolloAPI.DocumentType = .notPersisted(
     definition: .init(

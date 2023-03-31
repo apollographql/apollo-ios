@@ -3,19 +3,19 @@
 
 import ApolloAPI
 
-public protocol MyGraphQLSchema_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+protocol MyGraphQLSchema_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == MyGraphQLSchema.SchemaMetadata {}
 
-public protocol MyGraphQLSchema_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+protocol MyGraphQLSchema_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
 where Schema == MyGraphQLSchema.SchemaMetadata {}
 
-public protocol MyGraphQLSchema_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+protocol MyGraphQLSchema_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
 where Schema == MyGraphQLSchema.SchemaMetadata {}
 
-public protocol MyGraphQLSchema_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+protocol MyGraphQLSchema_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
 where Schema == MyGraphQLSchema.SchemaMetadata {}
 
-public extension MyGraphQLSchema {
+extension MyGraphQLSchema {
   typealias ID = String
 
   typealias SelectionSet = MyGraphQLSchema_SelectionSet

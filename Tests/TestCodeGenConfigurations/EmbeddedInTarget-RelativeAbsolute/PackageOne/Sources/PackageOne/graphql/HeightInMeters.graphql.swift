@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-struct HeightInMeters: MySchemaModule.SelectionSet, Fragment {
+public struct HeightInMeters: MySchemaModule.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment HeightInMeters on Animal {
       __typename

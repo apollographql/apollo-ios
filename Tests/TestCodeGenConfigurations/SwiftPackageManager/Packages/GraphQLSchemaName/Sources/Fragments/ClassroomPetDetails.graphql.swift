@@ -36,10 +36,11 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
     """ }
 
   public let __data: DataDict
-  public init(data: DataDict) { __data = data }
+  public init(_dataDict: DataDict) { __data = _dataDict }
 
   public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Unions.ClassroomPet }
   public static var __selections: [ApolloAPI.Selection] { [
+    .field("__typename", String.self),
     .inlineFragment(AsAnimal.self),
     .inlineFragment(AsPet.self),
     .inlineFragment(AsWarmBlooded.self),
@@ -60,8 +61,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `Animal`
   public struct AsAnimal: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Animal }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("species", String.self),
@@ -75,8 +77,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `Pet`
   public struct AsPet: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Pet }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("humanName", String?.self),
@@ -90,8 +93,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `WarmBlooded`
   public struct AsWarmBlooded: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.WarmBlooded }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("laysEggs", Bool.self),
@@ -106,8 +110,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `Cat`
   public struct AsCat: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Cat }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("bodyTemperature", Int.self),
@@ -126,8 +131,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `Bird`
   public struct AsBird: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Bird }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("wingspan", Double.self),
@@ -144,8 +150,9 @@ public struct ClassroomPetDetails: GraphQLSchemaName.SelectionSet, Fragment {
   /// Parent Type: `PetRock`
   public struct AsPetRock: GraphQLSchemaName.InlineFragment {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
+    public typealias RootEntityType = ClassroomPetDetails
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.PetRock }
     public static var __selections: [ApolloAPI.Selection] { [
       .field("favoriteToy", String.self),

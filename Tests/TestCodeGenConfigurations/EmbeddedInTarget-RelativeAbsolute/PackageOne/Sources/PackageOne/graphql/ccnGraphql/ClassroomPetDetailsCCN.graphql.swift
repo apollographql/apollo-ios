@@ -4,7 +4,7 @@
 @_exported import ApolloAPI
 import PackageTwo
 
-struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
+public struct ClassroomPetDetailsCCN: MySchemaModule.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString { """
     fragment ClassroomPetDetailsCCN on ClassroomPet {
       __typename

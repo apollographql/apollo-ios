@@ -3,7 +3,7 @@
 
 import ApolloAPI
 
-public extension MySchemaModule {
+extension MySchemaModule {
   enum RelativeSize: String, EnumType {
     case large = "LARGE"
     case average = "AVERAGE"
