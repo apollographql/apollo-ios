@@ -803,6 +803,11 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expectedClassDefinition = """
     public class Dog: MockObject {
+      public static let objectType: Object = TestSchema.Objects.Dog
+      public static let _mockFields = MockFields()
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      public struct MockFields {
     """
 
     let expectedExtensionDefinition = """
@@ -834,6 +839,11 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expectedClassDefinition = """
     public class Dog: MockObject {
+      public static let objectType: Object = TestSchema.Objects.Dog
+      public static let _mockFields = MockFields()
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      public struct MockFields {
     """
 
     let expectedExtensionDefinition = """
@@ -865,6 +875,11 @@ class MockObjectTemplateTests: XCTestCase {
 
     let expectedClassDefinition = """
     class Dog: MockObject {
+      static let objectType: Object = TestSchema.Objects.Dog
+      static let _mockFields = MockFields()
+      typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      struct MockFields {
     """
 
     let expectedExtensionDefinition = """

@@ -34,13 +34,15 @@ struct MockObjectTemplate: TemplateRenderer {
         )
       }
 
-    return """
-    \(embeddedAccessControlModifier(target: target))class \(objectName): MockObject {
-      public static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
-      public static let _mockFields = MockFields()
-      public typealias MockValueCollectionType = Array<Mock<\(objectName)>>
+    let accessControl = embeddedAccessControlModifier(target: target)
 
-      public struct MockFields {
+    return """
+    \(accessControl)class \(objectName): MockObject {
+      \(accessControl)static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
+      \(accessControl)static let _mockFields = MockFields()
+      \(accessControl)typealias MockValueCollectionType = Array<Mock<\(objectName)>>
+
+      \(accessControl)struct MockFields {
         \(fields.map {
           TemplateString("""
           \(deprecationReason: $0.deprecationReason, config: config)
