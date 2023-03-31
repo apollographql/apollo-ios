@@ -12,6 +12,7 @@ public class DogQuery: GraphQLQuery {
         allAnimals {
           __typename
           id
+          skinCovering
           ... on Dog {
             __typename
             ...DogFragment
@@ -46,10 +47,12 @@ public class DogQuery: GraphQLQuery {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .field("id", AnimalKingdomAPI.ID.self),
+        .field("skinCovering", GraphQLEnum<AnimalKingdomAPI.SkinCovering>?.self),
         .inlineFragment(AsDog.self),
       ] }
 
       public var id: AnimalKingdomAPI.ID { __data["id"] }
+      public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
 
       public var asDog: AsDog? { _asInlineFragment() }
 
@@ -67,6 +70,7 @@ public class DogQuery: GraphQLQuery {
         ] }
 
         public var id: AnimalKingdomAPI.ID { __data["id"] }
+        public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
         public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {

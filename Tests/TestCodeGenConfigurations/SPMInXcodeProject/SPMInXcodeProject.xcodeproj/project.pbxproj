@@ -14,7 +14,13 @@
 		DE3511F728E22137000F1E52 /* SPMInXcodeProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3511F628E22137000F1E52 /* SPMInXcodeProjectTests.swift */; };
 		DE35120128E22137000F1E52 /* SPMInXcodeProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */; };
 		DE35120328E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */; };
-		DEE1F79129D765330050C4DA /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F79029D765330050C4DA /* Apollo */; };
+		DEE1F79A29D76D0C0050C4DA /* ApolloWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DEE1F7A529D76F390050C4DA /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7A429D76F390050C4DA /* Apollo */; };
+		DEE1F7A629D76F3F0050C4DA /* ApolloWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */; };
+		DEE1F7AD29D770A90050C4DA /* DogQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */; };
+		DEE1F7B929D772AE0050C4DA /* AnimalKingdomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */; };
+		DEE1F7BF29D773970050C4DA /* AnimalKingdomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */; };
+		DEE1F7C129D775740050C4DA /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7C029D775740050C4DA /* ApolloAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +38,13 @@
 			remoteGlobalIDString = DE3511E028E22136000F1E52;
 			remoteInfo = SPMInXcodeProject;
 		};
+		DEE1F7AE29D771300050C4DA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE3511D928E22136000F1E52 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DEE1F79629D76D0C0050C4DA;
+			remoteInfo = ApolloWrapper;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +59,10 @@
 		DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPMInXcodeProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITests.swift; sourceTree = "<group>"; };
 		DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloWrapper.h; sourceTree = "<group>"; };
+		DEE1F7A229D76EFC0050C4DA /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
+		DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogQueryBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +70,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEE1F79129D765330050C4DA /* Apollo in Frameworks */,
+				DEE1F7A629D76F3F0050C4DA /* ApolloWrapper.framework in Frameworks */,
+				DEE1F7BF29D773970050C4DA /* AnimalKingdomAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,16 +89,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEE1F79429D76D0C0050C4DA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEE1F7C129D775740050C4DA /* ApolloAPI in Frameworks */,
+				DEE1F7A529D76F390050C4DA /* Apollo in Frameworks */,
+				DEE1F7B929D772AE0050C4DA /* AnimalKingdomAPI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DE3511D828E22136000F1E52 = {
 			isa = PBXGroup;
 			children = (
+				DEE1F7A129D76EFC0050C4DA /* Packages */,
 				DE3511E328E22136000F1E52 /* SPMInXcodeProject */,
 				DE3511F528E22137000F1E52 /* SPMInXcodeProjectTests */,
 				DE3511FF28E22137000F1E52 /* SPMInXcodeProjectUITests */,
+				DEE1F79829D76D0C0050C4DA /* ApolloWrapper */,
 				DE3511E228E22136000F1E52 /* Products */,
+				DEE1F79E29D76D190050C4DA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +121,7 @@
 				DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */,
 				DE3511F228E22137000F1E52 /* SPMInXcodeProjectTests.xctest */,
 				DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */,
+				DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,7 +163,42 @@
 			path = SPMInXcodeProjectUITests;
 			sourceTree = "<group>";
 		};
+		DEE1F79829D76D0C0050C4DA /* ApolloWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */,
+				DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */,
+			);
+			path = ApolloWrapper;
+			sourceTree = "<group>";
+		};
+		DEE1F79E29D76D190050C4DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DEE1F7A129D76EFC0050C4DA /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				DEE1F7A229D76EFC0050C4DA /* apollo-ios */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		DEE1F79229D76D0C0050C4DA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEE1F79A29D76D0C0050C4DA /* ApolloWrapper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		DE3511E028E22136000F1E52 /* SPMInXcodeProject */ = {
@@ -145,10 +212,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				DEE1F7BD29D773930050C4DA /* PBXTargetDependency */,
+				DEE1F7AF29D771300050C4DA /* PBXTargetDependency */,
 			);
 			name = SPMInXcodeProject;
 			packageProductDependencies = (
-				DEE1F79029D765330050C4DA /* Apollo */,
+				DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */,
 			);
 			productName = SPMInXcodeProject;
 			productReference = DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */;
@@ -190,6 +259,32 @@
 			productReference = DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DEE1F79629D76D0C0050C4DA /* ApolloWrapper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEE1F79B29D76D0C0050C4DA /* Build configuration list for PBXNativeTarget "ApolloWrapper" */;
+			buildPhases = (
+				DEE1F79229D76D0C0050C4DA /* Headers */,
+				DEE1F79329D76D0C0050C4DA /* Sources */,
+				DEE1F79429D76D0C0050C4DA /* Frameworks */,
+				DEE1F79529D76D0C0050C4DA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DEE1F7C329D777720050C4DA /* PBXTargetDependency */,
+				DEE1F7BB29D772D10050C4DA /* PBXTargetDependency */,
+				DEE1F7B129D7713A0050C4DA /* PBXTargetDependency */,
+			);
+			name = ApolloWrapper;
+			packageProductDependencies = (
+				DEE1F7A429D76F390050C4DA /* Apollo */,
+				DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */,
+				DEE1F7C029D775740050C4DA /* ApolloAPI */,
+			);
+			productName = ApolloWrapper;
+			productReference = DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -211,6 +306,10 @@
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = DE3511E028E22136000F1E52;
 					};
+					DEE1F79629D76D0C0050C4DA = {
+						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
+					};
 				};
 			};
 			buildConfigurationList = DE3511DC28E22136000F1E52 /* Build configuration list for PBXProject "SPMInXcodeProject" */;
@@ -223,7 +322,7 @@
 			);
 			mainGroup = DE3511D828E22136000F1E52;
 			packageReferences = (
-				DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */,
+				DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */,
 			);
 			productRefGroup = DE3511E228E22136000F1E52 /* Products */;
 			projectDirPath = "";
@@ -232,6 +331,7 @@
 				DE3511E028E22136000F1E52 /* SPMInXcodeProject */,
 				DE3511F128E22137000F1E52 /* SPMInXcodeProjectTests */,
 				DE3511FB28E22137000F1E52 /* SPMInXcodeProjectUITests */,
+				DEE1F79629D76D0C0050C4DA /* ApolloWrapper */,
 			);
 		};
 /* End PBXProject section */
@@ -254,6 +354,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DE3511FA28E22137000F1E52 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DEE1F79529D76D0C0050C4DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -289,6 +396,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DEE1F79329D76D0C0050C4DA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEE1F7AD29D770A90050C4DA /* DogQueryBuilder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -301,6 +416,27 @@
 			isa = PBXTargetDependency;
 			target = DE3511E028E22136000F1E52 /* SPMInXcodeProject */;
 			targetProxy = DE3511FD28E22137000F1E52 /* PBXContainerItemProxy */;
+		};
+		DEE1F7AF29D771300050C4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DEE1F79629D76D0C0050C4DA /* ApolloWrapper */;
+			targetProxy = DEE1F7AE29D771300050C4DA /* PBXContainerItemProxy */;
+		};
+		DEE1F7B129D7713A0050C4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DEE1F7B029D7713A0050C4DA /* Apollo */;
+		};
+		DEE1F7BB29D772D10050C4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DEE1F7BA29D772D10050C4DA /* AnimalKingdomAPI */;
+		};
+		DEE1F7BD29D773930050C4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DEE1F7BC29D773930050C4DA /* AnimalKingdomAPI */;
+		};
+		DEE1F7C329D777720050C4DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = DEE1F7C229D777720050C4DA /* ApolloAPI */;
 		};
 /* End PBXTargetDependency section */
 
@@ -544,6 +680,84 @@
 			};
 			name = Release;
 		};
+		DEE1F79C29D76D0C0050C4DA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.ApolloWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		DEE1F79D29D76D0C0050C4DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.ApolloWrapper;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -583,24 +797,62 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DEE1F79B29D76D0C0050C4DA /* Build configuration list for PBXNativeTarget "ApolloWrapper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEE1F79C29D76D0C0050C4DA /* Debug */,
+				DEE1F79D29D76D0C0050C4DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+		DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			repositoryURL = "file:///Users/amdev/Documents/repos/apollo-ios/Tests/TestCodeGenConfigurations/SPMInXcodeProject/GeneratedAPI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = main;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DEE1F79029D765330050C4DA /* Apollo */ = {
+		DEE1F7A429D76F390050C4DA /* Apollo */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DEE1F78F29D765330050C4DA /* XCRemoteSwiftPackageReference "apollo-ios" */;
 			productName = Apollo;
+		};
+		DEE1F7B029D7713A0050C4DA /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Apollo;
+		};
+		DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */;
+			productName = AnimalKingdomAPI;
+		};
+		DEE1F7BA29D772D10050C4DA /* AnimalKingdomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnimalKingdomAPI;
+		};
+		DEE1F7BC29D773930050C4DA /* AnimalKingdomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnimalKingdomAPI;
+		};
+		DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */;
+			productName = AnimalKingdomAPI;
+		};
+		DEE1F7C029D775740050C4DA /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApolloAPI;
+		};
+		DEE1F7C229D777720050C4DA /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApolloAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -13,6 +13,7 @@ public extension MyGraphQLSchema {
           allAnimals {
             __typename
             id
+            skinCovering
             ... on Dog {
               __typename
               ...DogFragment
@@ -47,10 +48,12 @@ public extension MyGraphQLSchema {
         public static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
           .field("id", MyGraphQLSchema.ID.self),
+          .field("skinCovering", GraphQLEnum<MyGraphQLSchema.SkinCovering>?.self),
           .inlineFragment(AsDog.self),
         ] }
 
         public var id: MyGraphQLSchema.ID { __data["id"] }
+        public var skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? { __data["skinCovering"] }
 
         public var asDog: AsDog? { _asInlineFragment() }
 
@@ -68,6 +71,7 @@ public extension MyGraphQLSchema {
           ] }
 
           public var id: MyGraphQLSchema.ID { __data["id"] }
+          public var skinCovering: GraphQLEnum<MyGraphQLSchema.SkinCovering>? { __data["skinCovering"] }
           public var species: String { __data["species"] }
 
           public struct Fragments: FragmentContainer {

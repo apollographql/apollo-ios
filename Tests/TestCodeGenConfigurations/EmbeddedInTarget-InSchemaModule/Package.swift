@@ -11,12 +11,25 @@ let package = Package(
   products: [
     .library(
       name: "MySwiftPackage",
-      targets: ["MySwiftPackage"]),
+      targets: ["MySwiftPackage"]
+    ),
   ],
   dependencies: [
     .package(name: "apollo-ios", path: "../../.."),
   ],
   targets: [
+    .executableTarget(
+      name: "MyApp",
+      dependencies: [
+        "MySwiftPackage",
+        "ApolloWrapper"
+      ]),
+    .target(
+      name: "ApolloWrapper",
+      dependencies: [
+        .product(name: "Apollo", package: "apollo-ios"),
+        "MySwiftPackage"
+      ]),
     .target(
       name: "MySwiftPackage",
       dependencies: [

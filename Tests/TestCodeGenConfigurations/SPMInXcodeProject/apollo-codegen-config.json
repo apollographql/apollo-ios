@@ -30,7 +30,7 @@
       }
     },
     "schemaTypes" : {
-      "path" : ".\/",
+      "path" : ".\/GeneratedAPI",
       "moduleType" : {
         "swiftPackageManager" : {
 

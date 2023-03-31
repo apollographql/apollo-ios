@@ -8,6 +8,8 @@
 import ApolloAPI
 import GraphQLSchemaName
 
-class Test {  
+class Test {
+
+  
 }
 

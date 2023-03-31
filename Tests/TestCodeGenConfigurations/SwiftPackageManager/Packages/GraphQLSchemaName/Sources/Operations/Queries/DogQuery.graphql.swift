@@ -12,6 +12,7 @@ public class DogQuery: GraphQLQuery {
         allAnimals {
           __typename
           id
+          skinCovering
           ... on Dog {
             __typename
             ...DogFragment
@@ -26,7 +27,7 @@ public class DogQuery: GraphQLQuery {
 
   public struct Data: GraphQLSchemaName.SelectionSet {
     public let __data: DataDict
-    public init(data: DataDict) { __data = data }
+    public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Query }
     public static var __selections: [ApolloAPI.Selection] { [
@@ -40,15 +41,18 @@ public class DogQuery: GraphQLQuery {
     /// Parent Type: `Animal`
     public struct AllAnimal: GraphQLSchemaName.SelectionSet {
       public let __data: DataDict
-      public init(data: DataDict) { __data = data }
+      public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Interfaces.Animal }
       public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
         .field("id", GraphQLSchemaName.ID.self),
+        .field("skinCovering", GraphQLEnum<GraphQLSchemaName.SkinCovering>?.self),
         .inlineFragment(AsDog.self),
       ] }
 
       public var id: GraphQLSchemaName.ID { __data["id"] }
+      public var skinCovering: GraphQLEnum<GraphQLSchemaName.SkinCovering>? { __data["skinCovering"] }
 
       public var asDog: AsDog? { _asInlineFragment() }
 
@@ -57,19 +61,21 @@ public class DogQuery: GraphQLQuery {
       /// Parent Type: `Dog`
       public struct AsDog: GraphQLSchemaName.InlineFragment {
         public let __data: DataDict
-        public init(data: DataDict) { __data = data }
+        public init(_dataDict: DataDict) { __data = _dataDict }
 
+        public typealias RootEntityType = AllAnimal
         public static var __parentType: ApolloAPI.ParentType { GraphQLSchemaName.Objects.Dog }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(DogFragment.self),
         ] }
 
         public var id: GraphQLSchemaName.ID { __data["id"] }
+        public var skinCovering: GraphQLEnum<GraphQLSchemaName.SkinCovering>? { __data["skinCovering"] }
         public var species: String { __data["species"] }
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(data: DataDict) { __data = data }
+          public init(_dataDict: DataDict) { __data = _dataDict }
 
           public var dogFragment: DogFragment { _toFragment() }
         }
