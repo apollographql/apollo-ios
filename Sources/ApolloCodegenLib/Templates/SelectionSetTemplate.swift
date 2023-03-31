@@ -306,15 +306,11 @@ struct SelectionSetTemplate {
     _ field: IR.Field,
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
-    let isConditionallyIncluded: Bool = {
-      guard let conditions = field.inclusionConditions else { return false }
-      return !scope.matches(conditions)
-    }()
     return """
     \(documentation: field.underlyingField.documentation, config: config)
     \(deprecationReason: field.underlyingField.deprecationReason, config: config)
     public var \(field.responseKey.firstLowercased.asFieldAccessorPropertyName): \
-    \(typeName(for: field, forceOptional: isConditionallyIncluded)) {\
+    \(typeName(for: field, forceOptional: field.isConditionallyIncluded(in: scope))) {\
     \(if: isMutable,
       """
 
@@ -431,17 +427,21 @@ struct SelectionSetTemplate {
 
     return TemplateString("""
     \(if: !isConcreteType, "__typename: String\(if: !allFields.isEmpty, ",")")
-    \(IteratorSequence(allFields).map(InitializerParameterTemplate(_:)))
+    \(IteratorSequence(allFields).map({
+      InitializerParameterTemplate($0, scope: selectionSet.scope)
+    }))
     """
     )
   }
 
   private func InitializerParameterTemplate(
-    _ field: IR.Field
+    _ field: IR.Field,
+    scope: IR.ScopeDescriptor
   ) -> TemplateString {
-    """
-    \(field.responseKey.asInputParameterName): \(typeName(for: field))\
-    \(if: field.type.isNullable, " = nil")
+    let isOptional: Bool = field.type.isNullable || field.isConditionallyIncluded(in: scope)
+    return """
+    \(field.responseKey.asInputParameterName): \(typeName(for: field, forceOptional: isOptional))\
+    \(if: isOptional, " = nil")
     """
   }
 
@@ -831,6 +831,11 @@ fileprivate extension IR.Field {
     guard let scalar = self.type.namedType as? GraphQLScalarType else { return false }
 
     return scalar.isCustomScalar
+  }
+
+  func isConditionallyIncluded(in scope: IR.ScopeDescriptor) -> Bool {
+    guard let conditions = self.inclusionConditions else { return false }
+    return !scope.matches(conditions)
   }
 }
 

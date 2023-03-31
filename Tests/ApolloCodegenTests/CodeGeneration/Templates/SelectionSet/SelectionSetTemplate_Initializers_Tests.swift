@@ -1217,6 +1217,55 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
   // MARK: - Include/Skip Tests
 
+  func test__render_given_fieldWithInclusionCondition_rendersInitializerWithOptionalParameter() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type Animal {
+      species: String!
+      friend: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      allAnimals {
+        name @include(if: $a)
+      }
+    }
+    """
+
+    let expected = """
+        public init(
+          name: String? = nil
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "name": name,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+      """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
   func test__render_given_inlineFragmentWithInclusionCondition_rendersInitializerWithFulfilledFragments() throws {
     // given
     schemaSDL = """
