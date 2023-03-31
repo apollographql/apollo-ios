@@ -300,7 +300,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-      public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+      static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -364,7 +364,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     enum SchemaMetadata: Apollo.SchemaMetadata {
-      public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+      static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -386,7 +386,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename typename: String) -> Object? {
+      static func objectType(forTypename typename: String) -> Object? {
         switch typename {
         case "objA": return ObjectSchema.Objects.ObjA
         case "objB": return ObjectSchema.Objects.ObjB
@@ -420,7 +420,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename typename: String) -> Object? {
+      static func objectType(forTypename typename: String) -> Object? {
         switch typename {
         case "ObjectA": return ObjectSchema.Objects.ObjectA
         default: return nil

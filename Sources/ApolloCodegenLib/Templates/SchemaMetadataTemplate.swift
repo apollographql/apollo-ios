@@ -42,7 +42,8 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     \(documentation: schema.documentation, config: config)
     \(accessLevel)\
     enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
-      public static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+      \(accessLevel)\
+    static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }
@@ -60,7 +61,8 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    public static func objectType(forTypename typename: String) -> Object? {
+    \(embeddedAccessControlModifier(target: target))\
+    static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
         "case \"\($0.name)\": return \(schemaNamespace).Objects.\($0.name.firstUppercased)"
