@@ -256,7 +256,7 @@ extension IR {
       unowned let fragment: NamedFragment?
     }
 
-    typealias MergedSources = Set<MergedSource>
+    typealias MergedSources = OrderedSet<MergedSource>
 
     private let directSelections: DirectSelections.ReadOnly?
     let typeInfo: SelectionSet.TypeInfo
@@ -281,7 +281,7 @@ extension IR {
       selections.fragments.values.forEach { didMergeAnySelections = self.mergeIn($0) }
 
       if didMergeAnySelections {
-        mergedSources.insert(source)
+        mergedSources.append(source)
       }
     }
 

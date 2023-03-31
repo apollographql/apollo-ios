@@ -146,12 +146,17 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
             /// Repository.Issues.Node.Author.AsUser
             ///
             /// Parent Type: `User`
-            public struct AsUser: GitHubAPI.InlineFragment {
+            public struct AsUser: GitHubAPI.InlineFragment, ApolloAPI.CompositeInlineFragment {
               public let __data: DataDict
               public init(_dataDict: DataDict) { __data = _dataDict }
 
               public typealias RootEntityType = Repository.Issues.Node.Author
               public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
+              public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+                AuthorDetails.self,
+                Repository.Issues.Node.Author.self,
+                AuthorDetails.AsUser.self
+              ] }
 
               /// The username of the actor.
               public var login: String { __data["login"] }
@@ -231,12 +236,17 @@ public class IssuesAndCommentsForRepositoryQuery: GraphQLQuery {
                 /// Repository.Issues.Node.Comments.Node.Author.AsUser
                 ///
                 /// Parent Type: `User`
-                public struct AsUser: GitHubAPI.InlineFragment {
+                public struct AsUser: GitHubAPI.InlineFragment, ApolloAPI.CompositeInlineFragment {
                   public let __data: DataDict
                   public init(_dataDict: DataDict) { __data = _dataDict }
 
                   public typealias RootEntityType = Repository.Issues.Node.Comments.Node.Author
                   public static var __parentType: ApolloAPI.ParentType { GitHubAPI.Objects.User }
+                  public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+                    AuthorDetails.self,
+                    Repository.Issues.Node.Comments.Node.Author.self,
+                    AuthorDetails.AsUser.self
+                  ] }
 
                   /// The username of the actor.
                   public var login: String { __data["login"] }

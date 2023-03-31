@@ -57,12 +57,16 @@ class ClassroomPetsCCNQuery: GraphQLQuery {
       /// ClassroomPet.AsAnimal
       ///
       /// Parent Type: `Animal`
-      public struct AsAnimal: MySchemaModule.InlineFragment {
+      public struct AsAnimal: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetailsCCN.AsAnimal.self
+        ] }
 
         public var height: ClassroomPetDetailsCCN.AsAnimal.Height { __data["height"] }
 

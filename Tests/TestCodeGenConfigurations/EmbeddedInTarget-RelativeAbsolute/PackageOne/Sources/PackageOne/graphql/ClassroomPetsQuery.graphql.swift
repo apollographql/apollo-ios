@@ -62,12 +62,16 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsAnimal
       ///
       /// Parent Type: `Animal`
-      public struct AsAnimal: MySchemaModule.InlineFragment {
+      public struct AsAnimal: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsAnimal.self
+        ] }
 
         public var species: String { __data["species"] }
 
@@ -82,12 +86,16 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsPet
       ///
       /// Parent Type: `Pet`
-      public struct AsPet: MySchemaModule.InlineFragment {
+      public struct AsPet: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsPet.self
+        ] }
 
         public var humanName: String? { __data["humanName"] }
 
@@ -102,12 +110,17 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsWarmBlooded
       ///
       /// Parent Type: `WarmBlooded`
-      public struct AsWarmBlooded: MySchemaModule.InlineFragment {
+      public struct AsWarmBlooded: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsAnimal.self,
+          ClassroomPetDetails.AsWarmBlooded.self
+        ] }
 
         public var species: String { __data["species"] }
         public var laysEggs: Bool { __data["laysEggs"] }
@@ -123,12 +136,19 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsCat
       ///
       /// Parent Type: `Cat`
-      public struct AsCat: MySchemaModule.InlineFragment {
+      public struct AsCat: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsAnimal.self,
+          ClassroomPetDetails.AsPet.self,
+          ClassroomPetDetails.AsWarmBlooded.self,
+          ClassroomPetDetails.AsCat.self
+        ] }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -147,12 +167,19 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsBird
       ///
       /// Parent Type: `Bird`
-      public struct AsBird: MySchemaModule.InlineFragment {
+      public struct AsBird: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsAnimal.self,
+          ClassroomPetDetails.AsPet.self,
+          ClassroomPetDetails.AsWarmBlooded.self,
+          ClassroomPetDetails.AsBird.self
+        ] }
 
         public var species: String { __data["species"] }
         public var humanName: String? { __data["humanName"] }
@@ -170,12 +197,17 @@ class ClassroomPetsQuery: GraphQLQuery {
       /// ClassroomPet.AsPetRock
       ///
       /// Parent Type: `PetRock`
-      public struct AsPetRock: MySchemaModule.InlineFragment {
+      public struct AsPetRock: MySchemaModule.InlineFragment, ApolloAPI.CompositeInlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public typealias RootEntityType = ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.PetRock }
+        public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+          ClassroomPet.self,
+          ClassroomPetDetails.AsPet.self,
+          ClassroomPetDetails.AsPetRock.self
+        ] }
 
         public var humanName: String? { __data["humanName"] }
         public var favoriteToy: String { __data["favoriteToy"] }

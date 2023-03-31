@@ -3,7 +3,7 @@ import Foundation
 import ApolloAPI
 #endif
 
-struct ObjectExecutionInfo {
+class ObjectExecutionInfo {
   let rootType: any RootSelectionSet.Type
   let variables: GraphQLOperation.Variables?
   let schema: SchemaMetadata.Type
@@ -41,7 +41,7 @@ struct ObjectExecutionInfo {
     self.fulfilledFragments = [ObjectIdentifier(rootType)]
   }
 
-  fileprivate mutating func resetCachePath(toRootCacheReference root: CacheReference) {
+  fileprivate func resetCachePath(toRootCacheReference root: CacheReference) {
     cachePath = [root.key]
   }
 
@@ -93,32 +93,43 @@ struct FieldExecutionInfo {
     cacheKeyForField = cacheKey
   }
 
-  /// The selections for all child selections of the merged fields.
+  /// Computes the `ObjectExecutionInfo` and selections that should be used for
+  /// executing the child object.
   ///
-  /// There will only be child selections if the fields for this field info are
+  /// - Note: There will only be child selections if the fields for this field info are
   /// object type fields (objects; lists of objects; or non-null wrapped objects).
   /// For scalar fields, the child selections will be an empty array.
-  fileprivate func computeChildSelections() -> [Selection] {
-    return mergedFields.flatMap { field -> [Selection] in
-      guard case let .object(selectionSet) = field.type.namedType else {
-        return []
-      }
-      return selectionSet.__selections
-    }
-  }
-
-  /// Returns the `ExecutionInfo` that should be used for executing the child selections.
-  fileprivate func executionInfoForChildSelections(
-    withRootType rootType: any RootSelectionSet.Type
-  ) -> ObjectExecutionInfo {
-    return ObjectExecutionInfo(
+  fileprivate func computeChildExecutionData(
+    withRootType rootType: any RootSelectionSet.Type,
+    for object: JSONObject,
+    shouldComputeCachePath: Bool
+  ) -> (ObjectExecutionInfo, [Selection]) {
+    let childExecutionInfo = ObjectExecutionInfo(
       rootType: rootType,
       variables: parentInfo.variables,
       schema: parentInfo.schema,
       responsePath: responsePath,
       cachePath: cachePath
     )
+    var childSelections: [Selection] = []
+
+    mergedFields.forEach { field in
+      guard case let .object(selectionSet) = field.type.namedType else {
+        return
+      }
+      childExecutionInfo.fulfilledFragments.insert(ObjectIdentifier(selectionSet.self))
+      childSelections.append(contentsOf: selectionSet.__selections)
+    }
+
+    // If the object has it's own cache key, reset the cache path to the key,
+    // rather than using the inherited cache path from the parent field.
+    if shouldComputeCachePath,
+       let cacheKeyForObject = parentInfo.schema.cacheKey(for: object) {
+      childExecutionInfo.resetCachePath(toRootCacheReference: cacheKeyForObject)
+    }
+    return (childExecutionInfo, childSelections)
   }
+
 }
 
 /// An error which has occurred during GraphQL execution.
@@ -210,7 +221,6 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   ) -> PossiblyDeferred<Accumulator.ObjectResult> {
     do {
       let groupedFields = try groupFields(selections, on: object, info: info)
-      var info = info
       info.fulfilledFragments = groupedFields.fulfilledFragments
 
       var fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = []
@@ -398,17 +408,11 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
     onChildObject object: JSONObject,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
-    let selections = fieldInfo.computeChildSelections()
-    var childExecutionInfo = fieldInfo.executionInfoForChildSelections(
-      withRootType: rootSelectionSetType
+    let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
+      withRootType: rootSelectionSetType,
+      for: object,
+      shouldComputeCachePath: shouldComputeCachePath
     )
-
-    // If the object has it's own cache key, reset the cache path to the key,
-    // rather than using the inherited cache path from the parent field.
-    if shouldComputeCachePath,
-       let cacheKeyForObject = fieldInfo.parentInfo.schema.cacheKey(for: object) {
-      childExecutionInfo.resetCachePath(toRootCacheReference: cacheKeyForObject)
-    }
 
     return execute(selections: selections,
                    on: object,

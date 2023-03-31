@@ -110,8 +110,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         .inlineFragment(AsClassroomPet.self),
         .include(if: "includeSpecies", .field("species", String.self)),
         .include(if: !"skipHeightInMeters", .inlineFragment(IfNotSkipHeightInMeters.self)),
-        .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
-        .include(if: "getCat", .inlineFragment(AsCat.self)),
+        .include(if: "getWarmBlooded", .inlineFragment(AsWarmBloodedIfGetWarmBlooded.self)),
+        .include(if: "getCat", .inlineFragment(AsCatIfGetCat.self)),
       ] }
 
       public var height: Height { __data["height"] }
@@ -120,9 +120,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public var predators: [Predator] { __data["predators"] }
 
       public var ifNotSkipHeightInMeters: IfNotSkipHeightInMeters? { _asInlineFragment() }
-      public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+      public var asWarmBloodedIfGetWarmBlooded: AsWarmBloodedIfGetWarmBlooded? { _asInlineFragment() }
       public var asPet: AsPet? { _asInlineFragment() }
-      public var asCat: AsCat? { _asInlineFragment() }
+      public var asCatIfGetCat: AsCatIfGetCat? { _asInlineFragment() }
       public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
 
       public struct Fragments: FragmentContainer {
@@ -161,17 +161,17 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public static var __selections: [Apollo.Selection] { [
           .field("__typename", String.self),
           .include(if: "includeSpecies", .field("species", String.self)),
-          .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
+          .include(if: "getWarmBlooded", .inlineFragment(AsWarmBloodedIfGetWarmBlooded.self)),
         ] }
 
         public var species: String? { __data["species"] }
 
-        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+        public var asWarmBloodedIfGetWarmBlooded: AsWarmBloodedIfGetWarmBlooded? { _asInlineFragment() }
 
-        /// AllAnimal.Predator.AsWarmBlooded
+        /// AllAnimal.Predator.AsWarmBloodedIfGetWarmBlooded
         ///
         /// Parent Type: `WarmBlooded`
-        public struct AsWarmBlooded: MyCustomProject.InlineFragment {
+        public struct AsWarmBloodedIfGetWarmBlooded: MyCustomProject.InlineFragment {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -238,10 +238,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
       }
 
-      /// AllAnimal.AsWarmBlooded
+      /// AllAnimal.AsWarmBloodedIfGetWarmBlooded
       ///
       /// Parent Type: `WarmBlooded`
-      public struct AsWarmBlooded: MyCustomProject.InlineFragment {
+      public struct AsWarmBloodedIfGetWarmBlooded: MyCustomProject.InlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -265,7 +265,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var heightInMeters: HeightInMeters { _toFragment() }
         }
 
-        /// AllAnimal.AsWarmBlooded.Height
+        /// AllAnimal.AsWarmBloodedIfGetWarmBlooded.Height
         ///
         /// Parent Type: `Height`
         public struct Height: MyCustomProject.SelectionSet {
@@ -384,10 +384,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         }
       }
 
-      /// AllAnimal.AsCat
+      /// AllAnimal.AsCatIfGetCat
       ///
       /// Parent Type: `Cat`
-      public struct AsCat: MyCustomProject.InlineFragment {
+      public struct AsCatIfGetCat: MyCustomProject.InlineFragment {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -416,7 +416,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
         }
 
-        /// AllAnimal.AsCat.Height
+        /// AllAnimal.AsCatIfGetCat.Height
         ///
         /// Parent Type: `Height`
         public struct Height: MyCustomProject.SelectionSet {

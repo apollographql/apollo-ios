@@ -72,14 +72,14 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
 struct SelectionsMatcher {
   let direct: [ShallowSelectionMatcher]?
   let merged: [ShallowSelectionMatcher]
-  let mergedSources: Set<IR.MergedSelections.MergedSource>
+  let mergedSources: OrderedSet<IR.MergedSelections.MergedSource>
 
   let ignoreMergedSelections: Bool
 
   public init(
     direct: [ShallowSelectionMatcher]?,
     merged: [ShallowSelectionMatcher] = [],
-    mergedSources: Set<IR.MergedSelections.MergedSource> = [],
+    mergedSources: OrderedSet<IR.MergedSelections.MergedSource> = [],
     ignoreMergedSelections: Bool = false
   ) {
     self.direct = direct
@@ -123,7 +123,7 @@ struct SelectionSetMatcher {
     inclusionConditions: [CompilationResult.InclusionCondition]?,
     directSelections: [ShallowSelectionMatcher]?,
     mergedSelections: [ShallowSelectionMatcher],
-    mergedSources: Set<IR.MergedSelections.MergedSource>,
+    mergedSources: OrderedSet<IR.MergedSelections.MergedSource>,
     ignoreMergedSelections: Bool
   ) {
     self.parentType = parentType
@@ -141,7 +141,7 @@ struct SelectionSetMatcher {
     inclusionConditions: [CompilationResult.InclusionCondition]? = nil,
     directSelections: [ShallowSelectionMatcher]? = [],
     mergedSelections: [ShallowSelectionMatcher] = [],
-    mergedSources: Set<IR.MergedSelections.MergedSource> = []
+    mergedSources: OrderedSet<IR.MergedSelections.MergedSource> = []
   ) {
     self.init(
       parentType: parentType,

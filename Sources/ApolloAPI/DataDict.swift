@@ -55,7 +55,16 @@ public struct DataDict: Hashable {
     guard let __fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
       return false
     }
-    return __fulfilledFragments.contains(ObjectIdentifier(T.self))
+    let id = ObjectIdentifier(T.self)
+    return __fulfilledFragments.contains(id)
+  }
+
+  @usableFromInline func fragmentsAreFulfilled(_ types: [any SelectionSet.Type]) -> Bool {
+    guard let __fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
+      return false
+    }
+    let typeIds = types.lazy.map(ObjectIdentifier.init)
+    return __fulfilledFragments.isSuperset(of: typeIds)
   }
 }
 

@@ -1876,6 +1876,134 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  // MARK: Merged Sources
+
+  func test__render_mergedSources__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersMergedSources() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    interface Pet implements Animal {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+
+    type Dog implements Animal & Pet {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+        predator {
+          ... on Pet {
+            name
+          }
+        }
+        ... on Dog {
+          name
+          predator {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+        AllAnimal.Predator.AsPet.self,
+        AllAnimal.AsDog.Predator.self
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog_predator_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Dog"]?[field: "predator"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asDog_predator_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  func test__render_mergedSources__givenTypeCaseMergedFromFragmentWithOtherMergedFields_rendersMergedSources() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    interface Pet {
+      favoriteToy: Item
+    }
+
+    type Item {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        predator {
+          ...PredatorDetails
+          species
+        }
+      }
+    }
+
+    fragment PredatorDetails on Animal {
+      ... on Pet {
+        favoriteToy {
+          ...PetToy
+        }
+      }
+    }
+
+    fragment PetToy on Item {
+      name
+    }
+    """
+
+    let expected = """
+      public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+        AllAnimal.Predator.self,
+        PredatorDetails.AsPet.self
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let predator_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[field: "predator"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predator_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
   // MARK: - Field Accessors - Scalar
 
   func test__render_fieldAccessors__givenScalarFields_rendersAllFieldAccessors() throws {
@@ -3032,7 +3160,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(allAnimals_predator_actual).to(equalLineByLine(predator_expected, atLine: 13, ignoringExtraLines: true))
-    expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 9, ignoringExtraLines: true))
+    expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 13, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenEntityFieldMergedFromFragmentWithEntityNestedInEntityTypeCase_rendersFieldAccessor() throws {
@@ -3101,7 +3229,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(allAnimals_predator_actual).to(equalLineByLine(predator_expected, atLine: 12, ignoringExtraLines: true))
-    expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 9, ignoringExtraLines: true))
+    expect(allAnimals_predator_asPet_actual).to(equalLineByLine(predator_asPet_expected, atLine: 13, ignoringExtraLines: true))
   }
 
   func test__render_fieldAccessors__givenTypeCaseMergedFromFragmentWithOtherMergedFields_rendersFieldAccessor() throws {
@@ -3282,7 +3410,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(predator_asPet_actual)
-      .to(equalLineByLine(predator_asPet_expected, atLine: 9, ignoringExtraLines: true))
+      .to(equalLineByLine(predator_asPet_expected, atLine: 13, ignoringExtraLines: true))
   }
 
   // MARK: Field Accessors - Merged From Parent
@@ -5167,7 +5295,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
 
-  func test__render_nestedSelectionSet__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseSelectionSet() throws {
+  func test__render_nestedSelectionSet__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersTypeCaseSelectionSetAsCompositeInlineFragment() throws {
     // given
     schemaSDL = """
     type Query {
@@ -5215,7 +5343,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public var asPet: AsPet? { _asInlineFragment() }
 
       /// AllAnimal.AsDog.Predator.AsPet
-      public struct AsPet: TestSchema.InlineFragment {
+      public struct AsPet: TestSchema.InlineFragment, ApolloAPI.CompositeInlineFragment {
     """
 
     // when
@@ -5317,7 +5445,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 21, ignoringExtraLines: true))
   }
 
-  func test__render_nestedSelectionSet__givenTypeCaseMergedFromFragmentWithOtherMergedFields_rendersTypeCase() throws {
+  func test__render_nestedSelectionSet__givenTypeCaseMergedFromFragmentWithOtherMergedFields_rendersTypeCaseAsCompositeInlineFragment() throws {
     // given
     schemaSDL = """
     type Query {
@@ -5363,7 +5491,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let predator_expected = """
       /// AllAnimal.Predator.AsPet
-      public struct AsPet: TestSchema.InlineFragment {
+      public struct AsPet: TestSchema.InlineFragment, ApolloAPI.CompositeInlineFragment {
     """
 
     // when
@@ -5424,7 +5552,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let predator_expected = """
       /// AllAnimal.Predator.AsPet
-      public struct AsPet: TestSchema.InlineFragment {
+      public struct AsPet: TestSchema.InlineFragment, ApolloAPI.CompositeInlineFragment {
     """
 
     // when

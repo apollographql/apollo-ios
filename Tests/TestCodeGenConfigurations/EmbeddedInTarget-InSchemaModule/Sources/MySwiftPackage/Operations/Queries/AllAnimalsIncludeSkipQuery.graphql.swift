@@ -117,8 +117,8 @@ public extension MyGraphQLSchema {
           .inlineFragment(AsClassroomPet.self),
           .include(if: "includeSpecies", .field("species", String.self)),
           .include(if: !"skipHeightInMeters", .inlineFragment(IfNotSkipHeightInMeters.self)),
-          .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
-          .include(if: "getCat", .inlineFragment(AsCat.self)),
+          .include(if: "getWarmBlooded", .inlineFragment(AsWarmBloodedIfGetWarmBlooded.self)),
+          .include(if: "getCat", .inlineFragment(AsCatIfGetCat.self)),
         ] }
 
         public var height: Height { __data["height"] }
@@ -127,9 +127,9 @@ public extension MyGraphQLSchema {
         public var predators: [Predator] { __data["predators"] }
 
         public var ifNotSkipHeightInMeters: IfNotSkipHeightInMeters? { _asInlineFragment() }
-        public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+        public var asWarmBloodedIfGetWarmBlooded: AsWarmBloodedIfGetWarmBlooded? { _asInlineFragment() }
         public var asPet: AsPet? { _asInlineFragment() }
-        public var asCat: AsCat? { _asInlineFragment() }
+        public var asCatIfGetCat: AsCatIfGetCat? { _asInlineFragment() }
         public var asClassroomPet: AsClassroomPet? { _asInlineFragment() }
 
         public struct Fragments: FragmentContainer {
@@ -168,17 +168,17 @@ public extension MyGraphQLSchema {
           public static var __selections: [ApolloAPI.Selection] { [
             .field("__typename", String.self),
             .include(if: "includeSpecies", .field("species", String.self)),
-            .include(if: "getWarmBlooded", .inlineFragment(AsWarmBlooded.self)),
+            .include(if: "getWarmBlooded", .inlineFragment(AsWarmBloodedIfGetWarmBlooded.self)),
           ] }
 
           public var species: String? { __data["species"] }
 
-          public var asWarmBlooded: AsWarmBlooded? { _asInlineFragment() }
+          public var asWarmBloodedIfGetWarmBlooded: AsWarmBloodedIfGetWarmBlooded? { _asInlineFragment() }
 
-          /// AllAnimal.Predator.AsWarmBlooded
+          /// AllAnimal.Predator.AsWarmBloodedIfGetWarmBlooded
           ///
           /// Parent Type: `WarmBlooded`
-          public struct AsWarmBlooded: MyGraphQLSchema.InlineFragment {
+          public struct AsWarmBloodedIfGetWarmBlooded: MyGraphQLSchema.InlineFragment {
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -245,10 +245,10 @@ public extension MyGraphQLSchema {
           }
         }
 
-        /// AllAnimal.AsWarmBlooded
+        /// AllAnimal.AsWarmBloodedIfGetWarmBlooded
         ///
         /// Parent Type: `WarmBlooded`
-        public struct AsWarmBlooded: MyGraphQLSchema.InlineFragment {
+        public struct AsWarmBloodedIfGetWarmBlooded: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -272,7 +272,7 @@ public extension MyGraphQLSchema {
             public var heightInMeters: HeightInMeters { _toFragment() }
           }
 
-          /// AllAnimal.AsWarmBlooded.Height
+          /// AllAnimal.AsWarmBloodedIfGetWarmBlooded.Height
           ///
           /// Parent Type: `Height`
           public struct Height: MyGraphQLSchema.SelectionSet {
@@ -391,10 +391,10 @@ public extension MyGraphQLSchema {
           }
         }
 
-        /// AllAnimal.AsCat
+        /// AllAnimal.AsCatIfGetCat
         ///
         /// Parent Type: `Cat`
-        public struct AsCat: MyGraphQLSchema.InlineFragment {
+        public struct AsCatIfGetCat: MyGraphQLSchema.InlineFragment {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
@@ -423,7 +423,7 @@ public extension MyGraphQLSchema {
             public var warmBloodedDetails: WarmBloodedDetails { _toFragment() }
           }
 
-          /// AllAnimal.AsCat.Height
+          /// AllAnimal.AsCatIfGetCat.Height
           ///
           /// Parent Type: `Height`
           public struct Height: MyGraphQLSchema.SelectionSet {
