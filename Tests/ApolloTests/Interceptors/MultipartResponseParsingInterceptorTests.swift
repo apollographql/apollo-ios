@@ -208,6 +208,48 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
     )
   }
 
+  func test__parsing__givenHeartbeat_shouldIgnore() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {}
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Heartbeat ignored")
+    expectation.isInverted = true
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__parsing__givenPayloadNull_shouldIgnore() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": null
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Heartbeat ignored")
+    expectation.isInverted = true
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
   func test__parsing__givenSingleChunk_shouldReturnSuccess() throws {
     let network = buildNetworkTransport(responseData: """
       --graphql
@@ -339,6 +381,46 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
         expectation.fulfill()
 
+      case let .failure(error):
+        fail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+  
+  func test__parsing__givenEndOfStream_shouldReturnSuccess() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 5
+          }
+        }
+      }
+      --graphql--
+      """.crlfFormattedData()
+    )
+
+    let expectedData = try Time(data: [
+      "__typename": "Time",
+      "ticker": 5
+    ], variables: nil)
+
+    let expectation = expectation(description: "Multipart data received")
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        expect(data.data).to(equal(expectedData))
       case let .failure(error):
         fail("Unexpected failure result - \(error)")
       }
