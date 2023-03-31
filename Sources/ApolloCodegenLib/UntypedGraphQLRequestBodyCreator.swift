@@ -44,7 +44,7 @@ class UntypedGraphQLRequestBodyCreator {
       }
 
       body["extensions"] = [
-        "persistedQuery" : ["sha256Hash": operationIdentifier, "version": 1]
+        "persistedQuery" : ["sha256Hash": operationIdentifier, "version": 1] as [String : Any]
       ]
     }
 
