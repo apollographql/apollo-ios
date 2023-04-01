@@ -141,7 +141,7 @@ struct SelectionSetTemplate {
     """
     \(accessControlRenderer())\
     static var __parentType: \(config.ApolloAPITargetName).ParentType { \
-    \(GeneratedTypeReference(type)) }
+    \(GeneratedSchemaTypeReference(type)) }
     """
   }
 
