@@ -320,6 +320,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
     """
 
     // when
@@ -335,6 +336,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
     """
 
     // when
@@ -352,6 +354,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
+      static var fragmentDefinition: StaticString { ""\"
     """
 
     // when
@@ -369,6 +372,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
+      public static var fragmentDefinition: StaticString { ""\"
     """
 
     // when

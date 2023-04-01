@@ -12,13 +12,15 @@ struct FragmentTemplate: TemplateRenderer {
 
   var template: TemplateString {
     let definition = IR.Definition.namedFragment(fragment)
+    let accessControl = embeddedAccessControlModifier(target: target)
 
     return TemplateString(
     """
-    \(embeddedAccessControlModifier(target: target))\
+    \(accessControl)\
     struct \(fragment.generatedDefinitionName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      \(accessControl)\
+      static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }
 
