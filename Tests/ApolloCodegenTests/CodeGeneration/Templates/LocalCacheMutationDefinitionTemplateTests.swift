@@ -62,6 +62,169 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     subject.template.description
   }
 
+  // MARK: - Access Level Tests
+
+  func test__generate__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsInSchemaModule_generatesWithPublicAccess() throws {
+    // given
+    let expected =
+    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsEmbeddedInTargetWithPublicAccessModifier_andOperationsInSchemaModule_generatesWithPublicAccess() throws {
+    // given
+    let expected =
+    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+      operations: .inSchemaModule
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsEmbeddedInTargetWithInternalAccessModifier_andOperationsInSchemaModule_generatesWithInternalAccess() throws {
+    // given
+    let expected =
+    """
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
+      static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+      operations: .inSchemaModule
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithPublicAccessModifier_generatesWithPublicAccess() throws {
+    // given
+    let expected =
+    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .public)
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithInternalAccessModifier_generatesWithInternalAccess() throws {
+    // given
+    let expected =
+    """
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
+      static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .internal)
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithPublicAccessModifier_generatesWithPublicAccess() throws {
+    // given
+    let expected =
+    """
+    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+      public static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .public)
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithInternalAccessModifier_generatesWithInternalAccess() throws {
+    // given
+    let expected =
+    """
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
+      static let operationType: GraphQLOperationType = .query
+
+    """
+
+    config = .mock(output: .mock(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .internal)
+    ))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   // MARK: - Operation Definition
 
   func test__generate__givenQuery_generatesLocalCacheMutation() throws {
