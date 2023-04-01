@@ -69,7 +69,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationQuery: GraphQLQuery {
-      public static let operationName: String = "TestOperation"
+      static let operationName: String = "TestOperation"
     """
 
     // when
@@ -94,7 +94,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationQuery: GraphQLQuery {
-      public static let operationName: String = "TestOperationQuery"
+      static let operationName: String = "TestOperationQuery"
     """
 
     // when
@@ -133,7 +133,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationQueryMutation: GraphQLMutation {
-      public static let operationName: String = "TestOperationQuery"
+      static let operationName: String = "TestOperationQuery"
     """
 
     // when
@@ -172,7 +172,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationMutation: GraphQLMutation {
-      public static let operationName: String = "TestOperation"
+      static let operationName: String = "TestOperation"
     """
 
     // when
@@ -211,7 +211,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationSubscription: GraphQLSubscription {
-      public static let operationName: String = "TestOperation"
+      static let operationName: String = "TestOperation"
     """
 
     // when
@@ -246,8 +246,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class LowercaseOperationQuery: GraphQLQuery {
-      public static let operationName: String = "lowercaseOperation"
-      public static let document: ApolloAPI.DocumentType = .notPersisted(
+      static let operationName: String = "lowercaseOperation"
+      static let document: ApolloAPI.DocumentType = .notPersisted(
         definition: .init(
           #\"\"\"
           query lowercaseOperation($variable: String = "TestVar") {
@@ -324,7 +324,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
       let expected =
       """
-            public init(
+            init(
               species: String
             ) {
               self.init(_dataDict: DataDict(data: [
@@ -370,7 +370,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
       let expected =
       """
-            public init(
+            init(
               species: String
             ) {
               self.init(_dataDict: DataDict(data: [

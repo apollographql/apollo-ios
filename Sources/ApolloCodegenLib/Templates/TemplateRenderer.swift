@@ -156,13 +156,13 @@ extension TemplateRenderer {
     guard config.output.schemaTypes.isInModule else {
       switch config.output.schemaTypes.moduleType {
       case .embeddedInTarget(_, .public):
-        return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+        return ApolloCodegenConfiguration.AccessModifier.public.swiftString
       case .embeddedInTarget(_, .internal), .swiftPackageManager, .other:
-        return ""
+        return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
       }
     }
 
-    return "public "
+    return ApolloCodegenConfiguration.AccessModifier.public.swiftString
   }
 
   private var operationTypeEmbeddedAccessControlModifier: String {
@@ -170,18 +170,18 @@ extension TemplateRenderer {
     case .inSchemaModule:
       return schemaTypeEmbeddedAccessControlModifier
     case .absolute(_, .public), .relative(_, .public):
-      return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+      return ApolloCodegenConfiguration.AccessModifier.public.swiftString
     case .absolute(_, .internal), .relative(_, .internal):
-      return ""
+      return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
     }
   }
 
   private var testMockTypeEmbeddedAccessControlModifier: String {
     switch config.config.output.testMocks {
     case .none, .absolute(_, .internal):
-      return ""
+      return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
     case .swiftPackage, .absolute(_, .public):
-      return "\(ApolloCodegenConfiguration.AccessModifier.public) "
+      return ApolloCodegenConfiguration.AccessModifier.public.swiftString
     }
   }
 }

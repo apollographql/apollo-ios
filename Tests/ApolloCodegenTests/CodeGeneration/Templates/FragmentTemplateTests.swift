@@ -67,7 +67,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename
           allAnimals {
@@ -77,8 +77,8 @@ class FragmentTemplateTests: XCTestCase {
         }
         ""\" }
 
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
     """
 
     // when
@@ -104,7 +104,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString { ""\"
         fragment testFragment on Query {
     """
 
@@ -166,7 +166,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
     """
 
     // when
@@ -196,7 +196,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Animal }
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Animal }
     """
 
     // when
@@ -230,7 +230,7 @@ class FragmentTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Animal }
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Animal }
     """
 
     // when
@@ -253,17 +253,17 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename
         }
         ""\" }
 
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
-      public static var __selections: [ApolloAPI.Selection] { [
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
+      static var __selections: [ApolloAPI.Selection] { [
       ] }
     }
 
@@ -288,17 +288,17 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Animal {
           __typename
         }
         ""\" }
 
-      public let __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      let __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
-      public static var __selections: [ApolloAPI.Selection] { [
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Animal }
+      static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
       ] }
     }
@@ -400,7 +400,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
       """
-        public init(
+        init(
           species: String
         ) {
           self.init(_dataDict: DataDict(data: [
@@ -445,7 +445,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
       """
-        public init(
+        init(
           species: String
         ) {
           self.init(_dataDict: DataDict(data: [
@@ -550,7 +550,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
       """
-        public init(
+        init(
           species: String
         ) {
           self.init(_dataDict: DataDict(data: [
@@ -614,7 +614,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString { ""\"
         fragment TestFragment on Query {
           __typename
           allAnimals {
@@ -647,15 +647,15 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected =
     """
-      public var __data: DataDict
-      public init(_dataDict: DataDict) { __data = _dataDict }
+      var __data: DataDict
+      init(_dataDict: DataDict) { __data = _dataDict }
 
-      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
-      public static var __selections: [ApolloAPI.Selection] { [
+      static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
+      static var __selections: [ApolloAPI.Selection] { [
         .field("allAnimals", [AllAnimal]?.self),
       ] }
 
-      public var allAnimals: [AllAnimal]? {
+      var allAnimals: [AllAnimal]? {
         get { __data["allAnimals"] }
         set { __data["allAnimals"] = newValue }
       }

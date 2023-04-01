@@ -25,7 +25,8 @@ struct FragmentTemplate: TemplateRenderer {
       \(SelectionSetTemplate(
         definition: definition,
         generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
-        config: config
+        config: config,
+        accessControlRenderer: { embeddedAccessControlModifier(target: target) }()
       ).renderBody())
     }
 

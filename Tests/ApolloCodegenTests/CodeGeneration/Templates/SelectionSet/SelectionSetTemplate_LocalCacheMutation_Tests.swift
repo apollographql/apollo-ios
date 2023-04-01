@@ -28,15 +28,31 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
 
   func buildSubjectAndOperation(
     schemaNamespace: String = "TestSchema",
-    named operationName: String = "TestOperation"
+    named operationName: String = "TestOperation",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
+    let config = ApolloCodegen.ConfigurationContext(
+      config: .mock(
+        schemaNamespace: schemaNamespace,
+        output: .mock(moduleType: moduleType, operations: operations)
+      )
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: config
+    )
     subject = SelectionSetTemplate(
       definition: .operation(self.operation),
       generateInitializers: false,
-      config: .init(config: .mock(schemaNamespace: schemaNamespace))
+      config: config,
+      accessControlRenderer: mockTemplateRenderer.embeddedAccessControlModifier(
+        target: mockTemplateRenderer.target
+      )
     )
   }
 

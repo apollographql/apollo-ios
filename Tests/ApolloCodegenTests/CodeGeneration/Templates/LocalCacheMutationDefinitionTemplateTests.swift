@@ -69,7 +69,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationLocalCacheMutation: LocalCacheMutation {
-      public static let operationType: GraphQLOperationType = .query
+      static let operationType: GraphQLOperationType = .query
 
     """
 
@@ -105,7 +105,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class LowercaseOperationLocalCacheMutation: LocalCacheMutation {
-      public static let operationType: GraphQLOperationType = .query
+      static let operationType: GraphQLOperationType = .query
 
     """
 
@@ -131,7 +131,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationLocalCacheMutation: LocalCacheMutation {
-      public static let operationType: GraphQLOperationType = .query
+      static let operationType: GraphQLOperationType = .query
 
     """
 
@@ -171,7 +171,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationLocalCacheMutation: LocalCacheMutation {
-      public static let operationType: GraphQLOperationType = .mutation
+      static let operationType: GraphQLOperationType = .mutation
 
     """
 
@@ -211,7 +211,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     let expected =
     """
     class TestOperationLocalCacheMutation: LocalCacheMutation {
-      public static let operationType: GraphQLOperationType = .subscription
+      static let operationType: GraphQLOperationType = .subscription
 
     """
 
@@ -228,8 +228,8 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-      public struct Data: TestSchema.MutableSelectionSet {
-        public var __data: DataDict
+      struct Data: TestSchema.MutableSelectionSet {
+        var __data: DataDict
     """
 
     // when
@@ -486,7 +486,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     """
         }
 
-        public init(
+        init(
     """
 
     config = ApolloCodegenConfiguration.mock(
@@ -529,7 +529,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     """
         }
 
-        public init(
+        init(
     """
 
     config = ApolloCodegenConfiguration.mock(

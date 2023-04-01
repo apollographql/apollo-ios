@@ -27,7 +27,8 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
         \(SelectionSetTemplate(
             definition: definition,            
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
-            config: config
+            config: config,
+            accessControlRenderer: { embeddedAccessControlModifier(target: target) }()
         ).renderBody())
       }
     }
