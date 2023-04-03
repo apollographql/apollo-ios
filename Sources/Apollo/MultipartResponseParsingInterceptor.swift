@@ -81,7 +81,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     }
 
     for chunk in dataString.components(separatedBy: "--\(boundaryString)") {
-      if chunk.isEmpty { continue }
+      if chunk.isEmpty || chunk.isBoundaryPrefix { continue }
 
       for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
         switch (parse(dataLine: dataLine.trimmingCharacters(in: .newlines))) {
@@ -171,4 +171,8 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
     return .unknown
   }
+}
+
+fileprivate extension String {
+  var isBoundaryPrefix: Bool { self == "--" }
 }
