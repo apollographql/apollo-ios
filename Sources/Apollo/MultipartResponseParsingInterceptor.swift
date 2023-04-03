@@ -99,7 +99,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             )
             return
           }
-          continue
 
         case let .json(object):
           if let errors = object["errors"] as? [JSONObject] {
@@ -135,8 +134,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             chain.proceedAsync(request: request, response: response, completion: completion)
           }
 
-          continue
-
         case .unknown:
           chain.handleErrorAsync(
             MultipartResponseParsingError.cannotParseChunkData,
@@ -144,7 +141,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             response: response,
             completion: completion
           )
-          continue
         }
       }
     }
