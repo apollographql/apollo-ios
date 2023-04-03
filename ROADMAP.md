@@ -17,15 +17,6 @@ For up to date release notes, refer to the project's [Changelog](https://github.
 
 Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.  Anything labeled [`planned-next`](https://github.com/apollographql/apollo-ios/labels/planned-next) is slated for the next patch release.  1.0.7 is likely going to be our last patch for 1.0.
 
-## [1.1: Generated operation model creation, multipart subscriptions (preview)](https://github.com/apollographql/apollo-ios/milestone/64)
-
-_Approximate Date: 2023-04-03 (2023-03-24 Beta)_
-
-- The ability to initialize fragment (and maybe selection set) models in a type-safe way
-- Initialize mutable selection sets to add to the cache via local cache mutations (Currently you can only mutate fields on existing entities)
-- Create API for clearing individual fields on entities from the cache in local cache mutations
-- Details TBA for multipart subscriptions
-
 ## [1.2: Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
 _Approximate Date: 2023-04-28_
