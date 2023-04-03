@@ -111,6 +111,9 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               response: response,
               completion: completion
             )
+
+            // These are fatal-level transport errors, don't process anything else.
+            return
           }
 
           guard
