@@ -4,13 +4,7 @@ title: Subscriptions
 
 GraphQL supports [subscriptions](https://graphql.org/blog/subscriptions-in-graphql-and-relay/) to allow clients to be immediately updated when the data changes on a server.
 
-GraphQL subscriptions are distinct from [watching queries](./queries#watching-queries). A query watcher is only updated when new data is written to the local cache (usually by another network operation). A GraphQL subscription is a long-lived request that may receive updated data from the server continuously. Apollo iOS implements subscriptions using a web socket connection.
-
-Apollo iOS requires subscription support to be enabled on your `ApolloClient` using the `ApolloWebSocket` library to work. See the [Enabling GraphQL subscription support](#enabling-graphql-subscription-support) section for instructions on how your application can support GraphQL subscriptions.
-
-## Performing mutations
-
-Apollo iOS Subscriptions are also supported through code generation. Similar to queries, subscriptions are represented by instances of generated classes, conforming to the `GraphQLSubscription` protocol.
+Apollo iOS Subscriptions are supported through code generation. Similar to queries, subscriptions are represented by instances of generated classes, conforming to the `GraphQLSubscription` protocol.
 
 ```graphql title="ReviewAddedSubscription.graphql"
 subscription ReviewAdded {
@@ -21,7 +15,7 @@ subscription ReviewAdded {
 }
 ```
 
-Once those operations are generated, you can use a `ApolloClient.subscribe(subscription:)` using a subscription-supporting network transport to subscribe, and continue to receive updates about changes until the subscription is cancelled.
+Once those operations are generated, you can use `ApolloClient.subscribe(subscription:)` using a subscription-supporting network transport to subscribe, and continue to receive updates about changes until the subscription is cancelled.
 
 ```swift
 let subscription = client.subscribe(subscription: ReviewAddedSubscription()) { result in
@@ -29,6 +23,8 @@ let subscription = client.subscribe(subscription: ReviewAddedSubscription()) { r
   print(data.reviews.map { $0.stars })
 }
 ```
+
+> Note: GraphQL subscriptions are distinct from [watching queries](./queries#watching-queries). A query watcher is only updated when new data is written to the local cache (usually by another network operation). A GraphQL subscription is a long-lived request that may receive updated data from the server continuously.
 
 ## Cancelling a subscription
 
@@ -60,11 +56,13 @@ class ReviewViewController {
 
 ## Enabling GraphQL subscription support
 
-The Apollo iOS library supports the use of subscriptions via [`ApolloWebSocket`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket), an optional additional library. `ApolloWebSocket` allows you to use web sockets to connect to your GraphQL server, enabling GraphQL subscriptions. To include `ApolloWebSocket`, add it as a dependency following the instructions in the [Getting Started](./../get-started) guide.
+The Apollo iOS library supports the use of subscriptions via:
+1. [`ApolloWebSocket`](https://www.apollographql.com/docs/ios/docc/documentation/apollowebsocket), an optional additional Apollo library.
+2. HTTP using [chunked multipart responses](https://github.com/graphql/graphql-over-http/blob/main/rfcs/IncrementalDelivery.md) (version 1.1.0 and later).
 
-### Creating an `ApolloClient` with subscription support
+In order to support GraphQL subscriptions, your `ApolloClient` must be initialized with a [`NetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport) that supports subscriptions.
 
-In order to support GraphQL subscriptions, your `ApolloClient` must be initialized with a [`NetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport) that supports creating a web socket connection.
+### GraphQL subscriptions over WebSocket
 
 Within the `ApolloWebSocket` library, there are two classes which conform to the [`NetworkTransport` protocol](https://www.apollographql.com/docs/ios/docc/documentation/apollo/networktransport):
 
@@ -103,15 +101,15 @@ let splitNetworkTransport = SplitNetworkTransport(
 let client = ApolloClient(networkTransport: splitNetworkTransport, store: store)
 ```
 
-### GraphQL over WebSocket protocols
+#### Protocols
 
-There are two protocols supported by apollo-ios:
+There are two GraphQL over WebSocket protocols supported by Apollo iOS:
 1. [`graphql-ws`](https://github.com/apollographql/subscriptions-transport-ws/blob/master/PROTOCOL.md) protocol which is implemented in the [subscriptions-transport-ws](https://github.com/apollographql/subscriptions-transport-ws) and [AWS AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/real-time-websocket-client.html#handshake-details-to-establish-the-websocket-connection) libraries.
 2. [`graphql-transport-ws`](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md) protocol which is implemented in the [graphql-ws](https://github.com/enisdenjo/graphql-ws) library.
 
-It is important to note that the protocols are not cross-compatible and you will need to know which is implemented in the service you're connecting to. All `WebSocket` initializers allow you to specify which GraphQL over WebSocket protocol should be used.
+> **Note:** These protocols are **not** cross-compatible and you will need to know which is implemented in the service you're connecting to. All `WebSocket` initializers allow you to specify which protocol should be used.
 
-### Providing authorization tokens
+#### Providing authorization tokens
 
 In a standard HTTP operation, if authentication is necessary an `Authorization` header is often sent with requests. However, with a web socket, this can't be sent with every payload since a persistent connection is required.
 
@@ -127,3 +125,7 @@ let webSocketTransport: WebSocketTransport = {
   return WebSocketTransport(websocket: webSocketClient, connectingPayload: authPayload)
 }()
 ```
+
+### GraphQL subscriptions over HTTP
+
+The default `NetworkTransport` is the [`RequestChainNetworkTransport`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/requestchainnetworktransport) which has support for GraphQL queries, mutations and subscriptions. There is no special configuration required to support subscriptions over HTTP. Follow the instructions for [creating a client](../networking/client-creation) to use subscriptions over HTTP.
