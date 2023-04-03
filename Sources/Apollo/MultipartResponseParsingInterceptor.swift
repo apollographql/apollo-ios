@@ -116,25 +116,24 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             return
           }
 
-          guard
-            let payload = object["payload"] as? JSONObject,
-            let data: Data = try? JSONSerializationFormat.serialize(value: payload)
-          else {
-            chain.handleErrorAsync(
-              MultipartResponseParsingError.cannotParsePayloadData,
-              request: request,
-              response: response,
-              completion: completion
-            )
-            return
-          }
+          if let payload = object["payload"] as? JSONObject {
+            guard let data: Data = try? JSONSerializationFormat.serialize(value: payload) else {
+              chain.handleErrorAsync(
+                MultipartResponseParsingError.cannotParsePayloadData,
+                request: request,
+                response: response,
+                completion: completion
+              )
+              return
+            }
 
-          let response = HTTPResponse<Operation>(
-            response: response.httpResponse,
-            rawData: data,
-            parsedResponse: nil
-          )
-          chain.proceedAsync(request: request, response: response, completion: completion)
+            let response = HTTPResponse<Operation>(
+              response: response.httpResponse,
+              rawData: data,
+              parsedResponse: nil
+            )
+            chain.proceedAsync(request: request, response: response, completion: completion)
+          }
 
           continue
 
