@@ -6,6 +6,8 @@ import ApolloInternalTestHelpers
 
 final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
+  let defaultTimeout = 0.5
+
   private class ErrorRequestChain: RequestChain {
     var isCancelled: Bool = false
     var error: Error? = nil
@@ -117,8 +119,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
               {
                 "message" : "forced test failure!"
               }
-            ],
-            "done": true
+            ]
           }
           --graphql
           """.crlfFormattedData()
@@ -225,7 +226,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenPayloadNull_shouldIgnore() throws {
@@ -240,14 +241,14 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       """.crlfFormattedData()
     )
 
-    let expectation = expectation(description: "Heartbeat ignored")
+    let expectation = expectation(description: "Payload (null) ignored")
     expectation.isInverted = true
 
     _ = network.send(operation: MockSubscription<Time>()) { result in
       expectation.fulfill()
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenSingleChunk_shouldReturnSuccess() throws {
@@ -287,7 +288,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenMultipleChunks_shouldReturnMultipleSuccesses() throws {
@@ -340,7 +341,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenChunkWithGraphQLError_shouldReturnSuccessWithGraphQLError() throws {
@@ -386,7 +387,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
   
   func test__parsing__givenEndOfStream_shouldReturnSuccess() throws {
@@ -426,6 +427,6 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 }
