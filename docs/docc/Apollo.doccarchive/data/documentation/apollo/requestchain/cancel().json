@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Cancels the entire chain of interceptors.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC6cancelyyF",
+    "externalID" : "s:6Apollo12RequestChainP6cancelyyF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -43,6 +37,7 @@
         "name" : "Apollo"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -59,6 +54,14 @@
             "macOS"
           ],
           "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "override"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
             {
               "kind" : "keyword",
               "text" : "func"
@@ -119,15 +122,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -153,10 +153,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/cancel()": {
   "abstract" : [
-    {
-      "text" : "Cancels the entire chain of interceptors.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -178,6 +175,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/cancel()",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "cancel()",
   "type" : "topic",

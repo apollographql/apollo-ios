@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Proceeds to the next interceptor in the array.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC12proceedAsync7request8response10completionyAA11HTTPRequestCyxG_AA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0L11QLOperationRzlF",
+    "externalID" : "s:6Apollo12RequestChainP12proceedAsync7request8response10completionyAA11HTTPRequestCyqd__G_AA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0L11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -161,6 +155,7 @@
         "name" : "Apollo"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -347,53 +342,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The in-progress request object",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "[optional] The in-progress response object, if received yet",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "response"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion closure to call when data has been processed and should be returned to the UI.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -536,15 +484,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -570,10 +515,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/proceedAsync(request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Proceeds to the next interceptor in the array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -713,6 +655,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "proceedAsync(request:response:completion:)",
   "type" : "topic",

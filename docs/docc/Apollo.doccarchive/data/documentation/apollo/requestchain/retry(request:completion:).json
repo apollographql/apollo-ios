@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Restarts the request starting from the first interceptor.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC5retry7request10completionyAA11HTTPRequestCyxG_ys6ResultOyAA13GraphQLResultVy4DataQzGs5Error_pGct0A3API0I11QLOperationRzlF",
+    "externalID" : "s:6Apollo12RequestChainP5retry7request10completionyAA11HTTPRequestCyqd__G_ys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0I11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -136,6 +130,7 @@
         "name" : "Apollo"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -296,39 +291,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The request to retry",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion closure to call when the request has completed.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -437,15 +399,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -471,10 +430,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/retry(request:completion:)": {
   "abstract" : [
-    {
-      "text" : "Restarts the request starting from the first interceptor.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -589,6 +545,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "retry(request:completion:)",
   "type" : "topic",

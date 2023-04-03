@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -18,11 +12,11 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC",
+    "externalID" : "s:6Apollo12RequestChainP",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "class"
+        "text" : "protocol"
       },
       {
         "kind" : "text",
@@ -45,8 +39,8 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Class",
-    "symbolKind" : "class",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
     "title" : "RequestChain"
   },
   "primaryContentSections" : [
@@ -62,7 +56,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "class"
+              "text" : "protocol"
             },
             {
               "kind" : "text",
@@ -71,6 +65,16 @@
             {
               "kind" : "identifier",
               "text" : "RequestChain"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo11CancellableP",
+              "text" : "Cancellable"
             }
           ]
         }
@@ -84,8 +88,16 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/Cancellable"
       ],
       "kind" : "relationships",
-      "title" : "Conforms To",
-      "type" : "conformsTo"
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -99,13 +111,6 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)"
-      ],
-      "title" : "Initializers"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isCancelled"
       ],
       "title" : "Instance Properties"
@@ -120,12 +125,6 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError"
-      ],
-      "title" : "Enumerations"
     }
   ],
   "variants" : [
@@ -190,7 +189,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cancellable"
 },
-"doc://Apollo/documentation/Apollo/RequestChain": {
+"doc://Apollo/documentation/Apollo/InterceptorRequestChain": {
   "abstract" : [
     {
       "text" : "A chain that allows a single network request to be created and executed.",
@@ -201,6 +200,37 @@
     {
       "kind" : "keyword",
       "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InterceptorRequestChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/interceptorrequestchain"
+},
+"doc://Apollo/documentation/Apollo/RequestChain": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -224,84 +254,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://Apollo/documentation/Apollo/RequestChain/ChainError": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "ChainError"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/ChainError",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "ChainError"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "RequestChain.ChainError",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchain\/chainerror"
-},
-"doc://Apollo/documentation/Apollo/RequestChain/additionalErrorHandler": {
-  "abstract" : [
-    {
-      "text" : "Something which allows additional error handling to occur when some kind of error has happened.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "additionalErrorHandler"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A16ErrorInterceptorP",
-      "text" : "ApolloErrorInterceptor"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/additionalErrorHandler",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "additionalErrorHandler",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchain\/additionalerrorhandler"
-},
 "doc://Apollo/documentation/Apollo/RequestChain/cancel()": {
   "abstract" : [
-    {
-      "text" : "Cancels the entire chain of interceptors.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -323,6 +278,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/cancel()",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "cancel()",
   "type" : "topic",
@@ -330,10 +286,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/handleErrorAsync(_:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Handles the error by returning it on the appropriate queue, or by applying an additional error interceptor if one has been provided.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -482,68 +435,11 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "handleErrorAsync(_:request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain\/handleerrorasync(_:request:response:completion:)"
-},
-"doc://Apollo/documentation/Apollo/RequestChain/init(interceptors:callbackQueue:)": {
-  "abstract" : [
-    {
-      "text" : "Creates a chain with the given interceptor array.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "identifier",
-      "text" : "init"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "interceptors"
-    },
-    {
-      "kind" : "text",
-      "text" : ": ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
-      "text" : "ApolloInterceptor"
-    },
-    {
-      "kind" : "text",
-      "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "callbackQueue"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "c:objc(cs)OS_dispatch_queue",
-      "text" : "DispatchQueue"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/init(interceptors:callbackQueue:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "init(interceptors:callbackQueue:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchain\/init(interceptors:callbackqueue:)"
 },
 "doc://Apollo/documentation/Apollo/RequestChain/isCancelled": {
   "abstract" : [
@@ -574,6 +470,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/isCancelled",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "isCancelled",
   "type" : "topic",
@@ -581,10 +478,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/kickoff(request:completion:)": {
   "abstract" : [
-    {
-      "text" : "Kicks off the request from the beginning of the interceptor array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -699,6 +593,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/kickoff(request:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "kickoff(request:completion:)",
   "type" : "topic",
@@ -706,10 +601,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/proceedAsync(request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Proceeds to the next interceptor in the array.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -849,6 +741,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "proceedAsync(request:response:completion:)",
   "type" : "topic",
@@ -856,10 +749,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/retry(request:completion:)": {
   "abstract" : [
-    {
-      "text" : "Restarts the request starting from the first interceptor.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -974,6 +864,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/retry(request:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "retry(request:completion:)",
   "type" : "topic",
@@ -981,10 +872,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/returnValueAsync(for:value:completion:)": {
   "abstract" : [
-    {
-      "text" : "Handles a resulting value by returning it on the appropriate queue.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -1132,6 +1020,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "returnValueAsync(for:value:completion:)",
   "type" : "topic",

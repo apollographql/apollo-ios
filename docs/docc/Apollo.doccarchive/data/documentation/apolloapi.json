@@ -142,6 +142,8 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/AnyHashableConvertible",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeInlineFragment",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeSelectionSet",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Fragment",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/FragmentContainer",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLMutation",
@@ -432,6 +434,90 @@
   "title" : "CacheReference",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CompositeInlineFragment": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineFragment",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that is also a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CompositeSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompositeInlineFragment"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeInlineFragment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompositeInlineFragment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompositeInlineFragment",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/compositeinlinefragment"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CompositeSelectionSet": {
+  "abstract" : [
+    {
+      "text" : "A selection set that is comprised of only fields merged from other selection sets.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompositeSelectionSet"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeSelectionSet",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompositeSelectionSet"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompositeSelectionSet",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/compositeselectionset"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
   "abstract" : [

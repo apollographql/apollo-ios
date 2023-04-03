@@ -85,10 +85,18 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
-        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain"
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -290,6 +298,40 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher"
 },
+"doc://Apollo/documentation/Apollo/InterceptorRequestChain": {
+  "abstract" : [
+    {
+      "text" : "A chain that allows a single network request to be created and executed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InterceptorRequestChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/interceptorrequestchain"
+},
 "doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
     {
@@ -326,15 +368,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",

@@ -19,7 +19,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo0A16ErrorInterceptorP06handleB5Async5error5chain7request8response10completionys0B0_p_AA12RequestChainCAA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAJ_pGct0A3API0P11QLOperationRd__lF",
+    "externalID" : "s:6Apollo0A16ErrorInterceptorP06handleB5Async5error5chain7request8response10completionys0B0_p_AA12RequestChain_pAA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAJ_pGct0A3API0P11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -72,7 +72,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:6Apollo12RequestChainC",
+        "preciseIdentifier" : "s:6Apollo12RequestChainP",
         "text" : "RequestChain"
       },
       {
@@ -264,7 +264,7 @@
             {
               "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo12RequestChainC",
+              "preciseIdentifier" : "s:6Apollo12RequestChainP",
               "text" : "RequestChain"
             },
             {
@@ -631,7 +631,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC",
+      "preciseIdentifier" : "s:6Apollo12RequestChainP",
       "text" : "RequestChain"
     },
     {
@@ -861,15 +861,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",

@@ -86,6 +86,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor"
       ],
@@ -214,7 +215,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:6Apollo12RequestChainC",
+      "preciseIdentifier" : "s:6Apollo12RequestChainP",
       "text" : "RequestChain"
     },
     {
@@ -558,6 +559,40 @@
   "title" : "MaxRetryInterceptor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor"
+},
+"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor": {
+  "abstract" : [
+    {
+      "text" : "Parses multipart response data into chunks and forwards each on to the next interceptor.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MultipartResponseParsingInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MultipartResponseParsingInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MultipartResponseParsingInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor"
 },
 "doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [

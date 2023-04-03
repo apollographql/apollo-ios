@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Handles a resulting value by returning it on the appropriate queue.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC16returnValueAsync3for5value10completionyAA11HTTPRequestCyxG_AA13GraphQLResultVy4DataQzGys6ResultOyAOs5Error_pGct0A3API0K11QLOperationRzlF",
+    "externalID" : "s:6Apollo12RequestChainP16returnValueAsync3for5value10completionyAA11HTTPRequestCyqd__G_AA13GraphQLResultVy4DataQyd__Gys6ResultOyAOs5Error_pGct0A3API0K11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -169,6 +163,7 @@
         "name" : "Apollo"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -371,53 +366,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The request, as far as it has been constructed.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The value to be returned",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "value"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion closure to call when work is complete.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -526,15 +474,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -560,10 +505,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/returnValueAsync(for:value:completion:)": {
   "abstract" : [
-    {
-      "text" : "Handles a resulting value by returning it on the appropriate queue.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -711,6 +653,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/returnValueAsync(for:value:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "returnValueAsync(for:value:completion:)",
   "type" : "topic",
