@@ -81,7 +81,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     }
 
     for chunk in dataString.components(separatedBy: "--\(boundaryString)") {
-      if chunk.isEmpty { continue }
+      if chunk.isEmpty || chunk.isBoundaryPrefix { continue }
 
       for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
         switch (parse(dataLine: dataLine.trimmingCharacters(in: .newlines))) {
@@ -99,7 +99,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             )
             return
           }
-          continue
 
         case let .json(object):
           if let errors = object["errors"] as? [JSONObject] {
@@ -111,16 +110,28 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               response: response,
               completion: completion
             )
-          }
 
-          if let done = object["done"] as? Bool, done {
-            // Exit at this point because the router will close the connection; errors would have
-            // been reported or the subscription is complete.
+            // These are fatal-level transport errors, don't process anything else.
             return
           }
 
+          guard let payload = object["payload"] else {
+            chain.handleErrorAsync(
+              MultipartResponseParsingError.cannotParsePayloadData,
+              request: request,
+              response: response,
+              completion: completion
+            )
+            return
+          }
+
+          if payload is NSNull {
+            // `payload` can be null such as in the case of a transport error
+            continue
+          }
+
           guard
-            let payload = object["payload"] as? JSONObject,
+            let payload = payload as? JSONObject,
             let data: Data = try? JSONSerializationFormat.serialize(value: payload)
           else {
             chain.handleErrorAsync(
@@ -139,8 +150,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
           )
           chain.proceedAsync(request: request, response: response, completion: completion)
 
-          continue
-
         case .unknown:
           chain.handleErrorAsync(
             MultipartResponseParsingError.cannotParseChunkData,
@@ -148,7 +157,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             response: response,
             completion: completion
           )
-          continue
         }
       }
     }
@@ -175,4 +183,8 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
     return .unknown
   }
+}
+
+fileprivate extension String {
+  var isBoundaryPrefix: Bool { self == "--" }
 }

@@ -6,6 +6,8 @@ import ApolloInternalTestHelpers
 
 final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
+  let defaultTimeout = 0.5
+
   private class ErrorRequestChain: RequestChain {
     var isCancelled: Bool = false
     var error: Error? = nil
@@ -117,8 +119,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
               {
                 "message" : "forced test failure!"
               }
-            ],
-            "done": true
+            ]
           }
           --graphql
           """.crlfFormattedData()
@@ -127,6 +128,28 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
       .to(equal(.irrecoverableError(message: "forced test failure!")))
+  }
+
+  func test__error__givenUnrecognizableChunk_shouldReturnError() throws {
+    let requestChain = ErrorRequestChain()
+
+    MultipartResponseParsingInterceptor().interceptAsync(
+      chain: requestChain,
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
+        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
+        data: """
+          --graphql
+          content-type: application/json
+
+          not_a_valid_json_object
+          --graphql
+          """.crlfFormattedData()
+      )
+    ) { result in }
+
+    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
+      .to(equal(.cannotParseChunkData))
   }
 
   func test__error__givenChunk_withMissingPayload_shouldReturnError() throws {
@@ -151,28 +174,6 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
       .to(equal(.cannotParsePayloadData))
-  }
-
-  func test__error__givenUnrecognizableChunk_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
-
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
-      request: .mock(operation: MockSubscription.mock()),
-      response: .mock(
-        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
-        data: """
-          --graphql
-          content-type: application/json
-
-          something
-          --graphql
-          """.crlfFormattedData()
-      )
-    ) { result in }
-
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.cannotParseChunkData))
   }
 
   // MARK: Parsing tests
@@ -206,6 +207,48 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       interceptorProvider: provider,
       endpointURL: TestURL.mockServer.url
     )
+  }
+
+  func test__parsing__givenHeartbeat_shouldIgnore() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {}
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Heartbeat ignored")
+    expectation.isInverted = true
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
+  }
+
+  func test__parsing__givenPayloadNull_shouldIgnore() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": null
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Payload (null) ignored")
+    expectation.isInverted = true
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenSingleChunk_shouldReturnSuccess() throws {
@@ -245,7 +288,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenMultipleChunks_shouldReturnMultipleSuccesses() throws {
@@ -298,7 +341,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__parsing__givenChunkWithGraphQLError_shouldReturnSuccessWithGraphQLError() throws {
@@ -344,6 +387,46 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       }
     }
 
-    wait(for: [expectation], timeout: 1)
+    wait(for: [expectation], timeout: defaultTimeout)
+  }
+
+  func test__parsing__givenEndOfStream_shouldReturnSuccess() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "payload": {
+          "data": {
+            "__typename": "Time",
+            "ticker": 5
+          }
+        }
+      }
+      --graphql--
+      """.crlfFormattedData()
+    )
+
+    let expectedData = try Time(data: [
+      "__typename": "Time",
+      "ticker": 5
+    ], variables: nil)
+
+    let expectation = expectation(description: "Multipart data received")
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        expect(data.data).to(equal(expectedData))
+      case let .failure(error):
+        fail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 }
