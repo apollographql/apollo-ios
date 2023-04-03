@@ -130,30 +130,6 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       .to(equal(.irrecoverableError(message: "forced test failure!")))
   }
 
-  func test__error__givenChunk_withMissingPayload_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
-
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
-      request: .mock(operation: MockSubscription.mock()),
-      response: .mock(
-        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
-        data: """
-          --graphql
-          content-type: application/json
-
-          {
-            "key": "value"
-          }
-          --graphql
-          """.crlfFormattedData()
-      )
-    ) { result in }
-
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.cannotParsePayloadData))
-  }
-
   func test__error__givenUnrecognizableChunk_shouldReturnError() throws {
     let requestChain = ErrorRequestChain()
 
@@ -166,7 +142,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
           --graphql
           content-type: application/json
 
-          something
+          not_a_valid_json_object
           --graphql
           """.crlfFormattedData()
       )
@@ -236,6 +212,28 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
       {
         "payload": null
+      }
+      --graphql
+      """.crlfFormattedData()
+    )
+
+    let expectation = expectation(description: "Payload (null) ignored")
+    expectation.isInverted = true
+
+    _ = network.send(operation: MockSubscription<Time>()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
+  }
+
+  func test__parsing__givenValidObject_withUnknownKey_shouldIgnore() throws {
+    let network = buildNetworkTransport(responseData: """
+      --graphql
+      content-type: application/json
+
+      {
+        "key": "value"
       }
       --graphql
       """.crlfFormattedData()
@@ -389,7 +387,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     wait(for: [expectation], timeout: defaultTimeout)
   }
-  
+
   func test__parsing__givenEndOfStream_shouldReturnSuccess() throws {
     let network = buildNetworkTransport(responseData: """
       --graphql
