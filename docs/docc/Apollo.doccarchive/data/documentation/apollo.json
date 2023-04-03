@@ -72,12 +72,12 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest",
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPResponse",
         "doc:\/\/Apollo\/documentation\/Apollo\/InMemoryNormalizedCache",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
         "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest",
         "doc:\/\/Apollo\/documentation\/Apollo\/JSONSerializationFormat",
         "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/MultipartFormData",
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport",
         "doc:\/\/Apollo\/documentation\/Apollo\/TaskData",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient",
@@ -95,6 +95,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport",
         "doc:\/\/Apollo\/documentation\/Apollo\/NormalizedCache",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestBodyCreator",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain",
         "doc:\/\/Apollo\/documentation\/Apollo\/UploadingNetworkTransport"
       ],
       "title" : "Protocols"
@@ -111,6 +112,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLGETTransformer",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLResult",
         "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor",
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor",
         "doc:\/\/Apollo\/documentation\/Apollo\/Record",
         "doc:\/\/Apollo\/documentation\/Apollo\/RecordSet",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor",
@@ -1224,6 +1226,40 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorprovider"
 },
+"doc://Apollo/documentation/Apollo/InterceptorRequestChain": {
+  "abstract" : [
+    {
+      "text" : "A chain that allows a single network request to be created and executed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InterceptorRequestChain"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InterceptorRequestChain",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/interceptorrequestchain"
+},
 "doc://Apollo/documentation/Apollo/JSONRequest": {
   "abstract" : [
     {
@@ -1410,6 +1446,40 @@
   "title" : "MultipartFormData",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartformdata"
+},
+"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor": {
+  "abstract" : [
+    {
+      "text" : "Parses multipart response data into chunks and forwards each on to the next interceptor.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MultipartResponseParsingInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MultipartResponseParsingInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MultipartResponseParsingInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor"
 },
 "doc://Apollo/documentation/Apollo/NetworkFetchInterceptor": {
   "abstract" : [
@@ -1611,15 +1681,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",

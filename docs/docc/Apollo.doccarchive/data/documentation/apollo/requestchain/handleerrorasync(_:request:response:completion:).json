@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Handles the error by returning it on the appropriate queue, or by applying an additional error interceptor if one has been provided.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -19,7 +13,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainC16handleErrorAsync_7request8response10completionys0E0_p_AA11HTTPRequestCyxGAA12HTTPResponseCyxGSgys6ResultOyAA13GraphQLResultVy4DataQzGsAH_pGct0A3API0M11QLOperationRzlF",
+    "externalID" : "s:6Apollo12RequestChainP16handleErrorAsync_7request8response10completionys0E0_p_AA11HTTPRequestCyqd__GAA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__GsAH_pGct0A3API0M11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -170,6 +164,7 @@
         "name" : "Apollo"
       }
     ],
+    "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
@@ -381,67 +376,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The error to handle",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "error"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The request, as far as it has been constructed.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "request"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The response, as far as it has been constructed.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "response"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The completion closure to call when work is complete.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "completion"
-        }
-      ]
     }
   ],
   "schemaVersion" : {
@@ -584,15 +518,12 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain": {
   "abstract" : [
-    {
-      "text" : "A chain that allows a single network request to be created and executed.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "class"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -618,10 +549,7 @@
 },
 "doc://Apollo/documentation/Apollo/RequestChain/handleErrorAsync(_:request:response:completion:)": {
   "abstract" : [
-    {
-      "text" : "Handles the error by returning it on the appropriate queue, or by applying an additional error interceptor if one has been provided.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -770,6 +698,7 @@
   ],
   "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/handleErrorAsync(_:request:response:completion:)",
   "kind" : "symbol",
+  "required" : true,
   "role" : "symbol",
   "title" : "handleErrorAsync(_:request:response:completion:)",
   "type" : "topic",

@@ -96,7 +96,9 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/cannotParseBoundaryData",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/dataForRequestNotFound(request:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/missingMultipartBoundary",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/networkError(data:response:underlying:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/noHTTPResponse(request:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/sessionBecameInvalidWithoutUnderlyingError",
@@ -247,6 +249,31 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/localizederror-implementations"
 },
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/cannotParseBoundaryData": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cannotParseBoundaryData"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/cannotParseBoundaryData",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.cannotParseBoundaryData",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/cannotparseboundarydata"
+},
 "doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/dataForRequestNotFound(request:)": {
   "abstract" : [
 
@@ -330,6 +357,31 @@
   "title" : "errorDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-2rch3"
+},
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/missingMultipartBoundary": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "missingMultipartBoundary"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/missingMultipartBoundary",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "URLSessionClient.URLSessionClientError.missingMultipartBoundary",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/missingmultipartboundary"
 },
 "doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/networkError(data:response:underlying:)": {
   "abstract" : [

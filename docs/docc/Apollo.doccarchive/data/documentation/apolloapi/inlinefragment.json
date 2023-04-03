@@ -251,6 +251,14 @@
       "kind" : "relationships",
       "title" : "Inherits From",
       "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeInlineFragment"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
     }
   ],
   "schemaVersion" : {
@@ -350,6 +358,56 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/CompositeInlineFragment": {
+  "abstract" : [
+    {
+      "text" : "An ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineFragment",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " that is also a ",
+      "type" : "text"
+    },
+    {
+      "code" : "CompositeSelectionSet",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CompositeInlineFragment"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CompositeInlineFragment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CompositeInlineFragment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompositeInlineFragment",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/compositeinlinefragment"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/InlineFragment": {
   "abstract" : [

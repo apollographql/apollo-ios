@@ -118,7 +118,8 @@
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/extensions",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/locations",
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/message"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/message",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/path"
       ],
       "title" : "Instance Properties"
     },
@@ -127,6 +128,12 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/subscript(_:)"
       ],
       "title" : "Subscripts"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/PathEntry"
+      ],
+      "title" : "Enumerations"
     },
     {
       "generated" : true,
@@ -293,6 +300,40 @@
   "title" : "GraphQLError.Location",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror\/location"
+},
+"doc://Apollo/documentation/Apollo/GraphQLError/PathEntry": {
+  "abstract" : [
+    {
+      "text" : "Represents a path in a GraphQL query.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PathEntry"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/PathEntry",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PathEntry"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "GraphQLError.PathEntry",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlerror\/pathentry"
 },
 "doc://Apollo/documentation/Apollo/GraphQLError/extensions": {
   "abstract" : [
@@ -463,6 +504,56 @@
   "title" : "message",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror\/message"
+},
+"doc://Apollo/documentation/Apollo/GraphQLError/path": {
+  "abstract" : [
+    {
+      "text" : "A path to the field that triggered the error, represented by an array of Path Entries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "path"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV",
+      "text" : "GraphQLError"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12GraphQLErrorV9PathEntryO",
+      "text" : "PathEntry"
+    },
+    {
+      "kind" : "text",
+      "text" : "]?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/path",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "path",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlerror\/path"
 },
 "doc://Apollo/documentation/Apollo/GraphQLError/subscript(_:)": {
   "abstract" : [

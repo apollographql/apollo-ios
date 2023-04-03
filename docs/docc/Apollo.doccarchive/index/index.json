@@ -831,6 +831,155 @@
           {
             "children" : [
               {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/init(interceptors:callbackqueue:)",
+                "title" : "init(interceptors: [ApolloInterceptor], callbackQueue: DispatchQueue)",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/additionalerrorhandler",
+                "title" : "var additionalErrorHandler: ApolloErrorInterceptor?",
+                "type" : "property"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/iscancelled",
+                "title" : "var isCancelled: Bool",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/cancel()",
+                "title" : "func cancel()",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/handleerrorasync(_:request:response:completion:)",
+                "title" : "func handleErrorAsync<Operation>(Error, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/kickoff(request:completion:)",
+                "title" : "func kickoff<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/proceedasync(request:response:completion:)",
+                "title" : "func proceedAsync<Operation>(request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/retry(request:completion:)",
+                "title" : "func retry<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/returnvalueasync(for:value:completion:)",
+                "title" : "func returnValueAsync<Operation>(for: HTTPRequest<Operation>, value: GraphQLResult<Operation.Data>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/invalidindex(chain:index:)",
+                    "title" : "case invalidIndex(chain: RequestChain, index: Int)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/nointerceptors",
+                    "title" : "case noInterceptors",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/errordescription-3qusm",
+                    "title" : "var errorDescription: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/errordescription-6hc58",
+                        "title" : "var errorDescription: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/failurereason",
+                        "title" : "var failureReason: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/helpanchor",
+                        "title" : "var helpAnchor: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/recoverysuggestion",
+                        "title" : "var recoverySuggestion: String?",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/localizederror-implementations",
+                    "title" : "LocalizedError Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror",
+                "title" : "InterceptorRequestChain.ChainError",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/apollo\/interceptorrequestchain",
+            "title" : "InterceptorRequestChain",
+            "type" : "class"
+          },
+          {
+            "children" : [
+              {
                 "title" : "Operators",
                 "type" : "groupMarker"
               },
@@ -1169,155 +1318,6 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/apollo\/requestchain\/init(interceptors:callbackqueue:)",
-                "title" : "init(interceptors: [ApolloInterceptor], callbackQueue: DispatchQueue)",
-                "type" : "init"
-              },
-              {
-                "title" : "Instance Properties",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/additionalerrorhandler",
-                "title" : "var additionalErrorHandler: ApolloErrorInterceptor?",
-                "type" : "property"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/iscancelled",
-                "title" : "var isCancelled: Bool",
-                "type" : "property"
-              },
-              {
-                "title" : "Instance Methods",
-                "type" : "groupMarker"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/cancel()",
-                "title" : "func cancel()",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/handleerrorasync(_:request:response:completion:)",
-                "title" : "func handleErrorAsync<Operation>(Error, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/kickoff(request:completion:)",
-                "title" : "func kickoff<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:completion:)",
-                "title" : "func proceedAsync<Operation>(request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/retry(request:completion:)",
-                "title" : "func retry<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
-                "type" : "method"
-              },
-              {
-                "path" : "\/documentation\/apollo\/requestchain\/returnvalueasync(for:value:completion:)",
-                "title" : "func returnValueAsync<Operation>(for: HTTPRequest<Operation>, value: GraphQLResult<Operation.Data>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
-                "type" : "method"
-              },
-              {
-                "title" : "Enumerations",
-                "type" : "groupMarker"
-              },
-              {
-                "children" : [
-                  {
-                    "title" : "Enumeration Cases",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/requestchain\/chainerror\/invalidindex(chain:index:)",
-                    "title" : "case invalidIndex(chain: RequestChain, index: Int)",
-                    "type" : "case"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/requestchain\/chainerror\/nointerceptors",
-                    "title" : "case noInterceptors",
-                    "type" : "case"
-                  },
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/requestchain\/chainerror\/errordescription-9snum",
-                    "title" : "var errorDescription: String?",
-                    "type" : "property"
-                  },
-                  {
-                    "title" : "Default Implementations",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/requestchain\/chainerror\/localizeddescription",
-                        "title" : "var localizedDescription: String",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/apollo\/requestchain\/chainerror\/error-implementations",
-                    "title" : "Error Implementations",
-                    "type" : "symbol"
-                  },
-                  {
-                    "children" : [
-                      {
-                        "title" : "Instance Properties",
-                        "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/requestchain\/chainerror\/errordescription-39yki",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/requestchain\/chainerror\/failurereason",
-                        "title" : "var failureReason: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/requestchain\/chainerror\/helpanchor",
-                        "title" : "var helpAnchor: String?",
-                        "type" : "property"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/requestchain\/chainerror\/recoverysuggestion",
-                        "title" : "var recoverySuggestion: String?",
-                        "type" : "property"
-                      }
-                    ],
-                    "path" : "\/documentation\/apollo\/requestchain\/chainerror\/localizederror-implementations",
-                    "title" : "LocalizedError Implementations",
-                    "type" : "symbol"
-                  }
-                ],
-                "path" : "\/documentation\/apollo\/requestchain\/chainerror",
-                "title" : "RequestChain.ChainError",
-                "type" : "enum"
-              }
-            ],
-            "path" : "\/documentation\/apollo\/requestchain",
-            "title" : "RequestChain",
-            "type" : "class"
-          },
-          {
-            "children" : [
-              {
-                "title" : "Initializers",
-                "type" : "groupMarker"
-              },
-              {
                 "path" : "\/documentation\/apollo\/requestchainnetworktransport\/init(interceptorprovider:endpointurl:additionalheaders:autopersistqueries:requestbodycreator:usegetforqueries:usegetforpersistedqueryretry:)",
                 "title" : "init(interceptorProvider: InterceptorProvider, endpointURL: URL, additionalHeaders: [String : String], autoPersistQueries: Bool, requestBodyCreator: RequestBodyCreator, useGETForQueries: Bool, useGETForPersistedQueryRetry: Bool)",
                 "type" : "init"
@@ -1634,8 +1634,18 @@
                     "type" : "groupMarker"
                   },
                   {
+                    "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/cannotparseboundarydata",
+                    "title" : "case cannotParseBoundaryData",
+                    "type" : "case"
+                  },
+                  {
                     "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/dataforrequestnotfound(request:)",
                     "title" : "case dataForRequestNotFound(request: URLRequest?)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/missingmultipartboundary",
+                    "title" : "case missingMultipartBoundary",
                     "type" : "case"
                   },
                   {
@@ -2085,6 +2095,56 @@
           {
             "children" : [
               {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/iscancelled",
+                "title" : "var isCancelled: Bool",
+                "type" : "property"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/cancel()",
+                "title" : "func cancel()",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/handleerrorasync(_:request:response:completion:)",
+                "title" : "func handleErrorAsync<Operation>(Error, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/kickoff(request:completion:)",
+                "title" : "func kickoff<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:completion:)",
+                "title" : "func proceedAsync<Operation>(request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/retry(request:completion:)",
+                "title" : "func retry<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "path" : "\/documentation\/apollo\/requestchain\/returnvalueasync(for:value:completion:)",
+                "title" : "func returnValueAsync<Operation>(for: HTTPRequest<Operation>, value: GraphQLResult<Operation.Data>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              }
+            ],
+            "path" : "\/documentation\/apollo\/requestchain",
+            "title" : "RequestChain",
+            "type" : "protocol"
+          },
+          {
+            "children" : [
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
@@ -2480,6 +2540,11 @@
                 "type" : "property"
               },
               {
+                "path" : "\/documentation\/apollo\/graphqlerror\/path",
+                "title" : "var path: [GraphQLError.PathEntry]?",
+                "type" : "property"
+              },
+              {
                 "title" : "Subscripts",
                 "type" : "groupMarker"
               },
@@ -2487,6 +2552,51 @@
                 "path" : "\/documentation\/apollo\/graphqlerror\/subscript(_:)",
                 "title" : "subscript(String) -> Any?",
                 "type" : "subscript"
+              },
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/graphqlerror\/pathentry\/field(_:)",
+                    "title" : "case field(String)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/graphqlerror\/pathentry\/index(_:)",
+                    "title" : "case index(Int)",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/graphqlerror\/pathentry\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/graphqlerror\/pathentry\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/graphqlerror\/pathentry",
+                "title" : "GraphQLError.PathEntry",
+                "type" : "enum"
               },
               {
                 "title" : "Default Implementations",
@@ -3120,6 +3230,152 @@
             ],
             "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor",
             "title" : "JSONResponseParsingInterceptor",
+            "type" : "struct"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Initializers",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/init()",
+                "title" : "init()",
+                "type" : "init"
+              },
+              {
+                "title" : "Instance Methods",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/interceptasync(chain:request:response:completion:)",
+                "title" : "func interceptAsync<Operation>(chain: RequestChain, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
+                "title" : "Enumerations",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Enumeration Cases",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/cannotparsechunkdata",
+                    "title" : "case cannotParseChunkData",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/cannotparsepayloaddata",
+                    "title" : "case cannotParsePayloadData",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/cannotparseresponsedata",
+                    "title" : "case cannotParseResponseData",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/irrecoverableerror(message:)",
+                    "title" : "case irrecoverableError(message: String?)",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/noresponsetoparse",
+                    "title" : "case noResponseToParse",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/unsupportedcontenttype(type:)",
+                    "title" : "case unsupportedContentType(type: String)",
+                    "type" : "case"
+                  },
+                  {
+                    "title" : "Instance Properties",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-3qwve",
+                    "title" : "var errorDescription: String?",
+                    "type" : "property"
+                  },
+                  {
+                    "title" : "Default Implementations",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Operators",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/!=(_:_:)",
+                        "title" : "static func != (Self, Self) -> Bool",
+                        "type" : "op"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/equatable-implementations",
+                    "title" : "Equatable Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/localizeddescription",
+                        "title" : "var localizedDescription: String",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/error-implementations",
+                    "title" : "Error Implementations",
+                    "type" : "symbol"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Properties",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-54of6",
+                        "title" : "var errorDescription: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/failurereason",
+                        "title" : "var failureReason: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/helpanchor",
+                        "title" : "var helpAnchor: String?",
+                        "type" : "property"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/recoverysuggestion",
+                        "title" : "var recoverySuggestion: String?",
+                        "type" : "property"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/localizederror-implementations",
+                    "title" : "LocalizedError Implementations",
+                    "type" : "symbol"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror",
+                "title" : "MultipartResponseParsingInterceptor.MultipartResponseParsingError",
+                "type" : "enum"
+              }
+            ],
+            "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor",
+            "title" : "MultipartResponseParsingInterceptor",
             "type" : "struct"
           },
           {
@@ -3836,6 +4092,6 @@
   "schemaVersion" : {
     "major" : 0,
     "minor" : 1,
-    "patch" : 0
+    "patch" : 1
   }
 }
