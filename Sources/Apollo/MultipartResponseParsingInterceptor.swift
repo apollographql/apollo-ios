@@ -115,24 +115,40 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             return
           }
 
-          if let payload = object["payload"] as? JSONObject {
-            guard let data: Data = try? JSONSerializationFormat.serialize(value: payload) else {
-              chain.handleErrorAsync(
-                MultipartResponseParsingError.cannotParsePayloadData,
-                request: request,
-                response: response,
-                completion: completion
-              )
-              return
-            }
-
-            let response = HTTPResponse<Operation>(
-              response: response.httpResponse,
-              rawData: data,
-              parsedResponse: nil
+          guard let payload = object["payload"] else {
+            chain.handleErrorAsync(
+              MultipartResponseParsingError.cannotParsePayloadData,
+              request: request,
+              response: response,
+              completion: completion
             )
-            chain.proceedAsync(request: request, response: response, completion: completion)
+            return
           }
+
+          if payload is NSNull {
+            // `payload` can be null such as in the case of a transport error
+            continue
+          }
+
+          guard
+            let payload = payload as? JSONObject,
+            let data: Data = try? JSONSerializationFormat.serialize(value: payload)
+          else {
+            chain.handleErrorAsync(
+              MultipartResponseParsingError.cannotParsePayloadData,
+              request: request,
+              response: response,
+              completion: completion
+            )
+            return
+          }
+
+          let response = HTTPResponse<Operation>(
+            response: response.httpResponse,
+            rawData: data,
+            parsedResponse: nil
+          )
+          chain.proceedAsync(request: request, response: response, completion: completion)
 
         case .unknown:
           chain.handleErrorAsync(

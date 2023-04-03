@@ -152,6 +152,30 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
       .to(equal(.cannotParseChunkData))
   }
 
+  func test__error__givenChunk_withMissingPayload_shouldReturnError() throws {
+    let requestChain = ErrorRequestChain()
+
+    MultipartResponseParsingInterceptor().interceptAsync(
+      chain: requestChain,
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(
+        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
+        data: """
+          --graphql
+          content-type: application/json
+
+          {
+            "key": "value"
+          }
+          --graphql
+          """.crlfFormattedData()
+      )
+    ) { result in }
+
+    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
+      .to(equal(.cannotParsePayloadData))
+  }
+
   // MARK: Parsing tests
 
   private class Time: MockSelectionSet {
@@ -212,28 +236,6 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
       {
         "payload": null
-      }
-      --graphql
-      """.crlfFormattedData()
-    )
-
-    let expectation = expectation(description: "Payload (null) ignored")
-    expectation.isInverted = true
-
-    _ = network.send(operation: MockSubscription<Time>()) { result in
-      expectation.fulfill()
-    }
-
-    wait(for: [expectation], timeout: defaultTimeout)
-  }
-
-  func test__parsing__givenValidObject_withUnknownKey_shouldIgnore() throws {
-    let network = buildNetworkTransport(responseData: """
-      --graphql
-      content-type: application/json
-
-      {
-        "key": "value"
       }
       --graphql
       """.crlfFormattedData()
