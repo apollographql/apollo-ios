@@ -96,7 +96,7 @@ extension ApolloInterceptorReentrantWrapper : ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
-  ) where Operation : ApolloAPI.GraphQLOperation {
+  ) where Operation : GraphQLOperation {
     wrappedInterceptor.interceptAsync(
       chain: self,
       request: request,
