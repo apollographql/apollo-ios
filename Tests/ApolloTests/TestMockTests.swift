@@ -482,6 +482,38 @@ class TestMockTests: XCTestCase {
     // then
     expect(selectionSet.speciesType).to(equal(.case(.canine)))
   }
+
+  func test__convertToSelectionSet__setNestedListOfObjectsField__canAccessField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .field("nestedListOfObjects", [[CatData]].self),
+      ]}
+
+      var nestedListOfObjects: [[CatData]] { __data["nestedListOfObjects"] }
+
+      class CatData: TestMockSchema.MockSelectionSet {
+        override class var __parentType: ParentType { TestMockSchema.Types.Cat }
+        override class var __selections: [Selection] {[
+          .field("species", String.self),
+        ]}
+      }
+    }
+
+    let mock = Mock<Dog>()
+    let cat1 = Mock<Cat>()
+    let cat2 = Mock<Cat>()
+    let cat3 = Mock<Cat>()
+    mock.nestedListOfObjects = [[cat1, cat2, cat3]]
+
+    // when
+    let selectionSet = Animal.from(mock)
+
+    // then
+    expect(selectionSet.nestedListOfObjects.count).to(equal(1))
+    expect(selectionSet.nestedListOfObjects[0].count).to(equal(3))
+  }
 }
 
 // MARK: - Generated Example
