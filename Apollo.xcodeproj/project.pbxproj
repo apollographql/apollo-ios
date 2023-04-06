@@ -637,6 +637,7 @@
 		DE9CEAF1282C632B00959AF9 /* MockObjectTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAF0282C632B00959AF9 /* MockObjectTemplateTests.swift */; };
 		DE9CEAF3282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */; };
 		DEA6A83426F298660091AF8A /* ParentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA6A83326F298660091AF8A /* ParentType.swift */; };
+		DEA7604429DF75B60001544B /* TestMockSelectionSetMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA7604329DF75B60001544B /* TestMockSelectionSetMapper.swift */; };
 		DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */; };
 		DEA9A23227D822E600F96C36 /* IR+InclusionConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA9A23127D822E600F96C36 /* IR+InclusionConditions.swift */; };
 		DEAFB77B2706444B00BE02F3 /* IRRootFieldBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEAFB77A2706444B00BE02F3 /* IRRootFieldBuilderTests.swift */; };
@@ -1831,6 +1832,7 @@
 		DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer_TestMockFile_Tests.swift; sourceTree = "<group>"; };
 		DEA34AF6260E821F00F95F86 /* Apollo-Target-AnimalKingdomAPI.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Target-AnimalKingdomAPI.xcconfig"; sourceTree = "<group>"; };
 		DEA6A83326F298660091AF8A /* ParentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentType.swift; sourceTree = "<group>"; };
+		DEA7604329DF75B60001544B /* TestMockSelectionSetMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMockSelectionSetMapper.swift; sourceTree = "<group>"; };
 		DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRSelectionSet_IncludeSkip_Tests.swift; sourceTree = "<group>"; };
 		DEA9A23127D822E600F96C36 /* IR+InclusionConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+InclusionConditions.swift"; sourceTree = "<group>"; };
 		DEAFB77A2706444B00BE02F3 /* IRRootFieldBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRRootFieldBuilderTests.swift; sourceTree = "<group>"; };
@@ -3771,6 +3773,7 @@
 			children = (
 				DE9CEAED282C207F00959AF9 /* Info.plist */,
 				DE9CEAE52829A2FE00959AF9 /* TestMock.swift */,
+				DEA7604329DF75B60001544B /* TestMockSelectionSetMapper.swift */,
 				DE2FCF2626E8083A0057EA67 /* Field.swift */,
 			);
 			name = ApolloTestSupport;
@@ -4610,7 +4613,7 @@
 					"starwars-graphql",
 				);
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Apollo GraphQL";
 				TargetAttributes = {
 					9B2DFBB524E1FA0D00ED3AE6 = {
@@ -5697,6 +5700,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DEA7604429DF75B60001544B /* TestMockSelectionSetMapper.swift in Sources */,
 				DE9CEAEA2829A45500959AF9 /* Field.swift in Sources */,
 				DE9CEAE62829A2FE00959AF9 /* TestMock.swift in Sources */,
 			);
