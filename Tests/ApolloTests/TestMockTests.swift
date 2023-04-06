@@ -461,6 +461,27 @@ class TestMockTests: XCTestCase {
     // then
     expect(selectionSet.__data._data["species"]).to(beNil())
   }
+
+  func test__convertToSelectionSet__givenGraphQLEnumField__canAccessField() throws {
+    // given
+    class Animal: TestMockSchema.MockSelectionSet {
+      override class var __parentType: ParentType { TestMockSchema.Interfaces.Animal }
+      override class var __selections: [Selection] {[
+        .field("speciesType", GraphQLEnum<Species>.self),
+      ]}
+
+      var speciesType: GraphQLEnum<Species> { __data["speciesType"] }
+    }
+
+    let mock = Mock<Dog>()
+    mock.speciesType = GraphQLEnum(Species.canine)
+
+    // when
+    let selectionSet = Animal.from(mock)
+
+    // then
+    expect(selectionSet.speciesType).to(equal(.case(.canine)))
+  }
 }
 
 // MARK: - Generated Example
@@ -536,6 +557,16 @@ class Dog: MockObject {
     @Field<[Animal?]>("listOfOptionalInterfaces") public var listOfOptionalInterfaces
   }
 }
+
+extension Mock where O == Dog {
+  convenience init(
+    speciesType: GraphQLEnum<Species>? = nil
+  ) {
+    self.init()
+    self.speciesType = speciesType
+  }
+}
+
 
 class Cat: MockObject {
   static let objectType: Object = TestMockSchema.Types.Cat
