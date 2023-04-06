@@ -29,8 +29,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
     switch info.field.type.namedType {
     case let .scalar(decodable as any JSONDecodable.Type):
-      // This will convert a JSON value to the expected value type,
-      // which could be a custom scalar or an enum.
+      // This will convert a JSON value to the expected value type.
       return try decodable.init(_jsonValue: scalar)._asAnyHashable
     default:
       preconditionFailure()

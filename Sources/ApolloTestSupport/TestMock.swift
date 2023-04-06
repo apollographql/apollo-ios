@@ -57,8 +57,8 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       if let mock = $0 as? AnyMock {
         return mock._selectionSetMockData
       }
-      if let mockArray = $0 as? [AnyMock?] {
-        return mockArray.map(\.?._selectionSetMockData)
+      if let mockArray = $0 as? Array<Any> {
+        return mockArray._unsafelyConvertToSelectionSetData()
       }
       return $0
     }
@@ -82,9 +82,7 @@ public extension RootSelectionSet {
     _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
-    let accumulator = GraphQLSelectionSetMapper<Self>(
-      handleMissingValues: .allowForAllFields
-    )
+    let accumulator = TestMockSelectionSetMapper<Self>()
     let executor = GraphQLExecutor { object, info in
       return object[info.responseKeyForField]
     }
@@ -142,6 +140,24 @@ fileprivate extension Array {
 
       case let innerArray as Array<Any>:
         return innerArray._unsafelyConvertToMockValue()
+
+      default:
+        return nil
+      }
+    }
+  }
+
+  func _unsafelyConvertToSelectionSetData() -> [AnyHashable?] {
+    map { element in
+      switch element {
+      case let element as AnyMock:
+        return element._selectionSetMockData
+
+      case let innerArray as Array<Any>:
+        return innerArray._unsafelyConvertToSelectionSetData()
+
+      case let element as AnyHashable:
+        return element
 
       default:
         return nil
