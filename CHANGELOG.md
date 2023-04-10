@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.1.2
+
+### Fixed
+- **Crash after calling `cancel()` on `Cancellable`: ([#2932](https://github.com/apollographql/apollo-ios/issues/2932))** Calling `cancel()` on a non-subscription `Cancellable` will now correctly handle the lifetime of the internally `Unmanaged` object. [#2943](https://github.com/apollographql/apollo-ios/pull/2943) - _Thank you to [@yonaskolb](https://github.com/yonaskolb) for raising the issue._
+
 ## v1.1.1
 
 ### Fixed
