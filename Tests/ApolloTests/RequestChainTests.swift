@@ -482,4 +482,45 @@ class RequestChainTests: XCTestCase {
     requestChain = nil
     XCTAssertNil(weakRequestChain)
   }
+
+  func test__managedSelf__givenQuery_whenCancelled_shouldNotCrash() throws {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    let provider = MockInterceptorProvider([
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: provider,
+      endpointURL: TestURL.mockServer.url
+    )
+
+    let expectation = expectation(description: "Response received")
+
+    let cancellable = transport.send(operation: MockQuery.mock()) { result in
+      expectation.fulfill()
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    DispatchQueue.main.async {
+      cancellable.cancel()
+    }
+  }
 }

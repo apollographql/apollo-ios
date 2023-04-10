@@ -25,6 +25,11 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   @Atomic public var isCancelled: Bool = false
 
   private var managedSelf: Unmanaged<InterceptorRequestChain>!
+  // This is to fix #2932, caused by overreleasing managedSelf on cancellation of a query or
+  // mutation. It can now only be released once.
+  private lazy var releaseManagedSelf: Void = {
+    self.managedSelf.release()
+  }()
 
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
@@ -136,7 +141,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
         )
 
         if Operation.operationType != .subscription {
-          self.managedSelf.release()
+          _ = self.releaseManagedSelf
         }
       } else {
         // We got to the end of the chain and no parsed response is there, there needs to be more
@@ -166,7 +171,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       interceptor.cancel()
     }
 
-    self.managedSelf.release()
+    _ = self.releaseManagedSelf
   }
 
   /// Restarts the request starting from the first interceptor.
