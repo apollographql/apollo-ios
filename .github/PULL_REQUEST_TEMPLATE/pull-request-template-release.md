@@ -5,7 +5,7 @@
 * _List the highlight PRs_
 
 #### Things to do in this PR
-- [ ] Update the version in [`Configuration/Shared/Project-Version.xcconfig`](https://github.com/apollographql/apollo-ios/blob/main/Configuration/Shared/Project-Version.xcconfig) and [Sources/CodegenCLI/Constants.swift](https://github.com/apollographql/apollo-ios/blob/main/Sources/CodegenCLI/Constants.swift#L4).
+- [ ] Update the version constants using the `set-version.sh` script.
 - [ ] Update [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) with all relevant changes since the prior version. _Please include PR numbers and mention contributors for external PR submissions._
 - [ ] Run the Documentation Generator as noted in [`api-reference.md`](https://github.com/apollographql/apollo-ios/blob/main/docs/source/api-reference.md) to re-generate documentation from source for all included libraries. _Make sure you are on HEAD of the parent branch otherwise the documentation generator will not catch all changes, rebase this PR if needed._
 
