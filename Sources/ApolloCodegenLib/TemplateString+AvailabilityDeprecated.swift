@@ -6,26 +6,39 @@ extension TemplateString.StringInterpolation {
   ) {
     guard
       config.options.warningsOnDeprecatedUsage == .include,
-      let deprecationReason = deprecationReason?.escapedDoubleQuotes()
+      let escapedDeprecationReason = deprecationReason?.escapedDoubleQuotes()
     else {
       removeLineIfEmpty()
       return
     }
 
-    let deprecationReasonLines = deprecationReason
-      .split(separator: "\n", omittingEmptySubsequences: false)
+    if escapedDeprecationReason.firstIndex(of: "\n") != nil {
+      let splitReasonLines = escapedDeprecationReason
+        .split(separator: "\n", omittingEmptySubsequences: false)
 
-    if deprecationReasonLines.count > 1 {
       appendInterpolation("""
         @available(*, deprecated, message: \"\"\"
-          \(deprecationReasonLines.joinedAsLines(withIndent: "  "))
+          \(splitReasonLines.joinedAsLines(withIndent: "  "))
           \"\"\")
         """)
     } else {
       appendInterpolation("""
-        @available(*, deprecated, message: \"\(deprecationReason)\")
+        @available(*, deprecated, message: \"\(escapedDeprecationReason)\")
         """)
     }
+  }
+
+  mutating func appendInterpolation(
+    field: String,
+    argument: String,
+    warningReason: String
+  ) {
+    let escapedWarningReason = warningReason.escapedDoubleQuotes()
+
+    appendInterpolation("""
+      #warning("Argument '\(argument)' of field '\(field)' is deprecated. \
+      Reason: '\(escapedWarningReason)'")
+      """)
   }
 }
 

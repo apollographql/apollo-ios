@@ -187,8 +187,7 @@ struct SelectionSetTemplate {
     return """
     \(if: deprecatedArguments != nil && !deprecatedArguments.unsafelyUnwrapped.isEmpty, """
       \(deprecatedArguments.unsafelyUnwrapped.map { """
-        #warning("Argument '\($0.arg)' of field '\($0.field)' is deprecated. \
-        Reason: '\($0.reason)'")
+        \(field: $0.field, argument: $0.arg, warningReason: $0.reason)
         """})
       """)
     \(selectionsTemplate)

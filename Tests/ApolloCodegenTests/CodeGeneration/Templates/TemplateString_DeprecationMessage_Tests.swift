@@ -171,4 +171,42 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
+  func test__argument__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+    // given
+    let schemaSDL = #"""
+      type Query {
+        animal: Animal
+      }
+
+      type Animal {
+        species: String
+        predators(genus: String @deprecated(reason: "not supported, use \"species\" instead."), species: String): Animal
+      }
+      """#
+
+    let document = """
+      query GetAnimal($genus: String) {
+        animal {
+          species
+          predators(genus: $genus) {
+            species
+          }
+        }
+      }
+      """
+
+    let ir = try IR.mock(schema: schemaSDL, document: document)
+    let operation = ir.build(operation: try XCTUnwrap(ir.compilationResult[operation: "GetAnimal"]))
+    let subject = SelectionSetTemplate(generateInitializers: true, config: config)
+
+    let expected = #"""
+          #warning("Argument 'genus' of field 'predators' is deprecated. Reason: 'not supported, use \"species\" instead.'")
+      """#
+
+    // then
+    let actual = subject.render(for: operation)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
+  }
+
 }
