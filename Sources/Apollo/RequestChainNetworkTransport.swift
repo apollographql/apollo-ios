@@ -122,6 +122,17 @@ open class RequestChainNetworkTransport: NetworkTransport {
     chain.kickoff(request: request, completion: completionHandler)
     return chain
   }
+
+  private func makeChain<Operation: GraphQLOperation>(
+    operation: Operation,
+    callbackQueue: DispatchQueue = .main
+  ) -> RequestChain {
+    let interceptors = self.interceptorProvider.interceptors(for: operation)
+    let chain = InterceptorRequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
+    chain.additionalErrorHandler = self.interceptorProvider.additionalErrorInterceptor(for: operation)
+    return chain
+  }
+  
 }
 
 extension RequestChainNetworkTransport: UploadingNetworkTransport {
@@ -159,16 +170,6 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     let request = self.constructUploadRequest(for: operation, with: files)
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
     chain.kickoff(request: request, completion: completionHandler)
-    return chain
-  }
-
-  public func makeChain<Operation: GraphQLOperation>(
-    operation: Operation,
-    callbackQueue: DispatchQueue = .main
-  ) -> RequestChain {
-    let interceptors = self.interceptorProvider.interceptors(for: operation)
-    let chain = InterceptorRequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
-    chain.additionalErrorHandler = self.interceptorProvider.additionalErrorInterceptor(for: operation)
     return chain
   }
 }
