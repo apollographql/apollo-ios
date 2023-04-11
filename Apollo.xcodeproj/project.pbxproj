@@ -709,6 +709,7 @@
 		E608A52B280905C2001BE656 /* WSProtocolTestsBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608A528280905C2001BE656 /* WSProtocolTestsBase.swift */; };
 		E608A52D280905E9001BE656 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E608A52C280905E9001BE656 /* SubscriptionTests.swift */; };
 		E60AE2EE27E3FC6C003C093A /* TemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */; };
+		E60F457A29E4CFB800E60A04 /* TemplateString_DeprecationMessage_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60F457929E4CFB800E60A04 /* TemplateString_DeprecationMessage_Tests.swift */; };
 		E610D8D7278EA2390023E495 /* EnumFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */; };
 		E610D8D9278EA2560023E495 /* EnumFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */; };
 		E610D8DB278EB0900023E495 /* InterfaceFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */; };
@@ -1878,6 +1879,7 @@
 		E608A528280905C2001BE656 /* WSProtocolTestsBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSProtocolTestsBase.swift; sourceTree = "<group>"; };
 		E608A52C280905E9001BE656 /* SubscriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionTests.swift; sourceTree = "<group>"; };
 		E60AE2ED27E3FC6C003C093A /* TemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateRenderer.swift; sourceTree = "<group>"; };
+		E60F457929E4CFB800E60A04 /* TemplateString_DeprecationMessage_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateString_DeprecationMessage_Tests.swift; sourceTree = "<group>"; };
 		E610D8D6278EA2390023E495 /* EnumFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGenerator.swift; sourceTree = "<group>"; };
 		E610D8D8278EA2560023E495 /* EnumFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumFileGeneratorTests.swift; sourceTree = "<group>"; };
 		E610D8DA278EB0900023E495 /* InterfaceFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceFileGenerator.swift; sourceTree = "<group>"; };
@@ -2949,6 +2951,7 @@
 				DE9CEAF2282C6AC300959AF9 /* TemplateRenderer_TestMockFile_Tests.swift */,
 				E64F7EB927A085D90059C021 /* UnionTemplateTests.swift */,
 				DED5B358286CEA0900AE6BFF /* TemplateString_Documentation_Tests.swift */,
+				E60F457929E4CFB800E60A04 /* TemplateString_DeprecationMessage_Tests.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -5097,6 +5100,7 @@
 				E6D90D0D278FFE35009CAC5D /* SchemaMetadataFileGeneratorTests.swift in Sources */,
 				E6B42D0B27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift in Sources */,
 				9B68F0552416B33300E97318 /* LineByLineComparison.swift in Sources */,
+				E60F457A29E4CFB800E60A04 /* TemplateString_DeprecationMessage_Tests.swift in Sources */,
 				DE09066F27A4713F00211300 /* OperationDefinitionTemplateTests.swift in Sources */,
 				DE09F9C6270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift in Sources */,
 				9B4751AD2575B5070001FB87 /* PluralizerTests.swift in Sources */,
