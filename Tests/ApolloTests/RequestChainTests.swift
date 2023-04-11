@@ -67,7 +67,7 @@ class RequestChainTests: XCTestCase {
     self.wait(for: [expectation], timeout: 2)
   }
   
-  func testErrorInterceptorGetsCalledAfterAnErrorIsReceived() {
+  func test__send__ErrorInterceptorGetsCalledAfterAnErrorIsReceived() {
     class ErrorInterceptor: ApolloErrorInterceptor {
       var error: Error? = nil
       
@@ -127,6 +127,83 @@ class RequestChainTests: XCTestCase {
     case .some(let error):
       switch error {
       case AutomaticPersistedQueryInterceptor.APQError.noParsedResponse:
+        // Again, this is what we expect.
+        break
+      default:
+        XCTFail("Unexpected error on the interceptor: \(error)")
+      }
+    case .none:
+      XCTFail("Error interceptor did not receive an error!")
+    }
+  }
+
+  func test__upload__ErrorInterceptorGetsCalledAfterAnErrorIsReceived() throws {
+    class ErrorInterceptor: ApolloErrorInterceptor {
+      var error: Error? = nil
+
+      func handleErrorAsync<Operation: GraphQLOperation>(
+          error: Error,
+          chain: RequestChain,
+          request: HTTPRequest<Operation>,
+          response: HTTPResponse<Operation>?,
+          completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+
+        self.error = error
+        completion(.failure(error))
+      }
+    }
+
+    class TestProvider: InterceptorProvider {
+      let errorInterceptor = ErrorInterceptor()
+      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+        return [
+          // An interceptor which will error without a response
+          ResponseCodeInterceptor()
+        ]
+      }
+
+      func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+        return self.errorInterceptor
+      }
+    }
+
+    let provider = TestProvider()
+    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
+                                                 endpointURL: TestURL.mockServer.url,
+                                                 autoPersistQueries: true)
+
+    let fileURL = TestFileHelper.fileURLForFile(named: "a", extension: "txt")
+    let file = try GraphQLFile(
+      fieldName: "file",
+      originalName: "a.txt",
+      fileURL: fileURL
+    )
+
+    let expectation = self.expectation(description: "Hero name query complete")
+    _ = transport.upload(operation: MockQuery.mock(), files: [file]) { result in
+      defer {
+        expectation.fulfill()
+      }
+      switch result {
+      case .success:
+        XCTFail("This should not have succeeded")
+      case .failure(let error):
+        switch error {
+        case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode:
+          // This is what we want.
+          break
+        default:
+          XCTFail("Unexpected error: \(error)")
+        }
+      }
+    }
+
+    self.wait(for: [expectation], timeout: 1)
+
+    switch provider.errorInterceptor.error {
+    case .some(let error):
+      switch error {
+      case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode:
         // Again, this is what we expect.
         break
       default:
