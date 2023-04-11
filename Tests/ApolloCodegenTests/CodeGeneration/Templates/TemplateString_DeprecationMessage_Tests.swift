@@ -12,7 +12,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
   // MARK: - Swift @available Attribute Tests
 
-  func test__availableAttribute__givenSingleLineDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__availableAttribute__givenDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let subject = TemplateString("""
       \(deprecationReason: "not supported, use \"another thing\" instead.", config: config)
@@ -28,28 +28,9 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test__availableAttribute__givenMultiLineDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
-    // given
-    let subject = TemplateString("""
-      \(deprecationReason: "not supported\nuse \"another thing\" instead.", config: config)
-      """)
-
-    let expected = #"""
-      @available(*, deprecated, message: """
-        not supported
-        use \"another thing\" instead.
-        """)
-      """#
-
-    // then
-    let actual = subject.description
-
-    expect(actual).to(equalLineByLine(expected))
-  }
-
   // MARK: Swift #warning Directive Tests
 
-  func test__warningDirective__givenSingleLineDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__warningDirective__givenDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let subject = TemplateString("""
       \(field: "fieldOne", argument: "argOne", warningReason: "not supported, use \"another thing\" instead.")

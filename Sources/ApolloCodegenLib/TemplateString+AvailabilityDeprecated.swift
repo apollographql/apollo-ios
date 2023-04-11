@@ -12,20 +12,9 @@ extension TemplateString.StringInterpolation {
       return
     }
 
-    if escapedDeprecationReason.firstIndex(of: "\n") != nil {
-      let splitReasonLines = escapedDeprecationReason
-        .split(separator: "\n", omittingEmptySubsequences: false)
-
-      appendInterpolation("""
-        @available(*, deprecated, message: \"\"\"
-          \(splitReasonLines.joinedAsLines(withIndent: "  "))
-          \"\"\")
-        """)
-    } else {
-      appendInterpolation("""
-        @available(*, deprecated, message: \"\(escapedDeprecationReason)\")
-        """)
-    }
+    appendInterpolation("""
+      @available(*, deprecated, message: \"\(escapedDeprecationReason)\")
+      """)
   }
 
   mutating func appendInterpolation(
