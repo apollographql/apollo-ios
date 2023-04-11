@@ -49,10 +49,11 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
   // MARK: SDL-to-Generation Test
   //
-  // These tests ensure that when given double quotes in SDL the generation of Swift code along with
-  // all attributes and warnings are generated as expected.
+  // These tests ensure that when given double quotes in SDL the generation of Swift code works as
+  // expected from frontend parsing all the way to rendering of warnings and attributes. There is
+  // a test here for all the places that the GraphQL schema supports the @deprecated directive.
 
-  func test__render__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__field__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let schemaSDL = #"""
       type Query {
@@ -85,6 +86,45 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let actual = subject.render(for: operation)
 
     expect(actual).to(equalLineByLine(expected, atLine: 37, ignoringExtraLines: true))
+  }
+
+  func test__inputField_givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+    // given
+    let schemaSDL = #"""
+      type Query {
+        animal(filter: Filter): Animal
+      }
+
+      type Animal {
+        name: String
+      }
+
+      input Filter {
+        genus: String @deprecated(reason: "not supported, use \"species\" instead.")
+      }
+      """#
+
+    let document = """
+      query GetAnimal($filter: Filter) {
+        animal(filter: $filter) {
+          name
+        }
+      }
+      """
+
+    let ir = try IR.mock(schema: schemaSDL, document: document)
+    let inputObject = ir.schema.referencedTypes.inputObjects[0]
+
+    let subject = InputObjectTemplate(graphqlInputObject: inputObject, config: config)
+
+    let expected = #"""
+          @available(*, deprecated, message: "not supported, use \"species\" instead.")
+      """#
+
+    // then
+    let actual = subject.render()
+
+    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
   }
 
 }
