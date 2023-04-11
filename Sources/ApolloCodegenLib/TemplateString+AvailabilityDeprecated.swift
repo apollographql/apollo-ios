@@ -6,7 +6,7 @@ extension TemplateString.StringInterpolation {
   ) {
     guard
       config.options.warningsOnDeprecatedUsage == .include,
-      let deprecationReason = deprecationReason
+      let deprecationReason = deprecationReason?.escapedDoubleQuotes()
     else {
       removeLineIfEmpty()
       return
@@ -26,5 +26,11 @@ extension TemplateString.StringInterpolation {
         @available(*, deprecated, message: \"\(deprecationReason)\")
         """)
     }
+  }
+}
+
+fileprivate extension String {
+  func escapedDoubleQuotes() -> String {
+    replacingOccurrences(of: "\"", with: "\\\"")
   }
 }
