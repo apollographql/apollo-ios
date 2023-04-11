@@ -47,6 +47,24 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
+  // MARK: Swift #warning Directive Tests
+
+  func test__warningDirective__givenSingleLineDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "not supported, use \"another thing\" instead.")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'not supported, use \"another thing\" instead.'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
   // MARK: SDL-to-Generation Test
   //
   // These tests ensure that when given double quotes in SDL the generation of Swift code works as
