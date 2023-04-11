@@ -50,8 +50,9 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
   // MARK: SDL-to-Generation Test
   //
   // These tests ensure that when given double quotes in SDL the generation of Swift code works as
-  // expected from frontend parsing all the way to rendering of warnings and attributes. There is
-  // a test here for all the places that the GraphQL schema supports the @deprecated directive.
+  // expected from frontend parsing all the way to rendering of attributes, comments andwarnings.
+  // There is a test here for all the places that the GraphQL schema supports the @deprecated
+  // directive.
 
   func test__field__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
@@ -125,6 +126,49 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let actual = subject.render()
 
     expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  func test__enum__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldNotEscapeDoubleQuotes() throws {
+    // given
+    let schemaSDL = #"""
+      type Query {
+        animal: Animal
+      }
+
+      type Animal {
+        name: String
+        size: Size
+      }
+
+      enum Size {
+        tiny @deprecated(reason: "not supported, use \"small\" instead.")
+        small
+        large
+      }
+      """#
+
+    let document = """
+      query GetAnimal {
+        animal {
+          name
+          size
+        }
+      }
+      """
+
+    let ir = try IR.mock(schema: schemaSDL, document: document)
+    let `enum` = ir.schema.referencedTypes.enums[0]
+
+    let subject = EnumTemplate(graphqlEnum: `enum`, config: config)
+
+    let expected = #"""
+          /// **Deprecated**: not supported, use "small" instead.
+      """#
+
+    // then
+    let actual = subject.render()
+
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
 }
