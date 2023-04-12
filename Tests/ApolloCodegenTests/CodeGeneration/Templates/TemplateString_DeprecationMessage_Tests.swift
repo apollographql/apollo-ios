@@ -12,14 +12,110 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
   // MARK: - Swift @available Attribute Tests
 
-  func test__availableAttribute__givenDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__availableAttribute__givenDeprecationMessageWithNullCharacter_shouldEscapeNullCharacter() throws {
     // given
     let subject = TemplateString("""
-      \(deprecationReason: "not supported, use \"another thing\" instead.", config: config)
+      \(deprecationReason: "message with \0 (escaped null character)", config: config)
       """)
 
     let expected = #"""
-      @available(*, deprecated, message: "not supported, use \"another thing\" instead.")
+      @available(*, deprecated, message: "message with \0 (escaped null character)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithBackslash_shouldEscapeBackslash() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \\ (escaped backslash)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \\ (escaped backslash)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithHorizontalTab_shouldEscapeHorizontalTab() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \t (escaped horizontal tab)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \t (escaped horizontal tab)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithLineFeed_shouldEscapeLineFeed() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \n (escaped line feed)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \n (escaped line feed)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithCarriageReturn_shouldEscapeCarriageReturn() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \r (escaped carriage return)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \r (escaped carriage return)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithDoubleQuote_shouldEscapeDoubleQuote() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \" (escaped double quote)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \" (escaped double quote)")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__availableAttribute__givenDeprecationMessageWithSingleQuote_shouldEscapeSingleQuote() throws {
+    // given
+    let subject = TemplateString("""
+      \(deprecationReason: "message with \' (escaped single quote)", config: config)
+      """)
+
+    let expected = #"""
+      @available(*, deprecated, message: "message with \' (escaped single quote)")
       """#
 
     // then
@@ -30,14 +126,110 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
   // MARK: Swift #warning Directive Tests
 
-  func test__warningDirective__givenDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__warningDirective__givenDeprecationMessageWithNullCharacter_shouldEscapeNullCharacter() throws {
     // given
     let subject = TemplateString("""
-      \(field: "fieldOne", argument: "argOne", warningReason: "not supported, use \"another thing\" instead.")
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \0 (escaped null character)")
       """)
 
     let expected = #"""
-      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'not supported, use \"another thing\" instead.'")
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \0 (escaped null character)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithBackslash_shouldEscapeBackslash() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \\ (escaped backslash)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \\ (escaped backslash)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithHorizontalTab_shouldEscapeHorizontalTab() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \t (escaped horizontal tab)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \t (escaped horizontal tab)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithLineFeed_shouldEscapeLineFeed() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \n (escaped line feed)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \n (escaped line feed)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithCarriageReturn_shouldEscapeCarriageReturn() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \r (escaped carriage return)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \r (escaped carriage return)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithDoubleQuote_shouldEscapeDoubleQuote() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \" (escaped double quote)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \" (escaped double quote)'")
+      """#
+
+    // then
+    let actual = subject.description
+
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test__warningDirective__givenDeprecationMessageWithSingleQuote_shouldEscapeSingleQuote() throws {
+    // given
+    let subject = TemplateString("""
+      \(field: "fieldOne", argument: "argOne", warningReason: "message with \' (escaped single quote)")
+      """)
+
+    let expected = #"""
+      #warning("Argument 'argOne' of field 'fieldOne' is deprecated. Reason: 'message with \' (escaped single quote)'")
       """#
 
     // then
@@ -53,7 +245,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
   // There is a test here for all the places that the GraphQL schema supports the @deprecated
   // directive.
 
-  func test__field__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__field__givenSDLDeprecationMessageWithDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let schemaSDL = #"""
       type Query {
@@ -61,8 +253,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
       }
 
       type Animal {
-        genus: String @deprecated(reason: "not supported, use \"species\" instead.")
-        species: String
+        genus: String @deprecated(reason: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
       }
       """#
 
@@ -79,7 +270,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = SelectionSetTemplate(generateInitializers: true, config: config)
 
     let expected = #"""
-          @available(*, deprecated, message: "not supported, use \"species\" instead.")
+          @available(*, deprecated, message: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
       """#
 
     // then
@@ -88,7 +279,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 37, ignoringExtraLines: true))
   }
 
-  func test__inputField_givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__inputField_givenSDLDeprecationMessageWithDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let schemaSDL = #"""
       type Query {
@@ -100,7 +291,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
       }
 
       input Filter {
-        genus: String @deprecated(reason: "not supported, use \"species\" instead.")
+        genus: String @deprecated(reason: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
       }
       """#
 
@@ -118,7 +309,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = InputObjectTemplate(graphqlInputObject: inputObject, config: config)
 
     let expected = #"""
-          @available(*, deprecated, message: "not supported, use \"species\" instead.")
+          @available(*, deprecated, message: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
       """#
 
     // then
@@ -127,7 +318,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
   }
 
-  func test__enum__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldNotEscapeDoubleQuotes() throws {
+  func test__enum__givenSDLDeprecationMessageWithDoubleQuotes_shouldNotEscapeDoubleQuotes() throws {
     // given
     let schemaSDL = #"""
       type Query {
@@ -140,7 +331,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
       }
 
       enum Size {
-        tiny @deprecated(reason: "not supported, use \"small\" instead.")
+        tiny @deprecated(reason: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
         small
         large
       }
@@ -161,7 +352,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = EnumTemplate(graphqlEnum: `enum`, config: config)
 
     let expected = #"""
-          /// **Deprecated**: not supported, use "small" instead.
+          /// **Deprecated**: message with all allowed escape characters: \\ and \" and \t and \n and \r.
       """#
 
     // then
@@ -170,7 +361,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
-  func test__argument__givenSDLDeprecationMessageWithInnerDoubleQuotes_shouldEscapeDoubleQuotes() throws {
+  func test__argument__givenSDLDeprecationMessageWithDoubleQuotes_shouldEscapeDoubleQuotes() throws {
     // given
     let schemaSDL = #"""
       type Query {
@@ -179,7 +370,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
       type Animal {
         species: String
-        predators(genus: String @deprecated(reason: "not supported, use \"species\" instead."), species: String): Animal
+        predators(genus: String @deprecated(reason: "message with all allowed escape characters: \\ and \" and \t and \n and \r."), species: String): Animal
       }
       """#
 
@@ -199,7 +390,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = SelectionSetTemplate(generateInitializers: true, config: config)
 
     let expected = #"""
-          #warning("Argument 'genus' of field 'predators' is deprecated. Reason: 'not supported, use \"species\" instead.'")
+          #warning("Argument 'genus' of field 'predators' is deprecated. Reason: 'message with all allowed escape characters: \\ and \" and \t and \n and \r.'")
       """#
 
     // then
