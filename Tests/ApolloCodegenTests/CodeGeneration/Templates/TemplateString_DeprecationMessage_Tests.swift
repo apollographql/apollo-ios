@@ -240,7 +240,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
   // MARK: SDL-to-Generation Test
   //
-  // These tests ensure that when given double quotes in SDL the generation of Swift code works as
+  // These tests ensure that when given escaped characters in SDL the generation of Swift code works as
   // expected from frontend parsing all the way to rendering of attributes, comments andwarnings.
   // There is a test here for all the places that the GraphQL schema supports the @deprecated
   // directive.
