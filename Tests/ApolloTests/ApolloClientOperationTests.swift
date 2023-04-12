@@ -45,8 +45,7 @@ final class ApolloClientOperationTests: XCTestCase {
     // given
     class GivenSelectionSet: MockSelectionSet {
       override class var __selections: [Selection] { [
-        .field("createReview", CreateReview.self,
-               arguments: ["episode": .variable("episode"), "review": .variable("review")])
+        .field("createReview", CreateReview.self)
       ] }
 
       class CreateReview: MockSelectionSet {
@@ -73,7 +72,14 @@ final class ApolloClientOperationTests: XCTestCase {
     }
 
     let performResultFromServerExpectation =
-      resultObserver.expectation(description: "Mutation was successful") { _ in }
+      resultObserver.expectation(description: "Mutation was successful") { result in
+        switch (result) {
+        case .success:
+          break
+        case let .failure(error):
+          fail("Unexpected failure! \(error)")
+        }
+      }
 
     // when
     self.client.perform(mutation: mutation,
