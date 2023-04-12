@@ -37,7 +37,7 @@ struct EnumTemplate: TemplateRenderer {
     \(if: shouldRenderDocumentation, "\(forceDocumentation: graphqlEnumValue.documentation)")
     \(ifLet: graphqlEnumValue.deprecationReason, { """
       \(if: shouldRenderDocumentation, "///")
-      \(forceDocumentation: "**Deprecated**: \($0)")
+      \(forceDocumentation: "**Deprecated**: \($0.escapedSwiftStringSpecialCharacters())")
       """ })
     \(caseDefinition(for: graphqlEnumValue))
     """
