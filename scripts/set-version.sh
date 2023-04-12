@@ -1,5 +1,9 @@
 #!/bin/bash
 
+CURRENT_VERSION=$($(dirname "$0")/get-version.sh)
+
+# Set configuration file version constant
+
 source "$(dirname "$0")/version-constants.sh"
 
 NEW_VERSION="$1"
@@ -11,5 +15,13 @@ NEW_VERSION="$1"
 
 echo "$VERSION_CONFIG_VAR = $NEW_VERSION" > $VERSION_CONFIG_FILE
 
-git add -A && git commit -m "$NEW_VERSION"
-git tag "$NEW_VERSION"
+# Set CLI version constant
+
+MATCH_TEXT='CLIVersion: String = "'
+SEARCH_TEXT="$MATCH_TEXT$CURRENT_VERSION"
+REPLACE_TEXT="$MATCH_TEXT$NEW_VERSION"
+sed -i '' -e "s/$SEARCH_TEXT/$REPLACE_TEXT/" $CLI_CONSTANTS_FILE
+
+# Feedback
+echo "Committing change from version $CURRENT_VERSION to $NEW_VERSION"
+git add -A && git commit -m "Updated version numbers"
