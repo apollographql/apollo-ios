@@ -41,21 +41,22 @@ final class ApolloClientOperationTests: XCTestCase {
     }
   }
 
-  func test__performMutation_givenPublishResultToStore_true_publishResultsToStore() throws {
-    // given
-    class GivenSelectionSet: MockSelectionSet {
-      override class var __selections: [Selection] { [
-        .field("createReview", CreateReview.self)
-      ] }
+  // given
+  class GivenSelectionSet: MockSelectionSet {
+    override class var __selections: [Selection] { [
+      .field("createReview", CreateReview.self)
+    ] }
 
-      class CreateReview: MockSelectionSet {
-        override class var __selections: [Selection] { [
-          .field("__typename", String.self),
-          .field("stars", Int.self),
-          .field("commentary", String?.self)
-        ] }
-      }
+    class CreateReview: MockSelectionSet {
+      override class var __selections: [Selection] { [
+        .field("__typename", String.self),
+        .field("stars", Int.self),
+        .field("commentary", String?.self)
+      ] }
     }
+  }
+
+  func test__performMutation_givenPublishResultToStore_true_publishResultsToStore() throws {
     let mutation = MockMutation<GivenSelectionSet>()
     let resultObserver = self.makeResultObserver(for: mutation)
 
@@ -93,20 +94,6 @@ final class ApolloClientOperationTests: XCTestCase {
   }
 
   func test__performMutation_givenPublishResultToStore_false_doesNotPublishResultsToStore() throws {
-    // given
-    class GivenSelectionSet: MockSelectionSet {
-      override class var __selections: [Selection] { [
-        .field("createReview", CreateReview.self)
-      ] }
-
-      class CreateReview: MockSelectionSet {
-        override class var __selections: [Selection] { [
-          .field("__typename", String.self),
-          .field("stars", Int.self),
-          .field("commentary", String?.self)
-        ] }
-      }
-    }
     let mutation = MockMutation<GivenSelectionSet>()
     let resultObserver = self.makeResultObserver(for: mutation)
 
