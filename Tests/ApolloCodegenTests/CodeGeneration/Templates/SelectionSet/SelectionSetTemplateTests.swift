@@ -5771,6 +5771,67 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
   }
 
+  /// Test for edge case in [#2949](https://github.com/apollographql/apollo-ios/issues/2949)
+  ///
+  /// When the `RootEntityType` would have duplicate naming, due to child fields with the same name
+  /// (or alias), the fully qualified name must be used. In this example, a `RootEntityType` of
+  /// `Predator.Predator` the first usage of the name `Predator` would be referencing the nearest
+  /// enclosing type (ie. `TestOperationQuery.Predator.Predator`), so it is looking for another
+  /// `Predator` type in that scope, which does not exist
+  /// (ie. `TestOperationQuery.Predator.Predator.Predator`).
+  ///
+  /// To correct this we must always use the fully qualified name including the operation name and
+  /// `Data` objects to ensure we are referring to the correct type.
+  func test__render_nestedTypeCaseWithNameConflictingWithChildAtQueryRoot__rendersRootEntityTypeWithFullyQualifiedName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      predators: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      predators {
+        predators {
+           ... on Pet {
+            name
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+    /// AllAnimal.Predator.AsPet
+    public struct AsPet: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = TestOperationQuery.Data.AllAnimal.Predator
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let predators_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "predators"]?[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
   // MARK: - Documentation Tests
 
   func test__render_nestedSelectionSet__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {
