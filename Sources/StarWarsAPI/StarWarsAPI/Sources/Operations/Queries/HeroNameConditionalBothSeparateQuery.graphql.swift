@@ -76,7 +76,7 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
 
       public init(
         __typename: String,
-        name: String
+        name: String? = nil
       ) {
         self.init(_dataDict: DataDict(data: [
           "__typename": __typename,
