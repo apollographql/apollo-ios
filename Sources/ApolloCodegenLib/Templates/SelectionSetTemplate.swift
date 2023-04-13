@@ -3,6 +3,7 @@ import OrderedCollections
 
 struct SelectionSetTemplate {
 
+  let definition: IR.Definition
   let isMutable: Bool
   let generateInitializers: Bool
   let config: ApolloCodegen.ConfigurationContext
@@ -10,26 +11,20 @@ struct SelectionSetTemplate {
   private let nameCache: SelectionSetNameCache
 
   init(
-    mutable: Bool = false,
+    definition: IR.Definition,
     generateInitializers: Bool,
     config: ApolloCodegen.ConfigurationContext
   ) {
-    self.isMutable = mutable
+    self.definition = definition
+    self.isMutable = definition.isMutable
     self.generateInitializers = generateInitializers
     self.config = config
 
     self.nameCache = SelectionSetNameCache(config: config)
   }
 
-  // MARK: - Operation
-  func render(for operation: IR.Operation) -> String {
-    TemplateString(
-    """
-    public struct Data: \(SelectionSetType()) {
-      \(BodyTemplate(operation.rootField.selectionSet))
-    }
-    """
-    ).description
+  func renderBody() -> TemplateString {
+    BodyTemplate(definition.rootField.selectionSet)
   }
 
   // MARK: - Field
@@ -129,7 +124,7 @@ struct SelectionSetTemplate {
       from: selectionSet.scopePath.head,
       to: selectionSet.scopePath.last.value.scopePath.head,
       withFieldPath: selectionSet.entity.fieldPath.head,
-      removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
+      removingFirst: false,
       pluralizer: config.pluralizer
     )
     return """

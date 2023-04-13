@@ -34,45 +34,13 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     subject = SelectionSetTemplate(
-      mutable: true,
+      definition: .operation(self.operation),
       generateInitializers: false,
       config: .init(config: .mock(schemaNamespace: schemaNamespace))
     )
   }
 
   // MARK: - Declaration Tests
-
-  func test__renderForOperation__rendersDeclarationAsMutableSelectionSet() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation @apollo_client_ios_localCacheMutation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    let expected = """
-    public struct Data: TestSchema.MutableSelectionSet {
-    """
-
-    // when
-    try buildSubjectAndOperation()
-    let actual = subject.render(for: operation)
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
 
   func test__renderForEntityField__rendersDeclarationAsMutableSelectionSet() throws {
     // given
@@ -211,7 +179,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation @apollo_client_ios_localCacheMutation {
       allAnimals {
         ...FragmentA
       }
@@ -253,7 +221,7 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation @apollo_client_ios_localCacheMutation {
       allAnimals {
         fieldName
       }
@@ -415,102 +383,6 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
   }
 
   // MARK: - Casing Tests
-
-  func test__casingForMutableSelectionSet__givenLowercasedSchemaName_generatesFirstUppercasedNamespace() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(schemaNamespace: "myschema")
-    let actual = subject.render(for: operation)
-
-    // then
-    let expected = """
-    public struct Data: Myschema.MutableSelectionSet {
-    """
-
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__casingForMutableSelectionSet__givenUppercasedSchemaName_generatesUppercasedNamespace() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(schemaNamespace: "MYSCHEMA")
-    let actual = subject.render(for: operation)
-
-    // then
-    let expected = """
-    public struct Data: MYSCHEMA.MutableSelectionSet {
-    """
-
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test__casingForMutableSelectionSet__givenCapitalizedSchemaName_generatesCapitalizedNamespace() throws {
-    // given
-    schemaSDL = """
-    type Query {
-      allAnimals: [Animal!]
-    }
-
-    interface Animal {
-      species: String!
-    }
-    """
-
-    document = """
-    query TestOperation @apollo_client_ios_localCacheMutation {
-      allAnimals {
-        species
-      }
-    }
-    """
-
-    // when
-    try buildSubjectAndOperation(schemaNamespace: "MySchema")
-    let actual = subject.render(for: operation)
-
-    // then
-    let expected = """
-    public struct Data: MySchema.MutableSelectionSet {
-    """
-
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
 
   func test__casingForMutableInlineFragment__givenLowercasedSchemaName_generatesFirstUppercasedNamespace() throws {
     // given

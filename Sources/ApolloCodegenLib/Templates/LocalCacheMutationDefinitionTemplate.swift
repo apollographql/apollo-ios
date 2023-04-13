@@ -9,7 +9,9 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
   let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
-    TemplateString(
+    let definition = IR.Definition.operation(operation)
+
+    return TemplateString(
     """
     \(embeddedAccessControlModifier)\
     class \(operation.definition.nameWithSuffix.firstUppercased): LocalCacheMutation {
@@ -21,11 +23,13 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables, graphQLOperation: false))
 
-      \(SelectionSetTemplate(
-          mutable: true,
-          generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
-          config: config
-      ).render(for: operation))
+      public struct Data: \(definition.renderedSelectionSetType(config)) {
+        \(SelectionSetTemplate(
+            definition: definition,            
+            generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
+            config: config
+        ).renderBody())
+      }
     }
     
     """)

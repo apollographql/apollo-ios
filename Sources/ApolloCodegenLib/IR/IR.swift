@@ -19,6 +19,21 @@ class IR {
     )
   }
 
+  /// A top level GraphQL definition, which can be an operation or a named fragment.
+  enum Definition {
+    case operation(IR.Operation)
+    case namedFragment(IR.NamedFragment)
+
+    var rootField: IR.EntityField {
+      switch self {
+      case  let .operation(operation):
+        return operation.rootField
+      case let .namedFragment(fragment):
+        return fragment.rootField
+      }
+    }
+  }
+
   /// Represents a concrete entity in an operation or fragment that fields are selected upon.
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will

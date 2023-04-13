@@ -241,6 +241,42 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  func test__generate__givenLowercasedSchemaName_generatesSelectionSetsWithFirstUppercasedNamespace() throws {
+    // given
+    let expected =
+    """
+      public struct Data: Myschema.MutableSelectionSet {
+        public var __data: DataDict
+    """
+
+    // when
+    config = .mock(schemaNamespace: "myschema")
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
+  func test__generate__givenUppercasedSchemaName_generatesSelectionSetsWithUppercasedNamespace() throws {
+    // given
+    let expected =
+    """
+      public struct Data: MYSCHEMA.MutableSelectionSet {
+        public var __data: DataDict
+    """
+
+    // when
+    config = .mock(schemaNamespace: "MYSCHEMA")
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+
   func test_render_givenModuleType_swiftPackageManager_generatesClassDefinition_withPublicModifier() throws {
     // given
     config = .mock(.swiftPackageManager)

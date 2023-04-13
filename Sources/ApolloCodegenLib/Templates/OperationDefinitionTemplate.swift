@@ -11,7 +11,9 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
   let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
-    TemplateString(
+    let definition = IR.Definition.operation(operation)
+
+    return TemplateString(
     """
     \(OperationDeclaration(operation.definition))
       \(DocumentType.render(
@@ -27,10 +29,13 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(SelectionSetTemplate(
-          generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
-          config: config
-      ).render(for: operation))
+      public struct Data: \(definition.renderedSelectionSetType(config)) {
+        \(SelectionSetTemplate(
+            definition: definition,
+            generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
+            config: config
+        ).renderBody())
+      }
     }
 
     """)
