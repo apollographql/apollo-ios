@@ -92,7 +92,21 @@ final class ApolloClientOperationTests: XCTestCase {
     self.wait(for: [serverRequestExpectation, performResultFromServerExpectation], timeout: 0.2)
 
     // then
-    expect(self.store.publishedRecordSets).notTo(beEmpty())
+    expect(self.store.publishedRecordSets.count).to(equal(1))
+    
+    let actual = self.store.publishedRecordSets[0]
+    expect(actual["MUTATION_ROOT"]).to(equal(
+      Record(key: "MUTATION_ROOT", [
+        "createReview": CacheReference("MUTATION_ROOT.createReview")
+      ])
+    ))
+    expect(actual["MUTATION_ROOT.createReview"]).to(equal(
+      Record(key: "MUTATION_ROOT.createReview", [
+        "__typename": "Review",
+        "stars": 3,
+        "commentary": ""
+      ])
+    ))
   }
 
   func test__performMutation_givenPublishResultToStore_false_doesNotPublishResultsToStore() throws {
