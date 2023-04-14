@@ -11,9 +11,11 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
   let target: TemplateTarget = .operationFile
 
   var template: TemplateString {
-    TemplateString(
+    let definition = IR.Definition.operation(operation)
+
+    return TemplateString(
     """
-    \(OperationDeclaration(operation.definition))
+    \(OperationDeclaration())
       \(DocumentType.render(
         operation.definition,
         identifier: operation.operationIdentifier,
@@ -27,20 +29,24 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(SelectionSetTemplate(
-          generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
-          config: config
-      ).render(for: operation))
+      public struct Data: \(definition.renderedSelectionSetType(config)) {
+        \(SelectionSetTemplate(
+            definition: definition,
+            generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
+            config: config
+        ).renderBody())
+      }
     }
 
     """)
   }
 
-  private func OperationDeclaration(_ operation: CompilationResult.OperationDefinition) -> TemplateString {
+  private func OperationDeclaration() -> TemplateString {
     return """
     \(embeddedAccessControlModifier)\
-    class \(operation.nameWithSuffix.firstUppercased): \(operation.operationType.renderedProtocolName) {
-      public static let operationName: String = "\(operation.name)"
+    class \(operation.generatedDefinitionName): \
+    \(operation.definition.operationType.renderedProtocolName) {
+      public static let operationName: String = "\(operation.definition.name)"
     """
   }
 

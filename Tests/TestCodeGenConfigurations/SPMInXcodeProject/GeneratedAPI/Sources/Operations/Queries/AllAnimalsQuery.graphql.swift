@@ -165,7 +165,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal.Predator
+          public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("predators", [Predator].self),
@@ -212,7 +212,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(WarmBloodedDetails.self),
@@ -254,7 +254,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("height", Height.self),
@@ -308,7 +308,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .fragment(WarmBloodedDetails.self),
@@ -357,7 +357,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("isJellicle", Bool.self),
@@ -406,7 +406,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
         public static var __selections: [ApolloAPI.Selection] { [
           .inlineFragment(AsBird.self),
@@ -447,7 +447,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("wingspan", Double.self),
@@ -497,7 +497,7 @@ public class AllAnimalsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Dog }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("favoriteToy", String.self),

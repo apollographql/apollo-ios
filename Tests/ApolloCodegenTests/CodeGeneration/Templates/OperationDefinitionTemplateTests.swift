@@ -262,6 +262,44 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  // MARK: Selection Set Declaration
+
+  func test__generate__givenOperationSelectionSet_rendersDeclaration() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+    }
+    """
+
+    let expected = """
+      public struct Data: TestSchema.SelectionSet {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) { __data = _dataDict }
+
+        public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Query }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))    
+  }
+
   // MARK: - Selection Set Initializers
 
     func test__generate_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {

@@ -147,7 +147,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
       public init(
         __typename: String,
         height: Height,
-        species: String,
+        species: String? = nil,
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
         predators: [Predator]
       ) {
@@ -215,7 +215,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
 
         public init(
           __typename: String,
-          species: String
+          species: String? = nil
         ) {
           self.init(_dataDict: DataDict(data: [
             "__typename": __typename,
@@ -233,7 +233,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal.Predator
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("species", String.self),
@@ -285,7 +285,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(HeightInMeters.self),
@@ -306,7 +306,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(
           __typename: String,
           height: Height,
-          species: String,
+          species: String? = nil,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator]
         ) {
@@ -362,7 +362,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(WarmBloodedDetails.self),
@@ -385,7 +385,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(
           __typename: String,
           height: Height,
-          species: String,
+          species: String? = nil,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator],
           bodyTemperature: Int
@@ -444,7 +444,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Pet }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("height", Height.self),
@@ -473,7 +473,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(
           __typename: String,
           height: Height,
-          species: String,
+          species: String? = nil,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator],
           humanName: String? = nil,
@@ -519,8 +519,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public var inches: Int? { __data["inches"] }
 
           public init(
-            relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
-            centimeters: Double,
+            relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? = nil,
+            centimeters: Double? = nil,
             feet: Int,
             inches: Int? = nil
           ) {
@@ -544,7 +544,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .fragment(WarmBloodedDetails.self),
@@ -571,7 +571,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(
             __typename: String,
             height: Height,
-            species: String,
+            species: String? = nil,
             skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
             predators: [Predator],
             humanName: String? = nil,
@@ -618,8 +618,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public init(
               feet: Int,
               inches: Int? = nil,
-              relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
-              centimeters: Double,
+              relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? = nil,
+              centimeters: Double? = nil,
               meters: Int
             ) {
               self.init(_dataDict: DataDict(data: [
@@ -645,7 +645,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Cat }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("isJellicle", Bool.self),
@@ -673,7 +673,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(
           isJellicle: Bool,
           height: Height,
-          species: String,
+          species: String? = nil,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator],
           humanName: String? = nil,
@@ -720,8 +720,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(
             feet: Int,
             inches: Int? = nil,
-            relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
-            centimeters: Double,
+            relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? = nil,
+            centimeters: Double? = nil,
             meters: Int
           ) {
             self.init(_dataDict: DataDict(data: [
@@ -746,7 +746,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Unions.ClassroomPet }
         public static var __selections: [ApolloAPI.Selection] { [
           .inlineFragment(AsBird.self),
@@ -769,7 +769,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public init(
           __typename: String,
           height: Height,
-          species: String,
+          species: String? = nil,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator]
         ) {
@@ -793,7 +793,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Bird }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("wingspan", Double.self),
@@ -821,7 +821,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public init(
             wingspan: Double,
             height: Height,
-            species: String,
+            species: String? = nil,
             skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
             predators: [Predator],
             humanName: String? = nil,
@@ -869,8 +869,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             public init(
               feet: Int,
               inches: Int? = nil,
-              relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
-              centimeters: Double,
+              relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>? = nil,
+              centimeters: Double? = nil,
               meters: Int
             ) {
               self.init(_dataDict: DataDict(data: [

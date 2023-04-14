@@ -267,16 +267,24 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
     let ir = try IR.mock(schema: schemaSDL, document: document)
     let operation = ir.build(operation: try XCTUnwrap(ir.compilationResult[operation: "GetAnimal"]))
-    let subject = SelectionSetTemplate(generateInitializers: true, config: config)
+    let subject = SelectionSetTemplate(
+      definition: .operation(operation),
+      generateInitializers: true,
+      config: config
+    )
 
     let expected = #"""
-          @available(*, deprecated, message: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
-      """#
+      @available(*, deprecated, message: "message with all allowed escape characters: \\ and \" and \t and \n and \r.")
+    """#
 
     // then
-    let actual = subject.render(for: operation)
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
 
-    expect(actual).to(equalLineByLine(expected, atLine: 37, ignoringExtraLines: true))
+    let actual = subject.render(field: animal)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
   func test__inputField_givenSDLDeprecationMessageWithDoubleQuotes_shouldEscapeDoubleQuotes() throws {
@@ -387,16 +395,23 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
 
     let ir = try IR.mock(schema: schemaSDL, document: document)
     let operation = ir.build(operation: try XCTUnwrap(ir.compilationResult[operation: "GetAnimal"]))
-    let subject = SelectionSetTemplate(generateInitializers: true, config: config)
+    let subject = SelectionSetTemplate(
+      definition: .operation(operation),
+      generateInitializers: true,
+      config: config
+    )
 
     let expected = #"""
-          #warning("Argument 'genus' of field 'predators' is deprecated. Reason: 'message with all allowed escape characters: \\ and \" and \t and \n and \r.'")
-      """#
+      #warning("Argument 'genus' of field 'predators' is deprecated. Reason: 'message with all allowed escape characters: \\ and \" and \t and \n and \r.'")
+    """#
 
     // then
-    let actual = subject.render(for: operation)
+    let animal = try XCTUnwrap(
+      operation[field: "query"]?[field: "animal"] as? IR.EntityField
+    )
+    let actual = subject.render(field: animal)
 
-    expect(actual).to(equalLineByLine(expected, atLine: 32, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
 }

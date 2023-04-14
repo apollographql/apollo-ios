@@ -66,10 +66,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self
         ] }
 
@@ -90,10 +90,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsPet.self
         ] }
 
@@ -114,10 +114,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsWarmBlooded.self
         ] }
@@ -140,10 +140,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsPet.self,
           ClassroomPetDetails.AsWarmBlooded.self,
@@ -171,10 +171,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsAnimal.self,
           ClassroomPetDetails.AsPet.self,
           ClassroomPetDetails.AsWarmBlooded.self,
@@ -201,10 +201,10 @@ class ClassroomPetsQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.PetRock }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsQuery.Data.ClassroomPet.self,
           ClassroomPetDetails.AsPet.self,
           ClassroomPetDetails.AsPetRock.self
         ] }

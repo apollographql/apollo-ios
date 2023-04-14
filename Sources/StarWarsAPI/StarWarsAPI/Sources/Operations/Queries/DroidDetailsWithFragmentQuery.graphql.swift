@@ -83,7 +83,7 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = Hero
+        public typealias RootEntityType = DroidDetailsWithFragmentQuery.Data.Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(DroidDetails.self),

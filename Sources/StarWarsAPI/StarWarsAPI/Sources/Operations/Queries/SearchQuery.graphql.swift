@@ -100,7 +100,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = Search
+        public typealias RootEntityType = SearchQuery.Data.Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Human }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", StarWarsAPI.ID.self),
@@ -135,7 +135,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = Search
+        public typealias RootEntityType = SearchQuery.Data.Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", StarWarsAPI.ID.self),
@@ -170,7 +170,7 @@ public class SearchQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = Search
+        public typealias RootEntityType = SearchQuery.Data.Search
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Starship }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("id", StarWarsAPI.ID.self),

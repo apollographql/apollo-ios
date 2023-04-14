@@ -182,7 +182,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal.Predator
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal.Predator
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("species", String.self),
@@ -212,7 +212,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Animal }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(HeightInMeters.self),
@@ -252,7 +252,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
         public static var __selections: [ApolloAPI.Selection] { [
           .fragment(WarmBloodedDetails.self),
@@ -294,7 +294,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.Pet }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("height", Height.self),
@@ -349,7 +349,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Interfaces.WarmBlooded }
           public static var __selections: [ApolloAPI.Selection] { [
             .fragment(WarmBloodedDetails.self),
@@ -398,7 +398,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Cat }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("isJellicle", Bool.self),
@@ -447,7 +447,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Unions.ClassroomPet }
         public static var __selections: [ApolloAPI.Selection] { [
           .inlineFragment(AsBird.self),
@@ -474,7 +474,7 @@ class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsIncludeSkipQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MySchemaModule.Objects.Bird }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("wingspan", Double.self),

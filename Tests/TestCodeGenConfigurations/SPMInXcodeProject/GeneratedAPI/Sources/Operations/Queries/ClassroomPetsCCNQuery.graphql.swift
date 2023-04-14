@@ -60,10 +60,10 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = ClassroomPet
+        public typealias RootEntityType = ClassroomPetsCCNQuery.Data.ClassroomPet
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Interfaces.Animal }
         public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-          ClassroomPet.self,
+          ClassroomPetsCCNQuery.Data.ClassroomPet.self,
           ClassroomPetDetailsCCN.AsAnimal.self
         ] }
 

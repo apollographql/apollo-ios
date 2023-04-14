@@ -82,7 +82,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
 
       public init(
         __typename: String,
-        name: String
+        name: String? = nil
       ) {
         self.init(_dataDict: DataDict(data: [
           "__typename": __typename,
@@ -100,7 +100,7 @@ public class HeroNameTypeSpecificConditionalInclusionQuery: GraphQLQuery {
         public let __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = Hero
+        public typealias RootEntityType = HeroNameTypeSpecificConditionalInclusionQuery.Data.Hero
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
         public static var __selections: [ApolloAPI.Selection] { [
           .field("name", String.self),
