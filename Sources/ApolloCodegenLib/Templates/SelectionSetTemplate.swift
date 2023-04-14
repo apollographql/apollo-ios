@@ -1,4 +1,4 @@
-import InflectorKit
+import Pluralize
 import OrderedCollections
 
 struct SelectionSetTemplate {
@@ -535,7 +535,7 @@ struct SelectionSetTemplate {
         "\($0.map { render(inlineFragment: $0) }, separator: "\n\n")"
       })
     \(selections.merged.inlineFragments.values.map { render(inlineFragment: $0) }, separator: "\n\n")
-    """    
+    """
   }
 
 }
@@ -635,7 +635,7 @@ fileprivate extension IR.Entity.FieldPathComponent {
     var fieldName = name.firstUppercased
     if type.isListType {
       fieldName = pluralizer.singularize(fieldName)
-    }    
+    }
     return fieldName.asSelectionSetName
   }
 
@@ -650,7 +650,7 @@ fileprivate extension GraphQLType {
     case .entity, .enum, .inputObject, .scalar: return false
     }
   }
-  
+
 }
 
 fileprivate extension IR.MergedSelections.MergedSource {
@@ -783,7 +783,7 @@ fileprivate extension IR.ScopeCondition {
     \(ifLet: conditions, { "If\($0.typeNameComponents)"})
     """).description
   }
-  
+
 }
 
 fileprivate extension AnyOf where T == IR.InclusionConditions {

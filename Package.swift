@@ -27,13 +27,13 @@ let package = Package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
       .upToNextMajor(from: "0.13.1")),
     .package(
-      url: "https://github.com/mattt/InflectorKit",
+      url: "https://github.com/alchemy-swift/pluralize",
       .upToNextMajor(from: "1.0.0")),
     .package(
       url: "https://github.com/apple/swift-collections",
       .upToNextMajor(from: "1.0.0")),
     .package(
-      url: "https://github.com/apple/swift-argument-parser.git", 
+      url: "https://github.com/apple/swift-argument-parser.git",
       .upToNextMajor(from: "1.2.0")),
   ],
   targets: [
@@ -50,11 +50,11 @@ let package = Package(
       dependencies: [],
       exclude: [
         "Info.plist"
-      ]),    
+      ]),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
-        .product(name: "InflectorKit", package: "InflectorKit"),
+        .product(name: "Pluralize", package: "pluralize"),
         .product(name: "OrderedCollections", package: "swift-collections")
       ],
       exclude: [

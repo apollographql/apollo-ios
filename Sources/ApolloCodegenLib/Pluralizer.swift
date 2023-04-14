@@ -1,33 +1,33 @@
 import Foundation
-import InflectorKit
+import Pluralize
 
-/// The types of inflection rules that can be used to customize pluralization. 
+/// The types of inflection rules that can be used to customize pluralization.
 public enum InflectionRule: Codable, Equatable {
 
   /// A pluralization rule that allows taking a singular word and pluralizing it.
   /// - singularRegex: A regular expression representing the single version of the word
   /// - replacementRegex: A regular expression representing how to replace the singular version.
   case pluralization(singularRegex: String, replacementRegex: String)
-  
+
   /// A singularization rule that allows taking a plural word and singularizing it.
   /// - pluralRegex: A regular expression represeinting the plural version of the word
   /// - replacementRegex: A regular expression representing how to replace the singular version
   case singularization(pluralRegex: String, replacementRegex: String)
-  
+
   /// A definition of an irregular pluralization rule not easily captured by regex - for example "person" and "people".
   /// - singular: The singular version of the word
   /// - plural: The plural version of the word.
   case irregular(singular: String, plural: String)
-  
+
   /// A definition of a word that should never be pluralized or de-pluralized because it's the same no matter what the count - for example, "fish".
   /// - word: The word that should never be adjusted.
   case uncountable(word: String)
 }
 
 struct Pluralizer {
-  
+
   private let inflector: StringInflector
-  
+
   init(rules: [InflectionRule] = []) {
     let inflector = StringInflector()
     self.inflector = inflector
@@ -50,11 +50,11 @@ struct Pluralizer {
       }
     }
   }
-  
+
   func singularize(_ string: String) -> String {
     self.inflector.singularize(string)
   }
-  
+
   func pluralize(_ string: String) -> String {
     self.inflector.pluralize(string)
   }
