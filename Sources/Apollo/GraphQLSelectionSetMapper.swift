@@ -79,12 +79,13 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
   ) throws -> DataDict.SelectionSetData {
-    var data = DataDict.SelectionSetData.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
-    data["__fulfilled"] = info.fulfilledFragments
-    return data
+    return DataDict.SelectionSetData(
+      data: .init(fieldEntries, uniquingKeysWith: { (_, last) in last }),
+      fulfilledFragments: info.fulfilledFragments
+    )
   }
 
   func finish(rootValue: DataDict.SelectionSetData, info: ObjectExecutionInfo) -> T {
-    return T.init(_dataDict: DataDict(data: rootValue))
+    return T.init(_dataDict: DataDict(selectionSetData: rootValue))
   }
 }

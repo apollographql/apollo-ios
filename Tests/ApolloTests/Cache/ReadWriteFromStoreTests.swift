@@ -1536,9 +1536,9 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let data = GivenSelectionSet(
         _dataDict: .init(
           data: [
-            "hero": "name",
-            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
-          ]
+            "hero": "name"
+          ],
+          fulfilledFragments: [ObjectIdentifier(GivenSelectionSet.Hero.self)]
         ))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
@@ -1595,13 +1595,15 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let data = GivenSelectionSet(
         _dataDict: .init(
           data: [
-            "hero": [
-              "__typename": "Hero",
-              "name": Optional<String>.none,
-              "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.Hero.self)])
-            ],
-            "__fulfilled": Set([ObjectIdentifier(GivenSelectionSet.self)])
-          ]))
+            "hero": DataDict.SelectionSetData(
+              data: [
+                "__typename": "Hero",
+                "name": Optional<String>.none,
+              ],
+              fulfilledFragments: [ObjectIdentifier(GivenSelectionSet.Hero.self)]),
+
+          ],
+          fulfilledFragments: [ObjectIdentifier(GivenSelectionSet.self)]))
       let cacheMutation = MockLocalCacheMutation<GivenSelectionSet>()
       try transaction.write(data: data, for: cacheMutation)
     }, completion: { result in
@@ -1724,10 +1726,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
           "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Hero: MockSelectionSet {
@@ -1764,11 +1763,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               "__typename": Types.Human.typename,
               "name": name,
               "friend": friend._fieldData,
-              "other": other,
-              "__fulfilled": Set([
-                ObjectIdentifier(Hero.self),
-                ObjectIdentifier(Self.self)
-              ])
+              "other": other
+            ], fulfilledFragments: [
+              ObjectIdentifier(Hero.self),
+              ObjectIdentifier(Self.self)
             ]))
           }
 
@@ -1789,10 +1787,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
               self.init(_dataDict: DataDict(data: [
                 "__typename": Types.Human.typename,
                 "name": name,
-                "__fulfilled": Set([
-                  ObjectIdentifier(Friend.self),
-                ])
-              ]))
+              ], fulfilledFragments: [ObjectIdentifier(Friend.self)]))
             }
 
           }
@@ -1806,10 +1801,9 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           convenience init() {
             self.init(_dataDict: DataDict(data: [
               "__typename": Types.Human.typename,
-              "__fulfilled": Set([
-                ObjectIdentifier(Hero.self),
-                ObjectIdentifier(Self.self)
-              ])
+            ], fulfilledFragments: [
+              ObjectIdentifier(Hero.self),
+              ObjectIdentifier(Self.self)
             ]))
           }
         }
@@ -1887,10 +1881,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
           "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Hero: MockSelectionSet {
@@ -1918,11 +1909,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           ) {
             self.init(_dataDict: DataDict(data: [
               "__typename": __typename,
-              "name": name,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.self)
-              ])
+              "name": name
+            ], fulfilledFragments: [
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self)
             ]))
           }
         }
@@ -1986,11 +1976,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       ) {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
-          "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+          "hero": hero._fieldData
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       var hero: Hero {
@@ -2012,11 +1999,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         ) {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+            "name": name
+          ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
         }
 
         var name: String {
@@ -2039,10 +2023,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       convenience init() {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class IfA: ConcreteMockTypeCase<GivenQuery> {
@@ -2060,11 +2041,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Query.typename,
             "hero": hero._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(GivenQuery.self),
-              ObjectIdentifier(GivenFragment.self)
-            ])
+          ], fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(GivenQuery.self),
+            ObjectIdentifier(GivenFragment.self)
           ]))
         }
       }
@@ -2135,10 +2115,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
           "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       var hero: Hero {
@@ -2160,10 +2137,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
         }
 
         var name: String {
@@ -2185,11 +2159,8 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
 
       convenience init() {
         self.init(_dataDict: DataDict(data: [
-          "__typename": Types.Query.typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+          "__typename": Types.Query.typename
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class IfA: ConcreteMockTypeCase<GivenQuery> {
@@ -2207,11 +2178,10 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Query.typename,
             "hero": hero._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(GivenQuery.self),
-              ObjectIdentifier(GivenFragment.self)
-            ])
+          ], fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(GivenQuery.self),
+            ObjectIdentifier(GivenFragment.self)
           ]))
         }
       }

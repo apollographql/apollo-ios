@@ -15,12 +15,35 @@ public struct DataDict: Hashable {
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
   /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
   /// the `Apollo` library.
-  public typealias SelectionSetData = [String: AnyHashable]
+  #warning("TODO: documentation updates")
+  public struct SelectionSetData: Hashable {
+    @usableFromInline var data: [String: AnyHashable]
+    @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
 
-  public var _data: SelectionSetData
+    public init(
+      data: [String: AnyHashable],
+      fulfilledFragments: Set<ObjectIdentifier>
+    ) {
+      self.data = data
+      self.fulfilledFragments = fulfilledFragments
+    }
+  }
 
-  public init(data: SelectionSetData) {
-    self._data = data
+  @usableFromInline var selectionSetData: SelectionSetData
+  public var _data: [String: AnyHashable] {
+    get { selectionSetData.data }
+    set { selectionSetData.data = newValue }
+  }
+
+  public init(
+    data: [String: AnyHashable],
+    fulfilledFragments: Set<ObjectIdentifier>
+  ) {
+    self.selectionSetData = .init(data: data, fulfilledFragments: fulfilledFragments)
+  }
+
+  public init(selectionSetData: SelectionSetData) {
+    self.selectionSetData = selectionSetData
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
@@ -58,19 +81,13 @@ public struct DataDict: Hashable {
   }
 
   @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
-    guard let __fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
-      return false
-    }
     let id = ObjectIdentifier(T.self)
-    return __fulfilledFragments.contains(id)
+    return selectionSetData.fulfilledFragments.contains(id)
   }
 
   @usableFromInline func fragmentsAreFulfilled(_ types: [any SelectionSet.Type]) -> Bool {
-    guard let __fulfilledFragments = _data["__fulfilled"] as? Set<ObjectIdentifier> else {
-      return false
-    }
     let typeIds = types.lazy.map(ObjectIdentifier.init)
-    return __fulfilledFragments.isSuperset(of: typeIds)
+    return selectionSetData.fulfilledFragments.isSuperset(of: typeIds)
   }
 }
 
@@ -89,14 +106,15 @@ extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   @inlinable public init(_fieldData data: AnyHashable?) {
-    guard let data = data as? DataDict.SelectionSetData else {
-      fatalError("\(Self.self) expected JSONObject for entity, got \(type(of: data)).")
+    guard let selectionSetData = data as? DataDict.SelectionSetData else {
+      fatalError("\(Self.self) expected DataDict.SelectionSetData for entity, got \(type(of: data)).")
     }
 
-    self.init(_dataDict: DataDict(data: data))
+#warning("TODO: test performance of passing entire data dict?")
+    self.init(_dataDict: DataDict(selectionSetData: selectionSetData))
   }
 
-  @inlinable public var _fieldData: AnyHashable { __data._data }
+  @inlinable public var _fieldData: AnyHashable { __data.selectionSetData }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
