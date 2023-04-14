@@ -85,7 +85,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         public var __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
-        public typealias RootEntityType = AllAnimal
+        public typealias RootEntityType = AllAnimalsLocalCacheMutation.Data.AllAnimal
         public static var __parentType: Apollo.ParentType { MyCustomProject.Objects.Bird }
         public static var __selections: [Apollo.Selection] { [
           .field("wingspan", Double.self),

@@ -86,7 +86,7 @@ public extension MyGraphQLSchema {
           public var __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = AllAnimalsLocalCacheMutation.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Bird }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("wingspan", Double.self),

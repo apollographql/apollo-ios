@@ -129,7 +129,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = Hero.Friend
+          public typealias RootEntityType = HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("name", String.self),
@@ -162,7 +162,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             public let __data: DataDict
             public init(_dataDict: DataDict) { __data = _dataDict }
 
-            public typealias RootEntityType = Hero.Friend
+            public typealias RootEntityType = HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend
             public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("primaryFunction", String?.self),
@@ -196,11 +196,11 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = Hero.Friend
+          public typealias RootEntityType = HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
           public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-            Hero.Friend.self,
-            Hero.Friend.AsDroid.self
+            HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.self,
+            HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.AsDroid.self
           ] }
 
           /// The name of the character

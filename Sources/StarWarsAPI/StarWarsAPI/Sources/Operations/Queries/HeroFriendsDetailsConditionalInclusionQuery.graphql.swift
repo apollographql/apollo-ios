@@ -124,7 +124,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = Hero.Friend
+          public typealias RootEntityType = HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend
           public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Droid }
           public static var __selections: [ApolloAPI.Selection] { [
             .field("primaryFunction", String?.self),

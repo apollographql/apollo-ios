@@ -64,7 +64,7 @@ public extension MyGraphQLSchema {
           public let __data: DataDict
           public init(_dataDict: DataDict) { __data = _dataDict }
 
-          public typealias RootEntityType = AllAnimal
+          public typealias RootEntityType = DogQuery.Data.AllAnimal
           public static var __parentType: ApolloAPI.ParentType { MyGraphQLSchema.Objects.Dog }
           public static var __selections: [ApolloAPI.Selection] { [
             .fragment(DogFragment.self),
