@@ -56,20 +56,22 @@ final class ApolloClientOperationTests: XCTestCase {
     }
   }
 
+  let jsonObject: JSONObject = [
+    "data": [
+      "createReview": [
+        "__typename": "Review",
+        "stars": 3,
+        "commentary": ""
+      ]
+    ]
+  ]
+
   func test__performMutation_givenPublishResultToStore_true_publishResultsToStore() throws {
     let mutation = MockMutation<GivenSelectionSet>()
     let resultObserver = self.makeResultObserver(for: mutation)
 
-    let serverRequestExpectation = self.server.expect(MockMutation<GivenSelectionSet>.self) { _ in
-      [
-        "data": [
-          "createReview": [
-            "__typename": "Review",
-            "stars": 3,
-            "commentary": ""
-          ]
-        ]
-      ]
+    let serverRequestExpectation = server.expect(MockMutation<GivenSelectionSet>.self) { _ in
+      self.jsonObject
     }
 
     let performResultFromServerExpectation =
@@ -97,16 +99,8 @@ final class ApolloClientOperationTests: XCTestCase {
     let mutation = MockMutation<GivenSelectionSet>()
     let resultObserver = self.makeResultObserver(for: mutation)
 
-    let serverRequestExpectation = self.server.expect(MockMutation<GivenSelectionSet>.self) { _ in
-      [
-        "data": [
-          "createReview": [
-            "__typename": "Review",
-            "stars": 3,
-            "commentary": ""
-          ]
-        ]
-      ]
+    let serverRequestExpectation = server.expect(MockMutation<GivenSelectionSet>.self) { _ in
+      self.jsonObject
     }
 
     let performResultFromServerExpectation =
