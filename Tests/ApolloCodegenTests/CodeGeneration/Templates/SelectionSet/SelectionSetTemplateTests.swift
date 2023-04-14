@@ -1925,8 +1925,8 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-        AllAnimal.Predator.AsPet.self,
-        AllAnimal.AsDog.Predator.self
+        TestOperationQuery.Data.AllAnimal.Predator.AsPet.self,
+        TestOperationQuery.Data.AllAnimal.AsDog.Predator.self
       ] }
     """
 
@@ -1988,7 +1988,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
-        AllAnimal.Predator.self,
+        TestOperationQuery.Data.AllAnimal.Predator.self,
         PredatorDetails.AsPet.self
       ] }
     """
@@ -2000,6 +2000,80 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(inlineFragment: predator_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
+
+  /// Test for edge case in [#2949](https://github.com/apollographql/apollo-ios/issues/2949)
+  ///
+  /// When the `MergedSource` would have duplicate naming, due to child fields with the same name
+  /// (or alias), the fully qualified name must be used. In this example, a `MergedSource` of
+  /// `Predator.Predator` the first usage of the name `Predator` would be referencing the nearest
+  /// enclosing type (ie. `TestOperationQuery.Predator.Predator`), so it is looking for another
+  /// `Predator` type in that scope, which does not exist
+  /// (ie. `TestOperationQuery.Predator.Predator.Predator`).
+  ///
+  /// To correct this we must always use the fully qualified name including the operation name and
+  /// `Data` objects to ensure we are referring to the correct type.
+  func test__render_mergedSources__givenMergedTypeCaseWithConflictingNames_rendersMergedSourceWithFullyQualifiedName() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      predators: [Animal!]!
+    }
+
+    interface Animal {
+      species: String!
+      predator: Animal!
+    }
+
+    interface Pet implements Animal {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+
+    type Dog implements Animal & Pet {
+      species: String!
+      predator: Animal!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      predators {
+        species
+        predator {
+          ... on Pet {
+            name
+          }
+        }
+        ... on Dog {
+          name
+          predator {
+            species
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { [
+        TestOperationQuery.Data.Predator.Predator.AsPet.self,
+        TestOperationQuery.Data.Predator.AsDog.Predator.self
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let allAnimals_asDog_predator_asPet = try XCTUnwrap(
+      operation[field: "query"]?[field: "predators"]?[as: "Dog"]?[field: "predator"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asDog_predator_asPet)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))

@@ -120,26 +120,14 @@ struct SelectionSetTemplate {
 
   private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
     guard !selectionSet.isEntityRoot else { return "" }
-    let rootEntityName = fullyQualifiedGeneratedSelectionSetName(selectionSet)
+    let rootEntityName = fullyQualifiedGeneratedSelectionSetName(
+      for: selectionSet.typeInfo,
+      to: selectionSet.scopePath.last.value.scopePath.head
+    )
+
     return """
     public typealias RootEntityType = \(rootEntityName)
     """
-  }
-
-  private func fullyQualifiedGeneratedSelectionSetName(_ selectionSet: IR.SelectionSet) -> String {
-    let rootNode = selectionSet.scopePath.head
-    let rootTypeIsOperationRoot = rootNode.value.type.isRootFieldType
-
-    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
-      from: rootNode,
-      to: selectionSet.scopePath.last.value.scopePath.head,
-      withFieldPath: selectionSet.entity.fieldPath.head,
-      removingFirst: rootTypeIsOperationRoot,
-      pluralizer: config.pluralizer
-    )
-
-    return rootTypeIsOperationRoot ?
-    "\(definition.generatedDefinitionName.firstUppercased).Data.\(rootEntityName)" : rootEntityName
   }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {
@@ -153,13 +141,7 @@ struct SelectionSetTemplate {
     return """
     public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet.Type] { [
       \(selectionSet.selections.merged.mergedSources.map {
-        let scopePath = $0.typeInfo.scopePath
-        let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
-          from: scopePath.head,
-          withFieldPath: $0.typeInfo.entity.fieldPath.head,
-          removingFirst: scopePath.head.value.type.isRootFieldType,
-          pluralizer: config.pluralizer
-        )
+        let selectionSetName = fullyQualifiedGeneratedSelectionSetName(for: $0.typeInfo)
         return "\(selectionSetName).self"
       })
     ] }
@@ -543,6 +525,27 @@ struct SelectionSetTemplate {
     """    
   }
 
+  // MARK: - SelectionSet Name Computation
+
+  private func fullyQualifiedGeneratedSelectionSetName(
+    for typeInfo: IR.SelectionSet.TypeInfo,
+    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil
+  ) -> String {
+    let rootNode = typeInfo.scopePath.head
+    let rootTypeIsOperationRoot = rootNode.value.type.isRootFieldType
+
+    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
+      from: rootNode,
+      to: toNode,
+      withFieldPath: typeInfo.entity.fieldPath.head,
+      removingFirst: rootTypeIsOperationRoot,
+      pluralizer: config.pluralizer
+    )
+
+    return rootTypeIsOperationRoot ?
+    "\(definition.generatedDefinitionName.firstUppercased).Data.\(rootEntityName)" : rootEntityName
+  }
+  
 }
 
 fileprivate class SelectionSetNameCache {
