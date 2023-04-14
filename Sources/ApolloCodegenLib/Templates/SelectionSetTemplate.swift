@@ -120,16 +120,26 @@ struct SelectionSetTemplate {
 
   private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
     guard !selectionSet.isEntityRoot else { return "" }
-    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
-      from: selectionSet.scopePath.head,
-      to: selectionSet.scopePath.last.value.scopePath.head,
-      withFieldPath: selectionSet.entity.fieldPath.head,
-      removingFirst: false,
-      pluralizer: config.pluralizer
-    )
+    let rootEntityName = fullyQualifiedGeneratedSelectionSetName(selectionSet)
     return """
     public typealias RootEntityType = \(rootEntityName)
     """
+  }
+
+  private func fullyQualifiedGeneratedSelectionSetName(_ selectionSet: IR.SelectionSet) -> String {
+    let rootNode = selectionSet.scopePath.head
+    let rootTypeIsOperationRoot = rootNode.value.type.isRootFieldType
+
+    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
+      from: rootNode,
+      to: selectionSet.scopePath.last.value.scopePath.head,
+      withFieldPath: selectionSet.entity.fieldPath.head,
+      removingFirst: rootTypeIsOperationRoot,
+      pluralizer: config.pluralizer
+    )
+
+    return rootTypeIsOperationRoot ?
+    "\(definition.generatedDefinitionName.firstUppercased).Data.\(rootEntityName)" : rootEntityName
   }
 
   private func ParentTypeTemplate(_ type: GraphQLCompositeType) -> String {

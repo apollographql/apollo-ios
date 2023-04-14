@@ -5650,7 +5650,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public typealias RootEntityType = AllAnimal
+      public typealias RootEntityType = TestOperationQuery.Data.AllAnimal
     """
 
     // when
@@ -5704,7 +5704,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public typealias RootEntityType = AllAnimal
+      public typealias RootEntityType = TestOperationQuery.Data.AllAnimal
     """
 
     // when
@@ -5757,7 +5757,7 @@ class SelectionSetTemplateTests: XCTestCase {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public typealias RootEntityType = AllAnimal.Predator
+      public typealias RootEntityType = TestOperationQuery.Data.AllAnimal.Predator
     """
 
     // when
@@ -5813,12 +5813,12 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-    /// AllAnimal.Predator.AsPet
+    /// Predator.Predator.AsPet
     public struct AsPet: TestSchema.InlineFragment {
       public let __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
-      public typealias RootEntityType = TestOperationQuery.Data.AllAnimal.Predator
+      public typealias RootEntityType = TestOperationQuery.Data.Predator.Predator
     """
 
     // when

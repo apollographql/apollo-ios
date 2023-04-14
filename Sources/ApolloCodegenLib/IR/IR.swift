@@ -24,6 +24,15 @@ class IR {
     case operation(IR.Operation)
     case namedFragment(IR.NamedFragment)
 
+    var name: String {
+      switch self {
+      case  let .operation(operation):
+        return operation.definition.name
+      case let .namedFragment(fragment):
+        return fragment.definition.name
+      }
+    }
+
     var rootField: IR.EntityField {
       switch self {
       case  let .operation(operation):

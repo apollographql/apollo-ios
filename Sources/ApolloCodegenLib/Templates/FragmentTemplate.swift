@@ -16,7 +16,7 @@ struct FragmentTemplate: TemplateRenderer {
     return TemplateString(
     """
     \(embeddedAccessControlModifier)\
-    struct \(fragment.name.firstUppercased): \
+    struct \(fragment.generatedDefinitionName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
       public static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
