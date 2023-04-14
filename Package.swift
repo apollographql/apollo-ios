@@ -35,6 +35,9 @@ let package = Package(
     .package(
       url: "https://github.com/apple/swift-argument-parser.git",
       .upToNextMajor(from: "1.2.0")),
+    .package(
+      url: "https://github.com/apple/swift-crypto.git",
+      "1.0.0"..<"3.0.0"),
   ],
   targets: [
     .target(
@@ -54,6 +57,7 @@ let package = Package(
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
+        .product(name: "Crypto", package: "swift-crypto"),
         .product(name: "Pluralize", package: "pluralize"),
         .product(name: "OrderedCollections", package: "swift-collections")
       ],

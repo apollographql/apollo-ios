@@ -1,5 +1,5 @@
 import OrderedCollections
-import CryptoKit
+import Crypto
 
 class IR {
 
@@ -155,7 +155,7 @@ class IR {
     /// being spread into. This allows merged field calculations to include the fields merged in
     /// from the fragment.
     let fragment: NamedFragment
-    
+
     /// Indicates the location where the fragment has been "spread into" its enclosing
     /// operation/fragment. It's `scopePath` and `entity` reference are scoped to the operation it
     /// belongs to.
@@ -195,5 +195,5 @@ class IR {
       return description
     }
   }
-  
+
 }
