@@ -1,5 +1,5 @@
 import Foundation
-import JavaScriptCore
+import JXKit
 import OrderedCollections
 
 indirect enum GraphQLValue: Hashable {
@@ -15,7 +15,7 @@ indirect enum GraphQLValue: Hashable {
 }
 
 extension GraphQLValue: JavaScriptValueDecodable {
-  init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+  init(_ jsValue: JXValue, bridge: JavaScriptBridge) {
     precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
 
     let kind: String = jsValue["kind"].toString()
@@ -40,9 +40,9 @@ extension GraphQLValue: JavaScriptValueDecodable {
       if value.isUndefined {
         value = jsValue["values"]
       }
-      self = .list(.fromJSValue(value, bridge: bridge))
+      self = .list(.fromJXValue(value, bridge: bridge))
     case "ObjectValue":
-      self = .object(.fromJSValue(jsValue["value"], bridge: bridge))
+      self = .object(.fromJXValue(jsValue["value"], bridge: bridge))
     default:
       preconditionFailure("""
         Unknown GraphQL value of kind "\(kind)"

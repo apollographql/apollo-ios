@@ -36,6 +36,9 @@ let package = Package(
       url: "https://github.com/apple/swift-argument-parser.git",
       .upToNextMajor(from: "1.2.0")),
     .package(
+      url: "https://github.com/jectivex/JXKit.git",
+      .upToNextMajor(from: "3.0.0")),
+    .package(
       url: "https://github.com/apple/swift-crypto.git",
       "1.0.0"..<"3.0.0"),
   ],
@@ -58,8 +61,9 @@ let package = Package(
       name: "ApolloCodegenLib",
       dependencies: [
         .product(name: "Crypto", package: "swift-crypto"),
+        .product(name: "JXKit", package: "JXKit"),
+        .product(name: "OrderedCollections", package: "swift-collections"),
         .product(name: "Pluralize", package: "pluralize"),
-        .product(name: "OrderedCollections", package: "swift-collections")
       ],
       exclude: [
         "Info.plist",

@@ -1,5 +1,5 @@
 import Foundation
-import JavaScriptCore
+import JXKit
 
 public struct ValidationOptions {
 
@@ -48,20 +48,20 @@ public struct ValidationOptions {
 
   public class Bridged: JavaScriptObject {
     convenience init(from options: ValidationOptions, bridge: JavaScriptBridge) {
-      let jsValue = JSValue(newObjectIn: bridge.context)
+      let jsValue = JXValue(newObjectIn: bridge.context)
 
       jsValue?.setValue(
-        JSValue(object: options.schemaNamespace, in: bridge.context),
+        JXValue(object: options.schemaNamespace, in: bridge.context),
         forProperty: "schemaNamespace"
       )
 
       jsValue?.setValue(
-        JSValue(object: options.disallowedFieldNames.asDictionary, in: bridge.context),
+        JXValue(object: options.disallowedFieldNames.asDictionary, in: bridge.context),
         forProperty: "disallowedFieldNames"
       )
 
       jsValue?.setValue(
-        JSValue(object: Array(options.disallowedInputParameterNames), in: bridge.context),
+        JXValue(object: Array(options.disallowedInputParameterNames), in: bridge.context),
         forProperty: "disallowedInputParameterNames"
       )
 

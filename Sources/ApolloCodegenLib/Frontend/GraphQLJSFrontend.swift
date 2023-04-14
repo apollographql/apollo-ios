@@ -1,5 +1,5 @@
 import Foundation
-import JavaScriptCore
+import JXKit
 
 public final class GraphQLJSFrontend {
   private let bridge: JavaScriptBridge
@@ -13,7 +13,7 @@ public final class GraphQLJSFrontend {
       bridge.context.evaluateScript(ApolloCodegenFrontendBundle)
     }
 
-    self.library = bridge.fromJSValue(bridge.context.globalObject["ApolloCodegenFrontend"])
+    self.library = bridge.fromJXValue(bridge.context.globalObject["ApolloCodegenFrontend"])
 
     bridge.register(GraphQLSource.self, forJavaScriptClass: "Source", from: library)
     bridge.register(GraphQLError.self, from: library)
@@ -25,7 +25,7 @@ public final class GraphQLJSFrontend {
     bridge.register(GraphQLObjectType.self, from: library)
     bridge.register(GraphQLInterfaceType.self, from: library)
     bridge.register(GraphQLUnionType.self, from: library)
-  }  
+  }
 
   /// Load a schema by parsing  an introspection result.
   public func loadSchema(from sources: [GraphQLSource]) throws -> GraphQLSchema {
@@ -38,7 +38,7 @@ public final class GraphQLJSFrontend {
     }
 
   private lazy var sourceConstructor: JavaScriptObject = {
-    self.bridge.fromJSValue(library["Source"])
+    self.bridge.fromJXValue(library["Source"])
   }()
 
   /// Create a `GraphQLSource` object from a string.

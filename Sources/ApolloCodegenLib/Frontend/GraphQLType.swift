@@ -1,4 +1,4 @@
-import JavaScriptCore
+import JXKit
 
 /// A GraphQL type.
 public indirect enum GraphQLType: Hashable {
@@ -63,7 +63,7 @@ extension GraphQLType: CustomDebugStringConvertible {
 }
 
 extension GraphQLType: JavaScriptValueDecodable {
-  init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+  init(_ jsValue: JXValue, bridge: JavaScriptBridge) {
     precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
 
     let tag = jsValue[jsValue.context.globalObject["Symbol"]["toStringTag"]].toString()
@@ -76,7 +76,7 @@ extension GraphQLType: JavaScriptValueDecodable {
       let ofType = jsValue["ofType"]
       self = .list(GraphQLType(ofType, bridge: bridge))
     default:
-      let namedType: GraphQLNamedType = bridge.fromJSValue(jsValue)
+      let namedType: GraphQLNamedType = bridge.fromJXValue(jsValue)
 
       switch namedType {
       case let entityType as GraphQLCompositeType:
@@ -92,7 +92,7 @@ extension GraphQLType: JavaScriptValueDecodable {
         self = .inputObject(inputObjectType)
 
       default:
-        fatalError("JSValue: \(jsValue) is not a recognized GraphQLType value.")
+        fatalError("JXValue: \(jsValue) is not a recognized GraphQLType value.")
       }
     }
   }

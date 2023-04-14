@@ -1,4 +1,4 @@
-import JavaScriptCore
+import JXKit
 import OrderedCollections
 
 // These classes correspond directly to the ones in
@@ -6,24 +6,24 @@ import OrderedCollections
 // and are partially described in https://graphql.org/graphql-js/type/
 
 /// A GraphQL schema.
-public class GraphQLSchema: JavaScriptObject {  
+public class GraphQLSchema: JavaScriptObject {
   func getType(named typeName: String) throws -> GraphQLNamedType? {
     try invokeMethod("getType", with: typeName)
   }
-  
+
   func getPossibleTypes(_ abstractType: GraphQLAbstractType) throws -> [GraphQLObjectType] {
     return try invokeMethod("getPossibleTypes", with: abstractType)
   }
-  
+
   func getImplementations(interfaceType: GraphQLInterfaceType) throws -> InterfaceImplementations {
     return try invokeMethod("getImplementations", with: interfaceType)
   }
-  
+
   class InterfaceImplementations: JavaScriptObject {
     private(set) lazy var objects: [GraphQLObjectType] = self["objects"]
     private(set) lazy var interfaces: [GraphQLInterfaceType] = self["interfaces"]
   }
-    
+
   func isSubType(abstractType: GraphQLAbstractType, maybeSubType: GraphQLNamedType) throws -> Bool {
     return try invokeMethod("isSubType", with: abstractType, maybeSubType)
   }
@@ -44,7 +44,7 @@ public class GraphQLNamedType: JavaScriptObject, Hashable {
 }
 
 public class GraphQLScalarType: GraphQLNamedType {
-  
+
   lazy var specifiedByURL: String? = self["specifiedByUrl"]
 
   var isCustomScalar: Bool {
@@ -55,7 +55,7 @@ public class GraphQLScalarType: GraphQLNamedType {
       return false
     default:
       return true
-    }    
+    }
   }
 
   var isSwiftType: Bool {
@@ -79,9 +79,9 @@ public class GraphQLEnumValue: JavaScriptObject {
   }
 
   lazy var name: Name = Name(value: self["name"])
-  
+
   lazy var documentation: String? = self["description"]
-    
+
   lazy var deprecationReason: String? = self["deprecationReason"]
 
   var isDeprecated: Bool { deprecationReason != nil }
@@ -95,16 +95,16 @@ public class GraphQLInputObjectType: GraphQLNamedType {
 
 public class GraphQLInputField: JavaScriptObject {
   lazy var name: String = self["name"]
-  
+
   lazy var type: GraphQLType = self["type"]
-  
+
   lazy var documentation: String? = self["description"]
-  
+
   lazy var defaultValue: GraphQLValue? = {
     let node: JavaScriptObject? = self["astNode"]
     return node?["defaultValue"]
   }()
-    
+
   lazy var deprecationReason: String? = self["deprecationReason"]
 }
 
@@ -130,7 +130,7 @@ extension GraphQLInterfaceImplementingType {
 
 public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementingType {
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
-  
+
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
 
   public override var debugDescription: String {
@@ -141,11 +141,11 @@ public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementi
 public class GraphQLAbstractType: GraphQLCompositeType {
 }
 
-public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {  
+public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplementingType {
   lazy var deprecationReason: String? = self["deprecationReason"]
-  
+
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
-  
+
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
 
   public override var debugDescription: String {
@@ -164,13 +164,13 @@ public class GraphQLUnionType: GraphQLAbstractType {
 public class GraphQLField: JavaScriptObject, Hashable {
 
   lazy var name: String = self["name"]
-  
+
   lazy var type: GraphQLType = self["type"]
 
   lazy var arguments: [GraphQLFieldArgument] = self["args"]
-  
+
   lazy var documentation: String? = self["description"]
-  
+
   lazy var deprecationReason: String? = self["deprecationReason"]
 
   public func hash(into hasher: inout Hasher) {
@@ -209,5 +209,5 @@ public class GraphQLFieldArgument: JavaScriptObject, Hashable {
     lhs.name == rhs.name &&
     lhs.type == rhs.type
   }
-  
+
 }

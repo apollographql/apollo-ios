@@ -1,4 +1,4 @@
-import JavaScriptCore
+import JXKit
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
@@ -12,22 +12,22 @@ public class CompilationResult: JavaScriptObject {
   lazy var fragments: [FragmentDefinition] = self["fragments"]
 
   lazy var schemaDocumentation: String? = self["schemaDocumentation"]
-  
+
   public class OperationDefinition: JavaScriptObject, Equatable {
     lazy var name: String = self["name"]
-    
+
     lazy var operationType: OperationType = self["operationType"]
-    
+
     lazy var variables: [VariableDefinition] = self["variables"]
-    
+
     lazy var rootType: GraphQLCompositeType = self["rootType"]
-    
+
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     lazy var directives: [Directive]? = self["directives"]
-    
+
     lazy var source: String = self["source"]
-    
+
     lazy var filePath: String = self["filePath"]
 
     override public var debugDescription: String {
@@ -64,39 +64,39 @@ public class CompilationResult: JavaScriptObject {
       return name+suffix
     }()
   }
-  
+
   public enum OperationType: String, Equatable, JavaScriptValueDecodable {
     case query
     case mutation
     case subscription
-    
-    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-      let rawValue: String = .fromJSValue(jsValue, bridge: bridge)
+
+    init(_ jsValue: JXValue, bridge: JavaScriptBridge) {
+      let rawValue: String = .fromJXValue(jsValue, bridge: bridge)
       guard let operationType = Self(rawValue: rawValue) else {
         preconditionFailure("Unknown GraphQL operation type: \(rawValue)")
       }
-      
+
       self = operationType
     }
   }
-  
+
   public class VariableDefinition: JavaScriptObject {
     lazy var name: String = self["name"]
-    
+
     lazy var type: GraphQLType = self["type"]
-    
+
     lazy var defaultValue: GraphQLValue? = self["defaultValue"]
   }
-  
+
   public class FragmentDefinition: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
-    
+
     lazy var type: GraphQLCompositeType = self["typeCondition"]
-    
+
     lazy var selectionSet: SelectionSet = self["selectionSet"]
-    
+
     lazy var source: String = self["source"]
-    
+
     lazy var filePath: String = self["filePath"]
 
     lazy var directives: [Directive]? = self["directives"]
@@ -117,10 +117,10 @@ public class CompilationResult: JavaScriptObject {
       return lhs.name == rhs.name
     }
   }
-  
+
   public class SelectionSet: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
     lazy var parentType: GraphQLCompositeType = self["parentType"]
-    
+
     lazy var selections: [Selection] = self["selections"]
 
     required convenience init(
@@ -194,13 +194,13 @@ public class CompilationResult: JavaScriptObject {
       lhs.directives == rhs.directives
     }
   }
-  
+
   public enum Selection: JavaScriptValueDecodable, CustomDebugStringConvertible, Hashable {
     case field(Field)
     case inlineFragment(InlineFragment)
     case fragmentSpread(FragmentSpread)
-    
-    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+
+    init(_ jsValue: JXValue, bridge: JavaScriptBridge) {
       precondition(jsValue.isObject, "Expected JavaScript object but found: \(jsValue)")
 
       let kind: String = jsValue["kind"].toString()
@@ -238,16 +238,16 @@ public class CompilationResult: JavaScriptObject {
       }
     }
   }
-  
+
   public class Field: JavaScriptWrapper, Hashable, CustomDebugStringConvertible {
     lazy var name: String = self["name"]!
-    
+
     lazy var alias: String? = self["alias"]
-    
+
     var responseKey: String {
       alias ?? name
     }
-    
+
     lazy var type: GraphQLType = self["type"]!
 
     lazy var arguments: [Argument]? = self["arguments"]
@@ -255,15 +255,15 @@ public class CompilationResult: JavaScriptObject {
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
-    
+
     lazy var selectionSet: SelectionSet? = self["selectionSet"]
-    
+
     lazy var deprecationReason: String? = self["deprecationReason"]
-    
+
     var isDeprecated: Bool {
       return deprecationReason != nil
     }
-    
+
     lazy var documentation: String? = self["description"]
 
     required convenience init(
@@ -315,7 +315,7 @@ public class CompilationResult: JavaScriptObject {
       lhs.selectionSet == rhs.selectionSet
     }
   }
-  
+
   public class Argument: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
 
@@ -367,7 +367,7 @@ public class CompilationResult: JavaScriptObject {
     case skipped
     case variable(String, isInverted: Bool)
 
-    init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
+    init(_ jsValue: JXValue, bridge: JavaScriptBridge) {
       if jsValue.isString, let value = jsValue.toString() {
         switch value {
         case "INCLUDED":
@@ -377,7 +377,7 @@ public class CompilationResult: JavaScriptObject {
           self = .skipped
           return
         default:
-          preconditionFailure("Unrecognized value for include condition. Got \(value)")          
+          preconditionFailure("Unrecognized value for include condition. Got \(value)")
         }
       }
 
