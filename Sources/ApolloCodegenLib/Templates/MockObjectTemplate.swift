@@ -59,7 +59,7 @@ struct MockObjectTemplate: TemplateRenderer {
             """ }, separator: ",\n")
         ) {
           self.init()
-          \(fields.map { "self.\($0.propertyName) = \($0.initializerParameterName ?? $0.propertyName)" }, separator: "\n")
+          \(fields.map { "_set(\($0.initializerParameterName ?? $0.propertyName), for: \\.\($0.propertyName))" }, separator: "\n")
         }
       }
       """) : TemplateString(stringLiteral: "")
