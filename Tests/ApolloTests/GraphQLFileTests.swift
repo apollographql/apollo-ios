@@ -7,11 +7,9 @@ class GraphQLFileTests: XCTestCase {
   
   func testCreatingFileWithKnownBadURLFails() {
     let url = URL(fileURLWithPath: "/known/bad/path")
-    do {
-      _ = try GraphQLFile(fieldName: "test",
-                          originalName: "test",
-                          fileURL: url)
-    } catch {
+    XCTAssertThrowsError(try GraphQLFile(fieldName: "test",
+                                         originalName: "test",
+                                         fileURL: url)) { error in
       switch error {
       case GraphQLFile.GraphQLFileError.couldNotGetFileSize(let fileURL):
         XCTAssertEqual(fileURL, url)
