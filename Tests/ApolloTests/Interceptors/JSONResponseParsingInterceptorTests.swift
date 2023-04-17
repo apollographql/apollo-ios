@@ -4,7 +4,7 @@ import ApolloInternalTestHelpers
 import XCTest
 
 class JSONResponseParsingInterceptorTests: XCTestCase {
-  func testJSONResponseParsingInterceptorFailsWithImproperlyOrderedCalls() {
+  func testJSONResponseParsingInterceptorFailsWhenNoResponse() {
     let provider = MockInterceptorProvider([
       JSONResponseParsingInterceptor()
     ])
