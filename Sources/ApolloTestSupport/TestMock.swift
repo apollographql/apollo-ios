@@ -15,15 +15,24 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
   public var __typename: String { _data["__typename"] as! String }
 
-  public subscript<T: AnyScalarType & Hashable>(dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>) -> T? {
+  public subscript<T: AnyScalarType & Hashable>(
+    dynamicMember keyPath: KeyPath<O.MockFields, Field<T>>
+  ) -> T? {
     get {
       let field = O._mockFields[keyPath: keyPath]
       return _data[field.key.description] as? T
     }
     set {
-      let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue
+      _set(newValue, for: keyPath)
     }
+  }
+
+  public func _set<T: AnyScalarType & Hashable>(
+    _ value: T?,
+    for keyPath: KeyPath<O.MockFields, Field<T>>
+  ) {
+    let field = O._mockFields[keyPath: keyPath]
+    _data[field.key.description] = value
   }
 
   public subscript<T: MockFieldValue>(
@@ -34,9 +43,16 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? T.MockValueCollectionType.Element
     }
     set {
-      let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = (newValue as? AnyHashable)
+      _set(newValue, for: keyPath)
     }
+  }
+
+  public func _set<T: MockFieldValue>(
+    _ value: T.MockValueCollectionType.Element?,
+    for keyPath: KeyPath<O.MockFields, Field<T>>
+  ) {
+    let field = O._mockFields[keyPath: keyPath]
+    _data[field.key.description] = (value as? AnyHashable)
   }
 
   public subscript<T: MockFieldValue>(
@@ -47,9 +63,16 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? [T.MockValueCollectionType.Element]
     }
     set {
-      let field = O._mockFields[keyPath: keyPath]
-      _data[field.key.description] = newValue?._unsafelyConvertToMockValue()
+      _set(newValue, for: keyPath)
     }
+  }
+
+  public func _set<T: MockFieldValue>(
+    _ value: [T.MockValueCollectionType.Element]?,
+    for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
+  ) {
+    let field = O._mockFields[keyPath: keyPath]
+    _data[field.key.description] = value?._unsafelyConvertToMockValue()
   }
 
   public var _selectionSetMockData: JSONObject {

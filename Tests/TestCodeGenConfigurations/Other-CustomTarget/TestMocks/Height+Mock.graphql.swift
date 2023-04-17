@@ -27,10 +27,10 @@ public extension Mock where O == Height {
     relativeSize: GraphQLEnum<GraphQLAPI.RelativeSize>? = nil
   ) {
     self.init()
-    self.centimeters = centimeters
-    self.feet = feet
-    self.inches = inches
-    self.meters = meters
-    self.relativeSize = relativeSize
+    _set(centimeters, for: \.centimeters)
+    _set(feet, for: \.feet)
+    _set(inches, for: \.inches)
+    _set(meters, for: \.meters)
+    _set(relativeSize, for: \.relativeSize)
   }
 }

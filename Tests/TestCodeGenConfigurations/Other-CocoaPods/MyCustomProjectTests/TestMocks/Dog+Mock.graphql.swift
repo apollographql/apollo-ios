@@ -39,16 +39,16 @@ public extension Mock where O == Dog {
     species: String? = nil
   ) {
     self.init()
-    self.birthdate = birthdate
-    self.bodyTemperature = bodyTemperature
-    self.favoriteToy = favoriteToy
-    self.height = height
-    self.humanName = humanName
-    self.id = id
-    self.laysEggs = laysEggs
-    self.owner = owner
-    self.predators = predators
-    self.skinCovering = skinCovering
-    self.species = species
+    _set(birthdate, for: \.birthdate)
+    _set(bodyTemperature, for: \.bodyTemperature)
+    _set(favoriteToy, for: \.favoriteToy)
+    _set(height, for: \.height)
+    _set(humanName, for: \.humanName)
+    _set(id, for: \.id)
+    _set(laysEggs, for: \.laysEggs)
+    _set(owner, for: \.owner)
+    _set(predators, for: \.predators)
+    _set(skinCovering, for: \.skinCovering)
+    _set(species, for: \.species)
   }
 }

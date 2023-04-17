@@ -133,12 +133,15 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       terminator: String? = nil
     ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
       var iterator = sequence.makeIterator()
-      guard var elementsString = iterator.next()?.description else {
+      guard
+        var elementsString = iterator.next()?.description,
+        !elementsString.isEmpty
+      else {
         removeLineIfEmpty()
         return
       }
 
-      while let element = iterator.next() {
+      while let element = iterator.next(), !element.description.isEmpty {
         elementsString.append(separator + element.description)
       }
 

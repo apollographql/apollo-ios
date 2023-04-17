@@ -31,12 +31,12 @@ public extension Mock where O == Human {
     species: String? = nil
   ) {
     self.init()
-    self.bodyTemperature = bodyTemperature
-    self.firstName = firstName
-    self.height = height
-    self.laysEggs = laysEggs
-    self.predators = predators
-    self.skinCovering = skinCovering
-    self.species = species
+    _set(bodyTemperature, for: \.bodyTemperature)
+    _set(firstName, for: \.firstName)
+    _set(height, for: \.height)
+    _set(laysEggs, for: \.laysEggs)
+    _set(predators, for: \.predators)
+    _set(skinCovering, for: \.skinCovering)
+    _set(species, for: \.species)
   }
 }

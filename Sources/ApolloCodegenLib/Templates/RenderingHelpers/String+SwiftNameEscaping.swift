@@ -30,6 +30,10 @@ extension String {
     "\(self)_value" : nil
   }
 
+  var isConflictingTestMockFieldName: Bool {
+    SwiftKeywords.TestMockConflictingFieldNames.contains(self)
+  }
+
   private func escapeIf(in set: Set<String>) -> String {
     set.contains(self) ? "`\(self)`" : self
   }
@@ -79,6 +83,13 @@ enum SwiftKeywords {
   /// class is generated in the Test Mocks directory. That class will be recognized by the compiler.
   static let TestMockFieldAbstractTypeNamesToNamespace: Set<String> = [
     "Actor"
+  ]
+
+  /// There are some field names that conflict with function names due to the @dynamicMember
+  /// subscripting of `Mock`. This set is used to match those field names and generate properties
+  /// instead of just relying on the subscript access.
+  static let TestMockConflictingFieldNames: Set<String> = [
+    "hash"
   ]
 
   fileprivate static let FieldAccessorNamesToEscape: Set<String> = [

@@ -221,6 +221,27 @@ class TestMockTests: XCTestCase {
     expect(expected.isEqual(mock.listOfOptionalInterfaces as [AnyMock?]?)).to(beTrue())
   }
 
+  func test__mock__givenFieldNamedHash_whenValueSetWithInitializer_shouldBuildAndFieldIsSet() throws {
+    // given + when
+    let mock = Mock<Dog>(hash: "MyHash")
+
+    // then
+    expect(mock._data["hash"] as? String).to(equal("MyHash"))
+    expect(mock.hash).to(equal("MyHash"))
+  }
+
+  func test__mock__givenFieldNamedHash_whenValueSetWithSubscript_shouldBuildAndFieldIsSet() throws {
+    // given
+    let mock = Mock<Dog>()
+
+    // when
+    mock.hash = "MyHash"
+
+    // then
+    expect(mock._data["hash"] as? String).to(equal("MyHash"))
+    expect(mock.hash).to(equal("MyHash"))
+  }
+
   // MARK: SelectionSet Mock Data Conversion Tests
 
   func test___selectionSetMockData__givenObjectFieldSetToOtherObject__convertsObjectToDict() throws {
@@ -587,15 +608,23 @@ class Dog: MockObject {
     @Field<[Animal]>("listOfInterfaces") public var listOfInterfaces
     @Field<[[Animal]]>("nestedListOfInterfaces") public var nestedListOfInterfaces
     @Field<[Animal?]>("listOfOptionalInterfaces") public var listOfOptionalInterfaces
+    @Field<String>("hash") public var hash
   }
 }
 
 extension Mock where O == Dog {
+  var hash: String? {
+    get { _data["hash"] as? String }
+    set { _set(newValue, for: \.hash) }
+  }
+
   convenience init(
-    speciesType: GraphQLEnum<Species>? = nil
+    speciesType: GraphQLEnum<Species>? = nil,
+    hash: String? = nil
   ) {
     self.init()
-    self.speciesType = speciesType
+    _set(speciesType, for: \.speciesType)
+    _set(hash, for: \.hash)
   }
 }
 
