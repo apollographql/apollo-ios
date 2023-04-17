@@ -53,6 +53,7 @@ struct MockObjectTemplate: TemplateRenderer {
       TemplateString("""
       
       public extension Mock where O == \(objectName) {
+        \(conflictingFieldNameProperties(fields))
         convenience init(
           \(fields.map { """
             \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil
@@ -65,6 +66,19 @@ struct MockObjectTemplate: TemplateRenderer {
       """) : TemplateString(stringLiteral: "")
     )
     
+    """
+  }
+
+  private func conflictingFieldNameProperties(_ fields: [TemplateField]) -> TemplateString {
+    """
+    \(fields.map { """
+      \(if: $0.propertyName.isConflictingTestMockFieldName, """
+        var \($0.propertyName): \($0.mockType)? {
+          get { _data["\($0.propertyName)"] as? \($0.mockType) }
+          set { _set(newValue, for: \\.\($0.propertyName)) }
+        }
+        """)
+      """ }, separator: "\n", terminator: "\n")
     """
   }
 
