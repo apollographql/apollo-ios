@@ -27,10 +27,10 @@ public extension Mock where O == Crocodile {
     species: String? = nil
   ) {
     self.init()
-    self.height = height
-    self.id = id
-    self.predators = predators
-    self.skinCovering = skinCovering
-    self.species = species
+    _set(height, for: \.height)
+    _set(id, for: \.id)
+    _set(predators, for: \.predators)
+    _set(skinCovering, for: \.skinCovering)
+    _set(species, for: \.species)
   }
 }
