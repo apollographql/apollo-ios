@@ -441,7 +441,37 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
+  // MARK: Conflicting Field Name Tests
 
+  func test_render_givenConflictingFieldName_generatesPropertyWithFieldName() {
+    // given
+    buildSubject()
+
+    subject.graphqlObject.fields = [
+      "hash": .mock("hash", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expected = """
+      var hash: String? {
+        get { _data["hash"] as? String }
+        set { _set(newValue, for: \\.hash) }
+      }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
 
   // MARK: Convenience Initializer Tests
 
