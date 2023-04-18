@@ -154,20 +154,14 @@ public struct GraphQLExecutionError: Error, LocalizedError {
 /// The methods in this class closely follow the
 /// [execution algorithm described in the GraphQL specification]
 /// (http://spec.graphql.org/draft/#sec-Execution)
-final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
-  /// A field resolver is responsible for resolving a value for a field. This returned value should
-  /// be the raw JSON object for the field.
-  typealias FieldResolver = (_ object: JSONObject, _ info: FieldExecutionInfo) -> JSONValue?
-
+final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// A reference resolver is responsible for resolving an object based on its key. These references are
   /// used in normalized records, and data for these objects has to be loaded from the cache for execution to continue.
   /// Because data may be loaded from a database, these loads are batched for performance reasons.
   /// By returning a `PossiblyDeferred` wrapper, we allow `ApolloStore` to use a `DataLoader` that
   /// will defer loading the next batch of records from the cache until they are needed.
-  typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<JSONObject>
+  typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<Source.ObjectData>
 
-  private let fieldCollector: FieldCollector
-  private let fieldResolver: FieldResolver
   private let resolveReference: ReferenceResolver?
 
   var shouldComputeCachePath = true
@@ -175,12 +169,8 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   /// If provided, it will also resolve references by calling the reference resolver.
   init(
-    fieldCollector: FieldCollector = DefaultFieldSelectionCollector(),
-    fieldResolver: @escaping FieldResolver,
     resolveReference: ReferenceResolver? = nil
   ) {
-    self.fieldCollector = fieldCollector
-    self.fieldResolver = fieldResolver
     self.resolveReference = resolveReference
   }
 
@@ -191,7 +181,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
     SelectionSet: RootSelectionSet
   >(
     selectionSet: SelectionSet.Type,
-    on data: JSONObject,
+    on data: Source.ObjectData,
     withRootCacheReference root: CacheReference? = nil,
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
@@ -215,7 +205,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
 
   private func execute<Accumulator: GraphQLResultAccumulator>(
     selections: [Selection],
-    on object: JSONObject,
+    on object: Source.ObjectData,
     info: ObjectExecutionInfo,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.ObjectResult> {
@@ -250,15 +240,17 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   /// referenced fragments are executed at the same time.
   private func groupFields(
     _ selections: [Selection],
-    on object: JSONObject,
+    on object: Source.ObjectData,
     info: ObjectExecutionInfo
   ) throws -> FieldSelectionGrouping {
     var grouping = FieldSelectionGrouping(info: info)
 
-    try fieldCollector.collectFields(from: selections,
-                                     into: &grouping,
-                                     for: object,
-                                     info: info)
+    try Source.FieldCollector.collectFields(
+      from: selections,
+      into: &grouping,
+      for: object,
+      info: info
+    )
     return grouping
   }
 
@@ -268,7 +260,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   /// recursively executing another selection set or coercing a scalar value.
   private func execute<Accumulator: GraphQLResultAccumulator>(
     fields: FieldExecutionInfo,
-    on object: JSONObject,
+    on object: Source.ObjectData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.FieldEntry?> {
     var fieldInfo = fields
@@ -282,7 +274,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
     }
 
     return PossiblyDeferred {
-      fieldResolver(object, fieldInfo)
+      Source.resolveField(with: fields, on: object)
     }.flatMap {
       return self.complete(fields: fieldInfo,
                            withValue: $0,
@@ -360,10 +352,12 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
           }
 
           return self
-            .complete(fields: elementFieldInfo,
-                      withValue: element,
-                      asType: innerType,
-                      accumulator: accumulator)
+            .complete(
+              fields: elementFieldInfo,
+              withValue: element,
+              asType: innerType,
+              accumulator: accumulator
+            )
             .mapError { error in
               if !(error is GraphQLExecutionError) {
                 return GraphQLExecutionError(path: elementFieldInfo.responsePath, underlying: error)
@@ -384,17 +378,21 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
         }
 
         return resolveReference(reference).flatMap {
-          self.complete(fields: fieldInfo,
-                        withValue: $0,
-                        asType: returnType,
-                        accumulator: accumulator)
+          return self.executeChildSelections(
+            forObjectTypeFields: fieldInfo,
+            withRootType: rootSelectionSetType,
+            onChildObject: $0,
+            accumulator: accumulator
+          )
         }
 
-      case let object as JSONObject:
-        return executeChildSelections(forObjectTypeFields: fieldInfo,
-                                      withRootType: rootSelectionSetType,
-                                      onChildObject: object,
-                                      accumulator: accumulator)
+      case let object as Source.ObjectData:
+        return executeChildSelections(
+          forObjectTypeFields: fieldInfo,
+          withRootType: rootSelectionSetType,
+          onChildObject: object,
+          accumulator: accumulator
+        )
 
       default:
         return .immediate(.failure(JSONDecodingError.wrongType))
@@ -405,7 +403,7 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
   private func executeChildSelections<Accumulator: GraphQLResultAccumulator>(
     forObjectTypeFields fieldInfo: FieldExecutionInfo,
     withRootType rootSelectionSetType: any RootSelectionSet.Type,
-    onChildObject object: JSONObject,
+    onChildObject object: Source.ObjectData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
@@ -413,11 +411,13 @@ final class GraphQLExecutor<FieldCollector: FieldSelectionCollector> {
       for: object,
       shouldComputeCachePath: shouldComputeCachePath
     )
-
-    return execute(selections: selections,
-                   on: object,
-                   info: childExecutionInfo,
-                   accumulator: accumulator)
-      .map { try accumulator.accept(childObject: $0, info: fieldInfo) }
+    
+    return execute(
+      selections: selections,
+      on: object,
+      info: childExecutionInfo,
+      accumulator: accumulator
+    )
+    .map { try accumulator.accept(childObject: $0, info: fieldInfo) }
   }
 }

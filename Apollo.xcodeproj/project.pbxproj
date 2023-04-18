@@ -617,6 +617,7 @@
 		DE7C183E272A154400727031 /* IR.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7C183D272A154400727031 /* IR.swift */; };
 		DE80003428B5608E00C827BD /* SchemaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE80003328B5608E00C827BD /* SchemaMetadata.swift */; };
 		DE8C51CA29E8B03700E47A64 /* IRDefinition+RenderingHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C51C929E8B03700E47A64 /* IRDefinition+RenderingHelpers.swift */; };
+		DE8C51CC29EF454100E47A64 /* GraphQLExecutionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C51CB29EF454100E47A64 /* GraphQLExecutionSource.swift */; };
 		DE903E1329B7E6D300A74415 /* SelectionSet+JSONInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */; };
 		DE903E1729C10B7600A74415 /* FieldSelectionCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */; };
 		DE903E1929CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */; };
@@ -1818,6 +1819,7 @@
 		DE7C183D272A154400727031 /* IR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IR.swift; sourceTree = "<group>"; };
 		DE80003328B5608E00C827BD /* SchemaMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.swift; sourceTree = "<group>"; };
 		DE8C51C929E8B03700E47A64 /* IRDefinition+RenderingHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IRDefinition+RenderingHelpers.swift"; sourceTree = "<group>"; };
+		DE8C51CB29EF454100E47A64 /* GraphQLExecutionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLExecutionSource.swift; sourceTree = "<group>"; };
 		DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionSet+JSONInitializer.swift"; sourceTree = "<group>"; };
 		DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldSelectionCollector.swift; sourceTree = "<group>"; };
 		DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCaseConversionPerformanceTests.swift; sourceTree = "<group>"; };
@@ -2569,6 +2571,7 @@
 				DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */,
 				DE9C04AB26EA763E00EC35E7 /* Accumulators */,
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
+				DE8C51CB29EF454100E47A64 /* GraphQLExecutionSource.swift */,
 				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
@@ -5409,6 +5412,7 @@
 				DE4B1E572891D2F40058D1F6 /* Atomic.swift in Sources */,
 				E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
+				DE8C51CC29EF454100E47A64 /* GraphQLExecutionSource.swift in Sources */,
 				DED5B355286CCAFF00AE6BFF /* ResponsePath.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,

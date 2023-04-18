@@ -30,9 +30,14 @@ public struct DataDict: Hashable {
   }
 
   @usableFromInline var selectionSetData: SelectionSetData
-  public var _data: [String: AnyHashable] {
+
+  @inlinable public var _data: [String: AnyHashable] {
     get { selectionSetData.data }
     set { selectionSetData.data = newValue }
+  }
+
+  @inlinable public var _fulfilledFragments: Set<ObjectIdentifier> {
+    selectionSetData.fulfilledFragments    
   }
 
   public init(

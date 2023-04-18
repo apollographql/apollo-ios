@@ -23,8 +23,7 @@ public protocol SchemaConfiguration {
   /// (when the source is a network response or cache hit) or the specific custom scalar type for
   /// the field (when the source is a `SelectionSet` model to write to the cache). When using a
   /// custom scalar field to compute a cache key, make sure to check the type and handle both of
-  /// these possibilities
-  ///
+  /// these possibilities.
   ///
   /// # See Also
   /// ``CacheKeyInfo``
