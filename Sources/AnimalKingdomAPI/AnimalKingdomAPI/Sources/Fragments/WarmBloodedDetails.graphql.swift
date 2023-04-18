@@ -37,14 +37,16 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
     bodyTemperature: Int,
     height: HeightInMeters.Height
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "bodyTemperature": bodyTemperature,
-      "height": height._fieldData,
-      "__fulfilled": Set([
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "bodyTemperature": bodyTemperature,
+        "height": height._fieldData,
+      ],
+      fulfilledFragments: [
         ObjectIdentifier(Self.self),
         ObjectIdentifier(HeightInMeters.self)
-      ])
-    ]))
+      ]
+    ))
   }
 }

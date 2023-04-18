@@ -42,13 +42,15 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// Hero
@@ -82,15 +84,17 @@ public class HeroAndFriendsNamesWithFragmentQuery: GraphQLQuery {
         name: String,
         friends: [FriendsNames.Friend?]? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "friends": friends._fieldData,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+            "friends": friends._fieldData,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(FriendsNames.self)
-          ])
-        ]))
+          ]
+        ))
       }
     }
   }

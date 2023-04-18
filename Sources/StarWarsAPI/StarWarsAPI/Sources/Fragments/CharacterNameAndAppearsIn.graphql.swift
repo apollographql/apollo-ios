@@ -32,13 +32,15 @@ public struct CharacterNameAndAppearsIn: StarWarsAPI.SelectionSet, Fragment {
     name: String,
     appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "name": name,
-      "appearsIn": appearsIn,
-      "__fulfilled": Set([
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "name": name,
+        "appearsIn": appearsIn,
+      ],
+      fulfilledFragments: [
         ObjectIdentifier(Self.self)
-      ])
-    ]))
+      ]
+    ))
   }
 }

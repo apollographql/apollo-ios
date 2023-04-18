@@ -30,13 +30,15 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
     __typename: String,
     friends: [Friend?]? = nil
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "friends": friends._fieldData,
-      "__fulfilled": Set([
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "friends": friends._fieldData,
+      ],
+      fulfilledFragments: [
         ObjectIdentifier(Self.self)
-      ])
-    ]))
+      ]
+    ))
   }
 
   /// Friend
@@ -59,13 +61,15 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
       __typename: String,
       name: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": __typename,
-        "name": name,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": __typename,
+          "name": name,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
   }
 }

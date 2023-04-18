@@ -37,13 +37,15 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "allAnimals": allAnimals._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// AllAnimal
@@ -65,13 +67,15 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
         __typename: String,
         height: Height? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "height": height._fieldData,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "height": height._fieldData,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// AllAnimal.Height
@@ -95,14 +99,16 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           feet: Int? = nil,
           inches: Int
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Height.typename,
-            "feet": feet,
-            "inches": inches,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Height.typename,
+              "feet": feet,
+              "inches": inches,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }
