@@ -2157,6 +2157,24 @@ class ApolloCodegenTests: XCTestCase {
         .to(throwError(ApolloCodegen.Error.schemaNameConflict(name: config.schemaNamespace)))
     }
   }
+  
+  func test__validation__givenTargetName_matchingDisallowedTargetName_shouldThrow() throws {
+    // given
+    let disallowedNames = ["apollo", "Apollo", "apolloapi", "ApolloAPI"]
+    
+    // when
+    for name in disallowedNames {
+      let config = ApolloCodegenConfiguration.mock(
+        output: .mock(
+          moduleType: .embeddedInTarget(name: name)
+        )
+      )
+      
+      // then
+      expect(try ApolloCodegen._validate(config: config))
+        .to(throwError(ApolloCodegen.Error.targetNameConflict(name: name)))
+    }
+  }
 
   func test__validation__givenEmptySchemaName_shouldThrow() throws {
     let config = ApolloCodegenConfiguration.mock(schemaNamespace: "")

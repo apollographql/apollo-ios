@@ -20,6 +20,7 @@ public class ApolloCodegen {
     case cannotLoadOperations
     case invalidConfiguration(message: String)
     case invalidSchemaName(_ name: String, message: String)
+    case targetNameConflict(name: String)
 
     public var errorDescription: String? {
       switch self {
@@ -50,6 +51,11 @@ public class ApolloCodegen {
         return "The codegen configuration has conflicting values: \(message)"
       case let .invalidSchemaName(name, message):
         return "The schema namespace `\(name)` is invalid: \(message)"
+      case let .targetNameConflict(name):
+        return """
+          Target name '\(name)' conflicts with a reserved library name. Please choose a different \
+          target name.
+        """
       }
     }
   }
@@ -171,6 +177,11 @@ public class ApolloCodegen {
         module type is Swift Package Manager. Change the cocoapodsCompatibleImportStatements \
         value to 'false', or choose a different module type, to resolve the conflict.
         """)
+    }
+    
+    if case let .embeddedInTarget(targetName) = context.output.schemaTypes.moduleType,
+       SwiftKeywords.DisallowedEmbeddedTargetNames.contains(targetName.lowercased()) {
+      throw Error.targetNameConflict(name: targetName)
     }
 
     for searchPath in context.input.schemaSearchPaths {
