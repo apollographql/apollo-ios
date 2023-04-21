@@ -8,50 +8,10 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
   let defaultTimeout = 0.5
 
-  private class ErrorRequestChain: RequestChain {
-    var isCancelled: Bool = false
-    var error: Error? = nil
-
-    init() {}
-
-    func kickoff<Operation>(
-      request: Apollo.HTTPRequest<Operation>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
-    ) {}
-
-    func proceedAsync<Operation>(
-      request: Apollo.HTTPRequest<Operation>,
-      response: Apollo.HTTPResponse<Operation>?,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
-    ) {}
-
-    func cancel() {}
-
-    func retry<Operation>(
-      request: Apollo.HTTPRequest<Operation>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
-    ) {}
-
-    func handleErrorAsync<Operation>(
-      _ error: Error,
-      request: Apollo.HTTPRequest<Operation>,
-      response: Apollo.HTTPResponse<Operation>?,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
-    ) {
-      self.error = error
-    }
-
-    func returnValueAsync<Operation>(
-      for request: Apollo.HTTPRequest<Operation>,
-      value: Apollo.GraphQLResult<Operation.Data>,
-      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
-    ) {}
-  }
-
   // MARK: - Error tests
 
   func test__error__givenNoResponse_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
@@ -64,7 +24,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   }
 
   func test__error__givenResponse_withMissingMultipartBoundaryHeader_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
@@ -77,7 +37,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   }
 
   func test__error__givenChunk_withIncorrectContentType_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
@@ -103,7 +63,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   }
 
   func test__error__givenChunk_withTransportError_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
@@ -131,7 +91,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   }
 
   func test__error__givenUnrecognizableChunk_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
@@ -153,7 +113,7 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   }
 
   func test__error__givenChunk_withMissingPayload_shouldReturnError() throws {
-    let requestChain = ErrorRequestChain()
+    let requestChain = ResponseCaptureRequestChain()
 
     MultipartResponseParsingInterceptor().interceptAsync(
       chain: requestChain,
