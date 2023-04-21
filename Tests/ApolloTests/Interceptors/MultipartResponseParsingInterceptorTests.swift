@@ -11,36 +11,54 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
   // MARK: - Error tests
 
   func test__error__givenNoResponse_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
-      request: .mock(operation: MockSubscription.mock()),
-      response: nil
-    ) { result in }
+    let expectation = expectation(description: "Received callback")
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.noResponseToParse))
+    subject.intercept(request: .mock(operation: MockSubscription.mock())) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.noResponseToParse)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__error__givenResponse_withMissingMultipartBoundaryHeader_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
       request: .mock(operation: MockSubscription.mock()),
       response: .mock(headerFields: ["Content-Type": "multipart/mixed"])
-    ) { result in }
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.cannotParseResponseData))
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.cannotParseResponseData)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__error__givenChunk_withIncorrectContentType_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
       request: .mock(operation: MockSubscription.mock()),
       response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
@@ -56,17 +74,27 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
           --graphql
           """.crlfFormattedData()
       )
-    ) { result in }
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.unsupportedContentType(type: "test/custom")))
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.unsupportedContentType(type: "test/custom"))
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__error__givenChunk_withTransportError_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
       request: .mock(operation: MockSubscription.mock()),
       response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
@@ -84,17 +112,27 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
           --graphql
           """.crlfFormattedData()
       )
-    ) { result in }
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.irrecoverableError(message: "forced test failure!")))
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.irrecoverableError(message: "forced test failure!"))
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__error__givenUnrecognizableChunk_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
       request: .mock(operation: MockSubscription.mock()),
       response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
@@ -106,17 +144,27 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
           --graphql
           """.crlfFormattedData()
       )
-    ) { result in }
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.cannotParseChunkData))
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.cannotParseChunkData)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   func test__error__givenChunk_withMissingPayload_shouldReturnError() throws {
-    let requestChain = ResponseCaptureRequestChain()
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
-    MultipartResponseParsingInterceptor().interceptAsync(
-      chain: requestChain,
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
       request: .mock(operation: MockSubscription.mock()),
       response: .mock(
         headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"],
@@ -130,10 +178,19 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
           --graphql
           """.crlfFormattedData()
       )
-    ) { result in }
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
 
-    expect(requestChain.error as? MultipartResponseParsingInterceptor.MultipartResponseParsingError)
-      .to(equal(.cannotParsePayloadData))
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.MultipartResponseParsingError.cannotParsePayloadData)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
   }
 
   // MARK: Parsing tests
