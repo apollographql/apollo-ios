@@ -37,7 +37,7 @@ class ParsingPerformanceTests: XCTestCase {
 
   func testMultipartResponseParsingInterceptor() throws {
     var rawData: String = ""
-    for _ in 0..<100 {
+    for _ in 0..<1000 {
       rawData.append("""
         --graphql
         content-type: application/json
