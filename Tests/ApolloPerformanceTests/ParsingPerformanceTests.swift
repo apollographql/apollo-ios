@@ -53,9 +53,8 @@ class ParsingPerformanceTests: XCTestCase {
         """)
     }
 
-    let operation = MockSubscription.mock()
     let request = JSONRequest(
-      operation: operation,
+      operation: MockSubscription.mock(),
       graphQLEndpoint: TestURL.mockServer.url,
       clientName: "ApolloPerformanceTest",
       clientVersion: "0",
@@ -72,18 +71,16 @@ class ParsingPerformanceTests: XCTestCase {
         ])!,
       rawData: rawData.crlfFormattedData(),
       parsedResponse: nil)
-    let chain = ResponseCaptureRequestChain()
+
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
 
     let expectedData = "{\"data\":{\"ticker\":1}}".data(using: .utf8)
 
     measure {
-      MultipartResponseParsingInterceptor().interceptAsync(
-        chain: chain,
-        request: request,
-        response: response
-      ) { _ in }
-
-      XCTAssertEqual(chain.data, expectedData)
+      subject.intercept(request: request, response: response) { result in
+        XCTAssertSuccessResult(result)
+        XCTAssertEqual(try! result.get(), expectedData)
+      }
     }
   }
 
