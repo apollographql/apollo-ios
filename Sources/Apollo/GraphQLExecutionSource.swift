@@ -1,8 +1,14 @@
+#if !COCOAPODS
+import ApolloAPI
+#endif
+
 protocol GraphQLExecutionSource {
   /// The type that represents each object in data from the source.
-  associatedtype ObjectData
+  associatedtype RawData
 
-  associatedtype FieldCollector: FieldSelectionCollector<ObjectData>
+  associatedtype OpaqueObjectDataWrapper: ObjectData
+
+  associatedtype FieldCollector: FieldSelectionCollector<RawData>
 
   /// Resolves the value for a field value for a field.
   ///
@@ -12,6 +18,8 @@ protocol GraphQLExecutionSource {
   ///  a `CacheReference` that can be resolved by the source.
   static func resolveField(
     with info: FieldExecutionInfo,
-    on object: ObjectData
+    on object: RawData
   ) -> AnyHashable?
+
+  static func opaqueObjectDataWrapper(for: RawData) -> OpaqueObjectDataWrapper
 }

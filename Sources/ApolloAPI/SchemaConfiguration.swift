@@ -32,6 +32,54 @@ public protocol SchemaConfiguration {
   ///   - type: The ``Object`` type of the response `object`.
   ///   - object: The response object to resolve the cache key for.
   ///     Represented as a ``JSONObject`` dictionary.
-  /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.
+  /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.  
   static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
+
+  static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo?
 }
+
+public protocol ObjectData {
+
+  subscript(_ key: String) -> AnyHashable? { get }
+
+}
+
+public extension ObjectData {
+  subscript(_ key: String, withArguments: [String: Any]) -> AnyHashable? {
+    return nil
+  }
+}
+
+extension ObjectData {
+  
+}
+
+//struct NetworkResponseObjectData<T: GraphQLOperation>: ObjectData {
+//  subscript<T: AnyScalarType>(_ key: String) -> T? {
+//    return nil
+//  }
+//
+//  subscript(_ key: String) -> (any ObjectData)? {
+//    return nil
+//  }
+//
+//  subscript(_ key: String) -> AnyHashable? {
+//    guard let value = underlyingData[key] else { return nil }
+//  }
+////
+////  subscript(_ key: String, withArguments: [String : Any]) -> AnyHashable? {
+////
+////  }
+//
+//  func convert(_ value: AnyHashable) -> AnyHashable {
+//    switch value {
+//    case is AnyScalarType: return value
+//    case let customScalar as CustomScalarType: return customScalar._jsonValue
+//    default: return value
+//    }
+//  }
+//
+//  let underlyingData: [String: AnyHashable]
+//  let variables: GraphQLOperation.Variables?
+//
+//}

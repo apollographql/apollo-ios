@@ -101,7 +101,7 @@ struct FieldExecutionInfo {
   /// For scalar fields, the child selections will be an empty array.
   fileprivate func computeChildExecutionData(
     withRootType rootType: any RootSelectionSet.Type,
-    for object: JSONObject,
+    for object: some ObjectData,
     shouldComputeCachePath: Bool
   ) -> (ObjectExecutionInfo, [Selection]) {
     let childExecutionInfo = ObjectExecutionInfo(
@@ -160,7 +160,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// Because data may be loaded from a database, these loads are batched for performance reasons.
   /// By returning a `PossiblyDeferred` wrapper, we allow `ApolloStore` to use a `DataLoader` that
   /// will defer loading the next batch of records from the cache until they are needed.
-  typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<Source.ObjectData>
+  typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<Source.RawData>
 
   private let resolveReference: ReferenceResolver?
 
@@ -181,7 +181,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     SelectionSet: RootSelectionSet
   >(
     selectionSet: SelectionSet.Type,
-    on data: Source.ObjectData,
+    on data: Source.RawData,
     withRootCacheReference root: CacheReference? = nil,
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
@@ -205,7 +205,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
 
   private func execute<Accumulator: GraphQLResultAccumulator>(
     selections: [Selection],
-    on object: Source.ObjectData,
+    on object: Source.RawData,
     info: ObjectExecutionInfo,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.ObjectResult> {
@@ -240,7 +240,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// referenced fragments are executed at the same time.
   private func groupFields(
     _ selections: [Selection],
-    on object: Source.ObjectData,
+    on object: Source.RawData,
     info: ObjectExecutionInfo
   ) throws -> FieldSelectionGrouping {
     var grouping = FieldSelectionGrouping(info: info)
@@ -260,7 +260,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// recursively executing another selection set or coercing a scalar value.
   private func execute<Accumulator: GraphQLResultAccumulator>(
     fields: FieldExecutionInfo,
-    on object: Source.ObjectData,
+    on object: Source.RawData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.FieldEntry?> {
     var fieldInfo = fields
@@ -386,7 +386,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
           )
         }
 
-      case let object as Source.ObjectData:
+      case let object as Source.RawData:
         return executeChildSelections(
           forObjectTypeFields: fieldInfo,
           withRootType: rootSelectionSetType,
@@ -403,12 +403,12 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   private func executeChildSelections<Accumulator: GraphQLResultAccumulator>(
     forObjectTypeFields fieldInfo: FieldExecutionInfo,
     withRootType rootSelectionSetType: any RootSelectionSet.Type,
-    onChildObject object: Source.ObjectData,
+    onChildObject object: Source.RawData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
       withRootType: rootSelectionSetType,
-      for: object,
+      for: Source.opaqueObjectDataWrapper(for: object),
       shouldComputeCachePath: shouldComputeCachePath
     )
     
