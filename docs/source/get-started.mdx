@@ -81,7 +81,7 @@ query HeroName {
 Apollo iOS will generate a `HeroNameQuery` class that you can construct and pass to `ApolloClient.fetch(query:)`:
 
 ```swift
-apolloClient.fetch(query: HeroNameQuery) { result in
+apolloClient.fetch(query: HeroNameQuery()) { result in
   guard let data = try? result.get().data else { return }
   print(data.hero.name) // Luke Skywalker
 }
