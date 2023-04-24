@@ -192,13 +192,11 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var executor = GraphQLExecutor { object, info in
-      return object[info.cacheKeyForField]
-    } resolveReference: { [weak self] reference in
+    fileprivate lazy var executor = GraphQLExecutor<CacheDataExecutionSource> { [weak self] in
       guard let self = self else {
         return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
       }
-      return self.loadObject(forKey: reference.key)
+      return self.loadObject(forKey: $0.key)
     }
 
     fileprivate init(store: ApolloStore) {
@@ -317,16 +315,11 @@ public class ApolloStore {
     ) throws {
       let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
 
-      let executor = GraphQLExecutor(
-        fieldCollector: CustomCacheDataWritingFieldSelectionCollector(),
-        fieldResolver: { object, info in
-          return object[info.responseKeyForField]
-        }
-      )
+      let executor = GraphQLExecutor<SelectionSetModelExecutionSource>()
 
       let records = try executor.execute(
         selectionSet: SelectionSet.self,
-        on: selectionSet.__data._data,
+        on: selectionSet.__data,
         withRootCacheReference: CacheReference(key),
         variables: variables,
         accumulator: normalizer
