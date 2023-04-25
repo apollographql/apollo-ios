@@ -270,7 +270,8 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = SelectionSetTemplate(
       definition: .operation(operation),
       generateInitializers: true,
-      config: config
+      config: config,
+      accessControlRenderer: { "does not matter" }()
     )
 
     let expected = #"""
@@ -398,7 +399,8 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
     let subject = SelectionSetTemplate(
       definition: .operation(operation),
       generateInitializers: true,
-      config: config
+      config: config,
+      accessControlRenderer: { "does not matter" }()
     )
 
     let expected = #"""

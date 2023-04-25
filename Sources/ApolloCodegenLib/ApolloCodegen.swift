@@ -179,7 +179,7 @@ public class ApolloCodegen {
         """)
     }
     
-    if case let .embeddedInTarget(targetName) = context.output.schemaTypes.moduleType,
+    if case let .embeddedInTarget(targetName, _) = context.output.schemaTypes.moduleType,
        SwiftKeywords.DisallowedEmbeddedTargetNames.contains(targetName.lowercased()) {
       throw Error.targetNameConflict(name: targetName)
     }
