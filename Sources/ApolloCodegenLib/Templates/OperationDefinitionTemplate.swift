@@ -30,7 +30,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      public struct Data: \(definition.renderedSelectionSetType(config)) {
+      \(embeddedAccessControlModifier(target: target))struct Data: \(definition.renderedSelectionSetType(config)) {
         \(SelectionSetTemplate(
             definition: definition,
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
@@ -50,7 +50,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
     \(accessControl)\
     class \(operation.generatedDefinitionName): \
     \(operation.definition.operationType.renderedProtocolName) {
-      public static let operationName: String = "\(operation.definition.name)"
+      \(accessControl)static let operationName: String = "\(operation.definition.name)"
     """
   }
 
