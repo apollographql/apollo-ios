@@ -408,8 +408,8 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-      public struct Data: Myschema.MutableSelectionSet {
-        public var __data: DataDict
+      struct Data: Myschema.MutableSelectionSet {
+        var __data: DataDict
     """
 
     // when
@@ -426,8 +426,8 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-      public struct Data: MYSCHEMA.MutableSelectionSet {
-        public var __data: DataDict
+      struct Data: MYSCHEMA.MutableSelectionSet {
+        var __data: DataDict
     """
 
     // when
