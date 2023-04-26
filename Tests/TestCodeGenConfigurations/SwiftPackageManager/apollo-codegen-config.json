@@ -1,5 +1,5 @@
 {
-  "schemaName" : "GraphQLSchemaName",
+  "schemaName" : "AnimalKingdomAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -26,11 +26,11 @@
   "output" : {
     "testMocks" : {
       "swiftPackage" : {
-        "name": "GraphQLSchemaName_TestMocks"
+        "name": "AnimalKingdomAPITestMocks"
       }
     },
     "schemaTypes" : {
-      "path" : "./Packages/GraphQLSchemaName",
+      "path" : "./AnimalKingdomAPI",
       "moduleType" : {
         "swiftPackageManager" : {
 
