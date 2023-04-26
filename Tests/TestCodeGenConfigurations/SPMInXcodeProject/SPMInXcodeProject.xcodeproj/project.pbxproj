@@ -12,17 +12,11 @@
 		DE3511E928E22137000F1E52 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE3511E828E22137000F1E52 /* Assets.xcassets */; };
 		DE3511EC28E22137000F1E52 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE3511EB28E22137000F1E52 /* Preview Assets.xcassets */; };
 		DE3511F728E22137000F1E52 /* SPMInXcodeProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE3511F628E22137000F1E52 /* SPMInXcodeProjectTests.swift */; };
-		DE35120128E22137000F1E52 /* SPMInXcodeProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */; };
-		DE35120328E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */; };
 		DECA8F6729DF5370009E92DD /* ApolloTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = DECA8F6629DF5370009E92DD /* ApolloTestSupport */; };
-		DECA8F6929DF53ED009E92DD /* AnimalKingdomAPITestMocks in Frameworks */ = {isa = PBXBuildFile; productRef = DECA8F6829DF53ED009E92DD /* AnimalKingdomAPITestMocks */; };
-		DEE1F79A29D76D0C0050C4DA /* ApolloWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DEE1F7A529D76F390050C4DA /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7A429D76F390050C4DA /* Apollo */; };
-		DEE1F7A629D76F3F0050C4DA /* ApolloWrapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */; };
-		DEE1F7AD29D770A90050C4DA /* DogQueryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */; };
-		DEE1F7B929D772AE0050C4DA /* AnimalKingdomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */; };
-		DEE1F7BF29D773970050C4DA /* AnimalKingdomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */; };
-		DEE1F7C129D775740050C4DA /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DEE1F7C029D775740050C4DA /* ApolloAPI */; };
+		E603FB7829F8FC3900A187B7 /* AnimalKingdomAPITestMocks in Frameworks */ = {isa = PBXBuildFile; productRef = E603FB7729F8FC3900A187B7 /* AnimalKingdomAPITestMocks */; };
+		E603FB7A29F8FC7A00A187B7 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = E603FB7929F8FC7A00A187B7 /* Apollo */; };
+		E603FB7C29F8FC7D00A187B7 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E603FB7B29F8FC7D00A187B7 /* ApolloAPI */; };
+		E679DAF629F9E77100AFD569 /* AnimalKingdomAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E679DAF529F9E77100AFD569 /* AnimalKingdomAPI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,20 +26,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE3511E028E22136000F1E52;
 			remoteInfo = SPMInXcodeProject;
-		};
-		DE3511FD28E22137000F1E52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DE3511D928E22136000F1E52 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE3511E028E22136000F1E52;
-			remoteInfo = SPMInXcodeProject;
-		};
-		DEE1F7AE29D771300050C4DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DE3511D928E22136000F1E52 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DEE1F79629D76D0C0050C4DA;
-			remoteInfo = ApolloWrapper;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,14 +38,9 @@
 		DE3511ED28E22137000F1E52 /* SPMInXcodeProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SPMInXcodeProject.entitlements; sourceTree = "<group>"; };
 		DE3511F228E22137000F1E52 /* SPMInXcodeProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPMInXcodeProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE3511F628E22137000F1E52 /* SPMInXcodeProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectTests.swift; sourceTree = "<group>"; };
-		DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SPMInXcodeProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITests.swift; sourceTree = "<group>"; };
-		DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPMInXcodeProjectUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DECA8F6A29DF5427009E92DD /* SPMInXcodeProject.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SPMInXcodeProject.xctestplan; sourceTree = "<group>"; };
-		DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ApolloWrapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApolloWrapper.h; sourceTree = "<group>"; };
 		DEE1F7A229D76EFC0050C4DA /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
-		DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogQueryBuilder.swift; sourceTree = "<group>"; };
+		E679DAF429F9E76100AFD569 /* AnimalKingdomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnimalKingdomAPI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,8 +48,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEE1F7A629D76F3F0050C4DA /* ApolloWrapper.framework in Frameworks */,
-				DEE1F7BF29D773970050C4DA /* AnimalKingdomAPI in Frameworks */,
+				E603FB7C29F8FC7D00A187B7 /* ApolloAPI in Frameworks */,
+				E679DAF629F9E77100AFD569 /* AnimalKingdomAPI in Frameworks */,
+				E603FB7A29F8FC7A00A187B7 /* Apollo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,24 +59,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DECA8F6729DF5370009E92DD /* ApolloTestSupport in Frameworks */,
-				DECA8F6929DF53ED009E92DD /* AnimalKingdomAPITestMocks in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE3511F928E22137000F1E52 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DEE1F79429D76D0C0050C4DA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DEE1F7C129D775740050C4DA /* ApolloAPI in Frameworks */,
-				DEE1F7A529D76F390050C4DA /* Apollo in Frameworks */,
-				DEE1F7B929D772AE0050C4DA /* AnimalKingdomAPI in Frameworks */,
+				E603FB7829F8FC3900A187B7 /* AnimalKingdomAPITestMocks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,8 +73,6 @@
 				DEE1F7A129D76EFC0050C4DA /* Packages */,
 				DE3511E328E22136000F1E52 /* SPMInXcodeProject */,
 				DE3511F528E22137000F1E52 /* SPMInXcodeProjectTests */,
-				DE3511FF28E22137000F1E52 /* SPMInXcodeProjectUITests */,
-				DEE1F79829D76D0C0050C4DA /* ApolloWrapper */,
 				DE3511E228E22136000F1E52 /* Products */,
 				DEE1F79E29D76D190050C4DA /* Frameworks */,
 			);
@@ -126,8 +83,6 @@
 			children = (
 				DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */,
 				DE3511F228E22137000F1E52 /* SPMInXcodeProjectTests.xctest */,
-				DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */,
-				DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,24 +115,6 @@
 			path = SPMInXcodeProjectTests;
 			sourceTree = "<group>";
 		};
-		DE3511FF28E22137000F1E52 /* SPMInXcodeProjectUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DE35120028E22137000F1E52 /* SPMInXcodeProjectUITests.swift */,
-				DE35120228E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift */,
-			);
-			path = SPMInXcodeProjectUITests;
-			sourceTree = "<group>";
-		};
-		DEE1F79829D76D0C0050C4DA /* ApolloWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				DEE1F79929D76D0C0050C4DA /* ApolloWrapper.h */,
-				DEE1F7AC29D770A90050C4DA /* DogQueryBuilder.swift */,
-			);
-			path = ApolloWrapper;
-			sourceTree = "<group>";
-		};
 		DEE1F79E29D76D190050C4DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,22 +126,12 @@
 			isa = PBXGroup;
 			children = (
 				DEE1F7A229D76EFC0050C4DA /* apollo-ios */,
+				E679DAF429F9E76100AFD569 /* AnimalKingdomAPI */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
-
-/* Begin PBXHeadersBuildPhase section */
-		DEE1F79229D76D0C0050C4DA /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DEE1F79A29D76D0C0050C4DA /* ApolloWrapper.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		DE3511E028E22136000F1E52 /* SPMInXcodeProject */ = {
@@ -219,11 +146,12 @@
 			);
 			dependencies = (
 				DEE1F7BD29D773930050C4DA /* PBXTargetDependency */,
-				DEE1F7AF29D771300050C4DA /* PBXTargetDependency */,
 			);
 			name = SPMInXcodeProject;
 			packageProductDependencies = (
-				DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */,
+				E603FB7929F8FC7A00A187B7 /* Apollo */,
+				E603FB7B29F8FC7D00A187B7 /* ApolloAPI */,
+				E679DAF529F9E77100AFD569 /* AnimalKingdomAPI */,
 			);
 			productName = SPMInXcodeProject;
 			productReference = DE3511E128E22136000F1E52 /* SPMInXcodeProject.app */;
@@ -245,55 +173,11 @@
 			name = SPMInXcodeProjectTests;
 			packageProductDependencies = (
 				DECA8F6629DF5370009E92DD /* ApolloTestSupport */,
-				DECA8F6829DF53ED009E92DD /* AnimalKingdomAPITestMocks */,
+				E603FB7729F8FC3900A187B7 /* AnimalKingdomAPITestMocks */,
 			);
 			productName = SPMInXcodeProjectTests;
 			productReference = DE3511F228E22137000F1E52 /* SPMInXcodeProjectTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		DE3511FB28E22137000F1E52 /* SPMInXcodeProjectUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE35120C28E22137000F1E52 /* Build configuration list for PBXNativeTarget "SPMInXcodeProjectUITests" */;
-			buildPhases = (
-				DE3511F828E22137000F1E52 /* Sources */,
-				DE3511F928E22137000F1E52 /* Frameworks */,
-				DE3511FA28E22137000F1E52 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DE3511FE28E22137000F1E52 /* PBXTargetDependency */,
-			);
-			name = SPMInXcodeProjectUITests;
-			productName = SPMInXcodeProjectUITests;
-			productReference = DE3511FC28E22137000F1E52 /* SPMInXcodeProjectUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		DEE1F79629D76D0C0050C4DA /* ApolloWrapper */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DEE1F79B29D76D0C0050C4DA /* Build configuration list for PBXNativeTarget "ApolloWrapper" */;
-			buildPhases = (
-				DEE1F79229D76D0C0050C4DA /* Headers */,
-				DEE1F79329D76D0C0050C4DA /* Sources */,
-				DEE1F79429D76D0C0050C4DA /* Frameworks */,
-				DEE1F79529D76D0C0050C4DA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DEE1F7C329D777720050C4DA /* PBXTargetDependency */,
-				DEE1F7BB29D772D10050C4DA /* PBXTargetDependency */,
-				DEE1F7B129D7713A0050C4DA /* PBXTargetDependency */,
-			);
-			name = ApolloWrapper;
-			packageProductDependencies = (
-				DEE1F7A429D76F390050C4DA /* Apollo */,
-				DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */,
-				DEE1F7C029D775740050C4DA /* ApolloAPI */,
-			);
-			productName = ApolloWrapper;
-			productReference = DEE1F79729D76D0C0050C4DA /* ApolloWrapper.framework */;
-			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -312,14 +196,6 @@
 						CreatedOnToolsVersion = 14.0;
 						TestTargetID = DE3511E028E22136000F1E52;
 					};
-					DE3511FB28E22137000F1E52 = {
-						CreatedOnToolsVersion = 14.0;
-						TestTargetID = DE3511E028E22136000F1E52;
-					};
-					DEE1F79629D76D0C0050C4DA = {
-						CreatedOnToolsVersion = 14.3;
-						LastSwiftMigration = 1430;
-					};
 				};
 			};
 			buildConfigurationList = DE3511DC28E22136000F1E52 /* Build configuration list for PBXProject "SPMInXcodeProject" */;
@@ -332,7 +208,6 @@
 			);
 			mainGroup = DE3511D828E22136000F1E52;
 			packageReferences = (
-				DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */,
 			);
 			productRefGroup = DE3511E228E22136000F1E52 /* Products */;
 			projectDirPath = "";
@@ -340,8 +215,6 @@
 			targets = (
 				DE3511E028E22136000F1E52 /* SPMInXcodeProject */,
 				DE3511F128E22137000F1E52 /* SPMInXcodeProjectTests */,
-				DE3511FB28E22137000F1E52 /* SPMInXcodeProjectUITests */,
-				DEE1F79629D76D0C0050C4DA /* ApolloWrapper */,
 			);
 		};
 /* End PBXProject section */
@@ -357,20 +230,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DE3511F028E22137000F1E52 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE3511FA28E22137000F1E52 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DEE1F79529D76D0C0050C4DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,23 +256,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE3511F828E22137000F1E52 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE35120328E22137000F1E52 /* SPMInXcodeProjectUITestsLaunchTests.swift in Sources */,
-				DE35120128E22137000F1E52 /* SPMInXcodeProjectUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DEE1F79329D76D0C0050C4DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DEE1F7AD29D770A90050C4DA /* DogQueryBuilder.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -422,31 +264,9 @@
 			target = DE3511E028E22136000F1E52 /* SPMInXcodeProject */;
 			targetProxy = DE3511F328E22137000F1E52 /* PBXContainerItemProxy */;
 		};
-		DE3511FE28E22137000F1E52 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE3511E028E22136000F1E52 /* SPMInXcodeProject */;
-			targetProxy = DE3511FD28E22137000F1E52 /* PBXContainerItemProxy */;
-		};
-		DEE1F7AF29D771300050C4DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DEE1F79629D76D0C0050C4DA /* ApolloWrapper */;
-			targetProxy = DEE1F7AE29D771300050C4DA /* PBXContainerItemProxy */;
-		};
-		DEE1F7B129D7713A0050C4DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = DEE1F7B029D7713A0050C4DA /* Apollo */;
-		};
-		DEE1F7BB29D772D10050C4DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = DEE1F7BA29D772D10050C4DA /* AnimalKingdomAPI */;
-		};
 		DEE1F7BD29D773930050C4DA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = DEE1F7BC29D773930050C4DA /* AnimalKingdomAPI */;
-		};
-		DEE1F7C329D777720050C4DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = DEE1F7C229D777720050C4DA /* ApolloAPI */;
 		};
 /* End PBXTargetDependency section */
 
@@ -509,6 +329,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 			};
 			name = Debug;
 		};
@@ -563,6 +384,7 @@
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 			};
 			name = Release;
 		};
@@ -656,118 +478,6 @@
 			};
 			name = Release;
 		};
-		DE35120D28E22137000F1E52 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.SPMInXcodeProjectUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = SPMInXcodeProject;
-			};
-			name = Debug;
-		};
-		DE35120E28E22137000F1E52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.SPMInXcodeProjectUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = SPMInXcodeProject;
-			};
-			name = Release;
-		};
-		DEE1F79C29D76D0C0050C4DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.ApolloWrapper;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		DEE1F79D29D76D0C0050C4DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_MODULE_VERIFIER = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
-				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.ApolloWrapper;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = YES;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -798,80 +508,32 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DE35120C28E22137000F1E52 /* Build configuration list for PBXNativeTarget "SPMInXcodeProjectUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DE35120D28E22137000F1E52 /* Debug */,
-				DE35120E28E22137000F1E52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DEE1F79B29D76D0C0050C4DA /* Build configuration list for PBXNativeTarget "ApolloWrapper" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DEE1F79C29D76D0C0050C4DA /* Debug */,
-				DEE1F79D29D76D0C0050C4DA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "file:///Users/amdev/Documents/repos/apollo-ios/Tests/TestCodeGenConfigurations/SPMInXcodeProject/GeneratedAPI";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		DECA8F6629DF5370009E92DD /* ApolloTestSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApolloTestSupport;
 		};
-		DECA8F6829DF53ED009E92DD /* AnimalKingdomAPITestMocks */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */;
-			productName = AnimalKingdomAPITestMocks;
-		};
-		DEE1F7A429D76F390050C4DA /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Apollo;
-		};
-		DEE1F7B029D7713A0050C4DA /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Apollo;
-		};
-		DEE1F7B829D772AE0050C4DA /* AnimalKingdomAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */;
-			productName = AnimalKingdomAPI;
-		};
-		DEE1F7BA29D772D10050C4DA /* AnimalKingdomAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = AnimalKingdomAPI;
-		};
 		DEE1F7BC29D773930050C4DA /* AnimalKingdomAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AnimalKingdomAPI;
 		};
-		DEE1F7BE29D773970050C4DA /* AnimalKingdomAPI */ = {
+		E603FB7729F8FC3900A187B7 /* AnimalKingdomAPITestMocks */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = DEE1F7B329D7729D0050C4DA /* XCRemoteSwiftPackageReference "GeneratedAPI" */;
+			productName = AnimalKingdomAPITestMocks;
+		};
+		E603FB7929F8FC7A00A187B7 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Apollo;
+		};
+		E603FB7B29F8FC7D00A187B7 /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ApolloAPI;
+		};
+		E679DAF529F9E77100AFD569 /* AnimalKingdomAPI */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = AnimalKingdomAPI;
-		};
-		DEE1F7C029D775740050C4DA /* ApolloAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApolloAPI;
-		};
-		DEE1F7C229D777720050C4DA /* ApolloAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ApolloAPI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

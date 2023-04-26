@@ -1,10 +1,3 @@
-//
-//  SPMInXcodeProjectApp.swift
-//  SPMInXcodeProject
-//
-//  Created by Anthony Miller on 9/26/22.
-//
-
 import SwiftUI
 
 @main

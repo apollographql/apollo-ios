@@ -26,11 +26,11 @@
   "output" : {
     "testMocks" : {
       "swiftPackage" : {
-        "name": "TestMocks"
+        "targetName": "AnimalKingdomAPITestMocks"
       }
     },
     "schemaTypes" : {
-      "path" : ".\/GeneratedAPI",
+      "path" : "./AnimalKingdomAPI",
       "moduleType" : {
         "swiftPackageManager" : {
 
