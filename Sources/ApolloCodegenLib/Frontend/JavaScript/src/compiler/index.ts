@@ -72,10 +72,15 @@ export function compileToIR(
   const fragmentMap = new Map<String, ir.FragmentDefinition>();
   const referencedTypes = new Set<GraphQLNamedType>();
 
+  const queryType = schema.getQueryType() as GraphQLNamedType;
+  if (queryType === undefined) {
+    throw new GraphQLError("GraphQL Schema must contain a 'query' root type definition.", { });
+  }
+
   const rootTypes: ir.RootTypeDefinition = {
-    queryType: schema.getQueryType(),
-    mutationType: schema.getMutationType(),
-    subscriptionType: schema.getSubscriptionType()
+    queryType: queryType,
+    mutationType: schema.getMutationType() ?? undefined,
+    subscriptionType: schema.getSubscriptionType() ?? undefined
   };
 
   for (const definitionNode of document.definitions) {

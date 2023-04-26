@@ -15,23 +15,6 @@ public class CompilationResult: JavaScriptObject {
 
   lazy var schemaDocumentation: String? = self["schemaDocumentation"]
   
-  required init(_ jsValue: JSValue, bridge: JavaScriptBridge) {
-    super.init(jsValue, bridge: bridge)
-    processRootTypes()
-  }
-  
-  private func processRootTypes() {
-    let typeList = [rootTypes.queryType.name, rootTypes.mutationType?.name, rootTypes.subscriptionType?.name].compactMap { $0 }
-    
-    operations.forEach { op in
-      op.rootType.isRootFieldType = typeList.contains(op.rootType.name)
-    }
-    
-    fragments.forEach { fragment in
-      fragment.type.isRootFieldType = typeList.contains(fragment.type.name)
-    }
-  }
-  
   public class RootTypeDefinition: JavaScriptObject {
     lazy var queryType: GraphQLNamedType = self["queryType"]
     

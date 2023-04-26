@@ -367,19 +367,18 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     let expected = """
-      public static var __selections: [Apollo.Selection] { [
+      public static var __selections: [ApolloAPI.Selection] { [
         .field("allAnimals", [AllAnimal]?.self),
       ] }
     """
 
     // when
-    try buildSubjectAndOperation(cocoapodsImportStatements: true)
+    try buildSubjectAndOperation()
     let allAnimals = try XCTUnwrap(
       operation[field: "query"] as? IR.EntityField
     )
 
     let actual = subject.render(field: allAnimals)
-    print("Actual Output - \(actual)")
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))

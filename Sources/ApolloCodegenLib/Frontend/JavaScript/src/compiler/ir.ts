@@ -9,9 +9,9 @@ import {
 import { GraphQLValue } from "./values";
 
 export interface RootTypeDefinition {
-  queryType: GraphQLNamedType | unknown;
-  mutationType: GraphQLNamedType | unknown;
-  subscriptionType: GraphQLNamedType | unknown;
+  queryType: GraphQLNamedType;
+  mutationType: GraphQLNamedType | undefined;
+  subscriptionType: GraphQLNamedType | undefined;
 }
 
 export interface OperationDefinition {
