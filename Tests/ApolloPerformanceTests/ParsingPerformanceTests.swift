@@ -35,6 +35,55 @@ class ParsingPerformanceTests: XCTestCase {
     }
   }
 
+  func testMultipartResponseParsingInterceptor() throws {
+    var rawData: String = ""
+    for _ in 0..<1000 {
+      rawData.append("""
+        --graphql
+        content-type: application/json
+
+        {
+          "payload": {
+            "data": {
+              "ticker": 1
+            }
+          }
+        }
+        --graphql
+        """)
+    }
+
+    let request = JSONRequest(
+      operation: MockSubscription.mock(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "ApolloPerformanceTest",
+      clientVersion: "0",
+      additionalHeaders: [
+        "Accept" : "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json",
+      ])
+    let response = HTTPResponse<MockSubscription<MockSelectionSet>>(
+      response: HTTPURLResponse(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: [
+          "Content-Type": "multipart/mixed;boundary=graphql",
+        ])!,
+      rawData: rawData.crlfFormattedData(),
+      parsedResponse: nil)
+
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
+
+    let expectedData = "{\"data\":{\"ticker\":1}}".data(using: .utf8)
+
+    measure {
+      subject.intercept(request: request, response: response) { result in
+        XCTAssertSuccessResult(result)
+        XCTAssertEqual(try! result.get(), expectedData)
+      }
+    }
+  }
+
   // MARK - Helpers
 
   func loadResponse<Query: GraphQLQuery>(

@@ -1,3 +1,4 @@
 #include "../Shared/Workspace-Target-Test.xcconfig"
 
 INFOPLIST_FILE = Tests/ApolloPerformanceTests/Info.plist
+TREAT_MISSING_BASELINES_AS_TEST_FAILURES = YES
