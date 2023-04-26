@@ -17,6 +17,20 @@ class IR {
       referencedTypes: .init(compilationResult.referencedTypes),
       documentation: compilationResult.schemaDocumentation
     )
+    self.processRootTypes()
+  }
+  
+  private func processRootTypes() {
+    let rootTypes = compilationResult.rootTypes
+    let typeList = [rootTypes.queryType.name, rootTypes.mutationType?.name, rootTypes.subscriptionType?.name].compactMap { $0 }
+    
+    compilationResult.operations.forEach { op in
+      op.rootType.isRootFieldType = typeList.contains(op.rootType.name)
+    }
+    
+    compilationResult.fragments.forEach { fragment in
+      fragment.type.isRootFieldType = typeList.contains(fragment.type.name)
+    }
   }
 
   /// A top level GraphQL definition, which can be an operation or a named fragment.

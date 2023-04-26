@@ -2,14 +2,33 @@
 
 public extension CompilationResult {
 
-  class func mock() -> Self {
+  class func mock(
+    rootTypes: RootTypeDefinition = RootTypeDefinition.mock()
+  ) -> Self {
     let mock = Self.emptyMockObject()
+    mock.rootTypes = rootTypes
     mock.referencedTypes = []
     mock.fragments = []
     mock.operations = []
     return mock
   }
 
+}
+
+public extension CompilationResult.RootTypeDefinition {
+  
+  class func mock(
+    queryName: String = "Query",
+    mutationName: String = "Mutation",
+    subscriptionName: String = "Subscription"
+  ) -> Self {
+    let mock = Self.emptyMockObject()
+    mock.queryType = GraphQLCompositeType.mock(queryName)
+    mock.mutationType = GraphQLCompositeType.mock(mutationName)
+    mock.subscriptionType = GraphQLCompositeType.mock(subscriptionName)
+    return mock
+  }
+  
 }
 
 public extension CompilationResult.OperationDefinition {

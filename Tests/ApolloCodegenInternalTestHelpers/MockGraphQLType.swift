@@ -12,7 +12,6 @@ public extension GraphQLCompositeType {
   }
 }
 
-
 public extension GraphQLObjectType {
   class override func mock(
     _ name: String = ""

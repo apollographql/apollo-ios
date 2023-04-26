@@ -46,6 +46,7 @@ function filePathForNode(node: ASTNode): string | undefined {
 }
 
 export interface CompilationResult {
+  rootTypes: ir.RootTypeDefinition;
   operations: ir.OperationDefinition[];
   fragments: ir.FragmentDefinition[];
   referencedTypes: GraphQLNamedType[];
@@ -71,6 +72,17 @@ export function compileToIR(
   const fragmentMap = new Map<String, ir.FragmentDefinition>();
   const referencedTypes = new Set<GraphQLNamedType>();
 
+  const queryType = schema.getQueryType() as GraphQLNamedType;
+  if (queryType === undefined) {
+    throw new GraphQLError("GraphQL Schema must contain a 'query' root type definition.", { });
+  }
+
+  const rootTypes: ir.RootTypeDefinition = {
+    queryType: queryType,
+    mutationType: schema.getMutationType() ?? undefined,
+    subscriptionType: schema.getSubscriptionType() ?? undefined
+  };
+
   for (const definitionNode of document.definitions) {
     if (definitionNode.kind !== Kind.OPERATION_DEFINITION) continue;
 
@@ -86,7 +98,8 @@ export function compileToIR(
   }
 
   return {
-    operations,
+    rootTypes: rootTypes,
+    operations: operations,
     fragments: Array.from(fragmentMap.values()),
     referencedTypes: Array.from(referencedTypes.values()),
     schemaDocumentation: schema.description ?? undefined
