@@ -113,9 +113,8 @@ public class GraphQLCompositeType: GraphQLNamedType {
     "Type - \(name)"
   }
 
-  var isRootFieldType: Bool {
-    ["Query", "Mutation", "Subscription"].contains(name)
-  }
+  var isRootFieldType: Bool = false
+  
 }
 
 protocol GraphQLInterfaceImplementingType: GraphQLCompositeType {

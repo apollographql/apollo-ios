@@ -1,11 +1,18 @@
 import {
   GraphQLCompositeType,
   GraphQLInputType,
+  GraphQLNamedType,
   GraphQLObjectType,
   GraphQLOutputType,
   GraphQLType,
 } from "graphql";
 import { GraphQLValue } from "./values";
+
+export interface RootTypeDefinition {
+  queryType: GraphQLNamedType | unknown;
+  mutationType: GraphQLNamedType | unknown;
+  subscriptionType: GraphQLNamedType | unknown;
+}
 
 export interface OperationDefinition {
   name: string;

@@ -336,6 +336,54 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
+  
+  func test__render_selections__givenCustomRootTypes_doesNotGenerateTypenameField() throws {
+    // given
+    schemaSDL = """
+    schema {
+      query: RootQueryType
+      mutation: RootMutationType
+    }
+    
+    type RootQueryType {
+      allAnimals: [Animal!]
+    }
+    
+    type RootMutationType {
+      feedAnimal: Animal!
+    }
+
+    type Animal {
+      FieldName: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        FieldName
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [Apollo.Selection] { [
+        .field("allAnimals", [AllAnimal]?.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation(cocoapodsImportStatements: true)
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+    print("Actual Output - \(actual)")
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
 
   // MARK: Selections - Fields
 
