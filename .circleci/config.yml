@@ -62,16 +62,8 @@ commands:
   common_test_setup:
     description: Commands to run for setup of every set of tests
     steps:
-      - checkout
       - run:
-          command: rm ~/.ssh/id_rsa
-          name: Remove old SSH key
-      - run:
-          command: for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
-          name: Bitbucket Key Workaround
-      - run:
-          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
-          name: Github Key Workaround
+          command: git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
       - run:
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
           name: Install xcbeautify
@@ -124,6 +116,13 @@ commands:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
           destination: results
+  codegen_test_configurations_generate_and_test:
+    steps:
+      - run:
+          working_directory: apollo-ios/
+          command: ./scripts/run-test-codegen-configurations.sh -t
+          name: Generate and Test Codegen Configurations
+
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
@@ -238,6 +237,15 @@ jobs:
     steps:
       - common_test_setup
       - cocoapods_install_test
+
+  CodegenTestConfigurations_macOS_current:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+    steps:
+      - common_test_setup
+      - codegen_test_configurations_generate_and_test
 
 workflows:
   version: 2
