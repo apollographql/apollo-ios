@@ -19,6 +19,7 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
 
   struct OpaqueObjectDataWrapper: ObjectData {
     let underlyingData: DataDict
+    var _rawData: JSONObject { underlyingData._data  }
 
     subscript(_ key: String) -> AnyHashable? {
       guard let value = underlyingData._data[key] else { return nil }

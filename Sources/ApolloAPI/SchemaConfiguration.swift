@@ -38,8 +38,15 @@ public protocol SchemaConfiguration {
   static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo?
 }
 
+public extension SchemaConfiguration {
+  static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
+    Self.cacheKeyInfo(for: type, object: object._rawData)
+  }
+}
+
 public protocol ObjectData {
 
+  var _rawData: JSONObject { get }
   subscript(_ key: String) -> AnyHashable? { get }
 
 }

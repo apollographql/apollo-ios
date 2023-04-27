@@ -106,9 +106,7 @@ public extension RootSelectionSet {
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     let accumulator = TestMockSelectionSetMapper<Self>()
-    let executor = GraphQLExecutor { object, info in
-      return object[info.responseKeyForField]
-    }
+    let executor = GraphQLExecutor<NetworkResponseExecutionSource>()
     executor.shouldComputeCachePath = false
 
     return try! executor.execute(

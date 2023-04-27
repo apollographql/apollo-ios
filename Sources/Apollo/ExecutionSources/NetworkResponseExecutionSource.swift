@@ -12,14 +12,14 @@ struct NetworkResponseExecutionSource: GraphQLExecutionSource {
   }
 
   static func opaqueObjectDataWrapper(for rawData: JSONObject) -> OpaqueObjectDataWrapper {
-    OpaqueObjectDataWrapper(underlyingData: rawData)
+    OpaqueObjectDataWrapper(_rawData: rawData)
   }
 
   struct OpaqueObjectDataWrapper: ObjectData {
-    let underlyingData: [String: AnyHashable]
+    let _rawData: [String: AnyHashable]
 
     subscript(_ key: String) -> AnyHashable? {
-      guard let value = underlyingData[key] else { return nil }
+      guard let value = _rawData[key] else { return nil }
       return value
     }
 
