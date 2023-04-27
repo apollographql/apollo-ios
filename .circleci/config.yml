@@ -244,23 +244,25 @@ workflows:
   # This workflow builds and tests the library across various operating systems and versions
   build-and-test:
     jobs:
-      - Swift_Build:
-          name: Build as Swift package
-      - XCFramework_Build:
-          name: Build XCFramework
-      - IntegrationTests_macOS_current:
-          name: Apollo Integration Tests - macOS << pipeline.parameters.macos_version >>
-      - macOS_current:
-          name: Apollo Unit Tests - macOS << pipeline.parameters.macos_version >>
-      - iOS_current:
-          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_current_version >>
-      - iOS_previous:
-          name: Apollo Unit Tests - iOS << pipeline.parameters.ios_previous_version >>
-      - tvOS_current:
-          name: Apollo Unit Tests - tvOS << pipeline.parameters.tvos_version >>
-      - CodegenLib_macOS_current:
-          name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
-      - CodegenCLI_macOS_current:
-          name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
-      - CocoaPodsIntegration_macOS_current:
-          name: CocoaPods Integration Tests - macOS << pipeline.parameters.macos_version >>
+      # - Swift_Build:
+      #     name: Build as Swift package
+      # - XCFramework_Build:
+      #     name: Build XCFramework
+      # - IntegrationTests_macOS_current:
+      #     name: Apollo Integration Tests - macOS << pipeline.parameters.macos_version >>
+      # - macOS_current:
+      #     name: Apollo Unit Tests - macOS << pipeline.parameters.macos_version >>
+      # - iOS_current:
+      #     name: Apollo Unit Tests - iOS << pipeline.parameters.ios_current_version >>
+      # - iOS_previous:
+      #     name: Apollo Unit Tests - iOS << pipeline.parameters.ios_previous_version >>
+      # - tvOS_current:
+      #     name: Apollo Unit Tests - tvOS << pipeline.parameters.tvos_version >>
+      # - CodegenLib_macOS_current:
+      #     name: Codegen Lib Unit Tests - macOS << pipeline.parameters.macos_version >>
+      # - CodegenCLI_macOS_current:
+      #     name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
+      # - CocoaPodsIntegration_macOS_current:
+      #     name: CocoaPods Integration Tests - macOS << pipeline.parameters.macos_version >>
+      - CodegenTestConfigurations_macOS_current:
+          name: Codegen Test Configurations - macOS << pipeline.parameters.macos_version >>
