@@ -62,8 +62,7 @@ commands:
   common_test_setup:
     description: Commands to run for setup of every set of tests
     steps:
-      - run:
-          command: git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
+      - checkout
       - run:
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
           name: Install xcbeautify
@@ -118,6 +117,12 @@ commands:
           destination: results
   codegen_test_configurations_generate_and_test:
     steps:
+      - run:
+          command: git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
+          name: Manually clone Apollo iOS repository
+      - run:
+          command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
+          name: Install xcbeautify
       - run:
           working_directory: apollo-ios/
           command: ./scripts/run-test-codegen-configurations.sh -t
@@ -272,3 +277,5 @@ workflows:
           name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CocoaPodsIntegration_macOS_current:
           name: CocoaPods Integration Tests - macOS << pipeline.parameters.macos_version >>
+      - CodegenTestConfigurations_macOS_current:
+          name: Codegen Test Configurations - macOS << pipeline.parameters.macos_version >>
