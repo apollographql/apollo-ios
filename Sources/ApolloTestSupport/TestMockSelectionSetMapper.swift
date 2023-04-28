@@ -29,7 +29,7 @@ final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulato
     return underlyingMapper.accept(list: list, info: info)
   }
 
-  func accept(childObject: DataDict.SelectionSetData, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
     return try underlyingMapper.accept(childObject: childObject, info: info)
   }
 
@@ -40,11 +40,11 @@ final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulato
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
-  ) throws -> DataDict.SelectionSetData {
+  ) throws -> DataDict {
     return try underlyingMapper.accept(fieldEntries: fieldEntries, info: info)
   }
 
-  func finish(rootValue: DataDict.SelectionSetData, info: ObjectExecutionInfo) -> T {
+  func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
     return underlyingMapper.finish(rootValue: rootValue, info: info)
   }
 }

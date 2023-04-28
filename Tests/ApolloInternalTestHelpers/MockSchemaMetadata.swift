@@ -22,7 +22,7 @@ public class MockSchemaMetadata: SchemaMetadata {
     }
   }
 
-  public static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)? {
+  public static var stub_cacheKeyInfoForType_Object: ((Object, ObjectData) -> CacheKeyInfo?)? {
     get {
       _configuration.stub_cacheKeyInfoForType_Object
     }
@@ -41,9 +41,9 @@ public class MockSchemaMetadata: SchemaMetadata {
   }
 
   public class SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-    static var stub_cacheKeyInfoForType_Object: ((Object, JSONObject) -> CacheKeyInfo?)?
+    static var stub_cacheKeyInfoForType_Object: ((Object, ObjectData) -> CacheKeyInfo?)?
 
-    public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    public static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
       stub_cacheKeyInfoForType_Object?(type, object)
     }
   }
@@ -53,17 +53,17 @@ public class MockSchemaMetadata: SchemaMetadata {
 // MARK - Mock Cache Key Providers
 
 public protocol MockStaticCacheKeyProvider {
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
+  static func cacheKeyInfo(for type: Object, object: any ObjectData) -> CacheKeyInfo?
 }
 
 extension MockStaticCacheKeyProvider {
-  public static var resolver: (Object, JSONObject) -> CacheKeyInfo? {
+  public static var resolver: (Object, ObjectData) -> CacheKeyInfo? {
     cacheKeyInfo(for:object:)
   }
 }
 
 public struct IDCacheKeyProvider: MockStaticCacheKeyProvider {
-  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+  public static func cacheKeyInfo(for type: Object, object: any ObjectData) -> CacheKeyInfo? {
     try? .init(jsonValue: object["id"])
   }
 }
@@ -91,7 +91,7 @@ public enum MockSchema1: SchemaMetadata {
 }
 
 public enum MockSchema1Configuration: SchemaConfiguration {
-  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+  public static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
     CacheKeyInfo(id: "one")
   }
 }
@@ -105,7 +105,7 @@ public enum MockSchema2: SchemaMetadata {
 }
 
 public enum MockSchema2Configuration: SchemaConfiguration {
-  public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+  public static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
     CacheKeyInfo(id: "two")
   }
 }

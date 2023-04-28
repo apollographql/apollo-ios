@@ -33,15 +33,8 @@ public protocol SchemaConfiguration {
   ///   - object: The response object to resolve the cache key for.
   ///     Represented as a ``JSONObject`` dictionary.
   /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.
-  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo?
-
   static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo?
-}
 
-public extension SchemaConfiguration {
-  static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
-    Self.cacheKeyInfo(for: type, object: object._rawData)
-  }
 }
 
 public protocol ObjectData {

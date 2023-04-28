@@ -558,7 +558,7 @@ enum TestMockSchema: SchemaMetadata {
   static var configuration: SchemaConfiguration.Type { Configuration.self }
 
   enum Configuration: SchemaConfiguration {
-    static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo? {
       return nil
     }
   }

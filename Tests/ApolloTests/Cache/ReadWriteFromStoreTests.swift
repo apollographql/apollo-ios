@@ -1595,7 +1595,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let data = GivenSelectionSet(
         _dataDict: .init(
           data: [
-            "hero": DataDict.SelectionSetData(
+            "hero": DataDict(
               data: [
                 "__typename": "Hero",
                 "name": Optional<String>.none,

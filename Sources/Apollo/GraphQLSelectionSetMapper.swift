@@ -66,7 +66,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     return list
   }
 
-  func accept(childObject: DataDict.SelectionSetData, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
     return childObject
   }
 
@@ -78,14 +78,14 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
-  ) throws -> DataDict.SelectionSetData {
-    return DataDict.SelectionSetData(
+  ) throws -> DataDict {
+    return DataDict(
       data: .init(fieldEntries, uniquingKeysWith: { (_, last) in last }),
       fulfilledFragments: info.fulfilledFragments
     )
   }
 
-  func finish(rootValue: DataDict.SelectionSetData, info: ObjectExecutionInfo) -> T {
-    return T.init(_dataDict: DataDict(selectionSetData: rootValue))
+  func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
+    return T.init(_dataDict: rootValue)
   }
 }

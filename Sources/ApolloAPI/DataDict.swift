@@ -16,6 +16,7 @@ public struct DataDict: Hashable {
   /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
   /// the `Apollo` library.
   #warning("TODO: documentation updates")
+#warning("TODO: test performance of copy on write")
   public struct SelectionSetData: Hashable {
     @usableFromInline var data: [String: AnyHashable]
     @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
@@ -111,15 +112,13 @@ extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   @inlinable public init(_fieldData data: AnyHashable?) {
-    guard let selectionSetData = data as? DataDict.SelectionSetData else {
-      fatalError("\(Self.self) expected DataDict.SelectionSetData for entity, got \(type(of: data)).")
+    guard let dataDict = data as? DataDict else {
+      fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
     }
-
-#warning("TODO: test performance of passing entire data dict?")
-    self.init(_dataDict: DataDict(selectionSetData: selectionSetData))
+    self.init(_dataDict: dataDict)
   }
 
-  @inlinable public var _fieldData: AnyHashable { __data.selectionSetData }
+  @inlinable public var _fieldData: AnyHashable { __data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {

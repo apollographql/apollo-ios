@@ -274,7 +274,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     }
 
     return PossiblyDeferred {
-      Source.resolveField(with: fields, on: object)
+      Source.resolveField(with: fieldInfo, on: object)
     }.flatMap {
       return self.complete(fields: fieldInfo,
                            withValue: $0,
