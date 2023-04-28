@@ -1,5 +1,4 @@
 #!/bin/bash
 
-echo "TODO: tests"
-
-exit 0
+pod install
+set -o pipefail && xcodebuild test -workspace CocoaPodsProject.xcworkspace -scheme CocoaPodsProject -quiet | xcbeautify --is-ci

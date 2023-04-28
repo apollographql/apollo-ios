@@ -1,6 +1,0 @@
-framework module Pods_MyCustomProject_MyCustomProjectUITests {
-  umbrella header "Pods-MyCustomProject-MyCustomProjectUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

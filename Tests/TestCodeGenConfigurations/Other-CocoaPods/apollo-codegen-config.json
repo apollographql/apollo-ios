@@ -1,5 +1,5 @@
 {
-  "schemaName" : "MyCustomProject",
+  "schemaName" : "CocoaPodsProject",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -26,11 +26,11 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "./MyCustomProjectTests/TestMocks/"
+        "path": "./CocoaPodsProjectTests/AnimalKingdomAPITestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : "./MyCustomProject/",
+      "path" : "./CocoaPodsProject/AnimalKingdomAPI",
       "moduleType" : {
         "other" : {
 
