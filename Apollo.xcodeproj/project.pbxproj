@@ -621,7 +621,7 @@
 		DE8F7B6B29F742E1005F3902 /* NetworkResponseExecutionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F7B6A29F742E1005F3902 /* NetworkResponseExecutionSource.swift */; };
 		DE8F7B6D29F745DE005F3902 /* CacheDataExecutionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F7B6C29F745DE005F3902 /* CacheDataExecutionSource.swift */; };
 		DE8F7B6F29F7478C005F3902 /* SelectionSetModelExecutionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F7B6E29F7478C005F3902 /* SelectionSetModelExecutionSource.swift */; };
-		DE8F7B7129FC24A8005F3902 /* ObjectDictTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F7B7029FC24A8005F3902 /* ObjectDictTests.swift */; };
+		DE8F7B7129FC24A8005F3902 /* ObjectDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8F7B7029FC24A8005F3902 /* ObjectDataTests.swift */; };
 		DE903E1329B7E6D300A74415 /* SelectionSet+JSONInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */; };
 		DE903E1729C10B7600A74415 /* FieldSelectionCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */; };
 		DE903E1929CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */; };
@@ -1827,7 +1827,7 @@
 		DE8F7B6A29F742E1005F3902 /* NetworkResponseExecutionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseExecutionSource.swift; sourceTree = "<group>"; };
 		DE8F7B6C29F745DE005F3902 /* CacheDataExecutionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheDataExecutionSource.swift; sourceTree = "<group>"; };
 		DE8F7B6E29F7478C005F3902 /* SelectionSetModelExecutionSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetModelExecutionSource.swift; sourceTree = "<group>"; };
-		DE8F7B7029FC24A8005F3902 /* ObjectDictTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDictTests.swift; sourceTree = "<group>"; };
+		DE8F7B7029FC24A8005F3902 /* ObjectDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDataTests.swift; sourceTree = "<group>"; };
 		DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelectionSet+JSONInitializer.swift"; sourceTree = "<group>"; };
 		DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldSelectionCollector.swift; sourceTree = "<group>"; };
 		DE903E1829CA20FC00A74415 /* TypeCaseConversionPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeCaseConversionPerformanceTests.swift; sourceTree = "<group>"; };
@@ -2696,7 +2696,7 @@
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
 				E6CD6F4A2887202900DC9F3F /* CacheKeyResolutionTests.swift */,
-				DE8F7B7029FC24A8005F3902 /* ObjectDictTests.swift */,
+				DE8F7B7029FC24A8005F3902 /* ObjectDataTests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
 				DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */,
 				9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */,
@@ -5495,7 +5495,7 @@
 			files = (
 				5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */,
 				DED45EC3261BA0ED0086EF63 /* WebSocketTransportTests.swift in Sources */,
-				DE8F7B7129FC24A8005F3902 /* ObjectDictTests.swift in Sources */,
+				DE8F7B7129FC24A8005F3902 /* ObjectDataTests.swift in Sources */,
 				9B78C71E2326E86E000C8C32 /* ErrorGenerationTests.swift in Sources */,
 				DED45EC7261BA0ED0086EF63 /* WebSocketTests.swift in Sources */,
 				9FC9A9C81E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift in Sources */,

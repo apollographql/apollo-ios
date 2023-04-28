@@ -79,6 +79,7 @@ public struct DataDict: Hashable {
   }
 
   @inlinable public func hash(into hasher: inout Hasher) {
+    #warning("TODO: Write equatable and hashable unit tests for #2944")
     hasher.combine(_data)
   }
 
