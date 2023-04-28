@@ -41,6 +41,7 @@
 		DECA8F6A29DF5427009E92DD /* SPMInXcodeProject.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = SPMInXcodeProject.xctestplan; sourceTree = "<group>"; };
 		DEE1F7A229D76EFC0050C4DA /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
 		E679DAF429F9E76100AFD569 /* AnimalKingdomAPI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AnimalKingdomAPI; sourceTree = "<group>"; };
+		E679DAF729FB349300AFD569 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +70,7 @@
 		DE3511D828E22136000F1E52 = {
 			isa = PBXGroup;
 			children = (
+				E679DAF729FB349300AFD569 /* apollo-codegen-config.json */,
 				DECA8F6A29DF5427009E92DD /* SPMInXcodeProject.xctestplan */,
 				DEE1F7A129D76EFC0050C4DA /* Packages */,
 				DE3511E328E22136000F1E52 /* SPMInXcodeProject */,
