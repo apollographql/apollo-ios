@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.1.3
+
+### Fixed
+- **`@dynamicMember` conflicting field name ([#2950](https://github.com/apollographql/apollo-ios/issues/2950)):** The subscript setters have been changed to allow a selection set property named `hash`. [#2965](https://github.com/apollographql/apollo-ios/pull/2965) _Thank you to [@renanbdias](https://github.com/renanbdias) for raising the issue._
+- **Disallow certain targetNames in code generation ([#2958](https://github.com/apollographql/apollo-ios/issues/2958)):** `apollo` is no longer allowed as a target name otherwise it causes a conflict when importing `Apollo` as a module. [#2972](https://github.com/apollographql/apollo-ios/pull/2972) _Thank you to [@moopoints](https://github.com/moopoints) for raising the issue._
+- **Fully Qualify name of RootEntityType and mergedSources ([#2949](https://github.com/apollographql/apollo-ios/issues/2949)):** Selection set types use fully qualified namespacing to prevent conflicts with other types. [#2956](https://github.com/apollographql/apollo-ios/pull/2956) _Thank you to [@martin-muller](https://github.com/martin-muller) for raising the issue._
+- **SelectionSet Codegen `__typename` fix ([#2955](https://github.com/apollographql/apollo-ios/issues/2955)):** Custom root types defined in the schema are now correctly applied to selection set fields typename definitions [#2983](https://github.com/apollographql/apollo-ios/pull/2983) _Thank you to [@ynnadrules](https://github.com/ynnadrules) for raising the issue._
+
 ## v1.1.2
 
 ### Fixed
