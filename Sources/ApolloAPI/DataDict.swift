@@ -16,8 +16,7 @@ public struct DataDict: Hashable {
   /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
   /// the `Apollo` library.
   #warning("TODO: documentation updates")
-#warning("TODO: test performance of copy on write")
-  public struct SelectionSetData: Hashable {
+  public class _Storage: Hashable {
     @usableFromInline var data: [String: AnyHashable]
     @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
 
@@ -28,28 +27,42 @@ public struct DataDict: Hashable {
       self.data = data
       self.fulfilledFragments = fulfilledFragments
     }
+
+    @inlinable public static func ==(lhs: DataDict._Storage, rhs: DataDict._Storage) -> Bool {
+      lhs.data == rhs.data &&
+      lhs.fulfilledFragments == rhs.fulfilledFragments
+    }
+
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(data)
+      hasher.combine(fulfilledFragments)
+    }
+
+    fileprivate func copy() -> _Storage {
+      _Storage(data: self.data, fulfilledFragments: self.fulfilledFragments)
+    }
   }
 
-  @usableFromInline var selectionSetData: SelectionSetData
+  @usableFromInline var _storage: _Storage
 
   @inlinable public var _data: [String: AnyHashable] {
-    get { selectionSetData.data }
-    set { selectionSetData.data = newValue }
+    get { _storage.data }
+    set { _storage.data = newValue }
   }
 
   @inlinable public var _fulfilledFragments: Set<ObjectIdentifier> {
-    selectionSetData.fulfilledFragments    
+    _storage.fulfilledFragments
   }
 
   public init(
     data: [String: AnyHashable],
     fulfilledFragments: Set<ObjectIdentifier>
   ) {
-    self.selectionSetData = .init(data: data, fulfilledFragments: fulfilledFragments)
+    self._storage = .init(data: data, fulfilledFragments: fulfilledFragments)
   }
 
-  public init(selectionSetData: SelectionSetData) {
-    self.selectionSetData = selectionSetData
+  public init(selectionSetData: _Storage) {
+    self._storage = selectionSetData
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
@@ -60,8 +73,12 @@ public struct DataDict: Hashable {
         _data[key]?.base as! T
 #endif
     }
-    set { _data[key] = newValue }
+    set {
+      copyOnWriteIfNeeded()
+      _data[key] = newValue
+    }
     _modify {
+      copyOnWriteIfNeeded()
       var value = _data[key] as! T
       defer { _data[key] = value }
       yield &value
@@ -70,11 +87,21 @@ public struct DataDict: Hashable {
   
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
     get { T.init(_fieldData: _data[key]) }
-    set { _data[key] = newValue._fieldData }
+    set {
+      copyOnWriteIfNeeded()
+      _data[key] = newValue._fieldData
+    }
     _modify {
+      copyOnWriteIfNeeded()
       var value = T.init(_fieldData: _data[key])
       defer { _data[key] = value._fieldData }
       yield &value
+    }
+  }
+
+  @usableFromInline mutating func copyOnWriteIfNeeded() {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _storage.copy()
     }
   }
 
@@ -89,12 +116,12 @@ public struct DataDict: Hashable {
 
   @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
     let id = ObjectIdentifier(T.self)
-    return selectionSetData.fulfilledFragments.contains(id)
+    return _storage.fulfilledFragments.contains(id)
   }
 
   @usableFromInline func fragmentsAreFulfilled(_ types: [any SelectionSet.Type]) -> Bool {
     let typeIds = types.lazy.map(ObjectIdentifier.init)
-    return selectionSetData.fulfilledFragments.isSuperset(of: typeIds)
+    return _storage.fulfilledFragments.isSuperset(of: typeIds)
   }
 }
 
