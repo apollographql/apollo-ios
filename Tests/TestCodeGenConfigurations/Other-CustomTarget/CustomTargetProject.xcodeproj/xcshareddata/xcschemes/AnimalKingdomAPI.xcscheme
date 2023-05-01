@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1400"
+   LastUpgradeVersion = "1420"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DEA31E2928A6C95F00971813"
-               BuildableName = "GraphQLAPI.framework"
-               BlueprintName = "GraphQLAPI"
+               BlueprintIdentifier = "E6BACC1829FC909F008B46F2"
+               BuildableName = "AnimalKingdomAPI.framework"
+               BlueprintName = "AnimalKingdomAPI"
                ReferencedContainer = "container:CustomTargetProject.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -50,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DEA31E2928A6C95F00971813"
-            BuildableName = "GraphQLAPI.framework"
-            BlueprintName = "GraphQLAPI"
+            BlueprintIdentifier = "E6BACC1829FC909F008B46F2"
+            BuildableName = "AnimalKingdomAPI.framework"
+            BlueprintName = "AnimalKingdomAPI"
             ReferencedContainer = "container:CustomTargetProject.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

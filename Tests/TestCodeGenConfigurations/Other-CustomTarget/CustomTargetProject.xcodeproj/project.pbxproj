@@ -8,107 +8,163 @@
 
 /* Begin PBXBuildFile section */
 		DE454BCC28B43262009DC80E /* CustomTargetProject.h in Headers */ = {isa = PBXBuildFile; fileRef = DE454BCB28B43262009DC80E /* CustomTargetProject.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE454BD328B432E1009DC80E /* GraphQLAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */; platformFilter = ios; };
-		DE454BD728B4330F009DC80E /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DE454BD628B4330F009DC80E /* ApolloAPI */; };
-		DE75379B28B56E4500FAFFA2 /* SchemaMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */; };
-		DE75379C28B56E4500FAFFA2 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */; };
-		DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */; };
-		DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */; };
-		DEA31E3328A6C96900971813 /* ClassroomPetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */; };
-		DEA31E3428A6C96900971813 /* DogFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF028A6C8BC00971813 /* DogFragment.swift */; };
-		DEA31E3528A6C96900971813 /* PetDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF128A6C8BC00971813 /* PetDetails.swift */; };
-		DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */; };
-		DEA31E3728A6C96C00971813 /* AllAnimalsLocalCacheMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */; };
-		DEA31E3828A6C96C00971813 /* PetDetailsMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */; };
-		DEA31E3928A6C97600971813 /* PetAdoptionMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */; };
-		DEA31E3A28A6C97A00971813 /* PetSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */; };
-		DEA31E3B28A6C97A00971813 /* AllAnimalsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */; };
-		DEA31E3C28A6C97A00971813 /* ClassroomPetsCCNQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */; };
-		DEA31E3D28A6C97A00971813 /* DogQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DC928A6C8BC00971813 /* DogQuery.swift */; };
-		DEA31E3E28A6C97A00971813 /* ClassroomPetsQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */; };
-		DEA31E3F28A6C97A00971813 /* AllAnimalsCCNQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */; };
-		DEA31E4028A6C97A00971813 /* AllAnimalsIncludeSkipQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */; };
-		DEA31E4128A6C98D00971813 /* ClassroomPet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */; };
-		DEA31E4228A6C99000971813 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD428A6C8BC00971813 /* CustomDate.swift */; };
-		DEA31E4328A6C99300971813 /* RelativeSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD728A6C8BC00971813 /* RelativeSize.swift */; };
-		DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD628A6C8BC00971813 /* SkinCovering.swift */; };
-		DEA31E4528A6C9A200971813 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDA28A6C8BC00971813 /* Dog.swift */; };
-		DEA31E4628A6C9A200971813 /* Rat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE028A6C8BC00971813 /* Rat.swift */; };
-		DEA31E4728A6C9A200971813 /* Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE128A6C8BC00971813 /* Height.swift */; };
-		DEA31E4828A6C9A200971813 /* Fish.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE228A6C8BC00971813 /* Fish.swift */; };
-		DEA31E4928A6C9A200971813 /* PetRock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE328A6C8BC00971813 /* PetRock.swift */; };
-		DEA31E4A28A6C9A200971813 /* Human.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDC28A6C8BC00971813 /* Human.swift */; };
-		DEA31E4B28A6C9A200971813 /* Crocodile.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDE28A6C8BC00971813 /* Crocodile.swift */; };
-		DEA31E4C28A6C9A200971813 /* Mutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDF28A6C8BC00971813 /* Mutation.swift */; };
-		DEA31E4D28A6C9A200971813 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DD928A6C8BC00971813 /* Query.swift */; };
-		DEA31E4E28A6C9A200971813 /* Bird.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDB28A6C8BC00971813 /* Bird.swift */; };
-		DEA31E4F28A6C9A200971813 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DDD28A6C8BC00971813 /* Cat.swift */; };
-		DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */; };
-		DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */; };
-		DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */; };
-		DEA31E5428A6C9AE00971813 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEB28A6C8BC00971813 /* Animal.swift */; };
-		DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEC28A6C8BC00971813 /* Pet.swift */; };
-		DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DEA28A6C8BC00971813 /* HousePet.swift */; };
-		DEA31E5728A6C9AE00971813 /* WarmBlooded.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */; };
+		E6BACC1C29FC909F008B46F2 /* AnimalKingdomAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = E6BACC1B29FC909F008B46F2 /* AnimalKingdomAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E6BACC2129FC90CC008B46F2 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = E6BACC2029FC90CC008B46F2 /* ApolloAPI */; };
+		E6BACC5729FC9468008B46F2 /* PetDetailsMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2329FC9468008B46F2 /* PetDetailsMutation.graphql.swift */; };
+		E6BACC5829FC9468008B46F2 /* AllAnimalsLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2429FC9468008B46F2 /* AllAnimalsLocalCacheMutation.graphql.swift */; };
+		E6BACC5929FC9468008B46F2 /* PetSearchLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2529FC9468008B46F2 /* PetSearchLocalCacheMutation.graphql.swift */; };
+		E6BACC5A29FC9468008B46F2 /* ClassroomPet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2829FC9468008B46F2 /* ClassroomPet.graphql.swift */; };
+		E6BACC5B29FC9468008B46F2 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2A29FC9468008B46F2 /* CustomDate.swift */; };
+		E6BACC5C29FC9468008B46F2 /* SkinCovering.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2C29FC9468008B46F2 /* SkinCovering.graphql.swift */; };
+		E6BACC5D29FC9468008B46F2 /* RelativeSize.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2D29FC9468008B46F2 /* RelativeSize.graphql.swift */; };
+		E6BACC5E29FC9468008B46F2 /* Rat.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC2F29FC9468008B46F2 /* Rat.graphql.swift */; };
+		E6BACC5F29FC9468008B46F2 /* Bird.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3029FC9468008B46F2 /* Bird.graphql.swift */; };
+		E6BACC6029FC9468008B46F2 /* PetRock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3129FC9468008B46F2 /* PetRock.graphql.swift */; };
+		E6BACC6129FC9468008B46F2 /* Dog.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3229FC9468008B46F2 /* Dog.graphql.swift */; };
+		E6BACC6229FC9468008B46F2 /* Height.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3329FC9468008B46F2 /* Height.graphql.swift */; };
+		E6BACC6329FC9468008B46F2 /* Mutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3429FC9468008B46F2 /* Mutation.graphql.swift */; };
+		E6BACC6429FC9468008B46F2 /* Query.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3529FC9468008B46F2 /* Query.graphql.swift */; };
+		E6BACC6529FC9468008B46F2 /* Cat.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3629FC9468008B46F2 /* Cat.graphql.swift */; };
+		E6BACC6629FC9468008B46F2 /* Fish.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3729FC9468008B46F2 /* Fish.graphql.swift */; };
+		E6BACC6729FC9468008B46F2 /* Human.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3829FC9468008B46F2 /* Human.graphql.swift */; };
+		E6BACC6829FC9468008B46F2 /* Crocodile.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3929FC9468008B46F2 /* Crocodile.graphql.swift */; };
+		E6BACC6929FC9468008B46F2 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3A29FC9468008B46F2 /* SchemaConfiguration.swift */; };
+		E6BACC6A29FC9468008B46F2 /* PetAdoptionInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3C29FC9468008B46F2 /* PetAdoptionInput.graphql.swift */; };
+		E6BACC6B29FC9468008B46F2 /* PetSearchFilters.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3D29FC9468008B46F2 /* PetSearchFilters.graphql.swift */; };
+		E6BACC6C29FC9468008B46F2 /* MeasurementsInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3E29FC9468008B46F2 /* MeasurementsInput.graphql.swift */; };
+		E6BACC6D29FC9468008B46F2 /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC3F29FC9468008B46F2 /* SchemaMetadata.graphql.swift */; };
+		E6BACC6E29FC9468008B46F2 /* HousePet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4129FC9468008B46F2 /* HousePet.graphql.swift */; };
+		E6BACC6F29FC9468008B46F2 /* Pet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4229FC9468008B46F2 /* Pet.graphql.swift */; };
+		E6BACC7029FC9468008B46F2 /* Animal.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4329FC9468008B46F2 /* Animal.graphql.swift */; };
+		E6BACC7129FC9468008B46F2 /* WarmBlooded.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4429FC9468008B46F2 /* WarmBlooded.graphql.swift */; };
+		E6BACC7229FC9468008B46F2 /* PetDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4629FC9468008B46F2 /* PetDetails.graphql.swift */; };
+		E6BACC7329FC9468008B46F2 /* HeightInMeters.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4729FC9468008B46F2 /* HeightInMeters.graphql.swift */; };
+		E6BACC7429FC9468008B46F2 /* ClassroomPetDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4829FC9468008B46F2 /* ClassroomPetDetails.graphql.swift */; };
+		E6BACC7529FC9468008B46F2 /* DogFragment.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4929FC9468008B46F2 /* DogFragment.graphql.swift */; };
+		E6BACC7629FC9468008B46F2 /* ClassroomPetDetailsCCN.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4A29FC9468008B46F2 /* ClassroomPetDetailsCCN.graphql.swift */; };
+		E6BACC7729FC9468008B46F2 /* WarmBloodedDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4B29FC9468008B46F2 /* WarmBloodedDetails.graphql.swift */; };
+		E6BACC7829FC9468008B46F2 /* PetAdoptionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC4E29FC9468008B46F2 /* PetAdoptionMutation.graphql.swift */; };
+		E6BACC7929FC9468008B46F2 /* DogQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5029FC9468008B46F2 /* DogQuery.graphql.swift */; };
+		E6BACC7A29FC9468008B46F2 /* AllAnimalsCCNQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5129FC9468008B46F2 /* AllAnimalsCCNQuery.graphql.swift */; };
+		E6BACC7B29FC9468008B46F2 /* ClassroomPetsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5229FC9468008B46F2 /* ClassroomPetsQuery.graphql.swift */; };
+		E6BACC7C29FC9468008B46F2 /* ClassroomPetsCCNQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5329FC9468008B46F2 /* ClassroomPetsCCNQuery.graphql.swift */; };
+		E6BACC7D29FC9468008B46F2 /* AllAnimalsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5429FC9468008B46F2 /* AllAnimalsQuery.graphql.swift */; };
+		E6BACC7E29FC9468008B46F2 /* AllAnimalsIncludeSkipQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5529FC9468008B46F2 /* AllAnimalsIncludeSkipQuery.graphql.swift */; };
+		E6BACC7F29FC9468008B46F2 /* PetSearchQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC5629FC9468008B46F2 /* PetSearchQuery.graphql.swift */; };
+		E6BACC8029FC97BC008B46F2 /* AnimalKingdomAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6BACC1929FC909F008B46F2 /* AnimalKingdomAPI.framework */; };
+		E6BACC8129FC97BC008B46F2 /* AnimalKingdomAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E6BACC1929FC909F008B46F2 /* AnimalKingdomAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E6BACC8C29FC9A9C008B46F2 /* CustomTargetProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BACC8B29FC9A9C008B46F2 /* CustomTargetProjectTests.swift */; };
+		E6BACC8D29FC9A9C008B46F2 /* CustomTargetProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE454BC928B43262009DC80E /* CustomTargetProject.framework */; };
+		E6CE96452A00716300E66222 /* Human+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96382A00716300E66222 /* Human+Mock.graphql.swift */; };
+		E6CE96462A00716300E66222 /* Height+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96392A00716300E66222 /* Height+Mock.graphql.swift */; };
+		E6CE96472A00716300E66222 /* Query+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963A2A00716300E66222 /* Query+Mock.graphql.swift */; };
+		E6CE96482A00716300E66222 /* PetRock+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963B2A00716300E66222 /* PetRock+Mock.graphql.swift */; };
+		E6CE96492A00716300E66222 /* Bird+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963C2A00716300E66222 /* Bird+Mock.graphql.swift */; };
+		E6CE964A2A00716300E66222 /* MockObject+Interfaces.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963D2A00716300E66222 /* MockObject+Interfaces.graphql.swift */; };
+		E6CE964B2A00716300E66222 /* Rat+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963E2A00716300E66222 /* Rat+Mock.graphql.swift */; };
+		E6CE964C2A00716300E66222 /* MockObject+Unions.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE963F2A00716300E66222 /* MockObject+Unions.graphql.swift */; };
+		E6CE964D2A00716300E66222 /* Cat+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96402A00716300E66222 /* Cat+Mock.graphql.swift */; };
+		E6CE964E2A00716300E66222 /* Dog+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96412A00716300E66222 /* Dog+Mock.graphql.swift */; };
+		E6CE964F2A00716300E66222 /* Fish+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96422A00716300E66222 /* Fish+Mock.graphql.swift */; };
+		E6CE96502A00716300E66222 /* Mutation+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96432A00716300E66222 /* Mutation+Mock.graphql.swift */; };
+		E6CE96512A00716300E66222 /* Crocodile+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CE96442A00716300E66222 /* Crocodile+Mock.graphql.swift */; };
+		E6CE96532A0071DF00E66222 /* ApolloTestSupport in Frameworks */ = {isa = PBXBuildFile; productRef = E6CE96522A0071DF00E66222 /* ApolloTestSupport */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DE454BD128B432DE009DC80E /* PBXContainerItemProxy */ = {
+		E6BACC8229FC97BC008B46F2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DE1EA3F928A6C75D0000B217 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = DEA31E2928A6C95F00971813;
-			remoteInfo = GraphQLAPI;
+			remoteGlobalIDString = E6BACC1829FC909F008B46F2;
+			remoteInfo = AnimalKingdomAPI;
+		};
+		E6BACC8E29FC9A9C008B46F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE1EA3F928A6C75D0000B217 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DE454BC828B43262009DC80E;
+			remoteInfo = CustomTargetProject;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E6BACC8429FC97BC008B46F2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E6BACC8129FC97BC008B46F2 /* AnimalKingdomAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DE454BC928B43262009DC80E /* CustomTargetProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CustomTargetProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE454BCB28B43262009DC80E /* CustomTargetProject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomTargetProject.h; sourceTree = "<group>"; };
 		DE454BD028B43280009DC80E /* apollo-ios */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "apollo-ios"; path = ../../..; sourceTree = "<group>"; };
-		DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.swift; sourceTree = "<group>"; };
-		DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
-		DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.swift; sourceTree = "<group>"; };
-		DEA31DC928A6C8BC00971813 /* DogQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.swift; sourceTree = "<group>"; };
-		DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.swift; sourceTree = "<group>"; };
-		DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.swift; sourceTree = "<group>"; };
-		DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.swift; sourceTree = "<group>"; };
-		DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsCCNQuery.swift; sourceTree = "<group>"; };
-		DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.swift; sourceTree = "<group>"; };
-		DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsCCNQuery.swift; sourceTree = "<group>"; };
-		DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPet.swift; sourceTree = "<group>"; };
-		DEA31DD428A6C8BC00971813 /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
-		DEA31DD628A6C8BC00971813 /* SkinCovering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinCovering.swift; sourceTree = "<group>"; };
-		DEA31DD728A6C8BC00971813 /* RelativeSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeSize.swift; sourceTree = "<group>"; };
-		DEA31DD928A6C8BC00971813 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		DEA31DDA28A6C8BC00971813 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
-		DEA31DDB28A6C8BC00971813 /* Bird.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.swift; sourceTree = "<group>"; };
-		DEA31DDC28A6C8BC00971813 /* Human.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.swift; sourceTree = "<group>"; };
-		DEA31DDD28A6C8BC00971813 /* Cat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
-		DEA31DDE28A6C8BC00971813 /* Crocodile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crocodile.swift; sourceTree = "<group>"; };
-		DEA31DDF28A6C8BC00971813 /* Mutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.swift; sourceTree = "<group>"; };
-		DEA31DE028A6C8BC00971813 /* Rat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rat.swift; sourceTree = "<group>"; };
-		DEA31DE128A6C8BC00971813 /* Height.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Height.swift; sourceTree = "<group>"; };
-		DEA31DE228A6C8BC00971813 /* Fish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.swift; sourceTree = "<group>"; };
-		DEA31DE328A6C8BC00971813 /* PetRock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.swift; sourceTree = "<group>"; };
-		DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.swift; sourceTree = "<group>"; };
-		DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.swift; sourceTree = "<group>"; };
-		DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.swift; sourceTree = "<group>"; };
-		DEA31DEA28A6C8BC00971813 /* HousePet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousePet.swift; sourceTree = "<group>"; };
-		DEA31DEB28A6C8BC00971813 /* Animal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
-		DEA31DEC28A6C8BC00971813 /* Pet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.swift; sourceTree = "<group>"; };
-		DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBlooded.swift; sourceTree = "<group>"; };
-		DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetailsCCN.swift; sourceTree = "<group>"; };
-		DEA31DF028A6C8BC00971813 /* DogFragment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogFragment.swift; sourceTree = "<group>"; };
-		DEA31DF128A6C8BC00971813 /* PetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.swift; sourceTree = "<group>"; };
-		DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.swift; sourceTree = "<group>"; };
-		DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.swift; sourceTree = "<group>"; };
-		DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.swift; sourceTree = "<group>"; };
-		DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.swift; sourceTree = "<group>"; };
-		DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.swift; sourceTree = "<group>"; };
-		DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GraphQLAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GraphQLAPI.h; sourceTree = "<group>"; };
+		E6BACC1329FC8C8B008B46F2 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
+		E6BACC1929FC909F008B46F2 /* AnimalKingdomAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnimalKingdomAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6BACC1B29FC909F008B46F2 /* AnimalKingdomAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimalKingdomAPI.h; sourceTree = "<group>"; };
+		E6BACC2329FC9468008B46F2 /* PetDetailsMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2429FC9468008B46F2 /* AllAnimalsLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2529FC9468008B46F2 /* PetSearchLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2829FC9468008B46F2 /* ClassroomPet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPet.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2A29FC9468008B46F2 /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
+		E6BACC2C29FC9468008B46F2 /* SkinCovering.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinCovering.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2D29FC9468008B46F2 /* RelativeSize.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeSize.graphql.swift; sourceTree = "<group>"; };
+		E6BACC2F29FC9468008B46F2 /* Rat.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rat.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3029FC9468008B46F2 /* Bird.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3129FC9468008B46F2 /* PetRock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3229FC9468008B46F2 /* Dog.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3329FC9468008B46F2 /* Height.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Height.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3429FC9468008B46F2 /* Mutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3529FC9468008B46F2 /* Query.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3629FC9468008B46F2 /* Cat.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cat.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3729FC9468008B46F2 /* Fish.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3829FC9468008B46F2 /* Human.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3929FC9468008B46F2 /* Crocodile.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crocodile.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3A29FC9468008B46F2 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
+		E6BACC3C29FC9468008B46F2 /* PetAdoptionInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3D29FC9468008B46F2 /* PetSearchFilters.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3E29FC9468008B46F2 /* MeasurementsInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.graphql.swift; sourceTree = "<group>"; };
+		E6BACC3F29FC9468008B46F2 /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4129FC9468008B46F2 /* HousePet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousePet.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4229FC9468008B46F2 /* Pet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4329FC9468008B46F2 /* Animal.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4429FC9468008B46F2 /* WarmBlooded.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBlooded.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4629FC9468008B46F2 /* PetDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4729FC9468008B46F2 /* HeightInMeters.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4829FC9468008B46F2 /* ClassroomPetDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4929FC9468008B46F2 /* DogFragment.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogFragment.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4A29FC9468008B46F2 /* ClassroomPetDetailsCCN.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetailsCCN.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4B29FC9468008B46F2 /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
+		E6BACC4E29FC9468008B46F2 /* PetAdoptionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5029FC9468008B46F2 /* DogQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5129FC9468008B46F2 /* AllAnimalsCCNQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsCCNQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5229FC9468008B46F2 /* ClassroomPetsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5329FC9468008B46F2 /* ClassroomPetsCCNQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsCCNQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5429FC9468008B46F2 /* AllAnimalsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5529FC9468008B46F2 /* AllAnimalsIncludeSkipQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC5629FC9468008B46F2 /* PetSearchQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.graphql.swift; sourceTree = "<group>"; };
+		E6BACC8929FC9A9C008B46F2 /* CustomTargetProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomTargetProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6BACC8B29FC9A9C008B46F2 /* CustomTargetProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTargetProjectTests.swift; sourceTree = "<group>"; };
+		E6CE96382A00716300E66222 /* Human+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Human+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96392A00716300E66222 /* Height+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Height+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963A2A00716300E66222 /* Query+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Query+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963B2A00716300E66222 /* PetRock+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PetRock+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963C2A00716300E66222 /* Bird+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bird+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963D2A00716300E66222 /* MockObject+Interfaces.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MockObject+Interfaces.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963E2A00716300E66222 /* Rat+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rat+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE963F2A00716300E66222 /* MockObject+Unions.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MockObject+Unions.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96402A00716300E66222 /* Cat+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cat+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96412A00716300E66222 /* Dog+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dog+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96422A00716300E66222 /* Fish+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fish+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96432A00716300E66222 /* Mutation+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mutation+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E6CE96442A00716300E66222 /* Crocodile+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Crocodile+Mock.graphql.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,15 +172,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE454BD328B432E1009DC80E /* GraphQLAPI.framework in Frameworks */,
+				E6BACC8029FC97BC008B46F2 /* AnimalKingdomAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA31E2728A6C95F00971813 /* Frameworks */ = {
+		E6BACC1629FC909F008B46F2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE454BD728B4330F009DC80E /* ApolloAPI in Frameworks */,
+				E6BACC2129FC90CC008B46F2 /* ApolloAPI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6BACC8629FC9A9C008B46F2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6BACC8D29FC9A9C008B46F2 /* CustomTargetProject.framework in Frameworks */,
+				E6CE96532A0071DF00E66222 /* ApolloTestSupport in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,9 +199,11 @@
 		DE1EA3F828A6C75D0000B217 = {
 			isa = PBXGroup;
 			children = (
+				E6BACC1329FC8C8B008B46F2 /* apollo-codegen-config.json */,
 				DEA31E5D28A6CA6F00971813 /* Packages */,
+				E6BACC1A29FC909F008B46F2 /* AnimalKingdomAPI */,
 				DE454BCA28B43262009DC80E /* CustomTargetProject */,
-				DEA31DBD28A6C7D100971813 /* GraphQLAPI */,
+				E6BACC8A29FC9A9C008B46F2 /* CustomTargetProjectTests */,
 				DE1EA40328A6C75D0000B217 /* Products */,
 				DEA31E2128A6C8D200971813 /* Frameworks */,
 			);
@@ -145,8 +212,9 @@
 		DE1EA40328A6C75D0000B217 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */,
 				DE454BC928B43262009DC80E /* CustomTargetProject.framework */,
+				E6BACC1929FC909F008B46F2 /* AnimalKingdomAPI.framework */,
+				E6BACC8929FC9A9C008B46F2 /* CustomTargetProjectTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,150 +225,6 @@
 				DE454BCB28B43262009DC80E /* CustomTargetProject.h */,
 			);
 			path = CustomTargetProject;
-			sourceTree = "<group>";
-		};
-		DEA31DBD28A6C7D100971813 /* GraphQLAPI */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31E2C28A6C95F00971813 /* GraphQLAPI.h */,
-				DEA31DEE28A6C8BC00971813 /* Fragments */,
-				DEA31DF528A6C8BC00971813 /* LocalCacheMutations */,
-				DEA31DC528A6C8BC00971813 /* Operations */,
-				DEA31DD028A6C8BC00971813 /* Schema */,
-			);
-			path = GraphQLAPI;
-			sourceTree = "<group>";
-		};
-		DEA31DC528A6C8BC00971813 /* Operations */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DC628A6C8BC00971813 /* Mutations */,
-				DEA31DC828A6C8BC00971813 /* Queries */,
-			);
-			path = Operations;
-			sourceTree = "<group>";
-		};
-		DEA31DC628A6C8BC00971813 /* Mutations */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DC728A6C8BC00971813 /* PetAdoptionMutation.swift */,
-			);
-			path = Mutations;
-			sourceTree = "<group>";
-		};
-		DEA31DC828A6C8BC00971813 /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DC928A6C8BC00971813 /* DogQuery.swift */,
-				DEA31DCA28A6C8BC00971813 /* ClassroomPetsQuery.swift */,
-				DEA31DCB28A6C8BC00971813 /* AllAnimalsQuery.swift */,
-				DEA31DCC28A6C8BC00971813 /* PetSearchQuery.swift */,
-				DEA31DCD28A6C8BC00971813 /* AllAnimalsCCNQuery.swift */,
-				DEA31DCE28A6C8BC00971813 /* AllAnimalsIncludeSkipQuery.swift */,
-				DEA31DCF28A6C8BC00971813 /* ClassroomPetsCCNQuery.swift */,
-			);
-			path = Queries;
-			sourceTree = "<group>";
-		};
-		DEA31DD028A6C8BC00971813 /* Schema */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DD128A6C8BC00971813 /* Unions */,
-				DEA31DD328A6C8BC00971813 /* CustomScalars */,
-				DEA31DD528A6C8BC00971813 /* Enums */,
-				DEA31DD828A6C8BC00971813 /* Objects */,
-				DE75379A28B56E4500FAFFA2 /* SchemaConfiguration.swift */,
-				DE75379928B56E4500FAFFA2 /* SchemaMetadata.swift */,
-				DEA31DE528A6C8BC00971813 /* InputObjects */,
-				DEA31DE928A6C8BC00971813 /* Interfaces */,
-			);
-			path = Schema;
-			sourceTree = "<group>";
-		};
-		DEA31DD128A6C8BC00971813 /* Unions */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DD228A6C8BC00971813 /* ClassroomPet.swift */,
-			);
-			path = Unions;
-			sourceTree = "<group>";
-		};
-		DEA31DD328A6C8BC00971813 /* CustomScalars */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DD428A6C8BC00971813 /* CustomDate.swift */,
-			);
-			path = CustomScalars;
-			sourceTree = "<group>";
-		};
-		DEA31DD528A6C8BC00971813 /* Enums */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DD628A6C8BC00971813 /* SkinCovering.swift */,
-				DEA31DD728A6C8BC00971813 /* RelativeSize.swift */,
-			);
-			path = Enums;
-			sourceTree = "<group>";
-		};
-		DEA31DD828A6C8BC00971813 /* Objects */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DD928A6C8BC00971813 /* Query.swift */,
-				DEA31DDA28A6C8BC00971813 /* Dog.swift */,
-				DEA31DDB28A6C8BC00971813 /* Bird.swift */,
-				DEA31DDC28A6C8BC00971813 /* Human.swift */,
-				DEA31DDD28A6C8BC00971813 /* Cat.swift */,
-				DEA31DDE28A6C8BC00971813 /* Crocodile.swift */,
-				DEA31DDF28A6C8BC00971813 /* Mutation.swift */,
-				DEA31DE028A6C8BC00971813 /* Rat.swift */,
-				DEA31DE128A6C8BC00971813 /* Height.swift */,
-				DEA31DE228A6C8BC00971813 /* Fish.swift */,
-				DEA31DE328A6C8BC00971813 /* PetRock.swift */,
-			);
-			path = Objects;
-			sourceTree = "<group>";
-		};
-		DEA31DE528A6C8BC00971813 /* InputObjects */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DE628A6C8BC00971813 /* PetSearchFilters.swift */,
-				DEA31DE728A6C8BC00971813 /* MeasurementsInput.swift */,
-				DEA31DE828A6C8BC00971813 /* PetAdoptionInput.swift */,
-			);
-			path = InputObjects;
-			sourceTree = "<group>";
-		};
-		DEA31DE928A6C8BC00971813 /* Interfaces */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DEA28A6C8BC00971813 /* HousePet.swift */,
-				DEA31DEB28A6C8BC00971813 /* Animal.swift */,
-				DEA31DEC28A6C8BC00971813 /* Pet.swift */,
-				DEA31DED28A6C8BC00971813 /* WarmBlooded.swift */,
-			);
-			path = Interfaces;
-			sourceTree = "<group>";
-		};
-		DEA31DEE28A6C8BC00971813 /* Fragments */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DEF28A6C8BC00971813 /* ClassroomPetDetailsCCN.swift */,
-				DEA31DF028A6C8BC00971813 /* DogFragment.swift */,
-				DEA31DF128A6C8BC00971813 /* PetDetails.swift */,
-				DEA31DF228A6C8BC00971813 /* HeightInMeters.swift */,
-				DEA31DF328A6C8BC00971813 /* ClassroomPetDetails.swift */,
-				DEA31DF428A6C8BC00971813 /* WarmBloodedDetails.swift */,
-			);
-			path = Fragments;
-			sourceTree = "<group>";
-		};
-		DEA31DF528A6C8BC00971813 /* LocalCacheMutations */ = {
-			isa = PBXGroup;
-			children = (
-				DEA31DF628A6C8BC00971813 /* AllAnimalsLocalCacheMutation.swift */,
-				DEA31DF728A6C8BC00971813 /* PetDetailsMutation.swift */,
-			);
-			path = LocalCacheMutations;
 			sourceTree = "<group>";
 		};
 		DEA31E2128A6C8D200971813 /* Frameworks */ = {
@@ -318,6 +242,180 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		E6BACC1A29FC909F008B46F2 /* AnimalKingdomAPI */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC4529FC9468008B46F2 /* Fragments */,
+				E6BACC2229FC9468008B46F2 /* LocalCacheMutations */,
+				E6BACC4C29FC9468008B46F2 /* Operations */,
+				E6BACC2629FC9468008B46F2 /* Schema */,
+				E6BACC1B29FC909F008B46F2 /* AnimalKingdomAPI.h */,
+			);
+			path = AnimalKingdomAPI;
+			sourceTree = "<group>";
+		};
+		E6BACC2229FC9468008B46F2 /* LocalCacheMutations */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2329FC9468008B46F2 /* PetDetailsMutation.graphql.swift */,
+				E6BACC2429FC9468008B46F2 /* AllAnimalsLocalCacheMutation.graphql.swift */,
+				E6BACC2529FC9468008B46F2 /* PetSearchLocalCacheMutation.graphql.swift */,
+			);
+			path = LocalCacheMutations;
+			sourceTree = "<group>";
+		};
+		E6BACC2629FC9468008B46F2 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2729FC9468008B46F2 /* Unions */,
+				E6BACC2929FC9468008B46F2 /* CustomScalars */,
+				E6BACC2B29FC9468008B46F2 /* Enums */,
+				E6BACC2E29FC9468008B46F2 /* Objects */,
+				E6BACC3A29FC9468008B46F2 /* SchemaConfiguration.swift */,
+				E6BACC3B29FC9468008B46F2 /* InputObjects */,
+				E6BACC3F29FC9468008B46F2 /* SchemaMetadata.graphql.swift */,
+				E6BACC4029FC9468008B46F2 /* Interfaces */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		E6BACC2729FC9468008B46F2 /* Unions */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2829FC9468008B46F2 /* ClassroomPet.graphql.swift */,
+			);
+			path = Unions;
+			sourceTree = "<group>";
+		};
+		E6BACC2929FC9468008B46F2 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2A29FC9468008B46F2 /* CustomDate.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
+		E6BACC2B29FC9468008B46F2 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2C29FC9468008B46F2 /* SkinCovering.graphql.swift */,
+				E6BACC2D29FC9468008B46F2 /* RelativeSize.graphql.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		E6BACC2E29FC9468008B46F2 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC2F29FC9468008B46F2 /* Rat.graphql.swift */,
+				E6BACC3029FC9468008B46F2 /* Bird.graphql.swift */,
+				E6BACC3129FC9468008B46F2 /* PetRock.graphql.swift */,
+				E6BACC3229FC9468008B46F2 /* Dog.graphql.swift */,
+				E6BACC3329FC9468008B46F2 /* Height.graphql.swift */,
+				E6BACC3429FC9468008B46F2 /* Mutation.graphql.swift */,
+				E6BACC3529FC9468008B46F2 /* Query.graphql.swift */,
+				E6BACC3629FC9468008B46F2 /* Cat.graphql.swift */,
+				E6BACC3729FC9468008B46F2 /* Fish.graphql.swift */,
+				E6BACC3829FC9468008B46F2 /* Human.graphql.swift */,
+				E6BACC3929FC9468008B46F2 /* Crocodile.graphql.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		E6BACC3B29FC9468008B46F2 /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC3C29FC9468008B46F2 /* PetAdoptionInput.graphql.swift */,
+				E6BACC3D29FC9468008B46F2 /* PetSearchFilters.graphql.swift */,
+				E6BACC3E29FC9468008B46F2 /* MeasurementsInput.graphql.swift */,
+			);
+			path = InputObjects;
+			sourceTree = "<group>";
+		};
+		E6BACC4029FC9468008B46F2 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC4129FC9468008B46F2 /* HousePet.graphql.swift */,
+				E6BACC4229FC9468008B46F2 /* Pet.graphql.swift */,
+				E6BACC4329FC9468008B46F2 /* Animal.graphql.swift */,
+				E6BACC4429FC9468008B46F2 /* WarmBlooded.graphql.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E6BACC4529FC9468008B46F2 /* Fragments */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC4629FC9468008B46F2 /* PetDetails.graphql.swift */,
+				E6BACC4729FC9468008B46F2 /* HeightInMeters.graphql.swift */,
+				E6BACC4829FC9468008B46F2 /* ClassroomPetDetails.graphql.swift */,
+				E6BACC4929FC9468008B46F2 /* DogFragment.graphql.swift */,
+				E6BACC4A29FC9468008B46F2 /* ClassroomPetDetailsCCN.graphql.swift */,
+				E6BACC4B29FC9468008B46F2 /* WarmBloodedDetails.graphql.swift */,
+			);
+			path = Fragments;
+			sourceTree = "<group>";
+		};
+		E6BACC4C29FC9468008B46F2 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC4D29FC9468008B46F2 /* Mutations */,
+				E6BACC4F29FC9468008B46F2 /* Queries */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		E6BACC4D29FC9468008B46F2 /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC4E29FC9468008B46F2 /* PetAdoptionMutation.graphql.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		E6BACC4F29FC9468008B46F2 /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				E6BACC5029FC9468008B46F2 /* DogQuery.graphql.swift */,
+				E6BACC5129FC9468008B46F2 /* AllAnimalsCCNQuery.graphql.swift */,
+				E6BACC5229FC9468008B46F2 /* ClassroomPetsQuery.graphql.swift */,
+				E6BACC5329FC9468008B46F2 /* ClassroomPetsCCNQuery.graphql.swift */,
+				E6BACC5429FC9468008B46F2 /* AllAnimalsQuery.graphql.swift */,
+				E6BACC5529FC9468008B46F2 /* AllAnimalsIncludeSkipQuery.graphql.swift */,
+				E6BACC5629FC9468008B46F2 /* PetSearchQuery.graphql.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		E6BACC8A29FC9A9C008B46F2 /* CustomTargetProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				E6CE96372A00716300E66222 /* AnimalKingdomAPITestMocks */,
+				E6BACC8B29FC9A9C008B46F2 /* CustomTargetProjectTests.swift */,
+			);
+			path = CustomTargetProjectTests;
+			sourceTree = "<group>";
+		};
+		E6CE96372A00716300E66222 /* AnimalKingdomAPITestMocks */ = {
+			isa = PBXGroup;
+			children = (
+				E6CE96382A00716300E66222 /* Human+Mock.graphql.swift */,
+				E6CE96392A00716300E66222 /* Height+Mock.graphql.swift */,
+				E6CE963A2A00716300E66222 /* Query+Mock.graphql.swift */,
+				E6CE963B2A00716300E66222 /* PetRock+Mock.graphql.swift */,
+				E6CE963C2A00716300E66222 /* Bird+Mock.graphql.swift */,
+				E6CE963D2A00716300E66222 /* MockObject+Interfaces.graphql.swift */,
+				E6CE963E2A00716300E66222 /* Rat+Mock.graphql.swift */,
+				E6CE963F2A00716300E66222 /* MockObject+Unions.graphql.swift */,
+				E6CE96402A00716300E66222 /* Cat+Mock.graphql.swift */,
+				E6CE96412A00716300E66222 /* Dog+Mock.graphql.swift */,
+				E6CE96422A00716300E66222 /* Fish+Mock.graphql.swift */,
+				E6CE96432A00716300E66222 /* Mutation+Mock.graphql.swift */,
+				E6CE96442A00716300E66222 /* Crocodile+Mock.graphql.swift */,
+			);
+			path = AnimalKingdomAPITestMocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -329,11 +427,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA31E2528A6C95F00971813 /* Headers */ = {
+		E6BACC1429FC909F008B46F2 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA31E2D28A6C95F00971813 /* GraphQLAPI.h in Headers */,
+				E6BACC1C29FC909F008B46F2 /* AnimalKingdomAPI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,38 +446,59 @@
 				DE454BC528B43262009DC80E /* Sources */,
 				DE454BC628B43262009DC80E /* Frameworks */,
 				DE454BC728B43262009DC80E /* Resources */,
+				E6BACC8429FC97BC008B46F2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DE454BD228B432DE009DC80E /* PBXTargetDependency */,
+				E6BACC8329FC97BC008B46F2 /* PBXTargetDependency */,
 			);
 			name = CustomTargetProject;
 			productName = CustomTargetProject;
 			productReference = DE454BC928B43262009DC80E /* CustomTargetProject.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		DEA31E2928A6C95F00971813 /* GraphQLAPI */ = {
+		E6BACC1829FC909F008B46F2 /* AnimalKingdomAPI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DEA31E2E28A6C95F00971813 /* Build configuration list for PBXNativeTarget "GraphQLAPI" */;
+			buildConfigurationList = E6BACC1D29FC909F008B46F2 /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */;
 			buildPhases = (
-				DEA31E2528A6C95F00971813 /* Headers */,
-				DEA31E2628A6C95F00971813 /* Sources */,
-				DEA31E2728A6C95F00971813 /* Frameworks */,
-				DEA31E2828A6C95F00971813 /* Resources */,
+				E6BACC1429FC909F008B46F2 /* Headers */,
+				E6BACC1529FC909F008B46F2 /* Sources */,
+				E6BACC1629FC909F008B46F2 /* Frameworks */,
+				E6BACC1729FC909F008B46F2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				DEA31E6028A6CA8400971813 /* PBXTargetDependency */,
 			);
-			name = GraphQLAPI;
+			name = AnimalKingdomAPI;
 			packageProductDependencies = (
-				DE454BD628B4330F009DC80E /* ApolloAPI */,
+				E6BACC2029FC90CC008B46F2 /* ApolloAPI */,
 			);
-			productName = GraphQLAPI;
-			productReference = DEA31E2A28A6C95F00971813 /* GraphQLAPI.framework */;
+			productName = AnimalKingdomAPI;
+			productReference = E6BACC1929FC909F008B46F2 /* AnimalKingdomAPI.framework */;
 			productType = "com.apple.product-type.framework";
+		};
+		E6BACC8829FC9A9C008B46F2 /* CustomTargetProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E6BACC9029FC9A9C008B46F2 /* Build configuration list for PBXNativeTarget "CustomTargetProjectTests" */;
+			buildPhases = (
+				E6BACC8529FC9A9C008B46F2 /* Sources */,
+				E6BACC8629FC9A9C008B46F2 /* Frameworks */,
+				E6BACC8729FC9A9C008B46F2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6BACC8F29FC9A9C008B46F2 /* PBXTargetDependency */,
+			);
+			name = CustomTargetProjectTests;
+			packageProductDependencies = (
+				E6CE96522A0071DF00E66222 /* ApolloTestSupport */,
+			);
+			productName = CustomTargetProjectTests;
+			productReference = E6BACC8929FC9A9C008B46F2 /* CustomTargetProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -388,13 +507,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
 					DE454BC828B43262009DC80E = {
 						CreatedOnToolsVersion = 14.0;
 					};
-					DEA31E2928A6C95F00971813 = {
-						CreatedOnToolsVersion = 14.0;
+					E6BACC1829FC909F008B46F2 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					E6BACC8829FC9A9C008B46F2 = {
+						CreatedOnToolsVersion = 14.2;
 					};
 				};
 			};
@@ -411,8 +534,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DEA31E2928A6C95F00971813 /* GraphQLAPI */,
+				E6BACC1829FC909F008B46F2 /* AnimalKingdomAPI */,
 				DE454BC828B43262009DC80E /* CustomTargetProject */,
+				E6BACC8829FC9A9C008B46F2 /* CustomTargetProjectTests */,
 			);
 		};
 /* End PBXProject section */
@@ -425,7 +549,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA31E2828A6C95F00971813 /* Resources */ = {
+		E6BACC1729FC909F008B46F2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6BACC8729FC9A9C008B46F2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -442,64 +573,87 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DEA31E2628A6C95F00971813 /* Sources */ = {
+		E6BACC1529FC909F008B46F2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DEA31E4928A6C9A200971813 /* PetRock.swift in Sources */,
-				DEA31E4F28A6C9A200971813 /* Cat.swift in Sources */,
-				DEA31E4228A6C99000971813 /* CustomDate.swift in Sources */,
-				DEA31E3128A6C96900971813 /* ClassroomPetDetailsCCN.swift in Sources */,
-				DEA31E5628A6C9AE00971813 /* HousePet.swift in Sources */,
-				DEA31E3628A6C96900971813 /* WarmBloodedDetails.swift in Sources */,
-				DEA31E4428A6C99300971813 /* SkinCovering.swift in Sources */,
-				DE75379B28B56E4500FAFFA2 /* SchemaMetadata.swift in Sources */,
-				DEA31E4A28A6C9A200971813 /* Human.swift in Sources */,
-				DEA31E5228A6C9A900971813 /* PetSearchFilters.swift in Sources */,
-				DE75379C28B56E4500FAFFA2 /* SchemaConfiguration.swift in Sources */,
-				DEA31E3228A6C96900971813 /* HeightInMeters.swift in Sources */,
-				DEA31E5528A6C9AE00971813 /* Pet.swift in Sources */,
-				DEA31E3828A6C96C00971813 /* PetDetailsMutation.swift in Sources */,
-				DEA31E4028A6C97A00971813 /* AllAnimalsIncludeSkipQuery.swift in Sources */,
-				DEA31E4828A6C9A200971813 /* Fish.swift in Sources */,
-				DEA31E4C28A6C9A200971813 /* Mutation.swift in Sources */,
-				DEA31E3928A6C97600971813 /* PetAdoptionMutation.swift in Sources */,
-				DEA31E4528A6C9A200971813 /* Dog.swift in Sources */,
-				DEA31E3428A6C96900971813 /* DogFragment.swift in Sources */,
-				DEA31E3328A6C96900971813 /* ClassroomPetDetails.swift in Sources */,
-				DEA31E5428A6C9AE00971813 /* Animal.swift in Sources */,
-				DEA31E4B28A6C9A200971813 /* Crocodile.swift in Sources */,
-				DEA31E4E28A6C9A200971813 /* Bird.swift in Sources */,
-				DEA31E3728A6C96C00971813 /* AllAnimalsLocalCacheMutation.swift in Sources */,
-				DEA31E5728A6C9AE00971813 /* WarmBlooded.swift in Sources */,
-				DEA31E4128A6C98D00971813 /* ClassroomPet.swift in Sources */,
-				DEA31E3A28A6C97A00971813 /* PetSearchQuery.swift in Sources */,
-				DEA31E4D28A6C9A200971813 /* Query.swift in Sources */,
-				DEA31E3528A6C96900971813 /* PetDetails.swift in Sources */,
-				DEA31E5128A6C9A900971813 /* MeasurementsInput.swift in Sources */,
-				DEA31E3E28A6C97A00971813 /* ClassroomPetsQuery.swift in Sources */,
-				DEA31E5328A6C9A900971813 /* PetAdoptionInput.swift in Sources */,
-				DEA31E3B28A6C97A00971813 /* AllAnimalsQuery.swift in Sources */,
-				DEA31E3F28A6C97A00971813 /* AllAnimalsCCNQuery.swift in Sources */,
-				DEA31E3C28A6C97A00971813 /* ClassroomPetsCCNQuery.swift in Sources */,
-				DEA31E4628A6C9A200971813 /* Rat.swift in Sources */,
-				DEA31E4728A6C9A200971813 /* Height.swift in Sources */,
-				DEA31E3D28A6C97A00971813 /* DogQuery.swift in Sources */,
-				DEA31E4328A6C99300971813 /* RelativeSize.swift in Sources */,
+				E6BACC6C29FC9468008B46F2 /* MeasurementsInput.graphql.swift in Sources */,
+				E6BACC6F29FC9468008B46F2 /* Pet.graphql.swift in Sources */,
+				E6BACC6B29FC9468008B46F2 /* PetSearchFilters.graphql.swift in Sources */,
+				E6BACC5F29FC9468008B46F2 /* Bird.graphql.swift in Sources */,
+				E6BACC6829FC9468008B46F2 /* Crocodile.graphql.swift in Sources */,
+				E6BACC5E29FC9468008B46F2 /* Rat.graphql.swift in Sources */,
+				E6BACC6129FC9468008B46F2 /* Dog.graphql.swift in Sources */,
+				E6BACC5C29FC9468008B46F2 /* SkinCovering.graphql.swift in Sources */,
+				E6BACC6D29FC9468008B46F2 /* SchemaMetadata.graphql.swift in Sources */,
+				E6BACC6A29FC9468008B46F2 /* PetAdoptionInput.graphql.swift in Sources */,
+				E6BACC6629FC9468008B46F2 /* Fish.graphql.swift in Sources */,
+				E6BACC7829FC9468008B46F2 /* PetAdoptionMutation.graphql.swift in Sources */,
+				E6BACC7329FC9468008B46F2 /* HeightInMeters.graphql.swift in Sources */,
+				E6BACC6029FC9468008B46F2 /* PetRock.graphql.swift in Sources */,
+				E6BACC6229FC9468008B46F2 /* Height.graphql.swift in Sources */,
+				E6BACC6729FC9468008B46F2 /* Human.graphql.swift in Sources */,
+				E6BACC6529FC9468008B46F2 /* Cat.graphql.swift in Sources */,
+				E6BACC7229FC9468008B46F2 /* PetDetails.graphql.swift in Sources */,
+				E6BACC7D29FC9468008B46F2 /* AllAnimalsQuery.graphql.swift in Sources */,
+				E6BACC7C29FC9468008B46F2 /* ClassroomPetsCCNQuery.graphql.swift in Sources */,
+				E6BACC5829FC9468008B46F2 /* AllAnimalsLocalCacheMutation.graphql.swift in Sources */,
+				E6BACC7629FC9468008B46F2 /* ClassroomPetDetailsCCN.graphql.swift in Sources */,
+				E6BACC7A29FC9468008B46F2 /* AllAnimalsCCNQuery.graphql.swift in Sources */,
+				E6BACC7029FC9468008B46F2 /* Animal.graphql.swift in Sources */,
+				E6BACC7B29FC9468008B46F2 /* ClassroomPetsQuery.graphql.swift in Sources */,
+				E6BACC5929FC9468008B46F2 /* PetSearchLocalCacheMutation.graphql.swift in Sources */,
+				E6BACC7F29FC9468008B46F2 /* PetSearchQuery.graphql.swift in Sources */,
+				E6BACC5A29FC9468008B46F2 /* ClassroomPet.graphql.swift in Sources */,
+				E6BACC7929FC9468008B46F2 /* DogQuery.graphql.swift in Sources */,
+				E6BACC5B29FC9468008B46F2 /* CustomDate.swift in Sources */,
+				E6BACC7729FC9468008B46F2 /* WarmBloodedDetails.graphql.swift in Sources */,
+				E6BACC5D29FC9468008B46F2 /* RelativeSize.graphql.swift in Sources */,
+				E6BACC7529FC9468008B46F2 /* DogFragment.graphql.swift in Sources */,
+				E6BACC6E29FC9468008B46F2 /* HousePet.graphql.swift in Sources */,
+				E6BACC6329FC9468008B46F2 /* Mutation.graphql.swift in Sources */,
+				E6BACC7429FC9468008B46F2 /* ClassroomPetDetails.graphql.swift in Sources */,
+				E6BACC7129FC9468008B46F2 /* WarmBlooded.graphql.swift in Sources */,
+				E6BACC6929FC9468008B46F2 /* SchemaConfiguration.swift in Sources */,
+				E6BACC5729FC9468008B46F2 /* PetDetailsMutation.graphql.swift in Sources */,
+				E6BACC6429FC9468008B46F2 /* Query.graphql.swift in Sources */,
+				E6BACC7E29FC9468008B46F2 /* AllAnimalsIncludeSkipQuery.graphql.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E6BACC8529FC9A9C008B46F2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6CE964C2A00716300E66222 /* MockObject+Unions.graphql.swift in Sources */,
+				E6CE964D2A00716300E66222 /* Cat+Mock.graphql.swift in Sources */,
+				E6CE96462A00716300E66222 /* Height+Mock.graphql.swift in Sources */,
+				E6CE964E2A00716300E66222 /* Dog+Mock.graphql.swift in Sources */,
+				E6CE964A2A00716300E66222 /* MockObject+Interfaces.graphql.swift in Sources */,
+				E6CE964B2A00716300E66222 /* Rat+Mock.graphql.swift in Sources */,
+				E6CE964F2A00716300E66222 /* Fish+Mock.graphql.swift in Sources */,
+				E6CE96452A00716300E66222 /* Human+Mock.graphql.swift in Sources */,
+				E6BACC8C29FC9A9C008B46F2 /* CustomTargetProjectTests.swift in Sources */,
+				E6CE96482A00716300E66222 /* PetRock+Mock.graphql.swift in Sources */,
+				E6CE96502A00716300E66222 /* Mutation+Mock.graphql.swift in Sources */,
+				E6CE96512A00716300E66222 /* Crocodile+Mock.graphql.swift in Sources */,
+				E6CE96472A00716300E66222 /* Query+Mock.graphql.swift in Sources */,
+				E6CE96492A00716300E66222 /* Bird+Mock.graphql.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		DE454BD228B432DE009DC80E /* PBXTargetDependency */ = {
+		E6BACC8329FC97BC008B46F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DEA31E2928A6C95F00971813 /* GraphQLAPI */;
-			targetProxy = DE454BD128B432DE009DC80E /* PBXContainerItemProxy */;
+			target = E6BACC1829FC909F008B46F2 /* AnimalKingdomAPI */;
+			targetProxy = E6BACC8229FC97BC008B46F2 /* PBXContainerItemProxy */;
 		};
-		DEA31E6028A6CA8400971813 /* PBXTargetDependency */ = {
+		E6BACC8F29FC9A9C008B46F2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = DEA31E5F28A6CA8400971813 /* ApolloAPI */;
+			target = DE454BC828B43262009DC80E /* CustomTargetProject */;
+			targetProxy = E6BACC8E29FC9A9C008B46F2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -550,12 +704,14 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -608,12 +764,14 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -638,7 +796,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -649,6 +806,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -668,7 +828,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -679,6 +838,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -686,13 +848,12 @@
 			};
 			name = Release;
 		};
-		DEA31E2F28A6C95F00971813 /* Debug */ = {
+		E6BACC1E29FC909F008B46F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -700,7 +861,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -709,9 +869,8 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.GraphQLAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.AnimalKingdomAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
@@ -722,13 +881,12 @@
 			};
 			name = Debug;
 		};
-		DEA31E3028A6C95F00971813 /* Release */ = {
+		E6BACC1F29FC909F008B46F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -736,7 +894,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
@@ -745,14 +902,49 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = apollograpqhl.GraphQLAPI;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.AnimalKingdomAPI;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E6BACC9129FC9A9C008B46F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CustomTargetProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E6BACC9229FC9A9C008B46F2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CustomTargetProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -779,11 +971,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DEA31E2E28A6C95F00971813 /* Build configuration list for PBXNativeTarget "GraphQLAPI" */ = {
+		E6BACC1D29FC909F008B46F2 /* Build configuration list for PBXNativeTarget "AnimalKingdomAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				DEA31E2F28A6C95F00971813 /* Debug */,
-				DEA31E3028A6C95F00971813 /* Release */,
+				E6BACC1E29FC909F008B46F2 /* Debug */,
+				E6BACC1F29FC909F008B46F2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E6BACC9029FC9A9C008B46F2 /* Build configuration list for PBXNativeTarget "CustomTargetProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E6BACC9129FC9A9C008B46F2 /* Debug */,
+				E6BACC9229FC9A9C008B46F2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -791,13 +992,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		DE454BD628B4330F009DC80E /* ApolloAPI */ = {
+		E6BACC2029FC90CC008B46F2 /* ApolloAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ApolloAPI;
 		};
-		DEA31E5F28A6CA8400971813 /* ApolloAPI */ = {
+		E6CE96522A0071DF00E66222 /* ApolloTestSupport */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = ApolloAPI;
+			productName = ApolloTestSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
