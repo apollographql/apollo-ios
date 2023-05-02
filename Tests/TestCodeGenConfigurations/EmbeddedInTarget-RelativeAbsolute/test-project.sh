@@ -1,5 +1,9 @@
 #!/bin/bash
 
-echo "TODO: tests"
+echo "Testing PackageOne.."
+cd PackageOne
+swift test
 
-exit 0
+echo "Testing PackageTwo.."
+cd ../PackageTwo
+swift test

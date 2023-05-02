@@ -28,6 +28,9 @@ let package = Package(
       dependencies: [
         "PackageTwo",
         .product(name: "ApolloTestSupport", package: "apollo-ios"),
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-warnings-as-errors"])
       ]),
     .testTarget(
       name: "PackageTwoTests",
