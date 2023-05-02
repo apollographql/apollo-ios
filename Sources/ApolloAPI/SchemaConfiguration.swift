@@ -49,7 +49,3 @@ public extension ObjectData {
     return nil
   }
 }
-
-extension ObjectData {
-  
-}
