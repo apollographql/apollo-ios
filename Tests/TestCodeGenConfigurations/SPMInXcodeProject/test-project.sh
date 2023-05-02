@@ -1,3 +1,3 @@
 #!/bin/bash
 
-set -o pipefail && xcodebuild test -scheme SPMInXcodeProject -quiet | xcbeautify --is-ci
+set -o pipefail && xcodebuild test -scheme SPMInXcodeProject -destination platform=macOS -quiet | xcbeautify --is-ci
