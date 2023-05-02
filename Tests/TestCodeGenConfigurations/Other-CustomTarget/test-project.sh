@@ -1,5 +1,3 @@
 #!/bin/bash
 
-echo "TODO: tests"
-
-exit 0
+set -o pipefail && xcodebuild test -scheme CustomTargetProject -quiet | xcbeautify --is-ci
