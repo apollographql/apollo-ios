@@ -67,9 +67,13 @@ SwiftScripts/.build-**
 # Local Netlify folder
 .netlify
 
+# Generated js files we don't need committed
+Sources/ApolloCodegenLib/Frontend/dist/
+
 # Local generated packages we don't need in the main project
 Sources/AnimalKingdomAPI/Generated/Package.swift
 Sources/AnimalKingdomAPI/Generated/Package.resolved
-
-# Generated js files we don't need committed
-Sources/ApolloCodegenLib/Frontend/dist/
+Tests/TestCodeGenConfigurations/**/AnimalKingdomAPI/
+!Tests/TestCodeGenConfigurations/Other-CocoaPods/CocoaPodsProject/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
+!Tests/TestCodeGenConfigurations/EmbeddedInTarget-InSchemaModule/Sources/TestApp/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
+Tests/TestCodeGenConfigurations/**/AnimalKingdomAPITestMocks
