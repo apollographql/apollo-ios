@@ -77,3 +77,4 @@ Tests/TestCodeGenConfigurations/**/AnimalKingdomAPI/
 !Tests/TestCodeGenConfigurations/Other-CocoaPods/CocoaPodsProject/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
 !Tests/TestCodeGenConfigurations/EmbeddedInTarget-InSchemaModule/Sources/TestApp/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
 Tests/TestCodeGenConfigurations/**/AnimalKingdomAPITestMocks
+Tests/TestCodeGenConfigurations/Other-CustomTarget/TestMocks
