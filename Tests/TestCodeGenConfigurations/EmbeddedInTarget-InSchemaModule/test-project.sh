@@ -1,5 +1,3 @@
 #!/bin/bash
 
-echo "TODO: tests"
-
-exit 0
+swift test
