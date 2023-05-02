@@ -74,7 +74,10 @@ Sources/ApolloCodegenLib/Frontend/dist/
 Sources/AnimalKingdomAPI/Generated/Package.swift
 Sources/AnimalKingdomAPI/Generated/Package.resolved
 Tests/TestCodeGenConfigurations/**/AnimalKingdomAPI/
+!Tests/TestCodeGenConfigurations/**/AnimalKingdomAPI/AnimalKingdomAPI.h
 !Tests/TestCodeGenConfigurations/Other-CocoaPods/CocoaPodsProject/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
 !Tests/TestCodeGenConfigurations/EmbeddedInTarget-InSchemaModule/Sources/TestApp/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
 Tests/TestCodeGenConfigurations/**/AnimalKingdomAPITestMocks
 Tests/TestCodeGenConfigurations/Other-CustomTarget/TestMocks
+Tests/TestCodeGenConfigurations/**/Package.resolved
+Tests/TestCodeGenConfigurations/**/Podfile.lock
