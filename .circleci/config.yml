@@ -247,7 +247,6 @@ jobs:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     steps:
-      - common_test_setup
       - codegen_test_configurations_generate_and_test
 
 workflows:
