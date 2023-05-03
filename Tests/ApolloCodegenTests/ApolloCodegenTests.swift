@@ -1446,6 +1446,60 @@ class ApolloCodegenTests: XCTestCase {
     expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInChildPath)).to(beTrue())
     expect(ApolloFileManager.default.doesFileExist(atPath: testUserFileInNestedChildPath)).to(beTrue())
   }
+  
+  func test__fileDeletion__inOperationRelativeDirectory__whenSymlinkIsUsed() throws {
+    // given
+    try createFile(containing: schemaData, named: "schema.graphqls")
+
+    let schemaDirectory = "SchemaModule"
+    let codeDirectory = "code"
+    let relativeSubPath = "Operations"
+    let operationFilename = "TestQuery.graphql"
+    
+    try createOperationFile(
+      type: .query,
+      named: "TestQuery",
+      filename: operationFilename,
+      inDirectory: codeDirectory
+    )
+
+    let symLinkURL = directoryURL.appendingPathComponent("/\(codeDirectory)/\(relativeSubPath)/")
+    let symLinkDestURL = directoryURL.appendingPathComponent("\(schemaDirectory)/Sources/Operations/")
+    let fileValidationPath = symLinkDestURL.appendingPathComponent("\(operationFilename).swift").path
+    
+    //setup symlink folder
+    try testFileManager.fileManager.createDirectory(at: symLinkDestURL, withIntermediateDirectories: true)
+    try testFileManager.fileManager.createSymbolicLink(at: symLinkURL, withDestinationURL: symLinkDestURL)
+    
+    // when
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["code/**/*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: schemaDirectory,
+                           moduleType: .swiftPackageManager),
+        operations: .relative(subpath: relativeSubPath)
+      ),
+      options: .init(
+        pruneGeneratedFiles: true
+      )
+    )
+
+    // then
+    
+    // running codegen multiple times to validate symlink related file creation/deletion bug
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
+    
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
+    
+    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
+
+  }
 
   func test__fileDeletion__givenGeneratedFilesExist_InOperationRelativeDirectoriesWithSubPath_deletesOnlyRelativeGeneratedFilesInOperationSearchPaths() throws {
     // given

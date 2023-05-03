@@ -177,7 +177,7 @@ public struct Glob {
           excludedSet.intersection(url.pathComponents).isEmpty
         else { continue }
 
-        directories.append(url)
+        directories.append(url.resolvingSymlinksInPath())
       }
 
     } catch(let error) {
