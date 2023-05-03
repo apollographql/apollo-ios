@@ -126,6 +126,7 @@ public struct Glob {
     var parts = pattern.components(separatedBy: String.Globstar)
     var firstPart = parts.removeFirst()
     let lastPart = parts.joined(separator: String.Globstar)
+    let lastDirComponent = lastPart.components(separatedBy: "*").first ?? ""
 
     if isExclude {
       // Remove ! here otherwise the Linux glob function would not return any results. Results for
@@ -177,7 +178,7 @@ public struct Glob {
           excludedSet.intersection(url.pathComponents).isEmpty
         else { continue }
 
-        directories.append(url.resolvingSymlinksInPath())
+        directories.append(url)
       }
 
     } catch(let error) {
@@ -185,7 +186,15 @@ public struct Glob {
     }
 
     return OrderedSet<String>(directories.compactMap({ directory in
-      var path = directory.appendingPathComponent(lastPart).standardizedFileURL.path
+      // build directory URL up the the '*' in the pattern, and check if it is a symlink, if so skip it
+      let symCheckURL = directory.appendingPathComponent(lastDirComponent).standardizedFileURL
+      if let resourceValues = try? symCheckURL.resourceValues(forKeys: [.isSymbolicLinkKey]),
+         let isSymLink = resourceValues.isSymbolicLink,
+         isSymLink {
+        return nil
+      }
+      
+      var path = directory.resolvingSymlinksInPath().appendingPathComponent(lastPart).standardizedFileURL.path
       if isExclude {
         path.insert("!", at: path.startIndex)
       }

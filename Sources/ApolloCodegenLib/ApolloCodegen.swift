@@ -462,24 +462,10 @@ public class ApolloCodegen {
     default: break
     }
 
-    var existingPaths: Set<String> = try globs.reduce(into: []) { partialResult, glob in
+    return try globs.reduce(into: []) { partialResult, glob in
       partialResult.formUnion(try glob.match())
     }
-    
-    try resolveSymlinksInPaths(&existingPaths)
-    
-    return existingPaths
-  }
-  
-  private static func resolveSymlinksInPaths(_ paths: inout Set<String>) throws {
-    for path in paths {
-      let url = URL(fileURLWithPath: path).deletingLastPathComponent()
-      let resourceValues = try url.resourceValues(forKeys: [.isSymbolicLinkKey])
-      if let isSymbolicLink = resourceValues.isSymbolicLink,
-         isSymbolicLink {
-        paths.remove(path)
-      }
-    }
+
   }
 
   static func deleteExtraneousGeneratedFiles(
