@@ -80,7 +80,6 @@ Tests/TestCodeGenConfigurations/**/Podfile.lock
 Tests/TestCodeGenConfigurations/**/TestMocks
 Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageOne/**/*.graphql.swift
 Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sources/PackageTwo
+!Tests/TestCodeGenConfigurations/**/SchemaConfiguration.swift
 !Tests/TestCodeGenConfigurations/Other-CustomTarget/AnimalKingdomAPI/AnimalKingdomAPI.h
-!Tests/TestCodeGenConfigurations/Other-CocoaPods/CocoaPodsProject/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
-!Tests/TestCodeGenConfigurations/EmbeddedInTarget-InSchemaModule/Sources/TestApp/AnimalKingdomAPI/Schema/SchemaConfiguration.swift
 !Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sources/PackageTwo/PackageTwo.swift
