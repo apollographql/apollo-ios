@@ -465,7 +465,6 @@ public class ApolloCodegen {
     return try globs.reduce(into: []) { partialResult, glob in
       partialResult.formUnion(try glob.match())
     }
-
   }
 
   static func deleteExtraneousGeneratedFiles(
