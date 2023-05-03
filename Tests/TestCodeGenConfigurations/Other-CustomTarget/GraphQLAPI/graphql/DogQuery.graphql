@@ -1,5 +1,0 @@
-query DogQuery {
-  dog {
-    ... DogFragment
-  }
-}

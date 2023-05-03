@@ -1,11 +1,14 @@
 import XCTest
 @testable import PackageOne
+import TestMocks
+import ApolloTestSupport
 
 final class PackageOneTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(PackageOne().text, "Hello, World!")
-    }
+  func testOperation() {
+    let mockDog = Mock<Dog>(species: "Canis familiaris")
+    let mockQuery = Mock<Query>(dog: mockDog)
+    let dogQuery = DogQuery.Data.from(mockQuery)
+
+    XCTAssertEqual(dogQuery.dog.species, "Canis familiaris")
+  }
 }

@@ -1,10 +1,3 @@
-//
-//  CustomTargetProject.h
-//  CustomTargetProject
-//
-//  Created by Anthony Miller on 8/22/22.
-//
-
 #import <Foundation/Foundation.h>
 
 //! Project version number for CustomTargetProject.

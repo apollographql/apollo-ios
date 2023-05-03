@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DE1EA40128A6C75D0000B217"
+               BlueprintIdentifier = "DE454BC828B43262009DC80E"
                BuildableName = "CustomTargetProject.framework"
                BlueprintName = "CustomTargetProject"
                ReferencedContainer = "container:CustomTargetProject.xcodeproj">
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "E6BACC8829FC9A9C008B46F2"
+               BuildableName = "CustomTargetProjectTests.xctest"
+               BlueprintName = "CustomTargetProjectTests"
+               ReferencedContainer = "container:CustomTargetProject.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -50,7 +60,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DE1EA40128A6C75D0000B217"
+            BlueprintIdentifier = "DE454BC828B43262009DC80E"
             BuildableName = "CustomTargetProject.framework"
             BlueprintName = "CustomTargetProject"
             ReferencedContainer = "container:CustomTargetProject.xcodeproj">
