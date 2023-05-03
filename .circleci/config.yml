@@ -246,8 +246,6 @@ jobs:
   CodegenTestConfigurations_macOS_current:
     macos:
       xcode: << pipeline.parameters.xcode_version >>
-    environment:
-      DESTINATION: platform=macOS,arch=x86_64
     steps:
       - common_test_setup
       - codegen_test_configurations_generate_and_test
