@@ -37,15 +37,63 @@ public protocol SchemaConfiguration {
 
 }
 
-public protocol ObjectData {
+public protocol ExecutionSourceDataWrapper {
+  func _convert(_ value: AnyHashable) -> (any ScalarType)?
+  func _convert(_ value: AnyHashable) -> ObjectData?
+  func _convert(_ value: AnyHashable) -> ListData?
+}
 
-  var _rawData: JSONObject { get }
-  subscript(_ key: String) -> AnyHashable? { get }
+public protocol ObjectData: ExecutionSourceDataWrapper {
+
+  var _rawData: [String: AnyHashable] { get }
+
+//  @_disfavoredOverload
+//  subscript(_ key: String) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? { get }
 
 }
 
 public extension ObjectData {
-  subscript(_ key: String, withArguments: [String: Any]) -> AnyHashable? {
-    return nil
+
+  subscript(_ key: String) -> (any ScalarType)? {
+    guard let value = _rawData[key] else { return nil }
+    return _convert(value)
+  }
+
+  @_disfavoredOverload
+  subscript(_ key: String) -> ObjectData? {
+    guard let value = _rawData[key] else { return nil }
+    return _convert(value)
+  }
+
+  @_disfavoredOverload
+  subscript(_ key: String) -> ListData? {
+    guard let value = _rawData[key] else { return nil }
+    return _convert(value)
+  }  
+
+//  subscript(_ key: String, withArguments: [String: AnyHashable]? = nil) -> AnyHashable? {
+//    return nil
+//  }
+}
+
+public protocol ListData: ExecutionSourceDataWrapper {
+  var _rawData: [AnyHashable] { get }
+}
+
+public extension ListData {
+  subscript(_ key: Int) -> (any ScalarType)? {
+    return _convert(_rawData[key])
+  }
+
+  @_disfavoredOverload
+  subscript(_ key: Int) -> ObjectData? {
+    return _convert(_rawData[key])
+  }
+
+  @_disfavoredOverload
+  subscript(_ key: Int) -> ListData? {
+    return _convert(_rawData[key])
   }
 }
+
+extension LazyMapSequence<[AnyHashable],

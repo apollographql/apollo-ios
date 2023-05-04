@@ -21,17 +21,40 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
     let underlyingData: DataDict
     var _rawData: JSONObject { underlyingData._data  }
 
-    subscript(_ key: String) -> AnyHashable? {
-      guard let value = underlyingData._data[key] else { return nil }
-      return convert(value)
-    }
 
-    func convert(_ value: AnyHashable) -> AnyHashable {
+//    @_disfavoredOverload
+//    subscript(_ key: String) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? {
+//      guard let value = underlyingData._data[key] else { return nil }
+//      return convert(value)
+//    }
+
+    func _convert(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
-      case is ScalarType: return value
-      case let customScalar as CustomScalarType: return customScalar._jsonValue
-      default: return value
+      case let scalar as ScalarType: return scalar
+      case let customScalar as CustomScalarType: return customScalar._jsonValue as? ScalarType
+      default: return nil
       }
     }
+
+    func _convert(_ value: AnyHashable) -> ObjectData? {
+      switch value {
+      case let object as DataDict: return OpaqueObjectDataWrapper(underlyingData: object)
+      default: return nil
+      }
+    }
+
+    func _convert(_ value: AnyHashable) -> ListData? {
+      switch value {
+      case let list as [AnyHashable]: return list.lazy.map(_convert(_:))
+      default: return nil
+      }
+    }
+
+//    func convert(_ value: AnyHashable) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? {
+//      switch value {
+//      case let list as Array<AnyHashable>: return list.lazy.map(convert(_:))
+//      default: return nil
+//      }
+//    }
   }
 }

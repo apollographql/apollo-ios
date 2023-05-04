@@ -18,16 +18,18 @@ struct NetworkResponseExecutionSource: GraphQLExecutionSource {
   struct OpaqueObjectDataWrapper: ObjectData {
     let _rawData: [String: AnyHashable]
 
-    subscript(_ key: String) -> AnyHashable? {
-      guard let value = _rawData[key] else { return nil }
-      return value
+    func _convert(_ value: AnyHashable) -> (any ScalarType)? {
+      switch value {
+      case let scalar as ScalarType: return scalar
+      case let customScalar as CustomScalarType: return customScalar._jsonValue as? ScalarType
+      default: return nil
+      }
     }
 
-    func convert(_ value: AnyHashable) -> AnyHashable {
+    func _convert(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case is AnyScalarType: return value
-      case let customScalar as CustomScalarType: return customScalar._jsonValue
-      default: return value
+      case let object as [String: AnyHashable]: return OpaqueObjectDataWrapper(_rawData: object)
+      default: return nil
       }
     }
   }

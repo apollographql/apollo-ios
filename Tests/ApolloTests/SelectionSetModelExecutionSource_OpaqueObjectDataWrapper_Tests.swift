@@ -23,8 +23,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
     let actual = objectData["name"]
 
     // then
-    expect(actual is String).to(beTrue())
-    expect(actual).to(equal("Luke Skywalker"))
+    expect(actual as? String).to(equal("Luke Skywalker"))
   }
 
   func test__subscript__forCustomScalarField_returnsValueAsJSONValue() throws {
@@ -42,8 +41,71 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
     let actual = objectData["customScalar"]
 
     // then
-    expect(actual is String).to(beTrue())
-    expect(actual).to(equal("Luke Skywalker"))
+    expect(actual as? String).to(equal("Luke Skywalker"))
   }
+
+  // MARK: Object Fields
+
+  func test__subscript__forObjectField_returnsValueAsObjectDataWrapper() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "friend": DataDict(
+          data: [
+            "name": "Luke Skywalker"
+          ],
+          fulfilledFragments: []
+        )
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["friend"]?["name"]
+
+    // then
+    expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+
+  // MARK: List Fields
+
+  func test__subscript__forListOfScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "list": ["Luke Skywalker"]
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["list"]?[0]
+
+    // then
+    expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+
+//  func test__subscript__forListOfCustomScalarField_returnsValueAsJSONValue() throws {
+//    // given
+//    let data = DataDict(
+//      data: [
+//        "list": [MockCustomScalar<String>(value: "Luke Skywalker")]
+//      ],
+//      fulfilledFragments: []
+//    )
+//
+//    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+//
+//    // when
+//    let actual = objectData["list"]![0]?["test"]
+//
+//    // then
+//    expect(actual is Array<String>).to(beTrue())
+//    expect(actual).to(equal("Luke Skywalker"))
+//  }
 
 }
