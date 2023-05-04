@@ -87,6 +87,10 @@ public struct Glob {
       }
     }
 
+    // Resolve symlinks in any included paths
+    includeMatches = includeMatches.compactMap({ path in
+      return URL(fileURLWithPath: path).resolvingSymlinksInPath().path
+    })
     return OrderedSet<String>(includeMatches).subtracting(excludeMatches)
   }
 
@@ -125,10 +129,7 @@ public struct Glob {
     let isExclude = pattern.isExclude
     var parts = pattern.components(separatedBy: String.Globstar)
     var firstPart = parts.removeFirst()
-    let last = parts.joined(separator: String.Globstar)
-    parts = last.components(separatedBy: "*")
-    let lastDirComponent = parts.removeFirst()
-    let lastPart = "*\(parts.joined(separator: "*"))"
+    let lastPart = parts.joined(separator: String.Globstar)
 
     if isExclude {
       // Remove ! here otherwise the Linux glob function would not return any results. Results for
@@ -188,9 +189,7 @@ public struct Glob {
     }
 
     return OrderedSet<String>(directories.compactMap({ directory in
-      // build directory URL up to the first '*' in the pattern, and resolve symlinks
-      let url = directory.appendingPathComponent(lastDirComponent).standardizedFileURL.resolvingSymlinksInPath()
-      var path = url.appendingPathComponent("\(lastPart)").standardizedFileURL.path
+      var path = directory.appendingPathComponent(lastPart).standardizedFileURL.path
       if isExclude {
         path.insert("!", at: path.startIndex)
       }
