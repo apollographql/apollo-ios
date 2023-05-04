@@ -23,12 +23,12 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
 
     subscript(_ key: String) -> AnyHashable? {
       guard let value = underlyingData._data[key] else { return nil }
-      return value
+      return convert(value)
     }
 
     func convert(_ value: AnyHashable) -> AnyHashable {
       switch value {
-      case is AnyScalarType: return value
+      case is ScalarType: return value
       case let customScalar as CustomScalarType: return customScalar._jsonValue
       default: return value
       }
