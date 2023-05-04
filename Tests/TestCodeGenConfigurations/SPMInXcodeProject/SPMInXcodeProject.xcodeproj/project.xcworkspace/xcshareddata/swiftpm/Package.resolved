@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "generatedapi",
-      "kind" : "localSourceControl",
-      "location" : "/Users/amdev/Documents/repos/apollo-ios/Tests/TestCodeGenConfigurations/SPMInXcodeProject/GeneratedAPI",
-      "state" : {
-        "branch" : "main",
-        "revision" : "c881db33fef68624f34d9ebb1e95456a9099e92c"
-      }
-    },
-    {
       "identity" : "inflectorkit",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mattt/InflectorKit",

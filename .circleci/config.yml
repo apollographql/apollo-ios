@@ -64,15 +64,6 @@ commands:
     steps:
       - checkout
       - run:
-          command: rm ~/.ssh/id_rsa
-          name: Remove old SSH key
-      - run:
-          command: for ip in $(dig @8.8.8.8 bitbucket.org +short); do ssh-keyscan bitbucket.org,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
-          name: Bitbucket Key Workaround
-      - run:
-          command: for ip in $(dig @8.8.8.8 github.com +short); do ssh-keyscan github.com,$ip; ssh-keyscan $ip; done 2>/dev/null >> ~/.ssh/known_hosts || true
-          name: Github Key Workaround
-      - run:
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
           name: Install xcbeautify
   build_and_run_xcode_tests:
@@ -124,6 +115,19 @@ commands:
           name: Save test results
           path: ~/TestResults/ResultBundle.zip
           destination: results
+  codegen_test_configurations_generate_and_test:
+    steps:
+      - run:
+          command: git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
+          name: Manually clone Apollo iOS repository
+      - run:
+          command: HOMEBREW_NO_AUTO_UPDATE=1 brew install xcbeautify
+          name: Install xcbeautify
+      - run:
+          working_directory: apollo-ios/
+          command: ./scripts/run-test-codegen-configurations.sh -t
+          name: Generate and Test Codegen Configurations
+
 
 # Important! When adding a new job to `jobs`, make sure to define when it
 # executes by also adding it to the `workflows` section below!
@@ -239,6 +243,12 @@ jobs:
       - common_test_setup
       - cocoapods_install_test
 
+  CodegenTestConfigurations_macOS_current:
+    macos:
+      xcode: << pipeline.parameters.xcode_version >>
+    steps:
+      - codegen_test_configurations_generate_and_test
+
 workflows:
   version: 2
   # This workflow builds and tests the library across various operating systems and versions
@@ -264,3 +274,5 @@ workflows:
           name: Codegen CLI Unit Tests - macOS << pipeline.parameters.macos_version >>
       - CocoaPodsIntegration_macOS_current:
           name: CocoaPods Integration Tests - macOS << pipeline.parameters.macos_version >>
+      - CodegenTestConfigurations_macOS_current:
+          name: Codegen Test Configurations - macOS << pipeline.parameters.macos_version >>

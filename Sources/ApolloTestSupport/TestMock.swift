@@ -67,6 +67,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
     }
   }
 
+  @_disfavoredOverload
   public func _set<T: MockFieldValue>(
     _ value: [T.MockValueCollectionType.Element]?,
     for keyPath: KeyPath<O.MockFields, Field<Array<T>>>

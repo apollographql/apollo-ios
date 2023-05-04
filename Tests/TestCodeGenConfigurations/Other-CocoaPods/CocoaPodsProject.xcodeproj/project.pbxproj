@@ -1,0 +1,891 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1B7ED6E41035FB2A0D763AD8 /* Pods_CocoaPodsProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D3E998DF0E4DCCF80C445451 /* Pods_CocoaPodsProjectTests.framework */; };
+		B51EE231D8798C8408AB9CD5 /* Pods_CocoaPodsProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C684794938D6314DF12AB411 /* Pods_CocoaPodsProject.framework */; };
+		E607A69C29FB43F80059899E /* CocoaPodsProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A69B29FB43F80059899E /* CocoaPodsProjectApp.swift */; };
+		E607A69E29FB43F80059899E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A69D29FB43F80059899E /* ContentView.swift */; };
+		E607A6A029FB43F80059899E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E607A69F29FB43F80059899E /* Assets.xcassets */; };
+		E607A6A329FB43F80059899E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E607A6A229FB43F80059899E /* Preview Assets.xcassets */; };
+		E607A6AE29FB43F90059899E /* CocoaPodsProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A6AD29FB43F90059899E /* CocoaPodsProjectTests.swift */; };
+		E607A74829FB692F0059899E /* PetDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71429FB692F0059899E /* PetDetails.graphql.swift */; };
+		E607A74929FB692F0059899E /* HeightInMeters.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71529FB692F0059899E /* HeightInMeters.graphql.swift */; };
+		E607A74A29FB692F0059899E /* ClassroomPetDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71629FB692F0059899E /* ClassroomPetDetails.graphql.swift */; };
+		E607A74B29FB692F0059899E /* DogFragment.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71729FB692F0059899E /* DogFragment.graphql.swift */; };
+		E607A74C29FB692F0059899E /* ClassroomPetDetailsCCN.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71829FB692F0059899E /* ClassroomPetDetailsCCN.graphql.swift */; };
+		E607A74D29FB692F0059899E /* WarmBloodedDetails.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71929FB692F0059899E /* WarmBloodedDetails.graphql.swift */; };
+		E607A74E29FB692F0059899E /* PetDetailsMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71B29FB692F0059899E /* PetDetailsMutation.graphql.swift */; };
+		E607A74F29FB692F0059899E /* AllAnimalsLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71C29FB692F0059899E /* AllAnimalsLocalCacheMutation.graphql.swift */; };
+		E607A75029FB692F0059899E /* PetSearchLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A71D29FB692F0059899E /* PetSearchLocalCacheMutation.graphql.swift */; };
+		E607A75129FB692F0059899E /* PetAdoptionMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72029FB692F0059899E /* PetAdoptionMutation.graphql.swift */; };
+		E607A75229FB692F0059899E /* DogQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72229FB692F0059899E /* DogQuery.graphql.swift */; };
+		E607A75329FB692F0059899E /* AllAnimalsCCNQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72329FB692F0059899E /* AllAnimalsCCNQuery.graphql.swift */; };
+		E607A75429FB692F0059899E /* ClassroomPetsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72429FB692F0059899E /* ClassroomPetsQuery.graphql.swift */; };
+		E607A75529FB692F0059899E /* ClassroomPetsCCNQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72529FB692F0059899E /* ClassroomPetsCCNQuery.graphql.swift */; };
+		E607A75629FB692F0059899E /* AllAnimalsQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72629FB692F0059899E /* AllAnimalsQuery.graphql.swift */; };
+		E607A75729FB692F0059899E /* AllAnimalsIncludeSkipQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72729FB692F0059899E /* AllAnimalsIncludeSkipQuery.graphql.swift */; };
+		E607A75829FB692F0059899E /* PetSearchQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72829FB692F0059899E /* PetSearchQuery.graphql.swift */; };
+		E607A75929FB692F0059899E /* ClassroomPet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72B29FB692F0059899E /* ClassroomPet.graphql.swift */; };
+		E607A75A29FB692F0059899E /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72D29FB692F0059899E /* CustomDate.swift */; };
+		E607A75B29FB692F0059899E /* SkinCovering.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A72F29FB692F0059899E /* SkinCovering.graphql.swift */; };
+		E607A75C29FB692F0059899E /* RelativeSize.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73029FB692F0059899E /* RelativeSize.graphql.swift */; };
+		E607A75D29FB692F0059899E /* Rat.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73229FB692F0059899E /* Rat.graphql.swift */; };
+		E607A75E29FB692F0059899E /* Bird.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73329FB692F0059899E /* Bird.graphql.swift */; };
+		E607A75F29FB692F0059899E /* PetRock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73429FB692F0059899E /* PetRock.graphql.swift */; };
+		E607A76029FB692F0059899E /* Dog.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73529FB692F0059899E /* Dog.graphql.swift */; };
+		E607A76129FB69300059899E /* Height.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73629FB692F0059899E /* Height.graphql.swift */; };
+		E607A76229FB69300059899E /* Mutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73729FB692F0059899E /* Mutation.graphql.swift */; };
+		E607A76329FB69300059899E /* Query.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73829FB692F0059899E /* Query.graphql.swift */; };
+		E607A76429FB69300059899E /* Cat.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73929FB692F0059899E /* Cat.graphql.swift */; };
+		E607A76529FB69300059899E /* Fish.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73A29FB692F0059899E /* Fish.graphql.swift */; };
+		E607A76629FB69300059899E /* Human.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73B29FB692F0059899E /* Human.graphql.swift */; };
+		E607A76729FB69300059899E /* Crocodile.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73C29FB692F0059899E /* Crocodile.graphql.swift */; };
+		E607A76829FB69300059899E /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73D29FB692F0059899E /* SchemaConfiguration.swift */; };
+		E607A76929FB69300059899E /* PetAdoptionInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A73F29FB692F0059899E /* PetAdoptionInput.graphql.swift */; };
+		E607A76A29FB69300059899E /* PetSearchFilters.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74029FB692F0059899E /* PetSearchFilters.graphql.swift */; };
+		E607A76B29FB69300059899E /* MeasurementsInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74129FB692F0059899E /* MeasurementsInput.graphql.swift */; };
+		E607A76C29FB69300059899E /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74229FB692F0059899E /* SchemaMetadata.graphql.swift */; };
+		E607A76D29FB69300059899E /* HousePet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74429FB692F0059899E /* HousePet.graphql.swift */; };
+		E607A76E29FB69300059899E /* Pet.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74529FB692F0059899E /* Pet.graphql.swift */; };
+		E607A76F29FB69300059899E /* Animal.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74629FB692F0059899E /* Animal.graphql.swift */; };
+		E607A77029FB69300059899E /* WarmBlooded.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A74729FB692F0059899E /* WarmBlooded.graphql.swift */; };
+		E607A77F29FB69920059899E /* Human+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77229FB69920059899E /* Human+Mock.graphql.swift */; };
+		E607A78029FB69920059899E /* Height+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77329FB69920059899E /* Height+Mock.graphql.swift */; };
+		E607A78129FB69920059899E /* Query+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77429FB69920059899E /* Query+Mock.graphql.swift */; };
+		E607A78229FB69920059899E /* PetRock+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77529FB69920059899E /* PetRock+Mock.graphql.swift */; };
+		E607A78329FB69920059899E /* Bird+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77629FB69920059899E /* Bird+Mock.graphql.swift */; };
+		E607A78429FB69920059899E /* MockObject+Interfaces.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77729FB69920059899E /* MockObject+Interfaces.graphql.swift */; };
+		E607A78529FB69920059899E /* Rat+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77829FB69920059899E /* Rat+Mock.graphql.swift */; };
+		E607A78629FB69920059899E /* MockObject+Unions.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77929FB69920059899E /* MockObject+Unions.graphql.swift */; };
+		E607A78729FB69920059899E /* Cat+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77A29FB69920059899E /* Cat+Mock.graphql.swift */; };
+		E607A78829FB69920059899E /* Dog+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77B29FB69920059899E /* Dog+Mock.graphql.swift */; };
+		E607A78929FB69920059899E /* Fish+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77C29FB69920059899E /* Fish+Mock.graphql.swift */; };
+		E607A78A29FB69920059899E /* Mutation+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77D29FB69920059899E /* Mutation+Mock.graphql.swift */; };
+		E607A78B29FB69920059899E /* Crocodile+Mock.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = E607A77E29FB69920059899E /* Crocodile+Mock.graphql.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E607A6AA29FB43F90059899E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E607A69029FB43F80059899E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E607A69729FB43F80059899E;
+			remoteInfo = CocoaPodsProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4C671E51FD3FF74D8B077F45 /* Pods-CocoaPodsProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsProjectTests.release.xcconfig"; path = "Target Support Files/Pods-CocoaPodsProjectTests/Pods-CocoaPodsProjectTests.release.xcconfig"; sourceTree = "<group>"; };
+		7D6507DAD078EC7A270097F0 /* Pods-CocoaPodsProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsProject.release.xcconfig"; path = "Target Support Files/Pods-CocoaPodsProject/Pods-CocoaPodsProject.release.xcconfig"; sourceTree = "<group>"; };
+		951B5BB1CBB3B06FF1E6F602 /* Pods-CocoaPodsProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsProject.debug.xcconfig"; path = "Target Support Files/Pods-CocoaPodsProject/Pods-CocoaPodsProject.debug.xcconfig"; sourceTree = "<group>"; };
+		C684794938D6314DF12AB411 /* Pods_CocoaPodsProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3E998DF0E4DCCF80C445451 /* Pods_CocoaPodsProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CocoaPodsProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF6B509D20E06102691FD98C /* Pods-CocoaPodsProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CocoaPodsProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-CocoaPodsProjectTests/Pods-CocoaPodsProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E607A69829FB43F80059899E /* CocoaPodsProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CocoaPodsProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E607A69B29FB43F80059899E /* CocoaPodsProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsProjectApp.swift; sourceTree = "<group>"; };
+		E607A69D29FB43F80059899E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E607A69F29FB43F80059899E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E607A6A229FB43F80059899E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E607A6A429FB43F80059899E /* CocoaPodsProject.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CocoaPodsProject.entitlements; sourceTree = "<group>"; };
+		E607A6A929FB43F90059899E /* CocoaPodsProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CocoaPodsProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E607A6AD29FB43F90059899E /* CocoaPodsProjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPodsProjectTests.swift; sourceTree = "<group>"; };
+		E607A71129FB67140059899E /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
+		E607A71429FB692F0059899E /* PetDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetails.graphql.swift; sourceTree = "<group>"; };
+		E607A71529FB692F0059899E /* HeightInMeters.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeightInMeters.graphql.swift; sourceTree = "<group>"; };
+		E607A71629FB692F0059899E /* ClassroomPetDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetails.graphql.swift; sourceTree = "<group>"; };
+		E607A71729FB692F0059899E /* DogFragment.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogFragment.graphql.swift; sourceTree = "<group>"; };
+		E607A71829FB692F0059899E /* ClassroomPetDetailsCCN.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetDetailsCCN.graphql.swift; sourceTree = "<group>"; };
+		E607A71929FB692F0059899E /* WarmBloodedDetails.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBloodedDetails.graphql.swift; sourceTree = "<group>"; };
+		E607A71B29FB692F0059899E /* PetDetailsMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetDetailsMutation.graphql.swift; sourceTree = "<group>"; };
+		E607A71C29FB692F0059899E /* AllAnimalsLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		E607A71D29FB692F0059899E /* PetSearchLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		E607A72029FB692F0059899E /* PetAdoptionMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionMutation.graphql.swift; sourceTree = "<group>"; };
+		E607A72229FB692F0059899E /* DogQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DogQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72329FB692F0059899E /* AllAnimalsCCNQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsCCNQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72429FB692F0059899E /* ClassroomPetsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72529FB692F0059899E /* ClassroomPetsCCNQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPetsCCNQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72629FB692F0059899E /* AllAnimalsQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72729FB692F0059899E /* AllAnimalsIncludeSkipQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllAnimalsIncludeSkipQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72829FB692F0059899E /* PetSearchQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchQuery.graphql.swift; sourceTree = "<group>"; };
+		E607A72B29FB692F0059899E /* ClassroomPet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassroomPet.graphql.swift; sourceTree = "<group>"; };
+		E607A72D29FB692F0059899E /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
+		E607A72F29FB692F0059899E /* SkinCovering.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkinCovering.graphql.swift; sourceTree = "<group>"; };
+		E607A73029FB692F0059899E /* RelativeSize.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelativeSize.graphql.swift; sourceTree = "<group>"; };
+		E607A73229FB692F0059899E /* Rat.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rat.graphql.swift; sourceTree = "<group>"; };
+		E607A73329FB692F0059899E /* Bird.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bird.graphql.swift; sourceTree = "<group>"; };
+		E607A73429FB692F0059899E /* PetRock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetRock.graphql.swift; sourceTree = "<group>"; };
+		E607A73529FB692F0059899E /* Dog.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.graphql.swift; sourceTree = "<group>"; };
+		E607A73629FB692F0059899E /* Height.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Height.graphql.swift; sourceTree = "<group>"; };
+		E607A73729FB692F0059899E /* Mutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.graphql.swift; sourceTree = "<group>"; };
+		E607A73829FB692F0059899E /* Query.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.graphql.swift; sourceTree = "<group>"; };
+		E607A73929FB692F0059899E /* Cat.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cat.graphql.swift; sourceTree = "<group>"; };
+		E607A73A29FB692F0059899E /* Fish.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fish.graphql.swift; sourceTree = "<group>"; };
+		E607A73B29FB692F0059899E /* Human.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Human.graphql.swift; sourceTree = "<group>"; };
+		E607A73C29FB692F0059899E /* Crocodile.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crocodile.graphql.swift; sourceTree = "<group>"; };
+		E607A73D29FB692F0059899E /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
+		E607A73F29FB692F0059899E /* PetAdoptionInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetAdoptionInput.graphql.swift; sourceTree = "<group>"; };
+		E607A74029FB692F0059899E /* PetSearchFilters.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetSearchFilters.graphql.swift; sourceTree = "<group>"; };
+		E607A74129FB692F0059899E /* MeasurementsInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementsInput.graphql.swift; sourceTree = "<group>"; };
+		E607A74229FB692F0059899E /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
+		E607A74429FB692F0059899E /* HousePet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HousePet.graphql.swift; sourceTree = "<group>"; };
+		E607A74529FB692F0059899E /* Pet.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pet.graphql.swift; sourceTree = "<group>"; };
+		E607A74629FB692F0059899E /* Animal.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animal.graphql.swift; sourceTree = "<group>"; };
+		E607A74729FB692F0059899E /* WarmBlooded.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarmBlooded.graphql.swift; sourceTree = "<group>"; };
+		E607A77229FB69920059899E /* Human+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Human+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77329FB69920059899E /* Height+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Height+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77429FB69920059899E /* Query+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Query+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77529FB69920059899E /* PetRock+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PetRock+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77629FB69920059899E /* Bird+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bird+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77729FB69920059899E /* MockObject+Interfaces.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MockObject+Interfaces.graphql.swift"; sourceTree = "<group>"; };
+		E607A77829FB69920059899E /* Rat+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rat+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77929FB69920059899E /* MockObject+Unions.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MockObject+Unions.graphql.swift"; sourceTree = "<group>"; };
+		E607A77A29FB69920059899E /* Cat+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Cat+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77B29FB69920059899E /* Dog+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dog+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77C29FB69920059899E /* Fish+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fish+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77D29FB69920059899E /* Mutation+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Mutation+Mock.graphql.swift"; sourceTree = "<group>"; };
+		E607A77E29FB69920059899E /* Crocodile+Mock.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Crocodile+Mock.graphql.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E607A69529FB43F80059899E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B51EE231D8798C8408AB9CD5 /* Pods_CocoaPodsProject.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E607A6A629FB43F90059899E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B7ED6E41035FB2A0D763AD8 /* Pods_CocoaPodsProjectTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1EE6B2F55FB6076D9E775D66 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				951B5BB1CBB3B06FF1E6F602 /* Pods-CocoaPodsProject.debug.xcconfig */,
+				7D6507DAD078EC7A270097F0 /* Pods-CocoaPodsProject.release.xcconfig */,
+				DF6B509D20E06102691FD98C /* Pods-CocoaPodsProjectTests.debug.xcconfig */,
+				4C671E51FD3FF74D8B077F45 /* Pods-CocoaPodsProjectTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8B24EAE1D0AA7CD86619645B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C684794938D6314DF12AB411 /* Pods_CocoaPodsProject.framework */,
+				D3E998DF0E4DCCF80C445451 /* Pods_CocoaPodsProjectTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E607A68F29FB43F80059899E = {
+			isa = PBXGroup;
+			children = (
+				E607A71129FB67140059899E /* apollo-codegen-config.json */,
+				E607A69A29FB43F80059899E /* CocoaPodsProject */,
+				E607A6AC29FB43F90059899E /* CocoaPodsProjectTests */,
+				E607A69929FB43F80059899E /* Products */,
+				1EE6B2F55FB6076D9E775D66 /* Pods */,
+				8B24EAE1D0AA7CD86619645B /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E607A69929FB43F80059899E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E607A69829FB43F80059899E /* CocoaPodsProject.app */,
+				E607A6A929FB43F90059899E /* CocoaPodsProjectTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E607A69A29FB43F80059899E /* CocoaPodsProject */ = {
+			isa = PBXGroup;
+			children = (
+				E607A71229FB692F0059899E /* AnimalKingdomAPI */,
+				E607A69B29FB43F80059899E /* CocoaPodsProjectApp.swift */,
+				E607A69D29FB43F80059899E /* ContentView.swift */,
+				E607A69F29FB43F80059899E /* Assets.xcassets */,
+				E607A6A429FB43F80059899E /* CocoaPodsProject.entitlements */,
+				E607A6A129FB43F80059899E /* Preview Content */,
+			);
+			path = CocoaPodsProject;
+			sourceTree = "<group>";
+		};
+		E607A6A129FB43F80059899E /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E607A6A229FB43F80059899E /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E607A6AC29FB43F90059899E /* CocoaPodsProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				E607A77129FB69920059899E /* AnimalKingdomAPITestMocks */,
+				E607A6AD29FB43F90059899E /* CocoaPodsProjectTests.swift */,
+			);
+			path = CocoaPodsProjectTests;
+			sourceTree = "<group>";
+		};
+		E607A71229FB692F0059899E /* AnimalKingdomAPI */ = {
+			isa = PBXGroup;
+			children = (
+				E607A71329FB692F0059899E /* Fragments */,
+				E607A71A29FB692F0059899E /* LocalCacheMutations */,
+				E607A71E29FB692F0059899E /* Operations */,
+				E607A72929FB692F0059899E /* Schema */,
+			);
+			path = AnimalKingdomAPI;
+			sourceTree = "<group>";
+		};
+		E607A71329FB692F0059899E /* Fragments */ = {
+			isa = PBXGroup;
+			children = (
+				E607A71429FB692F0059899E /* PetDetails.graphql.swift */,
+				E607A71529FB692F0059899E /* HeightInMeters.graphql.swift */,
+				E607A71629FB692F0059899E /* ClassroomPetDetails.graphql.swift */,
+				E607A71729FB692F0059899E /* DogFragment.graphql.swift */,
+				E607A71829FB692F0059899E /* ClassroomPetDetailsCCN.graphql.swift */,
+				E607A71929FB692F0059899E /* WarmBloodedDetails.graphql.swift */,
+			);
+			path = Fragments;
+			sourceTree = "<group>";
+		};
+		E607A71A29FB692F0059899E /* LocalCacheMutations */ = {
+			isa = PBXGroup;
+			children = (
+				E607A71B29FB692F0059899E /* PetDetailsMutation.graphql.swift */,
+				E607A71C29FB692F0059899E /* AllAnimalsLocalCacheMutation.graphql.swift */,
+				E607A71D29FB692F0059899E /* PetSearchLocalCacheMutation.graphql.swift */,
+			);
+			path = LocalCacheMutations;
+			sourceTree = "<group>";
+		};
+		E607A71E29FB692F0059899E /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				E607A71F29FB692F0059899E /* Mutations */,
+				E607A72129FB692F0059899E /* Queries */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		E607A71F29FB692F0059899E /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72029FB692F0059899E /* PetAdoptionMutation.graphql.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		E607A72129FB692F0059899E /* Queries */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72229FB692F0059899E /* DogQuery.graphql.swift */,
+				E607A72329FB692F0059899E /* AllAnimalsCCNQuery.graphql.swift */,
+				E607A72429FB692F0059899E /* ClassroomPetsQuery.graphql.swift */,
+				E607A72529FB692F0059899E /* ClassroomPetsCCNQuery.graphql.swift */,
+				E607A72629FB692F0059899E /* AllAnimalsQuery.graphql.swift */,
+				E607A72729FB692F0059899E /* AllAnimalsIncludeSkipQuery.graphql.swift */,
+				E607A72829FB692F0059899E /* PetSearchQuery.graphql.swift */,
+			);
+			path = Queries;
+			sourceTree = "<group>";
+		};
+		E607A72929FB692F0059899E /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72A29FB692F0059899E /* Unions */,
+				E607A72C29FB692F0059899E /* CustomScalars */,
+				E607A72E29FB692F0059899E /* Enums */,
+				E607A73129FB692F0059899E /* Objects */,
+				E607A73D29FB692F0059899E /* SchemaConfiguration.swift */,
+				E607A73E29FB692F0059899E /* InputObjects */,
+				E607A74229FB692F0059899E /* SchemaMetadata.graphql.swift */,
+				E607A74329FB692F0059899E /* Interfaces */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		E607A72A29FB692F0059899E /* Unions */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72B29FB692F0059899E /* ClassroomPet.graphql.swift */,
+			);
+			path = Unions;
+			sourceTree = "<group>";
+		};
+		E607A72C29FB692F0059899E /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72D29FB692F0059899E /* CustomDate.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
+		E607A72E29FB692F0059899E /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				E607A72F29FB692F0059899E /* SkinCovering.graphql.swift */,
+				E607A73029FB692F0059899E /* RelativeSize.graphql.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		E607A73129FB692F0059899E /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				E607A73229FB692F0059899E /* Rat.graphql.swift */,
+				E607A73329FB692F0059899E /* Bird.graphql.swift */,
+				E607A73429FB692F0059899E /* PetRock.graphql.swift */,
+				E607A73529FB692F0059899E /* Dog.graphql.swift */,
+				E607A73629FB692F0059899E /* Height.graphql.swift */,
+				E607A73729FB692F0059899E /* Mutation.graphql.swift */,
+				E607A73829FB692F0059899E /* Query.graphql.swift */,
+				E607A73929FB692F0059899E /* Cat.graphql.swift */,
+				E607A73A29FB692F0059899E /* Fish.graphql.swift */,
+				E607A73B29FB692F0059899E /* Human.graphql.swift */,
+				E607A73C29FB692F0059899E /* Crocodile.graphql.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		E607A73E29FB692F0059899E /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				E607A73F29FB692F0059899E /* PetAdoptionInput.graphql.swift */,
+				E607A74029FB692F0059899E /* PetSearchFilters.graphql.swift */,
+				E607A74129FB692F0059899E /* MeasurementsInput.graphql.swift */,
+			);
+			path = InputObjects;
+			sourceTree = "<group>";
+		};
+		E607A74329FB692F0059899E /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E607A74429FB692F0059899E /* HousePet.graphql.swift */,
+				E607A74529FB692F0059899E /* Pet.graphql.swift */,
+				E607A74629FB692F0059899E /* Animal.graphql.swift */,
+				E607A74729FB692F0059899E /* WarmBlooded.graphql.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
+		E607A77129FB69920059899E /* AnimalKingdomAPITestMocks */ = {
+			isa = PBXGroup;
+			children = (
+				E607A77229FB69920059899E /* Human+Mock.graphql.swift */,
+				E607A77329FB69920059899E /* Height+Mock.graphql.swift */,
+				E607A77429FB69920059899E /* Query+Mock.graphql.swift */,
+				E607A77529FB69920059899E /* PetRock+Mock.graphql.swift */,
+				E607A77629FB69920059899E /* Bird+Mock.graphql.swift */,
+				E607A77729FB69920059899E /* MockObject+Interfaces.graphql.swift */,
+				E607A77829FB69920059899E /* Rat+Mock.graphql.swift */,
+				E607A77929FB69920059899E /* MockObject+Unions.graphql.swift */,
+				E607A77A29FB69920059899E /* Cat+Mock.graphql.swift */,
+				E607A77B29FB69920059899E /* Dog+Mock.graphql.swift */,
+				E607A77C29FB69920059899E /* Fish+Mock.graphql.swift */,
+				E607A77D29FB69920059899E /* Mutation+Mock.graphql.swift */,
+				E607A77E29FB69920059899E /* Crocodile+Mock.graphql.swift */,
+			);
+			path = AnimalKingdomAPITestMocks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E607A69729FB43F80059899E /* CocoaPodsProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E607A6BD29FB43F90059899E /* Build configuration list for PBXNativeTarget "CocoaPodsProject" */;
+			buildPhases = (
+				EF1528EB4B5A42F7D1ED29C4 /* [CP] Check Pods Manifest.lock */,
+				E607A69429FB43F80059899E /* Sources */,
+				E607A69529FB43F80059899E /* Frameworks */,
+				E607A69629FB43F80059899E /* Resources */,
+				AAB057D4FF869FAB271801DE /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CocoaPodsProject;
+			productName = CocoaPodsProject;
+			productReference = E607A69829FB43F80059899E /* CocoaPodsProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E607A6A829FB43F90059899E /* CocoaPodsProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E607A6C029FB43F90059899E /* Build configuration list for PBXNativeTarget "CocoaPodsProjectTests" */;
+			buildPhases = (
+				60E939E8C36DD74BFBA50236 /* [CP] Check Pods Manifest.lock */,
+				E607A6A529FB43F90059899E /* Sources */,
+				E607A6A629FB43F90059899E /* Frameworks */,
+				E607A6A729FB43F90059899E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E607A6AB29FB43F90059899E /* PBXTargetDependency */,
+			);
+			name = CocoaPodsProjectTests;
+			productName = CocoaPodsProjectTests;
+			productReference = E607A6A929FB43F90059899E /* CocoaPodsProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E607A69029FB43F80059899E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					E607A69729FB43F80059899E = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					E607A6A829FB43F90059899E = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = E607A69729FB43F80059899E;
+					};
+				};
+			};
+			buildConfigurationList = E607A69329FB43F80059899E /* Build configuration list for PBXProject "CocoaPodsProject" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E607A68F29FB43F80059899E;
+			productRefGroup = E607A69929FB43F80059899E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E607A69729FB43F80059899E /* CocoaPodsProject */,
+				E607A6A829FB43F90059899E /* CocoaPodsProjectTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E607A69629FB43F80059899E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E607A6A329FB43F80059899E /* Preview Assets.xcassets in Resources */,
+				E607A6A029FB43F80059899E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E607A6A729FB43F90059899E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		60E939E8C36DD74BFBA50236 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CocoaPodsProjectTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AAB057D4FF869FAB271801DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsProject/Pods-CocoaPodsProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsProject/Pods-CocoaPodsProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CocoaPodsProject/Pods-CocoaPodsProject-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF1528EB4B5A42F7D1ED29C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CocoaPodsProject-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E607A69429FB43F80059899E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E607A76029FB692F0059899E /* Dog.graphql.swift in Sources */,
+				E607A74A29FB692F0059899E /* ClassroomPetDetails.graphql.swift in Sources */,
+				E607A74C29FB692F0059899E /* ClassroomPetDetailsCCN.graphql.swift in Sources */,
+				E607A75929FB692F0059899E /* ClassroomPet.graphql.swift in Sources */,
+				E607A75F29FB692F0059899E /* PetRock.graphql.swift in Sources */,
+				E607A76129FB69300059899E /* Height.graphql.swift in Sources */,
+				E607A75329FB692F0059899E /* AllAnimalsCCNQuery.graphql.swift in Sources */,
+				E607A76C29FB69300059899E /* SchemaMetadata.graphql.swift in Sources */,
+				E607A76329FB69300059899E /* Query.graphql.swift in Sources */,
+				E607A75229FB692F0059899E /* DogQuery.graphql.swift in Sources */,
+				E607A75529FB692F0059899E /* ClassroomPetsCCNQuery.graphql.swift in Sources */,
+				E607A75829FB692F0059899E /* PetSearchQuery.graphql.swift in Sources */,
+				E607A76A29FB69300059899E /* PetSearchFilters.graphql.swift in Sources */,
+				E607A76629FB69300059899E /* Human.graphql.swift in Sources */,
+				E607A76229FB69300059899E /* Mutation.graphql.swift in Sources */,
+				E607A76E29FB69300059899E /* Pet.graphql.swift in Sources */,
+				E607A76929FB69300059899E /* PetAdoptionInput.graphql.swift in Sources */,
+				E607A75029FB692F0059899E /* PetSearchLocalCacheMutation.graphql.swift in Sources */,
+				E607A76429FB69300059899E /* Cat.graphql.swift in Sources */,
+				E607A75D29FB692F0059899E /* Rat.graphql.swift in Sources */,
+				E607A75B29FB692F0059899E /* SkinCovering.graphql.swift in Sources */,
+				E607A74B29FB692F0059899E /* DogFragment.graphql.swift in Sources */,
+				E607A74E29FB692F0059899E /* PetDetailsMutation.graphql.swift in Sources */,
+				E607A74F29FB692F0059899E /* AllAnimalsLocalCacheMutation.graphql.swift in Sources */,
+				E607A75729FB692F0059899E /* AllAnimalsIncludeSkipQuery.graphql.swift in Sources */,
+				E607A76529FB69300059899E /* Fish.graphql.swift in Sources */,
+				E607A75E29FB692F0059899E /* Bird.graphql.swift in Sources */,
+				E607A76729FB69300059899E /* Crocodile.graphql.swift in Sources */,
+				E607A74929FB692F0059899E /* HeightInMeters.graphql.swift in Sources */,
+				E607A76829FB69300059899E /* SchemaConfiguration.swift in Sources */,
+				E607A75629FB692F0059899E /* AllAnimalsQuery.graphql.swift in Sources */,
+				E607A75429FB692F0059899E /* ClassroomPetsQuery.graphql.swift in Sources */,
+				E607A74D29FB692F0059899E /* WarmBloodedDetails.graphql.swift in Sources */,
+				E607A69E29FB43F80059899E /* ContentView.swift in Sources */,
+				E607A76B29FB69300059899E /* MeasurementsInput.graphql.swift in Sources */,
+				E607A74829FB692F0059899E /* PetDetails.graphql.swift in Sources */,
+				E607A76D29FB69300059899E /* HousePet.graphql.swift in Sources */,
+				E607A75A29FB692F0059899E /* CustomDate.swift in Sources */,
+				E607A76F29FB69300059899E /* Animal.graphql.swift in Sources */,
+				E607A75C29FB692F0059899E /* RelativeSize.graphql.swift in Sources */,
+				E607A69C29FB43F80059899E /* CocoaPodsProjectApp.swift in Sources */,
+				E607A75129FB692F0059899E /* PetAdoptionMutation.graphql.swift in Sources */,
+				E607A77029FB69300059899E /* WarmBlooded.graphql.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E607A6A529FB43F90059899E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E607A78629FB69920059899E /* MockObject+Unions.graphql.swift in Sources */,
+				E607A78729FB69920059899E /* Cat+Mock.graphql.swift in Sources */,
+				E607A78029FB69920059899E /* Height+Mock.graphql.swift in Sources */,
+				E607A78829FB69920059899E /* Dog+Mock.graphql.swift in Sources */,
+				E607A78429FB69920059899E /* MockObject+Interfaces.graphql.swift in Sources */,
+				E607A78529FB69920059899E /* Rat+Mock.graphql.swift in Sources */,
+				E607A78929FB69920059899E /* Fish+Mock.graphql.swift in Sources */,
+				E607A77F29FB69920059899E /* Human+Mock.graphql.swift in Sources */,
+				E607A6AE29FB43F90059899E /* CocoaPodsProjectTests.swift in Sources */,
+				E607A78229FB69920059899E /* PetRock+Mock.graphql.swift in Sources */,
+				E607A78A29FB69920059899E /* Mutation+Mock.graphql.swift in Sources */,
+				E607A78B29FB69920059899E /* Crocodile+Mock.graphql.swift in Sources */,
+				E607A78129FB69920059899E /* Query+Mock.graphql.swift in Sources */,
+				E607A78329FB69920059899E /* Bird+Mock.graphql.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E607A6AB29FB43F90059899E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E607A69729FB43F80059899E /* CocoaPodsProject */;
+			targetProxy = E607A6AA29FB43F90059899E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E607A6BB29FB43F90059899E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E607A6BC29FB43F90059899E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		E607A6BE29FB43F90059899E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 951B5BB1CBB3B06FF1E6F602 /* Pods-CocoaPodsProject.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CocoaPodsProject/CocoaPodsProject.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CocoaPodsProject/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CocoaPodsProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E607A6BF29FB43F90059899E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7D6507DAD078EC7A270097F0 /* Pods-CocoaPodsProject.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CocoaPodsProject/CocoaPodsProject.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CocoaPodsProject/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CocoaPodsProject;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E607A6C129FB43F90059899E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF6B509D20E06102691FD98C /* Pods-CocoaPodsProjectTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CocoaPodsProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPodsProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CocoaPodsProject";
+			};
+			name = Debug;
+		};
+		E607A6C229FB43F90059899E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C671E51FD3FF74D8B077F45 /* Pods-CocoaPodsProjectTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apollographql.CocoaPodsProjectTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CocoaPodsProject.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CocoaPodsProject";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E607A69329FB43F80059899E /* Build configuration list for PBXProject "CocoaPodsProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E607A6BB29FB43F90059899E /* Debug */,
+				E607A6BC29FB43F90059899E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E607A6BD29FB43F90059899E /* Build configuration list for PBXNativeTarget "CocoaPodsProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E607A6BE29FB43F90059899E /* Debug */,
+				E607A6BF29FB43F90059899E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E607A6C029FB43F90059899E /* Build configuration list for PBXNativeTarget "CocoaPodsProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E607A6C129FB43F90059899E /* Debug */,
+				E607A6C229FB43F90059899E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E607A69029FB43F80059899E /* Project object */;
+}

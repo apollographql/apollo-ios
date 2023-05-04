@@ -1,8 +1,8 @@
 import Foundation
 import XCTest
 import ApolloTestSupport
-import GraphQLSchemaName
-import GraphQLSchemaNameTestMocks
+import AnimalKingdomAPI
+import AnimalKingdomAPITestMocks
 
 class TestMockUsageTests: XCTestCase {
 

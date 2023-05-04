@@ -1,5 +1,5 @@
 {
-  "schemaName" : "GraphQLAPI",
+  "schemaName" : "AnimalKingdomAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -17,20 +17,20 @@
   },
   "input" : {
     "operationSearchPaths" : [
-      "GraphQLAPI/graphql/**\/*.graphql"
+      "../../../Sources/AnimalKingdomAPI/animalkingdom-graphql/**/*.graphql"
     ],
     "schemaSearchPaths" : [
-      "GraphQLAPI/graphql/AnimalSchema.graphqls"
+      "../../../Sources/AnimalKingdomAPI/animalkingdom-graphql/AnimalSchema.graphqls"
     ]
   },
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "TestMocks/"
+        "path": "CustomTargetProjectTests/AnimalKingdomAPITestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : "GraphQLAPI/",
+      "path" : "AnimalKingdomAPI/",
       "moduleType" : {
         "other" : {
 

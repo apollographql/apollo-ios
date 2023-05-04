@@ -59,6 +59,7 @@ public class TestIsolatedFileManager {
     }
 
     let filePath: String = fileDirectoryURL
+      .resolvingSymlinksInPath()
       .appendingPathComponent(fileName, isDirectory: false).path
 
     guard fileManager.createFile(atPath: filePath, contents: data) else {

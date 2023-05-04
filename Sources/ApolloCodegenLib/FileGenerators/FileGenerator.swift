@@ -26,6 +26,7 @@ extension FileGenerator {
   ) throws {
     let directoryPath = target.resolvePath(forConfig: config)
     let filePath = URL(fileURLWithPath: directoryPath)
+      .resolvingSymlinksInPath()
       .appendingPathComponent(fileName.firstUppercased)
       .appendingPathExtension(fileExtension)
       .path
