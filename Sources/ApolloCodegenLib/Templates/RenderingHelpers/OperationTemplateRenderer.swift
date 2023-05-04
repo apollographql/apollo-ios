@@ -24,7 +24,7 @@ extension OperationTemplateRenderer {
     _ variables: [CompilationResult.VariableDefinition]
   ) -> TemplateString {
     """
-    \(variables.map { "public var \($0.name.asInputParameterName): \($0.type.rendered(as: .inputValue, config: config.config))"}, separator: "\n")
+    \(variables.map { "public var \($0.name.asFieldAccessorPropertyName): \($0.type.rendered(as: .inputValue, config: config.config))"}, separator: "\n")
     """
   }
 
@@ -46,7 +46,7 @@ extension OperationTemplateRenderer {
     }
 
     return """
-      public var __variables: \(if: !graphQLOperation, "GraphQLOperation.")Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name.asInputParameterName)"})] }
+      public var __variables: \(if: !graphQLOperation, "GraphQLOperation.")Variables? { [\(list: variables.map { "\"\($0.name)\": \($0.name.asFieldAccessorPropertyName)"})] }
       """
   }
 

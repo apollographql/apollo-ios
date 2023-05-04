@@ -5,7 +5,8 @@ extension String {
   /// Renders the string as the property name for a field accessor on a generated `SelectionSet`.
   /// This escapes the names of properties that would conflict with Swift reserved keywords.
   var asFieldAccessorPropertyName: String {
-    escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
+    let str = self.isAllUppercased ? self.lowercased() : self.firstLowercased
+    return str.escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
   }
 
   var asEnumCaseName: String {
@@ -18,7 +19,8 @@ extension String {
   }
 
   var asInputParameterName: String {
-    escapeIf(in: SwiftKeywords.InputParameterNamesToEscape).firstLowercased
+    let str = self.isAllUppercased ? self.lowercased() : self.firstLowercased
+    return str.escapeIf(in: SwiftKeywords.InputParameterNamesToEscape)
   }
 
   var asTestMockFieldPropertyName: String {

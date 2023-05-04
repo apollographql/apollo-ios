@@ -108,9 +108,9 @@ struct InputObjectTemplate: TemplateRenderer {
     """
     \(documentation: field.documentation, config: config)
     \(deprecationReason: field.deprecationReason, config: config)
-    public var \(field.name.asInputParameterName): \(field.renderInputValueType(config: config.config)) {
-      get { __data["\(field.name.firstLowercased)"] }
-      set { __data["\(field.name.firstLowercased)"] = newValue }
+    public var \(field.name.asFieldAccessorPropertyName): \(field.renderInputValueType(config: config.config)) {
+      get { __data["\(field.name)"] }
+      set { __data["\(field.name)"] = newValue }
     }
     """
   }

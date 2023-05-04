@@ -416,6 +416,61 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 62, ignoringExtraLines: true))
   }
+  
+  func test__render_given_differentCasedFields_rendersInitializerWithCorrectCasing() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+    
+    type Animal {
+      FIELDONE: String!
+      FieldTwo: String!
+      fieldthree: String!
+    }
+    """
+    
+    document = """
+    query TestOperation {
+      allAnimals {
+        FIELDONE
+        FieldTwo
+        fieldthree
+      }
+    }
+    """
+    
+    let expected = """
+        public init(
+          fieldone: String,
+          fieldTwo: String,
+          fieldthree: String
+        ) {
+          self.init(_dataDict: DataDict(data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "FIELDONE": fieldone,
+            "FieldTwo": fieldTwo,
+            "fieldthree": fieldthree,
+            "__fulfilled": Set([
+              ObjectIdentifier(Self.self)
+            ])
+          ]))
+        }
+      """
+    
+    // when
+    try buildSubjectAndOperation()
+    
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+    
+    let actual = subject.render(field: allAnimals)
+    
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+  }
 
   func test__render_given_fieldWithAlias_rendersInitializer() throws {
     // given

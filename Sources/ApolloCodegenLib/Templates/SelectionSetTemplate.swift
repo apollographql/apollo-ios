@@ -295,7 +295,7 @@ struct SelectionSetTemplate {
     return """
     \(documentation: field.underlyingField.documentation, config: config)
     \(deprecationReason: field.underlyingField.deprecationReason, config: config)
-    public var \(field.responseKey.firstLowercased.asFieldAccessorPropertyName): \
+    public var \(field.responseKey.asFieldAccessorPropertyName): \
     \(typeName(for: field, forceOptional: field.isConditionallyIncluded(in: scope))) {\
     \(if: isMutable,
       """
