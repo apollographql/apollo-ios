@@ -13,7 +13,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "α"
     ]
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual).to(beNil())
@@ -30,7 +30,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "ω"
     ]
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual?.key).to(equal("Omega:ω"))
@@ -45,7 +45,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "ω"
     ]
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual).to(beNil())
@@ -62,7 +62,7 @@ class CacheKeyResolutionTests: XCTestCase {
     MockSchemaMetadata.stub_objectTypeForTypeName = { _ in Alpha }
     MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { (_, json) in nil }
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual).to(beNil())
@@ -76,7 +76,7 @@ class CacheKeyResolutionTests: XCTestCase {
 
     MockSchemaMetadata.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual).to(equal(
@@ -90,7 +90,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "id": "β"
     ]
   
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual1 = MockSchema1.cacheKey(for: objectDict)
 
     expect(actual1).to(equal(
@@ -117,7 +117,7 @@ class CacheKeyResolutionTests: XCTestCase {
       "lowercase": "δ"
     ]
 
-    let objectDict = NetworkResponseExecutionSource.opaqueObjectDataWrapper(for: object)
+    let objectDict = NetworkResponseExecutionSource().opaqueObjectDataWrapper(for: object)
     let actual = MockSchemaMetadata.cacheKey(for: objectDict)
 
     expect(actual).to(equal(CacheReference("GreekLetters:δ")))

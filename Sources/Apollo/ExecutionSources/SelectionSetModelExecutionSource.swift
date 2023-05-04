@@ -9,11 +9,11 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
   typealias RawData = DataDict
   typealias FieldCollector = CustomCacheDataWritingFieldSelectionCollector
 
-  static func resolveField(with info: FieldExecutionInfo, on object: DataDict) -> AnyHashable? {
+  func resolveField(with info: FieldExecutionInfo, on object: DataDict) -> AnyHashable? {
     object._data[info.responseKeyForField]
   }
 
-  static func opaqueObjectDataWrapper(for rawData: DataDict) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: DataDict) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData._data)
   }
 

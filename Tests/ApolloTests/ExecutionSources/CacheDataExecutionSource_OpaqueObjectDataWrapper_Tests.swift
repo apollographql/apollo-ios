@@ -14,7 +14,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       "name": "Luke Skywalker"
     ]
 
-    let objectData = CacheDataExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["name"]
@@ -25,7 +25,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
   // MARK: Object Fields
 
-  func test__subscript__forObjectField_returnsValueAsObjectDataWrapper() throws {
+  func test__subscript__forObjectField_givenObjectJSON_returnsValueAsObjectDataWrapper() throws {
     // given
     let data = [
       "friend": [
@@ -33,7 +33,25 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       ]
     ]
 
-    let objectData = CacheDataExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["friend"]?["name"]
+
+    // then
+    expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+
+  func test__subscript__forObjectField_givenCacheReference_returnsValueAsObjectDataWrapper() throws {
+    // given
+    let data = [
+      "friend": [
+        "name": "Luke Skywalker"
+      ]
+    ]
+    fail()
+
+    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friend"]?["name"]
@@ -50,7 +68,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       "list": ["Luke Skywalker"]
     ]
 
-    let objectData = CacheDataExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["list"]?[0]
@@ -69,7 +87,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       ]
     ]
 
-    let objectData = CacheDataExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friends"]?[0]?["name"]

@@ -7,11 +7,20 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
   typealias RawData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 
-  static func resolveField(with info: FieldExecutionInfo, on object: JSONObject) -> AnyHashable? {
-    object[info.cacheKeyForField]
+//  weak var transaction: ApolloStore.ReadTransaction?
+
+  func resolveField(with info: FieldExecutionInfo, on object: JSONObject) throws -> AnyHashable? {
+    let value = object[info.cacheKeyForField]
+
+//    if let reference = value as? CacheReference {
+//      guard let transaction
+//      return transaction?.loadObject(forKey: reference.key).get()
+//    }
+
+    return value
   }
 
-  static func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 

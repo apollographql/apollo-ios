@@ -164,13 +164,17 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
 
   private let resolveReference: ReferenceResolver?
 
+  private let executionSource: Source
+
   var shouldComputeCachePath = true
 
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   /// If provided, it will also resolve references by calling the reference resolver.
   init(
+    executionSource: Source,
     resolveReference: ReferenceResolver? = nil
   ) {
+    self.executionSource = executionSource
     self.resolveReference = resolveReference
   }
 
@@ -274,7 +278,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     }
 
     return PossiblyDeferred {
-      Source.resolveField(with: fieldInfo, on: object)
+      try executionSource.resolveField(with: fieldInfo, on: object)
     }.flatMap {
       return self.complete(fields: fieldInfo,
                            withValue: $0,
@@ -408,7 +412,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
       withRootType: rootSelectionSetType,
-      for: Source.opaqueObjectDataWrapper(for: object),
+      for: executionSource.opaqueObjectDataWrapper(for: object),
       shouldComputeCachePath: shouldComputeCachePath
     )
     

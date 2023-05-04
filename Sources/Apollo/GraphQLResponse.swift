@@ -40,7 +40,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
       return nil
     }
 
-    let executor = GraphQLExecutor<NetworkResponseExecutionSource>()
+    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
     executor.shouldComputeCachePath = computeCachePaths
 

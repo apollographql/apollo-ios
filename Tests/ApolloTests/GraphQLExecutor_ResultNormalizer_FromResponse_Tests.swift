@@ -8,7 +8,7 @@ class GraphQLExecutor_ResultNormalizer_FromResponse_Tests: XCTestCase {
   // MARK: - Helpers
 
   private static let executor: GraphQLExecutor = {
-    let executor = GraphQLExecutor<NetworkResponseExecutionSource>()
+    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
     executor.shouldComputeCachePath = true
     return executor
   }()

@@ -7,11 +7,11 @@ struct NetworkResponseExecutionSource: GraphQLExecutionSource {
   typealias RawData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 
-  static func resolveField(with info: FieldExecutionInfo, on object: JSONObject) -> AnyHashable? {
+  func resolveField(with info: FieldExecutionInfo, on object: JSONObject) -> AnyHashable? {
     object[info.responseKeyForField]
   }
 
-  static func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 

@@ -17,7 +17,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["name"]
@@ -35,7 +35,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["customScalar"]
@@ -60,7 +60,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friend"]?["name"]
@@ -80,7 +80,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["list"]?[0]
@@ -98,7 +98,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["list"]?[0]
@@ -123,7 +123,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
       fulfilledFragments: []
     )
 
-    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friends"]?[0]?["name"]

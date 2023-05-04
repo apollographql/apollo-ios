@@ -14,10 +14,10 @@ protocol GraphQLExecutionSource {
   ///  For a field with a scalar value, this should be a raw JSON value.
   ///  For fields whose type is an object, this should be of the source's `ObjectData` type or
   ///  a `CacheReference` that can be resolved by the source.
-  static func resolveField(
+  func resolveField(
     with info: FieldExecutionInfo,
     on object: RawData
-  ) -> AnyHashable?
+  ) throws -> AnyHashable?
 
-  static func opaqueObjectDataWrapper(for: RawData) -> ObjectData
+  func opaqueObjectDataWrapper(for: RawData) -> ObjectData
 }
