@@ -33,67 +33,74 @@ public protocol SchemaConfiguration {
   ///   - object: The response object to resolve the cache key for.
   ///     Represented as a ``JSONObject`` dictionary.
   /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.
-  static func cacheKeyInfo(for type: Object, object: some ObjectData) -> CacheKeyInfo?
+  static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo?
 
 }
 
-public protocol ExecutionSourceDataWrapper {
-  func _convert(_ value: AnyHashable) -> (any ScalarType)?
-  func _convert(_ value: AnyHashable) -> ObjectData?
-  func _convert(_ value: AnyHashable) -> ListData?
+public protocol ExecutionSourceDataTransformer {
+  func transform(_ value: AnyHashable) -> (any ScalarType)?
+  func transform(_ value: AnyHashable) -> ObjectData?
+  func transform(_ value: AnyHashable) -> ListData?
 }
 
-public protocol ObjectData: ExecutionSourceDataWrapper {
+public struct ObjectData {
+  public let _transformer: ExecutionSourceDataTransformer
+  public let _rawData: [String: AnyHashable]
 
-  var _rawData: [String: AnyHashable] { get }
+  public init(
+    _transformer: ExecutionSourceDataTransformer,
+    _rawData: [String: AnyHashable]
+  ) {
+    self._transformer = _transformer
+    self._rawData = _rawData
+  }
 
-//  @_disfavoredOverload
-//  subscript(_ key: String) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? { get }
-
-}
-
-public extension ObjectData {
-
-  subscript(_ key: String) -> (any ScalarType)? {
+  @inlinable public subscript(_ key: String) -> (any ScalarType)? {
     guard let value = _rawData[key] else { return nil }
-    return _convert(value)
+    return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  subscript(_ key: String) -> ObjectData? {
+  @inlinable public subscript(_ key: String) -> ObjectData? {
     guard let value = _rawData[key] else { return nil }
-    return _convert(value)
+    return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  subscript(_ key: String) -> ListData? {
+  @inlinable public subscript(_ key: String) -> ListData? {
     guard let value = _rawData[key] else { return nil }
-    return _convert(value)
+    return _transformer.transform(value)
   }  
 
+  #warning("TODO: add arguments")
 //  subscript(_ key: String, withArguments: [String: AnyHashable]? = nil) -> AnyHashable? {
 //    return nil
 //  }
 }
 
-public protocol ListData: ExecutionSourceDataWrapper {
-  var _rawData: [AnyHashable] { get }
-}
+public struct ListData {
+  public let _transformer: ExecutionSourceDataTransformer
+  public let _rawData: [AnyHashable]
 
-public extension ListData {
-  subscript(_ key: Int) -> (any ScalarType)? {
-    return _convert(_rawData[key])
+  public init(
+    _transformer: ExecutionSourceDataTransformer,
+    _rawData: [AnyHashable]
+  ) {
+    self._transformer = _transformer
+    self._rawData = _rawData
+  }
+
+  @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
+    return _transformer.transform(_rawData[key])
   }
 
   @_disfavoredOverload
-  subscript(_ key: Int) -> ObjectData? {
-    return _convert(_rawData[key])
+  @inlinable public subscript(_ key: Int) -> ObjectData? {
+    return _transformer.transform(_rawData[key])
   }
 
   @_disfavoredOverload
-  subscript(_ key: Int) -> ListData? {
-    return _convert(_rawData[key])
+  @inlinable public subscript(_ key: Int) -> ListData? {
+    return _transformer.transform(_rawData[key])
   }
 }
-
-extension LazyMapSequence<[AnyHashable],

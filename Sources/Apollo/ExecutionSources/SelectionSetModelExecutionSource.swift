@@ -13,48 +13,35 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
     object._data[info.responseKeyForField]
   }
 
-  static func opaqueObjectDataWrapper(for rawData: DataDict) -> OpaqueObjectDataWrapper {
-    OpaqueObjectDataWrapper(underlyingData: rawData)
+  static func opaqueObjectDataWrapper(for rawData: DataDict) -> ObjectData {
+    ObjectData(_transformer: DataTransformer(), _rawData: rawData._data)
   }
 
-  struct OpaqueObjectDataWrapper: ObjectData {
-    let underlyingData: DataDict
-    var _rawData: JSONObject { underlyingData._data  }
-
-
-//    @_disfavoredOverload
-//    subscript(_ key: String) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? {
-//      guard let value = underlyingData._data[key] else { return nil }
-//      return convert(value)
-//    }
-
-    func _convert(_ value: AnyHashable) -> (any ScalarType)? {
+  struct DataTransformer: ExecutionSourceDataTransformer {
+    func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
-      case let scalar as ScalarType: return scalar
-      case let customScalar as CustomScalarType: return customScalar._jsonValue as? ScalarType
+      case let scalar as ScalarType:
+        return scalar
+      case let customScalar as CustomScalarType:
+        return customScalar._jsonValue as? ScalarType
       default: return nil
       }
     }
 
-    func _convert(_ value: AnyHashable) -> ObjectData? {
+    func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as DataDict: return OpaqueObjectDataWrapper(underlyingData: object)
+      case let object as DataDict:
+        return ObjectData(_transformer: DataTransformer(), _rawData: object._data)
       default: return nil
       }
     }
 
-    func _convert(_ value: AnyHashable) -> ListData? {
+    func transform(_ value: AnyHashable) -> ListData? {
       switch value {
-      case let list as [AnyHashable]: return list.lazy.map(_convert(_:))
+      case let list as [AnyHashable]:
+        return ListData(_transformer: self, _rawData: list)
       default: return nil
       }
     }
-
-//    func convert(_ value: AnyHashable) -> LazyMapSequence<Array<AnyHashable>, AnyHashable>? {
-//      switch value {
-//      case let list as Array<AnyHashable>: return list.lazy.map(convert(_:))
-//      default: return nil
-//      }
-//    }
   }
 }

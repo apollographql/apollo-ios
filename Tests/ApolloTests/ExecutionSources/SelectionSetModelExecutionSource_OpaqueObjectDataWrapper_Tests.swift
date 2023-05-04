@@ -89,23 +89,47 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
     expect(actual as? String).to(equal("Luke Skywalker"))
   }
 
-//  func test__subscript__forListOfCustomScalarField_returnsValueAsJSONValue() throws {
-//    // given
-//    let data = DataDict(
-//      data: [
-//        "list": [MockCustomScalar<String>(value: "Luke Skywalker")]
-//      ],
-//      fulfilledFragments: []
-//    )
-//
-//    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
-//
-//    // when
-//    let actual = objectData["list"]![0]?["test"]
-//
-//    // then
-//    expect(actual is Array<String>).to(beTrue())
-//    expect(actual).to(equal("Luke Skywalker"))
-//  }
+  func test__subscript__forListOfCustomScalarField_returnsValueAsListOfJSONValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "list": [MockCustomScalar<String>(value: "Luke Skywalker")]
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["list"]?[0]
+
+    // then
+    expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+
+  func test__subscript__forListOfObjectsField_returnsValueAsObjectDict() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "friends": [
+          DataDict(
+            data: [
+              "name": "Luke Skywalker"
+            ],
+            fulfilledFragments: []
+          )
+        ]
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource.opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["friends"]?[0]?["name"]
+
+    // then
+    expect(actual as? String).to(equal("Luke Skywalker"))
+  }
 
 }

@@ -32,7 +32,7 @@ extension SchemaMetadata {
   /// - Returns: An ``Object`` type representing the response object if the type is known to the
   /// schema. If the schema does not include a known ``Object`` with the given ``Object/typename``,
   /// returns `nil`.
-  @inlinable public static func graphQLType(for object: some ObjectData) -> Object? {
+  @inlinable public static func graphQLType(for object: ObjectData) -> Object? {
     guard let typename = object["__typename"] as? String else {
       return nil
     }
@@ -52,7 +52,7 @@ extension SchemaMetadata {
   /// - Parameter object: A ``JSONObject`` dictionary representing an object in a GraphQL response.
   /// - Returns: The ``CacheReference`` for the `object` to be used by
   /// `NormalizedCache` mechanisms.
-  @inlinable public static func cacheKey(for object: some ObjectData) -> CacheReference? {
+  @inlinable public static func cacheKey(for object: ObjectData) -> CacheReference? {
     guard let type = graphQLType(for: object),
           let info = configuration.cacheKeyInfo(for: type, object: object) else {
       return nil

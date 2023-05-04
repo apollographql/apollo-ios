@@ -101,7 +101,7 @@ struct FieldExecutionInfo {
   /// For scalar fields, the child selections will be an empty array.
   fileprivate func computeChildExecutionData(
     withRootType rootType: any RootSelectionSet.Type,
-    for object: some ObjectData,
+    for object: ObjectData,
     shouldComputeCachePath: Bool
   ) -> (ObjectExecutionInfo, [Selection]) {
     let childExecutionInfo = ObjectExecutionInfo(

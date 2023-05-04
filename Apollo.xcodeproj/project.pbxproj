@@ -2577,11 +2577,11 @@
 			isa = PBXGroup;
 			children = (
 				DE903E1629C10B7600A74415 /* FieldSelectionCollector.swift */,
+				DE8C51CB29EF454100E47A64 /* GraphQLExecutionSource.swift */,
 				DE8F7B6929F742B4005F3902 /* ExecutionSources */,
+				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE9C04AB26EA763E00EC35E7 /* Accumulators */,
 				9FF90A5C1DDDEB100034C3B6 /* GraphQLExecutor.swift */,
-				DE8C51CB29EF454100E47A64 /* GraphQLExecutionSource.swift */,
-				9FA6F3671E65DF4700BF8D73 /* GraphQLResultAccumulator.swift */,
 				DE0586322669948500265760 /* InputValue+Evaluation.swift */,
 				9F7BA89822927A3700999B3B /* ResponsePath.swift */,
 				DE903E1229B7E6D300A74415 /* SelectionSet+JSONInitializer.swift */,
@@ -2691,12 +2691,12 @@
 				9B0417812390320A00C9EC4E /* TestHelpers */,
 				DED45E9B261BA0CA0086EF63 /* WebSocket */,
 				DE46A55926F13B4100357C52 /* Interceptors */,
+				DE5144AF2A046F7E00D991E9 /* ExecutionSources */,
 				D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */,
 				F82E62E022BCD223000C311B /* AutomaticPersistedQueriesTests.swift */,
 				9F438D0B1E6C494C007BDC1A /* BatchedLoadTests.swift */,
 				9FC9A9C71E2EFE6E0023C4D5 /* CacheKeyForFieldTests.swift */,
 				E6CD6F4A2887202900DC9F3F /* CacheKeyResolutionTests.swift */,
-				DE8F7B7029FC24A8005F3902 /* SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests.swift */,
 				9FADC8531E6B86D900C677E6 /* DataLoaderTests.swift */,
 				DED45C292615319E0086EF63 /* DefaultInterceptorProviderTests.swift */,
 				9B78C71B2326E859000C8C32 /* ErrorGenerationTests.swift */,
@@ -3006,6 +3006,14 @@
 				E699DE9428B3C20E004ECF19 /* CodegenCLITestPlan.xctestplan */,
 			);
 			path = TestPlans;
+			sourceTree = "<group>";
+		};
+		DE5144AF2A046F7E00D991E9 /* ExecutionSources */ = {
+			isa = PBXGroup;
+			children = (
+				DE8F7B7029FC24A8005F3902 /* SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests.swift */,
+			);
+			path = ExecutionSources;
 			sourceTree = "<group>";
 		};
 		DE6388E028D3BFBA00559697 /* Sources */ = {

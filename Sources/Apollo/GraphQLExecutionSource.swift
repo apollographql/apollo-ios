@@ -6,8 +6,6 @@ protocol GraphQLExecutionSource {
   /// The type that represents each object in data from the source.
   associatedtype RawData
 
-  associatedtype OpaqueObjectDataWrapper: ObjectData
-
   associatedtype FieldCollector: FieldSelectionCollector<RawData>
 
   /// Resolves the value for a field value for a field.
@@ -21,5 +19,5 @@ protocol GraphQLExecutionSource {
     on object: RawData
   ) -> AnyHashable?
 
-  static func opaqueObjectDataWrapper(for: RawData) -> OpaqueObjectDataWrapper
+  static func opaqueObjectDataWrapper(for: RawData) -> ObjectData
 }

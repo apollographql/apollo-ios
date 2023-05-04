@@ -11,24 +11,33 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     object[info.cacheKeyForField]
   }
 
-  static func opaqueObjectDataWrapper(for rawData: JSONObject) -> OpaqueObjectDataWrapper {
-    OpaqueObjectDataWrapper(_rawData: rawData)
+  static func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
+    ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 
-  struct OpaqueObjectDataWrapper: ObjectData {
-    let _rawData: [String: AnyHashable]    
-
-    func _convert(_ value: AnyHashable) -> (any ScalarType)? {
+  struct DataTransformer: ExecutionSourceDataTransformer {
+    func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
-      case let scalar as ScalarType: return scalar
-      case let customScalar as CustomScalarType: return customScalar._jsonValue as? ScalarType
+      case let scalar as ScalarType:
+        return scalar
+      case let customScalar as CustomScalarType:
+        return customScalar._jsonValue as? ScalarType
       default: return nil
       }
     }
 
-    func _convert(_ value: AnyHashable) -> ObjectData? {
+    func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as [String: AnyHashable]: return OpaqueObjectDataWrapper(_rawData: object)
+      case let object as DataDict:
+        return ObjectData(_transformer: DataTransformer(), _rawData: object._data)
+      default: return nil
+      }
+    }
+
+    func transform(_ value: AnyHashable) -> ListData? {
+      switch value {
+      case let list as [AnyHashable]:
+        return ListData(_transformer: self, _rawData: list)
       default: return nil
       }
     }
