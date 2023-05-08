@@ -33,7 +33,8 @@
       "path" : "./Sources/TestApp/AnimalKingdomAPI",
       "moduleType" : {
         "embeddedInTarget" : {
-          "name": "TestApp"
+          "name": "TestApp",
+          "accessModifier": "public"
         }
       }
     },
