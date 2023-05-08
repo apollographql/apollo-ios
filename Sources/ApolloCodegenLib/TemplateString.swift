@@ -389,4 +389,8 @@ extension String {
     return prefix(through: indexToChangeCase).lowercased() +
     suffix(from: index(after: indexToChangeCase))
   }
+  
+  var isAllUppercased: Bool {
+    return self == self.uppercased()
+  }
 }

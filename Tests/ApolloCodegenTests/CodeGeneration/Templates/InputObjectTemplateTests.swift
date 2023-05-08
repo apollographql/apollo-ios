@@ -182,6 +182,66 @@ class InputObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
   }
+  
+  func test__render__givenSingleFieldTypeInMixedCase__generatesParameterAndInitializerWithCorrectCasing() throws {
+    // given
+    buildSubject(fields: [
+      GraphQLInputField.mock("Field", type: .scalar(.string()), defaultValue: nil)
+    ])
+
+    let expected = """
+      public init(
+        field: GraphQLNullable<String> = nil
+      ) {
+        __data = InputDict([
+          "Field": field
+        ])
+      }
+
+      public var field: GraphQLNullable<String> {
+        get { __data["Field"] }
+        set { __data["Field"] = newValue }
+      }
+    }
+    
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
+  }
+  
+  func test__render__givenSingleFieldTypeInAllUppercase__generatesParameterAndInitializerWithCorrectCasing() throws {
+    // given
+    buildSubject(fields: [
+      GraphQLInputField.mock("FIELDNAME", type: .scalar(.string()), defaultValue: nil)
+    ])
+
+    let expected = """
+      public init(
+        fieldname: GraphQLNullable<String> = nil
+      ) {
+        __data = InputDict([
+          "FIELDNAME": fieldname
+        ])
+      }
+
+      public var fieldname: GraphQLNullable<String> {
+        get { __data["FIELDNAME"] }
+        set { __data["FIELDNAME"] = newValue }
+      }
+    }
+    
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
+  }
 
   func test__render__givenAllPossibleSchemaInputFieldTypes__generatesCorrectParametersAndInitializer() throws {
     // given
