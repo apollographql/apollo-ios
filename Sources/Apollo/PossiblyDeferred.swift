@@ -21,6 +21,14 @@ func compactLazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value?>]) -> 
 }
 
 extension Sequence {
+
+  /// A `flatMap` that defers executing the transformation, producing a `PossiblyDeferred` result
+  /// that will contain the transformed values when `get()` is called.
+  ///
+  /// - Parameter transform: A closure that takes the elements of the sequence and returns a
+  ///   `PossiblyDeferred` instance for each element.
+  /// - Returns: A `PossiblyDeferred` instance with the result of evaluating `transform`
+  ///   on each of the elements of the receiver.
   func deferredFlatMap<NewValue>(_ transform: @escaping (Element) throws -> PossiblyDeferred<NewValue>) -> PossiblyDeferred<[NewValue]> {
     do {
       let deferredTransforms = try self.map { element in
@@ -92,7 +100,7 @@ enum PossiblyDeferred<Value> {
   /// - Parameter transform: A closure that takes the success value of the
   ///   instance.
   /// - Returns: A `PossiblyDeferred` instance with the result of evaluating `transform`
-  ///   as the new success value if this instance represents a failure.
+  ///   as the new success value if this instance represents a success.
   func flatMap<NewValue>(_ transform: @escaping (Value) -> PossiblyDeferred<NewValue>) -> PossiblyDeferred<NewValue> {
     switch self {
     case .immediate(let result):
