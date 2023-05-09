@@ -20,7 +20,7 @@ func compactLazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value?>]) -> 
   }
 }
 
-extension Array {
+extension Sequence {
   func deferredFlatMap<NewValue>(_ transform: @escaping (Element) throws -> PossiblyDeferred<NewValue>) -> PossiblyDeferred<[NewValue]> {
     do {
       let deferredTransforms = try self.map { element in
@@ -129,4 +129,6 @@ enum PossiblyDeferred<Value> {
       }
     }
   }
+
+  
 }
