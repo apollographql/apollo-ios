@@ -6,7 +6,32 @@ import ApolloAPI
 
 class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
-  // MARK: - Helpers
+  var store: ApolloStore!
+  var transaction: ApolloStore.ReadTransaction!
+  var subject: CacheDataExecutionSource!
+
+  override func setUp() async throws {
+    try await super.setUp()
+    store = ApolloStore.mock()
+    await withCheckedContinuation { continuation in
+      store?.withinReadTransaction({
+        self.transaction = $0
+        self.subject = CacheDataExecutionSource(transaction: $0)
+        
+      }, completion: { result in
+        continuation.resume()
+      })
+    }
+  }
+
+  override func tearDown() {
+    super.tearDown()
+    subject = nil
+    transaction = nil
+    store = nil
+  }
+
+  // MARK: - Scalar Fields
 
   func test__subscript__forScalarField_returnsValue() throws {
     // given
@@ -14,7 +39,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       "name": "Luke Skywalker"
     ]
 
-    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["name"]
@@ -33,7 +58,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       ]
     ]
 
-    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friend"]?["name"]
@@ -51,7 +76,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
     ]
     fail()
 
-    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friend"]?["name"]
@@ -68,7 +93,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       "list": ["Luke Skywalker"]
     ]
 
-    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["list"]?[0]
@@ -87,7 +112,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
       ]
     ]
 
-    let objectData = CacheDataExecutionSource().opaqueObjectDataWrapper(for: data)
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
 
     // when
     let actual = objectData["friends"]?[0]?["name"]

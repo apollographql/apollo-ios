@@ -271,21 +271,20 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       }
     }
 
-    return PossiblyDeferred {
-      try executionSource.resolveField(with: fieldInfo, on: object)
-    }.flatMap {
-      return self.complete(fields: fieldInfo,
-                           withValue: $0,
-                           accumulator: accumulator)
-    }.map {
-      try accumulator.accept(fieldEntry: $0, info: fieldInfo)
-    }.mapError { error in
-      if !(error is GraphQLExecutionError) {
-        return GraphQLExecutionError(path: fieldInfo.responsePath, underlying: error)
-      } else {
-        return error
+    return executionSource.resolveField(with: fieldInfo, on: object)
+      .flatMap {
+        return self.complete(fields: fieldInfo,
+                             withValue: $0,
+                             accumulator: accumulator)
+      }.map {
+        try accumulator.accept(fieldEntry: $0, info: fieldInfo)
+      }.mapError { error in
+        if !(error is GraphQLExecutionError) {
+          return GraphQLExecutionError(path: fieldInfo.responsePath, underlying: error)
+        } else {
+          return error
+        }
       }
-    }
   }
 
   private func complete<Accumulator: GraphQLResultAccumulator>(

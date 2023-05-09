@@ -9,15 +9,36 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
 
   weak var transaction: ApolloStore.ReadTransaction?
 
-  func resolveField(with info: FieldExecutionInfo, on object: JSONObject) throws -> AnyHashable? {
+  init(transaction: ApolloStore.ReadTransaction) {
+    self.transaction = transaction
+  }
+
+  func resolveField(
+    with info: FieldExecutionInfo,
+    on object: JSONObject
+  ) -> PossiblyDeferred<AnyHashable?> {
     let value = object[info.cacheKeyForField]
 
-    if let reference = value as? CacheReference {
-      guard let transaction else { throw ApolloStore.Error.notWithinReadTransaction }
-      return try transaction.loadObject(forKey: reference.key).get()
+    switch value {
+    case let reference as CacheReference:
+      return deferredResolve(reference: reference).map { $0._asAnyHashable }
+
+    case let referenceList as [CacheReference]:
+      return referenceList.deferredFlatMap {
+        deferredResolve(reference: $0)
+      }.map { $0._asAnyHashable }
+
+    default:
+      return .immediate(.success(value))
+    }
+  }
+
+  private func deferredResolve(reference: CacheReference) -> PossiblyDeferred<JSONObject> {
+    guard let transaction else {
+      return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
     }
 
-    return value
+    return transaction.loadObject(forKey: reference.key)
   }
 
   func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {

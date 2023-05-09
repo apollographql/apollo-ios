@@ -20,6 +20,20 @@ func compactLazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value?>]) -> 
   }
 }
 
+extension Array {
+  func deferredFlatMap<NewValue>(_ transform: @escaping (Element) throws -> PossiblyDeferred<NewValue>) -> PossiblyDeferred<[NewValue]> {
+    do {
+      let deferredTransforms = try self.map { element in
+        try transform(element)
+      }
+      return lazilyEvaluateAll(deferredTransforms)
+      
+    } catch {
+      return .immediate(.failure(error))
+    }
+  }
+}
+
 /// A possibly deferred value that represents either an immediate success or failure value, or a deferred
 /// value that is evaluated lazily when needed by invoking a throwing closure.
 enum PossiblyDeferred<Value> {

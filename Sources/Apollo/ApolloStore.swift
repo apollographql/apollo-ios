@@ -193,7 +193,7 @@ public class ApolloStore {
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
     fileprivate lazy var executor = GraphQLExecutor(
-      executionSource: CacheDataExecutionSource()
+      executionSource: CacheDataExecutionSource(transaction: self)
     ) 
 
     fileprivate init(store: ApolloStore) {

@@ -17,7 +17,7 @@ protocol GraphQLExecutionSource {
   func resolveField(
     with info: FieldExecutionInfo,
     on object: RawData
-  ) throws -> AnyHashable?
+  ) -> PossiblyDeferred<AnyHashable?>
 
   func opaqueObjectDataWrapper(for: RawData) -> ObjectData
 }
