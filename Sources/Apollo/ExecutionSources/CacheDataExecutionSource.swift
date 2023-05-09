@@ -7,15 +7,15 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
   typealias RawData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 
-//  weak var transaction: ApolloStore.ReadTransaction?
+  weak var transaction: ApolloStore.ReadTransaction?
 
   func resolveField(with info: FieldExecutionInfo, on object: JSONObject) throws -> AnyHashable? {
     let value = object[info.cacheKeyForField]
 
-//    if let reference = value as? CacheReference {
-//      guard let transaction
-//      return transaction?.loadObject(forKey: reference.key).get()
-//    }
+    if let reference = value as? CacheReference {
+      guard let transaction else { throw ApolloStore.Error.notWithinReadTransaction }
+      return try transaction.loadObject(forKey: reference.key).get()
+    }
 
     return value
   }

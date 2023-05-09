@@ -162,20 +162,14 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// will defer loading the next batch of records from the cache until they are needed.
   typealias ReferenceResolver = (CacheReference) -> PossiblyDeferred<Source.RawData>
 
-  private let resolveReference: ReferenceResolver?
-
   private let executionSource: Source
 
   var shouldComputeCachePath = true
 
   /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
   /// If provided, it will also resolve references by calling the reference resolver.
-  init(
-    executionSource: Source,
-    resolveReference: ReferenceResolver? = nil
-  ) {
+  init(executionSource: Source) {
     self.executionSource = executionSource
-    self.resolveReference = resolveReference
   }
 
   // MARK: - Execution
@@ -376,19 +370,19 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       }
     case let .object(rootSelectionSetType):
       switch value {
-      case let reference as CacheReference:
-        guard let resolveReference = resolveReference else {
-          return .immediate(.failure(JSONDecodingError.wrongType))
-        }
-
-        return resolveReference(reference).flatMap {
-          return self.executeChildSelections(
-            forObjectTypeFields: fieldInfo,
-            withRootType: rootSelectionSetType,
-            onChildObject: $0,
-            accumulator: accumulator
-          )
-        }
+//      case let reference as CacheReference:
+//        guard let resolveReference = resolveReference else {
+//          return .immediate(.failure(JSONDecodingError.wrongType))
+//        }
+//
+//        return resolveReference(reference).flatMap {
+//          return self.executeChildSelections(
+//            forObjectTypeFields: fieldInfo,
+//            withRootType: rootSelectionSetType,
+//            onChildObject: $0,
+//            accumulator: accumulator
+//          )
+//        }
 
       case let object as Source.RawData:
         return executeChildSelections(

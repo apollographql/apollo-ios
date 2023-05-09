@@ -194,12 +194,7 @@ public class ApolloStore {
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
     fileprivate lazy var executor = GraphQLExecutor(
       executionSource: CacheDataExecutionSource()
-    ) { [weak self] in
-      guard let self = self else {
-        return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
-      }
-      return self.loadObject(forKey: $0.key)
-    }
+    ) 
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
