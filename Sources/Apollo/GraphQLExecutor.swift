@@ -41,10 +41,6 @@ class ObjectExecutionInfo {
     self.fulfilledFragments = [ObjectIdentifier(rootType)]
   }
 
-//  fileprivate func resetCachePath(toRootCacheKey root: CacheKey) {
-//    cachePath = [root]
-//  }
-
   func runtimeObjectType(
     for json: JSONObject
   ) -> Object? {
@@ -103,6 +99,8 @@ struct FieldExecutionInfo {
     withRootType rootType: any RootSelectionSet.Type,
     cacheKey: CacheKey?
   ) -> (ObjectExecutionInfo, [Selection]) {
+    // If the object has it's own cache key, reset the cache path to the key,
+    // rather than using the inherited cache path from the parent field.
     let cachePath: ResponsePath = {
       if let cacheKey { return [cacheKey] }
       else { return self.cachePath }
@@ -125,12 +123,6 @@ struct FieldExecutionInfo {
       childSelections.append(contentsOf: selectionSet.__selections)
     }
 
-    // If the object has it's own cache key, reset the cache path to the key,
-    // rather than using the inherited cache path from the parent field.
-//    if shouldComputeCachePath,
-//       let cacheKeyForObject = parentInfo.schema.cacheKey(for: object) {
-//      childExecutionInfo.resetCachePath(toRootCacheKey: cacheKeyForObject)
-//    }
     return (childExecutionInfo, childSelections)
   }
 
@@ -153,7 +145,7 @@ public struct GraphQLExecutionError: Error, LocalizedError {
 
 /// A GraphQL executor is responsible for executing a selection set and generating a result. It is initialized with a resolver closure that gets called repeatedly to resolve field values.
 ///
-/// An executor is used both to parse a response received from the server, and to read from the normalized cache. It can also be configured with a accumulator that receives events during execution, and these execution events are used by `GraphQLResultNormalizer` to normalize a response into a flat set of records and by `GraphQLDependencyTracker` keep track of dependent keys.
+/// An executor is used both to parse a response received from the server, and to read from the normalized cache. It can also be configured with an accumulator that receives events during execution, and these execution events are used by `GraphQLResultNormalizer` to normalize a response into a flat set of records and by `GraphQLDependencyTracker` keep track of dependent keys.
 ///
 /// The methods in this class closely follow the
 /// [execution algorithm described in the GraphQL specification]
@@ -162,10 +154,6 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
 
   private let executionSource: Source
 
-  var shouldComputeCachePath = true
-
-  /// Creates a GraphQLExecutor that resolves field values by calling the provided resolver.
-  /// If provided, it will also resolve references by calling the reference resolver.
   init(executionSource: Source) {
     self.executionSource = executionSource
   }
@@ -261,7 +249,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   ) -> PossiblyDeferred<Accumulator.FieldEntry?> {
     var fieldInfo = fields
 
-    if shouldComputeCachePath {
+    if accumulator.requiresCacheKeyComputation {
       do {
         try fieldInfo.computeCacheKeyAndPath()
       } catch {
@@ -342,7 +330,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
           let indexSegment = String(index)
           elementFieldInfo.responsePath.append(indexSegment)
 
-          if shouldComputeCachePath {
+          if accumulator.requiresCacheKeyComputation {
             elementFieldInfo.cachePath.append(indexSegment)
           }
 
@@ -388,8 +376,6 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
       withRootType: rootSelectionSetType,
       cacheKey: executionSource.computeCacheKey(for: object, in: fieldInfo.parentInfo.schema)
-//      for: executionSource.opaqueObjectDataWrapper(for: object),
-//      shouldComputeCachePath: shouldComputeCachePath
     )
     
     return execute(

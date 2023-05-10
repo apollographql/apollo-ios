@@ -57,45 +57,6 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     return object.key
   }
 
-//  func opaqueObjectDataWrapper(for rawData: Record) -> ObjectData {
-//    ObjectData(_transformer: DataTransformer(transaction: transaction), _rawData: rawData.fields)
-//  }
-
-//  struct DataTransformer: ExecutionSourceDataTransformer {
-//    weak var transaction: ApolloStore.ReadTransaction?
-//
-//    func transform(_ value: AnyHashable) -> (any ScalarType)? {
-//      switch value {
-//      case let scalar as ScalarType:
-//        return scalar
-//      default: return nil
-//      }
-//    }
-//
-//    func transform(_ value: AnyHashable) -> ObjectData? {
-//      switch value {
-//      case let object as JSONObject:
-//        return ObjectData(_transformer: self, _rawData: object)
-//
-//      case let reference as CacheReference:
-//        guard let data = try? transaction?.loadObject(forKey: reference.key).get() else {
-//          return nil
-//        }
-//
-//        return ObjectData(_transformer: self, _rawData: data.fields)
-//
-//      default: return nil
-//      }
-//    }
-//
-//    func transform(_ value: AnyHashable) -> ListData? {
-//      switch value {
-//      case let list as [AnyHashable]:
-//        return ListData(_transformer: self, _rawData: list)
-//      default: return nil
-//      }
-//    }
-//  }
   struct CacheDataFieldSelectionCollector: FieldSelectionCollector {
     static func collectFields(
       from selections: [Selection],

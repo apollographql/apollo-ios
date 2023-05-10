@@ -24,7 +24,6 @@ extension RootSelectionSet {
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
-    executor.shouldComputeCachePath = false
 
     self = try executor.execute(
       selectionSet: Self.self,

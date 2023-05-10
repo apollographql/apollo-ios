@@ -16,6 +16,9 @@ struct ResultNormalizerFactory {
 }
 
 class BaseGraphQLResultNormalizer: GraphQLResultAccumulator {
+  
+  let requiresCacheKeyComputation: Bool = true
+
   private var records: RecordSet = [:]
 
   fileprivate init() {}

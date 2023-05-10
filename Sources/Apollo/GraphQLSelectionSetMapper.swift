@@ -7,6 +7,8 @@ import Foundation
 /// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
 final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
+  let requiresCacheKeyComputation: Bool = false
+
   let stripNullValues: Bool
   let handleMissingValues: HandleMissingValues
 
