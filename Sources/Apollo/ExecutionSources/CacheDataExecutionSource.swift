@@ -54,10 +54,12 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
   }
 
   func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
-    ObjectData(_transformer: DataTransformer(), _rawData: rawData)
+    ObjectData(_transformer: DataTransformer(transaction: transaction), _rawData: rawData)
   }
 
   struct DataTransformer: ExecutionSourceDataTransformer {
+    weak var transaction: ApolloStore.ReadTransaction?
+
     func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
       case let scalar as ScalarType:
@@ -69,7 +71,15 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
       case let object as JSONObject:
-        return ObjectData(_transformer: DataTransformer(), _rawData: object)
+        return ObjectData(_transformer: self, _rawData: object)
+
+      case let reference as CacheReference:
+        guard let data = try? transaction?.loadObject(forKey: reference.key).get() else {
+          return nil
+        }
+
+        return ObjectData(_transformer: self, _rawData: data)
+
       default: return nil
       }
     }

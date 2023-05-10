@@ -12,7 +12,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
   override func setUp() async throws {
     try await super.setUp()
-    store = ApolloStore.mock()
+    store = ApolloStore.mock(cache: InMemoryNormalizedCache())
     await withCheckedContinuation { continuation in
       store?.withinReadTransaction({
         self.transaction = $0
@@ -69,12 +69,14 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
   func test__subscript__forObjectField_givenCacheReference_returnsValueAsObjectDataWrapper() throws {
     // given
+    let friend = Record(key: "Human:1000", [
+      "__typename": "Human", "id": "1000", "name": "Han Solo"
+    ])
+    store.publish(records: RecordSet(records: [friend]))
+
     let data = [
-      "friend": [
-        "name": "Luke Skywalker"
-      ]
+      "friend": CacheReference("Human:1000")
     ]
-    fail()
 
     let objectData = subject.opaqueObjectDataWrapper(for: data)
 
@@ -82,7 +84,7 @@ class CacheDataExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
     let actual = objectData["friend"]?["name"]
 
     // then
-    expect(actual as? String).to(equal("Luke Skywalker"))
+    expect(actual as? String).to(equal("Han Solo"))
   }
 
   // MARK: List Fields
