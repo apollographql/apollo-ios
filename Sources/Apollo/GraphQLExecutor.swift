@@ -362,32 +362,16 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
         try accumulator.accept(list: $0, info: fieldInfo)
       }
     case let .object(rootSelectionSetType):
-      switch value {
-//      case let reference as CacheReference:
-//        guard let resolveReference = resolveReference else {
-//          return .immediate(.failure(JSONDecodingError.wrongType))
-//        }
-//
-//        return resolveReference(reference).flatMap {
-//          return self.executeChildSelections(
-//            forObjectTypeFields: fieldInfo,
-//            withRootType: rootSelectionSetType,
-//            onChildObject: $0,
-//            accumulator: accumulator
-//          )
-//        }
-
-      case let object as Source.RawData:
-        return executeChildSelections(
-          forObjectTypeFields: fieldInfo,
-          withRootType: rootSelectionSetType,
-          onChildObject: object,
-          accumulator: accumulator
-        )
-
-      default:
+      guard let object = value as? Source.RawData else {
         return .immediate(.failure(JSONDecodingError.wrongType))
-      }    
+      }
+
+      return executeChildSelections(
+        forObjectTypeFields: fieldInfo,
+        withRootType: rootSelectionSetType,
+        onChildObject: object,
+        accumulator: accumulator
+      )
     }
   }
 
