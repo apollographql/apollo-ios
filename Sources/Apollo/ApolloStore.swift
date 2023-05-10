@@ -238,10 +238,10 @@ public class ApolloStore {
       )
     }
     
-    final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
+    final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<Record> {
       self.loader[key].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
-        return record.fields
+        return record
       }
     }
   }

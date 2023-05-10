@@ -3,7 +3,10 @@ import Foundation
 import ApolloAPI
 #endif
 
-struct NetworkResponseExecutionSource: GraphQLExecutionSource {
+struct NetworkResponseExecutionSource:
+  GraphQLExecutionSource,
+  CacheKeyComputingExecutionSource
+{
   typealias RawData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 

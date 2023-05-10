@@ -4,9 +4,9 @@ import ApolloAPI
 
 protocol GraphQLExecutionSource {
   /// The type that represents each object in data from the source.
-  associatedtype RawData
+  associatedtype RawObjectData
 
-  associatedtype FieldCollector: FieldSelectionCollector<RawData>
+  associatedtype FieldCollector: FieldSelectionCollector<RawObjectData>
 
   /// Resolves the value for a field value for a field.
   ///
@@ -20,8 +20,19 @@ protocol GraphQLExecutionSource {
   ///  a `CacheReference` that can be resolved by the source.
   func resolveField(
     with info: FieldExecutionInfo,
-    on object: RawData
+    on object: RawObjectData
   ) -> PossiblyDeferred<AnyHashable?>
 
-  func opaqueObjectDataWrapper(for: RawData) -> ObjectData
+  func computeCacheKey(for object: RawObjectData, in schema: SchemaMetadata.Type) -> CacheKey?
+}
+
+protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
+  func opaqueObjectDataWrapper(for: RawObjectData) -> ObjectData
+}
+
+extension CacheKeyComputingExecutionSource {
+  func computeCacheKey(for object: RawObjectData, in schema: SchemaMetadata.Type) -> CacheKey? {
+    let dataWrapper = opaqueObjectDataWrapper(for: object)
+    return schema.cacheKey(for: dataWrapper)
+  }
 }

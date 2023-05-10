@@ -5,7 +5,10 @@ import ApolloAPI
 
 /// A `GraphQLExecutionSource` designed for use when the data source is a generated model's
 /// `SelectionSet` data.
-struct SelectionSetModelExecutionSource: GraphQLExecutionSource {
+struct SelectionSetModelExecutionSource:
+  GraphQLExecutionSource,
+  CacheKeyComputingExecutionSource
+{
   typealias RawData = DataDict
   typealias FieldCollector = CustomCacheDataWritingFieldSelectionCollector
 
