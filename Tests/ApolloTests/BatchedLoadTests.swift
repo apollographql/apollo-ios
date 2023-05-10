@@ -147,9 +147,121 @@ class BatchedLoadTests: XCTestCase {
     // then
     XCTAssertEqual(cache.numberOfBatchLoads, 3)
   }
-  
+
+  func test_batchedLoading_cacheKeyResolution_usingDeeplyNestedReferencedObjects_isDeferredToBatch() {
+    // given
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = { type, data in
+      switch type.typename {
+      case "Human":
+        return try? .init(jsonValue: data["friends"]?[0]?["nestedInfo"]?["id"])
+      case "Droid":
+        return try? .init(jsonValue: data["nestedInfo"]?["id"])
+      default: return nil
+      }
+    }
+
+    class GivenSelectionSet: MockSelectionSet {
+      override class var __selections: [Selection] {[
+        .field("hero", Hero.self)
+      ]}
+
+      var hero: Hero? { __data["hero"] }
+
+      class Hero: MockSelectionSet {
+        override class var __selections: [Selection] {[
+          .field("__typename", String.self),
+          .field("id", String.self),
+          .field("name", String.self),
+          .field("friends", [Friend]?.self),
+        ]}
+
+        var friends: [Friend]? { __data["friends"] }
+
+        class Friend: MockSelectionSet {
+          override class var __selections: [Selection] {[
+            .field("__typename", String.self),
+            .field("id", String.self),
+            .field("name", String.self),
+            .field("nestedInfo", NestedInfo.self),
+          ]}
+
+          var name: String { __data["name"] }
+
+          class NestedInfo: MockSelectionSet {
+            override class var __selections: [Selection] {[
+              .field("__typename", String.self),
+              .field("id", String.self),
+            ]}
+          }
+        }
+      }
+    }
+
+    var records = RecordSet()
+    let friends = (1...10).map { number in
+      records.insert(Record(
+        key: "NestedInfo:\(number)", [
+          "__typename": "NestedInfo",
+          "id": "Nested_\(number)"
+        ])
+      )
+      return Record(key: "Droid:\(number)", [
+        "__typename": "Droid",
+        "id": String(number),
+        "name": "Droid #\(number)",
+        "nestedInfo": CacheReference("NestedInfo:\(number)")
+      ])
+    }
+
+    records.insert(Record(key: "QUERY_ROOT", ["hero": CacheReference("Human:2001")]))
+    records.insert(Record(key: "Human:2001", [
+      "name": "Luke",
+      "__typename": "Human",
+      "id": "2001",
+      "friends": friends.map { CacheReference($0.key) }
+    ]))
+    records.insert(contentsOf: friends)
+
+    let cache = MockBatchedNormalizedCache(records: records)
+    let store = ApolloStore(cache: cache)
+
+    let query = MockQuery<GivenSelectionSet>()
+
+    // when
+    let expectation = self.expectation(description: "Loading query from store")
+
+    store.load(query) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch result {
+      case .success(let graphQLResult):
+        XCTAssertNil(graphQLResult.errors)
+
+        guard let data = graphQLResult.data else {
+          XCTFail("No data returned with result!")
+          return
+        }
+
+        XCTAssertEqual(data.hero?.name, "Luke")
+        XCTAssertEqual(data.hero?.friends?.count, 10)
+      case .failure(let error):
+        XCTFail("Unexpected error: \(error)")
+      }
+    }
+
+    self.waitForExpectations(timeout: 1)
+
+    // then
+    XCTAssertEqual(cache.numberOfBatchLoads, 3)
+  }
+
+
+  #warning("TODO: write test for batch loading nested objects for cache key resolution during WRITE transaction")
+
   func testParallelLoadsUseIndependentBatching() {
-    // given // given
+    // given
     class GivenSelectionSet: MockSelectionSet {
       override class var __selections: [Selection] {[
         .field("hero", Hero.self)
