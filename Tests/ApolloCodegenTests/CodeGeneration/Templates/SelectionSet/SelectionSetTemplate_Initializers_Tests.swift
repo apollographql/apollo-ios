@@ -72,13 +72,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       public init(
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Animal.typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
     
@@ -121,13 +123,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
     
@@ -185,16 +189,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         name: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Dog.typename,
-          "name": name,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Dog.typename,
+            "name": name,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self),
             ObjectIdentifier(AllAnimal.AsAnimalUnion.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -249,15 +255,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self),
             ObjectIdentifier(AllAnimal.AsPet.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
     
@@ -371,36 +379,38 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           nestedList_optional_optional_required: [[String]?]? = nil,
           nestedList_optional_optional_optional: [[String?]?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "string": string,
-            "string_optional": string_optional,
-            "int": int,
-            "int_optional": int_optional,
-            "float": float,
-            "float_optional": float_optional,
-            "boolean": boolean,
-            "boolean_optional": boolean_optional,
-            "custom": custom,
-            "custom_optional": custom_optional,
-            "custom_required_list": custom_required_list,
-            "custom_optional_list": custom_optional_list,
-            "list_required_required": list_required_required,
-            "list_optional_required": list_optional_required,
-            "list_required_optional": list_required_optional,
-            "list_optional_optional": list_optional_optional,
-            "nestedList_required_required_required": nestedList_required_required_required,
-            "nestedList_required_required_optional": nestedList_required_required_optional,
-            "nestedList_required_optional_optional": nestedList_required_optional_optional,
-            "nestedList_required_optional_required": nestedList_required_optional_required,
-            "nestedList_optional_required_required": nestedList_optional_required_required,
-            "nestedList_optional_required_optional": nestedList_optional_required_optional,
-            "nestedList_optional_optional_required": nestedList_optional_optional_required,
-            "nestedList_optional_optional_optional": nestedList_optional_optional_optional,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "string": string,
+              "string_optional": string_optional,
+              "int": int,
+              "int_optional": int_optional,
+              "float": float,
+              "float_optional": float_optional,
+              "boolean": boolean,
+              "boolean_optional": boolean_optional,
+              "custom": custom,
+              "custom_optional": custom_optional,
+              "custom_required_list": custom_required_list,
+              "custom_optional_list": custom_optional_list,
+              "list_required_required": list_required_required,
+              "list_optional_required": list_optional_required,
+              "list_required_optional": list_required_optional,
+              "list_optional_optional": list_optional_optional,
+              "nestedList_required_required_required": nestedList_required_required_required,
+              "nestedList_required_required_optional": nestedList_required_required_optional,
+              "nestedList_required_optional_optional": nestedList_required_optional_optional,
+              "nestedList_required_optional_required": nestedList_required_optional_required,
+              "nestedList_optional_required_required": nestedList_optional_required_required,
+              "nestedList_optional_required_optional": nestedList_optional_required_optional,
+              "nestedList_optional_optional_required": nestedList_optional_optional_required,
+              "nestedList_optional_optional_optional": nestedList_optional_optional_optional,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
     
@@ -447,15 +457,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           fieldTwo: String,
           fieldthree: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "FIELDONE": fieldone,
-            "FieldTwo": fieldTwo,
-            "fieldthree": fieldthree,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "FIELDONE": fieldone,
+              "FieldTwo": fieldTwo,
+              "fieldthree": fieldthree,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
     
@@ -496,13 +508,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           aliased: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "aliased": aliased,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "aliased": aliased,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -546,13 +560,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -596,13 +612,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -646,13 +664,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -696,13 +716,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -753,12 +775,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           __typename: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -802,13 +826,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """#
 
@@ -852,13 +878,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friend: Friend? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -912,15 +940,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         species: String,
         age: Int
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "age": age,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+            "age": age,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -988,14 +1018,16 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         inches: Int? = nil,
         feet: Int? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Height.typename,
-          "inches": inches,
-          "feet": feet,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Height.typename,
+            "inches": inches,
+            "feet": feet,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1044,14 +1076,16 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1105,16 +1139,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         name: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AnimalDetails.self),
             ObjectIdentifier(Fragment2.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1167,15 +1203,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1225,12 +1263,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1240,15 +1280,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1299,13 +1341,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           name: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -1354,15 +1398,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -1411,15 +1457,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -1470,16 +1518,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(AllAnimal.IfA.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -1530,15 +1580,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.IfA.Friend.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -1590,12 +1642,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1605,15 +1659,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
