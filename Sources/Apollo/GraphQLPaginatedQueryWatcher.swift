@@ -87,6 +87,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     cancelSubsequentWatchers()
   }
 
+  @discardableResult
   public func fetchNext(page: PageInfoType, completion: (() -> Void)? = nil) -> Bool {
     guard page.hasNextPage,
           let nextPageQuery = createPageQuery(page),
@@ -96,9 +97,12 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     let nextPageWatcher = client.watch(
       query: nextPageQuery,
       cachePolicy: .fetchIgnoringCacheData,
-      callbackQueue: callbackQueue,
-      resultHandler: resultHandler
-    )
+      callbackQueue: callbackQueue
+    ) { result in
+      resultHandler(result)
+      completion?()
+    }
+    subsequentWatchers.append(nextPageWatcher)
 
     return true
   }
