@@ -157,12 +157,6 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           friends: oldData.friends + newData.friends
         )
       } onReceiveResults: { result in
-        switch result {
-        case .success(let value):
-          dump(value)
-        case .failure(let error):
-          XCTFail("Error \(error)")
-        }
         guard case let .success(value) = result else { return XCTFail() }
         results.append(value)
       }
