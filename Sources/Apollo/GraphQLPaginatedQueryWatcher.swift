@@ -86,6 +86,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   }
 
   public func fetch() {
+    model = nil
     initialWatcher?.refetch()
     cancelSubsequentWatchers()
   }
