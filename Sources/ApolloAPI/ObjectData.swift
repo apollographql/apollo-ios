@@ -5,7 +5,7 @@ public protocol _ObjectData_Transformer {
 }
 
 /// An opaque wrapper for data representing a GraphQL object. This type wraps data from different
-/// sources, using a `_tranformer` to ensure the raw data from different sources (which may be in
+/// sources, using a `_transformer` to ensure the raw data from different sources (which may be in
 /// different formats) can be consumed with a consistent API.
 public struct ObjectData {
   public let _transformer: _ObjectData_Transformer

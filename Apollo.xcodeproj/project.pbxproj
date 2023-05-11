@@ -225,7 +225,7 @@
 		DE4B1E592891D5FE0058D1F6 /* IsEverTrue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE296BA627A09A11004F571F /* IsEverTrue.swift */; };
 		DE4D54E727A3504B00D26B68 /* OperationFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */; };
 		DE4D54E927A3518100D26B68 /* FragmentFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */; };
-		DE5144B12A04703F00D991E9 /* NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5144B02A04703F00D991E9 /* NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift */; };
+		DE5144B12A04703F00D991E9 /* NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5144B02A04703F00D991E9 /* NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift */; };
 		DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */; };
 		DE5B314027A482C80051C9D3 /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5B313F27A482C80051C9D3 /* Resources.swift */; };
 		DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */; };
@@ -1416,7 +1416,7 @@
 		DE4B1E532889EF330058D1F6 /* EnumType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumType.swift; sourceTree = "<group>"; };
 		DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationFileGenerator.swift; sourceTree = "<group>"; };
 		DE4D54E827A3518100D26B68 /* FragmentFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FragmentFileGenerator.swift; sourceTree = "<group>"; };
-		DE5144B02A04703F00D991E9 /* NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift; sourceTree = "<group>"; };
+		DE5144B02A04703F00D991E9 /* NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift; sourceTree = "<group>"; };
 		DE56DC222683B2020090D6E4 /* DefaultInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInterceptorProvider.swift; sourceTree = "<group>"; };
 		DE5B313F27A482C80051C9D3 /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterfacesFileGeneratorTests.swift; sourceTree = "<group>"; };
@@ -3020,7 +3020,7 @@
 			isa = PBXGroup;
 			children = (
 				DE8F7B7029FC24A8005F3902 /* SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests.swift */,
-				DE5144B02A04703F00D991E9 /* NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift */,
+				DE5144B02A04703F00D991E9 /* NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift */,
 			);
 			path = ExecutionSources;
 			sourceTree = "<group>";
@@ -5510,7 +5510,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE5144B12A04703F00D991E9 /* NetworkResponsExecutionSource_OpaqueObjectDataWrapper_Tests.swift in Sources */,
+				DE5144B12A04703F00D991E9 /* NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests.swift in Sources */,
 				5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */,
 				DED45EC3261BA0ED0086EF63 /* WebSocketTransportTests.swift in Sources */,
 				DE8F7B7129FC24A8005F3902 /* SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests.swift in Sources */,
