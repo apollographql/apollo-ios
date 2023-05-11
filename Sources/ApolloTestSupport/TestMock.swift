@@ -108,7 +108,6 @@ public extension RootSelectionSet {
   ) -> Self {
     let accumulator = TestMockSelectionSetMapper<Self>()
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
-    executor.shouldComputeCachePath = false
 
     return try! executor.execute(
       selectionSet: Self.self,

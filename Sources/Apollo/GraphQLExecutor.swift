@@ -58,7 +58,7 @@ class ObjectExecutionInfo {
 ///
 /// GraphQL validation makes sure all fields sharing the same response key have the same
 /// arguments and are of the same type, so we only need to resolve one field.
-struct FieldExecutionInfo {
+class FieldExecutionInfo {
   let field: Selection.Field
   let parentInfo: ObjectExecutionInfo
 
@@ -68,7 +68,7 @@ struct FieldExecutionInfo {
   let responseKeyForField: String
 
   var cachePath: ResponsePath = []
-  private(set) var cacheKeyForField: String = ""
+  private var _cacheKeyForField: String?
 
   init(
     field: Selection.Field,
@@ -83,10 +83,17 @@ struct FieldExecutionInfo {
     responseKeyForField = responseKey
   }
 
-  fileprivate mutating func computeCacheKeyAndPath() throws {
-    let cacheKey = try field.cacheKey(with: parentInfo.variables)
-    cachePath = parentInfo.cachePath.appending(cacheKey)
-    cacheKeyForField = cacheKey
+  fileprivate func computeCacheKeyAndPath() throws {
+    cachePath = try parentInfo.cachePath.appending(cacheKeyForField())
+  }
+
+  func cacheKeyForField() throws -> String {
+    guard let _cacheKeyForField else {
+      let cacheKey = try field.cacheKey(with: parentInfo.variables)
+      _cacheKeyForField = cacheKey
+      return cacheKey
+    }
+    return _cacheKeyForField
   }
 
   /// Computes the `ObjectExecutionInfo` and selections that should be used for
@@ -124,6 +131,20 @@ struct FieldExecutionInfo {
     }
 
     return (childExecutionInfo, childSelections)
+  }
+
+  func copy() -> FieldExecutionInfo {
+    FieldExecutionInfo(self)
+  }
+
+  private init(_ info: FieldExecutionInfo) {
+    self.field = info.field
+    self.parentInfo = info.parentInfo
+    self.mergedFields = info.mergedFields
+    self.responsePath = info.responsePath
+    self.responseKeyForField = info.responseKeyForField
+    self.cachePath = info.cachePath
+    self._cacheKeyForField = info._cacheKeyForField
   }
 
 }
@@ -243,12 +264,10 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
   /// values, then resolves a value for the field, and finally, completes that value, either by
   /// recursively executing another selection set or coercing a scalar value.
   private func execute<Accumulator: GraphQLResultAccumulator>(
-    fields: FieldExecutionInfo,
+    fields fieldInfo: FieldExecutionInfo,
     on object: Source.RawObjectData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.FieldEntry?> {
-    var fieldInfo = fields
-
     if accumulator.requiresCacheKeyComputation {
       do {
         try fieldInfo.computeCacheKeyAndPath()
@@ -325,7 +344,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       let completedArray = array
         .enumerated()
         .map { index, element -> PossiblyDeferred<Accumulator.PartialResult> in
-          var elementFieldInfo = fieldInfo
+          let elementFieldInfo = fieldInfo.copy()
 
           let indexSegment = String(index)
           elementFieldInfo.responsePath.append(indexSegment)

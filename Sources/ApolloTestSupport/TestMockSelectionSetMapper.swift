@@ -7,6 +7,7 @@ import Foundation
 /// An accumulator that converts data from a `Mock` to the correct values to create a `SelectionSet`.
 final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
+  var requiresCacheKeyComputation: Bool { underlyingMapper.requiresCacheKeyComputation }
   let underlyingMapper = GraphQLSelectionSetMapper<T>(handleMissingValues: .allowForAllFields)
 
   func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {

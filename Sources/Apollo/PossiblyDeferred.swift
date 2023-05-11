@@ -58,6 +58,19 @@ enum PossiblyDeferred<Value> {
   init(_ body: () throws -> Value) {
     self = .immediate(Result(catching: body))
   }
+
+  /// Creates a new immediate result by evaluating a throwing closure, capturing the
+  /// returned value as a success, or any thrown error as a failure.
+  ///
+  /// - Parameter body: A throwing closure to evaluate.
+  @_disfavoredOverload
+  init(_ body: () throws -> PossiblyDeferred<Value>) {
+    do {
+      self = try body()
+    } catch {
+      self = .immediate(.failure(error))
+    }
+  }
   
   /// Returns the success value as a throwing expression, evaluating a deferred value
   /// if needed.

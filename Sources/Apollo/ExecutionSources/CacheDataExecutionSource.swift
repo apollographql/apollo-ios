@@ -17,31 +17,33 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     with info: FieldExecutionInfo,
     on object: Record
   ) -> PossiblyDeferred<AnyHashable?> {
-    let value = object[info.cacheKeyForField]
+    PossiblyDeferred {      
+      let value = try object[info.cacheKeyForField()]
 
-    switch value {
-    case let reference as CacheReference:
-      return deferredResolve(reference: reference).map { $0 as AnyHashable }
+      switch value {
+      case let reference as CacheReference:
+        return deferredResolve(reference: reference).map { $0 as AnyHashable }
 
-    case let referenceList as [CacheReference]:
-      return referenceList
-        .enumerated()
-        .deferredFlatMap { index, element in
-          self.deferredResolve(reference: element)
-            .mapError { error in
-              if !(error is GraphQLExecutionError) {
-                return GraphQLExecutionError(
-                  path: info.responsePath.appending(String(index)),
-                  underlying: error
-                )
-              } else {
-                return error
+      case let referenceList as [CacheReference]:
+        return referenceList
+          .enumerated()
+          .deferredFlatMap { index, element in
+            self.deferredResolve(reference: element)
+              .mapError { error in
+                if !(error is GraphQLExecutionError) {
+                  return GraphQLExecutionError(
+                    path: info.responsePath.appending(String(index)),
+                    underlying: error
+                  )
+                } else {
+                  return error
+                }
               }
-            }
-        }.map { $0._asAnyHashable }
+          }.map { $0._asAnyHashable }
 
-    default:
-      return .immediate(.success(value))
+      default:
+        return .immediate(.success(value))
+      }
     }
   }
 
