@@ -4,8 +4,9 @@ import Foundation
 extension String {
   /// Renders the string as the property name for a field accessor on a generated `SelectionSet`.
   /// This escapes the names of properties that would conflict with Swift reserved keywords.
-  var asFieldAccessorPropertyName: String {
-    escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
+  var asFieldPropertyName: String {
+    let str = self.isAllUppercased ? self.lowercased() : self.firstLowercased
+    return str.escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
   }
 
   var asEnumCaseName: String {
@@ -16,11 +17,7 @@ extension String {
     SwiftKeywords.SelectionSetTypeNamesToSuffix.contains(self) ?
     "\(self)_SelectionSet" : self
   }
-
-  var asInputParameterName: String {
-    escapeIf(in: SwiftKeywords.InputParameterNamesToEscape).firstLowercased
-  }
-
+  
   var asTestMockFieldPropertyName: String {
     escapeIf(in: SwiftKeywords.TestMockFieldNamesToEscape)
   }

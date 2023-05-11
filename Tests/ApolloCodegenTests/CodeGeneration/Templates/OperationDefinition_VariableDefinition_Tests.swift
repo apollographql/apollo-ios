@@ -37,6 +37,90 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     // then
     expect(actual).to(equal(expected))
   }
+  
+  func test__renderOperationVariableProperty_givenAllUppercaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VARIABLE", type: .string(), defaultValue: nil)
+    
+    let expected = "public var variable: GraphQLNullable<String>"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableProperties([subject]).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
+  
+  func test__renderOperationVariableProperty_givenMixedCaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VariableName", type: .string(), defaultValue: nil)
+    
+    let expected = "public var variableName: GraphQLNullable<String>"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableProperties([subject]).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
+  
+  func test__renderOperationVariableParameter_givenAllUppercaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VARIABLE", type: .string(), defaultValue: nil)
+    
+    let expected = "variable: GraphQLNullable<String>"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableParameter(subject).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
+  
+  func test__renderOperationVariableParameter_givenMixedCaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VariableName", type: .string(), defaultValue: nil)
+    
+    let expected = "variableName: GraphQLNullable<String>"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableParameter(subject).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
+  
+  func test__renderOperationVariableAccessor_givenAllUppercaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VARIABLE", type: .string(), defaultValue: nil)
+    
+    let expected = "public var __variables: Variables? { [\"VARIABLE\": variable] }"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableAccessors([subject]).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
+  
+  func test__renderOperationVariableAccessor_givenMixedCaseVariableName_generatesCorrectlyCasedVariable() throws {
+    // given
+    subject = .mock("VariableName", type: .string(), defaultValue: nil)
+    
+    let expected = "public var __variables: Variables? { [\"VariableName\": variableName] }"
+    
+    // when
+    buildTemplate()
+    let actual = template.VariableAccessors([subject]).description
+    
+    // then
+    expect(actual).to(equal(expected))
+  }
 
   func test__renderOperationVariableParameter_includeDefaultTrue__givenAllInputFieldTypes_nilDefaultValues__generatesCorrectParametersWithoutInitializer() throws {
     // given
