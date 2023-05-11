@@ -135,7 +135,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         query: query
       ) { pageInfo in
         let query = MockQuery<MockPaginatedSelectionSet>()
-        query.__variables = ["first": 2, "after": "1"]
+        query.__variables = ["first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
         return query
       } transform: { data in
         (
@@ -201,7 +201,126 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           HeroViewModel.Friend(name: "Leia Organa"),
         ])
       ])
-
     }
   }
+
+  func testMultiPageResultsWithRefetch() {
+    let query = MockQuery<MockPaginatedSelectionSet>()
+    query.__variables = ["first": 3, "after": GraphQLNullable<String>.null]
+
+    var results: [HeroViewModel] = []
+    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockPaginatedSelectionSet>, HeroViewModel>?
+    addTeardownBlock { watcher?.cancel() }
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "name": "R2-D2",
+              "friendsConnection": [
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "name": "Luke Skywalker"
+                  ],
+                  [
+                    "name": "Han Solo"
+                  ],
+                  [
+                    "name": "Leia Organa"
+                  ]
+                ],
+                "pageInfo": [
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      watcher = GraphQLPaginatedQueryWatcher(
+        client: client,
+        query: query
+      ) { pageInfo in
+        let query = MockQuery<MockPaginatedSelectionSet>()
+        query.__variables = ["first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+        return query
+      } transform: { data in
+        (
+          HeroViewModel(
+            name: data.hero.name,
+            friends: data.hero.friends.friends.map {
+              HeroViewModel.Friend(name: $0.name)
+            }
+          ),
+          GraphQLPaginatedQueryWatcher.Page(
+            hasNextPage: data.hero.friends.pageInfo.hasNextPage,
+            endCursor: data.hero.friends.pageInfo.endCursor
+          )
+        )
+      } nextPageTransform: { oldData, newData in
+        guard let oldData else { return newData }
+
+        return HeroViewModel(
+          name: newData.name,
+          friends: oldData.friends + newData.friends
+        )
+      } onReceiveResults: { result in
+        guard case let .success(value) = result else { return XCTFail() }
+        results.append(value)
+      }
+      guard let watcher else { return XCTFail() }
+      wait(for: [serverExpectation], timeout: 1.0)
+
+      // Re-fetch:
+
+      let refetchExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "name": "R2-D2",
+              "friendsConnection": [
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "name": "Luke Skywalker"
+                  ],
+                  [
+                    "name": "Han Solo"
+                  ],
+                  [
+                    "name": "Leia Organa"
+                  ]
+                ],
+                "pageInfo": [
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.fetch()
+      wait(for: [refetchExpectation], timeout: 1.0)
+
+      XCTAssertEqual(results.count, 2)
+      XCTAssertEqual(results, [
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Luke Skywalker"),
+          HeroViewModel.Friend(name: "Han Solo"),
+          HeroViewModel.Friend(name: "Leia Organa"),
+        ]),
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Luke Skywalker"),
+          HeroViewModel.Friend(name: "Han Solo"),
+          HeroViewModel.Friend(name: "Leia Organa"),
+        ])
+      ])
+    }
+  }
+
 }
