@@ -91,7 +91,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   }
 
   @discardableResult
-  public func fetchNext() -> Bool {
+  public func fetchMore() -> Bool {
     guard let page,
           page.hasNextPage,
           let nextPageQuery = createPageQuery(page),

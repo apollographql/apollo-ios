@@ -186,7 +186,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         ]
       }
 
-      _ = watcher.fetchNext()
+      _ = watcher.fetchMore()
       wait(for: [secondPageExpectation], timeout: 1.0)
 
       XCTAssertEqual(results.count, 2)
