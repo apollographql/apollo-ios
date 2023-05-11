@@ -6,7 +6,7 @@ import ApolloAPI
 
 class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
-  // MARK: - Helpers
+  // MARK: - Scalar Fields
 
   func test__subscript__forScalarField_returnsValue() throws {
     // given

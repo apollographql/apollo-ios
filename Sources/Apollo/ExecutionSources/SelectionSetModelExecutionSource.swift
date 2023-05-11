@@ -23,7 +23,7 @@ struct SelectionSetModelExecutionSource:
     ObjectData(_transformer: DataTransformer(), _rawData: rawData._data)
   }
 
-  struct DataTransformer: ExecutionSourceDataTransformer {
+  struct DataTransformer: _ObjectData_Transformer {
     func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
       case let scalar as ScalarType:
@@ -37,7 +37,7 @@ struct SelectionSetModelExecutionSource:
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
       case let object as DataDict:
-        return ObjectData(_transformer: DataTransformer(), _rawData: object._data)
+        return ObjectData(_transformer: self, _rawData: object._data)
       default: return nil
       }
     }

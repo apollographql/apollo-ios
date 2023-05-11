@@ -15,7 +15,7 @@ struct FieldSelectionGrouping: Sequence {
 
   mutating func append(field: Selection.Field, withInfo info: ObjectExecutionInfo) {
     let fieldKey = field.responseKey
-    if var fieldInfo = fieldInfoList[fieldKey] {
+    if let fieldInfo = fieldInfoList[fieldKey] {
       fieldInfo.mergedFields.append(field)
       fieldInfoList[fieldKey] = fieldInfo
     } else {

@@ -31,76 +31,8 @@ public protocol SchemaConfiguration {
   /// - Parameters:
   ///   - type: The ``Object`` type of the response `object`.
   ///   - object: The response object to resolve the cache key for.
-  ///     Represented as a ``JSONObject`` dictionary.
+  ///     Represented as a ``ObjectData`` dictionary.
   /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.
   static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo?
 
-}
-
-public protocol ExecutionSourceDataTransformer {
-  func transform(_ value: AnyHashable) -> (any ScalarType)?
-  func transform(_ value: AnyHashable) -> ObjectData?
-  func transform(_ value: AnyHashable) -> ListData?
-}
-
-public struct ObjectData {
-  public let _transformer: ExecutionSourceDataTransformer
-  public let _rawData: [String: AnyHashable]
-
-  public init(
-    _transformer: ExecutionSourceDataTransformer,
-    _rawData: [String: AnyHashable]
-  ) {
-    self._transformer = _transformer
-    self._rawData = _rawData
-  }
-
-  @inlinable public subscript(_ key: String) -> (any ScalarType)? {
-    guard let value = _rawData[key] else { return nil }
-    return _transformer.transform(value)
-  }
-
-  @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ObjectData? {
-    guard let value = _rawData[key] else { return nil }
-    return _transformer.transform(value)
-  }
-
-  @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ListData? {
-    guard let value = _rawData[key] else { return nil }
-    return _transformer.transform(value)
-  }  
-
-  #warning("TODO: add arguments")
-//  subscript(_ key: String, withArguments: [String: AnyHashable]? = nil) -> AnyHashable? {
-//    return nil
-//  }
-}
-
-public struct ListData {
-  public let _transformer: ExecutionSourceDataTransformer
-  public let _rawData: [AnyHashable]
-
-  public init(
-    _transformer: ExecutionSourceDataTransformer,
-    _rawData: [AnyHashable]
-  ) {
-    self._transformer = _transformer
-    self._rawData = _rawData
-  }
-
-  @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
-    return _transformer.transform(_rawData[key])
-  }
-
-  @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ObjectData? {
-    return _transformer.transform(_rawData[key])
-  }
-
-  @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ListData? {
-    return _transformer.transform(_rawData[key])
-  }
 }
