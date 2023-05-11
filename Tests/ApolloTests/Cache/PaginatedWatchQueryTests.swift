@@ -94,11 +94,6 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     let friends: [Friend]
   }
 
-  struct Page: PageInfoType {
-    var endCursor: Cursor?
-    var hasNextPage: Bool
-  }
-
   // MARK: - Tests
 
   func testMultiPageResults() {
@@ -143,11 +138,17 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         query.__variables = ["first": 2, "after": "1"]
         return query
       } transform: { data in
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friends.friends.map {
-            HeroViewModel.Friend(name: $0.name)
-          }
+        (
+          HeroViewModel(
+            name: data.hero.name,
+            friends: data.hero.friends.friends.map {
+              HeroViewModel.Friend(name: $0.name)
+            }
+          ),
+          GraphQLPaginatedQueryWatcher.Page(
+            hasNextPage: data.hero.friends.pageInfo.hasNextPage,
+            endCursor: data.hero.friends.pageInfo.endCursor
+          )
         )
       } nextPageTransform: { oldData, newData in
         guard let oldData else { return newData }
@@ -185,7 +186,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         ]
       }
 
-      _ = watcher.fetchNext(page: Page(endCursor: "Y3Vyc29yMg==", hasNextPage: true))
+      _ = watcher.fetchNext()
       wait(for: [secondPageExpectation], timeout: 1.0)
 
       XCTAssertEqual(results.count, 2)
