@@ -22,6 +22,14 @@ public struct DataDict: Hashable {
       }
       _storage.data = newValue
     }
+    _modify {
+      if !isKnownUniquelyReferenced(&_storage) {
+        _storage = _storage.copy()
+      }
+      var data = _storage.data
+      defer { _storage.data = data }
+      yield &data
+    }
   }
 
   /// The set of fragments types that are fulfilled by the data of the ``SelectionSet``.
