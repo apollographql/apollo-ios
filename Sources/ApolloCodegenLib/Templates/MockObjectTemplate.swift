@@ -34,15 +34,15 @@ struct MockObjectTemplate: TemplateRenderer {
         )
       }
 
-    let accessControl = embeddedAccessControlModifier(target: target)
+    let memberAccessControl = accessControlModifier(target: target, definition: .member)
 
     return """
-    \(accessControl)class \(objectName): MockObject {
-      \(accessControl)static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
-      \(accessControl)static let _mockFields = MockFields()
-      \(accessControl)typealias MockValueCollectionType = Array<Mock<\(objectName)>>
+    \(accessControlModifier(target: target, definition: .parent))class \(objectName): MockObject {
+      \(memberAccessControl)static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
+      \(memberAccessControl)static let _mockFields = MockFields()
+      \(memberAccessControl)typealias MockValueCollectionType = Array<Mock<\(objectName)>>
 
-      \(accessControl)struct MockFields {
+      \(memberAccessControl)struct MockFields {
         \(fields.map {
           TemplateString("""
           \(deprecationReason: $0.deprecationReason, config: config)
@@ -54,7 +54,7 @@ struct MockObjectTemplate: TemplateRenderer {
     \(!fields.isEmpty ?
       TemplateString("""
       
-      \(embeddedAccessControlModifier(target: target))\
+      \(accessControlModifier(target: target, definition: .parent))\
       extension Mock where O == \(objectName) {
         \(conflictingFieldNameProperties(fields))
         convenience init(

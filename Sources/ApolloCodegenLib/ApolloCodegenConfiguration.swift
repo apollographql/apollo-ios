@@ -1005,15 +1005,6 @@ extension ApolloCodegenConfiguration.OutputOptions {
   }
 }
 
-extension ApolloCodegenConfiguration.AccessModifier {
-  var swiftString: String {
-    switch self {
-    case .public: return "public "
-    case .internal: return ""
-    }
-  }
-}
-
 // MARK: - SelectionSetInitializers - Private Implementation
 
 extension ApolloCodegenConfiguration.SelectionSetInitializers {

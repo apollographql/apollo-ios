@@ -16,44 +16,35 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   /// Swift code that can be embedded within a namespace.
   var embeddableTemplate: TemplateString {
-    let accessLevel = embeddedAccessControlModifier(target: target)
+    let parentAccessLevel = accessControlModifier(target: target, definition: .parent)
 
     return TemplateString(
     """
-    \(accessLevel)\
-    typealias ID = String
+    \(parentAccessLevel)typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      \(accessLevel)\
-      typealias SelectionSet = \(schemaNamespace)_SelectionSet
+      \(parentAccessLevel)typealias SelectionSet = \(schemaNamespace)_SelectionSet
 
-      \(accessLevel)\
-      typealias InlineFragment = \(schemaNamespace)_InlineFragment
+      \(parentAccessLevel)typealias InlineFragment = \(schemaNamespace)_InlineFragment
 
-      \(accessLevel)\
-      typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
+      \(parentAccessLevel)typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
 
-      \(accessLevel)\
-      typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
+      \(parentAccessLevel)typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaNamespace: schemaNamespace))
 
     \(documentation: schema.documentation, config: config)
-    \(accessLevel)\
-    enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
-      \(accessLevel)\
-    static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+    \(parentAccessLevel)enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
+      \(accessControlModifier(target: target, definition: .member))\
+      static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }
 
-    \(accessLevel)\
-    enum Objects {}
-    \(accessLevel)\
-    enum Interfaces {}
-    \(accessLevel)\
-    enum Unions {}
+    \(parentAccessLevel)enum Objects {}
+    \(parentAccessLevel)enum Interfaces {}
+    \(parentAccessLevel)enum Unions {}
 
     """
     )
@@ -61,7 +52,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    \(embeddedAccessControlModifier(target: target))\
+    \(accessControlModifier(target: target, definition: .member))\
     static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
@@ -86,7 +77,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   }
 
   private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
-    let accessLevel = embeddedAccessControlModifier(target: target)
+    let accessLevel = accessControlModifier(target: target, definition: .member)
 
     return TemplateString("""
       \(accessLevel)protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet

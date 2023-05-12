@@ -12,14 +12,14 @@ struct FragmentTemplate: TemplateRenderer {
 
   var template: TemplateString {
     let definition = IR.Definition.namedFragment(fragment)
-    let accessControl = embeddedAccessControlModifier(target: target)
 
     return TemplateString(
     """
-    \(accessControl)\
+    \(accessControlModifier(target: target, definition: .parent))\
     struct \(fragment.generatedDefinitionName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
-      \(accessControl)static var fragmentDefinition: StaticString { ""\"
+      \(accessControlModifier(target: target, definition: .member))\
+      static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }
 
@@ -27,7 +27,7 @@ struct FragmentTemplate: TemplateRenderer {
         definition: definition,
         generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
         config: config,
-        accessControlRenderer: { embeddedAccessControlModifier(target: target) }()
+        accessControlRenderer: { accessControlModifier(target: target, definition: .member) }()
       ).renderBody())
     }
 
