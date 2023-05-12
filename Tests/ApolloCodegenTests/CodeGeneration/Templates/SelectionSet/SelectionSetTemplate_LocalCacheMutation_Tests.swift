@@ -50,8 +50,9 @@ class SelectionSetTemplate_LocalCacheMutationTests: XCTestCase {
       definition: .operation(self.operation),
       generateInitializers: false,
       config: config,
-      accessControlRenderer: mockTemplateRenderer.embeddedAccessControlModifier(
-        target: mockTemplateRenderer.target
+      accessControlRenderer: mockTemplateRenderer.accessControlModifier(
+        target: mockTemplateRenderer.target,
+        definition: .member
       )
     )
   }

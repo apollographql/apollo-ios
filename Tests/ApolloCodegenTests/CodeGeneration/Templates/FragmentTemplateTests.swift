@@ -371,7 +371,7 @@ class FragmentTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public struct TestFragment: TestSchema.SelectionSet, Fragment {
+    struct TestFragment: TestSchema.SelectionSet, Fragment {
       public static var fragmentDefinition: StaticString { ""\"
     """
 

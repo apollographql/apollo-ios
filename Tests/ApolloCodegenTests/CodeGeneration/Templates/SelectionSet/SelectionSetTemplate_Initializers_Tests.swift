@@ -49,8 +49,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       definition: .operation(self.operation),
       generateInitializers: true,
       config: ApolloCodegen.ConfigurationContext(config: config),
-      accessControlRenderer: mockTemplateRenderer.embeddedAccessControlModifier(
-        target: mockTemplateRenderer.target
+      accessControlRenderer: mockTemplateRenderer.accessControlModifier(
+        target: mockTemplateRenderer.target,
+        definition: .member
       )
     )
   }

@@ -127,7 +127,7 @@ class CustomScalarTemplateTests: XCTestCase {
     buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public)))
 
     let expected = """
-    public typealias MyCustomScalar = String
+    typealias MyCustomScalar = String
     """
 
     // when

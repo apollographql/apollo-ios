@@ -56,7 +56,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget", accessModifier: .public)))
 
     let expected = """
-    public typealias ID = String
+    typealias ID = String
 
     """
 
@@ -154,13 +154,13 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expectedTemplate = """
-    public typealias SelectionSet = AName_SelectionSet
+    typealias SelectionSet = AName_SelectionSet
 
-    public typealias InlineFragment = AName_InlineFragment
+    typealias InlineFragment = AName_InlineFragment
 
-    public typealias MutableSelectionSet = AName_MutableSelectionSet
+    typealias MutableSelectionSet = AName_MutableSelectionSet
 
-    public typealias MutableInlineFragment = AName_MutableInlineFragment
+    typealias MutableInlineFragment = AName_MutableInlineFragment
 
     """
 
@@ -315,7 +315,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget", accessModifier: .public)))
 
     let expected = """
-    public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
       public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
@@ -486,9 +486,9 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public enum Objects {}
-    public enum Interfaces {}
-    public enum Unions {}
+    enum Objects {}
+    enum Interfaces {}
+    enum Unions {}
 
     """
 

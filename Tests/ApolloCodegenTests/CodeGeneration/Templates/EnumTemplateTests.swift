@@ -98,7 +98,7 @@ class EnumTemplateTests: XCTestCase {
     buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public)))
 
     let expected = """
-    public enum TestEnum: String, EnumType {
+    enum TestEnum: String, EnumType {
     """
 
     // when

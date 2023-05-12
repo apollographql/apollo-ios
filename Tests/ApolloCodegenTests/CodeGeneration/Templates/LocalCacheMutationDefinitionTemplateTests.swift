@@ -91,7 +91,7 @@ class LocalCacheMutationDefinitionTemplateTests: XCTestCase {
     // given
     let expected =
     """
-    public class TestOperationLocalCacheMutation: LocalCacheMutation {
+    class TestOperationLocalCacheMutation: LocalCacheMutation {
       public static let operationType: GraphQLOperationType = .query
 
     """

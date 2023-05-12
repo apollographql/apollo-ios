@@ -211,7 +211,7 @@ class InputObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    public struct MockInput: InputObject {
+    struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {

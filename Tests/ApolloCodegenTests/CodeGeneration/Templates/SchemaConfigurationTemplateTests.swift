@@ -82,7 +82,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
   func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_rendersTemplate_withPublicAccess() throws {
     // given
     let expected = """
-    public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+    enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
       public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
