@@ -24,9 +24,10 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   private var subsequentWatchers: [GraphQLQueryWatcher<Query>] = []
 
   private let createPageQuery: CreatePageQuery
-  private let nextPageTransform: (T?, T, GraphQLResult<Query.Data>.Source) -> T
+  private let nextPageTransform: ([T], T, GraphQLResult<Query.Data>.Source) -> T
 
-  private var model: T? // 🚗
+  private var modelMap: [Cursor?: T] = [:]
+  private var cursorOrder: [Cursor?] = []
   private var resultHandler: ResultHandler?
   private var callbackQueue: DispatchQueue
   private var page: Page?
@@ -49,7 +50,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     query: Query,
     createPageQuery: @escaping CreatePageQuery,
     transform: @escaping (Query.Data) -> (T?, Page?)?,
-    nextPageTransform: @escaping (T?, T, GraphQLResult<Query.Data>.Source) -> T,
+    nextPageTransform: @escaping ([T], T, GraphQLResult<Query.Data>.Source) -> T,
     onReceiveResults: @escaping (Result<T, Error>) -> Void
   ) {
     self.callbackQueue = callbackQueue
@@ -69,8 +70,18 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
               let (transformedModel, page) = transform(data),
               let transformedModel
         else { return }
-        let model = nextPageTransform(self.model, transformedModel, graphQLResult.source)
-        self.model = model
+        modelMap[page?.endCursor] = transformedModel
+        if !cursorOrder.contains(page?.endCursor) {
+          cursorOrder.append(page?.endCursor)
+        }
+        let allData = cursorOrder.compactMap { [weak self] cursor in
+          self?.modelMap[cursor]
+        }
+        let model = nextPageTransform(
+          allData, // All Data
+          transformedModel, // Most recent changeset
+          graphQLResult.source // Source of that change set
+        )
         self.page = page
         onReceiveResults(.success(model))
       }
@@ -86,7 +97,8 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   }
 
   public func fetch() {
-    model = nil
+    modelMap.removeAll()
+    cursorOrder.removeAll()
     initialWatcher?.refetch()
     cancelSubsequentWatchers()
   }

@@ -103,12 +103,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         )
-      } nextPageTransform: { oldData, newData, _ in
-        guard let oldData else { return newData }
-
+      } nextPageTransform: { models, mostRecent, source in
         return HeroViewModel(
-          name: newData.name,
-          friends: oldData.friends + newData.friends
+          name: mostRecent.name,
+          friends: models.flatMap { $0.friends }
         )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }
@@ -221,12 +219,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         )
-      } nextPageTransform: { oldData, newData, _ in
-        guard let oldData else { return newData }
-
+      } nextPageTransform: { models, mostRecent, source in
         return HeroViewModel(
-          name: newData.name,
-          friends: oldData.friends + newData.friends
+          name: mostRecent.name,
+          friends: models.flatMap { $0.friends }
         )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }
@@ -345,44 +341,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: nil
           )
         )
-      } nextPageTransform: { oldData, newData, source in
-        guard let oldData else { return newData }
-        switch source {
-        case .server:
-          // We have brand new data, from a new page
-          // In practice, this should be an `OrderedSet` or `IdentifiedCollection` of some kind
-          // to prevent duplicate keys, but this is left for the consumer to implement
-          // as we cannot mandate what shape or form their data transform takes
-          return HeroViewModel(
-            name: newData.name,
-            friends: oldData.friends + newData.friends
-          )
-        case .cache:
-          // Data comes in from the cache, implying modification of existing data.
-          // This is left to the consumer to implement.
-          // In practice, the consumer must diff their new result with their old result and
-          // apply the diffs in the appropriate manner.
-
-          // This test doesn't account for removals or additions.
-          // Only updates
-
-          var friends = oldData.friends
-          let diffs: [(Array.Index, HeroViewModel.Friend)] = oldData.friends
-            .enumerated()
-            .compactMap { index, element in
-              guard let changedFriend = newData.friends.first(where: { $0.id == element.id })
-              else { return nil }
-              return (index, changedFriend)
-            }
-
-          diffs.forEach { (index, newFriend) in
-            friends[index] = newFriend
-          }
-          return HeroViewModel(
-            name: newData.name,
-            friends: friends
-          )
-        }
+      } nextPageTransform: { models, mostRecent, source in
+        return HeroViewModel(
+          name: mostRecent.name,
+          friends: models.flatMap { $0.friends }
+        )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }
         results.append(value)
