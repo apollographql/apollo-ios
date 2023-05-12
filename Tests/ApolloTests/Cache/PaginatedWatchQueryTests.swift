@@ -103,10 +103,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         )
-      } nextPageTransform: { models, mostRecent, source in
+      } nextPageTransform: { response in
         return HeroViewModel(
-          name: mostRecent.name,
-          friends: models.flatMap { $0.friends }
+          name: response.mostRecent.name,
+          friends: response.allResponses.flatMap { $0.friends }
         )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }
@@ -219,10 +219,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         )
-      } nextPageTransform: { models, mostRecent, source in
+      } nextPageTransform: { response in
         return HeroViewModel(
-          name: mostRecent.name,
-          friends: models.flatMap { $0.friends }
+          name: response.mostRecent.name,
+          friends: response.allResponses.flatMap { $0.friends }
         )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }
@@ -284,7 +284,6 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
   func testFetchAndLocalCacheUpdate() {
     let query = MockQuery<MockLocalCacheMutationSelectionSet>()
-    let resultObserver = makeResultObserver(for: query)
     query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
     var results: [HeroViewModel] = []
     var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockLocalCacheMutationSelectionSet>, HeroViewModel>!
@@ -341,10 +340,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: nil
           )
         )
-      } nextPageTransform: { models, mostRecent, source in
+      } nextPageTransform: { response in
         return HeroViewModel(
-          name: mostRecent.name,
-          friends: models.flatMap { $0.friends }
+          name: response.mostRecent.name,
+          friends: response.allResponses.flatMap { $0.friends }
         )
       } onReceiveResults: { result in
         guard case let .success(value) = result else { return XCTFail() }

@@ -13,6 +13,12 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     let endCursor: Cursor?
   }
 
+  public struct DataResponse {
+    let allResponses: [T]
+    let mostRecent: T
+    let source: GraphQLResult<Query.Data>.Source
+  }
+
   /// Given a page, create a query of the type this watcher is responsible for
   public typealias CreatePageQuery = (Page) -> Query?
 
@@ -24,7 +30,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   private var subsequentWatchers: [GraphQLQueryWatcher<Query>] = []
 
   private let createPageQuery: CreatePageQuery
-  private let nextPageTransform: ([T], T, GraphQLResult<Query.Data>.Source) -> T
+  private let nextPageTransform: (DataResponse) -> T
 
   private var modelMap: [Cursor?: T] = [:]
   private var cursorOrder: [Cursor?] = []
@@ -50,7 +56,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     query: Query,
     createPageQuery: @escaping CreatePageQuery,
     transform: @escaping (Query.Data) -> (T?, Page?)?,
-    nextPageTransform: @escaping ([T], T, GraphQLResult<Query.Data>.Source) -> T,
+    nextPageTransform: @escaping (DataResponse) -> T,
     onReceiveResults: @escaping (Result<T, Error>) -> Void
   ) {
     self.callbackQueue = callbackQueue
@@ -74,13 +80,14 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
         if !cursorOrder.contains(page?.endCursor) {
           cursorOrder.append(page?.endCursor)
         }
-        let allData = cursorOrder.compactMap { [weak self] cursor in
-          self?.modelMap[cursor]
-        }
         let model = nextPageTransform(
-          allData, // All Data
-          transformedModel, // Most recent changeset
-          graphQLResult.source // Source of that change set
+          DataResponse(
+            allResponses: cursorOrder.compactMap { [weak self] cursor in
+              self?.modelMap[cursor]
+            },
+            mostRecent: transformedModel,
+            source: graphQLResult.source
+          )
         )
         self.page = page
         onReceiveResults(.success(model))
