@@ -3,6 +3,8 @@ import Foundation
 import ApolloAPI
 #endif
 
+/// A `GraphQLExecutionSource` configured to execute upon the JSON data from the network response
+/// for a GraphQL operation.
 struct NetworkResponseExecutionSource:
   GraphQLExecutionSource,
   CacheKeyComputingExecutionSource

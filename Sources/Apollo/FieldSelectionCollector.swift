@@ -32,6 +32,12 @@ struct FieldSelectionGrouping: Sequence {
   }
 }
 
+/// A protocol for a type that defines how to collect and group the selections for an object
+/// during GraphQLExecution.
+///
+/// A `FieldSelectionController` is responsible for determining which selections should be executed
+/// and which fragments are being fulfilled during execution. It does this by adding them to the
+/// provided `FieldSelectionGrouping`.
 protocol FieldSelectionCollector<ObjectData> {
 
   associatedtype ObjectData

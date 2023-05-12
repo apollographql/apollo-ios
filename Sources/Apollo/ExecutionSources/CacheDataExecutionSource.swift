@@ -3,10 +3,20 @@ import Foundation
 import ApolloAPI
 #endif
 
+/// A `GraphQLExecutionSource` configured to execute upon the data stored in a ``NormalizedCache``.
+///
+/// Each object exposed by the cache is represented as a `Record`.
 struct CacheDataExecutionSource: GraphQLExecutionSource {
-  typealias RawData = Record
+  typealias RawObjectData = Record
   typealias FieldCollector = CacheDataFieldSelectionCollector
 
+  /// A `weak` reference to the transaction the cache data is being read from during execution.
+  /// This transaction is used to resolve references to other objects in the cache during field
+  /// value resolution.
+  ///
+  /// This property is `weak` to ensure there is not a retain cycle between the transaction and the
+  /// execution pipeline. If the transaction has been deallocated, execution cannot continue
+  /// against the cache data.
   weak var transaction: ApolloStore.ReadTransaction?
 
   init(transaction: ApolloStore.ReadTransaction) {
@@ -59,6 +69,8 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     return object.key
   }
 
+  /// A wrapper around the `DefaultFieldSelectionCollector` that maps the `Record` object to it's
+  /// `fields` representing the object's data.
   struct CacheDataFieldSelectionCollector: FieldSelectionCollector {
     static func collectFields(
       from selections: [Selection],
