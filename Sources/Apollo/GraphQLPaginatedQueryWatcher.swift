@@ -20,11 +20,11 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
 
   private let client: any ApolloClientProtocol
 
-  private var initialWatcher: GraphQLQueryWatcher<Query>?
+  var initialWatcher: GraphQLQueryWatcher<Query>?
   private var subsequentWatchers: [GraphQLQueryWatcher<Query>] = []
 
   private let createPageQuery: CreatePageQuery
-  private let nextPageTransform: (T?, T) -> T
+  private let nextPageTransform: (T?, T, GraphQLResult<Query.Data>.Source) -> T
 
   private var model: T? // 🚗
   private var resultHandler: ResultHandler?
@@ -49,7 +49,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     query: Query,
     createPageQuery: @escaping CreatePageQuery,
     transform: @escaping (Query.Data) -> (T?, Page?)?,
-    nextPageTransform: @escaping (T?, T) -> T,
+    nextPageTransform: @escaping (T?, T, GraphQLResult<Query.Data>.Source) -> T,
     onReceiveResults: @escaping (Result<T, Error>) -> Void
   ) {
     self.callbackQueue = callbackQueue
@@ -69,7 +69,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
               let (transformedModel, page) = transform(data),
               let transformedModel
         else { return }
-        let model = nextPageTransform(self.model, transformedModel)
+        let model = nextPageTransform(self.model, transformedModel, graphQLResult.source)
         self.model = model
         self.page = page
         onReceiveResults(.success(model))
