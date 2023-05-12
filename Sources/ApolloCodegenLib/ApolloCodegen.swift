@@ -21,6 +21,7 @@ public class ApolloCodegen {
     case invalidConfiguration(message: String)
     case invalidSchemaName(_ name: String, message: String)
     case targetNameConflict(name: String)
+    case typeNameConflict(name: String, conflictingName: String)
 
     public var errorDescription: String? {
       switch self {
@@ -53,8 +54,13 @@ public class ApolloCodegen {
         return "The schema namespace `\(name)` is invalid: \(message)"
       case let .targetNameConflict(name):
         return """
-          Target name '\(name)' conflicts with a reserved library name. Please choose a different \
-          target name.
+        Target name '\(name)' conflicts with a reserved library name. Please choose a different \
+        target name.
+        """
+      case let .typeNameConflict(name, conflictingName):
+        return """
+        Field '\(conflictingName)' conflicts with field '\(name)' in selection set. Recommend \
+        using a field alias for one of these fields to resolve this conflict.
         """
       }
     }
@@ -212,6 +218,24 @@ public class ApolloCodegen {
       throw Error.schemaNameConflict(name: context.schemaNamespace)
     }
   }
+  
+  /// Validates that there are no type conflicts within a SelectionSet
+  static private func validateTypeConflicts(for selectionSet: IR.SelectionSet, with context: ConfigurationContext) throws {
+    // Check for type conflicts resulting from singularization/pluralization of fields
+    var typeNames = [String: String]()
+    var fields: [IR.EntityField] = selectionSet.selections.direct?.fields.values.compactMap({ $0 as? IR.EntityField }) ?? []
+    fields.append(contentsOf: selectionSet.selections.merged.fields.values.compactMap({ $0 as? IR.EntityField }))
+
+    try fields.forEach({ field in
+      let formattedTypeName = field.formattedSelectionSetName(with: context.pluralizer)
+      if let existingFieldName = typeNames[formattedTypeName] {
+        throw Error.typeNameConflict(name: existingFieldName, conflictingName: field.name)
+      }
+      
+      typeNames[formattedTypeName] = field.name
+      try validateTypeConflicts(for: field.selectionSet, with: context)
+    })
+  }
 
   /// Performs GraphQL source validation and compiles the schema and operation source documents.
   static func compileGraphQLResult(
@@ -304,6 +328,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
+        try validateTypeConflicts(for: irFragment.rootField.selectionSet, with: config)
         try FragmentFileGenerator(irFragment: irFragment, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
@@ -314,6 +339,7 @@ public class ApolloCodegen {
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
+        try validateTypeConflicts(for: irOperation.rootField.selectionSet, with: config)
         try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 

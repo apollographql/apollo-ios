@@ -624,7 +624,7 @@ fileprivate extension IR.SelectionSet {
 
 }
 
-fileprivate extension IR.EntityField {
+extension IR.EntityField {
 
   func formattedSelectionSetName(
     with pluralizer: Pluralizer

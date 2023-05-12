@@ -2334,6 +2334,78 @@ class ApolloCodegenTests: XCTestCase {
     // then
     expect(try ApolloCodegen._validate(config: config)).notTo(throwError())
   }
+  
+  func test__validation__selectionSet_typeConflicts_shouldThrowError() throws {
+    let schemaDefData: Data = {
+      """
+      type Query {
+        user: User
+      }
+
+      type User {
+        containers: [Container]
+      }
+
+      type Container {
+        value: Value
+        values: [Value]
+      }
+
+      type Value {
+        propertyA: String!
+        propertyB: String!
+        propertyC: String!
+        propertyD: String!
+      }
+      """
+    }().data(using: .utf8)!
+    
+    let operationData: Data =
+      """
+      query ConflictingQuery {
+          user {
+              containers {
+                  value {
+                      propertyA
+                      propertyB
+                      propertyC
+                      propertyD
+                  }
+
+                  values {
+                      propertyA
+                      propertyC
+                  }
+              }
+          }
+      }
+      """.data(using: .utf8)!
+    
+    try createFile(containing: schemaDefData, named: "schema.graphqls")
+    try createFile(containing: operationData, named: "operation.graphql")
+    
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      )
+    )
+    
+    expect(try ApolloCodegen.build(with: config))
+      .to(throwError { error in
+        guard case let ApolloCodegen.Error.typeNameConflict(name, conflictingName) = error else {
+          fail("Expected .typeNameConflict, got .\(error)")
+          return
+        }
+        expect(name).to(equal("value"))
+        expect(conflictingName).to(equal("values"))
+      })
+  }
 
   // MARK: Path Match Exclusion Tests
 
