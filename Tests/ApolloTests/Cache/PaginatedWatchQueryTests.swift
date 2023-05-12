@@ -379,6 +379,102 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       ])
     }
   }
+
+  func testFetchAndLocalCacheObjectDeletion() {
+    let query = MockQuery<MockLocalCacheMutationSelectionSet>()
+    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    var results: [HeroViewModel] = []
+    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockLocalCacheMutationSelectionSet>, HeroViewModel>!
+    addTeardownBlock { watcher.cancel() }
+
+    let resultExpectation = expectation(description: "Results block has been updated")
+    resultExpectation.expectedFulfillmentCount = 2
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(MockQuery<MockLocalCacheMutationSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsConnection": [
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "name": "Luke Skywalker",
+                    "id": "1000",
+                  ],
+                  [
+                    "name": "Han Solo",
+                    "id": "1002",
+                  ],
+                  [
+                    "name": "Leia Organa",
+                    "id": "1003",
+                  ]
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher = GraphQLPaginatedQueryWatcher(
+        client: client,
+        query: query
+      ) { pageInfo in
+        let query = MockQuery<MockLocalCacheMutationSelectionSet>()
+        query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+        return query
+      } transform: { data in
+        (
+          HeroViewModel(
+            name: data.hero?.name ?? "",
+            friends: data.hero?.friendsConnection.friends?.map {
+              HeroViewModel.Friend(name: $0.name, id: $0.id)
+            } ?? []
+          ),
+          GraphQLPaginatedQueryWatcher.Page(
+            hasNextPage: false,
+            endCursor: nil
+          )
+        )
+      } nextPageTransform: { response in
+        return HeroViewModel(
+          name: response.mostRecent.name,
+          friends: response.allResponses.flatMap { $0.friends }
+        )
+      } onReceiveResults: { result in
+        guard case let .success(value) = result else { return XCTFail() }
+        results.append(value)
+        resultExpectation.fulfill()
+      }
+      wait(for: [serverExpectation], timeout: 1.0)
+    }
+
+    runActivity("Local Cache Mutation") { _ in
+      client.store.withinReadWriteTransaction { transaction in
+        let cacheMutation = MockLocalCacheMutation<MockLocalCacheMutationSelectionSet>()
+        cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+        try transaction.update(cacheMutation) { data in
+          data.hero?.friendsConnection.friends?.removeFirst()
+        }
+      }
+
+      wait(for: [resultExpectation], timeout: 1.0)
+      XCTAssertEqual(results.count, 2)
+      XCTAssertEqual(results, [
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Luke Skywalker", id: "1000"),
+          HeroViewModel.Friend(name: "Han Solo", id: "1002"),
+          HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
+        ]),
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Han Solo", id: "1002"),
+          HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
+        ])
+      ])
+    }
+  }
 }
 
 private class MockPaginatedSelectionSet: MockSelectionSet {
