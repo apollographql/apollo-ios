@@ -37,7 +37,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     \(documentation: schema.documentation, config: config)
     \(parentAccessLevel)enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
       \(accessControlModifier(target: target, definition: .member))\
-      static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+    static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }

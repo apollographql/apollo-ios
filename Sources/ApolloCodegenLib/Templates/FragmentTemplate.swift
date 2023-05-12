@@ -19,7 +19,7 @@ struct FragmentTemplate: TemplateRenderer {
     struct \(fragment.generatedDefinitionName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
       \(accessControlModifier(target: target, definition: .member))\
-      static var fragmentDefinition: StaticString { ""\"
+    static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }
 
