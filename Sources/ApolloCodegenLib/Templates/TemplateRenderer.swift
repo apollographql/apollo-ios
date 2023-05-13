@@ -11,7 +11,7 @@ enum TemplateTarget: Equatable {
   /// Used in test mock files; schema object `Mockable` extensions
   case testMockFile
 
-  enum SchemaFileType: Equatable, CaseIterable {
+  enum SchemaFileType: Equatable {
     case schemaMetadata
     case schemaConfiguration
     case object
