@@ -27,7 +27,7 @@ struct FragmentTemplate: TemplateRenderer {
         definition: definition,
         generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
         config: config,
-        accessControlRenderer: { accessControlModifier(for: .member) }()
+        renderAccessControl: { accessControlModifier(for: .member) }()
       ).renderBody())
     }
 

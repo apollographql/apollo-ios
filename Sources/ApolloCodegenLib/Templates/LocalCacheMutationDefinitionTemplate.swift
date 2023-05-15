@@ -29,7 +29,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
             definition: definition,            
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
             config: config,
-            accessControlRenderer: { accessControlModifier(for: .member) }()
+            renderAccessControl: { accessControlModifier(for: .member) }()
         ).renderBody())
       }
     }

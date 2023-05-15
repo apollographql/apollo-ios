@@ -49,7 +49,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       definition: .operation(self.operation),
       generateInitializers: true,
       config: ApolloCodegen.ConfigurationContext(config: config),
-      accessControlRenderer: mockTemplateRenderer.accessControlModifier(for: .member)
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
     )
   }
 

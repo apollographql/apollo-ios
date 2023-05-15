@@ -271,7 +271,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
       definition: .operation(operation),
       generateInitializers: true,
       config: config,
-      accessControlRenderer: { "does not matter" }()
+      renderAccessControl: { "does not matter" }()
     )
 
     let expected = #"""
@@ -400,7 +400,7 @@ final class TemplateString_DeprecationMessage_Tests: XCTestCase {
       definition: .operation(operation),
       generateInitializers: true,
       config: config,
-      accessControlRenderer: { "does not matter" }()
+      renderAccessControl: { "does not matter" }()
     )
 
     let expected = #"""

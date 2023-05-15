@@ -56,7 +56,7 @@ class SelectionSetTemplateTests: XCTestCase {
       definition: .operation(self.operation),
       generateInitializers: false,
       config: config,
-      accessControlRenderer: mockTemplateRenderer.accessControlModifier(for: .member)
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
     )
   }
 
