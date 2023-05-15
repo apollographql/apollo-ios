@@ -59,8 +59,10 @@ public class ApolloCodegen {
         """
       case let .typeNameConflict(name, conflictingName, containingObject):
         return """
+        TypeNameConflict - \
         Field '\(conflictingName)' conflicts with field '\(name)' in operation/fragment `\(containingObject)`. \
-        Recommend using a field alias for one of these fields to resolve this conflict.
+        Recommend using a field alias for one of these fields to resolve this conflict. \
+        For more info see: https://www.apollographql.com/docs/ios/troubleshooting/codegen-troubleshooting#typenameconflict
         """
       }
     }
@@ -243,8 +245,6 @@ public class ApolloCodegen {
     // gather nested fragments to loop through and check as well
     var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.elements ?? []
     nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values)
-    nestedSelectionSets.append(contentsOf: selectionSet.selections.direct?.fragments.values.map { $0.fragment.rootField.selectionSet } ?? [])
-    nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.fragments.values.map { $0.fragment.rootField.selectionSet })
     
     try nestedSelectionSets.forEach { nestedSet in
       try validateTypeConflicts(for: nestedSet, with: context, in: containingObject)
