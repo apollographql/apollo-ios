@@ -21,7 +21,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         identifier: operation.operationIdentifier,
         fragments: operation.referencedFragments,
         config: config,
-        accessControlRenderer: { accessControlModifier(target: target, definition: .member) }()
+        accessControlRenderer: { accessControlModifier(for: .member, in: target) }()
       ))
 
       \(section: VariableProperties(operation.definition.variables))
@@ -30,12 +30,12 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      \(accessControlModifier(target: target, definition: .member))struct Data: \(definition.renderedSelectionSetType(config)) {
+      \(accessControlModifier(for: .member, in: target))struct Data: \(definition.renderedSelectionSetType(config)) {
         \(SelectionSetTemplate(
             definition: definition,
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
             config: config,
-            accessControlRenderer: { accessControlModifier(target: target, definition: .member) }()
+            accessControlRenderer: { accessControlModifier(for: .member, in: target) }()
         ).renderBody())
       }
     }
@@ -45,10 +45,10 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
   private func OperationDeclaration() -> TemplateString {
     return """
-    \(accessControlModifier(target: target, definition: .parent))\
+    \(accessControlModifier(for: .parent, in: target))\
     class \(operation.generatedDefinitionName): \
     \(operation.definition.operationType.renderedProtocolName) {
-      \(accessControlModifier(target: target, definition: .member))\
+      \(accessControlModifier(for: .member, in: target))\
     static let operationName: String = "\(operation.definition.name)"
     """
   }

@@ -57,8 +57,8 @@ class SelectionSetTemplateTests: XCTestCase {
       generateInitializers: false,
       config: config,
       accessControlRenderer: mockTemplateRenderer.accessControlModifier(
-        target: mockTemplateRenderer.target,
-        definition: .member
+        for: .member,
+        in: mockTemplateRenderer.target
       )
     )
   }

@@ -103,7 +103,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.SchemaType.template(for: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
-    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: accessControlModifier(target: target, definition: .namespace)) }, else: template)
+    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: accessControlModifier(for: .namespace, in: target)) }, else: template)
     """
     ).description
   }
@@ -117,7 +117,7 @@ extension TemplateRenderer {
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
       template.wrappedInNamespace(
         config.schemaNamespace.firstUppercased,
-        accessModifier: accessControlModifier(target: target, definition: .namespace)
+        accessModifier: accessControlModifier(for: .namespace, in: target)
     ), else:
       template)
     """
@@ -156,7 +156,7 @@ fileprivate extension ApolloCodegenConfiguration.AccessModifier {
   }
 }
 
-enum AccessControlModifierTypeDefinition {
+enum AccessControlScope {
   case namespace
   case parent
   case member
@@ -164,20 +164,20 @@ enum AccessControlModifierTypeDefinition {
 
 extension TemplateRenderer {
   func accessControlModifier(
-    target: TemplateTarget,
-    definition: AccessControlModifierTypeDefinition
+    for scope: AccessControlScope,
+    in target: TemplateTarget
   ) -> String {
     switch target {
-    case .moduleFile, .schemaFile: return schemaAccessControlModifier(definition: definition)
-    case .operationFile: return operationAccessControlModifier(definition: definition)
-    case .testMockFile: return testMockAccessControlModifier(definition: definition)
+    case .moduleFile, .schemaFile: return schemaAccessControlModifier(scope: scope)
+    case .operationFile: return operationAccessControlModifier(scope: scope)
+    case .testMockFile: return testMockAccessControlModifier(scope: scope)
     }
   }
 
   private func schemaAccessControlModifier(
-    definition: AccessControlModifierTypeDefinition
+    scope: AccessControlScope
   ) -> String {
-    switch (config.output.schemaTypes.moduleType, definition) {
+    switch (config.output.schemaTypes.moduleType, scope) {
     case (.embeddedInTarget, .parent):
       return ""
     case
@@ -196,11 +196,11 @@ extension TemplateRenderer {
   }
 
   private func operationAccessControlModifier(
-    definition: AccessControlModifierTypeDefinition
+    scope: AccessControlScope
   ) -> String {
-    switch (config.output.operations, definition) {
+    switch (config.output.operations, scope) {
     case (.inSchemaModule, _):
-        return schemaAccessControlModifier(definition: definition)
+        return schemaAccessControlModifier(scope: scope)
     case
       (.absolute(_, .public), _),
       (.relative(_, .public), _):
@@ -213,9 +213,9 @@ extension TemplateRenderer {
   }
 
   private func testMockAccessControlModifier(
-    definition: AccessControlModifierTypeDefinition
+    scope: AccessControlScope
   ) -> String {
-    switch (config.config.output.testMocks, definition) {
+    switch (config.config.output.testMocks, scope) {
     case (.none, _):
       return ""
     case (.absolute(_, .internal), _):

@@ -16,7 +16,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   /// Swift code that can be embedded within a namespace.
   var embeddableTemplate: TemplateString {
-    let parentAccessLevel = accessControlModifier(target: target, definition: .parent)
+    let parentAccessLevel = accessControlModifier(for: .parent, in: target)
 
     return TemplateString(
     """
@@ -36,7 +36,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
     \(documentation: schema.documentation, config: config)
     \(parentAccessLevel)enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
-      \(accessControlModifier(target: target, definition: .member))\
+      \(accessControlModifier(for: .member, in: target))\
     static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
@@ -52,7 +52,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    \(accessControlModifier(target: target, definition: .member))\
+    \(accessControlModifier(for: .member, in: target))\
     static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
@@ -77,7 +77,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   }
 
   private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
-    let accessLevel = accessControlModifier(target: target, definition: .member)
+    let accessLevel = accessControlModifier(for: .member, in: target)
 
     return TemplateString("""
       \(accessLevel)protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet

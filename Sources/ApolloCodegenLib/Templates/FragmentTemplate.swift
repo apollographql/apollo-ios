@@ -15,10 +15,10 @@ struct FragmentTemplate: TemplateRenderer {
 
     return TemplateString(
     """
-    \(accessControlModifier(target: target, definition: .parent))\
+    \(accessControlModifier(for: .parent, in: target))\
     struct \(fragment.generatedDefinitionName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
-      \(accessControlModifier(target: target, definition: .member))\
+      \(accessControlModifier(for: .member, in: target))\
     static var fragmentDefinition: StaticString { ""\"
         \(fragment.definition.source)
         ""\" }
@@ -27,7 +27,7 @@ struct FragmentTemplate: TemplateRenderer {
         definition: definition,
         generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: fragment),
         config: config,
-        accessControlRenderer: { accessControlModifier(target: target, definition: .member) }()
+        accessControlRenderer: { accessControlModifier(for: .member, in: target) }()
       ).renderBody())
     }
 

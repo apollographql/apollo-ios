@@ -11,7 +11,7 @@ struct MockInterfacesTemplate: TemplateRenderer {
 
   var template: TemplateString {
     TemplateString("""
-    \(accessControlModifier(target: target, definition: .parent))extension MockObject {
+    \(accessControlModifier(for: .parent, in: target))extension MockObject {
       \(graphQLInterfaces.map {
         "typealias \($0.name.firstUppercased) = Interface"
       }, separator: "\n")

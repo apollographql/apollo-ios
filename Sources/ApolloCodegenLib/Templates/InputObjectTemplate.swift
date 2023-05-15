@@ -12,12 +12,12 @@ struct InputObjectTemplate: TemplateRenderer {
 
   var template: TemplateString {
     let (validFields, deprecatedFields) = filterFields(graphqlInputObject.fields)
-    let memberAccessControl = accessControlModifier(target: target, definition: .member)
+    let memberAccessControl = accessControlModifier(for: .member, in: target)
 
     return TemplateString(
     """
     \(documentation: graphqlInputObject.documentation, config: config)
-    \(accessControlModifier(target: target, definition: .parent))\
+    \(accessControlModifier(for: .parent, in: target))\
     struct \(graphqlInputObject.name.firstUppercased): InputObject {
       \(memberAccessControl)private(set) var __data: InputDict
     
@@ -109,7 +109,7 @@ struct InputObjectTemplate: TemplateRenderer {
     """
     \(documentation: field.documentation, config: config)
     \(deprecationReason: field.deprecationReason, config: config)
-    \(accessControlModifier(target: target, definition: .member))\
+    \(accessControlModifier(for: .member, in: target))\
     var \(field.name.asFieldPropertyName): \(field.renderInputValueType(config: config.config)) {
       get { __data["\(field.name)"] }
       set { __data["\(field.name)"] = newValue }
