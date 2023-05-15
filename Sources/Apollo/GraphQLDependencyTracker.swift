@@ -3,6 +3,9 @@ import ApolloAPI
 #endif
 
 final class GraphQLDependencyTracker: GraphQLResultAccumulator {
+
+  let requiresCacheKeyComputation: Bool = true
+
   private var dependentKeys: Set<CacheKey> = Set()
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) {

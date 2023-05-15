@@ -38,13 +38,15 @@ public class DogQuery: GraphQLQuery {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "allAnimals": allAnimals._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// AllAnimal
@@ -72,14 +74,16 @@ public class DogQuery: GraphQLQuery {
         id: AnimalKingdomAPI.ID,
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "id": id,
-          "skinCovering": skinCovering,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "id": id,
+            "skinCovering": skinCovering,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// AllAnimal.AsDog
@@ -111,17 +115,19 @@ public class DogQuery: GraphQLQuery {
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Dog.typename,
-            "id": id,
-            "skinCovering": skinCovering,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+              "id": id,
+              "skinCovering": skinCovering,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(DogFragment.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }

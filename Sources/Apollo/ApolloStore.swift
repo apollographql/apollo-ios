@@ -192,14 +192,9 @@ public class ApolloStore {
     fileprivate let cache: NormalizedCache
 
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
-    fileprivate lazy var executor = GraphQLExecutor { object, info in
-      return object[info.cacheKeyForField]
-    } resolveReference: { [weak self] reference in
-      guard let self = self else {
-        return .immediate(.failure(ApolloStore.Error.notWithinReadTransaction))
-      }
-      return self.loadObject(forKey: reference.key)
-    }
+    fileprivate lazy var executor = GraphQLExecutor(
+      executionSource: CacheDataExecutionSource(transaction: self)
+    ) 
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
@@ -243,10 +238,10 @@ public class ApolloStore {
       )
     }
     
-    fileprivate final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
+    final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<Record> {
       self.loader[key].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
-        return record.fields
+        return record
       }
     }
   }
@@ -317,16 +312,11 @@ public class ApolloStore {
     ) throws {
       let normalizer = ResultNormalizerFactory.selectionSetDataNormalizer()
 
-      let executor = GraphQLExecutor(
-        fieldCollector: CustomCacheDataWritingFieldSelectionCollector(),
-        fieldResolver: { object, info in
-          return object[info.responseKeyForField]
-        }
-      )
+      let executor = GraphQLExecutor(executionSource: SelectionSetModelExecutionSource())
 
       let records = try executor.execute(
         selectionSet: SelectionSet.self,
-        on: selectionSet.__data._data,
+        on: selectionSet.__data,
         withRootCacheReference: CacheReference(key),
         variables: variables,
         accumulator: normalizer

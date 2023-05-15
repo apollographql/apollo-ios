@@ -29,13 +29,15 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     __typename: String,
     height: Height
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "height": height._fieldData,
-      "__fulfilled": Set([
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "height": height._fieldData,
+      ],
+      fulfilledFragments: [
         ObjectIdentifier(Self.self)
-      ])
-    ]))
+      ]
+    ))
   }
 
   /// Height
@@ -56,13 +58,15 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
     public init(
       meters: Int
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Height.typename,
-        "meters": meters,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Height.typename,
+          "meters": meters,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
   }
 }

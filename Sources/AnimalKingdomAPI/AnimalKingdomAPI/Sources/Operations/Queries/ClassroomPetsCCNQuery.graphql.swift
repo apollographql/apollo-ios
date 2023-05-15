@@ -34,13 +34,15 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
     public init(
       classroomPets: [ClassroomPet]? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "classroomPets": classroomPets._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "classroomPets": classroomPets._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// ClassroomPet
@@ -68,13 +70,15 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(ClassroomPetDetailsCCN.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// ClassroomPet.AsAnimal
@@ -104,15 +108,17 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           __typename: String,
           height: ClassroomPetDetailsCCN.AsAnimal.Height
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "height": height._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "height": height._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetailsCCN.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }

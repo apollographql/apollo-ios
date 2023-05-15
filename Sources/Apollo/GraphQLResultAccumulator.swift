@@ -8,6 +8,8 @@ protocol GraphQLResultAccumulator: AnyObject {
   associatedtype ObjectResult
   associatedtype FinalResult
 
+  var requiresCacheKeyComputation: Bool { get }
+
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> PartialResult
   func accept(customScalar: JSONValue, info: FieldExecutionInfo) throws -> PartialResult
   func acceptNullValue(info: FieldExecutionInfo) throws -> PartialResult
@@ -37,10 +39,15 @@ final class Zip2Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
 
   private let accumulator1: Accumulator1
   private let accumulator2: Accumulator2
+  let requiresCacheKeyComputation: Bool
 
   fileprivate init(_ accumulator1: Accumulator1, _ accumulator2: Accumulator2) {
     self.accumulator1 = accumulator1
     self.accumulator2 = accumulator2
+
+    self.requiresCacheKeyComputation =
+    accumulator1.requiresCacheKeyComputation ||
+    accumulator2.requiresCacheKeyComputation
   }
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> PartialResult {
@@ -100,7 +107,7 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
   private let accumulator1: Accumulator1
   private let accumulator2: Accumulator2
   private let accumulator3: Accumulator3
-
+  let requiresCacheKeyComputation: Bool
 
   fileprivate init(_ accumulator1: Accumulator1,
                    _ accumulator2: Accumulator2,
@@ -108,6 +115,10 @@ final class Zip3Accumulator<Accumulator1: GraphQLResultAccumulator, Accumulator2
     self.accumulator1 = accumulator1
     self.accumulator2 = accumulator2
     self.accumulator3 = accumulator3
+    self.requiresCacheKeyComputation =
+    accumulator1.requiresCacheKeyComputation ||
+    accumulator2.requiresCacheKeyComputation ||
+    accumulator3.requiresCacheKeyComputation
   }
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> PartialResult {

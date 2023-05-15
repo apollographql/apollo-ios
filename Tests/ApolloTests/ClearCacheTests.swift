@@ -2,7 +2,7 @@ import XCTest
 @testable import Apollo
 import ApolloInternalTestHelpers
 
-class ExecutionTests: XCTestCase {
+class ClearCacheTests: XCTestCase {
   static let defaultWaitTimeout = 0.5
 
   var store: ApolloStore!

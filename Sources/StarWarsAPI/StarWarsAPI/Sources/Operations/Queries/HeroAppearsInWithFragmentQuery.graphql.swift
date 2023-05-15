@@ -41,13 +41,15 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// Hero
@@ -77,14 +79,16 @@ public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
         __typename: String,
         appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "appearsIn": appearsIn,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "appearsIn": appearsIn,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(CharacterAppearsIn.self)
-          ])
-        ]))
+          ]
+        ))
       }
     }
   }

@@ -398,9 +398,12 @@ struct SelectionSetTemplate {
     public init(
       \(InitializerSelectionParametersTemplate(selectionSet))
     ) {
-      self.init(_dataDict: DataDict(data: [
-        \(InitializerDataDictTemplate(selectionSet))
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          \(InitializerDataDictTemplate(selectionSet))
+        ],
+        fulfilledFragments: \(InitializerFulfilledFragments(selectionSet))
+      ))
     }
     """
   }
@@ -443,7 +446,6 @@ struct SelectionSetTemplate {
       "\(GeneratedSchemaTypeReference(selectionSet.parentType)).typename,",
       else: "__typename,")
     \(IteratorSequence(allFields).map(InitializerDataDictFieldTemplate(_:)), terminator: ",")
-    \(InitializerFulfilledFragments(selectionSet))
     """
     )
   }
@@ -494,9 +496,9 @@ struct SelectionSetTemplate {
     }
 
     return """
-    "__fulfilled": Set([
+    [
       \(fulfilledFragments.map { "ObjectIdentifier(\($0).self)" })
-    ])
+    ]
     """
   }
 
@@ -545,7 +547,7 @@ struct SelectionSetTemplate {
     return rootTypeIsOperationRoot ?
     "\(definition.generatedDefinitionName.firstUppercased).Data.\(rootEntityName)" : rootEntityName
   }
-  
+
 }
 
 fileprivate class SelectionSetNameCache {
