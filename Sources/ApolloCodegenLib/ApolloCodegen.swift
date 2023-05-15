@@ -179,7 +179,7 @@ public class ApolloCodegen {
         """)
     }
     
-    if case let .embeddedInTarget(targetName) = context.output.schemaTypes.moduleType,
+    if case let .embeddedInTarget(targetName, _) = context.output.schemaTypes.moduleType,
        SwiftKeywords.DisallowedEmbeddedTargetNames.contains(targetName.lowercased()) {
       throw Error.targetNameConflict(name: targetName)
     }
@@ -430,13 +430,13 @@ public class ApolloCodegen {
     switch config.output.operations {
     case .inSchemaModule: break
 
-    case let .absolute(operationsPath):
+    case let .absolute(operationsPath, _):
       globs.append(Glob(
         ["\(operationsPath)/**/*.graphql.swift"],
         relativeTo: config.rootURL
       ))
 
-    case let .relative(subpath):
+    case let .relative(subpath, _):
       let searchPaths = config.input.operationSearchPaths.map { searchPath -> String in
         let startOfLastPathComponent = searchPath.lastIndex(of: "/") ?? searchPath.firstIndex(of: ".")!
         var path = searchPath.prefix(upTo: startOfLastPathComponent)
@@ -454,7 +454,7 @@ public class ApolloCodegen {
     }
 
     switch config.output.testMocks {
-    case let .absolute(testMocksPath):
+    case let .absolute(testMocksPath, _):
       globs.append(Glob(
         ["\(testMocksPath)/**/*.graphql.swift"],
         relativeTo: config.rootURL

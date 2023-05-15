@@ -240,8 +240,16 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    extension TestSchema {
       root {
         nested
       }
@@ -303,9 +311,15 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
         atLine: 7
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .inSchemaModule,
+        expectation: expectedPublicNamespace,
         atLine: 6
       )
     ]
@@ -328,7 +342,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     // given
 
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "testschema",
       operations: .inSchemaModule)
 
@@ -349,7 +363,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     // given
 
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TESTSCHEMA",
       operations: .inSchemaModule)
 
@@ -370,7 +384,7 @@ class TemplateRenderer_OperationFile_Tests: XCTestCase {
     // given
 
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TestSchema",
       operations: .inSchemaModule)
 

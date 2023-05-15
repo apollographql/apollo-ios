@@ -206,12 +206,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema {
       root {
         nested
       }
@@ -261,21 +273,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .relative(subpath: nil),
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .absolute(path: "path"),
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .inSchemaModule,
+        expectation: expectedPublicNamespace,
         atLine: 6
       )
     ]
@@ -380,12 +410,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema {
       root {
         nested
       }
@@ -435,21 +477,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .relative(subpath: nil),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .absolute(path: "path"),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .inSchemaModule,
+        expectation: expectedInternalNamespace,
         atLine: 6
       )
     ]
@@ -478,12 +538,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema {
       root {
         nested
       }
@@ -533,21 +605,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .relative(subpath: nil),
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .absolute(path: "path"),
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
+        operations: .inSchemaModule,
+        expectation: expectedPublicNamespace,
         atLine: 6
       )
     ]
@@ -576,12 +666,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema {
       root {
         nested
       }
@@ -631,21 +733,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .relative(subpath: nil),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .absolute(path: "path"),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .inSchemaModule,
+        expectation: expectedInternalNamespace,
         atLine: 6
       )
     ]
@@ -676,12 +796,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema.Objects {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema.Objects {
       root {
         nested
       }
@@ -731,21 +863,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .relative(subpath: nil),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .absolute(path: "path"),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .inSchemaModule,
+        expectation: expectedInternalNamespace,
         atLine: 6
       )
     ]
@@ -776,12 +926,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema.Interfaces {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema.Interfaces {
       root {
         nested
       }
@@ -831,21 +993,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .relative(subpath: nil),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .absolute(path: "path"),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .inSchemaModule,
+        expectation: expectedInternalNamespace,
         atLine: 6
       )
     ]
@@ -876,12 +1056,24 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
     }
     """
 
-    let expectedNamespace = """
+    let expectedPublicNamespace = """
     detached {
       nested
     }
 
     public extension TestSchema.Unions {
+      root {
+        nested
+      }
+    }
+    """
+
+    let expectedInternalNamespace = """
+    detached {
+      nested
+    }
+
+    extension TestSchema.Unions {
       root {
         nested
       }
@@ -931,21 +1123,39 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .relative(subpath: nil),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .relative(subpath: nil),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .absolute(path: "path"),
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
         atLine: 6
       ),
       (
-        schemaTypes: .embeddedInTarget(name: "MockApplication"),
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .absolute(path: "path"),
+        expectation: expectedInternalNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
         operations: .inSchemaModule,
-        expectation: expectedNamespace,
+        expectation: expectedPublicNamespace,
+        atLine: 6
+      ),
+      (
+        schemaTypes: .embeddedInTarget(name: "MockApplication", accessModifier: .internal),
+        operations: .inSchemaModule,
+        expectation: expectedInternalNamespace,
         atLine: 6
       )
     ]
@@ -967,7 +1177,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenLowercasedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateFirstUppercasedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "testschema",
       operations: .inSchemaModule)
 
@@ -987,7 +1197,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenUppercasedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateUppercasedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TESTSCHEMA",
       operations: .inSchemaModule)
 
@@ -1007,7 +1217,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenCapitalizedSchemaName_whenSchemaAndComponentNamespace_shouldGenerateCapitalizedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TestSchema",
       operations: .inSchemaModule)
 
@@ -1027,7 +1237,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenLowercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateFirstUppercasedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "testschema",
       operations: .inSchemaModule)
 
@@ -1047,7 +1257,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenUppercasedSchemaName_whenOnlySchemaNamespace_shouldGenerateUppercasedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TESTSCHEMA",
       operations: .inSchemaModule)
 
@@ -1067,7 +1277,7 @@ class TemplateRenderer_SchemaFile_Tests: XCTestCase {
   func test__casing__givenCapitalizedSchemaName_whenOnlySchemaNamespace_shouldGenerateCapitalizedNamespace() {
     // given
     let config = buildConfig(
-      moduleType: .embeddedInTarget(name: "MockApplication"),
+      moduleType: .embeddedInTarget(name: "MockApplication", accessModifier: .public),
       schemaNamespace: "TestSchema",
       operations: .inSchemaModule)
 

@@ -14,12 +14,13 @@ class MockInterfacesTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
-    interfaces: OrderedSet<GraphQLInterfaceType>
+    interfaces: OrderedSet<GraphQLInterfaceType>,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .swiftPackage()
   ) {
-    let config = ApolloCodegenConfiguration.mock()
+    let config = ApolloCodegenConfiguration.mock(output: .mock(testMocks: testMocks))
 
     subject = MockInterfacesTemplate(
       graphQLInterfaces: interfaces,
@@ -39,7 +40,9 @@ class MockInterfacesTemplateTests: XCTestCase {
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSingleInterfaceType_generatesExtensionWithTypealias() {
+  // MARK: Typealias Tests
+
+  func test__render__givenSingleInterfaceType_generatesExtensionWithTypealias() {
     // given
     let Pet = GraphQLInterfaceType.mock("Pet")
     buildSubject(interfaces: [Pet])
@@ -58,7 +61,7 @@ class MockInterfacesTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test_render_givenMultipleInterfaceTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
+  func test__render__givenMultipleInterfaceTypes_generatesExtensionWithTypealiasesCorrectlyCased() {
     // given
     let InterfaceA = GraphQLInterfaceType.mock("InterfaceA")
     let InterfaceB = GraphQLInterfaceType.mock("interfaceB")
@@ -79,5 +82,58 @@ class MockInterfacesTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
+  }
+
+  // MARK: Access Level Tests
+
+  func test__render__givenInterfaceType_whenTestMocksIsSwiftPackage_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSubject(interfaces: [GraphQLInterfaceType.mock("Pet")], testMocks: .swiftPackage())
+
+    let expected = """
+    public extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenInterfaceType_whenTestMocksAbsolute_withPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSubject(
+      interfaces: [GraphQLInterfaceType.mock("Pet")],
+      testMocks: .absolute(path: "", accessModifier: .public)
+    )
+
+    let expected = """
+    public extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenInterfaceType_whenTestMocksAbsolute_withInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSubject(
+      interfaces: [GraphQLInterfaceType.mock("Pet")],
+      testMocks: .absolute(path: "", accessModifier: .internal)
+    )
+
+    let expected = """
+    extension MockObject {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 }

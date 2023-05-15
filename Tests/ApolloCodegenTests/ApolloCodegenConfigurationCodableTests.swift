@@ -32,9 +32,9 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         output: .init(
           schemaTypes: .init(
             path: "/output/path",
-            moduleType: .embeddedInTarget(name: "SomeTarget")
+            moduleType: .embeddedInTarget(name: "SomeTarget", accessModifier: .public)
           ),
-          operations: .absolute(path: "/absolute/path"),
+          operations: .absolute(path: "/absolute/path", accessModifier: .internal),
           testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
           operationIdentifiersPath: "/operation/identifiers/path"
         ),
@@ -100,12 +100,14 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "operationIdentifiersPath" : "/operation/identifiers/path",
           "operations" : {
             "absolute" : {
+              "accessModifier" : "internal",
               "path" : "/absolute/path"
             }
           },
           "schemaTypes" : {
             "moduleType" : {
               "embeddedInTarget" : {
+                "accessModifier" : "public",
                 "name" : "SomeTarget"
               }
             },
@@ -743,5 +745,58 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(
       try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
     ).to(throwError())
+  }
+
+  // MARK: - Optional Tests
+
+  func test__decodeTestMockFileOutput__givenAbsoluteWithAccessModifier_shouldReturnEnum() throws {
+    // given
+    let subject = """
+    {
+      "absolute" : {
+        "path" : "x",
+        "accessModifier" : "internal"
+      }
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.TestMockFileOutput.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(
+      equal(ApolloCodegenConfiguration.TestMockFileOutput.absolute(
+        path: "x",
+        accessModifier: .internal
+      ))
+    )
+  }
+
+  func test__decodeTestMockFileOutput__givenAbsoluteMissingAccessModifier_shouldReturnEnumWithDefaultAccessModifier() throws {
+    // given
+    let subject = """
+    {
+      "absolute" : {
+        "path" : "y"
+      }
+    }
+    """.asData
+
+    // when
+    let decoded = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.TestMockFileOutput.self,
+      from: subject
+    )
+
+    // then
+    expect(decoded).to(
+      equal(ApolloCodegenConfiguration.TestMockFileOutput.absolute(
+        path: "y",
+        accessModifier: .public
+      ))
+    )
   }
 }

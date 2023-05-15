@@ -22,15 +22,15 @@ let package = Package(
       name: "PackageTwo",
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-warnings-as-errors"])
       ]),
     .target(
       name: "TestMocks",
       dependencies: [
         "PackageTwo",
         .product(name: "ApolloTestSupport", package: "apollo-ios"),
-      ],
-      swiftSettings: [
-        .unsafeFlags(["-warnings-as-errors"])
       ]),
     .testTarget(
       name: "PackageTwoTests",

@@ -750,6 +750,7 @@
 		E660A4D529CAEA0F001EA373 /* MockInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */; };
 		E6630B8C26F0639B002D9E41 /* MockNetworkSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D79AB926EC05290094434A /* MockNetworkSession.swift */; };
 		E6630B8E26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */; };
+		E66644F129D7D2AE005E9140 /* MockTemplateRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66644EF29D7D27C005E9140 /* MockTemplateRenderer.swift */; };
 		E669352B2803EE11004E1FFC /* CustomScalarTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */; };
 		E669352D2803EF67004E1FFC /* CustomScalarTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */; };
 		E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */; };
@@ -1931,6 +1932,7 @@
 		E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPResponse.swift; sourceTree = "<group>"; };
 		E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterceptorProvider.swift; sourceTree = "<group>"; };
 		E6630B8D26F071F9002D9E41 /* SchemaRegistryApolloSchemaDownloaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaRegistryApolloSchemaDownloaderTests.swift; sourceTree = "<group>"; };
+		E66644EF29D7D27C005E9140 /* MockTemplateRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTemplateRenderer.swift; sourceTree = "<group>"; };
 		E669352A2803EE11004E1FFC /* CustomScalarTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplate.swift; sourceTree = "<group>"; };
 		E669352C2803EF67004E1FFC /* CustomScalarTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarTemplateTests.swift; sourceTree = "<group>"; };
 		E669352E2803F09C004E1FFC /* CustomScalarFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomScalarFileGenerator.swift; sourceTree = "<group>"; };
@@ -3878,6 +3880,7 @@
 				DE5FD5FE276922AA0033EE23 /* MockApolloCodegenConfiguration.swift */,
 				E6BEEFA527FAB1C700D94FF4 /* MockFileGenerator.swift */,
 				E6EFDD0C27E8377200B17FE5 /* MockFileTemplate.swift */,
+				E66644EF29D7D27C005E9140 /* MockTemplateRenderer.swift */,
 				DE5B313F27A482C80051C9D3 /* Resources.swift */,
 				DECD490E262F81BF00924527 /* Info.plist */,
 			);
@@ -5775,6 +5778,7 @@
 				DEE2060B27E14498002B4B82 /* IR+InclusionConditionsMock.swift in Sources */,
 				DE01451628A5A971000F6F18 /* MockValidationOptions.swift in Sources */,
 				E6BF98FC272C8FFC00C1FED8 /* MockFileManager.swift in Sources */,
+				E66644F129D7D2AE005E9140 /* MockTemplateRenderer.swift in Sources */,
 				E6BEEFA627FAB1C700D94FF4 /* MockFileGenerator.swift in Sources */,
 				DECD4921262F81CE00924527 /* CodegenTestHelper.swift in Sources */,
 				DEAFB78327064F6900BE02F3 /* MockGraphQLType.swift in Sources */,

@@ -25,40 +25,45 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
   }
   
   // MARK: - Helpers
-  
+
   func buildSubjectAndOperation(
-    named operationName: String = "TestOperation"
+    named operationName: String = "TestOperation",
+    schemaNamespace: String = "TestSchema",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     let config = ApolloCodegenConfiguration.mock(
-      schemaNamespace: "TestSchema",
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, operations: operations),
       options: .init()
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: .init(config: config)
     )
     subject = SelectionSetTemplate(
       definition: .operation(self.operation),
       generateInitializers: true,
-      config: ApolloCodegen.ConfigurationContext(config: config)
+      config: ApolloCodegen.ConfigurationContext(config: config),
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
     )
   }
-  
-  // MARK: - Tests
-  
-  // MARK: Object Type Tests
-  
-  func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
-    // given
+
+  func buildSimpleObjectSchemaAndDocument() {
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-    
+
     type Animal {
       species: String!
     }
     """
-    
+
     document = """
     query TestOperation {
       allAnimals {
@@ -66,6 +71,169 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
+  }
+  
+  // MARK: - Access Level Tests
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_inSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_EmbededInTargetWithPublicAccessModifier_andOperations_inSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_EmbededInTargetWithInternalAccessModifier_andOperations_inSchemaModule_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_relativeWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .public)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_relativeWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .internal)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_absoluteWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .public)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_absoluteWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .internal)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+  
+  // MARK: Object Type Tests
+  
+  func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
     
     let expected =
     """
@@ -103,12 +271,12 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     type Query {
       allAnimals: [Animal!]
     }
-    
+
     interface Animal {
       species: String!
     }
     """
-    
+
     document = """
     query TestOperation {
       allAnimals {
@@ -116,7 +284,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-    
+
     let expected =
     """
       public init(

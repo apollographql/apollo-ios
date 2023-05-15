@@ -1,5 +1,5 @@
 {
-  "schemaName" : "AnimalKingdomAPI",
+  "schemaNamespace" : "AnimalKingdomAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -33,7 +33,8 @@
       "path" : "./Sources/TestApp/AnimalKingdomAPI",
       "moduleType" : {
         "embeddedInTarget" : {
-          "name": "TestApp"
+          "name": "TestApp",
+          "accessModifier": "public"
         }
       }
     },
