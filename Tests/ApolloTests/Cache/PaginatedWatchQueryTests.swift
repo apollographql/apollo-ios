@@ -119,6 +119,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
       watcher.fetch()
       wait(for: [serverExpectation], timeout: 1.0)
+      XCTAssertEqual(watcher.pages.count, 2)
+      XCTAssertEqual(watcher.pages, [
+        nil,
+        .init(hasNextPage: true, endCursor: "Y3Vyc29yMg=="),
+      ])
     }
 
     runActivity("Fetch second page") { _ in
@@ -165,6 +170,167 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
         ])
       ])
+      XCTAssertEqual(watcher.pages.count, 3)
+      XCTAssertEqual(watcher.pages, [
+        nil,
+        .init(hasNextPage: true, endCursor: "Y3Vyc29yMg=="),
+        .init(hasNextPage: false, endCursor: "Y3Vyc29yMw=="),
+      ])
+    }
+  }
+
+  func testRefetchSecondPage() {
+    let query = MockQuery<MockPaginatedSelectionSet>()
+    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+
+    var results: [HeroViewModel] = []
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      query: query
+    ) { pageInfo in
+      let query = MockQuery<MockPaginatedSelectionSet>()
+      query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+      return query
+    } transform: { data in
+      (
+        HeroViewModel(
+          name: data.hero.name,
+          friends: data.hero.friendsConnection.friends.map {
+            HeroViewModel.Friend(name: $0.name, id: $0.id)
+          }
+        ),
+        GraphQLPaginatedQueryWatcher.Page(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+      )
+    } nextPageTransform: { response in
+      return HeroViewModel(
+        name: response.mostRecent.name,
+        friends: response.allResponses.flatMap { $0.friends }
+      )
+    } onReceiveResults: { result in
+      guard case let .success(value) = result else { return XCTFail() }
+      results.append(value)
+    }
+    addTeardownBlock { watcher.cancel() }
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsConnection": [
+                "__typename": "FriendsConnection",
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "__typename": "Human",
+                    "name": "Luke Skywalker",
+                    "id": "1000",
+                  ],
+                  [
+                    "__typename": "Human",
+                    "name": "Han Solo",
+                    "id": "1002",
+                  ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMg==",
+                  "hasNextPage": true
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+    }
+
+    runActivity("Fetch second page") { _ in
+      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsConnection": [
+                "__typename": "FriendsConnection",
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "__typename": "Human",
+                    "name": "Leia Organa",
+                    "id": "1003",
+                  ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      _ = watcher.fetchMore()
+      wait(for: [secondPageExpectation], timeout: 1.0)
+
+      XCTAssertEqual(results.count, 2)
+      XCTAssertEqual(results, [
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Luke Skywalker", id: "1000"),
+          HeroViewModel.Friend(name: "Han Solo", id: "1002"),
+        ]),
+        HeroViewModel(name: "R2-D2", friends: [
+          HeroViewModel.Friend(name: "Luke Skywalker", id: "1000"),
+          HeroViewModel.Friend(name: "Han Solo", id: "1002"),
+          HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
+        ])
+      ])
+    }
+
+    runActivity("Re-fetch second page") { _ in
+      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsConnection": [
+                "__typename": "FriendsConnection",
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "__typename": "Human",
+                    "name": "Leia Organa",
+                    "id": "1003",
+                  ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      let page = watcher.pages[1]
+      watcher.refresh(page: page)
+      wait(for: [secondPageExpectation], timeout: 1.0)
     }
   }
 

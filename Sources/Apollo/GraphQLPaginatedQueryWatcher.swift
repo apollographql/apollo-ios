@@ -8,7 +8,7 @@ public typealias Cursor = String
 /// Handles pagination in the queue by managing multiple query watchers.
 final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
 
-  public struct Page {
+  public struct Page: Equatable {
     let hasNextPage: Bool
     let endCursor: Cursor?
   }
@@ -26,7 +26,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
 
   private let client: any ApolloClientProtocol
 
-  var initialWatcher: GraphQLQueryWatcher<Query>?
+  private var initialWatcher: GraphQLQueryWatcher<Query>?
   private var subsequentWatchers: [GraphQLQueryWatcher<Query>] = []
 
   private let createPageQuery: CreatePageQuery
@@ -36,7 +36,13 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
   private var cursorOrder: [Cursor?] = []
   private var resultHandler: ResultHandler?
   private var callbackQueue: DispatchQueue
-  private var page: Page?
+  public private(set) var currentPage: Page? {
+    didSet {
+      guard let currentPage else { return }
+      pages.append(currentPage)
+    }
+  }
+  public private(set) var pages: [Page?] = [nil]
 
   /// Designated initializer
   ///
@@ -89,7 +95,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
             source: graphQLResult.source
           )
         )
-        self.page = page
+        self.currentPage = page
         onReceiveResults(.success(model))
       }
     }
@@ -103,22 +109,25 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     )
   }
 
+  /// Fetch the first page
+  /// NOTE: Does not refresh subsequent pages nor remove them from the return value.
   public func fetch(cachePolicy: CachePolicy = .returnCacheDataAndFetch) {
+    initialWatcher?.fetch(cachePolicy: cachePolicy)
+  }
+
+  /// Fetches the first page and purges all data from subsequent pages.
+  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
     modelMap.removeAll()
     cursorOrder.removeAll()
-    initialWatcher?.refetch(cachePolicy: cachePolicy)
     cancelSubsequentWatchers()
+    initialWatcher?.refetch(cachePolicy: cachePolicy)
   }
 
-  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
-    fetch(cachePolicy: cachePolicy)
-  }
-
-  @discardableResult
-  public func fetchMore(cachePolicy: CachePolicy = .fetchIgnoringCacheData) -> Bool {
-    guard let page,
-          page.hasNextPage,
-          let nextPageQuery = createPageQuery(page),
+  /// Fetches the next page
+  @discardableResult public func fetchMore(cachePolicy: CachePolicy = .fetchIgnoringCacheData) -> Bool {
+    guard let currentPage,
+          currentPage.hasNextPage,
+          let nextPageQuery = createPageQuery(currentPage),
           let resultHandler
     else { return false }
 
@@ -132,6 +141,19 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     subsequentWatchers.append(nextPageWatcher)
 
     return true
+  }
+
+  /// Refetches data for a given page.
+  /// NOTE: Does not refresh previous or subsequent pages nor remove them from the return value.
+  public func refresh(page: Page?, cachePolicy: CachePolicy = .returnCacheDataAndFetch) {
+    guard let page else {
+      // Fetch first page
+      return fetch(cachePolicy: cachePolicy)
+    }
+    guard let index = pages.firstIndex(where: { $0?.endCursor == page.endCursor }),
+          subsequentWatchers.count > index - 1
+    else { return }
+    subsequentWatchers[index - 1].fetch(cachePolicy: cachePolicy)
   }
 
   public func cancel() {
