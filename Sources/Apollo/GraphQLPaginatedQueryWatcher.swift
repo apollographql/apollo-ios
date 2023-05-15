@@ -95,23 +95,27 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     }
 
     self.resultHandler = resultHandler
-    initialWatcher = client.watch(
+    initialWatcher = GraphQLQueryWatcher(
+      client: client,
       query: query,
-      cachePolicy: .returnCacheDataAndFetch,
       callbackQueue: callbackQueue,
       resultHandler: resultHandler
     )
   }
 
-  public func fetch() {
+  public func fetch(cachePolicy: CachePolicy = .returnCacheDataAndFetch) {
     modelMap.removeAll()
     cursorOrder.removeAll()
-    initialWatcher?.refetch()
+    initialWatcher?.refetch(cachePolicy: cachePolicy)
     cancelSubsequentWatchers()
   }
 
+  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
+    fetch(cachePolicy: cachePolicy)
+  }
+
   @discardableResult
-  public func fetchMore() -> Bool {
+  public func fetchMore(cachePolicy: CachePolicy = .fetchIgnoringCacheData) -> Bool {
     guard let page,
           page.hasNextPage,
           let nextPageQuery = createPageQuery(page),
@@ -120,7 +124,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
 
     let nextPageWatcher = client.watch(
       query: nextPageQuery,
-      cachePolicy: .fetchIgnoringCacheData,
+      cachePolicy: cachePolicy,
       callbackQueue: callbackQueue
     ) { result in
       resultHandler(result)

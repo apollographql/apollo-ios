@@ -24,6 +24,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     let networkTransport = MockNetworkTransport(server: server, store: store)
 
     client = ApolloClient(networkTransport: networkTransport, store: store)
+    MockSchemaMetadata.stub_cacheKeyInfoForType_Object = IDCacheKeyProvider.resolver
   }
 
   override func tearDownWithError() throws {
@@ -51,7 +52,35 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
 
     var results: [HeroViewModel] = []
-    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockPaginatedSelectionSet>, HeroViewModel>!
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      query: query
+    ) { pageInfo in
+      let query = MockQuery<MockPaginatedSelectionSet>()
+      query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+      return query
+    } transform: { data in
+      (
+        HeroViewModel(
+          name: data.hero.name,
+          friends: data.hero.friendsConnection.friends.map {
+            HeroViewModel.Friend(name: $0.name, id: $0.id)
+          }
+        ),
+        GraphQLPaginatedQueryWatcher.Page(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+      )
+    } nextPageTransform: { response in
+      return HeroViewModel(
+        name: response.mostRecent.name,
+        friends: response.allResponses.flatMap { $0.friends }
+      )
+    } onReceiveResults: { result in
+      guard case let .success(value) = result else { return XCTFail() }
+      results.append(value)
+    }
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
@@ -59,21 +88,26 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         [
           "data": [
             "hero": [
+              "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
               "friendsConnection": [
+                "__typename": "FriendsConnection",
                 "totalCount": 3,
                 "friends": [
                   [
+                    "__typename": "Human",
                     "name": "Luke Skywalker",
                     "id": "1000",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Han Solo",
                     "id": "1002",
                   ]
                 ],
                 "pageInfo": [
+                  "__typename": "PageInfo",
                   "endCursor": "Y3Vyc29yMg==",
                   "hasNextPage": true
                 ]
@@ -83,35 +117,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         ]
       }
 
-      watcher = GraphQLPaginatedQueryWatcher(
-        client: client,
-        query: query
-      ) { pageInfo in
-        let query = MockQuery<MockPaginatedSelectionSet>()
-        query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-        return query
-      } transform: { data in
-        (
-          HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
-          ),
-          GraphQLPaginatedQueryWatcher.Page(
-            hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-            endCursor: data.hero.friendsConnection.pageInfo.endCursor
-          )
-        )
-      } nextPageTransform: { response in
-        return HeroViewModel(
-          name: response.mostRecent.name,
-          friends: response.allResponses.flatMap { $0.friends }
-        )
-      } onReceiveResults: { result in
-        guard case let .success(value) = result else { return XCTFail() }
-        results.append(value)
-      }
+      watcher.fetch()
       wait(for: [serverExpectation], timeout: 1.0)
     }
 
@@ -120,17 +126,21 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         [
           "data": [
             "hero": [
+              "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
               "friendsConnection": [
+                "__typename": "FriendsConnection",
                 "totalCount": 3,
                 "friends": [
                   [
+                    "__typename": "Human",
                     "name": "Leia Organa",
                     "id": "1003",
                   ]
                 ],
                 "pageInfo": [
+                  "__typename": "PageInfo",
                   "endCursor": "Y3Vyc29yMw==",
                   "hasNextPage": false
                 ]
@@ -163,7 +173,35 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
 
     var results: [HeroViewModel] = []
-    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockPaginatedSelectionSet>, HeroViewModel>!
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      query: query
+    ) { pageInfo in
+      let query = MockQuery<MockPaginatedSelectionSet>()
+      query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+      return query
+    } transform: { data in
+      (
+        HeroViewModel(
+          name: data.hero.name,
+          friends: data.hero.friendsConnection.friends.map {
+            HeroViewModel.Friend(name: $0.name, id: $0.id)
+          }
+        ),
+        GraphQLPaginatedQueryWatcher.Page(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+      )
+    } nextPageTransform: { response in
+      return HeroViewModel(
+        name: response.mostRecent.name,
+        friends: response.allResponses.flatMap { $0.friends }
+      )
+    } onReceiveResults: { result in
+      guard case let .success(value) = result else { return XCTFail() }
+      results.append(value)
+    }
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
@@ -171,90 +209,31 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         [
           "data": [
             "hero": [
+              "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
               "friendsConnection": [
+                "__typename": "FriendsConnection",
                 "totalCount": 3,
                 "friends": [
                   [
+                    "__typename": "Human",
                     "name": "Luke Skywalker",
                     "id": "1000",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Han Solo",
                     "id": "1002",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Leia Organa",
                     "id": "1003",
                   ]
                 ],
                 "pageInfo": [
-                  "endCursor": "Y3Vyc29yMw==",
-                  "hasNextPage": false
-                ]
-              ]
-            ],
-          ]
-        ]
-      }
-
-      watcher = GraphQLPaginatedQueryWatcher(
-        client: client,
-        query: query
-      ) { pageInfo in
-        let query = MockQuery<MockPaginatedSelectionSet>()
-        query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-        return query
-      } transform: { data in
-        (
-          HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
-          ),
-          GraphQLPaginatedQueryWatcher.Page(
-            hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-            endCursor: data.hero.friendsConnection.pageInfo.endCursor
-          )
-        )
-      } nextPageTransform: { response in
-        return HeroViewModel(
-          name: response.mostRecent.name,
-          friends: response.allResponses.flatMap { $0.friends }
-        )
-      } onReceiveResults: { result in
-        guard case let .success(value) = result else { return XCTFail() }
-        results.append(value)
-      }
-      wait(for: [serverExpectation], timeout: 1.0)
-    }
-
-    runActivity("Re-fetch from server") { _ in
-      let refetchExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
-        [
-          "data": [
-            "hero": [
-              "id": "2001",
-              "name": "R2-D2",
-              "friendsConnection": [
-                "totalCount": 3,
-                "friends": [
-                  [
-                    "name": "Luke Skywalker",
-                    "id": "1000",
-                  ],
-                  [
-                    "name": "Han Solo",
-                    "id": "1002",
-                  ],
-                  [
-                    "name": "Leia Organa",
-                    "id": "1003",
-                  ]
-                ],
-                "pageInfo": [
+                  "__typename": "PageInfo",
                   "endCursor": "Y3Vyc29yMw==",
                   "hasNextPage": false
                 ]
@@ -264,6 +243,48 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         ]
       }
       watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+    }
+
+    runActivity("Re-fetch from server") { _ in
+      let refetchExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsConnection": [
+                "__typename": "FriendsConnection",
+                "totalCount": 3,
+                "friends": [
+                  [
+                    "__typename": "Human",
+                    "name": "Luke Skywalker",
+                    "id": "1000",
+                  ],
+                  [
+                    "__typename": "Human",
+                    "name": "Han Solo",
+                    "id": "1002",
+                  ],
+                  [
+                    "__typename": "Human",
+                    "name": "Leia Organa",
+                    "id": "1003",
+                  ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.refetch()
       wait(for: [refetchExpectation], timeout: 1.0)
 
       XCTAssertEqual(results.count, 2)
@@ -283,83 +304,93 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndLocalCacheUpdate() {
-    let query = MockQuery<MockLocalCacheMutationSelectionSet>()
+    let query = MockQuery<MockPaginatedSelectionSet>()
     query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
     var results: [HeroViewModel] = []
-    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockLocalCacheMutationSelectionSet>, HeroViewModel>!
-    addTeardownBlock { watcher.cancel() }
-
+    // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
     resultExpectation.expectedFulfillmentCount = 2
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      query: query
+    ) { pageInfo in
+      let query = MockQuery<MockPaginatedSelectionSet>()
+      query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+      return query
+    } transform: { data in
+      (
+        HeroViewModel(
+          name: data.hero.name,
+          friends: data.hero.friendsConnection.friends.map {
+            HeroViewModel.Friend(name: $0.name, id: $0.id)
+          }
+        ),
+        GraphQLPaginatedQueryWatcher.Page(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+      )
+    } nextPageTransform: { response in
+      return HeroViewModel(
+        name: response.mostRecent.name,
+        friends: response.allResponses.flatMap { $0.friends }
+      )
+    } onReceiveResults: { result in
+      guard case let .success(value) = result else { return XCTFail() }
+      results.append(value)
+      resultExpectation.fulfill()
+    }
+    addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockLocalCacheMutationSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
         [
           "data": [
             "hero": [
+              "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
               "friendsConnection": [
+                "__typename": "FriendsConnection",
                 "totalCount": 3,
                 "friends": [
                   [
+                    "__typename": "Human",
                     "name": "Luke Skywalker",
                     "id": "1000",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Han Solo",
                     "id": "1002",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Leia Organa",
                     "id": "1003",
                   ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
                 ]
               ]
             ],
           ]
         ]
       }
-      watcher = GraphQLPaginatedQueryWatcher(
-        client: client,
-        query: query
-      ) { pageInfo in
-        let query = MockQuery<MockLocalCacheMutationSelectionSet>()
-        query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-        return query
-      } transform: { data in
-        (
-          HeroViewModel(
-            name: data.hero?.name ?? "",
-            friends: data.hero?.friendsConnection.friends?.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            } ?? []
-          ),
-          GraphQLPaginatedQueryWatcher.Page(
-            hasNextPage: false,
-            endCursor: nil
-          )
-        )
-      } nextPageTransform: { response in
-        return HeroViewModel(
-          name: response.mostRecent.name,
-          friends: response.allResponses.flatMap { $0.friends }
-        )
-      } onReceiveResults: { result in
-        guard case let .success(value) = result else { return XCTFail() }
-        results.append(value)
-        resultExpectation.fulfill()
-      }
+      watcher.fetch()
       wait(for: [serverExpectation], timeout: 1.0)
     }
 
     runActivity("Local Cache Mutation") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<MockLocalCacheMutationSelectionSet>()
+        let cacheMutation = MockLocalCacheMutation<LocalCacheMutationSelection>()
         cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
         try transaction.update(cacheMutation) { data in
           data.hero?.name = "Marty McFly"
-          data.hero?.friendsConnection.friends?[0].name = "Doc Brown"
+          data.hero?.friendsConnection.friends[0].name = "Doc Brown"
         }
       }
 
@@ -381,82 +412,93 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndLocalCacheObjectDeletion() {
-    let query = MockQuery<MockLocalCacheMutationSelectionSet>()
+    let query = MockQuery<MockPaginatedSelectionSet>()
     query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
     var results: [HeroViewModel] = []
-    var watcher: GraphQLPaginatedQueryWatcher<MockQuery<MockLocalCacheMutationSelectionSet>, HeroViewModel>!
-    addTeardownBlock { watcher.cancel() }
-
+    // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
     resultExpectation.expectedFulfillmentCount = 2
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      query: query
+    ) { pageInfo in
+      let query = MockQuery<MockPaginatedSelectionSet>()
+      query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
+      return query
+    } transform: { data in
+      (
+        HeroViewModel(
+          name: data.hero.name,
+          friends: data.hero.friendsConnection.friends.map {
+            HeroViewModel.Friend(name: $0.name, id: $0.id)
+          }
+        ),
+        GraphQLPaginatedQueryWatcher.Page(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+      )
+    } nextPageTransform: { response in
+      return HeroViewModel(
+        name: response.mostRecent.name,
+        friends: response.allResponses.flatMap { $0.friends }
+      )
+    } onReceiveResults: { result in
+      guard case let .success(value) = result else { return XCTFail() }
+      results.append(value)
+      resultExpectation.fulfill()
+    }
+    addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockLocalCacheMutationSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
         [
           "data": [
             "hero": [
+              "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
               "friendsConnection": [
+                "__typename": "FriendsConnection",
                 "totalCount": 3,
                 "friends": [
                   [
+                    "__typename": "Human",
                     "name": "Luke Skywalker",
                     "id": "1000",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Han Solo",
                     "id": "1002",
                   ],
                   [
+                    "__typename": "Human",
                     "name": "Leia Organa",
                     "id": "1003",
                   ]
+                ],
+                "pageInfo": [
+                  "__typename": "PageInfo",
+                  "endCursor": "Y3Vyc29yMw==",
+                  "hasNextPage": false
                 ]
               ]
             ],
           ]
         ]
       }
-      watcher = GraphQLPaginatedQueryWatcher(
-        client: client,
-        query: query
-      ) { pageInfo in
-        let query = MockQuery<MockLocalCacheMutationSelectionSet>()
-        query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-        return query
-      } transform: { data in
-        (
-          HeroViewModel(
-            name: data.hero?.name ?? "",
-            friends: data.hero?.friendsConnection.friends?.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            } ?? []
-          ),
-          GraphQLPaginatedQueryWatcher.Page(
-            hasNextPage: false,
-            endCursor: nil
-          )
-        )
-      } nextPageTransform: { response in
-        return HeroViewModel(
-          name: response.mostRecent.name,
-          friends: response.allResponses.flatMap { $0.friends }
-        )
-      } onReceiveResults: { result in
-        guard case let .success(value) = result else { return XCTFail() }
-        results.append(value)
-        resultExpectation.fulfill()
-      }
+      watcher.fetch()
       wait(for: [serverExpectation], timeout: 1.0)
     }
 
-    runActivity("Local Cache Mutation") { _ in
+    runActivity("Local Cache Mutation: Delete Friends") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<MockLocalCacheMutationSelectionSet>()
+        let cacheMutation = MockLocalCacheMutation<LocalCacheMutationSelection>()
         cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
         try transaction.update(cacheMutation) { data in
-          data.hero?.friendsConnection.friends?.removeFirst()
+          data.hero?.name = "Marty McFly"
+          data.hero?.friendsConnection.friends.removeAll()
         }
       }
 
@@ -468,14 +510,15 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           HeroViewModel.Friend(name: "Han Solo", id: "1002"),
           HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
         ]),
-        HeroViewModel(name: "R2-D2", friends: [
-          HeroViewModel.Friend(name: "Han Solo", id: "1002"),
-          HeroViewModel.Friend(name: "Leia Organa", id: "1003"),
-        ])
+        HeroViewModel(name: "Marty McFly", friends: [])
       ])
     }
   }
 }
+
+// MARK: - Mock Selection Sets
+
+// MARK: Mock Paginated Query
 
 private class MockPaginatedSelectionSet: MockSelectionSet {
   override class var __selections: [Selection] { [
@@ -486,6 +529,7 @@ private class MockPaginatedSelectionSet: MockSelectionSet {
 
   class Hero: MockSelectionSet {
     override class var __selections: [Selection] {[
+      .field("__typename", String.self),
       .field("id", String.self),
       .field("name", String.self),
       .field("friendsConnection", FriendsConnection.self, arguments: [
@@ -500,6 +544,7 @@ private class MockPaginatedSelectionSet: MockSelectionSet {
 
     class FriendsConnection: MockSelectionSet {
       override class var __selections: [Selection] {[
+        .field("__typename", String.self),
         .field("totalCount", Int.self),
         .field("friends", [Character].self),
         .field("pageInfo", PageInfo.self)
@@ -511,6 +556,7 @@ private class MockPaginatedSelectionSet: MockSelectionSet {
 
       class Character: MockSelectionSet {
         override class var __selections: [Selection] {[
+          .field("__typename", String.self),
           .field("name", String.self),
           .field("id", String.self),
         ]}
@@ -521,6 +567,7 @@ private class MockPaginatedSelectionSet: MockSelectionSet {
 
       class PageInfo: MockSelectionSet {
         override class var __selections: [Selection] {[
+          .field("__typename", String.self),
           .field("endCursor", Optional<String>.self),
           .field("hasNextPage", Bool.self)
         ]}
@@ -532,12 +579,11 @@ private class MockPaginatedSelectionSet: MockSelectionSet {
   }
 }
 
-private struct MockLocalCacheMutationSelectionSet: MockMutableRootSelectionSet {
-  var __data: DataDict = .empty()
-  init(_dataDict: DataDict) {
-    self.__data = _dataDict
-  }
+// MARK: Mock Local Cache Mutation
 
+private struct LocalCacheMutationSelection: MockMutableRootSelectionSet {
+  public var __data: DataDict = .empty()
+  init(_dataDict: DataDict) { __data = _dataDict }
   static var __selections: [Selection] { [
     .field("hero", Hero?.self, arguments: ["id": .variable("id")])
   ]}
@@ -548,15 +594,16 @@ private struct MockLocalCacheMutationSelectionSet: MockMutableRootSelectionSet {
   }
 
   struct Hero: MockMutableRootSelectionSet {
-    var __data: DataDict = .empty()
-    init(_dataDict: DataDict) {
-      self.__data = _dataDict
-    }
-
+    public var __data: DataDict = .empty()
+    init(_dataDict: DataDict) { __data = _dataDict }
     static var __selections: [Selection] {[
+      .field("__typename", String.self),
       .field("id", String.self),
       .field("name", String.self),
-      .field("friendsConnection", FriendsConnection.self)
+      .field("friendsConnection", FriendsConnection.self, arguments: [
+        "first": .variable("first"),
+        "after": .variable("after")
+      ])
     ]}
 
     var id: String {
@@ -574,28 +621,26 @@ private struct MockLocalCacheMutationSelectionSet: MockMutableRootSelectionSet {
     }
 
     struct FriendsConnection: MockMutableRootSelectionSet {
-      var __data: DataDict = .empty()
-      init(_dataDict: DataDict) {
-        self.__data = _dataDict
-      }
+      public var __data: DataDict = .empty()
+      init(_dataDict: DataDict) { __data = _dataDict }
       static var __selections: [Selection] {[
-        .field("friends", [Character]?.self),
+        .field("__typename", String.self),
+        .field("friends", [Character].self),
       ]}
 
-      var friends: [Character]? {
+      var totalCount: Int { __data["totalCount"] }
+      var friends: [Character] {
         get { __data["friends"] }
         set { __data["friends"] = newValue }
       }
 
       struct Character: MockMutableRootSelectionSet {
-        var __data: DataDict = .empty()
-        init(_dataDict: DataDict) {
-          self.__data = _dataDict
-        }
-
+        public var __data: DataDict = .empty()
+        init(_dataDict: DataDict) { __data = _dataDict }
         static var __selections: [Selection] {[
+          .field("__typename", String.self),
           .field("name", String.self),
-          .field("id", String.self)
+          .field("id", String.self),
         ]}
 
         var id: String {
