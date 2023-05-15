@@ -95,14 +95,15 @@ public struct CacheKeyInfo {
   ///
   /// - Parameters:
   ///   - jsonValue: The value of a field on a ``JSONObject`` to use as the cache ``id``.
+  ///                This must be a scalar type to be used as a cache id. 
   ///   - uniqueKeyGroup: An optional ``uniqueKeyGroup`` for the ``CacheKeyInfo``.
   ///     Defaults to `nil`.
-  @inlinable public init(jsonValue: JSONValue?, uniqueKeyGroup: String? = nil) throws {
+  @inlinable public init(jsonValue: (any ScalarType)?, uniqueKeyGroup: String? = nil) throws {
     guard let jsonValue = jsonValue else {
       throw JSONDecodingError.missingValue
     }
 
-    self.init(id: try String(_jsonValue: jsonValue), uniqueKeyGroup: uniqueKeyGroup)
+    self.init(id: try String(_jsonValue: jsonValue._asAnyHashable), uniqueKeyGroup: uniqueKeyGroup)
   }
 
   /// The Designated Initializer

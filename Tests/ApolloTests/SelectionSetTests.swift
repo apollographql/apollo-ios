@@ -6,6 +6,33 @@ import Nimble
 
 class SelectionSetTests: XCTestCase {
 
+  // MARK: - Equatable/Hashable Tests
+
+  func test__equatable__selectionSetWithSameDataAndDifferentFulfilledFragments_returns_true() {
+    // given
+    let data: JSONObject = [
+      "__typename": "Human",
+      "name": "Johnny Tsunami"
+    ]
+
+    // when
+    let selectionSet1 = MockSelectionSet(_dataDict: DataDict(
+      data: data,
+      fulfilledFragments: [ObjectIdentifier(MockSelectionSet.self)]
+    ))
+
+    let selectionSet2 = MockSelectionSet(_dataDict: DataDict(
+      data: data,
+      fulfilledFragments: []
+    ))
+
+    // then
+    expect(selectionSet1).to(equal(selectionSet2))
+    expect(selectionSet1.hashValue).to(equal(selectionSet2.hashValue))
+  }
+
+  // MARK: - Field Accessor Tests
+
   func test__selection_givenOptionalField_givenValue__returnsValue() {
     // given
     class Hero: MockSelectionSet {
@@ -566,7 +593,7 @@ class SelectionSetTests: XCTestCase {
     expect(actual.nestedList).to(equal([[expected]]))
   }
 
-  // MARK: TypeCase Conversion Tests
+  // MARK: - TypeCase Conversion Tests
 
   func test__asInlineFragment_givenObjectType_returnsTypeIfCorrectType() {
     // given
@@ -966,10 +993,9 @@ class SelectionSetTests: XCTestCase {
             data: [
               "__typename": __typename,
               "name": name,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.self),
-              ])
+            ], fulfilledFragments: [
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
             ]))
         }
       }
@@ -1014,10 +1040,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
           "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Hero: MockSelectionSet {
@@ -1046,10 +1069,9 @@ class SelectionSetTests: XCTestCase {
             self.init(_dataDict: DataDict(data: [
               "__typename": __typename,
               "name": name,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.self),
-              ])
+            ], fulfilledFragments: [
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
             ]))
           }
         }
@@ -1103,11 +1125,10 @@ class SelectionSetTests: XCTestCase {
         ) {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
-            ])
+            "name": name
+          ], fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(Hero.self),
           ]))
         }
       }
@@ -1160,10 +1181,9 @@ class SelectionSetTests: XCTestCase {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
-            ])
+          ], fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(Hero.self),
           ]))
         }
       }
@@ -1213,10 +1233,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Query.typename,
           "hero": hero._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Hero: MockSelectionSet {
@@ -1249,10 +1266,9 @@ class SelectionSetTests: XCTestCase {
               "__typename": Types.Human.typename,
               "name": name,
               "friend": friend._fieldData,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.self),
-              ])
+            ], fulfilledFragments: [
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
             ]))
           }
 
@@ -1280,10 +1296,9 @@ class SelectionSetTests: XCTestCase {
                 self.init(_dataDict: DataDict(data: [
                   "__typename": Types.Human.typename,
                   "name": name,
-                  "__fulfilled": Set([
-                    ObjectIdentifier(Self.self),
-                    ObjectIdentifier(Friend.self),
-                  ])
+                ], fulfilledFragments: [
+                  ObjectIdentifier(Self.self),
+                  ObjectIdentifier(Friend.self),
                 ]))
               }
             }
@@ -1298,10 +1313,9 @@ class SelectionSetTests: XCTestCase {
           convenience init() {
             self.init(_dataDict: DataDict(data: [
               "__typename": Types.Human.typename,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.self),
-              ])
+            ], fulfilledFragments: [
+              ObjectIdentifier(Self.self),
+              ObjectIdentifier(Hero.self),
             ]))
           }
         }
@@ -1359,10 +1373,9 @@ class SelectionSetTests: XCTestCase {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
-            ])
+          ], fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(Hero.self),
           ]))
         }
       }
@@ -1407,10 +1420,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Human.typename,
           "name": name,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
     }
 
@@ -1463,10 +1473,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Human.typename,
           "child": child,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Child: MockSelectionSet {
@@ -1485,10 +1492,7 @@ class SelectionSetTests: XCTestCase {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-            ])
-          ]))
+          ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
         }
       }
     }
@@ -1542,10 +1546,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Human.typename,
           "friends": friends._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
       class Friend: MockSelectionSet {
@@ -1563,10 +1564,7 @@ class SelectionSetTests: XCTestCase {
           self.init(_dataDict: DataDict(data: [
             "__typename": Types.Human.typename,
             "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-            ])
-          ]))
+          ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
         }
       }
     }
@@ -1613,10 +1611,7 @@ class SelectionSetTests: XCTestCase {
         self.init(_dataDict: DataDict(data: [
           "__typename": Types.Human.typename,
           "names": names,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-          ])
-        ]))
+        ], fulfilledFragments: [ObjectIdentifier(Self.self)]))
       }
 
     }

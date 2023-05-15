@@ -51,13 +51,15 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// Hero
@@ -80,13 +82,15 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
         __typename: String,
         friends: [Friend?]? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "friends": friends._fieldData,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "friends": friends._fieldData,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// Hero.Friend
@@ -113,13 +117,15 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           __typename: String,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "name": name,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "name": name,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// Hero.Friend.IfIncludeFriendsDetails
@@ -145,14 +151,16 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             __typename: String,
             name: String
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": __typename,
-              "name": name,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": __typename,
+                "name": name,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self),
                 ObjectIdentifier(Hero.Friend.self)
-              ])
-            ]))
+              ]
+            ))
           }
 
           /// Hero.Friend.AsDroid
@@ -177,15 +185,17 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               primaryFunction: String? = nil,
               name: String
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": StarWarsAPI.Objects.Droid.typename,
-                "primaryFunction": primaryFunction,
-                "name": name,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": StarWarsAPI.Objects.Droid.typename,
+                  "primaryFunction": primaryFunction,
+                  "name": name,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self),
                   ObjectIdentifier(Hero.Friend.self)
-                ])
-              ]))
+                ]
+              ))
             }
           }
         }
@@ -212,15 +222,17 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             name: String,
             primaryFunction: String? = nil
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": StarWarsAPI.Objects.Droid.typename,
-              "name": name,
-              "primaryFunction": primaryFunction,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": StarWarsAPI.Objects.Droid.typename,
+                "name": name,
+                "primaryFunction": primaryFunction,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self),
                 ObjectIdentifier(Hero.Friend.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
       }

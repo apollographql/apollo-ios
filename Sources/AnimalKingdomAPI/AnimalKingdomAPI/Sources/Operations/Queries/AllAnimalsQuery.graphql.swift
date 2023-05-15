@@ -77,13 +77,15 @@ public class AllAnimalsQuery: GraphQLQuery {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "allAnimals": allAnimals._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// AllAnimal
@@ -133,17 +135,19 @@ public class AllAnimalsQuery: GraphQLQuery {
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
         predators: [Predator]
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "height": height._fieldData,
-          "species": species,
-          "skinCovering": skinCovering,
-          "predators": predators._fieldData,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "height": height._fieldData,
+            "species": species,
+            "skinCovering": skinCovering,
+            "predators": predators._fieldData,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(HeightInMeters.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// AllAnimal.Height
@@ -169,15 +173,17 @@ public class AllAnimalsQuery: GraphQLQuery {
           inches: Int? = nil,
           meters: Int
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Height.typename,
-            "feet": feet,
-            "inches": inches,
-            "meters": meters,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Height.typename,
+              "feet": feet,
+              "inches": inches,
+              "meters": meters,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -203,13 +209,15 @@ public class AllAnimalsQuery: GraphQLQuery {
           __typename: String,
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.Predator.AsWarmBlooded
@@ -249,20 +257,22 @@ public class AllAnimalsQuery: GraphQLQuery {
             bodyTemperature: Int,
             height: HeightInMeters.Height
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": __typename,
-              "predators": predators._fieldData,
-              "laysEggs": laysEggs,
-              "species": species,
-              "bodyTemperature": bodyTemperature,
-              "height": height._fieldData,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": __typename,
+                "predators": predators._fieldData,
+                "laysEggs": laysEggs,
+                "species": species,
+                "bodyTemperature": bodyTemperature,
+                "height": height._fieldData,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self),
                 ObjectIdentifier(AllAnimal.Predator.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(HeightInMeters.self)
-              ])
-            ]))
+              ]
+            ))
           }
 
           /// AllAnimal.Predator.AsWarmBlooded.Predator
@@ -284,13 +294,15 @@ public class AllAnimalsQuery: GraphQLQuery {
               __typename: String,
               species: String
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": __typename,
-                "species": species,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": __typename,
+                  "species": species,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self)
-                ])
-              ]))
+                ]
+              ))
             }
           }
         }
@@ -331,20 +343,22 @@ public class AllAnimalsQuery: GraphQLQuery {
           predators: [Predator],
           bodyTemperature: Int
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "height": height._fieldData,
-            "species": species,
-            "skinCovering": skinCovering,
-            "predators": predators._fieldData,
-            "bodyTemperature": bodyTemperature,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "height": height._fieldData,
+              "species": species,
+              "skinCovering": skinCovering,
+              "predators": predators._fieldData,
+              "bodyTemperature": bodyTemperature,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(HeightInMeters.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.AsWarmBlooded.Height
@@ -365,15 +379,17 @@ public class AllAnimalsQuery: GraphQLQuery {
             inches: Int? = nil,
             meters: Int
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Height.typename,
-              "feet": feet,
-              "inches": inches,
-              "meters": meters,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                "feet": feet,
+                "inches": inches,
+                "meters": meters,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
       }
@@ -421,22 +437,24 @@ public class AllAnimalsQuery: GraphQLQuery {
           favoriteToy: String,
           owner: PetDetails.Owner? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "height": height._fieldData,
-            "species": species,
-            "skinCovering": skinCovering,
-            "predators": predators._fieldData,
-            "humanName": humanName,
-            "favoriteToy": favoriteToy,
-            "owner": owner._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "height": height._fieldData,
+              "species": species,
+              "skinCovering": skinCovering,
+              "predators": predators._fieldData,
+              "humanName": humanName,
+              "favoriteToy": favoriteToy,
+              "owner": owner._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(PetDetails.self),
               ObjectIdentifier(HeightInMeters.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.AsPet.Height
@@ -466,17 +484,19 @@ public class AllAnimalsQuery: GraphQLQuery {
             inches: Int? = nil,
             meters: Int
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Height.typename,
-              "relativeSize": relativeSize,
-              "centimeters": centimeters,
-              "feet": feet,
-              "inches": inches,
-              "meters": meters,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                "relativeSize": relativeSize,
+                "centimeters": centimeters,
+                "feet": feet,
+                "inches": inches,
+                "meters": meters,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
 
@@ -522,25 +542,27 @@ public class AllAnimalsQuery: GraphQLQuery {
             favoriteToy: String,
             owner: PetDetails.Owner? = nil
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": __typename,
-              "height": height._fieldData,
-              "species": species,
-              "skinCovering": skinCovering,
-              "predators": predators._fieldData,
-              "bodyTemperature": bodyTemperature,
-              "humanName": humanName,
-              "favoriteToy": favoriteToy,
-              "owner": owner._fieldData,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": __typename,
+                "height": height._fieldData,
+                "species": species,
+                "skinCovering": skinCovering,
+                "predators": predators._fieldData,
+                "bodyTemperature": bodyTemperature,
+                "humanName": humanName,
+                "favoriteToy": favoriteToy,
+                "owner": owner._fieldData,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self),
                 ObjectIdentifier(AllAnimal.self),
                 ObjectIdentifier(AllAnimal.AsPet.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(HeightInMeters.self),
                 ObjectIdentifier(PetDetails.self)
-              ])
-            ]))
+              ]
+            ))
           }
 
           /// AllAnimal.AsPet.AsWarmBlooded.Height
@@ -565,17 +587,19 @@ public class AllAnimalsQuery: GraphQLQuery {
               relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
               centimeters: Double
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": AnimalKingdomAPI.Objects.Height.typename,
-                "feet": feet,
-                "inches": inches,
-                "meters": meters,
-                "relativeSize": relativeSize,
-                "centimeters": centimeters,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                  "feet": feet,
+                  "inches": inches,
+                  "meters": meters,
+                  "relativeSize": relativeSize,
+                  "centimeters": centimeters,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self)
-                ])
-              ]))
+                ]
+              ))
             }
           }
         }
@@ -624,25 +648,27 @@ public class AllAnimalsQuery: GraphQLQuery {
           favoriteToy: String,
           owner: PetDetails.Owner? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Cat.typename,
-            "isJellicle": isJellicle,
-            "height": height._fieldData,
-            "species": species,
-            "skinCovering": skinCovering,
-            "predators": predators._fieldData,
-            "bodyTemperature": bodyTemperature,
-            "humanName": humanName,
-            "favoriteToy": favoriteToy,
-            "owner": owner._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Cat.typename,
+              "isJellicle": isJellicle,
+              "height": height._fieldData,
+              "species": species,
+              "skinCovering": skinCovering,
+              "predators": predators._fieldData,
+              "bodyTemperature": bodyTemperature,
+              "humanName": humanName,
+              "favoriteToy": favoriteToy,
+              "owner": owner._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(HeightInMeters.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(PetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.AsCat.Height
@@ -667,17 +693,19 @@ public class AllAnimalsQuery: GraphQLQuery {
             relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
             centimeters: Double
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Height.typename,
-              "feet": feet,
-              "inches": inches,
-              "meters": meters,
-              "relativeSize": relativeSize,
-              "centimeters": centimeters,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                "feet": feet,
+                "inches": inches,
+                "meters": meters,
+                "relativeSize": relativeSize,
+                "centimeters": centimeters,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
       }
@@ -716,18 +744,20 @@ public class AllAnimalsQuery: GraphQLQuery {
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
           predators: [Predator]
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "height": height._fieldData,
-            "species": species,
-            "skinCovering": skinCovering,
-            "predators": predators._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "height": height._fieldData,
+              "species": species,
+              "skinCovering": skinCovering,
+              "predators": predators._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(HeightInMeters.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.AsClassroomPet.Height
@@ -748,15 +778,17 @@ public class AllAnimalsQuery: GraphQLQuery {
             inches: Int? = nil,
             meters: Int
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Height.typename,
-              "feet": feet,
-              "inches": inches,
-              "meters": meters,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                "feet": feet,
+                "inches": inches,
+                "meters": meters,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
 
@@ -803,26 +835,28 @@ public class AllAnimalsQuery: GraphQLQuery {
             favoriteToy: String,
             owner: PetDetails.Owner? = nil
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Bird.typename,
-              "wingspan": wingspan,
-              "height": height._fieldData,
-              "species": species,
-              "skinCovering": skinCovering,
-              "predators": predators._fieldData,
-              "bodyTemperature": bodyTemperature,
-              "humanName": humanName,
-              "favoriteToy": favoriteToy,
-              "owner": owner._fieldData,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+                "wingspan": wingspan,
+                "height": height._fieldData,
+                "species": species,
+                "skinCovering": skinCovering,
+                "predators": predators._fieldData,
+                "bodyTemperature": bodyTemperature,
+                "humanName": humanName,
+                "favoriteToy": favoriteToy,
+                "owner": owner._fieldData,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self),
                 ObjectIdentifier(AllAnimal.self),
                 ObjectIdentifier(AllAnimal.AsClassroomPet.self),
                 ObjectIdentifier(HeightInMeters.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(PetDetails.self)
-              ])
-            ]))
+              ]
+            ))
           }
 
           /// AllAnimal.AsClassroomPet.AsBird.Height
@@ -847,17 +881,19 @@ public class AllAnimalsQuery: GraphQLQuery {
               relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
               centimeters: Double
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": AnimalKingdomAPI.Objects.Height.typename,
-                "feet": feet,
-                "inches": inches,
-                "meters": meters,
-                "relativeSize": relativeSize,
-                "centimeters": centimeters,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                  "feet": feet,
+                  "inches": inches,
+                  "meters": meters,
+                  "relativeSize": relativeSize,
+                  "centimeters": centimeters,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self)
-                ])
-              ]))
+                ]
+              ))
             }
           }
         }
@@ -907,25 +943,27 @@ public class AllAnimalsQuery: GraphQLQuery {
           humanName: String? = nil,
           owner: PetDetails.Owner? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Dog.typename,
-            "favoriteToy": favoriteToy,
-            "birthdate": birthdate,
-            "height": height._fieldData,
-            "species": species,
-            "skinCovering": skinCovering,
-            "predators": predators._fieldData,
-            "bodyTemperature": bodyTemperature,
-            "humanName": humanName,
-            "owner": owner._fieldData,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+              "favoriteToy": favoriteToy,
+              "birthdate": birthdate,
+              "height": height._fieldData,
+              "species": species,
+              "skinCovering": skinCovering,
+              "predators": predators._fieldData,
+              "bodyTemperature": bodyTemperature,
+              "humanName": humanName,
+              "owner": owner._fieldData,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(AllAnimal.self),
               ObjectIdentifier(HeightInMeters.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(PetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
 
         /// AllAnimal.AsDog.Height
@@ -950,17 +988,19 @@ public class AllAnimalsQuery: GraphQLQuery {
             relativeSize: GraphQLEnum<AnimalKingdomAPI.RelativeSize>,
             centimeters: Double
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": AnimalKingdomAPI.Objects.Height.typename,
-              "feet": feet,
-              "inches": inches,
-              "meters": meters,
-              "relativeSize": relativeSize,
-              "centimeters": centimeters,
-              "__fulfilled": Set([
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Height.typename,
+                "feet": feet,
+                "inches": inches,
+                "meters": meters,
+                "relativeSize": relativeSize,
+                "centimeters": centimeters,
+              ],
+              fulfilledFragments: [
                 ObjectIdentifier(Self.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
       }

@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   CMD
 
   s.subspec 'Core' do |ss|
-    ss.source_files = 'Sources/Apollo/*.swift','Sources/ApolloAPI/**/*.swift'
+    ss.source_files = 'Sources/Apollo/**/*.swift','Sources/ApolloAPI/**/*.swift'
   end
 
   # Apollo provides exactly one persistent cache out-of-the-box, as a reasonable default choice for

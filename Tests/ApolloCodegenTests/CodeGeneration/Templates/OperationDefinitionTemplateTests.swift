@@ -327,13 +327,15 @@ class OperationDefinitionTemplateTests: XCTestCase {
             public init(
               species: String
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": TestSchema.Objects.Animal.typename,
-                "species": species,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": TestSchema.Objects.Animal.typename,
+                  "species": species,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self)
-                ])
-              ]))
+                ]
+              ))
             }
       """
 
@@ -345,7 +347,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 55, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 57, ignoringExtraLines: true))
     }
 
     func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
@@ -373,13 +375,15 @@ class OperationDefinitionTemplateTests: XCTestCase {
             public init(
               species: String
             ) {
-              self.init(_dataDict: DataDict(data: [
-                "__typename": TestSchema.Objects.Animal.typename,
-                "species": species,
-                "__fulfilled": Set([
+              self.init(_dataDict: DataDict(
+                data: [
+                  "__typename": TestSchema.Objects.Animal.typename,
+                  "species": species,
+                ],
+                fulfilledFragments: [
                   ObjectIdentifier(Self.self)
-                ])
-              ]))
+                ]
+              ))
             }
       """
 
@@ -393,7 +397,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 55, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 57, ignoringExtraLines: true))
     }
 
     func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {

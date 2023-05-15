@@ -10,10 +10,7 @@ class GraphQLExecutor_SelectionSetMapper_FromResponse_Tests: XCTestCase {
   // MARK: - Helpers
 
   private static let executor: GraphQLExecutor = {
-    let executor = GraphQLExecutor { object, info in
-      return object[info.responseKeyForField]
-    }
-    executor.shouldComputeCachePath = false
+    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())    
     return executor
   }()
 

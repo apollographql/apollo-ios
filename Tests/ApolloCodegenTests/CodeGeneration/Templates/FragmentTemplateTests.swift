@@ -382,13 +382,15 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -427,13 +429,15 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
@@ -532,13 +536,15 @@ class FragmentTemplateTests: XCTestCase {
         public init(
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self)
-            ])
-          ]))
+            ]
+          ))
         }
       """
 
