@@ -53,6 +53,9 @@
     },
     "Development & Testing": {
       "Test Mocks": "/testing/test-mocks"
+    },
+    "Troubleshooting": {
+      "Code Generation": "/troubleshooting/codegen-troubleshooting"
     }
   }
 }
