@@ -10,7 +10,7 @@ struct SchemaModuleNamespaceTemplate: TemplateRenderer {
 
   var template: TemplateString {
     TemplateString("""
-    \(accessControlModifier(for: .namespace, in: target))\
+    \(accessControlModifier(for: .namespace))\
     enum \(config.schemaNamespace.firstUppercased) { }
 
     """)

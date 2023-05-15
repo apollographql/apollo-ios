@@ -34,10 +34,10 @@ struct MockObjectTemplate: TemplateRenderer {
         )
       }
 
-    let memberAccessControl = accessControlModifier(for: .member, in: target)
+    let memberAccessControl = accessControlModifier(for: .member)
 
     return """
-    \(accessControlModifier(for: .parent, in: target))class \(objectName): MockObject {
+    \(accessControlModifier(for: .parent))class \(objectName): MockObject {
       \(memberAccessControl)static let objectType: Object = \(config.schemaNamespace.firstUppercased).Objects.\(objectName)
       \(memberAccessControl)static let _mockFields = MockFields()
       \(memberAccessControl)typealias MockValueCollectionType = Array<Mock<\(objectName)>>
@@ -54,7 +54,7 @@ struct MockObjectTemplate: TemplateRenderer {
     \(!fields.isEmpty ?
       TemplateString("""
       
-      \(accessControlModifier(for: .parent, in: target))\
+      \(accessControlModifier(for: .parent))\
       extension Mock where O == \(objectName) {
         \(conflictingFieldNameProperties(fields))
         convenience init(

@@ -54,10 +54,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       identifier: operationIdentifier,
       fragments: referencedFragments ?? [],
       config: config,
-      accessControlRenderer: mockTemplateRenderer.accessControlModifier(
-        for: .member,
-        in: mockTemplateRenderer.target
-      )
+      accessControlRenderer: mockTemplateRenderer.accessControlModifier(for: .member)
     ).description
   }
 

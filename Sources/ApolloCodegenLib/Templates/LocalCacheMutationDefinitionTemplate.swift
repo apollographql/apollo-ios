@@ -10,11 +10,11 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
 
   var template: TemplateString {
     let definition = IR.Definition.operation(operation)
-    let memberAccessControl = accessControlModifier(for: .member, in: target)
+    let memberAccessControl = accessControlModifier(for: .member)
 
     return TemplateString(
     """
-    \(accessControlModifier(for: .parent, in: target))\
+    \(accessControlModifier(for: .parent))\
     class \(operation.generatedDefinitionName): LocalCacheMutation {
       \(memberAccessControl)static let operationType: GraphQLOperationType = .\(operation.definition.operationType.rawValue)
 
@@ -29,7 +29,7 @@ struct LocalCacheMutationDefinitionTemplate: OperationTemplateRenderer {
             definition: definition,            
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
             config: config,
-            accessControlRenderer: { accessControlModifier(for: .member, in: target) }()
+            accessControlRenderer: { accessControlModifier(for: .member) }()
         ).renderBody())
       }
     }

@@ -103,7 +103,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.SchemaType.template(for: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
-    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: accessControlModifier(for: .namespace, in: target)) }, else: template)
+    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: accessControlModifier(for: .namespace)) }, else: template)
     """
     ).description
   }
@@ -117,7 +117,7 @@ extension TemplateRenderer {
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
       template.wrappedInNamespace(
         config.schemaNamespace.firstUppercased,
-        accessModifier: accessControlModifier(for: .namespace, in: target)
+        accessModifier: accessControlModifier(for: .namespace)
     ), else:
       template)
     """
@@ -163,10 +163,7 @@ enum AccessControlScope {
 }
 
 extension TemplateRenderer {
-  func accessControlModifier(
-    for scope: AccessControlScope,
-    in target: TemplateTarget
-  ) -> String {
+  func accessControlModifier(for scope: AccessControlScope) -> String {
     switch target {
     case .moduleFile, .schemaFile: return schemaAccessControlModifier(scope: scope)
     case .operationFile: return operationAccessControlModifier(scope: scope)
