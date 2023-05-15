@@ -5,6 +5,11 @@
 ### Fixed
 - **Pruning generated files for `.relative(subpath:)` operations ([#2969](https://github.com/apollographql/apollo-ios/issues/2969)):** See PR [#2994](https://github.com/apollographql/apollo-ios/pull/2994). _Thank you to [@jimisaacs](https://github.com/jimisaacs) for raising the issue._
 - **InputObjects generated with incorrect getter/setter key ([#2858](https://github.com/apollographql/apollo-ios/issues/2858)):** See PR [#2996](https://github.com/apollographql/apollo-ios/pull/2996). _Thank you to [@Austinpayne](https://github.com/Austinpayne) for raising the issue._
+- **Generates conflicting types for fields of singular and plural names ([#2850](https://github.com/apollographql/apollo-ios/issues/2850)):** See PR [#3009](https://github.com/apollographql/apollo-ios/pull/3009). _Thank you to [@sgade](https://github.com/sgade) for raising the issue._
+- **Equality operator shows incorrect values based on value of `__fulfilled` ([#2944](https://github.com/apollographql/apollo-ios/issues/2944)):** See PR [#2990](https://github.com/apollographql/apollo-ios/pull/2990). _Thank you to [@scottasoutherland](https://github.com/scottasoutherland) for raising the issue._
+
+### New
+- **Add option to generate objects with `internal` access modifier ([#2630](https://github.com/apollographql/apollo-ios/issues/2630)):** See PR [#2917](https://github.com/apollographql/apollo-ios/pull/2917). _Thank you to [@simonbilskyrollins](https://github.com/simonbilskyrollins) for the feature request._
 
 ## v1.1.3
 
