@@ -21,7 +21,7 @@ public class ApolloCodegen {
     case invalidConfiguration(message: String)
     case invalidSchemaName(_ name: String, message: String)
     case targetNameConflict(name: String)
-    case typeNameConflict(name: String, conflictingName: String)
+    case typeNameConflict(name: String, conflictingName: String, containingObject: String)
 
     public var errorDescription: String? {
       switch self {
@@ -57,10 +57,10 @@ public class ApolloCodegen {
         Target name '\(name)' conflicts with a reserved library name. Please choose a different \
         target name.
         """
-      case let .typeNameConflict(name, conflictingName):
+      case let .typeNameConflict(name, conflictingName, containingObject):
         return """
-        Field '\(conflictingName)' conflicts with field '\(name)' in selection set. Recommend \
-        using a field alias for one of these fields to resolve this conflict.
+        Field '\(conflictingName)' conflicts with field '\(name)' in operation/fragment `\(containingObject)`. \
+        Recommend using a field alias for one of these fields to resolve this conflict.
         """
       }
     }
@@ -220,21 +220,35 @@ public class ApolloCodegen {
   }
   
   /// Validates that there are no type conflicts within a SelectionSet
-  static private func validateTypeConflicts(for selectionSet: IR.SelectionSet, with context: ConfigurationContext) throws {
+  static private func validateTypeConflicts(for selectionSet: IR.SelectionSet, with context: ConfigurationContext, in containingObject: String) throws {
     // Check for type conflicts resulting from singularization/pluralization of fields
-    var typeNames = [String: String]()
-    var fields: [IR.EntityField] = selectionSet.selections.direct?.fields.values.compactMap({ $0 as? IR.EntityField }) ?? []
-    fields.append(contentsOf: selectionSet.selections.merged.fields.values.compactMap({ $0 as? IR.EntityField }))
+    var fieldNamesByFormattedTypeName = [String: String]()
+    var fields: [IR.EntityField] = selectionSet.selections.direct?.fields.values.compactMap { $0 as? IR.EntityField } ?? []
+    fields.append(contentsOf: selectionSet.selections.merged.fields.values.compactMap { $0 as? IR.EntityField } )
 
-    try fields.forEach({ field in
+    try fields.forEach { field in
       let formattedTypeName = field.formattedSelectionSetName(with: context.pluralizer)
-      if let existingFieldName = typeNames[formattedTypeName] {
-        throw Error.typeNameConflict(name: existingFieldName, conflictingName: field.name)
+      if let existingFieldName = fieldNamesByFormattedTypeName[formattedTypeName] {
+        throw Error.typeNameConflict(
+          name: existingFieldName,
+          conflictingName: field.name,
+          containingObject: containingObject
+        )
       }
       
-      typeNames[formattedTypeName] = field.name
-      try validateTypeConflicts(for: field.selectionSet, with: context)
-    })
+      fieldNamesByFormattedTypeName[formattedTypeName] = field.name
+      try validateTypeConflicts(for: field.selectionSet, with: context, in: containingObject)
+    }
+    
+    // gather nested fragments to loop through and check as well
+    var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.elements ?? []
+    nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values)
+    nestedSelectionSets.append(contentsOf: selectionSet.selections.direct?.fragments.values.map { $0.fragment.rootField.selectionSet } ?? [])
+    nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.fragments.values.map { $0.fragment.rootField.selectionSet })
+    
+    try nestedSelectionSets.forEach { nestedSet in
+      try validateTypeConflicts(for: nestedSet, with: context, in: containingObject)
+    }
   }
 
   /// Performs GraphQL source validation and compiles the schema and operation source documents.
@@ -328,7 +342,7 @@ public class ApolloCodegen {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
         let irFragment = ir.build(fragment: fragment)
-        try validateTypeConflicts(for: irFragment.rootField.selectionSet, with: config)
+        try validateTypeConflicts(for: irFragment.rootField.selectionSet, with: config, in: irFragment.definition.name)
         try FragmentFileGenerator(irFragment: irFragment, config: config)
           .generate(forConfig: config, fileManager: fileManager)
       }
@@ -339,7 +353,7 @@ public class ApolloCodegen {
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
-        try validateTypeConflicts(for: irOperation.rootField.selectionSet, with: config)
+        try validateTypeConflicts(for: irOperation.rootField.selectionSet, with: config, in: irOperation.definition.name)
         try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
