@@ -1,11 +1,3 @@
-//
-//  IR+Formatting.swift
-//  ApolloCodegenLib
-//
-//  Created by Zach FettersMoore on 5/15/23.
-//  Copyright © 2023 Apollo GraphQL. All rights reserved.
-//
-
 import Foundation
 
 extension GraphQLType {
