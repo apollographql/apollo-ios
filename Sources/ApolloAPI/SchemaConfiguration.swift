@@ -24,11 +24,11 @@ public protocol SchemaConfiguration {
   /// [aliased fields](https://spec.graphql.org/draft/#sec-Field-Alias) will be keyed on their
   /// alias name, not the name of the field on the schema type.
   ///
-  /// 3. Because cache key resolution is performed both on raw JSON (from a network response or
-  /// cache hit) and `SelectionSet` model data (when writing to the cache directly), the underlying
-  /// data will have different formats. The `object` parameter of this function is an ``ObjectData``
-  /// struct that wraps the underlying object data. The ``ObjectData`` wrapper is used to normalize
-  /// this data to a consistent format in this context.
+  /// 3. The `object` parameter of this function is an ``ObjectData`` struct that wraps the
+  /// underlying object data. Because cache key resolution is performed both on raw JSON (from a
+  /// network response) and `SelectionSet` model data (when writing to the cache directly),
+  /// the underlying data will have different formats. The ``ObjectData`` wrapper is used to
+  /// normalize this data to a consistent format in this context.
   ///
   /// # See Also
   /// ``CacheKeyInfo``

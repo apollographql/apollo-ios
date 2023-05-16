@@ -7,8 +7,11 @@
   "sidebar": {
     "Introduction": "/",
     "Get Started": "/get-started",
-    "Migrating to v1.0": "/migrations/1.0",
     "Project Configuration": "/project-configuration",
+    "Migration Guides": {
+      "v1.0": "/migrations/1.0",
+      "v1.2": "/migrations/1.2"
+    },
     "Tutorial": {
       "Code Generation": "/tutorial/codegen-getting-started"
     },

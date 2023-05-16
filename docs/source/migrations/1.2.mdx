@@ -1,0 +1,144 @@
+---
+title: Apollo iOS 1.2 migration guide
+description: From 1.0-1.1 to 1.2
+---
+
+This guide describes the process of migrating your code from version 1.0 or 1.1 to version 1.2 of Apollo iOS.
+
+Though 1.2 is a minor version bump, a critical problem was addressed in this version that requires a small breaking change during the upgrade. While we strive to make the upgrade path for minor versions seamless, this issue could not be reasonably resolved without requiring this migration.
+
+**For most users, this migration will only require a single change to your `SchemaConfiguration.swift` file.**
+
+## Breaking Changes
+
+### Cache Key Configuration API
+
+The API for [configuring custom cache keys](../caching/cache-key-resolution) has had a minor change in this version. The signature of the `cacheKeyInfo(for:object:)` function, defined in your generated `SchemaConfiguration.swift` file, has been modified.
+
+In previous versions, the `object` parameter was of the type `JSONObject`, which is a `typealias` for the type `Dictionary<String, AnyHashable>`. In 1.2, the `object` parameter is of a newly defined type `ObjectData`.
+
+In order to preserve your implementation, the `SchemaConfiguration.swift` file is generated only the first time code generation is run. This means that when upgrading to Apollo iOS 1.2, you will need to modify the function signature of the `cacheKeyInfo(for:object:)` function.
+
+*For new projects, the function will be properly generated on the first code generation run.*
+
+#### Reasoning
+
+Because cache key resolution is performed both on raw JSON (from a network response) and `SelectionSet` model data (when writing to the cache directly), the underlying `object` data will have different formats. This inconsistency caused bugs that were difficult to track down for some users. The ``ObjectData`` wrapper `struct` is used to normalize this data to a consistent format in the context of the `cacheKeyInfo(for:object:)` function.
+
+#### Migration Steps
+
+For most users, the change will be as simple as changing the function signature from:
+
+```swift title="v1.0 SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    /// ...
+  }
+}
+```
+
+to
+
+```swift title="v1.2 SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
+    /// ...
+  }
+}
+```
+
+For most basic use cases, which only use the `object`'s `subscript` to access its values, this will suffice. However, the `ObjectData` struct does not provide the same API as a `Dictionary` and has some semantic differences that you may need to address. **We recommend running sufficient tests to ensure your cache key resolution function still returns the expected values.**
+
+If your cache key resolution function does not compile or resolve cache keys correctly with the new function signature, please continue reading for more information.
+
+#### Changes to underlying value types
+
+The `ObjectData` struct allows you to access the values of the provided `object` in a way that ensure consistency of the value types. If your implementation of the `cacheKeyInfo(for:object:)` function casts values to specific expected types, you may need to modify your code to ensure that casting is done properly. The values you should expect to be returned for the keys in an `ObjectData` struct are as follows:
+
+- Scalar types
+  - The raw scalar value (`String, Int, Float, Double` or `Bool`)
+- Custom scalar types
+  - The custom scalar will be deserialized into the raw value returned from the type's `jsonValue` property.
+  - See [Custom Scalars](../custom-scalars) for more information
+- Object types
+  - For other GraphQL objects nested inside of the passed `object`, another `ObjectData` struct will be returned.
+  - In previous versions, the return value was another `JSONObject` (ie. `Dictionary<String, AnyHahsable>`).
+- List types
+  - For a list field, the returned value is the newly defined `ListData` struct.
+  - `ListData` functions the same as `ObjectData`, wrapping an array of elements instead of a dictionary.
+
+#### `ObjectData` API limitations
+
+The `ObjectData` struct exposes a notably limited API. It only allows subscript access to the key value pairs of its underlying data. Generally, this API should suffice for accessing the values needed to resolve cache keys. If your `cacheKeyInfo(for:object:)` function is using any other functionality of `Dictionary`, you will need to refactor your code.
+
+In order to limit the complexity required by cache key resolution mechanisms, additions to the `ObjectData` API are being made only as needed based on feedback from our users. **If your `cacheKeyInfo(for:object:)` function requires other functionality to be exposed on `ObjectData`, please [submit a Feature Request](https://github.com/apollographql/apollo-ios/issues/new?template=feature_request.yaml).**
+
+### Example
+
+Let's consider an example `cacheKeyInfo(for:object:)` function from the previous version which needs to have some modifications made while migrating to version 1.2
+
+```swift title="v1.0 SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    switch type {
+    case Objects.User:
+        let userInfo = object[info] as? [String: AnyHashable]
+        let emailList = userInfo["emailAddresses"] as? [String]
+        return try? CacheKeyInfo(jsonValue: emailList[0])
+
+    case Objects.Post:
+        let timestampCustomScalar = object["timestamp"] as? TimeStamp
+        let timestampRawValue = object["timestamp"] as? String
+        let timestampString = (timestampCustomScalar?.jsonValue as? String)
+            ?? timestampRawValue
+        return try? CacheKeyInfo(jsonValue: timestampString)
+
+    case Objects.Product:
+      return try? CacheKeyInfo(id: object["UPC"])
+
+    default:
+      return nil
+    }
+  }
+}
+```
+
+To migrate this function to 1.2, we need to make a few changes.
+
+1. The `object` parameter must be changed to the type `ObjectData`
+2. The value for the `User` object's `info` field should be cast to `ObjectData` instead of `[String: AnyHashable]`
+3. The `User` object's `info.emailAddresses` should expect a `ListData` type instead of `[String]`.
+4. Previously, the value for the `Post` object's `timestamp` custom scalar may have been the `TimeStamp` custom scalar or its raw `jsonValue` type, depending on the source of the data. Now we should always expect the deserialized `jsonValue` – in this case, a `String`.
+5. The `Product` object's `UPC` field has always been a scalar `String` value. There is no change needed here.
+
+```swift title="v1.2 SchemaConfiguration.swift"
+public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+  static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
+    switch type {
+    case Objects.User:
+        let userInfo = object["info"] as? ObjectData
+        let emailList = userInfo["emailAddresses"] as? ListData
+        return try? CacheKeyInfo(jsonValue: emailList[0] as? String)
+
+    case Objects.Post:
+        let timestamp = object["timestamp"] as? String
+        return try? CacheKeyInfo(jsonValue: timestamp)
+
+    case Objects.Product:
+        return try? CacheKeyInfo(jsonValue: object["UPC"])
+
+    default:
+      return nil
+    }
+  }
+}
+```
+
+The `ObjectData` and `ListData` subscript accessors can also be chained together. This means the `User` object's cache key resolution could be implemented more simply as:
+
+```swift
+case Objects.User:
+    return try? CacheKeyInfo(
+        jsonValue: object["info"]?["emailAddresses"]?[0]
+    )
+```
