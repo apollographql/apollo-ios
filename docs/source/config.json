@@ -10,7 +10,23 @@
     "Migrating to v1.0": "/migrations/1.0",
     "Project Configuration": "/project-configuration",
     "Tutorial": {
-      "Code Generation": "/tutorial/codegen-getting-started"
+      "Code Generation": "/tutorial/codegen-getting-started",
+      "Build a project with Apollo": {
+        "0. Introduction": "/tutorial/tutorial-introduction",
+        "1. Configure your project": "/tutorial/tutorial-configure-project",
+        "2. Add the GraphQL schema": "/tutorial/tutorial-add-graphql-schema",
+        "3. Write your first query": "/tutorial/tutorial-write-your-first-query",
+        "4. Running code generation": "/tutorial/tutorial-running-code-generation",
+        "5. Execute your first query": "/tutorial/tutorial-execute-first-query",
+        "6. Connect your queries to your UI": "/tutorial/tutorial-connect-queries-to-ui",
+        "7. Add more info to the list": "/tutorial/tutorial-add-more-info-to-list",
+        "8. Paginate results": "/tutorial/tutorial-paginate-results",
+        "9. Complete the details view": "/tutorial/tutorial-complete-details-view",
+        "10. Write your first mutation": "/tutorial/tutorial-first-mutation",
+        "11. Authenticate your operations": "/tutorial/tutorial-authenticate-operations",
+        "12. Define additional mutations": "/tutorial/tutorial-define-additional-mutations",
+        "13. Write your first subscription": "/tutorial/tutorial-subscriptions"
+      }
     },
     "API Reference": {
       "Overview": "https://www.apollographql.com/docs/ios/docc/documentation/index",
