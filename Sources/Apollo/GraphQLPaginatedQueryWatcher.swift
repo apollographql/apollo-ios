@@ -22,16 +22,14 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
   private typealias ResultHandler = (Result<GraphQLResult<Strategy.Query.Data>, Error>) -> Void
 
   private let client: any ApolloClientProtocol
-
   private var watchers: [GraphQLQueryWatcher<Strategy.Query>] = []
-
   private let createPageQuery: CreatePageQuery
-
   private var modelMap: [Cursor?: Strategy.Output] = [:]
   private var cursorOrder: [Cursor?] = []
-
   private var resultHandler: ResultHandler?
   private var callbackQueue: DispatchQueue
+  private let mergeStrategy: Strategy
+  private var mostRecentModel: Strategy.Output?
 
   /// The last extracted `Page` from the network response.
   /// "last" in this instance refers to pagination order, not most recent.
@@ -44,10 +42,6 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
 
   /// All fetched pages
   public private(set) var pages: [Page?] = [nil]
-  private let mergeStrategy: Strategy
-
-  private var mostRecentModel: Strategy.Output?
-
   /// Designated Initializer
   /// - Parameters:
   ///   - client: The client protocol to pass in
