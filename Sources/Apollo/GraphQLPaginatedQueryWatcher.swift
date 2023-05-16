@@ -15,49 +15,51 @@ public struct Page: Equatable {
 }
 
 /// Handles pagination in the queue by managing multiple query watchers.
-final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
+public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: Cancellable {
   /// Given a page, create a query of the type this watcher is responsible for
-  public typealias CreatePageQuery = (Page) -> Query?
+  public typealias CreatePageQuery = (Page) -> Strategy.Query?
 
-  private typealias ResultHandler = (Result<GraphQLResult<Query.Data>, Error>) -> Void
+  private typealias ResultHandler = (Result<GraphQLResult<Strategy.Query.Data>, Error>) -> Void
 
   private let client: any ApolloClientProtocol
 
-  private var watchers: [GraphQLQueryWatcher<Query>] = []
+  private var watchers: [GraphQLQueryWatcher<Strategy.Query>] = []
 
   private let createPageQuery: CreatePageQuery
 
-  private var modelMap: [Cursor?: T] = [:]
+  private var modelMap: [Cursor?: Strategy.Output] = [:]
   private var cursorOrder: [Cursor?] = []
 
   private var resultHandler: ResultHandler?
   private var callbackQueue: DispatchQueue
+
+  /// The last extracted `Page` from the network response.
+  /// "last" in this instance refers to pagination order, not most recent.
   public private(set) var currentPage: Page? {
     didSet {
       guard let currentPage else { return }
       pages.append(currentPage)
     }
   }
-  public private(set) var pages: [Page?] = [nil]
-  private let mergeStrategy: PaginationMergeStrategy<Query, T>
 
-  /// Designated initializer
-  ///
+  /// All fetched pages
+  public private(set) var pages: [Page?] = [nil]
+  private let mergeStrategy: Strategy
+
+  /// Designated Initializer
   /// - Parameters:
   ///   - client: The client protocol to pass in
   ///   - inititalCachePolicy: The preferred cache policy for the initlal page. Defaults to `returnCacheDataAndFetch`.
   ///   - callbackQueue: The queue for response callbacks.
+  ///   - mergeStrategy: The merge strategy (such as `SimplePaginationStrategy` or `CustomPaginationStrategy`) by which this class operates.
   ///   - query: The query to watch
   ///   - createPageQuery: A function which creates a new `Query` given some pagination information.
-  ///   - transform: Transforms the `Query.Data` to the intended model and extracts the `Page` from the `Data`.
-  ///   - nextPageTransform: A function which combines extant data with the new data from the next page
-  ///   - onReceiveResults: The callback function which returns changes or an error.
   public init(
     client: ApolloClientProtocol,
     inititalCachePolicy: CachePolicy = .returnCacheDataAndFetch,
     callbackQueue: DispatchQueue = .main,
-    mergeStrategy: PaginationMergeStrategy<Query, T>,
-    query: Query,
+    mergeStrategy: Strategy,
+    query: Strategy.Query,
     createPageQuery: @escaping CreatePageQuery
   ) {
     self.callbackQueue = callbackQueue
@@ -88,7 +90,11 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
           mostRecent: transformedModel,
           source: graphQLResult.source
         ))
-        self.currentPage = page
+        if let index = pages.firstIndex(of: page) {
+          pages[index] = page
+        } else {
+          self.currentPage = page
+        }
         mergeStrategy.resultHandler(result: .success(model))
       }
     }

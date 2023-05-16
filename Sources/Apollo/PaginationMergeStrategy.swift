@@ -1,49 +1,22 @@
 import ApolloAPI
 
-enum PaginationMergeStrategy<Query: GraphQLQuery, T> {
-//  case simple(SimplePaginationStrategy<Query, T>)
-  case custom(CustomPaginationStrategy<Query, T>)
+/// The strategy by which a `GraphQLPaginatedQueryWatcher` operates
+public protocol PaginationStrategy {
+  /// The `Query` associated with such a strategy
+  associatedtype Query: GraphQLQuery
+  /// The expected output of the strategy
+  associatedtype Output
 
-  func transform(data: Query.Data) -> (T?, Page?)? {
-    switch self {
-    case .custom(let strategy):
-      return strategy.transform(data)
-    }
-  }
+  /// Transforms a new `Query.Data` result into a results tuple.
+  /// - Parameter data: input data from the underlying `GraphQLQueryWatcher`
+  /// - Returns: A tuple which contains the expected `Output` value of this strategy as well as the `Page` that this `Output` is tied to.
+  func transform(data: Query.Data) -> (Output?, Page?)?
 
-  func mergePageResults(response: PaginationDataResponse<Query, T>) -> T {
-    switch self {
-    case .custom(let strategy):
-      return strategy.mergePageResults(response)
-    }
-  }
+  /// How the strategy goes about combining the results of many watchers.
+  /// - Parameter response: Contains all page results, the page that triggered the update, as well as the source of the update
+  /// - Returns: The finalized `Output` to be returned to the user via the `resultHandler`.
+  func mergePageResults(response: PaginationDataResponse<Query, Output>) -> Output
 
-  func resultHandler(result: Result<T, Error>) -> Void {
-    switch self {
-    case .custom(let strategy):
-      return strategy.resultHandler(result)
-    }
-  }
-}
-
-public struct PaginationDataResponse<Query: GraphQLQuery, T> {
-  let allResponses: [T]
-  let mostRecent: T
-  let source: GraphQLResult<Query.Data>.Source
-}
-
-final class CustomPaginationStrategy<Query: GraphQLQuery, T> {
-  var transform: (Query.Data) -> (T?, Page?)?
-  var mergePageResults: (PaginationDataResponse<Query, T>) -> T
-  var resultHandler: (Result<T, Error>) -> Void
-
-  init(
-    transform: @escaping (Query.Data) -> (T?, Page?)?,
-    mergePageResults: @escaping (PaginationDataResponse<Query, T>) -> T,
-    resultHandler: @escaping (Result<T, Error>) -> Void
-  ) {
-    self.transform = transform
-    self.mergePageResults = mergePageResults
-    self.resultHandler = resultHandler
-  }
+  /// The callback by which the user handles the result of the `GraphQLPaginatedQueryWatcher`.
+  func resultHandler(result: Result<Output, Error>)
 }
