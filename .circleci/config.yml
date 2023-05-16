@@ -12,7 +12,7 @@ parameters:
     default: "15.5"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "13.3"
+    default: "13.2"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
     default: "16.4"
