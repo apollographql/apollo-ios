@@ -3,19 +3,19 @@ version: 2.1
 parameters:
   xcode_version:
     type: string
-    default: "14.1.0"
+    default: "14.3.0"
   ios_current_version:
     type: string
-    default: "16.1"
+    default: "16.4"
   ios_previous_version:
     type: string
     default: "15.5"
   macos_version: # The user-facing version string for macOS builds
     type: string
-    default: "12.5.1"
+    default: "13.3"
   tvos_version: # The user-facing version string of tvOS builds
     type: string
-    default: "16.1"
+    default: "16.4"
 
 commands:
   integration_test_setup:
