@@ -40,7 +40,7 @@ Now, click the Submit Operation button to run your authorized query. You'll get 
 
 With a mutation written like this, you can book any number of trips you want at the same time. However, the booking mechanism in our application will only let you book one trip at a time.
 
-Luckily, there's an easy way to update the mutation so it's required to only take a single object. First, update the name of your operation in Explorer to the singular `BookTrip` (and remove `Mutation` since that will be added for us by code generation). Next, update the mutation to take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation:
+Luckily, there's an easy way to update the mutation so it's required to only take a single object. First, update the name of your operation in Explorer to the singular `BookTrip`. Next, update the mutation to take a single `$id`, then pass an array containing that `$id` to the `bookTrips` mutation:
 
 ```graphql title="(Sandbox Explorer)"
 mutation BookTrip($id:ID!) {
