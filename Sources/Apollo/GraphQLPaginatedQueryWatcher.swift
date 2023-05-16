@@ -46,6 +46,8 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
   public private(set) var pages: [Page?] = [nil]
   private let mergeStrategy: Strategy
 
+  private var mostRecentModel: Strategy.Output?
+
   /// Designated Initializer
   /// - Parameters:
   ///   - client: The client protocol to pass in
@@ -79,10 +81,17 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
               let (transformedModel, page) = mergeStrategy.transform(data: data),
               let transformedModel
         else { return }
+        // Store in the model map and update page information
         modelMap[page?.endCursor] = transformedModel
         if !cursorOrder.contains(page?.endCursor) {
           cursorOrder.append(page?.endCursor)
         }
+        if let index = pages.firstIndex(of: page) {
+          pages[index] = page
+        } else {
+          self.currentPage = page
+        }
+        // Create output model and update the caller if it's new
         let model = mergeStrategy.mergePageResults(response: .init(
           allResponses: cursorOrder.compactMap { [weak self] cursor in
             self?.modelMap[cursor]
@@ -90,12 +99,10 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
           mostRecent: transformedModel,
           source: graphQLResult.source
         ))
-        if let index = pages.firstIndex(of: page) {
-          pages[index] = page
-        } else {
-          self.currentPage = page
-        }
+        // Make sure we only notify the caller once of an update
+        guard model != mostRecentModel else { return }
         mergeStrategy.resultHandler(result: .success(model))
+        mostRecentModel = model
       }
     }
 
@@ -120,6 +127,9 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
     // Reset mapping of data and order of data
     modelMap.removeAll()
     cursorOrder.removeAll()
+    currentPage = nil
+    pages.removeAll()
+    mostRecentModel = nil
     // Remove and cancel all watchers aside from the first page
     guard let initialWatcher = watchers.first else { return }
     let subsequentWatchers = watchers.dropFirst()

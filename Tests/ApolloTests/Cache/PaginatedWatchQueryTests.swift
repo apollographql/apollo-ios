@@ -35,8 +35,8 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     try super.tearDownWithError()
   }
 
-  struct HeroViewModel: Equatable {
-    struct Friend: Equatable {
+  struct HeroViewModel: Hashable {
+    struct Friend: Hashable {
       let name: String
       let id: String
     }

@@ -1,7 +1,7 @@
 import ApolloAPI
 
 /// A custom pagination strategy that allows the caller to paginate using their own output model and gives fine-grain control over how page results are merged together.
-public final class CustomPaginationStrategy<Query: GraphQLQuery, T>: PaginationStrategy {
+public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: PaginationStrategy {
   private var _transform: (Query.Data) -> (T?, Page?)?
   private var _mergePageResults: (PaginationDataResponse<Query, T>) -> T
   private var _resultHandler: (Result<T, Error>) -> Void

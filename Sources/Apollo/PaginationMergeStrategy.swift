@@ -5,7 +5,7 @@ public protocol PaginationStrategy {
   /// The `Query` associated with such a strategy
   associatedtype Query: GraphQLQuery
   /// The expected output of the strategy
-  associatedtype Output
+  associatedtype Output: Hashable
 
   /// Transforms a new `Query.Data` result into a results tuple.
   /// - Parameter data: input data from the underlying `GraphQLQueryWatcher`
