@@ -169,34 +169,6 @@
       "kind" : "declarations"
     },
     {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "A ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : " dictionary representing an object in a GraphQL response.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "object"
-        }
-      ]
-    },
-    {
       "content" : [
         {
           "anchor" : "return-value",
@@ -266,6 +238,34 @@
         }
       ],
       "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "A ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " dictionary representing an object in a GraphQL response.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "object"
+        }
+      ]
     },
     {
       "content" : [
