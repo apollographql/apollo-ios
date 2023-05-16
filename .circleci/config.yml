@@ -1,6 +1,9 @@
 version: 2.1
 
 parameters:
+  resource_class:
+    type: string
+    default: "macos.x86.medium.gen2"
   xcode_version:
     type: string
     default: "14.3.0"
@@ -133,6 +136,7 @@ commands:
 # executes by also adding it to the `workflows` section below!
 jobs:
   Swift_Build:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     steps:
@@ -141,6 +145,7 @@ jobs:
           command: swift build
 
   XCFramework_Build:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     steps:
@@ -156,6 +161,7 @@ jobs:
           command: xcodebuild -create-xcframework -output ./build/Apollo.xcframework -framework ./build/iphonesimulator.xcarchive/Products/@rpath/Apollo.framework -framework ./build/iphoneos.xcarchive/Products/@rpath/Apollo.framework
 
   IntegrationTests_macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -168,6 +174,7 @@ jobs:
       - integration_test_cleanup
 
   macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -179,6 +186,7 @@ jobs:
       - build_and_run_xcode_tests
 
   iOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -190,6 +198,7 @@ jobs:
       - build_and_run_xcode_tests
 
   iOS_previous:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -201,6 +210,7 @@ jobs:
       - build_and_run_xcode_tests
 
   tvOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -212,6 +222,7 @@ jobs:
       - build_and_run_xcode_tests
 
   CodegenLib_macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -224,6 +235,7 @@ jobs:
       - run_js_tests
   
   CodegenCLI_macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -235,6 +247,7 @@ jobs:
       - build_and_run_xcode_tests
   
   CocoaPodsIntegration_macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     environment:
@@ -244,6 +257,7 @@ jobs:
       - cocoapods_install_test
 
   CodegenTestConfigurations_macOS_current:
+    resource_class: << pipeline.parameters.resource_class >>
     macos:
       xcode: << pipeline.parameters.xcode_version >>
     steps:
