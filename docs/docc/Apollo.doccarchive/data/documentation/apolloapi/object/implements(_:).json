@@ -135,34 +135,6 @@
       "kind" : "declarations"
     },
     {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "An ",
-                  "type" : "text"
-                },
-                {
-                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
-                  "isActive" : true,
-                  "type" : "reference"
-                },
-                {
-                  "text" : " Type",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "interface"
-        }
-      ]
-    },
-    {
       "content" : [
         {
           "anchor" : "return-value",
@@ -198,6 +170,34 @@
         }
       ],
       "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "An ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Interface",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " Type",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "interface"
+        }
+      ]
     }
   ],
   "schemaVersion" : {

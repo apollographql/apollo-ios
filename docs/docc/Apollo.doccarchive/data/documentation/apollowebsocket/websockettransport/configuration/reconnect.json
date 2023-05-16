@@ -66,19 +66,6 @@
           ],
           "tokens" : [
             {
-              "kind" : "attribute",
-              "text" : "@"
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:6Apollo6AtomicC",
-              "text" : "Atomic"
-            },
-            {
-              "kind" : "text",
-              "text" : " "
-            },
-            {
               "kind" : "keyword",
               "text" : "var"
             },

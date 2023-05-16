@@ -157,25 +157,6 @@
       "kind" : "declarations"
     },
     {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The full file path of the file to find",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "filePath"
-        }
-      ]
-    },
-    {
       "content" : [
         {
           "anchor" : "return-value",
@@ -194,6 +175,25 @@
         }
       ],
       "kind" : "content"
+    },
+    {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The full file path of the file to find",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "filePath"
+        }
+      ]
     }
   ],
   "schemaVersion" : {
