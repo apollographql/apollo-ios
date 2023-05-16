@@ -60,7 +60,7 @@ The `ObjectData` struct allows you to access the values of the provided `object`
   - See [Custom Scalars](../custom-scalars) for more information
 - Object types
   - For other GraphQL objects nested inside of the passed `object`, another `ObjectData` struct will be returned.
-  - In previous versions, the return value was another `JSONObject` (ie. `Dictionary<String, AnyHahsable>`).
+  - In previous versions, the return value was another `JSONObject` (ie. `Dictionary<String, AnyHashable>`).
 - List types
   - For a list field, the returned value is the newly defined `ListData` struct.
   - `ListData` functions the same as `ObjectData`, wrapping an array of elements instead of a dictionary.
