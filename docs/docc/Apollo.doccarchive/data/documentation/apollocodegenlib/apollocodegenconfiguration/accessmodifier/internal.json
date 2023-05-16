@@ -1,7 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "All operation object files will be located in the specified path.",
+      "text" : "Enable entities to be used within any source file from their defining module, but not in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "any source file outside of that module.",
       "type" : "text"
     }
   ],
@@ -10,17 +18,17 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationsFileOutput"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationsFileOutput\/absolute(path:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier\/internal"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV20OperationsFileOutputO8absoluteyAESS_tcAEmF",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV14AccessModifierO8internalyA2EmF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -32,28 +40,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "absolute"
-      },
-      {
-        "kind" : "text",
-        "text" : "("
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "path"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:SS",
-        "text" : "String"
-      },
-      {
-        "kind" : "text",
-        "text" : ")"
+        "text" : "`internal`"
       }
     ],
     "modules" : [
@@ -64,7 +51,7 @@
     "role" : "symbol",
     "roleHeading" : "Case",
     "symbolKind" : "case",
-    "title" : "ApolloCodegenConfiguration.OperationsFileOutput.absolute(path:)"
+    "title" : "ApolloCodegenConfiguration.AccessModifier.internal"
   },
   "primaryContentSections" : [
     {
@@ -87,28 +74,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "absolute"
-            },
-            {
-              "kind" : "text",
-              "text" : "("
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "path"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:SS",
-              "text" : "String"
-            },
-            {
-              "kind" : "text",
-              "text" : ")"
+              "text" : "`internal`"
             }
           ]
         }
@@ -127,7 +93,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationsfileoutput\/absolute(path:)"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier\/internal"
       ],
       "traits" : [
         {
@@ -186,10 +152,10 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationsFileOutput": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/AccessModifier": {
   "abstract" : [
     {
-      "text" : "The local path structure for the generated operation object files.",
+      "text" : "Swift access control configuration.",
       "type" : "text"
     }
   ],
@@ -204,26 +170,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "OperationsFileOutput"
+      "text" : "AccessModifier"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationsFileOutput",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "OperationsFileOutput"
+      "text" : "AccessModifier"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OperationsFileOutput",
+  "title" : "ApolloCodegenConfiguration.AccessModifier",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationsfileoutput"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationsFileOutput/absolute(path:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/AccessModifier/internal": {
   "abstract" : [
     {
-      "text" : "All operation object files will be located in the specified path.",
+      "text" : "Enable entities to be used within any source file from their defining module, but not in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "any source file outside of that module.",
       "type" : "text"
     }
   ],
@@ -238,36 +212,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "absolute"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "path"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : ")"
+      "text" : "`internal`"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationsFileOutput\/absolute(path:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier\/internal",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OperationsFileOutput.absolute(path:)",
+  "title" : "ApolloCodegenConfiguration.AccessModifier.internal",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationsfileoutput\/absolute(path:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier\/internal"
 }
 }
 }

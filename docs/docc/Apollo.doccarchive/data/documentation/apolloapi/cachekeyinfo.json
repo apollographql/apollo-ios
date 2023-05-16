@@ -716,16 +716,16 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
+      "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
+      "text" : "ScalarType"
     },
     {
       "kind" : "text",
-      "text" : "?, "
+      "text" : ")?, "
     },
     {
       "kind" : "externalParam",
@@ -1036,8 +1036,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-      "text" : "JSONObject"
+      "preciseIdentifier" : "s:9ApolloAPI10ObjectDataV",
+      "text" : "ObjectData"
     },
     {
       "kind" : "text",

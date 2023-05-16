@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data used by ",
+      "text" : "A structure that wraps the underlying data for a ",
       "type" : "text"
     },
     {
@@ -10,7 +10,7 @@
       "type" : "reference"
     },
     {
-      "text" : "s.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -115,7 +115,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:)"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:fulfilledFragments:)"
       ],
       "title" : "Initializers"
     },
@@ -131,12 +131,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/subscript(_:)-7aefb"
       ],
       "title" : "Subscripts"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/SelectionSetData"
-      ],
-      "title" : "Type Aliases"
     },
     {
       "generated" : true,
@@ -225,7 +219,7 @@
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict": {
   "abstract" : [
     {
-      "text" : "A structure that wraps the underlying data used by ",
+      "text" : "A structure that wraps the underlying data for a ",
       "type" : "text"
     },
     {
@@ -234,7 +228,7 @@
       "type" : "reference"
     },
     {
-      "text" : "s.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -340,48 +334,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/equatable-implementations"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/DataDict/SelectionSetData": {
-  "abstract" : [
-    {
-      "text" : "A type representing the underlying data for a ",
-      "type" : "text"
-    },
-    {
-      "code" : "SelectionSet",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SelectionSetData"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/SelectionSetData",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SelectionSetData"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "DataDict.SelectionSetData",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/datadict\/selectionsetdata"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict/hash(into:)": {
   "abstract" : [
 
@@ -436,7 +388,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/datadict\/hash(into:)"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(data:)": {
+"doc://ApolloAPI/documentation/ApolloAPI/DataDict/init(data:fulfilledFragments:)": {
   "abstract" : [
 
   ],
@@ -455,33 +407,59 @@
     },
     {
       "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : " : "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s11AnyHashableV",
+      "text" : "AnyHashable"
+    },
+    {
+      "kind" : "text",
+      "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fulfilledFragments"
+    },
+    {
+      "kind" : "text",
       "text" : ": "
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictV",
-      "text" : "DataDict"
+      "preciseIdentifier" : "s:Sh",
+      "text" : "Set"
     },
     {
       "kind" : "text",
-      "text" : "."
+      "text" : "<"
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI8DataDictV012SelectionSetC0a",
-      "text" : "SelectionSetData"
+      "preciseIdentifier" : "s:SO",
+      "text" : "ObjectIdentifier"
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:)",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DataDict\/init(data:fulfilledFragments:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(data:)",
+  "title" : "init(data:fulfilledFragments:)",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/datadict\/init(data:)"
+  "url" : "\/documentation\/apolloapi\/datadict\/init(data:fulfilledfragments:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/DataDict/subscript(_:)-5tqti": {
   "abstract" : [

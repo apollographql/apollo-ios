@@ -35,7 +35,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI19SchemaConfigurationP12cacheKeyInfo3for6objectAA05CachefG0VSgAA6ObjectV_SDySSs11AnyHashableVGtFZ",
+    "externalID" : "s:9ApolloAPI19SchemaConfigurationP12cacheKeyInfo3for6objectAA05CachefG0VSgAA6ObjectV_AA0K4DataVtFZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -88,8 +88,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-        "text" : "JSONObject"
+        "preciseIdentifier" : "s:9ApolloAPI10ObjectDataV",
+        "text" : "ObjectData"
       },
       {
         "kind" : "text",
@@ -186,10 +186,10 @@
               "text" : ": "
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-              "text" : "JSONObject"
+              "preciseIdentifier" : "s:9ApolloAPI10ObjectDataV",
+              "text" : "ObjectData"
             },
             {
               "kind" : "text",
@@ -209,35 +209,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "A ",
-              "type" : "text"
-            },
-            {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
-              "isActive" : true,
-              "type" : "reference"
-            },
-            {
-              "text" : " describing the computed cache key for the response object.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     },
     {
       "kind" : "parameters",
@@ -290,7 +261,7 @@
                   "type" : "text"
                 },
                 {
-                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
+                  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
                   "isActive" : true,
                   "type" : "reference"
                 },
@@ -305,6 +276,35 @@
           "name" : "object"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "A ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CacheKeyInfo",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " describing the computed cache key for the response object.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     },
     {
       "content" : [
@@ -332,61 +332,17 @@
           "type" : "paragraph"
         },
         {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "Because cache key resolution is performed both on raw JSON (from a network response or cache",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "hit) and ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "SelectionSet",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " model data (when writing to the cache directly), the underlying",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "object",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " will have different formats.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Warning",
-          "style" : "warning",
-          "type" : "aside"
-        },
-        {
           "inlineContent" : [
             {
-              "text" : "This means that cache key resolution has a few notable limitations:",
+              "text" : "Cache key resolution has a few notable quirks and limitations you should be aware of while",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "implementing your cache key resolution function:",
               "type" : "text"
             }
           ],
@@ -399,7 +355,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "Computing cache keys from fields on nested objects is only allowed if the nested object",
+                      "text" : "While the cache key for an object can use a field from another nested object, if the fields",
                       "type" : "text"
                     },
                     {
@@ -407,7 +363,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "does not have its own cache key. If the nested object has its own cache key, it will be",
+                      "text" : "on the referenced object are changed in another operation, the cache key for the dependent",
                       "type" : "text"
                     },
                     {
@@ -415,7 +371,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "normalized as a seperate cache entity. Cache keys for entities cannot be dependent on",
+                      "text" : "object will not be updated. For nested objects that are not normalized with their own cache",
                       "type" : "text"
                     },
                     {
@@ -423,7 +379,31 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "other entities.",
+                      "text" : "key, this will never occur, but if the nested object is an entity with its own cache key, it",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "can be mutated independently. In that case, any other objects whose cache keys are dependent",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "on the mutated entity will not be updated automatically. You must take care to update those",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "entities manually with a cache mutation.",
                       "type" : "text"
                     }
                   ],
@@ -436,24 +416,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "When computing a cache key using a field of a ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
-                      "isActive" : true,
-                      "type" : "reference"
-                    },
-                    {
-                      "text" : ", the underlying type of",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "the value in the ",
+                      "text" : "The ",
                       "type" : "text"
                     },
                     {
@@ -461,7 +424,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : " dictionary will vary. It may be the raw JSON value for the scalar",
+                      "text" : " passed to this function represents data for an object in an specific operation",
                       "type" : "text"
                     },
                     {
@@ -469,7 +432,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "(when the source is a network response or cache hit) or the specific custom scalar type for",
+                      "text" : "model, not a type in your schema. This means that",
                       "type" : "text"
                     },
                     {
@@ -477,7 +440,66 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "the field (when the source is a ",
+                      "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Field-Alias",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " will be keyed on their",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "alias name, not the name of the field on the schema type.",
+                      "type" : "text"
+                    }
+                  ],
+                  "type" : "paragraph"
+                }
+              ]
+            },
+            {
+              "content" : [
+                {
+                  "inlineContent" : [
+                    {
+                      "text" : "The ",
+                      "type" : "text"
+                    },
+                    {
+                      "code" : "object",
+                      "type" : "codeVoice"
+                    },
+                    {
+                      "text" : " parameter of this function is an ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " struct that wraps the",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "underlying object data. Because cache key resolution is performed both on raw JSON (from a",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : " ",
+                      "type" : "text"
+                    },
+                    {
+                      "text" : "network response) and ",
                       "type" : "text"
                     },
                     {
@@ -485,7 +507,7 @@
                       "type" : "codeVoice"
                     },
                     {
-                      "text" : " model to write to the cache). When using a",
+                      "text" : " model data (when writing to the cache directly),",
                       "type" : "text"
                     },
                     {
@@ -493,7 +515,16 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "custom scalar field to compute a cache key, make sure to check the type and handle both of",
+                      "text" : "the underlying data will have different formats. The ",
+                      "type" : "text"
+                    },
+                    {
+                      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
+                      "isActive" : true,
+                      "type" : "reference"
+                    },
+                    {
+                      "text" : " wrapper is used to",
                       "type" : "text"
                     },
                     {
@@ -501,7 +532,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "these possibilities",
+                      "text" : "normalize this data to a consistent format in this context.",
                       "type" : "text"
                     }
                   ],
@@ -691,82 +722,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/cachereference"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/CustomScalarType": {
-  "abstract" : [
-    {
-      "text" : "A protocol a custom GraphQL “",
-      "type" : "text"
-    },
-    {
-      "code" : "scalar",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : "” must conform to.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CustomScalarType"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/CustomScalarType",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CustomScalarType"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "CustomScalarType",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/customscalartype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONObject": {
-  "abstract" : [
-    {
-      "text" : "Represents a JSON Dictionary",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "typealias"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "JSONObject"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "JSONObject",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsonobject"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/Object": {
   "abstract" : [
     {
@@ -808,6 +763,64 @@
   "title" : "Object",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/object"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/ObjectData": {
+  "abstract" : [
+    {
+      "text" : "An opaque wrapper for data representing a GraphQL object. This type wraps data from different",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "sources, using a ",
+      "type" : "text"
+    },
+    {
+      "code" : "_transformer",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to ensure the raw data from different sources (which may be in",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "different formats) can be consumed with a consistent API.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ObjectData"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ObjectData"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ObjectData",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/objectdata"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/SchemaConfiguration": {
   "abstract" : [
@@ -918,8 +931,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-      "text" : "JSONObject"
+      "preciseIdentifier" : "s:9ApolloAPI10ObjectDataV",
+      "text" : "ObjectData"
     },
     {
       "kind" : "text",
@@ -942,6 +955,18 @@
   "title" : "cacheKeyInfo(for:object:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/schemaconfiguration\/cachekeyinfo(for:object:)"
+},
+"https://spec.graphql.org/draft/#sec-Field-Alias": {
+  "identifier" : "https:\/\/spec.graphql.org\/draft\/#sec-Field-Alias",
+  "title" : "aliased fields",
+  "titleInlineContent" : [
+    {
+      "text" : "aliased fields",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/spec.graphql.org\/draft\/#sec-Field-Alias"
 }
 }
 }
