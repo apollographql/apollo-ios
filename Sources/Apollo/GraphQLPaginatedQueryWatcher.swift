@@ -4,21 +4,18 @@ import ApolloAPI
 import Foundation
 
 public typealias Cursor = String
+public struct Page: Equatable {
+  let hasNextPage: Bool
+  let endCursor: Cursor?
+
+  public init(hasNextPage: Bool, endCursor: Cursor?) {
+    self.hasNextPage = hasNextPage
+    self.endCursor = endCursor
+  }
+}
 
 /// Handles pagination in the queue by managing multiple query watchers.
 final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
-
-  public struct Page: Equatable {
-    let hasNextPage: Bool
-    let endCursor: Cursor?
-  }
-
-  public struct DataResponse {
-    let allResponses: [T]
-    let mostRecent: T
-    let source: GraphQLResult<Query.Data>.Source
-  }
-
   /// Given a page, create a query of the type this watcher is responsible for
   public typealias CreatePageQuery = (Page) -> Query?
 
@@ -26,14 +23,13 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
 
   private let client: any ApolloClientProtocol
 
-  private var initialWatcher: GraphQLQueryWatcher<Query>?
-  private var subsequentWatchers: [GraphQLQueryWatcher<Query>] = []
+  private var watchers: [GraphQLQueryWatcher<Query>] = []
 
   private let createPageQuery: CreatePageQuery
-  private let nextPageTransform: (DataResponse) -> T
 
   private var modelMap: [Cursor?: T] = [:]
   private var cursorOrder: [Cursor?] = []
+
   private var resultHandler: ResultHandler?
   private var callbackQueue: DispatchQueue
   public private(set) var currentPage: Page? {
@@ -43,6 +39,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     }
   }
   public private(set) var pages: [Page?] = [nil]
+  private let mergeStrategy: PaginationMergeStrategy<Query, T>
 
   /// Designated initializer
   ///
@@ -59,16 +56,14 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     client: ApolloClientProtocol,
     inititalCachePolicy: CachePolicy = .returnCacheDataAndFetch,
     callbackQueue: DispatchQueue = .main,
+    mergeStrategy: PaginationMergeStrategy<Query, T>,
     query: Query,
-    createPageQuery: @escaping CreatePageQuery,
-    transform: @escaping (Query.Data) -> (T?, Page?)?,
-    nextPageTransform: @escaping (DataResponse) -> T,
-    onReceiveResults: @escaping (Result<T, Error>) -> Void
+    createPageQuery: @escaping CreatePageQuery
   ) {
     self.callbackQueue = callbackQueue
     self.client = client
+    self.mergeStrategy = mergeStrategy
     self.createPageQuery = createPageQuery
-    self.nextPageTransform = nextPageTransform
 
     let resultHandler: ResultHandler = { [weak self] result in
       guard let self else { return }
@@ -76,51 +71,55 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
       case .failure(let error):
         guard !error.wasCancelled else { return }
         // Forward all errors aside from network cancellation errors
-        onReceiveResults(.failure(error))
+        mergeStrategy.resultHandler(result: .failure(error))
       case .success(let graphQLResult):
         guard let data = graphQLResult.data,
-              let (transformedModel, page) = transform(data),
+              let (transformedModel, page) = mergeStrategy.transform(data: data),
               let transformedModel
         else { return }
         modelMap[page?.endCursor] = transformedModel
         if !cursorOrder.contains(page?.endCursor) {
           cursorOrder.append(page?.endCursor)
         }
-        let model = nextPageTransform(
-          DataResponse(
-            allResponses: cursorOrder.compactMap { [weak self] cursor in
-              self?.modelMap[cursor]
-            },
-            mostRecent: transformedModel,
-            source: graphQLResult.source
-          )
-        )
+        let model = mergeStrategy.mergePageResults(response: .init(
+          allResponses: cursorOrder.compactMap { [weak self] cursor in
+            self?.modelMap[cursor]
+          },
+          mostRecent: transformedModel,
+          source: graphQLResult.source
+        ))
         self.currentPage = page
-        onReceiveResults(.success(model))
+        mergeStrategy.resultHandler(result: .success(model))
       }
     }
 
     self.resultHandler = resultHandler
-    initialWatcher = GraphQLQueryWatcher(
+    let initialWatcher = GraphQLQueryWatcher(
       client: client,
       query: query,
       callbackQueue: callbackQueue,
       resultHandler: resultHandler
     )
+    watchers = [initialWatcher]
   }
 
   /// Fetch the first page
   /// NOTE: Does not refresh subsequent pages nor remove them from the return value.
   public func fetch(cachePolicy: CachePolicy = .returnCacheDataAndFetch) {
-    initialWatcher?.fetch(cachePolicy: cachePolicy)
+    watchers.first?.fetch(cachePolicy: cachePolicy)
   }
 
   /// Fetches the first page and purges all data from subsequent pages.
   public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
+    // Reset mapping of data and order of data
     modelMap.removeAll()
     cursorOrder.removeAll()
-    cancelSubsequentWatchers()
-    initialWatcher?.refetch(cachePolicy: cachePolicy)
+    // Remove and cancel all watchers aside from the first page
+    guard let initialWatcher = watchers.first else { return }
+    let subsequentWatchers = watchers.dropFirst()
+    subsequentWatchers.forEach { $0.cancel() }
+    watchers = [initialWatcher]
+    initialWatcher.refetch(cachePolicy: cachePolicy)
   }
 
   /// Fetches the next page
@@ -138,7 +137,7 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
     ) { result in
       resultHandler(result)
     }
-    subsequentWatchers.append(nextPageWatcher)
+    watchers.append(nextPageWatcher)
 
     return true
   }
@@ -151,19 +150,13 @@ final class GraphQLPaginatedQueryWatcher<Query: GraphQLQuery, T>: Cancellable {
       return fetch(cachePolicy: cachePolicy)
     }
     guard let index = pages.firstIndex(where: { $0?.endCursor == page.endCursor }),
-          subsequentWatchers.count > index - 1
+          watchers.count > index
     else { return }
-    subsequentWatchers[index - 1].fetch(cachePolicy: cachePolicy)
+    watchers[index].fetch(cachePolicy: cachePolicy)
   }
 
   public func cancel() {
-    initialWatcher?.cancel()
-    cancelSubsequentWatchers()
-  }
-
-  private func cancelSubsequentWatchers() {
-    subsequentWatchers.forEach { $0.cancel() }
-    subsequentWatchers.removeAll()
+    watchers.forEach { $0.cancel() }
   }
 
   deinit {

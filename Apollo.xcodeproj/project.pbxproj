@@ -155,6 +155,7 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
+		D0AAA33A2A13C6570031C482 /* PaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
 		DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451328A5A156000F6F18 /* ValidationOptions.swift */; };
@@ -1337,6 +1338,7 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
+		D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMergeStrategy.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
@@ -2658,10 +2660,9 @@
 		9FC750461D2A532C00458D91 /* Apollo */ = {
 			isa = PBXGroup;
 			children = (
+				D0AAA3382A13C62A0031C482 /* Query Watcher */,
 				9FC750621D2A59F600458D91 /* ApolloClient.swift */,
 				9B708AAC2305884500604A11 /* ApolloClientProtocol.swift */,
-				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
-				D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */,
 				9FC9A9BE1E2C27FB0023C4D5 /* GraphQLResult.swift */,
 				9FC9A9D21E2FD48B0023C4D5 /* GraphQLError.swift */,
 				9F27D4601D40363A00715680 /* Execution */,
@@ -2812,6 +2813,16 @@
 				9FC750491D2A532C00458D91 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0AAA3382A13C62A0031C482 /* Query Watcher */ = {
+			isa = PBXGroup;
+			children = (
+				D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */,
+				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
+				D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */,
+			);
+			name = "Query Watcher";
 			sourceTree = "<group>";
 		};
 		DE05862326697A8C00265760 /* ApolloAPI */ = {
@@ -5440,6 +5451,7 @@
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
 				9B260BFB245A031900562176 /* NetworkFetchInterceptor.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift in Sources */,
+				D0AAA33A2A13C6570031C482 /* PaginationMergeStrategy.swift in Sources */,
 				9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
 				9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */,

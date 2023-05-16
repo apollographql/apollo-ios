@@ -54,32 +54,37 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
+      mergeStrategy: .custom(CustomPaginationStrategy(
+        transform: { data in
+          (
+            HeroViewModel(
+              name: data.hero.name,
+              friends: data.hero.friendsConnection.friends.map {
+                HeroViewModel.Friend(name: $0.name, id: $0.id)
+              }
+            ),
+            .init(
+              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+            )
+          )
+        },
+        mergePageResults: { response in
+          return HeroViewModel(
+            name: response.mostRecent.name,
+            friends: response.allResponses.flatMap { $0.friends }
+          )
+        },
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value)
+        }
+      )),
       query: query
     ) { pageInfo in
       let query = MockQuery<MockPaginatedSelectionSet>()
       query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
       return query
-    } transform: { data in
-      (
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friendsConnection.friends.map {
-            HeroViewModel.Friend(name: $0.name, id: $0.id)
-          }
-        ),
-        GraphQLPaginatedQueryWatcher.Page(
-          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursor: data.hero.friendsConnection.pageInfo.endCursor
-        )
-      )
-    } nextPageTransform: { response in
-      return HeroViewModel(
-        name: response.mostRecent.name,
-        friends: response.allResponses.flatMap { $0.friends }
-      )
-    } onReceiveResults: { result in
-      guard case let .success(value) = result else { return XCTFail() }
-      results.append(value)
     }
     addTeardownBlock { watcher.cancel() }
 
@@ -186,32 +191,37 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
+      mergeStrategy: .custom(CustomPaginationStrategy(
+        transform: { data in
+          (
+            HeroViewModel(
+              name: data.hero.name,
+              friends: data.hero.friendsConnection.friends.map {
+                HeroViewModel.Friend(name: $0.name, id: $0.id)
+              }
+            ),
+            .init(
+              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+            )
+          )
+        },
+        mergePageResults: { response in
+          return HeroViewModel(
+            name: response.mostRecent.name,
+            friends: response.allResponses.flatMap { $0.friends }
+          )
+        },
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value)
+        }
+      )),
       query: query
     ) { pageInfo in
       let query = MockQuery<MockPaginatedSelectionSet>()
       query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
       return query
-    } transform: { data in
-      (
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friendsConnection.friends.map {
-            HeroViewModel.Friend(name: $0.name, id: $0.id)
-          }
-        ),
-        GraphQLPaginatedQueryWatcher.Page(
-          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursor: data.hero.friendsConnection.pageInfo.endCursor
-        )
-      )
-    } nextPageTransform: { response in
-      return HeroViewModel(
-        name: response.mostRecent.name,
-        friends: response.allResponses.flatMap { $0.friends }
-      )
-    } onReceiveResults: { result in
-      guard case let .success(value) = result else { return XCTFail() }
-      results.append(value)
     }
     addTeardownBlock { watcher.cancel() }
 
@@ -341,32 +351,37 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
+      mergeStrategy: .custom(CustomPaginationStrategy(
+        transform: { data in
+          (
+            HeroViewModel(
+              name: data.hero.name,
+              friends: data.hero.friendsConnection.friends.map {
+                HeroViewModel.Friend(name: $0.name, id: $0.id)
+              }
+            ),
+            .init(
+              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+            )
+          )
+        },
+        mergePageResults: { response in
+          return HeroViewModel(
+            name: response.mostRecent.name,
+            friends: response.allResponses.flatMap { $0.friends }
+          )
+        },
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value)
+        }
+      )),
       query: query
     ) { pageInfo in
       let query = MockQuery<MockPaginatedSelectionSet>()
       query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
       return query
-    } transform: { data in
-      (
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friendsConnection.friends.map {
-            HeroViewModel.Friend(name: $0.name, id: $0.id)
-          }
-        ),
-        GraphQLPaginatedQueryWatcher.Page(
-          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursor: data.hero.friendsConnection.pageInfo.endCursor
-        )
-      )
-    } nextPageTransform: { response in
-      return HeroViewModel(
-        name: response.mostRecent.name,
-        friends: response.allResponses.flatMap { $0.friends }
-      )
-    } onReceiveResults: { result in
-      guard case let .success(value) = result else { return XCTFail() }
-      results.append(value)
     }
     addTeardownBlock { watcher.cancel() }
 
@@ -478,33 +493,38 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     resultExpectation.expectedFulfillmentCount = 2
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
+      mergeStrategy: .custom(CustomPaginationStrategy(
+        transform: { data in
+          (
+            HeroViewModel(
+              name: data.hero.name,
+              friends: data.hero.friendsConnection.friends.map {
+                HeroViewModel.Friend(name: $0.name, id: $0.id)
+              }
+            ),
+            .init(
+              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+            )
+          )
+        },
+        mergePageResults: { response in
+          return HeroViewModel(
+            name: response.mostRecent.name,
+            friends: response.allResponses.flatMap { $0.friends }
+          )
+        },
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value)
+          resultExpectation.fulfill()
+        }
+      )),
       query: query
     ) { pageInfo in
       let query = MockQuery<MockPaginatedSelectionSet>()
       query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
       return query
-    } transform: { data in
-      (
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friendsConnection.friends.map {
-            HeroViewModel.Friend(name: $0.name, id: $0.id)
-          }
-        ),
-        GraphQLPaginatedQueryWatcher.Page(
-          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursor: data.hero.friendsConnection.pageInfo.endCursor
-        )
-      )
-    } nextPageTransform: { response in
-      return HeroViewModel(
-        name: response.mostRecent.name,
-        friends: response.allResponses.flatMap { $0.friends }
-      )
-    } onReceiveResults: { result in
-      guard case let .success(value) = result else { return XCTFail() }
-      results.append(value)
-      resultExpectation.fulfill()
     }
     addTeardownBlock { watcher.cancel() }
 
@@ -586,33 +606,38 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     resultExpectation.expectedFulfillmentCount = 2
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
+      mergeStrategy: .custom(CustomPaginationStrategy(
+        transform: { data in
+          (
+            HeroViewModel(
+              name: data.hero.name,
+              friends: data.hero.friendsConnection.friends.map {
+                HeroViewModel.Friend(name: $0.name, id: $0.id)
+              }
+            ),
+            .init(
+              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+            )
+          )
+        },
+        mergePageResults: { response in
+          return HeroViewModel(
+            name: response.mostRecent.name,
+            friends: response.allResponses.flatMap { $0.friends }
+          )
+        },
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value)
+          resultExpectation.fulfill()
+        }
+      )),
       query: query
     ) { pageInfo in
       let query = MockQuery<MockPaginatedSelectionSet>()
       query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
       return query
-    } transform: { data in
-      (
-        HeroViewModel(
-          name: data.hero.name,
-          friends: data.hero.friendsConnection.friends.map {
-            HeroViewModel.Friend(name: $0.name, id: $0.id)
-          }
-        ),
-        GraphQLPaginatedQueryWatcher.Page(
-          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursor: data.hero.friendsConnection.pageInfo.endCursor
-        )
-      )
-    } nextPageTransform: { response in
-      return HeroViewModel(
-        name: response.mostRecent.name,
-        friends: response.allResponses.flatMap { $0.friends }
-      )
-    } onReceiveResults: { result in
-      guard case let .success(value) = result else { return XCTFail() }
-      results.append(value)
-      resultExpectation.fulfill()
     }
     addTeardownBlock { watcher.cancel() }
 
