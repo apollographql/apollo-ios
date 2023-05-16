@@ -1,6 +1,6 @@
 ---
 title: Apollo iOS 1.2 migration guide
-description: From 1.0-1.1 to 1.2
+description: From 1.0 - 1.1 to 1.2
 ---
 
 This guide describes the process of migrating your code from version 1.0 or 1.1 to version 1.2 of Apollo iOS.
@@ -9,9 +9,7 @@ Though 1.2 is a minor version bump, a critical problem was addressed in this ver
 
 **For most users, this migration will only require a single change to your `SchemaConfiguration.swift` file.**
 
-## Breaking Changes
-
-### Cache Key Configuration API
+## Cache Key Configuration API
 
 The API for [configuring custom cache keys](../caching/cache-key-resolution) has had a minor change in this version. The signature of the `cacheKeyInfo(for:object:)` function, defined in your generated `SchemaConfiguration.swift` file, has been modified.
 
@@ -21,11 +19,11 @@ In order to preserve your implementation, the `SchemaConfiguration.swift` file i
 
 *For new projects, the function will be properly generated on the first code generation run.*
 
-#### Reasoning
+### Reasoning
 
 Because cache key resolution is performed both on raw JSON (from a network response) and `SelectionSet` model data (when writing to the cache directly), the underlying `object` data will have different formats. This inconsistency caused bugs that were difficult to track down for some users. The ``ObjectData`` wrapper `struct` is used to normalize this data to a consistent format in the context of the `cacheKeyInfo(for:object:)` function.
 
-#### Migration Steps
+### Migration Steps
 
 For most users, the change will be as simple as changing the function signature from:
 
@@ -51,7 +49,7 @@ For most basic use cases, which only use the `object`'s `subscript` to access it
 
 If your cache key resolution function does not compile or resolve cache keys correctly with the new function signature, please continue reading for more information.
 
-#### Changes to underlying value types
+### Changes to underlying value types
 
 The `ObjectData` struct allows you to access the values of the provided `object` in a way that ensure consistency of the value types. If your implementation of the `cacheKeyInfo(for:object:)` function casts values to specific expected types, you may need to modify your code to ensure that casting is done properly. The values you should expect to be returned for the keys in an `ObjectData` struct are as follows:
 
@@ -67,7 +65,7 @@ The `ObjectData` struct allows you to access the values of the provided `object`
   - For a list field, the returned value is the newly defined `ListData` struct.
   - `ListData` functions the same as `ObjectData`, wrapping an array of elements instead of a dictionary.
 
-#### `ObjectData` API limitations
+### `ObjectData` API limitations
 
 The `ObjectData` struct exposes a notably limited API. It only allows subscript access to the key value pairs of its underlying data. Generally, this API should suffice for accessing the values needed to resolve cache keys. If your `cacheKeyInfo(for:object:)` function is using any other functionality of `Dictionary`, you will need to refactor your code.
 
