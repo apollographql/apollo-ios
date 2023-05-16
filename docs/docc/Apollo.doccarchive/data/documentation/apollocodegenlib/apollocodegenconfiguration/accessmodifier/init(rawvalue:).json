@@ -1,15 +1,15 @@
 {
   "abstract" : [
     {
-      "text" : "Generated test mock files will be located in the specified path.",
+      "text" : "Inherited from ",
       "type" : "text"
     },
     {
-      "text" : " ",
-      "type" : "text"
+      "code" : "RawRepresentable.init(rawValue:)",
+      "type" : "codeVoice"
     },
     {
-      "text" : "No module will be created for the generated test mocks.",
+      "text" : ".",
       "type" : "text"
     }
   ],
@@ -18,37 +18,29 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput\/absolute(path:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier\/init(rawValue:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV18TestMockFileOutputO8absoluteyAESS_tcAEmF",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV14AccessModifierO8rawValueAESgSS_tcfc",
     "fragments" : [
       {
-        "kind" : "keyword",
-        "text" : "case"
-      },
-      {
-        "kind" : "text",
-        "text" : " "
-      },
-      {
         "kind" : "identifier",
-        "text" : "absolute"
+        "text" : "init"
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "?("
       },
       {
         "kind" : "externalParam",
-        "text" : "path"
+        "text" : "rawValue"
       },
       {
         "kind" : "text",
@@ -70,9 +62,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Case",
-    "symbolKind" : "case",
-    "title" : "ApolloCodegenConfiguration.TestMockFileOutput.absolute(path:)"
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(rawValue:)"
   },
   "primaryContentSections" : [
     {
@@ -87,23 +79,15 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "case"
+              "text" : "init"
             },
             {
               "kind" : "text",
-              "text" : " "
-            },
-            {
-              "kind" : "identifier",
-              "text" : "absolute"
-            },
-            {
-              "kind" : "text",
-              "text" : "("
+              "text" : "?("
             },
             {
               "kind" : "externalParam",
-              "text" : "path"
+              "text" : "rawValue"
             },
             {
               "kind" : "text",
@@ -122,49 +106,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Generated files must be manually added to your test target. Test mocks generated",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "this way may also be manually embedded in a test utility module that is imported by your",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "test target.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "Note",
-          "style" : "note",
-          "type" : "aside"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -178,7 +119,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput\/absolute(path:)"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier\/init(rawvalue:)"
       ],
       "traits" : [
         {
@@ -237,10 +178,10 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/TestMockFileOutput": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/AccessModifier": {
   "abstract" : [
     {
-      "text" : "The local path structure for the generated test mock object files.",
+      "text" : "Swift access control configuration.",
       "type" : "text"
     }
   ],
@@ -255,57 +196,38 @@
     },
     {
       "kind" : "identifier",
-      "text" : "TestMockFileOutput"
+      "text" : "AccessModifier"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "TestMockFileOutput"
+      "text" : "AccessModifier"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.TestMockFileOutput",
+  "title" : "ApolloCodegenConfiguration.AccessModifier",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/TestMockFileOutput/absolute(path:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/AccessModifier/init(rawValue:)": {
   "abstract" : [
-    {
-      "text" : "Generated test mock files will be located in the specified path.",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "No module will be created for the generated test mocks.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
-      "kind" : "keyword",
-      "text" : "case"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
       "kind" : "identifier",
-      "text" : "absolute"
+      "text" : "init"
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "?("
     },
     {
       "kind" : "externalParam",
-      "text" : "path"
+      "text" : "rawValue"
     },
     {
       "kind" : "text",
@@ -321,12 +243,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput\/absolute(path:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier\/init(rawValue:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.TestMockFileOutput.absolute(path:)",
+  "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput\/absolute(path:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier\/init(rawvalue:)"
 }
 }
 }

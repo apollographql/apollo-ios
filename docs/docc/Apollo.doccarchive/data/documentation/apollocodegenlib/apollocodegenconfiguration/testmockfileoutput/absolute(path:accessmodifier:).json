@@ -1,11 +1,35 @@
 {
   "abstract" : [
     {
-      "text" : "Generated schema types will be manually embedded in a target with the specified ",
+      "text" : "Generated test mock files will be located in the specified ",
       "type" : "text"
     },
     {
-      "code" : "name",
+      "code" : "path",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Use ",
+      "type" : "text"
+    },
+    {
+      "code" : "accessModifier",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "control the visibility of generated code, defaults to ",
+      "type" : "text"
+    },
+    {
+      "code" : ".public",
       "type" : "codeVoice"
     },
     {
@@ -17,7 +41,7 @@
       "type" : "text"
     },
     {
-      "text" : "No module will be created for the generated schema types.",
+      "text" : "No module will be created for the generated test mocks.",
       "type" : "text"
     }
   ],
@@ -26,18 +50,17 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput\/ModuleType-swift.enum"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput\/ModuleType-swift.enum\/embeddedInTarget(name:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput\/absolute(path:accessModifier:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV21SchemaTypesFileOutputV10ModuleTypeO16embeddedInTargetyAGSS_tcAGmF",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV18TestMockFileOutputO8absoluteyAESS_AC14AccessModifierOtcAEmF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -49,7 +72,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "embeddedInTarget"
+        "text" : "absolute"
       },
       {
         "kind" : "text",
@@ -57,7 +80,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "name"
+        "text" : "path"
       },
       {
         "kind" : "text",
@@ -67,6 +90,32 @@
         "kind" : "typeIdentifier",
         "preciseIdentifier" : "s:SS",
         "text" : "String"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "accessModifier"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+        "text" : "ApolloCodegenConfiguration"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV14AccessModifierO",
+        "text" : "AccessModifier"
       },
       {
         "kind" : "text",
@@ -81,7 +130,7 @@
     "role" : "symbol",
     "roleHeading" : "Case",
     "symbolKind" : "case",
-    "title" : "ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType.embeddedInTarget(name:)"
+    "title" : "ApolloCodegenConfiguration.TestMockFileOutput.absolute(path:accessModifier:)"
   },
   "primaryContentSections" : [
     {
@@ -104,7 +153,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "embeddedInTarget"
+              "text" : "absolute"
             },
             {
               "kind" : "text",
@@ -112,7 +161,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "name"
+              "text" : "path"
             },
             {
               "kind" : "text",
@@ -125,7 +174,35 @@
             },
             {
               "kind" : "text",
-              "text" : ")"
+              "text" : ", "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "accessModifier"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+              "text" : "ApolloCodegenConfiguration"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV14AccessModifierO",
+              "text" : "AccessModifier"
+            },
+            {
+              "kind" : "text",
+              "text" : " = .public)"
             }
           ]
         }
@@ -145,7 +222,7 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Generated files must be manually added to your application target. The generated",
+                  "text" : "Generated files must be manually added to your test target. Test mocks generated",
                   "type" : "text"
                 },
                 {
@@ -153,7 +230,7 @@
                   "type" : "text"
                 },
                 {
-                  "text" : "schema types files will be namespaced with the value of your configuration’s",
+                  "text" : "this way may also be manually embedded in a test utility module that is imported by your",
                   "type" : "text"
                 },
                 {
@@ -161,11 +238,7 @@
                   "type" : "text"
                 },
                 {
-                  "code" : "schemaNamespace",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " to prevent naming conflicts.",
+                  "text" : "test target.",
                   "type" : "text"
                 }
               ],
@@ -191,7 +264,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schematypesfileoutput\/moduletype-swift.enum\/embeddedintarget(name:)"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput\/absolute(path:accessmodifier:)"
       ],
       "traits" : [
         {
@@ -250,44 +323,10 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/SchemaTypesFileOutput": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/AccessModifier": {
   "abstract" : [
     {
-      "text" : "The local path structure for the generated schema types files.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "struct"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "SchemaTypesFileOutput"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "SchemaTypesFileOutput"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.SchemaTypesFileOutput",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schematypesfileoutput"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/SchemaTypesFileOutput/ModuleType-swift.enum": {
-  "abstract" : [
-    {
-      "text" : "Compatible dependency manager automation.",
+      "text" : "Swift access control configuration.",
       "type" : "text"
     }
   ],
@@ -302,30 +341,88 @@
     },
     {
       "kind" : "identifier",
-      "text" : "ModuleType"
+      "text" : "AccessModifier"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput\/ModuleType-swift.enum",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "ModuleType"
+      "text" : "AccessModifier"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType",
+  "title" : "ApolloCodegenConfiguration.AccessModifier",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schematypesfileoutput\/moduletype-swift.enum"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/SchemaTypesFileOutput/ModuleType-swift.enum/embeddedInTarget(name:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/TestMockFileOutput": {
   "abstract" : [
     {
-      "text" : "Generated schema types will be manually embedded in a target with the specified ",
+      "text" : "The local path structure for the generated test mock object files.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TestMockFileOutput"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TestMockFileOutput"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.TestMockFileOutput",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/TestMockFileOutput/absolute(path:accessModifier:)": {
+  "abstract" : [
+    {
+      "text" : "Generated test mock files will be located in the specified ",
       "type" : "text"
     },
     {
-      "code" : "name",
+      "code" : "path",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ". Use ",
+      "type" : "text"
+    },
+    {
+      "code" : "accessModifier",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "control the visibility of generated code, defaults to ",
+      "type" : "text"
+    },
+    {
+      "code" : ".public",
       "type" : "codeVoice"
     },
     {
@@ -337,7 +434,7 @@
       "type" : "text"
     },
     {
-      "text" : "No module will be created for the generated schema types.",
+      "text" : "No module will be created for the generated test mocks.",
       "type" : "text"
     }
   ],
@@ -352,7 +449,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "embeddedInTarget"
+      "text" : "absolute"
     },
     {
       "kind" : "text",
@@ -360,7 +457,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "name"
+      "text" : "path"
     },
     {
       "kind" : "text",
@@ -373,15 +470,41 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "accessModifier"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+      "text" : "ApolloCodegenConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV14AccessModifierO",
+      "text" : "AccessModifier"
+    },
+    {
+      "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput\/ModuleType-swift.enum\/embeddedInTarget(name:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput\/absolute(path:accessModifier:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType.embeddedInTarget(name:)",
+  "title" : "ApolloCodegenConfiguration.TestMockFileOutput.absolute(path:accessModifier:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schematypesfileoutput\/moduletype-swift.enum\/embeddedintarget(name:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/testmockfileoutput\/absolute(path:accessmodifier:)"
 }
 }
 }

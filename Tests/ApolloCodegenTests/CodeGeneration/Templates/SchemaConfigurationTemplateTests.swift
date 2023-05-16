@@ -60,7 +60,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     // given
     let expected = """
     public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-      public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      public static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -83,7 +83,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     // given
     let expected = """
     enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-      public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      public static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -104,7 +104,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     // given
     let expected = """
     enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -125,7 +125,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     // given
     let expected = """
     enum SchemaConfiguration: Apollo.SchemaConfiguration {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }

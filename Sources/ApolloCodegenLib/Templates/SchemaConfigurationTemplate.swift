@@ -20,7 +20,7 @@ struct SchemaConfigurationTemplate: TemplateRenderer {
     \(accessControlModifier(for: .parent))enum SchemaConfiguration: \
     \(config.ApolloAPITargetName).SchemaConfiguration {
       \(accessControlModifier(for: .member))\
-    static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
