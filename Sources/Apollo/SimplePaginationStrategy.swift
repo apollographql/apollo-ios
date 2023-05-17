@@ -2,7 +2,7 @@ import ApolloAPI
 
 /// The `SimplePaginationStrategy`  is appropriate for most use cases.
 /// **NOTE**: The `SimplePaginationStrategy` is only intended to work with a `Query.Data` response that that only contains paginated lists.
-/// Including muliple paginated lists is fine, however, including a static list and a paginated list is unsupported; doing so would cause the static list to be duplicated by each page.
+/// Including multiple paginated lists is fine, however, including a static list and a paginated list is unsupported; doing so would cause the static list to be duplicated by each page.
 ///
 /// It functions by:
 ///   1. Having the user supply a function which can extract a `Page` from a given `Query.Data`.
