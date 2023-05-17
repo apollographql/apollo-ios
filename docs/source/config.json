@@ -12,7 +12,7 @@
     "Tutorial": {
       "Code Generation": "/tutorial/codegen-getting-started",
       "Build a project with Apollo": {
-        "0. Introduction": "/tutorial/tutorial-introduction",
+        "Introduction": "/tutorial/tutorial-introduction",
         "1. Configure your project": "/tutorial/tutorial-configure-project",
         "2. Add the GraphQL schema": "/tutorial/tutorial-add-graphql-schema",
         "3. Write your first query": "/tutorial/tutorial-write-your-first-query",
