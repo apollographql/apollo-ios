@@ -10,4 +10,10 @@ public struct PaginationDataResponse<Query: GraphQLQuery, T> {
 
   /// The source of that most recent trigger
   public let source: GraphQLResult<Query.Data>.Source
+
+  public init(allResponses: [T], mostRecent: T, source: GraphQLResult<Query.Data>.Source) {
+    self.allResponses = allResponses
+    self.mostRecent = mostRecent
+    self.source = source
+  }
 }
