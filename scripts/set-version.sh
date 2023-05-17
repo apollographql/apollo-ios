@@ -8,8 +8,8 @@ source "$(dirname "$0")/version-constants.sh"
 
 NEW_VERSION="$1"
 
- if [[ -z "NEW_VERSION" ]]; then
-     echo "You must specify a version."
+ if [[ ! $NEW_VERSION =~ ^[0-9]{1,2}.[0-9]{1,2}.[0-9]{1,2} ]]; then
+     echo "You must specify a version in the format x.x.x"
      exit 1
  fi
 
