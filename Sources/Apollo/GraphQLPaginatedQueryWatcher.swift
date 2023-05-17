@@ -76,27 +76,27 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
               let transformedModel
         else { return }
         // Store in the model map and update page information
-        modelMap[page?.endCursor] = transformedModel
-        if !cursorOrder.contains(page?.endCursor) {
-          cursorOrder.append(page?.endCursor)
+        self.modelMap[page?.endCursor] = transformedModel
+        if !self.cursorOrder.contains(page?.endCursor) {
+          self.cursorOrder.append(page?.endCursor)
         }
-        if let index = pages.firstIndex(of: page) {
-          pages[index] = page
+        if let index = self.pages.firstIndex(of: page) {
+          self.pages[index] = page
         } else {
           self.currentPage = page
         }
         // Create output model and update the caller if it's new
         let model = mergeStrategy.mergePageResults(response: .init(
-          allResponses: cursorOrder.compactMap { [weak self] cursor in
+          allResponses: self.cursorOrder.compactMap { [weak self] cursor in
             self?.modelMap[cursor]
           },
           mostRecent: transformedModel,
           source: graphQLResult.source
         ))
         // Make sure we only notify the caller once of an update
-        guard model != mostRecentModel else { return }
+        guard model != self.mostRecentModel else { return }
         mergeStrategy.resultHandler(result: .success(model))
-        mostRecentModel = model
+        self.mostRecentModel = model
       }
     }
 
