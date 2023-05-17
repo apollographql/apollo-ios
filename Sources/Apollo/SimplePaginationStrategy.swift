@@ -66,7 +66,11 @@ private extension DataDict.SelectionSetData {
         // Lists are what we target to combine and paginate over.
         return (k, combinedArray)
       } else {
-        // The value does not exist in the current dictionary. This is likely because the `currentValue` is represented by the initial empty dictionary.
+        // The value is an object or scalar.
+        // Prefer the `newValue` over the `currentValue`, as the `currentValue` may not exist in the first iteration
+        // of this function. Further, the `Simple` strategy doesn't take into account the most recently updated page,
+        // but rather assumes the simple use-case of pagination; the latest page in a series of pages has the latest
+        // data.
         return (k, newValue)
       }
     }
