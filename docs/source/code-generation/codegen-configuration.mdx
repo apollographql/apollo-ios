@@ -166,17 +166,17 @@ The possible values for `moduleType` are:
 
 | Value | Description |
 | ----- | ----------- |
-| [`embeddedInTarget(name:)`](#embedded-in-target) | Indicates that you would like to include the generated module directly in your application target. |
+| [`embeddedInTarget(name:accessModifier:)`](#embedded-in-target) | Indicates that you would like to include the generated module directly in your application target. |
 | [`swiftPackageManager`](#swift-package-manager)  | Creates a schema module as an SPM package that can be included in your project. |
 | [`other`](#other-schema-module-types) 		   | Indicates that you would like to manually define a schema module using a third party package manager (such as Cocoapods). |
 
 #### Embedded in target
 
-**[`ModuleType.embeddedInTarget(name: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/embeddedintarget(name:))**
+**[`ModuleType.embeddedInTarget(name: String, accessModifier: AccessModifier)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/embeddedintarget(name:accessModifier:))**
 
 This option indicates that you would like to include the generated module directly in your application target.
 
-The `name` parameter must specify the name of the target the schema types will be included in. This will be used to generate `import` statements for generated operations.
+The `name` parameter must specify the name of the target the schema types will be included in. This will be used to generate `import` statements for generated operations. Use the `accessModifier` parameter to control the visibility of the generated code.
 
 No module will be created for the schema types. Instead, generated schema types will be enclosed in a [caseless namespace `enum`](https://www.swiftbysundell.com/articles/powerful-ways-to-use-swift-enums/#namespaces-and-non-initializable-types).
 
@@ -191,7 +191,8 @@ When creating a single target application, this option allows you to include Apo
 	"schemaTypes": {
 		"moduleType": {
 			"embeddedInTarget": {
-				"name": "MyApplicationTarget"
+				"name": "MyApplicationTarget",
+				"accessModifier": "internal"
 			}
 		},
 		"path": "./generated/schema/"
@@ -205,7 +206,7 @@ let configuration = ApolloCodegenConfiguration(
 	output: ApolloCodegenConfiguration.FileOutput(
 		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
 			path: "./generated/schema/",
-			moduleType: .embeddedInTarget(name: "MyApplicationTarget")
+			moduleType: .embeddedInTarget(name: "MyApplicationTarget", accessModifier: .internal)
 		)
 		...
 	)
@@ -309,8 +310,8 @@ The `output.operations` property value determines the location of the generated 
 | Value | Description |
 | ----- | ----------- |
 | [`inSchemaModule`](#operations-in-the-schema-module) | Operation models will be included in the schema types module. |
-| [`relative(subpath:)`](#relative-operations-output) | Operation models will be output relative to their defining `.graphql` files. |
-| [`absolute(path:)`](#absolute-operations-output) | All operation object files will be located in the specified path. |
+| [`relative(subpath:accessModifier:)`](#relative-operations-output) | Operation models will be output relative to their defining `.graphql` files. |
+| [`absolute(path:accessModifier:)`](#absolute-operations-output) | All operation object files will be located in the specified path. |
 
 #### Operations in the schema module
 
@@ -324,13 +325,13 @@ This means the output location or your operation models is determined by the [`o
 
 #### Relative operations output
 
-**[`OperationsFileOutput.relative(subpath: String?)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/relative(subpath:))**
+**[`OperationsFileOutput.relative(subpath: String?, accessModifier: AccessModifier)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/relative(subpath:accessModifier:))**
 
 This option outputs your generated operation models relative to their GraphQL definition (`.graphql` files).
 
 Using relative operation outputs, you have complete control over where your operation definitions are generated. It is common practice to co-locate your operation and fragment models with the parts of your project that will use them.
 
-An optional `subpath` parameter can be provided to generate operation models in a subfolder that will be created within the directory of their defining GraphQL definition file. If no `subpath` is specified then all operation files will be generated alongside thier GraphQL definition files.
+An optional `subpath` parameter can be provided to generate operation models in a subfolder that will be created within the directory of their defining GraphQL definition file. If no `subpath` is specified then all operation files will be generated alongside thier GraphQL definition files. Use the `accessModifier` property to control the visibility of the generated code.
 
 > #### **Operation Models in a multi-module project:**
 >
@@ -347,11 +348,11 @@ An optional `subpath` parameter can be provided to generate operation models in 
 
 #### Absolute operations output
 
-**[`OperationsFileOutput.absolute(path: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/absolute(path:))**
+**[`OperationsFileOutput.absolute(path: String, accessModifier: AccessModifier)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationsfileoutput/absolute(path:accessModifier:))**
 
 This option outputs all of your generated operation models in a single directory.
 
-Specify the directory for your operation models using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
+Specify the directory for your operation models using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI. Use the `accessModifier` property to control the visibility of the generated code.
 
 ### Test mocks
 
@@ -367,7 +368,7 @@ The `output.testMocks` option can be configured with the following values:
 | ----- | ----------- |
 | [`none`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/none) | Test mocks will not be generated. |
 | [`swiftPackage(targetName:)`](#test-mocks-in-a-swift-package) | Test mock files will be generated and included in a target defined in an SPM package. |
-| [`absolute(path:)`](#absolute-test-mocks-output) | Test mock files will be generated at the specified path. |
+| [`absolute(path:accessModifier:)`](#absolute-test-mocks-output) | Test mock files will be generated at the specified path. |
 
 #### Test mocks in a Swift Package
 
@@ -381,11 +382,11 @@ The name of the test mock target can be specified with the `targetName` paramete
 
 #### Absolute test mocks output
 
-**[`TestMockFileOutput.absolute(path: String)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/absolute(path:))**
+**[`TestMockFileOutput.absolute(path: String, accessModifier: AccessModifier)`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/testmockfileoutput/absolute(path:accessModifier:))**
 
 This option outputs all of your generated test mocks in a single directory.
 
-Specify the directory for your test mocks using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI.
+Specify the directory for your test mocks using the `path` parameter. This is resolved as a relative path from the directory containing your `apollo-codegen-config.json` file when using the CLI. Use the `accessModifier` property to control the visibility of the generated code.
 
 > **Note:** When using this option, you are responsible for ensuring the generated test mocks are linked to your test target.
 >

@@ -14,7 +14,7 @@ struct EnumTemplate: TemplateRenderer {
     TemplateString(
     """
     \(documentation: graphqlEnum.documentation, config: config)
-    \(embeddedAccessControlModifier)\
+    \(accessControlModifier(for: .parent))\
     enum \(graphqlEnum.name.firstUppercased): String, EnumType {
       \(graphqlEnum.values.compactMap({
         enumCase(for: $0)

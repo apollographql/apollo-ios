@@ -12,7 +12,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "testSchema",
@@ -31,7 +31,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     subject.detachedTemplate?.description
   }
 
-  // MARK: Tests
+  // MARK: Header Tests
 
   func test__render_header__rendersEditableHeaderTemplateWithReason() throws {
     // given
@@ -54,11 +54,13 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  // MARK: Boilerplate Tests
+
   func test__render__rendersTemplate() throws {
     // given
     let expected = """
     public enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-      public static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      public static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -75,11 +77,13 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: false))
   }
 
-  func test__render__givenModuleEmbeddedInTarget_rendersTemplate_noPublicModifier() throws {
+  // MARK: Access Level Tests
+
+  func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_rendersTemplate_withPublicAccess() throws {
     // given
     let expected = """
     enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      public static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }
@@ -87,7 +91,28 @@ class SchemaConfigurationTemplateTests: XCTestCase {
 
     """
 
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public)))
+    // when
+
+    let actual = subject.render()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: false))
+  }
+
+  func test__render__givenModuleEmbeddedInTarget_withInternalAccessModifier_rendersTemplate_withInternalAccess() throws {
+    // given
+    let expected = """
+    enum SchemaConfiguration: ApolloAPI.SchemaConfiguration {
+      static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
+        // Implement this function to configure cache key resolution for your schema types.
+        return nil
+      }
+    }
+
+    """
+
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal)))
     // when
 
     let actual = subject.render()
@@ -100,7 +125,7 @@ class SchemaConfigurationTemplateTests: XCTestCase {
     // given
     let expected = """
     enum SchemaConfiguration: Apollo.SchemaConfiguration {
-      static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+      static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
         // Implement this function to configure cache key resolution for your schema types.
         return nil
       }

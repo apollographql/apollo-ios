@@ -15,7 +15,7 @@ class InputObjectTemplateTests: XCTestCase {
     name: String = "MockInput",
     fields: [GraphQLInputField] = [],
     documentation: String? = nil,
-    config: ApolloCodegenConfiguration = .mock()
+    config: ApolloCodegenConfiguration = .mock(.swiftPackageManager)
   ) {
     subject = InputObjectTemplate(
       graphqlInputObject: GraphQLInputObjectType.mock(
@@ -41,7 +41,7 @@ class InputObjectTemplateTests: XCTestCase {
     )
 
     let expected = """
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -56,12 +56,132 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_swiftPackageManager_generatesInputObject_withPublicModifier() {
+  // MARK: Access Level Tests
+
+  func test_render_givenInputObjectWithValidAndDeprecatedFields_whenModuleType_swiftPackageManager_generatesAllWithPublicAccess() {
     // given
-    buildSubject(config: .mock(.swiftPackageManager))
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        )
+      ],
+      config: .mock(.swiftPackageManager)
+    )
 
     let expected = """
     public struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
+      public init(
+        fieldOne: String,
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
+      }
+
+      public var fieldTwo: String {
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
+      }
+    }
+
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected))
+  }
+
+  func test_render_givenInputObjectWithValidAndDeprecatedFields_whenModuleType_other_generatesAllWithPublicAccess() {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        )
+      ],
+      config: .mock(.other)
+    )
+
+    let expected = """
+    public struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
+      public init(
+        fieldOne: String,
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
+      }
+
+      public var fieldTwo: String {
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
+      }
+    }
     """
 
     // when
@@ -71,27 +191,129 @@ class InputObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_other_generatesInputObject_withPublicModifier() {
+  func test_render_givenInputObjectWithValidAndDeprecatedFields_whenModuleType_embeddedInTarget_withPublicAccessModifier_generatesAllWithPublicAccess() {
     // given
-    buildSubject(config: .mock(.other))
-
-    let expected = """
-    public struct MockInput: InputObject {
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
-  }
-
-  func test_render_givenModuleType_embeddedInTarget_generatesInputObject_noPublicModifier() {
-    // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        )
+      ],
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public))
+    )
 
     let expected = """
     struct MockInput: InputObject {
+      public private(set) var __data: InputDict
+
+      public init(_ data: InputDict) {
+        __data = data
+      }
+
+      public init(
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
+      public init(
+        fieldOne: String,
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      public var fieldOne: String {
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
+      }
+
+      public var fieldTwo: String {
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
+      }
+    }
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenInputObjectWithValidAndDeprecatedFields_whenModuleType_embeddedInTarget_withInternalAccessModifier_generatesAllWithInternalAccess() {
+    // given
+    buildSubject(
+      fields: [
+        GraphQLInputField.mock(
+          "fieldOne",
+          type: .nonNull(.string()),
+          defaultValue: nil,
+          deprecationReason: "Not used anymore!"
+        ),
+        GraphQLInputField.mock(
+          "fieldTwo",
+          type: .nonNull(.string()),
+          defaultValue: nil
+        )
+      ],
+      config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal))
+    )
+
+    let expected = """
+    struct MockInput: InputObject {
+      private(set) var __data: InputDict
+
+      init(_ data: InputDict) {
+        __data = data
+      }
+
+      init(
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Argument 'fieldOne' is deprecated.")
+      init(
+        fieldOne: String,
+        fieldTwo: String
+      ) {
+        __data = InputDict([
+          "fieldOne": fieldOne,
+          "fieldTwo": fieldTwo
+        ])
+      }
+
+      @available(*, deprecated, message: "Not used anymore!")
+      var fieldOne: String {
+        get { __data["fieldOne"] }
+        set { __data["fieldOne"] = newValue }
+      }
+
+      var fieldTwo: String {
+        get { __data["fieldTwo"] }
+        set { __data["fieldTwo"] = newValue }
+      }
+    }
     """
 
     // when
@@ -110,7 +332,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MockInput: InputObject {"
+    let expected = "public struct MockInput: InputObject {"
 
     // when
     let actual = renderSubject()
@@ -126,7 +348,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MOCKInput: InputObject {"
+    let expected = "public struct MOCKInput: InputObject {"
 
     // when
     let actual = renderSubject()
@@ -142,7 +364,7 @@ class InputObjectTemplateTests: XCTestCase {
       fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
     )
 
-    let expected = "struct MOcK_Input: InputObject {"
+    let expected = "public struct MOcK_Input: InputObject {"
 
     // when
     let actual = renderSubject()
@@ -171,6 +393,66 @@ class InputObjectTemplateTests: XCTestCase {
       public var field: GraphQLNullable<String> {
         get { __data["field"] }
         set { __data["field"] = newValue }
+      }
+    }
+    
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
+  }
+  
+  func test__render__givenSingleFieldTypeInMixedCase__generatesParameterAndInitializerWithCorrectCasing() throws {
+    // given
+    buildSubject(fields: [
+      GraphQLInputField.mock("Field", type: .scalar(.string()), defaultValue: nil)
+    ])
+
+    let expected = """
+      public init(
+        field: GraphQLNullable<String> = nil
+      ) {
+        __data = InputDict([
+          "Field": field
+        ])
+      }
+
+      public var field: GraphQLNullable<String> {
+        get { __data["Field"] }
+        set { __data["Field"] = newValue }
+      }
+    }
+    
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: false))
+  }
+  
+  func test__render__givenSingleFieldTypeInAllUppercase__generatesParameterAndInitializerWithCorrectCasing() throws {
+    // given
+    buildSubject(fields: [
+      GraphQLInputField.mock("FIELDNAME", type: .scalar(.string()), defaultValue: nil)
+    ])
+
+    let expected = """
+      public init(
+        fieldname: GraphQLNullable<String> = nil
+      ) {
+        __data = InputDict([
+          "FIELDNAME": fieldname
+        ])
+      }
+
+      public var fieldname: GraphQLNullable<String> {
+        get { __data["FIELDNAME"] }
+        set { __data["FIELDNAME"] = newValue }
       }
     }
     
@@ -251,7 +533,7 @@ class InputObjectTemplateTests: XCTestCase {
         type: .list(.scalar(.string())),
         defaultValue: nil
       )
-    ], config: .mock(schemaNamespace: "TestSchema"))
+    ], config: .mock(.swiftPackageManager, schemaNamespace: "TestSchema"))
 
     let expected = """
       public init(
@@ -416,9 +698,9 @@ class InputObjectTemplateTests: XCTestCase {
       (.mock(moduleType: .other, operations: .relative(subpath: nil)), expectedWithNamespace),
       (.mock(moduleType: .other, operations: .absolute(path: "custom")), expectedWithNamespace),
       (.mock(moduleType: .other, operations: .inSchemaModule), expectedNoNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .relative(subpath: nil)), expectedWithNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .absolute(path: "custom")), expectedWithNamespace),
-      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget"), operations: .inSchemaModule), expectedNoNamespace)
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget", accessModifier: .public), operations: .relative(subpath: nil)), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget", accessModifier: .public), operations: .absolute(path: "custom")), expectedWithNamespace),
+      (.mock(moduleType: .embeddedInTarget(name: "CustomTarget", accessModifier: .public), operations: .inSchemaModule), expectedNoNamespace)
     ]
 
     for test in tests {
@@ -785,12 +1067,12 @@ class InputObjectTemplateTests: XCTestCase {
                                documentation: "Field Documentation!")
       ],
       documentation: documentation,
-      config: .mock(options: .init(schemaDocumentation: .include))
+      config: .mock(.swiftPackageManager, options: .init(schemaDocumentation: .include))
     )
 
     let expected = """
     /// \(documentation)
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -827,11 +1109,11 @@ class InputObjectTemplateTests: XCTestCase {
                                documentation: "Field Documentation!")
       ],
       documentation: documentation,
-      config: .mock(options: .init(schemaDocumentation: .exclude))
+      config: .mock(.swiftPackageManager, options: .init(schemaDocumentation: .exclude))
     )
 
     let expected = """
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -869,10 +1151,10 @@ class InputObjectTemplateTests: XCTestCase {
           deprecationReason: "Not used anymore!"
         )
       ],
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .include
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include, warningsOnDeprecatedUsage: .include)
+      )
     )
 
     let expected = """
@@ -907,14 +1189,14 @@ class InputObjectTemplateTests: XCTestCase {
           deprecationReason: "Not used anymore!"
         )
       ],
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .include
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .include)
+      )
     )
 
     let expected = """
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -952,10 +1234,10 @@ class InputObjectTemplateTests: XCTestCase {
           deprecationReason: "Not used anymore!"
         )
       ],
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .exclude
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .exclude)
+      )
     )
 
     let expected = """
@@ -991,15 +1273,15 @@ class InputObjectTemplateTests: XCTestCase {
         )
       ],
       documentation: documentation,
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .include
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .include)
+      )
     )
 
     let expected = """
     /// This is some great documentation!
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -1039,15 +1321,15 @@ class InputObjectTemplateTests: XCTestCase {
           documentation: "Field Documentation!")
       ],
       documentation: documentation,
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .exclude
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .exclude)
+      )
     )
 
     let expected = """
     /// This is some great documentation!
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -1100,14 +1382,14 @@ class InputObjectTemplateTests: XCTestCase {
           deprecationReason: "Stop using this field!"
         )
       ],
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .include
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .include)
+      )
     )
 
     let expected = """
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -1191,14 +1473,14 @@ class InputObjectTemplateTests: XCTestCase {
           deprecationReason: "Stop using this field!"
         )
       ],
-      config: .mock(options: .init(
-        schemaDocumentation: .include,
-        warningsOnDeprecatedUsage: .exclude
-      ))
+      config: .mock(
+        .swiftPackageManager,
+        options: .init(schemaDocumentation: .include,warningsOnDeprecatedUsage: .exclude)
+      )
     )
 
     let expected = """
-    struct MockInput: InputObject {
+    public struct MockInput: InputObject {
       public private(set) var __data: InputDict
 
       public init(_ data: InputDict) {
@@ -1507,7 +1789,10 @@ class InputObjectTemplateTests: XCTestCase {
       ),
     ]
 
-    buildSubject(fields: fields, config: .mock(schemaNamespace: "TestSchema"))
+    buildSubject(
+      fields: fields,
+      config: .mock(.swiftPackageManager, schemaNamespace: "TestSchema")
+    )
 
     let expected = """
       public init(
@@ -2067,7 +2352,7 @@ class InputObjectTemplateTests: XCTestCase {
         defaultValue: nil)],
       config: .mock(
         schemaNamespace: "testschema",
-        output: .mock(operations: .relative(subpath: nil))
+        output: .mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil))
       )
     )
 
@@ -2099,7 +2384,7 @@ class InputObjectTemplateTests: XCTestCase {
         defaultValue: nil)],
       config: .mock(
         schemaNamespace: "TESTSCHEMA",
-        output: .mock(operations: .relative(subpath: nil))
+        output: .mock(moduleType: .swiftPackageManager, operations: .relative(subpath: nil))
       )
     )
 
@@ -2131,7 +2416,7 @@ class InputObjectTemplateTests: XCTestCase {
         defaultValue: nil)],
       config: .mock(
         schemaNamespace: "TestSchema",
-        output: .mock(operations: .relative(subpath: nil))
+        output: .mock(moduleType:.swiftPackageManager ,operations: .relative(subpath: nil))
       )
     )
 

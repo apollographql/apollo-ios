@@ -114,6 +114,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/FragmentSpread",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/InlineFragment",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/RootTypeDefinition",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/SelectionSet",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/VariableDefinition"
       ],
@@ -487,6 +488,37 @@
   "title" : "CompilationResult.OperationType",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationtype"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/RootTypeDefinition": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RootTypeDefinition"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/RootTypeDefinition",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RootTypeDefinition"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CompilationResult.RootTypeDefinition",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/roottypedefinition"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/Selection": {
   "abstract" : [

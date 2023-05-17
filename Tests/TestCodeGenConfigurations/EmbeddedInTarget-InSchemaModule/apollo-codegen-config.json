@@ -1,5 +1,5 @@
 {
-  "schemaName" : "MyGraphQLSchema",
+  "schemaNamespace" : "AnimalKingdomAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -26,14 +26,15 @@
   "output" : {
     "testMocks" : {
       "absolute" : {
-        "path": "./Tests/MySwiftPackageTests/TestMocks/"
+        "path": "./Tests/TestAppTests/AnimalKingdomAPITestMocks/"
       }
     },
     "schemaTypes" : {
-      "path" : "./Sources/MySwiftPackage",
+      "path" : "./Sources/TestApp/AnimalKingdomAPI",
       "moduleType" : {
         "embeddedInTarget" : {
-          "name": "MySwiftPackage"
+          "name": "TestApp",
+          "accessModifier": "public"
         }
       }
     },

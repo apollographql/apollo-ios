@@ -222,6 +222,16 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
+  /// Swift access control configuration.
+  public enum AccessModifier: String, Codable, Equatable {
+    /// Enable entities to be used within any source file from their defining module, and also in
+    /// a source file from another module that imports the defining module.
+    case `public`
+    /// Enable entities to be used within any source file from their defining module, but not in
+    /// any source file outside of that module.
+    case `internal`
+  }
+
   /// The local path structure for the generated schema types files.
   public struct SchemaTypesFileOutput: Codable, Equatable {
     /// Local path where the generated schema types files should be stored.
@@ -245,12 +255,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Compatible dependency manager automation.
     public enum ModuleType: Codable, Equatable {
       /// Generated schema types will be manually embedded in a target with the specified `name`.
-      /// No module will be created for the generated schema types.
+      /// No module will be created for the generated schema types. Use `accessModifier` to control
+      /// the visibility of generated code, defaults to `.internal`.
       ///
       /// - Note: Generated files must be manually added to your application target. The generated
       /// schema types files will be namespaced with the value of your configuration's
       /// `schemaNamespace` to prevent naming conflicts.
-      case embeddedInTarget(name: String)
+      case embeddedInTarget(name: String, accessModifier: AccessModifier = .internal)
       /// Generates a `Package.swift` file that is suitable for linking the generated schema types
       /// files to your project using Swift Package Manager.
       case swiftPackageManager
@@ -263,6 +274,40 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       /// create the podspec file that is expecting the generated files in the configured output 
       /// location.
       case other
+
+      public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        guard let key = container.allKeys.first else {
+          throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+            codingPath: container.codingPath,
+            debugDescription: "Invalid number of keys found, expected one.",
+            underlyingError: nil
+          ))
+        }
+
+        switch key {
+        case .embeddedInTarget:
+          let nestedContainer = try container.nestedContainer(
+            keyedBy: EmbeddedInTargetCodingKeys.self,
+            forKey: .embeddedInTarget
+          )
+
+          let name = try nestedContainer.decode(String.self, forKey: .name)
+          let accessModifier = try nestedContainer.decodeIfPresent(
+            AccessModifier.self,
+            forKey: .accessModifier
+          ) ?? .internal
+
+          self = .embeddedInTarget(name: name, accessModifier: accessModifier)
+
+        case .swiftPackageManager:
+          self = .swiftPackageManager
+
+        case .other:
+          self = .other
+        }
+      }
     }
   }
 
@@ -273,23 +318,71 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Operation object files will be co-located relative to the defining operation `.graphql`
     /// file. If `subpath` is specified a subfolder will be created relative to the `.graphql` file
     /// and the operation object files will be generated there. If no `subpath` is defined then all
-    /// operation object files will be generated alongside the `.graphql` file.
-    case relative(subpath: String?)
-    /// All operation object files will be located in the specified path.
-    case absolute(path: String)
+    /// operation object files will be generated alongside the `.graphql` file. Use `accessModifier`
+    /// to control the visibility of generated code, defaults to `.public`.
+    case relative(subpath: String? = nil, accessModifier: AccessModifier = .public)
+    /// All operation object files will be located in the specified `path`. Use `accessModifier` to
+    /// control the visibility of generated code, defaults to `.public`.
+    case absolute(path: String, accessModifier: AccessModifier = .public)
+
+    public init(from decoder: Decoder) throws {
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+
+      guard let key = container.allKeys.first else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: container.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
+
+      switch key {
+      case .inSchemaModule:
+        self = .inSchemaModule
+
+      case .relative:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: RelativeCodingKeys.self,
+          forKey: .relative
+        )
+
+        let subpath = try nestedContainer.decodeIfPresent(String.self, forKey: .subpath)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .relative(subpath: subpath, accessModifier: accessModifier)
+
+      case .absolute:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: AbsoluteCodingKeys.self,
+          forKey: .absolute
+        )
+
+        let path = try nestedContainer.decode(String.self, forKey: .path)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .absolute(path: path, accessModifier: accessModifier)
+      }
+    }
   }
 
   /// The local path structure for the generated test mock object files.
   public enum TestMockFileOutput: Codable, Equatable {
     /// Test mocks will not be generated. This is the default value.
     case none
-    /// Generated test mock files will be located in the specified path.
+    /// Generated test mock files will be located in the specified `path`. Use `accessModifier` to
+    /// control the visibility of generated code, defaults to `.public`.
     /// No module will be created for the generated test mocks.
     ///
     /// - Note: Generated files must be manually added to your test target. Test mocks generated
     /// this way may also be manually embedded in a test utility module that is imported by your
     /// test target.
-    case absolute(path: String)
+    case absolute(path: String, accessModifier: AccessModifier = .public)
     /// Generated test mock files will be included in a target defined in the generated
     /// `Package.swift` file that is suitable for linking the generated test mock files to your
     /// test target using Swift Package Manager.
@@ -301,6 +394,47 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// If this option is provided without the `.swiftPackageManager` module type, code generation
     /// will fail.
     case swiftPackage(targetName: String? = nil)
+
+    public init(from decoder: Decoder) throws {
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+
+      guard let key = container.allKeys.first else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: container.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
+
+      switch key {
+      case .none:
+        self = .none
+
+      case .absolute:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: AbsoluteCodingKeys.self,
+          forKey: .absolute
+        )
+
+        let path = try nestedContainer.decode(String.self, forKey: .path)
+        let accessModifier = try nestedContainer.decodeIfPresent(
+          AccessModifier.self,
+          forKey: .accessModifier
+        ) ?? .public
+
+        self = .absolute(path: path, accessModifier: accessModifier)
+
+      case .swiftPackage:
+        let nestedContainer = try container.nestedContainer(
+          keyedBy: SwiftPackageCodingKeys.self,
+          forKey: .swiftPackage
+        )
+
+        let targetName = try nestedContainer.decode(String.self, forKey: .targetName)
+
+        self = .swiftPackage(targetName: targetName)
+      }
+    }
   }
 
   // MARK: - Other Types
@@ -872,6 +1006,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
 }
 
 // MARK: - SelectionSetInitializers - Private Implementation
+
 extension ApolloCodegenConfiguration.SelectionSetInitializers {
   struct Options: OptionSet, Codable, Equatable {
     let rawValue: Int

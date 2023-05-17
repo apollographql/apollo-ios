@@ -1,10 +1,3 @@
-//
-//  SPMInXcodeProjectTests.swift
-//  SPMInXcodeProjectTests
-//
-//  Created by Anthony Miller on 9/26/22.
-//
-
 import XCTest
 @testable import SPMInXcodeProject
 import ApolloTestSupport
@@ -17,6 +10,5 @@ final class SPMInXcodeProjectTests: XCTestCase {
 
     XCTAssertEqual(mock.__typename, "Dog")
   }
-
 
 }

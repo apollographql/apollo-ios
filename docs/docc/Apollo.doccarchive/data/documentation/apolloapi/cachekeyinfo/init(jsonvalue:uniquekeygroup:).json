@@ -41,7 +41,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI12CacheKeyInfoV9jsonValue06uniqueD5GroupACs11AnyHashableVSg_SSSgtKcfc",
+    "externalID" : "s:9ApolloAPI12CacheKeyInfoV9jsonValue06uniqueD5GroupAcA10ScalarType_pSg_SSSgtKcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -57,16 +57,16 @@
       },
       {
         "kind" : "text",
-        "text" : ": "
+        "text" : ": ("
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-        "text" : "JSONValue"
+        "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
+        "text" : "ScalarType"
       },
       {
         "kind" : "text",
-        "text" : "?, "
+        "text" : ")?, "
       },
       {
         "kind" : "externalParam",
@@ -125,17 +125,17 @@
             },
             {
               "kind" : "text",
-              "text" : ": "
+              "text" : ": ("
             },
             {
-              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+              "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-              "text" : "JSONValue"
+              "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
+              "text" : "ScalarType"
             },
             {
               "kind" : "text",
-              "text" : "?, "
+              "text" : ")?, "
             },
             {
               "kind" : "externalParam",
@@ -190,6 +190,14 @@
                 },
                 {
                   "text" : ".",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "This must be a scalar type to be used as a cache id.",
                   "type" : "text"
                 }
               ],
@@ -549,16 +557,16 @@
     },
     {
       "kind" : "text",
-      "text" : ": "
+      "text" : ": ("
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI9JSONValuea",
-      "text" : "JSONValue"
+      "preciseIdentifier" : "s:9ApolloAPI10ScalarTypeP",
+      "text" : "ScalarType"
     },
     {
       "kind" : "text",
-      "text" : "?, "
+      "text" : ")?, "
     },
     {
       "kind" : "externalParam",
@@ -710,22 +718,25 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsonobject"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/JSONValue": {
+"doc://ApolloAPI/documentation/ApolloAPI/ScalarType": {
   "abstract" : [
     {
-      "text" : "Represents a value in a ",
+      "text" : "A protocol that represents any GraphQL “",
       "type" : "text"
     },
     {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONObject",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "scalar",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "” defined in the GraphQL Specification.",
+      "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "typealias"
+      "text" : "protocol"
     },
     {
       "kind" : "text",
@@ -733,21 +744,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "JSONValue"
+      "text" : "ScalarType"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONValue",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ScalarType",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "JSONValue"
+      "text" : "ScalarType"
     }
   ],
   "role" : "symbol",
-  "title" : "JSONValue",
+  "title" : "ScalarType",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsonvalue"
+  "url" : "\/documentation\/apolloapi\/scalartype"
 }
 }
 }

@@ -16,41 +16,35 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   /// Swift code that can be embedded within a namespace.
   var embeddableTemplate: TemplateString {
-    TemplateString(
+    let parentAccessLevel = accessControlModifier(for: .parent)
+
+    return TemplateString(
     """
-    \(embeddedAccessControlModifier)\
-    typealias ID = String
+    \(parentAccessLevel)typealias ID = String
 
     \(if: !config.output.schemaTypes.isInModule,
       TemplateString("""
-      \(embeddedAccessControlModifier)\
-      typealias SelectionSet = \(schemaNamespace)_SelectionSet
+      \(parentAccessLevel)typealias SelectionSet = \(schemaNamespace)_SelectionSet
 
-      \(embeddedAccessControlModifier)\
-      typealias InlineFragment = \(schemaNamespace)_InlineFragment
+      \(parentAccessLevel)typealias InlineFragment = \(schemaNamespace)_InlineFragment
 
-      \(embeddedAccessControlModifier)\
-      typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
+      \(parentAccessLevel)typealias MutableSelectionSet = \(schemaNamespace)_MutableSelectionSet
 
-      \(embeddedAccessControlModifier)\
-      typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
+      \(parentAccessLevel)typealias MutableInlineFragment = \(schemaNamespace)_MutableInlineFragment
       """),
     else: protocolDefinition(prefix: nil, schemaNamespace: schemaNamespace))
 
     \(documentation: schema.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
-      public static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
+    \(parentAccessLevel)enum SchemaMetadata: \(config.ApolloAPITargetName).SchemaMetadata {
+      \(accessControlModifier(for: .member))\
+    static let configuration: \(config.ApolloAPITargetName).SchemaConfiguration.Type = SchemaConfiguration.self
 
       \(objectTypeFunction)
     }
 
-    \(embeddedAccessControlModifier)\
-    enum Objects {}
-    \(embeddedAccessControlModifier)\
-    enum Interfaces {}
-    \(embeddedAccessControlModifier)\
-    enum Unions {}
+    \(parentAccessLevel)enum Objects {}
+    \(parentAccessLevel)enum Interfaces {}
+    \(parentAccessLevel)enum Unions {}
 
     """
     )
@@ -58,7 +52,8 @@ struct SchemaMetadataTemplate: TemplateRenderer {
 
   var objectTypeFunction: TemplateString {
     return """
-    public static func objectType(forTypename typename: String) -> Object? {
+    \(accessControlModifier(for: .member))\
+    static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
         "case \"\($0.name)\": return \(schemaNamespace).Objects.\($0.name.firstUppercased)"
@@ -82,17 +77,19 @@ struct SchemaMetadataTemplate: TemplateRenderer {
   }
 
   private func protocolDefinition(prefix: String?, schemaNamespace: String) -> TemplateString {
+    let accessLevel = accessControlModifier(for: .member)
+
     return TemplateString("""
-      public protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
+      \(accessLevel)protocol \(prefix ?? "")SelectionSet: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).RootSelectionSet
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
+      \(accessLevel)protocol \(prefix ?? "")InlineFragment: \(config.ApolloAPITargetName).SelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
+      \(accessLevel)protocol \(prefix ?? "")MutableSelectionSet: \(config.ApolloAPITargetName).MutableRootSelectionSet
       where Schema == \(schemaNamespace).SchemaMetadata {}
 
-      public protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
+      \(accessLevel)protocol \(prefix ?? "")MutableInlineFragment: \(config.ApolloAPITargetName).MutableSelectionSet & \(config.ApolloAPITargetName).InlineFragment
       where Schema == \(schemaNamespace).SchemaMetadata {}
       """
     )

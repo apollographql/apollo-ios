@@ -15,14 +15,17 @@ let package = Package(
   ],
   dependencies: [
     .package(name: "apollo-ios", path: "../../../"),
-    .package(name: "GraphQLSchemaName", path: "./Packages/GraphQLSchemaName")
+    .package(name: "AnimalKingdomAPI", path: "./AnimalKingdomAPI")
   ],
   targets: [
     .target(
       name: "TestApp",
       dependencies: [
         .product(name: "Apollo", package: "apollo-ios"),
-        .product(name: "GraphQLSchemaName", package: "GraphQLSchemaName")
+        .product(name: "AnimalKingdomAPI", package: "AnimalKingdomAPI")
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-warnings-as-errors"])
       ]
     ),
     .testTarget(
@@ -30,7 +33,7 @@ let package = Package(
       dependencies: [
         .product(name: "Apollo", package: "apollo-ios"),
         .product(name: "ApolloTestSupport", package: "apollo-ios"),
-        .product(name: "GraphQLSchemaNameTestMocks", package: "GraphQLSchemaName")
+        .product(name: "AnimalKingdomAPITestMocks", package: "AnimalKingdomAPI")
       ]
     )
   ]

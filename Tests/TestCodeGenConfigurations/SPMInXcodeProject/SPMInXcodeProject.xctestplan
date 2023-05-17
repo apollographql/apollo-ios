@@ -24,15 +24,6 @@
         "identifier" : "DE3511F128E22137000F1E52",
         "name" : "SPMInXcodeProjectTests"
       }
-    },
-    {
-      "enabled" : false,
-      "parallelizable" : true,
-      "target" : {
-        "containerPath" : "container:SPMInXcodeProject.xcodeproj",
-        "identifier" : "DE3511FB28E22137000F1E52",
-        "name" : "SPMInXcodeProjectUITests"
-      }
     }
   ],
   "version" : 1

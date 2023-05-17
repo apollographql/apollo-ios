@@ -46,9 +46,9 @@ class EnumTemplateTests: XCTestCase {
     subject.template.description
   }
 
-  // MARK: Enum Tests
+  // MARK: Access Level Tests
 
-  func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicModifier() {
+  func test_render_givenModuleType_swiftPackageManager_generatesSwiftEnum_withPublicAccess() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
@@ -63,7 +63,7 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_other_generatesSwiftEnum_withPublicModifier() {
+  func test_render_givenModuleType_other_generatesSwiftEnum_withPublicAccess() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -78,9 +78,24 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_embeddedInTarget_generatesSwiftEnum_noPublicModifier() {
+  func test_render_givenModuleType_embeddedInTarget_withInternalAccessModifier_generatesSwiftEnum_withInternalAccess() {
     // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal)))
+
+    let expected = """
+    enum TestEnum: String, EnumType {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_withPublicAccessModifier_generatesSwiftEnum_withPublicAccess() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public)))
 
     let expected = """
     enum TestEnum: String, EnumType {

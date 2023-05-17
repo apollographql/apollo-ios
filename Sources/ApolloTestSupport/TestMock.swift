@@ -67,6 +67,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
     }
   }
 
+  @_disfavoredOverload
   public func _set<T: MockFieldValue>(
     _ value: [T.MockValueCollectionType.Element]?,
     for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
@@ -106,10 +107,7 @@ public extension RootSelectionSet {
     withVariables variables: GraphQLOperation.Variables? = nil
   ) -> Self {
     let accumulator = TestMockSelectionSetMapper<Self>()
-    let executor = GraphQLExecutor { object, info in
-      return object[info.responseKeyForField]
-    }
-    executor.shouldComputeCachePath = false
+    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
     return try! executor.execute(
       selectionSet: Self.self,

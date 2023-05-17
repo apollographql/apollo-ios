@@ -3,33 +3,46 @@ import ApolloAPI
 #endif
 import Foundation
 
+/// A global function that formats the the cache key for a field on an object.
+///
+/// `CacheKeyForField` represents the *key for a single field on an object* in a ``NormalizedCache``.
+/// **This is not the cache key that represents an individual entity in the cache.**
+///
+/// - Parameters:
+///   - fieldName: The name of the field to return a cache key for.
+///   - arguments: The list of arguments used to compute the cache key.
+/// - Returns: A formatted `String` to be used as the key for the field on an object in a
+///            ``NormalizedCache``.
+func CacheKeyForField(named fieldName: String, arguments: JSONObject) -> String {
+  let argumentsKey = orderIndependentKey(for: arguments)
+  return argumentsKey.isEmpty ? fieldName : "\(fieldName)(\(argumentsKey))"
+}
+
+fileprivate func orderIndependentKey(for object: JSONObject) -> String {
+  return object.sorted { $0.key < $1.key }.map {
+    switch $0.value {
+    case let object as JSONObject:
+      return "[\($0.key):\(orderIndependentKey(for: object))]"
+    case let array as [JSONObject]:
+      return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
+    case let array as [JSONValue]:
+      return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
+    case is NSNull:
+      return "\($0.key):null"
+    default:
+      return "\($0.key):\($0.value.base)"
+    }
+  }.joined(separator: ",")
+}
+
 extension Selection.Field {
   public func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
-    if let arguments = arguments,
-       case let argumentValues = try InputValue.evaluate(arguments, with: variables),
-       !argumentValues.isEmpty {
-      let argumentsKey = orderIndependentKey(for: argumentValues)
-      return "\(name)(\(argumentsKey))"
+    if let arguments = arguments {
+      let argumentValues = try InputValue.evaluate(arguments, with: variables)
+      return CacheKeyForField(named: name, arguments: argumentValues)
     } else {
       return name
     }
-  }
-
-  private func orderIndependentKey(for object: JSONObject) -> String {
-    return object.sorted { $0.key < $1.key }.map {
-      switch $0.value {
-      case let object as JSONObject:
-        return "[\($0.key):\(orderIndependentKey(for: object))]"
-      case let array as [JSONObject]:
-        return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
-      case let array as [JSONValue]:
-        return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
-      case is NSNull:
-        return "\($0.key):null"
-      default:
-        return "\($0.key):\($0.value.base)"
-      }
-    }.joined(separator: ",")
   }
 }
 

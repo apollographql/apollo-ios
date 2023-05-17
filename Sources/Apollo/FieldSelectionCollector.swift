@@ -15,7 +15,7 @@ struct FieldSelectionGrouping: Sequence {
 
   mutating func append(field: Selection.Field, withInfo info: ObjectExecutionInfo) {
     let fieldKey = field.responseKey
-    if var fieldInfo = fieldInfoList[fieldKey] {
+    if let fieldInfo = fieldInfoList[fieldKey] {
       fieldInfo.mergedFields.append(field)
       fieldInfoList[fieldKey] = fieldInfo
     } else {
@@ -32,7 +32,15 @@ struct FieldSelectionGrouping: Sequence {
   }
 }
 
-protocol FieldSelectionCollector {
+/// A protocol for a type that defines how to collect and group the selections for an object
+/// during GraphQLExecution.
+///
+/// A `FieldSelectionController` is responsible for determining which selections should be executed
+/// and which fragments are being fulfilled during execution. It does this by adding them to the
+/// provided `FieldSelectionGrouping`.
+protocol FieldSelectionCollector<ObjectData> {
+
+  associatedtype ObjectData
 
   /// Groups fields that share the same response key for simultaneous resolution.
   ///
@@ -40,17 +48,17 @@ protocol FieldSelectionCollector {
   /// Each entry in the grouped field set is a list of fields that share a response key.
   /// This ensures all fields with the same response key (alias or field name) included via
   /// referenced fragments are executed at the same time.
-  func collectFields(
+  static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: ObjectData,
     info: ObjectExecutionInfo
   ) throws
 
 }
 
 struct DefaultFieldSelectionCollector: FieldSelectionCollector {
-  func collectFields(
+  static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
     for object: JSONObject,
@@ -98,16 +106,13 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
 /// ignoring the inclusion condition and variables. This ensures that object data for these fields
 /// will be written to the cache.
 struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
-  enum Error: Swift.Error {
-    case fulfilledFragmentsMissing
-  }
-
-  func collectFields(
+  static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: DataDict,
     info: ObjectExecutionInfo
   ) throws {
+    groupedFields.fulfilledFragments = object._fulfilledFragments
     try collectFields(
       from: selections,
       into: &groupedFields,
@@ -117,26 +122,18 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
     )
   }
 
-  func collectFields(
+  static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
-    for object: JSONObject,
+    for object: DataDict,
     info: ObjectExecutionInfo,
     asConditionalFields: Bool
   ) throws {
-    guard let fulfilledFragments = object["__fulfilled"] as? Set<ObjectIdentifier> else {
-      throw GraphQLExecutionError(
-        path: info.responsePath,
-        underlying: Error.fulfilledFragmentsMissing
-      )
-    }
-    groupedFields.fulfilledFragments = fulfilledFragments
-
     for selection in selections {
       switch selection {
       case let .field(field):
         if asConditionalFields && !field.type.isNullable {
-          guard let value = object[field.responseKey], !(value is NSNull) else {
+          guard let value = object._data[field.responseKey], !(value is NSNull) else {
             continue
           }
         }

@@ -42,13 +42,15 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
     public init(
       starshipCoordinates: StarshipCoordinates? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "starshipCoordinates": starshipCoordinates._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "starshipCoordinates": starshipCoordinates._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// StarshipCoordinates
@@ -77,15 +79,17 @@ public class StarshipCoordinatesQuery: GraphQLQuery {
         coordinates: [[Double]]? = nil,
         length: Double? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": StarWarsAPI.Objects.Starship.typename,
-          "name": name,
-          "coordinates": coordinates,
-          "length": length,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": StarWarsAPI.Objects.Starship.typename,
+            "name": name,
+            "coordinates": coordinates,
+            "length": length,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     }
   }

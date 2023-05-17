@@ -24,12 +24,37 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     operationIdentifier = nil
   }
 
+  func buildConfig(
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule,
+    queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = .singleLine,
+    apqs: ApolloCodegenConfiguration.APQConfig = .disabled,
+    cocoapodsCompatibleImportStatements: Bool = false
+  ) {
+    config = .mock(
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init(
+        queryStringLiteralFormat: queryStringLiteralFormat,
+        apqs: apqs,
+        cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements
+      )
+    )
+  }
+
   func renderDocumentType() throws -> String {
-    OperationDefinitionTemplate.DocumentType.render(
+    let config = ApolloCodegen.ConfigurationContext(config: config)
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: config
+    )
+
+    return OperationDefinitionTemplate.DocumentType.render(
       try XCTUnwrap(definition),
       identifier: operationIdentifier,
       fragments: referencedFragments ?? [],
-      config: ApolloCodegen.ConfigurationContext(config: config)
+      config: config,
+      accessControlRenderer: mockTemplateRenderer.accessControlModifier(for: .member)
     ).description
   }
 
@@ -43,10 +68,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -74,10 +100,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -101,10 +128,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -132,10 +160,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -164,10 +193,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -201,10 +230,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -234,10 +263,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -275,10 +304,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -324,10 +353,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
       apqs: .disabled
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -354,10 +383,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .automaticallyPersist
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -388,10 +417,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
       apqs: .persistedOperationsOnly
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -416,9 +445,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       cocoapodsCompatibleImportStatements: true
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -439,9 +469,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       cocoapodsCompatibleImportStatements: false
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -450,6 +481,183 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     let expected =
     """
     public static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Access Level Tests
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsInSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsEmbeddedInTargetWithPublicAccessModifier_andOperationsInSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsEmbeddedInTargetWithInternalAccessModifier_andOperationsInSchemaModule_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .public)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .internal)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .public)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .internal)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let document: ApolloAPI.DocumentType = .notPersisted(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
