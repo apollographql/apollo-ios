@@ -5,7 +5,7 @@ public class MockURLProtocol: URLProtocol {
   public typealias MockRequestHandler = ((URLRequest) throws -> Result<(HTTPURLResponse, Data?), Error>)
   
   // Dictionary of mock request handlers where the `key` is the URL of the request.
-  static var requestHandlers = [URL: MockRequestHandler]()
+  public static var requestHandlers = [URL: MockRequestHandler]()
   
   override class public func canInit(with request: URLRequest) -> Bool {
     return true
