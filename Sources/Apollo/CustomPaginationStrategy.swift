@@ -4,7 +4,7 @@ import ApolloAPI
 public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: PaginationStrategy {
   private var _transform: (Query.Data) -> (T?, Page?)?
   private var _mergePageResults: (PaginationDataResponse<Query, T>) -> T
-  private var _resultHandler: (Result<T, Error>) -> Void
+  private var _resultHandler: (Result<T, Error>, GraphQLResult<Query.Data>.Source?) -> Void
 
 
   /// Designated Initializer
@@ -15,7 +15,7 @@ public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: P
   public init(
     transform: @escaping (Query.Data) -> (T?, Page?)?,
     mergePageResults: @escaping (PaginationDataResponse<Query, T>) -> T,
-    resultHandler: @escaping (Result<T, Error>) -> Void
+    resultHandler: @escaping (Result<T, Error>, GraphQLResult<Query.Data>.Source?) -> Void
   ) {
     self._transform = transform
     self._mergePageResults = mergePageResults
@@ -30,7 +30,7 @@ public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: P
     _mergePageResults(response)
   }
 
-  public func resultHandler(result: Result<T, Error>) {
-    _resultHandler(result)
+  public func resultHandler(result: Result<T, Error>, source: GraphQLResult<Query.Data>.Source?) {
+    _resultHandler(result, source)
   }
 }

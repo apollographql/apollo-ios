@@ -77,7 +77,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
         }
@@ -214,7 +214,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
         }
@@ -374,7 +374,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
         }
@@ -516,7 +516,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
           resultExpectation.fulfill()
@@ -629,7 +629,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
           resultExpectation.fulfill()
@@ -738,7 +738,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
           resultExpectation.fulfill()
@@ -837,7 +837,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
         })
@@ -957,7 +957,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
         })
@@ -1114,7 +1114,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             endCursor: data.hero.friendsConnection.pageInfo.endCursor
           )
         },
-        resultHandler: { result in
+        resultHandler: { result, _ in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value)
           resultExpectation.fulfill()

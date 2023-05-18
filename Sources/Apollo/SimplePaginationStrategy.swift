@@ -10,7 +10,7 @@ import ApolloAPI
 ///   3. Returning a formed `Query.Data` to the user in a callback, which includes all page results and the cursor of the last page fetched so far. "Last" in this instance means "last in the list of pages", not "most recent".
 public final class SimplePaginationStrategy<Query: GraphQLQuery>: PaginationStrategy {
   private var _extractPage: (Query.Data) -> Page?
-  private var _resultHandler: (Result<Query.Data, Error>) -> Void
+  private var _resultHandler: (Result<Query.Data, Error>, GraphQLResult<Query.Data>.Source?) -> Void
 
   /// Designated initializer
   /// - Parameters:
@@ -18,7 +18,7 @@ public final class SimplePaginationStrategy<Query: GraphQLQuery>: PaginationStra
   ///   - resultHandler: A user supplied function which responds to the final output of the watcher.
   public init(
     extractPage: @escaping (Query.Data) -> Page?,
-    resultHandler: @escaping (Result<Query.Data, Error>) -> Void
+    resultHandler: @escaping (Result<Query.Data, Error>, GraphQLResult<Query.Data>.Source?) -> Void
   ) {
     self._extractPage = extractPage
     self._resultHandler = resultHandler
@@ -34,8 +34,8 @@ public final class SimplePaginationStrategy<Query: GraphQLQuery>: PaginationStra
     return Query.Data.init(_dataDict: .init(data: json))
   }
 
-  public func resultHandler(result: Result<Query.Data, Error>) {
-    _resultHandler(result)
+  public func resultHandler(result: Result<Query.Data, Error>, source: GraphQLResult<Query.Data>.Source?) {
+    _resultHandler(result, source)
   }
 }
 

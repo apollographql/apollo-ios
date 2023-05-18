@@ -69,7 +69,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
       case .failure(let error):
         guard !error.wasCancelled else { return }
         // Forward all errors aside from network cancellation errors
-        mergeStrategy.resultHandler(result: .failure(error))
+        mergeStrategy.resultHandler(result: .failure(error), source: nil)
       case .success(let graphQLResult):
         guard let data = graphQLResult.data,
               let (transformedModel, page) = mergeStrategy.transform(data: data),
@@ -95,7 +95,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
         ))
         // Make sure we only notify the caller once of an update
         guard model != self.mostRecentModel else { return }
-        mergeStrategy.resultHandler(result: .success(model))
+        mergeStrategy.resultHandler(result: .success(model), source: graphQLResult.source)
         self.mostRecentModel = model
       }
     }

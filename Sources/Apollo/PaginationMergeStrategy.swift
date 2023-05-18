@@ -18,5 +18,5 @@ public protocol PaginationStrategy {
   func mergePageResults(response: PaginationDataResponse<Query, Output>) -> Output
 
   /// The callback by which the user handles the result of the `GraphQLPaginatedQueryWatcher`.
-  func resultHandler(result: Result<Output, Error>)
+  func resultHandler(result: Result<Output, Error>, source: GraphQLResult<Query.Data>.Source?)
 }
