@@ -133,7 +133,10 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
   }
 
   /// Fetches the next page
-  @discardableResult public func fetchMore(cachePolicy: CachePolicy = .fetchIgnoringCacheData) -> Bool {
+  @discardableResult public func fetchMore(
+    cachePolicy: CachePolicy = .fetchIgnoringCacheData,
+    completion: (() -> Void)? = nil
+  ) -> Bool {
     guard let currentPage,
           currentPage.hasNextPage,
           let nextPageQuery = createPageQuery(currentPage),
@@ -146,6 +149,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: C
       callbackQueue: callbackQueue
     ) { result in
       resultHandler(result)
+      completion?()
     }
     watchers.append(nextPageWatcher)
 
