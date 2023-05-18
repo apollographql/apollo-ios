@@ -80,6 +80,7 @@ class URLSessionClientTests: XCTestCase {
     #else
     guard let responseImg = UIImage(systemName: "pencil") else {
       XCTFail("Failed to create UIImage from system name.")
+      return
     }
     let responseData = responseImg.pngData()
     #endif
