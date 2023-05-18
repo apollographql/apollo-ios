@@ -547,234 +547,233 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
+      "kind" : "parameters",
+      "parameters" : [
         {
-          "anchor" : "discussion",
-          "level" : 2,
-          "text" : "Discussion",
-          "type" : "heading"
-        },
-        {
-          "items" : [
+          "content" : [
             {
-              "content" : [
+              "inlineContent" : [
                 {
-                  "inlineContent" : [
-                    {
-                      "text" : "additionalInflectionRules: Any non-default rules for pluralization or singularization",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "you wish to include.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
+                  "text" : "Any non-default rules for pluralization or singularization",
+                  "type" : "text"
+                },
                 {
-                  "inlineContent" : [
-                    {
-                      "text" : "queryStringLiteralFormat: Formatting of the GraphQL query string literal that is",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "included in each generated operation object.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
+                  "text" : " ",
+                  "type" : "text"
+                },
                 {
-                  "inlineContent" : [
-                    {
-                      "text" : "deprecatedEnumCases: How deprecated enum cases from the schema should be handled.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
+                  "text" : "you wish to include.",
+                  "type" : "text"
                 }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "schemaDocumentation: Whether schema documentation is added to the generated files.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "selectionSetInitializers: Which generated selection sets should include",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "generated initializers.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "apqs: Whether the generated operations should use Automatic Persisted Queries.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "cocoapodsCompatibleImportStatements: Generate import statements that are compatible with",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "including ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "Apollo",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " via Cocoapods.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "available",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "attribute and ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "deprecated",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " argument for parts of the GraphQL schema annotated with the",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "built-in ",
-                      "type" : "text"
-                    },
-                    {
-                      "code" : "@deprecated",
-                      "type" : "codeVoice"
-                    },
-                    {
-                      "text" : " directive.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "conversionStrategies: Rules for how to convert the names of values from the schema in",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "generated code.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            },
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "pruneGeneratedFiles: Whether unused generated files will be automatically deleted.",
-                      "type" : "text"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
+              ],
+              "type" : "paragraph"
             }
           ],
-          "type" : "unorderedList"
+          "name" : "additionalInflectionRules"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Formatting of the GraphQL query string literal that is",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "included in each generated operation object.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "queryStringLiteralFormat"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "How deprecated enum cases from the schema should be handled.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "deprecatedEnumCases"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Whether schema documentation is added to the generated files.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "schemaDocumentation"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Which generated selection sets should include",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "generated initializers.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "selectionSetInitializers"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Whether the generated operations should use Automatic Persisted Queries.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "apqs"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Generate import statements that are compatible with",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "including ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "Apollo",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " via Cocoapods.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "cocoapodsCompatibleImportStatements"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Annotate generated Swift code with the Swift ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "available",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "attribute and ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "deprecated",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " argument for parts of the GraphQL schema annotated with the",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "built-in ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "@deprecated",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " directive.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "warningsOnDeprecatedUsage"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Rules for how to convert the names of values from the schema in",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "generated code.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "conversionStrategies"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Whether unused generated files will be automatically deleted.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "pruneGeneratedFiles"
         }
-      ],
-      "kind" : "content"
+      ]
     }
   ],
   "schemaVersion" : {

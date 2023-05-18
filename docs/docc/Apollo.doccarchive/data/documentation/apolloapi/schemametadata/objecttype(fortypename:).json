@@ -184,6 +184,33 @@
       "kind" : "declarations"
     },
     {
+      "kind" : "parameters",
+      "parameters" : [
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "The value of the ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "__typename",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " field of the response object.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "typename"
+        }
+      ]
+    },
+    {
       "content" : [
         {
           "anchor" : "return-value",
@@ -253,33 +280,6 @@
         }
       ],
       "kind" : "content"
-    },
-    {
-      "kind" : "parameters",
-      "parameters" : [
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "The value of the ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "__typename",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " field of the response object.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "typename"
-        }
-      ]
     },
     {
       "content" : [

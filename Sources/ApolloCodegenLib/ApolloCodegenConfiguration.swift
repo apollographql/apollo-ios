@@ -508,23 +508,23 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Designated initializer.
     ///
     /// - Parameters:
-    ///  - additionalInflectionRules: Any non-default rules for pluralization or singularization
-    ///  you wish to include.
-    ///  - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
-    ///  included in each generated operation object.
-    ///  - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
-    ///  - schemaDocumentation: Whether schema documentation is added to the generated files.
-    ///  - selectionSetInitializers: Which generated selection sets should include
-    ///    generated initializers.
-    ///  - apqs: Whether the generated operations should use Automatic Persisted Queries.
-    ///  - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
-    ///    including `Apollo` via Cocoapods.
-    ///  - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
-    ///    attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
-    ///    built-in `@deprecated` directive.
-    ///  - conversionStrategies: Rules for how to convert the names of values from the schema in
-    ///    generated code.
-    ///  - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+    ///   - additionalInflectionRules: Any non-default rules for pluralization or singularization
+    ///   you wish to include.
+    ///   - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
+    ///   included in each generated operation object.
+    ///   - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
+    ///   - schemaDocumentation: Whether schema documentation is added to the generated files.
+    ///   - selectionSetInitializers: Which generated selection sets should include
+    ///     generated initializers.
+    ///   - apqs: Whether the generated operations should use Automatic Persisted Queries.
+    ///   - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
+    ///     including `Apollo` via Cocoapods.
+    ///   - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
+    ///     attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
+    ///     built-in `@deprecated` directive.
+    ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
+    ///     generated code.
+    ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
     public init(
       additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
       queryStringLiteralFormat: QueryStringLiteralFormat = Default.queryStringLiteralFormat,
