@@ -5,8 +5,8 @@ import Foundation
 
 public typealias Cursor = String
 public struct Page: Equatable {
-  let hasNextPage: Bool
-  let endCursor: Cursor?
+  public let hasNextPage: Bool
+  public let endCursor: Cursor?
 
   public init(hasNextPage: Bool, endCursor: Cursor?) {
     self.hasNextPage = hasNextPage
