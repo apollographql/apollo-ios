@@ -78,7 +78,9 @@ class URLSessionClientTests: XCTestCase {
     let responseImg = NSImage(systemSymbolName: "pencil", accessibilityDescription: nil)
     let responseData = responseImg?.tiffRepresentation
     #else
-    let responseImg = UIImage(systemName: "pencil")
+    guard let responseImg = UIImage(systemName: "pencil") else {
+      XCTFail("Failed to create UIImage from system name.")
+    }
     let responseData = responseImg.pngData()
     #endif
     let headerFields = ["Content-Type": "image/jpeg"]
@@ -203,56 +205,58 @@ class URLSessionClientTests: XCTestCase {
 
   }
   
-//  func testMultipleSimultaneousRequests() {
-//    let expectation = self.expectation(description: "request sent, response received")
-//    let iterations = 20
-//    expectation.expectedFulfillmentCount = iterations
-//    @Atomic var taskIDs: [Int] = []
-//
-//    DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
-//      let request = self.request(for: .getWithIndex(index: index))
-//
-//      let task = self.client.sendRequest(request) { result in
-//        switch result {
-//        case .success((let data, let response)):
-//          XCTAssertEqual(response.url, request.url)
-//          XCTAssertFalse(data.isEmpty)
-//          do {
-//            let httpBinResponse = try HTTPBinResponse(data: data)
-//            // WORKAROUND: HTTPBin started randomly returning http instead of https
-//            // in this field, replace until addressed. Issue: https://github.com/postmanlabs/httpbin/issues/615
-//            var responseURLString = httpBinResponse.url
-//            if !responseURLString.contains("https") {
-//              let droppedHTTP = String(responseURLString.dropFirst(4))
-//              responseURLString = "https" + droppedHTTP
-//            }
-//
-//            XCTAssertEqual(responseURLString, response.url?.absoluteString)
-//            XCTAssertEqual(httpBinResponse.args?["index"], "\(index)")
-//          } catch {
-//            XCTFail("Parsing error: \(error) for url \(response.url!)")
-//          }
-//        case .failure(let error):
-//          XCTFail("Unexpected error: \(error)")
-//        }
-//
-//        DispatchQueue.main.async {
-//          expectation.fulfill()
-//        }
-//      }
-//
-//      $taskIDs.mutate { $0.append(task.taskIdentifier) }
-//    })
-//
-//    self.wait(for: [expectation], timeout: 30)
-//
-//    // Were the correct number of tasks created?
-//    XCTAssertEqual(taskIDs.count, iterations)
-//
-//    // Using a set to unique, are all task IDs different values?)
-//    let set = Set(taskIDs)
-//    XCTAssertEqual(set.count, iterations)
-//  }
+  func testMultipleSimultaneousRequests() {
+    let expectation = self.expectation(description: "request sent, response received")
+    let iterations = 20
+    expectation.expectedFulfillmentCount = iterations
+    @Atomic var taskIDs: [Int] = []
+    
+    var responseStrings = [Int: String]()
+    var requests = [Int: URLRequest]()
+    for i in 0..<20 {
+      let url = URL(string: "http://www.test.com/multipleSimultaneousRequests\(i)")!
+      let responseStr = "Simultaneous Request \(i)"
+      let request = self.request(for: url,
+                                 responseData: responseStr.data(using: .utf8),
+                                 statusCode: 200)
+      responseStrings[i] = responseStr
+      requests[i] = request
+    }
+
+    DispatchQueue.concurrentPerform(iterations: iterations, execute: { index in
+      guard let request = requests[index] else {
+        XCTFail("Unable to find URLRequest")
+        return
+      }
+      let task = self.client.sendRequest(request) { result in
+        let responseStr = responseStrings[index]
+        switch result {
+        case .success((let data, let response)):
+          XCTAssertEqual(response.url, request.url)
+          XCTAssertFalse(data.isEmpty)
+          let httpResponseStr = String(data: data, encoding: .utf8)
+          XCTAssertEqual(responseStr, httpResponseStr)
+        case .failure(let error):
+          XCTFail("Unexpected error: \(error)")
+        }
+
+        DispatchQueue.main.async {
+          expectation.fulfill()
+        }
+      }
+
+      $taskIDs.mutate { $0.append(task.taskIdentifier) }
+    })
+
+    self.wait(for: [expectation], timeout: 30)
+
+    // Were the correct number of tasks created?
+    XCTAssertEqual(taskIDs.count, iterations)
+
+    // Using a set to unique, are all task IDs different values?)
+    let set = Set(taskIDs)
+    XCTAssertEqual(set.count, iterations)
+  }
   
   func testInvalidatingClientAndThenTryingToSendARequestReturnsAppropriateError() {
     let client = URLSessionClient(sessionConfiguration: sessionConfiguration)
