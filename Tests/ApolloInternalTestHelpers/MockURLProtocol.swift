@@ -11,36 +11,35 @@ public class MockURLProtocol<RequestProvider: MockRequestProvider>: URLProtocol 
   }
   
   override public func startLoading() {
-    guard let url = request.url,
+    guard let url = self.request.url,
           let handler = RequestProvider.requestHandlers[url] else {
       fatalError("No URL available for URLRequest.")
     }
     
-    defer {
-      RequestProvider.requestHandlers.removeValue(forKey: url)
-    }
-    
-    // Provide random response delay between 0 and 1 seconds
-    Thread.sleep(forTimeInterval: Double.random(in: 0.0...1.0))
-    
-    do {
-      let result = try handler(request)
-      
-      switch result {
-      case let .success((response, data)):
-        client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
-        
-        if let data = data {
-          client?.urlProtocol(self, didLoad: data)
-        }
-        
-        client?.urlProtocolDidFinishLoading(self)
-      case let .failure(error):
-        client?.urlProtocol(self, didFailWithError: error)
+    DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.0...0.5)) {
+      defer {
+        RequestProvider.requestHandlers.removeValue(forKey: url)
       }
       
-    } catch {
-      client?.urlProtocol(self, didFailWithError: error)
+      do {
+        let result = try handler(self.request)
+        
+        switch result {
+        case let .success((response, data)):
+          self.client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+          
+          if let data = data {
+            self.client?.urlProtocol(self, didLoad: data)
+          }
+          
+          self.client?.urlProtocolDidFinishLoading(self)
+        case let .failure(error):
+          self.client?.urlProtocol(self, didFailWithError: error)
+        }
+        
+      } catch {
+        self.client?.urlProtocol(self, didFailWithError: error)
+      }
     }
   }
   
