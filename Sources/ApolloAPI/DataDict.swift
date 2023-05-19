@@ -10,7 +10,7 @@ public struct DataDict: Hashable {
   /// * Values for entity fields are represented by ``DataDict`` values
   /// * Custom scalars are serialized and converted to their concrete types.
   ///
-  /// The process of converting a JSON response into ``SelectionSetData`` is done by using a
+  /// The process of converting a JSON response into a ``SelectionSet`` is done by using a
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
   /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
   /// the `Apollo` library.
