@@ -215,7 +215,7 @@ class URLSessionClientTests: XCTestCase {
     
     var responseStrings = [Int: String]()
     var requests = [Int: URLRequest]()
-    for i in 0..<20 {
+    for i in 0..<iterations {
       let url = URL(string: "http://www.test.com/multipleSimultaneousRequests\(i)")!
       let responseStr = "Simultaneous Request \(i)"
       let request = self.request(for: url,
