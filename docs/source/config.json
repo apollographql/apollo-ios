@@ -8,73 +8,106 @@
     "Introduction": "/",
     "Get Started": "/get-started",
     "Project Configuration": "/project-configuration",
-    "Migration Guides": {
-      "v1.0": "/migrations/1.0",
-      "v1.2": "/migrations/1.2"
-    },
-    "Tutorial": {
-      "Code Generation": "/tutorial/codegen-getting-started",
-      "Build a project with Apollo": {
-        "Introduction": "/tutorial/tutorial-introduction",
-        "1. Configure your project": "/tutorial/tutorial-configure-project",
-        "2. Add the GraphQL schema": "/tutorial/tutorial-add-graphql-schema",
-        "3. Write your first query": "/tutorial/tutorial-write-your-first-query",
-        "4. Running code generation": "/tutorial/tutorial-running-code-generation",
-        "5. Execute your first query": "/tutorial/tutorial-execute-first-query",
-        "6. Connect your queries to your UI": "/tutorial/tutorial-connect-queries-to-ui",
-        "7. Add more info to the list": "/tutorial/tutorial-add-more-info-to-list",
-        "8. Paginate results": "/tutorial/tutorial-paginate-results",
-        "9. Complete the details view": "/tutorial/tutorial-complete-details-view",
-        "10. Write your first mutation": "/tutorial/tutorial-first-mutation",
-        "11. Authenticate your operations": "/tutorial/tutorial-authenticate-operations",
-        "12. Define additional mutations": "/tutorial/tutorial-define-additional-mutations",
-        "13. Write your first subscription": "/tutorial/tutorial-subscriptions"
-      }
-    },
-    "API Reference": {
-      "Overview": "https://www.apollographql.com/docs/ios/docc/documentation/index",
-      "Apollo Client": "https://www.apollographql.com/docs/ios/docc/documentation/Apollo",
-      "ApolloAPI": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloAPI",
-      "ApolloWebSocket": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloWebSocket",
-      "ApolloSQLite": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloSQLite",
-      "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
-    },
-    "Code Generation": {
-      "Introduction": "/code-generation/introduction",
-      "The Codegen CLI": "/code-generation/codegen-cli",
-      "Configuration": "/code-generation/codegen-configuration",
-      "Downloading a Schema": "/code-generation/downloading-schema",
-      "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
-    },
-    "Fetching": {
-      "Fetching Data": "/fetching/fetching-data",
-      "Operations": {
-        "Queries": "/fetching/queries",
-        "Mutations": "/fetching/mutations",
-        "Subscriptions": "/fetching/subscriptions",
-        "Fragments": "/fetching/fragments"
+    "Migration Guides": [
+      {
+        "v1.0": "/migrations/1.0",
+        "v1.2": "/migrations/1.2"
       },
-      "Operation Arguments": "/fetching/operation-arguments",
-      "Error Handling":  "/fetching/error-handling",
-      "Type Conditions": "/fetching/type-conditions",
-      "Custom Scalars": "/custom-scalars",
-      "Automatic Persisted Queries": "/fetching/apqs"
-    },
-    "Caching": {
-      "Introduction": "/caching/introduction",
-      "Setup": "/caching/cache-setup",
-      "Direct Cache Access": "/caching/cache-transactions",
-      "Custom Cache Keys": "/caching/cache-key-resolution"
-    },
-    "Networking": {
-      "Creating a Client": "/networking/client-creation",
-      "Advanced Network Configuration": "/networking/request-pipeline"
-    },
-    "Development & Testing": {
-      "Test Mocks": "/testing/test-mocks"
-    },
-    "Troubleshooting": {
-      "Code Generation": "/troubleshooting/codegen-troubleshooting"
-    }
+      true
+    ],
+    "Tutorial": [
+      {
+        "Code Generation": "/tutorial/codegen-getting-started",
+        "Build a project with Apollo": [
+          {
+            "Introduction": "/tutorial/tutorial-introduction",
+            "1. Configure your project": "/tutorial/tutorial-configure-project",
+            "2. Add the GraphQL schema": "/tutorial/tutorial-add-graphql-schema",
+            "3. Write your first query": "/tutorial/tutorial-write-your-first-query",
+            "4. Running code generation": "/tutorial/tutorial-running-code-generation",
+            "5. Execute your first query": "/tutorial/tutorial-execute-first-query",
+            "6. Connect your queries to your UI": "/tutorial/tutorial-connect-queries-to-ui",
+            "7. Add more info to the list": "/tutorial/tutorial-add-more-info-to-list",
+            "8. Paginate results": "/tutorial/tutorial-paginate-results",
+            "9. Complete the details view": "/tutorial/tutorial-complete-details-view",
+            "10. Write your first mutation": "/tutorial/tutorial-first-mutation",
+            "11. Authenticate your operations": "/tutorial/tutorial-authenticate-operations",
+            "12. Define additional mutations": "/tutorial/tutorial-define-additional-mutations",
+            "13. Write your first subscription": "/tutorial/tutorial-subscriptions"
+          },
+          true
+        ]
+      },
+      true
+    ],
+    "API Reference": [
+      {
+        "Overview": "https://www.apollographql.com/docs/ios/docc/documentation/index",
+        "Apollo Client": "https://www.apollographql.com/docs/ios/docc/documentation/Apollo",
+        "ApolloAPI": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloAPI",
+        "ApolloWebSocket": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloWebSocket",
+        "ApolloSQLite": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloSQLite",
+        "ApolloCodegenLib": "https://www.apollographql.com/docs/ios/docc/documentation/ApolloCodegenLib"
+      },
+      true
+    ],
+    "Code Generation": [
+      {
+        "Introduction": "/code-generation/introduction",
+        "The Codegen CLI": "/code-generation/codegen-cli",
+        "Configuration": "/code-generation/codegen-configuration",
+        "Downloading a Schema": "/code-generation/downloading-schema",
+        "Running Code Generation in Swift Code": "/code-generation/run-codegen-in-swift-code"
+      },
+      true
+    ],
+    "Fetching": [
+      {
+        "Fetching Data": "/fetching/fetching-data",
+        "Operations": [
+          {
+            "Queries": "/fetching/queries",
+            "Mutations": "/fetching/mutations",
+            "Subscriptions": "/fetching/subscriptions",
+            "Fragments": "/fetching/fragments"
+          },
+          true
+        ],
+        "Operation Arguments": "/fetching/operation-arguments",
+        "Error Handling":  "/fetching/error-handling",
+        "Type Conditions": "/fetching/type-conditions",
+        "Custom Scalars": "/custom-scalars",
+        "Automatic Persisted Queries": "/fetching/apqs"
+      },
+      true
+    ],
+    "Caching": [
+      {
+        "Introduction": "/caching/introduction",
+        "Setup": "/caching/cache-setup",
+        "Direct Cache Access": "/caching/cache-transactions",
+        "Custom Cache Keys": "/caching/cache-key-resolution"
+      },
+      true
+    ],
+    "Networking": [
+      {
+        "Creating a Client": "/networking/client-creation",
+        "Advanced Network Configuration": "/networking/request-pipeline"
+      },
+      true
+    ],
+    "Development & Testing": [
+      {
+        "Test Mocks": "/testing/test-mocks"
+      },
+      true
+    ],
+    "Troubleshooting": [
+      {
+        "Code Generation": "/troubleshooting/codegen-troubleshooting"
+      },
+      true
+    ]
   }
 }
