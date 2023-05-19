@@ -9,9 +9,9 @@ class URLSessionClientTests: XCTestCase {
 
   override func setUp() {
     super.setUp()
-
+    Self.testObserver.start()
     sessionConfiguration = URLSessionConfiguration.default
-    sessionConfiguration.protocolClasses = [MockURLProtocol.self]
+    sessionConfiguration.protocolClasses = [MockURLProtocol<Self>.self]
     client = URLSessionClient(sessionConfiguration: sessionConfiguration)
   }
 
@@ -32,7 +32,7 @@ class URLSessionClientTests: XCTestCase {
                              cachePolicy: .reloadIgnoringCacheData,
                              timeoutInterval: 10)
     
-    MockURLProtocol.requestHandlers[url] = { request in
+    Self.requestHandlers[url] = { request in
       guard let requestURL = request.url else {
         throw URLError(.badURL)
       }
@@ -151,7 +151,7 @@ class URLSessionClientTests: XCTestCase {
       }
     }
 
-    self.wait(for: [expectation], timeout: 10)
+    self.wait(for: [expectation], timeout: 5)
   }
   
   func testCancellingTaskDirectlyCallsCompletionWithError() throws {
@@ -185,7 +185,7 @@ class URLSessionClientTests: XCTestCase {
 
     task.cancel()
 
-    self.wait(for: [expectation], timeout: 10)
+    self.wait(for: [expectation], timeout: 5)
   }
   
   func testCancellingTaskThroughClientDoesNotCallCompletion() throws {
@@ -290,5 +290,15 @@ class URLSessionClientTests: XCTestCase {
 
     self.wait(for: [expectation], timeout: 5)
   }
+  
+}
+
+extension URLSessionClientTests: MockRequestProvider {
+  
+  private static let testObserver = TestObserver() { _ in
+    requestHandlers = [:]
+  }
+  
+  public static var requestHandlers = [URL: MockRequestHandler]()
   
 }
