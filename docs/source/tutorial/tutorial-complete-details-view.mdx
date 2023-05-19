@@ -17,7 +17,7 @@ This is especially true when you have a *much* larger query for your detail view
 
 # Create the details query
 
-Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to [your Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com) and make sure that your query works!
+Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'll add the details you want to display in the detail view. First, you'll want to go back to [your Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com%2Fgraphql) and make sure that your query works!
 
 In the Explorer tab, start by clicking the "New Tab" button in the middle operations section: 
 
@@ -147,7 +147,7 @@ func loadLaunchDetails() {
         }
 
         switch result {
-        case.success(let graphQLResult):
+        case .success(let graphQLResult):
             if let launch = graphQLResult.data?.launch {
                 self.launch = launch
             }
@@ -181,7 +181,7 @@ init(launchID: RocketReserverAPI.ID) {
 }
 ```
 
-Lastly, let's update the `body` View variable to use the launch data from `DetailViewModel` and call the `loadLaunchDetails` method:
+Almost done! Let's update the `body` View variable to use the launch data from `DetailViewModel` and call the `loadLaunchDetails` method:
 
 ```swift title="DetailView.swift"
 var body: some View {
@@ -243,7 +243,7 @@ var body: some View {
 }
 ```
 
-Optionally, if you want to be able to continue to preview the SwiftUI view, update the preview code in `DetailView` to this:
+Also, you'll need to update the preview code in `DetailView` to this:
 
 ```swift title="DetailView.swift"
 struct DetailView_Previews: PreviewProvider {
@@ -257,7 +257,7 @@ Now we just need to connect the `DetailView` to our `LaunchListView`. So let's g
 
 ```swift title="LaunchListView.swift"
 ForEach(0..<viewModel.launches.count, id: \.self) { index in
-    NavigationLink(destination: DetailView(launchID: viewModel.launches[index].id)) { // highlight-line
+    NavigationLink(destination: DetailView(launchId: viewModel.launches[index].id)) { // highlight-line
         LaunchRow(launch: viewModel.launches[index]) // highlight-line
     } // highlight-line
 }

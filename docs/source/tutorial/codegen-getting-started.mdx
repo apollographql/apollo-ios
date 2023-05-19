@@ -73,7 +73,7 @@ Download and unzip this file then move the `apollo-ios-cli` binary file into the
 Run the following command:
 
 ```bash
-./apollo-ios-cli init --schema-name StarWarsAPI --module-type swiftPackageManager
+./apollo-ios-cli init --schema-namespace StarWarsAPI --module-type swiftPackageManager
 ```
 
 The CLI will create a configuration file named `apollo-codegen-configuration.json`, pre-filled with default values. The file should look similar to this:
@@ -110,7 +110,7 @@ Now you are ready to generate some code! Run the following command:
 ./apollo-ios-cli generate
 ```
 
-you should see a new file created named `Query.graphql.swift`, that looks similar to this:
+You should see a new file created at `StarWarsAPI/Sources/Operations/Queries/Query.graphql.swift`, that looks similar to this:
 
 <ExpansionPanel title="Generated Code">
 
