@@ -142,12 +142,10 @@ func startSubscription() {
 }
 ```
 
-Next, update the `init()` method to the following:
+Next, update the TODO in the `init()` method to the following:
 
 ```swift title="LaunchListViewModel.swift"
 init() {
-    Network.shared.apollo.fetch(query: LaunchListQuery(cursor: nil)) { result in
-    // ...
     startSubscription()//highlight-line
 }
 ```

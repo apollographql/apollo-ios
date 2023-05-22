@@ -94,14 +94,6 @@ func loadMoreLaunchesIfTheyExist() {
 }
 ```
 
-Lastly, update the `init()` method to pass `cursor: nil` to `LaunchListQuery`:
-
-```swift title="LaunchListViewModel.swift"
-init() {
-    Network.shared.apollo.fetch(query: LaunchListQuery(cursor: nil)) { result in// highlight-line
-        switch result {
-```
-
 ## Update UI Code
 
 Next, go to `LaunchListView` and update our task to call the newly implemented `loadMoreLaunchesIfTheyExist()` method:
