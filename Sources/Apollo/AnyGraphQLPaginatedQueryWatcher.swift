@@ -1,5 +1,5 @@
 /// A type-erased `GraphQLPaginatedQueryWatcher`
-public struct AnyGraphQLPaginatedQueryWatcher {
+public class AnyGraphQLPaginatedQueryWatcher: PaginatedQueryWatcherType {
   private let _fetch: (CachePolicy) -> Void
   private let _refetch: (CachePolicy) -> Void
   private let _fetchMore: (CachePolicy, (() -> Void)?) -> Bool

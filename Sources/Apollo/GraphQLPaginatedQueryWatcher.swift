@@ -14,8 +14,15 @@ public struct Page: Equatable {
   }
 }
 
+public protocol PaginatedQueryWatcherType: Cancellable {
+  func fetch(cachePolicy: CachePolicy)
+  func refetch(cachePolicy: CachePolicy)
+  func fetchMore(cachePolicy: CachePolicy, completion: (() -> Void)?) -> Bool
+  func refresh(page: Page?, cachePolicy: CachePolicy)
+}
+
 /// Handles pagination in the queue by managing multiple query watchers.
-public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: Cancellable {
+public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: PaginatedQueryWatcherType {
   /// Given a page, create a query of the type this watcher is responsible for
   public typealias CreatePageQuery = (Page) -> Strategy.Query?
 
