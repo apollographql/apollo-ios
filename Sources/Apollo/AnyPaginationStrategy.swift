@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 public class AnyPaginationStrategy<Query: GraphQLQuery, Output: Hashable>: PaginationStrategy {
   private let _transform: (Query.Data) -> (Output?, Page?)?

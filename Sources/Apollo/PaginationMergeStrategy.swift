@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 /// The strategy by which a `GraphQLPaginatedQueryWatcher` operates
 public protocol PaginationStrategy {

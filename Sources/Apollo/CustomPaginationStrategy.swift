@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 /// A custom pagination strategy that allows the caller to paginate using their own output model and gives fine-grain control over how page results are merged together.
 public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: PaginationStrategy {

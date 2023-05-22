@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 /// The `SimplePaginationStrategy`  is appropriate for most use cases.
 /// **NOTE**: The `SimplePaginationStrategy` is only intended to work with a `Query.Data` response that that only contains paginated lists.

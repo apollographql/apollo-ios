@@ -1,4 +1,6 @@
+#if !COCOAPODS
 import ApolloAPI
+#endif
 
 /// The response object of a `GraphQLPaginatedQueryWatcher`
 public struct PaginationDataResponse<Query: GraphQLQuery, T> {
