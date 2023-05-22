@@ -155,6 +155,7 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
+		D05004CA2A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */; };
 		D082F1CC2A13FC2F0043B601 /* CustomPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */; };
 		D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
@@ -1342,6 +1343,7 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
+		D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
@@ -2829,6 +2831,7 @@
 				D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */,
 				D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */,
 				D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */,
+				D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */,
 			);
 			name = "Pagination Strategies";
 			sourceTree = "<group>";
@@ -5450,6 +5453,7 @@
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
+				D05004CA2A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
 				D082F1CC2A13FC2F0043B601 /* CustomPaginationStrategy.swift in Sources */,
