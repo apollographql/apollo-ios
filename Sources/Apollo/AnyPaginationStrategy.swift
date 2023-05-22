@@ -2,6 +2,7 @@
 import ApolloAPI
 #endif
 
+/// A type-erased `PaginationStrategy` that operates over a specific `Query` and `Output`.
 public class AnyPaginationStrategy<Query: GraphQLQuery, Output: Hashable>: PaginationStrategy {
   private let _transform: (Query.Data) -> (Output?, Page?)?
   private let _mergePageResults: (PaginationDataResponse<Query, Output>) -> Output
