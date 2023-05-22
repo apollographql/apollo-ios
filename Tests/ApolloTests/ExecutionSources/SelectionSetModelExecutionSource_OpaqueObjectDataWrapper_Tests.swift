@@ -8,7 +8,7 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
 
   // MARK: - Scalar Fields
 
-  func test__subscript__forScalarField_returnsValue() throws {
+  func test__subscript__forStringScalarField_returnsValue() throws {
     // given
     let data = DataDict(
       data: [
@@ -24,6 +24,114 @@ class SelectionSetModelExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase
 
     // then
     expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+  
+  func test__subscript__forIntScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": Int(10)
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Int).to(equal(10))
+  }
+  
+  func test__subscript__forInt32ScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": Int32(10)
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Int32).to(equal(10))
+  }
+  
+  func test__subscript__forInt64ScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": Int64(10)
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Int64).to(equal(10))
+  }
+  
+  func test__subscript__forBoolScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": true
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Bool).to(equal(true))
+  }
+  
+  func test__subscript__forDoubleScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": Double(10.5)
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Double).to(equal(10.5))
+  }
+  
+  func test__subscript__forFloatScalarField_returnsValue() throws {
+    // given
+    let data = DataDict(
+      data: [
+        "value": Float(10.5)
+      ],
+      fulfilledFragments: []
+    )
+
+    let objectData = SelectionSetModelExecutionSource().opaqueObjectDataWrapper(for: data)
+
+    // when
+    let actual = objectData["value"]
+
+    // then
+    expect(actual as? Float).to(equal(10.5))
   }
 
   func test__subscript__forCustomScalarField_returnsValueAsJSONValue() throws {

@@ -42,6 +42,32 @@ extension Int: JSONDecodable, JSONEncodable {
   }
 }
 
+extension Int32: JSONDecodable, JSONEncodable {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Int32.self)
+    }
+    self = number.int32Value
+  }
+
+  @inlinable public var _jsonValue: JSONValue {
+    return self
+  }
+}
+
+extension Int64: JSONDecodable, JSONEncodable {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Int64.self)
+    }
+    self = number.int64Value
+  }
+
+  @inlinable public var _jsonValue: JSONValue {
+    return self
+  }
+}
+
 extension Float: JSONDecodable, JSONEncodable {
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {

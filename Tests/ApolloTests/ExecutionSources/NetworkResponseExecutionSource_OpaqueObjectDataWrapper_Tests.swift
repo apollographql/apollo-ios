@@ -20,7 +20,7 @@ class NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
   // MARK: - Scalar Fields
 
-  func test__subscript__forScalarField_returnsValue() throws {
+  func test__subscript__forStringScalarField_returnsValue() throws {
     // given
     let data = [
       "name": "Luke Skywalker"
@@ -33,6 +33,96 @@ class NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
 
     // then
     expect(actual as? String).to(equal("Luke Skywalker"))
+  }
+  
+  func test__subscript_forIntScalarField_returnsValue() throws {
+    // given
+    let data = [
+      "value": Int(10)
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Int).to(equal(10))
+  }
+  
+  func test__subscript_forInt32ScalarField_returnsValue() throws {
+    // given
+    let data = [
+      "value": Int32(10)
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Int32).to(equal(10))
+  }
+  
+  func test__subscript_forInt64ScalarField_returnsValue() throws {
+    // given
+    let data = [
+      "value": Int64(10)
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Int64).to(equal(10))
+  }
+  
+  func test__subscript_forBoolScalarField_returnsScalarTypeValue() throws {
+    // given
+    let data = [
+      "value": true
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Bool).to(equal(true))
+  }
+  
+  func test__subscript_forDoubleScalarField_returnsScalarTypeValue() throws {
+    // given
+    let data = [
+      "value": Double(10.5)
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Double).to(equal(10.5))
+  }
+  
+  func test__subscript_forFloatScalarField_returnsScalarTypeValue() throws {
+    // given
+    let data = [
+      "value": Float(10.5)
+    ]
+    
+    let objectData = subject.opaqueObjectDataWrapper(for: data)
+    
+    // when
+    let actual = objectData["value"]
+    
+    // then
+    expect(actual as? Float).to(equal(10.5))
   }
 
   // MARK: Object Fields
