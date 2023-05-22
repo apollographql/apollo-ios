@@ -22,8 +22,6 @@ public protocol ScalarType:
 
 extension String: ScalarType {}
 extension Int: ScalarType {}
-extension Int32: ScalarType {}
-extension Int64: ScalarType {}
 extension Bool: ScalarType {}
 extension Float: ScalarType {}
 extension Double: ScalarType {}
