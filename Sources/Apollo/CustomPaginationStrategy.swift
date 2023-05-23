@@ -8,7 +8,6 @@ public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: P
   private var _mergePageResults: (PaginationDataResponse<Query, T>) -> T
   private var _resultHandler: (Result<T, Error>, GraphQLResult<Query.Data>.Source?) -> Void
 
-
   /// Designated Initializer
   /// - Parameters:
   ///   - transform: A user supplied function which can transform a given watch result into an output of any type, and a page.
@@ -24,14 +23,24 @@ public final class CustomPaginationStrategy<Query: GraphQLQuery, T: Hashable>: P
     self._resultHandler = resultHandler
   }
 
+  /// Transforms a new `Query.Data` result into a results tuple.
+  /// - Parameter data: input data from the underlying `GraphQLQueryWatcher`
+  /// - Returns: A tuple which contains the expected `Output` value of this strategy as well as the `Page` that this `Output` is tied to.
   public func transform(data: Query.Data) -> (T?, Page?)? {
     _transform(data)
   }
 
+  /// How the strategy goes about combining the results of many watchers.
+  /// - Parameter response: Contains all page results, the page that triggered the update, as well as the source of the update
+  /// - Returns: The finalized `Output` to be returned to the user via the `resultHandler`.
   public func mergePageResults(response: PaginationDataResponse<Query, T>) -> T {
     _mergePageResults(response)
   }
 
+  /// The callback by which the user handles the result of the `GraphQLPaginatedQueryWatcher`.
+  /// - Parameters:
+  ///   - result: The transformed and merged result of the `GraphQLPaginatedQueryWatcher`.
+  ///   - source: Whether that result came from the cache or the network.
   public func resultHandler(result: Result<T, Error>, source: GraphQLResult<Query.Data>.Source?) {
     _resultHandler(result, source)
   }

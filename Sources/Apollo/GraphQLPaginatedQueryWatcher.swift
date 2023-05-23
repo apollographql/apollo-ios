@@ -3,24 +3,6 @@ import ApolloAPI
 #endif
 import Foundation
 
-public typealias Cursor = String
-public struct Page: Equatable {
-  public let hasNextPage: Bool
-  public let endCursor: Cursor?
-
-  public init(hasNextPage: Bool, endCursor: Cursor?) {
-    self.hasNextPage = hasNextPage
-    self.endCursor = endCursor
-  }
-}
-
-public protocol PaginatedQueryWatcherType: Cancellable {
-  func fetch(cachePolicy: CachePolicy)
-  func refetch(cachePolicy: CachePolicy)
-  func fetchMore(cachePolicy: CachePolicy, completion: (() -> Void)?) -> Bool
-  func refresh(page: Page?, cachePolicy: CachePolicy)
-}
-
 /// Handles pagination in the queue by managing multiple query watchers.
 public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: PaginatedQueryWatcherType {
   /// Given a page, create a query of the type this watcher is responsible for
@@ -176,6 +158,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: P
     watchers[index].fetch(cachePolicy: cachePolicy)
   }
 
+  /// Cancel any in progress fetching operations and unsubscribe from the store.
   public func cancel() {
     watchers.forEach { $0.cancel() }
   }

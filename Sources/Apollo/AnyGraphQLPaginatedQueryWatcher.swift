@@ -36,6 +36,8 @@ public class AnyGraphQLPaginatedQueryWatcher: PaginatedQueryWatcherType {
 }
 
 public extension GraphQLPaginatedQueryWatcher {
+  /// Transforms the `GraphQLPaginatedQueryWatcher` into `AnyGraphQLPaginatedQueryWatcher`
+  /// - Returns: `AnyGraphQLPaginatedQueryWatcher`
   func eraseToAnyWatcher() -> AnyGraphQLPaginatedQueryWatcher {
     .init(watcher: self)
   }

@@ -28,6 +28,8 @@ public class AnyPaginationStrategy<Query: GraphQLQuery, Output: Hashable>: Pagin
 }
 
 public extension PaginationStrategy {
+  /// Transforms this `PaginationStrategy` into `AnyPaginationStrategy`.
+  /// - Returns: `AnyPaginationStrategy`
   func eraseToAnyStrategy() -> AnyPaginationStrategy<Query, Output> {
     .init(strategy: self)
   }

@@ -8,7 +8,7 @@ import ApolloAPI
 ///
 /// It functions by:
 ///   1. Having the user supply a function which can extract a `Page` from a given `Query.Data`.
-///   2. Merging many `Query.Data` together such that new page data is prefered over old page data.
+///   2. Merging many `Query.Data` together such that new page data is preferred over old page data.
 ///   3. Returning a formed `Query.Data` to the user in a callback, which includes all page results and the cursor of the last page fetched so far. "Last" in this instance means "last in the list of pages", not "most recent".
 public final class SimplePaginationStrategy<Query: GraphQLQuery>: PaginationStrategy {
   private var _extractPage: (Query.Data) -> Page?
@@ -26,16 +26,27 @@ public final class SimplePaginationStrategy<Query: GraphQLQuery>: PaginationStra
     self._resultHandler = resultHandler
   }
 
+  /// Transforms a new `Query.Data` result into a results tuple. The `SimplePaginationStrategy` uses the `extractPage` function supplied by the user to identify the `Page`, but otherwise just returns the data of the query.
+  /// - Parameter data: input data from the underlying `GraphQLQueryWatcher`
+  /// - Returns: A tuple which contains the expected `Output` value of this strategy as well as the `Page` that this `Output` is tied to.
   public func transform(data: Query.Data) -> (Query.Data?, Page?)? {
     (data, _extractPage(data))
   }
 
+  /// How the strategy goes about combining the results of many watchers.
+  /// The `SimplePaginationStrategy` merges the various `Query.Data` together such that the new page data is preferred over old page data. **NOTE**: The `SimplePaginationStrategy` merges all lists together. This may mean that lists will be concatenated when they shouldn't be.
+  /// - Parameter response: Contains all page results, the page that triggered the update, as well as the source of the update
+  /// - Returns: The finalized `Output` to be returned to the user via the `resultHandler`.
   public func mergePageResults(response: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
     var json: DataDict.SelectionSetData = [:]
     json = json.mergeMany(sets: response.allResponses.map { $0.__data._data }, mostRecent: response.mostRecent.__data._data)
     return Query.Data.init(_dataDict: .init(data: json))
   }
 
+  /// The callback by which the user handles the result of the `GraphQLPaginatedQueryWatcher`.
+  /// - Parameters:
+  ///   - result: The transformed and merged result of the `GraphQLPaginatedQueryWatcher`.
+  ///   - source: Whether that result came from the cache or the network.
   public func resultHandler(result: Result<Query.Data, Error>, source: GraphQLResult<Query.Data>.Source?) {
     _resultHandler(result, source)
   }
@@ -76,8 +87,6 @@ private extension DataDict.SelectionSetData {
       }
     }
 
-    let dictionary = values.reduce(into: [:]) { $0[$1.0] = $1.1 }
-
-    return dictionary
+    return values.reduce(into: [:]) { $0[$1.0] = $1.1 }
   }
 }
