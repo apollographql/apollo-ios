@@ -9,11 +9,16 @@ Oh, and if you haven't already, stop by our [community forums!](https://communit
 Here are some ways to contribute to the project, from easiest to most difficult:
 
 * [Reporting bugs](#reporting-bugs)
-* [Improving the documentation](#improving-the-documentation)
 * [Responding to issues](#responding-to-issues)
-* [Small bug fixes](#small-bug-fixes)
+* [Improving the documentation](#improving-the-documentation)
 * [Suggesting features](#suggesting-features)
-* [Big pull requests](#big-pull-requests)
+
+* [Submitting pull requests](#pull-requests)
+* [Code review](#review)
+
+* [Unit tests](#unit-tests)
+* [Integration tests](#integration-tests)
+* [Code generation test projects](#code-generation-test-projects)
 
 ## Issues
 
