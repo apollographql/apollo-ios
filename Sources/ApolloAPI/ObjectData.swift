@@ -20,7 +20,20 @@ public struct ObjectData {
   }
 
   @inlinable public subscript(_ key: String) -> (any ScalarType)? {
-    guard let value = _rawData[key] else { return nil }
+    guard let rawValue = _rawData[key] else { return nil }
+    var value: AnyHashable = rawValue
+    
+    // Attempting cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int`
+    switch value {
+    case let boolVal as Bool:
+      value = boolVal
+    case let intVal as Int:
+      value = intVal
+    default:
+      break
+    }
+    
     return _transformer.transform(value)
   }
 
@@ -54,7 +67,20 @@ public struct ListData {
   }
 
   @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
-    return _transformer.transform(_rawData[key])
+    var value: AnyHashable = _rawData[key]
+    
+    // Attempting cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int`
+    switch value {
+    case let boolVal as Bool:
+      value = boolVal
+    case let intVal as Int:
+      value = intVal
+    default:
+      break
+    }
+    
+    return _transformer.transform(value)
   }
 
   @_disfavoredOverload
