@@ -6,7 +6,7 @@ Apollo is a community of developers just like you, striving to create the best t
 
 Oh, and if you haven't already, stop by our [community forums!](https://community.apollographql.com)!
 
-Here are some ways to contribute to the project, from easiest to most difficult:
+Here are some ways to contribute to the project:
 
 * [Reporting bugs](#reporting-bugs)
 * [Responding to issues](#responding-to-issues)
