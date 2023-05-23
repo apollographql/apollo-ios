@@ -85,4 +85,4 @@ The folder [`TestCodeGenConfigurations`](https://github.com/apollographql/apollo
 
 ## License
 
-By contributring to Apollo iOS you agree that your contributions will be licensed under its [MIT license](https://github.com/apollographql/apollo-ios/blob/main/LICENSE)
+By contributing to Apollo iOS you agree that your contributions will be licensed under its [MIT license](https://github.com/apollographql/apollo-ios/blob/main/LICENSE)
