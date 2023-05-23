@@ -20,7 +20,7 @@ class Network {
 
 ## Implement the query
 
-To make sure your `ApolloClient` instance is communicating correctly with the server, go to `LaunchListViewModel`, add the following imports and update the `init()` method to contain the following code:
+To make sure your `ApolloClient` instance is communicating correctly with the server, go to `LaunchListViewModel`, add these imports, then add the following code to the `init()` method just below the TODO:
 
 ```swift title="LaunchListViewModel.swift"
 import Apollo
@@ -29,6 +29,7 @@ import RocketReserverAPI
 ...
 
 init() {
+    // TODO (Section 13 - https://www.apollographql.com/docs/ios/tutorial/tutorial-subscriptions#use-your-subscription)
     Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
         switch result {
         case .success(let graphQLResult):
