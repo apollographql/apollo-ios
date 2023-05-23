@@ -124,6 +124,33 @@ class NetworkResponseExecutionSource_OpaqueObjectDataWrapper_Tests: XCTestCase {
     // then
     expect(actual as? Float).to(equal(10.5))
   }
+  
+  func test__subscript__givenDeserializedJSON_returnsScalarTypeValues() throws {
+    // given
+    let data = """
+    {
+      "string" : "string",
+      "int": 321,
+      "bool": true,
+      "double": 10.5
+    }
+    """.data(using: .utf8)!
+
+    let deserialized = try JSONSerializationFormat.deserialize(data: data) as! JSONObject
+    let objectData = subject.opaqueObjectDataWrapper(for: deserialized)
+
+    // when
+    let actualString = objectData["string"]
+    let actualInt = objectData["int"]
+    let actualBool = objectData["bool"]
+    let actualDouble = objectData["double"]
+
+    // then
+    expect(actualString as? String).to(equal("string"))
+    expect(actualInt as? Int).to(equal(321))
+    expect(actualBool as? Bool).to(equal(true))
+    expect(actualDouble as? Double).to(equal(10.5))
+  }
 
   // MARK: Object Fields
 
