@@ -15,8 +15,8 @@ public class MockURLProtocol<RequestProvider: MockRequestProvider>: URLProtocol 
           let handler = RequestProvider.requestHandlers[url] else {
       fatalError("No MockRequestHandler available for URL.")
     }
-    
-    DispatchQueue.main.asyncAfter(deadline: .now() + Double.random(in: 0.0...0.5)) {
+
+    DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + Double.random(in: 0.0...0.25)) {
       defer {
         RequestProvider.requestHandlers.removeValue(forKey: url)
       }

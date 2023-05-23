@@ -17,7 +17,7 @@ class URLSessionClientTests: XCTestCase {
 
   override func tearDown() {
     client = nil
-
+    sessionConfiguration = nil
     super.tearDown()
   }
   
