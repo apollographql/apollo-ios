@@ -32,7 +32,7 @@ At Apollo, we consider the security of our projects a top priority. No matter ho
 
 ### Responding to issues
 
-In addition to reporting issues, a great way to contribute to Apollo iOS is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on our community forums!
+In addition to reporting issues, a great way to contribute to Apollo iOS is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. Don't forget to say "Hi" on our [community forums](https://community.apollographql.com/tag/mobile) and [Discord server](https://discord.com/invite/graphos)!
 
 ### Improving the documentation
 
