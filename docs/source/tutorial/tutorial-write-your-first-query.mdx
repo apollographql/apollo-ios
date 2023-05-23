@@ -4,9 +4,9 @@ title: "3. Write your first query"
 
 The most common GraphQL operation is the **query**, which requests data from your graph in a structure that conforms to your server's schema. If you return to [the Sandbox](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com/graphql)  for your server, you can see available queries in the Schema Reference tab you opened earlier.
 
-Scroll down to the `launches` query to get details about it:
+Scroll down to the `launches` field to get details about it:
 
-<img src="images/launches_detail.png" class="screenshot" alt="Detail about launches query"/>
+<img src="images/launches_detail.png" class="screenshot" alt="Detail about launches field"/>
 
 Here, you see both the query term itself, the return type, and information about parameters that can be passed to the query.  You can use this information to write a query you'll eventually add to your app.
 
@@ -29,7 +29,7 @@ When the query is added, it will look like this:
 Let's break down what you're seeing here:
 
 - The type of the operation, `query`, followed by the name of the operation, currently `Query` (we'll make that more specific in a second), is the outermost set of brackets.
-- The actual query being called is the next set of brackets in. Since the `arguments` for this query both have default values, they are not automatically added to the query for you.
+- The next set of brackets contains the query's `selection set`.  In GraphQL, the term `selection set` is the list of fields you want to fetch. Since the `arguments` for this query both have default values, they are not automatically added to the query for you.
 - An error in the empty space between the brackets, which is where you'll put the list of information you want back from each launch.
 
 The Apollo iOS SDK requires every query to have a name (even though this isn't required by the GraphQL spec). Since you're going to be creating more than one query, it's also a good idea to give this operation a specific name other than `Query`. Change the name of the operation to `LaunchList`:
