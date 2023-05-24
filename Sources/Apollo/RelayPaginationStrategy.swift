@@ -51,7 +51,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
             let transformedModel = transformResult(input: data)
       else { return }
       let page = extractPage(input: data)
-      modelMap[currentPage] = transformedModel
+      modelMap[page] = transformedModel
       let model = mergeStrategy.mergePageResults(paginationResponse: .init(
         allResponses: pages.compactMap { [weak self] page in
           self?.modelMap[page]

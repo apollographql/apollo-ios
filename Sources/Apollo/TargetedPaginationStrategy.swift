@@ -3,10 +3,10 @@ import ApolloAPI
 #endif
 
 public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
-  let keyPath: KeyPath<Query.Data, [AnyHashable]>
+  let keyPath: AnyKeyPath
 
   public init(
-    targetedKeyPath: KeyPath<Query.Data, [AnyHashable]>
+    targetedKeyPath: KeyPath<Query.Data, [some SelectionSet]>
   ) {
     self.keyPath = targetedKeyPath
   }
@@ -15,7 +15,7 @@ public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMer
     var json: DataDict.SelectionSetData = [:]
     json = json.mergeMany(
       sets: paginationResponse.allResponses.map { $0.__data._data },
-      lists: paginationResponse.allResponses.map { $0[keyPath: keyPath] }
+      lists: paginationResponse.allResponses.compactMap { $0[keyPath: keyPath] as? [any SelectionSet] }
     )
     return Query.Data.init(_dataDict: .init(data: json))
   }
@@ -24,7 +24,7 @@ public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMer
 private extension DataDict.SelectionSetData {
   func mergeMany(
     sets: [DataDict.SelectionSetData],
-    lists: [[AnyHashable]]
+    lists: [[any SelectionSet]]
   ) -> DataDict.SelectionSetData {
     var data: DataDict.SelectionSetData = [:]
     zip(sets, lists).forEach { (selectionSet, list) in
@@ -33,7 +33,7 @@ private extension DataDict.SelectionSetData {
     return data
   }
 
-  func merge(selectionSet: DataDict.SelectionSetData, list: AnyHashable) -> DataDict.SelectionSetData {
+  func merge(selectionSet: DataDict.SelectionSetData, list: [any SelectionSet]) -> DataDict.SelectionSetData {
     let values: [(String, AnyHashable)] = selectionSet.map { k, v in
       let currentValue = self[k]
       let newValue = v
@@ -46,7 +46,7 @@ private extension DataDict.SelectionSetData {
         return (k, currentValue.merge(selectionSet: newValue, list: list))
       } else if let currentValue = currentValue as? [[String: AnyHashable]],
                 let newValue = newValue as? [[String: AnyHashable]],
-                newValue as AnyHashable == list,
+                newValue as AnyHashable == list.map({ $0.__data._data }) as AnyHashable,
                 let combinedArray = (currentValue + newValue) as? AnyHashable {
         // The value is a list.
         // Lists are what we target to combine and paginate over.
