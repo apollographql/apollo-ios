@@ -10,23 +10,23 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
   private let client: any ApolloClientProtocol
   private var watchers: [GraphQLQueryWatcher<Strategy.Query>] = []
   private var callbackQueue: DispatchQueue
-  private let mergeStrategy: Strategy
+  let strategy: Strategy
 
   public init(
     client: ApolloClientProtocol,
     inititalCachePolicy: CachePolicy = .returnCacheDataAndFetch,
     callbackQueue: DispatchQueue = .main,
-    mergeStrategy: Strategy,
+    strategy: Strategy,
     initialQuery: Strategy.Query
   ) {
     self.callbackQueue = callbackQueue
     self.client = client
-    self.mergeStrategy = mergeStrategy
+    self.strategy = strategy
     let initialWatcher = GraphQLQueryWatcher(
       client: client,
       query: initialQuery,
       callbackQueue: callbackQueue,
-      resultHandler: mergeStrategy.onWatchResult(result:)
+      resultHandler: strategy.onWatchResult(result:)
     )
     watchers = [initialWatcher]
   }
@@ -54,17 +54,17 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
     cachePolicy: CachePolicy = .fetchIgnoringCacheData,
     completion: (() -> Void)? = nil
   ) -> Bool {
-    guard mergeStrategy.canFetchNextPage(),
-          let currentPage = mergeStrategy.currentPage
+    guard strategy.canFetchNextPage(),
+          let currentPage = strategy.currentPage
     else { return false }
-    let nextPageQuery = mergeStrategy.nextPageStrategy.createNextPageQuery(page: currentPage)
+    let nextPageQuery = strategy.nextPageStrategy.createNextPageQuery(page: currentPage)
 
     let nextPageWatcher = client.watch(
       query: nextPageQuery,
       cachePolicy: cachePolicy,
       callbackQueue: callbackQueue
     ) { [weak self] result in
-      self?.mergeStrategy.onWatchResult(result: result)
+      self?.strategy.onWatchResult(result: result)
       completion?()
     }
     watchers.append(nextPageWatcher)
@@ -79,7 +79,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
       // Fetch first page
       return fetch(cachePolicy: cachePolicy)
     }
-    guard let index = mergeStrategy.pages.firstIndex(where: { $0 == page }),
+    guard let index = strategy.pages.firstIndex(where: { $0 == page }),
           watchers.count > index
     else { return }
     watchers[index].fetch(cachePolicy: cachePolicy)

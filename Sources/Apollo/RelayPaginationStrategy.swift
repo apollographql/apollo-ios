@@ -92,7 +92,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
   }
 
   func extractPage(input: PageInput) {
-    let page = pageInput.flatMap(pageExtractionStrategy.transform(input:))
+    let page = pageExtractionStrategy.transform(input: input)
     if let index = self.pages.firstIndex(of: page) {
       self.pages[index] = page
     } else {
