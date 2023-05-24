@@ -22,8 +22,6 @@ where MergeStrategy.Output == OutputTransformer.Output,
 
   var _resultHandler: (Result<MergeStrategy.Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
 
-  var pageInput: PageInput?
-
   public private(set) var pages: [Page?] = [nil]
   public private(set) var currentPage: Page?
   private var modelMap: [Page?: Output] = [:]
@@ -52,8 +50,8 @@ where MergeStrategy.Output == OutputTransformer.Output,
       guard let data = graphQLResult.data,
             let transformedModel = transformResult(input: data)
       else { return }
+      let page = extractPage(input: data)
       modelMap[currentPage] = transformedModel
-      extractPage(input: data)
       let model = mergeStrategy.mergePageResults(paginationResponse: .init(
         allResponses: pages.compactMap { [weak self] page in
           self?.modelMap[page]
@@ -73,7 +71,6 @@ where MergeStrategy.Output == OutputTransformer.Output,
   }
 
   public func reset() {
-    pageInput = nil
     pages = [nil]
     currentPage = nil
     modelMap = [:]
@@ -91,7 +88,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
     mergeStrategy.mergePageResults(paginationResponse: response)
   }
 
-  func extractPage(input: PageInput) {
+  func extractPage(input: PageInput) -> Page {
     let page = pageExtractionStrategy.transform(input: input)
     if let index = self.pages.firstIndex(of: page) {
       self.pages[index] = page
@@ -99,6 +96,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
       self.currentPage = page
       self.pages.append(page)
     }
+    return page
   }
 
   func transformResult(input: Query.Data) -> Output? {
