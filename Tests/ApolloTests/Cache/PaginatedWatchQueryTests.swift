@@ -196,12 +196,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
-        pageExtractionStrategy: RelayPageExtractor { data in
-            .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
-            )
-        },
+        pageExtractionStrategy: RelayPageExtractor(
+          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+        ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
             name: data.hero.name,
