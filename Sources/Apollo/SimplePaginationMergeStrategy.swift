@@ -3,11 +3,7 @@ import ApolloAPI
 #endif
 
 public class SimplePaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
-  let _transform: (PaginationDataResponse<Query, Output>) -> Output
-
-  public init(transform: @escaping (PaginationDataResponse<Query, Output>) -> Output) {
-    self._transform = transform
-  }
+  public init() { }
 
   public func mergePageResults(paginationResponse: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
     var json: DataDict.SelectionSetData = [:]

@@ -3,15 +3,12 @@ import ApolloAPI
 #endif
 
 public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
-  let _transform: (PaginationDataResponse<Query, Output>) -> Output
   let keyPath: KeyPath<Query.Data, [AnyHashable]>
 
   public init(
-    targetedKeyPath: KeyPath<Query.Data, [AnyHashable]>,
-    transform: @escaping (PaginationDataResponse<Query, Output>) -> Output
+    targetedKeyPath: KeyPath<Query.Data, [AnyHashable]>
   ) {
     self.keyPath = targetedKeyPath
-    self._transform = transform
   }
 
   public func mergePageResults(paginationResponse: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
