@@ -40,7 +40,7 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
   /// Fetches the first page and purges all data from subsequent pages.
   public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
     // Reset mapping of data and order of data
-    // TODO: Do this in the strategy!
+    strategy.reset()
     // Remove and cancel all watchers aside from the first page
     guard let initialWatcher = watchers.first else { return }
     let subsequentWatchers = watchers.dropFirst()
