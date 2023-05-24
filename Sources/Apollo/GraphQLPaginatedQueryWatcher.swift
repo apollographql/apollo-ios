@@ -4,7 +4,7 @@ import ApolloAPI
 import Foundation
 
 /// Handles pagination in the queue by managing multiple query watchers.
-public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy>: PaginatedQueryWatcherType {
+public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
   /// Given a page, create a query of the type this watcher is responsible for
   public typealias CreatePageQuery = (Page) -> Strategy.Query?
 

@@ -159,10 +159,8 @@
 		D082F1CC2A13FC2F0043B601 /* CustomPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */; };
 		D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
-		D082F1D72A16C81B0043B601 /* AnyGraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1D62A16C81B0043B601 /* AnyGraphQLPaginatedQueryWatcher.swift */; };
 		D0AAA33A2A13C6570031C482 /* PaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */; };
 		D0FB32A82A1CF9C30017B4DA /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB32A72A1CF9C30017B4DA /* Page.swift */; };
-		D0FB32AA2A1CF9EE0017B4DA /* PaginatedQueryWatcherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB32A92A1CF9EE0017B4DA /* PaginatedQueryWatcherType.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
 		DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451328A5A156000F6F18 /* ValidationOptions.swift */; };
@@ -1349,10 +1347,8 @@
 		D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
-		D082F1D62A16C81B0043B601 /* AnyGraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMergeStrategy.swift; sourceTree = "<group>"; };
 		D0FB32A72A1CF9C30017B4DA /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
-		D0FB32A92A1CF9EE0017B4DA /* PaginatedQueryWatcherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedQueryWatcherType.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
@@ -2848,8 +2844,6 @@
 				D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
 				D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */,
-				D082F1D62A16C81B0043B601 /* AnyGraphQLPaginatedQueryWatcher.swift */,
-				D0FB32A92A1CF9EE0017B4DA /* PaginatedQueryWatcherType.swift */,
 			);
 			name = "Query Watchers";
 			sourceTree = "<group>";
@@ -5477,7 +5471,6 @@
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
 				9B260BF1245A025400562176 /* HTTPRequest.swift in Sources */,
 				9B708AAD2305884500604A11 /* ApolloClientProtocol.swift in Sources */,
-				D0FB32AA2A1CF9EE0017B4DA /* PaginatedQueryWatcherType.swift in Sources */,
 				C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */,
 				9BEEDC2824E351E5001D1294 /* MaxRetryInterceptor.swift in Sources */,
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
@@ -5503,7 +5496,6 @@
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
 				9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */,
 				9B260BF5245A028D00562176 /* HTTPResponse.swift in Sources */,
-				D082F1D72A16C81B0043B601 /* AnyGraphQLPaginatedQueryWatcher.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
 				D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */,
 				9BC742AE24CFB6450029282C /* CacheWriteInterceptor.swift in Sources */,
