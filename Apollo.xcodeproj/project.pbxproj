@@ -155,12 +155,17 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
-		D05004CA2A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */; };
-		D082F1CC2A13FC2F0043B601 /* CustomPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */; };
 		D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
-		D0AAA33A2A13C6570031C482 /* PaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */; };
-		D0FB32A82A1CF9C30017B4DA /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FB32A72A1CF9C30017B4DA /* Page.swift */; };
+		D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */; };
+		D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */; };
+		D0B997102A1E81B000A550F4 /* PageExtractionStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9970F2A1E81B000A550F4 /* PageExtractionStrategy.swift */; };
+		D0B997132A1E81F400A550F4 /* DataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997122A1E81F400A550F4 /* DataTransformer.swift */; };
+		D0B997152A1E823400A550F4 /* CustomDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997142A1E823400A550F4 /* CustomDataTransformer.swift */; };
+		D0B997172A1E829900A550F4 /* PassthroughDataTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997162A1E829900A550F4 /* PassthroughDataTransformer.swift */; };
+		D0B9971A2A1E834F00A550F4 /* NextPageStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997192A1E834F00A550F4 /* NextPageStrategy.swift */; };
+		D0B9971C2A1E837C00A550F4 /* CustomNextPageStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */; };
+		D0B997202A1EA78200A550F4 /* RelayPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
 		DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451328A5A156000F6F18 /* ValidationOptions.swift */; };
@@ -1343,12 +1348,17 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
-		D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyPaginationStrategy.swift; sourceTree = "<group>"; };
-		D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
-		D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMergeStrategy.swift; sourceTree = "<group>"; };
-		D0FB32A72A1CF9C30017B4DA /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationStrategy.swift; sourceTree = "<group>"; };
+		D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPageExtractor.swift; sourceTree = "<group>"; };
+		D0B9970F2A1E81B000A550F4 /* PageExtractionStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageExtractionStrategy.swift; sourceTree = "<group>"; };
+		D0B997122A1E81F400A550F4 /* DataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransformer.swift; sourceTree = "<group>"; };
+		D0B997142A1E823400A550F4 /* CustomDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDataTransformer.swift; sourceTree = "<group>"; };
+		D0B997162A1E829900A550F4 /* PassthroughDataTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassthroughDataTransformer.swift; sourceTree = "<group>"; };
+		D0B997192A1E834F00A550F4 /* NextPageStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPageStrategy.swift; sourceTree = "<group>"; };
+		D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNextPageStrategy.swift; sourceTree = "<group>"; };
+		D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPaginationStrategy.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
@@ -2828,11 +2838,12 @@
 		D082F1CA2A13FC210043B601 /* Pagination Strategies */ = {
 			isa = PBXGroup;
 			children = (
-				D0AAA3392A13C6570031C482 /* PaginationMergeStrategy.swift */,
-				D082F1CB2A13FC2F0043B601 /* CustomPaginationStrategy.swift */,
+				D0B997182A1E834200A550F4 /* NextPageStrategies */,
+				D0B997112A1E81CE00A550F4 /* DataTransformers */,
+				D0B9970C2A1E802E00A550F4 /* PageExtractors */,
+				D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */,
 				D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */,
-				D05004C92A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift */,
-				D0FB32A72A1CF9C30017B4DA /* Page.swift */,
+				D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */,
 			);
 			name = "Pagination Strategies";
 			sourceTree = "<group>";
@@ -2846,6 +2857,34 @@
 				D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */,
 			);
 			name = "Query Watchers";
+			sourceTree = "<group>";
+		};
+		D0B9970C2A1E802E00A550F4 /* PageExtractors */ = {
+			isa = PBXGroup;
+			children = (
+				D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */,
+				D0B9970F2A1E81B000A550F4 /* PageExtractionStrategy.swift */,
+			);
+			name = PageExtractors;
+			sourceTree = "<group>";
+		};
+		D0B997112A1E81CE00A550F4 /* DataTransformers */ = {
+			isa = PBXGroup;
+			children = (
+				D0B997122A1E81F400A550F4 /* DataTransformer.swift */,
+				D0B997142A1E823400A550F4 /* CustomDataTransformer.swift */,
+				D0B997162A1E829900A550F4 /* PassthroughDataTransformer.swift */,
+			);
+			name = DataTransformers;
+			sourceTree = "<group>";
+		};
+		D0B997182A1E834200A550F4 /* NextPageStrategies */ = {
+			isa = PBXGroup;
+			children = (
+				D0B997192A1E834F00A550F4 /* NextPageStrategy.swift */,
+				D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */,
+			);
+			name = NextPageStrategies;
 			sourceTree = "<group>";
 		};
 		DE05862326697A8C00265760 /* ApolloAPI */ = {
@@ -5448,16 +5487,16 @@
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				DE4B1E572891D2F40058D1F6 /* Atomic.swift in Sources */,
 				E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */,
+				D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				DED5B355286CCAFF00AE6BFF /* ResponsePath.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
-				D05004CA2A1BC4C200E5BBC9 /* AnyPaginationStrategy.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
-				D082F1CC2A13FC2F0043B601 /* CustomPaginationStrategy.swift in Sources */,
 				9F8E0BD325668552000D9FA5 /* DataLoader.swift in Sources */,
+				D0B9971C2A1E837C00A550F4 /* CustomNextPageStrategy.swift in Sources */,
 				9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */,
 				DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */,
 				9FC2333D1E66BBF7001E4541 /* GraphQLDependencyTracker.swift in Sources */,
@@ -5465,7 +5504,9 @@
 				9FEB050D1DB5732300DA3B44 /* JSONSerializationFormat.swift in Sources */,
 				9B260BEB245A020300562176 /* ApolloInterceptor.swift in Sources */,
 				DE903E1329B7E6D300A74415 /* SelectionSet+JSONInitializer.swift in Sources */,
+				D0B997102A1E81B000A550F4 /* PageExtractionStrategy.swift in Sources */,
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
+				D0B997132A1E81F400A550F4 /* DataTransformer.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
@@ -5476,7 +5517,7 @@
 				9FC9A9CC1E2FD0760023C4D5 /* Record.swift in Sources */,
 				9B260BFB245A031900562176 /* NetworkFetchInterceptor.swift in Sources */,
 				9F578D901D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift in Sources */,
-				D0AAA33A2A13C6570031C482 /* PaginationMergeStrategy.swift in Sources */,
+				D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */,
 				9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */,
 				D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
@@ -5484,6 +5525,7 @@
 				9B260BFF245A054700562176 /* JSONRequest.swift in Sources */,
 				9B260BF9245A030100562176 /* ResponseCodeInterceptor.swift in Sources */,
 				D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */,
+				D0B9971A2A1E834F00A550F4 /* NextPageStrategy.swift in Sources */,
 				9B260BF3245A026F00562176 /* RequestChain.swift in Sources */,
 				E69F436C29B81182006FF548 /* InterceptorRequestChain.swift in Sources */,
 				9FF90A611DDDEB100034C3B6 /* GraphQLResponse.swift in Sources */,
@@ -5496,13 +5538,15 @@
 				9BDE43DF22C6708600FD7C7F /* GraphQLHTTPRequestError.swift in Sources */,
 				9B1CCDD92360F02C007C9032 /* Bundle+Helpers.swift in Sources */,
 				9B260BF5245A028D00562176 /* HTTPResponse.swift in Sources */,
+				D0B997152A1E823400A550F4 /* CustomDataTransformer.swift in Sources */,
 				5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */,
 				D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */,
+				D0B997172A1E829900A550F4 /* PassthroughDataTransformer.swift in Sources */,
 				9BC742AE24CFB6450029282C /* CacheWriteInterceptor.swift in Sources */,
 				9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */,
 				DE0586332669948500265760 /* InputValue+Evaluation.swift in Sources */,
 				DE0586372669958F00265760 /* GraphQLError.swift in Sources */,
-				D0FB32A82A1CF9C30017B4DA /* Page.swift in Sources */,
+				D0B997202A1EA78200A550F4 /* RelayPaginationStrategy.swift in Sources */,
 				9BC742AC24CFB2FF0029282C /* ApolloErrorInterceptor.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */,
