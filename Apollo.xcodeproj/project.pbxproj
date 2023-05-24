@@ -155,7 +155,6 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
-		D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
 		D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */; };
 		D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */; };
@@ -166,6 +165,10 @@
 		D0B9971A2A1E834F00A550F4 /* NextPageStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997192A1E834F00A550F4 /* NextPageStrategy.swift */; };
 		D0B9971C2A1E837C00A550F4 /* CustomNextPageStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */; };
 		D0B997202A1EA78200A550F4 /* RelayPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */; };
+		D0B997232A1EA80200A550F4 /* PaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997222A1EA80200A550F4 /* PaginationMergeStrategy.swift */; };
+		D0B997252A1EA84B00A550F4 /* CustomPaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997242A1EA84B00A550F4 /* CustomPaginationMergeStrategy.swift */; };
+		D0B997272A1EA90D00A550F4 /* SimplePaginationMergeStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997262A1EA90D00A550F4 /* SimplePaginationMergeStrategy.swift */; };
+		D0B997292A1EA9D500A550F4 /* TargetedPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B997282A1EA9D500A550F4 /* TargetedPaginationStrategy.swift */; };
 		D87AC09F2564D60B0079FAA5 /* ApolloClientOperationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */; };
 		DE01451228A442BF000F6F18 /* String+SwiftNameEscaping.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */; };
 		DE01451428A5A156000F6F18 /* ValidationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE01451328A5A156000F6F18 /* ValidationOptions.swift */; };
@@ -1348,7 +1351,6 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
-		D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePaginationStrategy.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
 		D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationStrategy.swift; sourceTree = "<group>"; };
 		D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPageExtractor.swift; sourceTree = "<group>"; };
@@ -1359,6 +1361,10 @@
 		D0B997192A1E834F00A550F4 /* NextPageStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextPageStrategy.swift; sourceTree = "<group>"; };
 		D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNextPageStrategy.swift; sourceTree = "<group>"; };
 		D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPaginationStrategy.swift; sourceTree = "<group>"; };
+		D0B997222A1EA80200A550F4 /* PaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationMergeStrategy.swift; sourceTree = "<group>"; };
+		D0B997242A1EA84B00A550F4 /* CustomPaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPaginationMergeStrategy.swift; sourceTree = "<group>"; };
+		D0B997262A1EA90D00A550F4 /* SimplePaginationMergeStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePaginationMergeStrategy.swift; sourceTree = "<group>"; };
+		D0B997282A1EA9D500A550F4 /* TargetedPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetedPaginationStrategy.swift; sourceTree = "<group>"; };
 		D87AC09E2564D60B0079FAA5 /* ApolloClientOperationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloClientOperationTests.swift; sourceTree = "<group>"; };
 		D90F1AF92479DEE5007A1534 /* WebSocketTransportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTransportTests.swift; sourceTree = "<group>"; };
 		DE01451128A442BF000F6F18 /* String+SwiftNameEscaping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SwiftNameEscaping.swift"; sourceTree = "<group>"; };
@@ -2838,11 +2844,11 @@
 		D082F1CA2A13FC210043B601 /* Pagination Strategies */ = {
 			isa = PBXGroup;
 			children = (
+				D0B997212A1EA7F900A550F4 /* PaginationMergeStrategy */,
 				D0B997182A1E834200A550F4 /* NextPageStrategies */,
 				D0B997112A1E81CE00A550F4 /* DataTransformers */,
 				D0B9970C2A1E802E00A550F4 /* PageExtractors */,
 				D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */,
-				D082F1CD2A13FC480043B601 /* SimplePaginationStrategy.swift */,
 				D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */,
 			);
 			name = "Pagination Strategies";
@@ -2885,6 +2891,17 @@
 				D0B9971B2A1E837C00A550F4 /* CustomNextPageStrategy.swift */,
 			);
 			name = NextPageStrategies;
+			sourceTree = "<group>";
+		};
+		D0B997212A1EA7F900A550F4 /* PaginationMergeStrategy */ = {
+			isa = PBXGroup;
+			children = (
+				D0B997222A1EA80200A550F4 /* PaginationMergeStrategy.swift */,
+				D0B997242A1EA84B00A550F4 /* CustomPaginationMergeStrategy.swift */,
+				D0B997262A1EA90D00A550F4 /* SimplePaginationMergeStrategy.swift */,
+				D0B997282A1EA9D500A550F4 /* TargetedPaginationStrategy.swift */,
+			);
+			name = PaginationMergeStrategy;
 			sourceTree = "<group>";
 		};
 		DE05862326697A8C00265760 /* ApolloAPI */ = {
@@ -5490,6 +5507,7 @@
 				D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */,
 				9F295E381E277B2A00A24949 /* GraphQLResultNormalizer.swift in Sources */,
 				DED5B355286CCAFF00AE6BFF /* ResponsePath.swift in Sources */,
+				D0B997272A1EA90D00A550F4 /* SimplePaginationMergeStrategy.swift in Sources */,
 				9F8E0BE325668559000D9FA5 /* PossiblyDeferred.swift in Sources */,
 				9F86B68B1E6438D700B885FF /* GraphQLSelectionSetMapper.swift in Sources */,
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
@@ -5497,6 +5515,7 @@
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
 				9F8E0BD325668552000D9FA5 /* DataLoader.swift in Sources */,
 				D0B9971C2A1E837C00A550F4 /* CustomNextPageStrategy.swift in Sources */,
+				D0B997252A1EA84B00A550F4 /* CustomPaginationMergeStrategy.swift in Sources */,
 				9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */,
 				DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */,
 				9FC2333D1E66BBF7001E4541 /* GraphQLDependencyTracker.swift in Sources */,
@@ -5507,6 +5526,7 @@
 				D0B997102A1E81B000A550F4 /* PageExtractionStrategy.swift in Sources */,
 				54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */,
 				D0B997132A1E81F400A550F4 /* DataTransformer.swift in Sources */,
+				D0B997292A1EA9D500A550F4 /* TargetedPaginationStrategy.swift in Sources */,
 				9B554CC4247DC29A002F452A /* TaskData.swift in Sources */,
 				9B9BBAF524DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift in Sources */,
 				9BA1244A22D8A8EA00BF1D24 /* JSONSerialization+Sorting.swift in Sources */,
@@ -5519,7 +5539,6 @@
 				9F578D901D8D2CB300C0EA36 /* HTTPURLResponse+Helpers.swift in Sources */,
 				D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */,
 				9B260C04245A090600562176 /* RequestChainNetworkTransport.swift in Sources */,
-				D082F1CE2A13FC480043B601 /* SimplePaginationStrategy.swift in Sources */,
 				9FC9A9BD1E2C271C0023C4D5 /* RecordSet.swift in Sources */,
 				9BF1A95122CA6E71005292C2 /* GraphQLGETTransformer.swift in Sources */,
 				9B260BFF245A054700562176 /* JSONRequest.swift in Sources */,
@@ -5550,6 +5569,7 @@
 				9BC742AC24CFB2FF0029282C /* ApolloErrorInterceptor.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */,
+				D0B997232A1EA80200A550F4 /* PaginationMergeStrategy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
