@@ -2,6 +2,7 @@
 import ApolloAPI
 #endif
 
+/// A pagination strategy to be used with Relay-style cursor based pagination.
 public class RelayPaginationStrategy<
   Query: GraphQLQuery,
   Output: Hashable,

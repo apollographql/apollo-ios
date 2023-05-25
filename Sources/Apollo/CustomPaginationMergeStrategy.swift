@@ -13,7 +13,6 @@ public class CustomPaginationMergeStrategy<Query: GraphQLQuery, Output: Hashable
     self._transform = transform
   }
 
-
   /// The function by which we merge several responses, in the form of a `PaginationDataResponse` into one `Output`.
   /// - Parameter paginationResponse: A data type which contains the most recent response, the source of that response, and all other responses.
   /// - Returns: `Output`

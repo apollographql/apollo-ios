@@ -2844,6 +2844,7 @@
 		D082F1CA2A13FC210043B601 /* Pagination Strategies */ = {
 			isa = PBXGroup;
 			children = (
+				D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */,
 				D0B997212A1EA7F900A550F4 /* PaginationMergeStrategy */,
 				D0B997182A1E834200A550F4 /* NextPageStrategies */,
 				D0B997112A1E81CE00A550F4 /* DataTransformers */,
@@ -2860,7 +2861,6 @@
 				D082F1CA2A13FC210043B601 /* Pagination Strategies */,
 				D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */,
 				9FCDFD281E33D0CE007519DC /* GraphQLQueryWatcher.swift */,
-				D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */,
 			);
 			name = "Query Watchers";
 			sourceTree = "<group>";
