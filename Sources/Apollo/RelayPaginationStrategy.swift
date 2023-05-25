@@ -21,7 +21,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
   public var nextPageStrategy: CustomNextPageStrategy<RelayPageExtractor<Query>.Page, Query>
   public var mergeStrategy: MergeStrategy
 
-  var _resultHandler: (Result<MergeStrategy.Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
+  public var _resultHandler: (Result<MergeStrategy.Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
 
   public private(set) var pages: [Page?] = [nil]
   public private(set) var currentPage: Page?
