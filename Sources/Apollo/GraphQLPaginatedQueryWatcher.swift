@@ -99,14 +99,3 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
     cancel()
   }
 }
-
-extension Error {
-  var wasCancelled: Bool {
-    if let apolloError = self as? URLSessionClient.URLSessionClientError,
-       case let .networkError(data: _, response: _, underlying: underlying) = apolloError {
-      return underlying.wasCancelled
-    }
-
-    return (self as NSError).code == NSURLErrorCancelled
-  }
-}

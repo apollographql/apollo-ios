@@ -104,3 +104,14 @@ where MergeStrategy.Output == OutputTransformer.Output,
     outputTransformer.transform(data: input)
   }
 }
+
+private extension Error {
+  var wasCancelled: Bool {
+    if let apolloError = self as? URLSessionClient.URLSessionClientError,
+       case let .networkError(data: _, response: _, underlying: underlying) = apolloError {
+      return underlying.wasCancelled
+    }
+
+    return (self as NSError).code == NSURLErrorCancelled
+  }
+}
