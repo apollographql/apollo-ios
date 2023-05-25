@@ -2,9 +2,13 @@
 import ApolloAPI
 #endif
 
+/// A `PaginationMergeStrategy` which naively merges all lists together in a response, outputting a `Query.Data`.
 public class SimplePaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
   public init() { }
 
+  /// The function by which we merge several responses, in the form of a `PaginationDataResponse` into one `Output`.
+  /// - Parameter paginationResponse: A data type which contains the most recent response, the source of that response, and all other responses.
+  /// - Returns: `Output`
   public func mergePageResults(paginationResponse: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
     var json: DataDict.SelectionSetData = [:]
     json = json.mergeMany(

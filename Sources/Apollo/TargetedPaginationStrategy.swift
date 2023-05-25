@@ -2,6 +2,7 @@
 import ApolloAPI
 #endif
 
+/// A `PaginationMergeStrategy` which merges a specific list together in a response, outputting a `Query.Data`.
 public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
   let keyPath: AnyKeyPath
 
@@ -48,8 +49,7 @@ private extension DataDict.SelectionSetData {
                 let newValue = newValue as? [[String: AnyHashable]],
                 newValue as AnyHashable == list.map({ $0.__data._data }) as AnyHashable,
                 let combinedArray = (currentValue + newValue) as? AnyHashable {
-        // The value is a list.
-        // Lists are what we target to combine and paginate over.
+        // The value is the targeted object. Combine the values and return them for a given key.
         return (k, combinedArray)
       } else {
         // The value is an object or scalar.
