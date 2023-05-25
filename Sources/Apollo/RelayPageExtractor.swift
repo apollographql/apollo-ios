@@ -22,9 +22,7 @@ public struct RelayPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
     }
   }
 
-  /// Internal use.
-  /// This function transforms a query's data into a `Page` struct.
-  public let _transform: (Query.Data) -> Page
+  private let _transform: (Query.Data) -> Page
 
   /// Designated initializer
   /// - Parameter transform: A user provided function which can extract a `Page` from a `Query.Data`

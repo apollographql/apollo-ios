@@ -12,9 +12,14 @@ public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
   private var callbackQueue: DispatchQueue
   let strategy: Strategy
 
+  /// Designated initalizer
+  /// - Parameters:
+  ///   - client: the Apollo client
+  ///   - callbackQueue: The `DispatchQueue` that results are returned on.
+  ///   - strategy: The `PaginationStrategy` that this watcher employs.
+  ///   - initialQuery: The `Query` that is being watched.
   public init(
     client: ApolloClientProtocol,
-    inititalCachePolicy: CachePolicy = .returnCacheDataAndFetch,
     callbackQueue: DispatchQueue = .main,
     strategy: Strategy,
     initialQuery: Strategy.Query

@@ -4,6 +4,8 @@ import ApolloAPI
 
 /// A `PaginationMergeStrategy` which naively merges all lists together in a response, outputting a `Query.Data`.
 public class SimplePaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
+
+  /// Designated initializer
   public init() { }
 
   /// The function by which we merge several responses, in the form of a `PaginationDataResponse` into one `Output`.

@@ -6,12 +6,17 @@ import ApolloAPI
 public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMergeStrategy {
   let keyPath: AnyKeyPath
 
+  /// Designated initializer
+  /// - Parameter targetedKeyPath: `KeyPath` that leads to the list of results to be concatenated.
   public init(
     targetedKeyPath: KeyPath<Query.Data, [some SelectionSet]>
   ) {
     self.keyPath = targetedKeyPath
   }
 
+  /// The function by which we merge several responses, in the form of a `PaginationDataResponse` into one `Query.Data`.
+  /// - Parameter paginationResponse: A data type which contains the most recent response, the source of that response, and all other responses.
+  /// - Returns: `Query.Data`
   public func mergePageResults(paginationResponse: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
     var json: [String: AnyHashable] = [:]
     json = json.mergeMany(
@@ -54,7 +59,6 @@ private extension [String: AnyHashable] {
       } else {
         // The value is an object or scalar.
         // Prefer the `newValue` over the `currentValue`, as the `currentValue` may not exist in the first iteration
-        // of this function. Further, the `Simple` strategy assumes the simple use-case of pagination; the latest page
         // in a series of pages has the latest data.
         return (k, newValue)
       }
