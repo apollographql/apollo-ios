@@ -56,7 +56,7 @@ private extension DataDict {
 
     return DataDict(
       data: values.reduce(into: [:]) { $0[$1.0] = $1.1 },
-      fulfilledFragments: selectionSet._fulfilledFragments
+      fulfilledFragments: selectionSet._fulfilledFragments.union(_fulfilledFragments)
     )
   }
 }
