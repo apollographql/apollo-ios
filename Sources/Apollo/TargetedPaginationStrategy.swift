@@ -23,7 +23,10 @@ public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMer
       sets: paginationResponse.allResponses.map { $0.__data._data },
       lists: paginationResponse.allResponses.compactMap { $0[keyPath: keyPath] as? [any SelectionSet] }
     )
-    return Query.Data.init(_dataDict: .init(data: json, fulfilledFragments: paginationResponse.mostRecent.__data._fulfilledFragments))
+    return Query.Data(_dataDict: .init(
+      data: json, fulfilledFragments:
+        paginationResponse.mostRecent.__data._fulfilledFragments
+    ))
   }
 }
 

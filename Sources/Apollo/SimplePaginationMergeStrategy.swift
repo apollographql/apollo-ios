@@ -17,7 +17,10 @@ public class SimplePaginationMergeStrategy<Query: GraphQLQuery>: PaginationMerge
       sets: paginationResponse.allResponses.map { $0.__data._data },
       mostRecent: paginationResponse.mostRecent.__data._data
     )
-    return Query.Data.init(_dataDict: .init(data: json, fulfilledFragments: paginationResponse.mostRecent.__data._fulfilledFragments))
+    return Query.Data(_dataDict: .init(
+      data: json,
+      fulfilledFragments: paginationResponse.mostRecent.__data._fulfilledFragments
+    ))
   }
 }
 
