@@ -12,7 +12,7 @@ class InterfaceTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "Dog",
@@ -49,23 +49,6 @@ class InterfaceTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
-  }
-
-  // MARK: Class Definition Tests
-
-  func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.swiftPackageManager))
-
-    let expected = """
-    static let Dog = Interface(name: "Dog")
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Documentation Tests

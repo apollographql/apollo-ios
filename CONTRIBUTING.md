@@ -6,77 +6,83 @@ Apollo is a community of developers just like you, striving to create the best t
 
 Oh, and if you haven't already, stop by our [community forums!](https://community.apollographql.com)!
 
-Here are some ways to contribute to the project, from easiest to most difficult:
+Here are some ways to contribute to the project:
 
 * [Reporting bugs](#reporting-bugs)
-* [Improving the documentation](#improving-the-documentation)
 * [Responding to issues](#responding-to-issues)
-* [Small bug fixes](#small-bug-fixes)
+* [Improving the documentation](#improving-the-documentation)
 * [Suggesting features](#suggesting-features)
-* [Big pull requests](#big-prs)
+
+* [Submitting pull requests](#pull-requests)
+* [Code review](#review)
+
+* [Unit tests](#unit-tests)
+* [Integration tests](#integration-tests)
+* [Code generation test projects](#code-generation-test-projects)
 
 ## Issues
 
 ### Reporting bugs
 
-If you encounter a bug, please file an issue here on GitHub, and make sure you note which library is causing the problem. If an issue you have is already reported, please add additional information or add a 👍 reaction to indicate your agreement.
+If you encounter a bug, please file an issue here on GitHub, and make sure you note which library is causing the problem. If an issue you have is already reported, please add additional information or add a "+1" comment to indicate you're affected by the issue too and this will help us prioritize the issue.
 
-While we will try to be as helpful as we can on any issue reported, please include the following to maximize the chances of a quick fix:
+While we will try to be as helpful as we can on any issue reported, please include as many details as requested in the [Bug Report issue template](https://github.com/apollographql/apollo-ios/issues/new?assignees=&labels=bug%2Cneeds+investigation&projects=&template=bug_report.yaml). Having reproducible steps or sample code for the issue will greatly speed up the time in which we can narrow down on the root cause and find a solution.
 
-1. **Intended outcome:** What you were trying to accomplish when the bug occurred, and as much code as possible related to the source of the problem.
-2. **Actual outcome:** A description of what actually happened, including a screenshot or copy-paste of any related error messages, logs, or other output that might be related. Places to look for information include your browser console, server console, and network logs. Please avoid non-specific phrases like “didn’t work” or “broke”.
-3. **How to reproduce the issue:** Instructions for how the issue can be reproduced by a maintainer or contributor. Be as specific as possible, and only mention what is necessary to reproduce the bug. If possible, try to isolate the exact circumstances in which the bug occurs and avoid speculation over what the cause might be.
+At Apollo, we consider the security of our projects a top priority. No matter how much effort we put into system security, there can still be vulnerabilities present. To report a security vulnerability please review our [security policy](https://github.com/apollographql/apollo-ios/security/policy) for more details.
 
-Creating a good reproduction really helps contributors investigate and resolve your issue quickly. In many cases, the act of creating a minimal reproduction illuminates that the source of the bug was somewhere outside the library in question, saving time and effort for everyone.
+### Responding to issues
+
+In addition to reporting issues, a great way to contribute to Apollo iOS is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. Don't forget to say "Hi" on our [community forums](https://community.apollographql.com/tag/mobile) and [Discord server](https://discord.com/invite/graphos)!
 
 ### Improving the documentation
 
 Improving the documentation, examples, and other open source content can be the easiest way to contribute to the library. If you see a piece of content that can be better, open a PR with an improvement, no matter how small! If you would like to suggest a big change or major rewrite, we’d love to hear your ideas but please open an issue for discussion before writing the PR.
 
-### Responding to issues
-
-In addition to reporting issues, a great way to contribute to Apollo is to respond to other peoples' issues and try to identify the problem or help them work around it. If you’re interested in taking a more active role in this process, please go ahead and respond to issues. And don't forget to say "Hi" on our community forums!
-
-### Small bug fixes
-
-For a small bug fix change (less than 20 lines of code changed), feel free to open a pull request. We’ll try to merge it as fast as possible and ideally publish a new release on the same day. The only requirement is, make sure you also add a test that verifies the bug you are trying to fix.
-
 ### Suggesting features
 
-Most of the features in Apollo came from suggestions by you, the community! We welcome any ideas about how to make Apollo  better for your use case. Unless there is overwhelming demand for a feature, it might not get implemented immediately, but please include as much information as possible that will help people have a discussion about your proposal:
-
-1. **Use case:** What are you trying to accomplish, in specific terms? Often, there might already be a good way to do what you need and a new feature is unnecessary, but it’s hard to know without information about the specific use case.
-2. **Could this be a companion package?** In many cases, a feature might be too niche to be included in the core of a library, and is better implemented as a companion package. If there isn’t a way to extend the library to do what you want, could we expose additional APIs that a companion package could plug into? It’s important to make the case for why a feature should be part of the core functionality of the library.
-3. **Is there a workaround?** Is this a more convenient way to do something that is already possible, or is there some blocker that makes a workaround unfeasible?
+Most of the features in Apollo came from suggestions by you, the community! We welcome any ideas about how to make Apollo better for your use case. Unless there is overwhelming demand for a feature, it might not get implemented immediately, but please include as much information as requested in the [Feature Request template](https://github.com/apollographql/apollo-ios/issues/new?assignees=&labels=feature&projects=&template=feature_request.yaml) that will help people have a discussion about your proposal.
 
 Feature requests will be labeled as such, and we encourage using GitHub issues as a place to discuss new features and possible implementation designs. Please refrain from submitting a pull request to implement a proposed feature until there is consensus that it should be included. This way, you can avoid putting in work that can’t be merged in.
 
-Once there is a consensus on the need for a new feature, proceed as listed below under “Big PRs”.
+## Pull requests
 
-## Big PRs
+### Submitting
 
-This includes:
+For a small bug fix change (less than 20 lines of code changed), feel free to open a pull request. We’ll try to review and merge it as fast as possible. The only requirement is, make sure you also add a test that verifies the bug you are trying to fix.
 
-- Big bug fixes
-- New features
+For significant changes to a repository, it’s important to settle on a design before starting on the implementation. This way, we can ensure that major improvements get the care and attention they deserve. Since big changes can be risky and might not always get merged, it’s good to reduce the amount of possible wasted effort by agreeing on an implementation design/plan first.
 
-For significant changes to a repository, it’s important to settle on a design before starting on the implementation. This way, we can make sure that major improvements get the care and attention they deserve. Since big changes can be risky and might not always get merged, it’s good to reduce the amount of possible wasted effort by agreeing on an implementation design/plan first.
+A good way to propose a design or implementation, and have discussion about it, is with a Request for Comments (RFC) pull request. This is a pull request in which you describe the changes to be made with enough technical detail that suggestions, comments and updates can be made. The approved pull request can then be merged as a technical document or closed for posterity and referenced to in the actual code implementation.
 
-1. **Open an issue.** Open an issue about your bug or feature, as described above.
-2. **Reach consensus.** Some contributors and community members should reach an agreement that this feature or bug is important, and that someone should work on implementing or fixing it.
-3. **Agree on intended behavior.** On the issue, reach an agreement about the desired behavior. In the case of a bug fix, it should be clear what it means for the bug to be fixed, and in the case of a feature, it should be clear what it will be like for developers to use the new feature.
-4. **Agree on implementation plan.** Write a plan for how this feature or bug fix should be implemented. What modules need to be added or rewritten? Should this be one pull request or multiple incremental improvements? Who is going to do each part?
-5. **Submit PR.** In the case where multiple dependent patches need to be made to implement the change, only submit one at a time. Otherwise, the others might get stale while the first is reviewed and merged. Make sure to avoid “while we’re here” type changes - if something isn’t relevant to the improvement at hand, it should be in a separate PR; this especially includes code style changes of unrelated code.
-6. **Review.** At least one core contributor should sign off on the change before it’s merged. Look at the “code review” section below to learn about factors are important in the code review. If you want to expedite the code being merged, try to review your own code first!
-7. **Merge and release!**
+### Review
 
-### Code review guidelines
+It’s important that every piece of code in Apollo packages is reviewed by at least one core contributor familiar with that codebase. If you want to expedite the code being merged, try to review your own code first! Here are some things we look for:
 
-It’s important that every piece of code in Apollo packages is reviewed by at least one core contributor familiar with that codebase. Here are some things we look for:
-
-1. **Required CI checks pass.** This is a prerequisite for the review, and it is the PR author's responsibility. As long as the tests don’t pass, the PR won't get reviewed.
-2. **Simplicity.** Is this the simplest way to achieve the intended goal? If there are too many files, redundant functions, or complex lines of code, suggest a simpler way to do the same thing. In particular, avoid implementing an overly general solution when a simple, small, and pragmatic fix will do.
+1. **All GitHub checks pass.** This is a prerequisite for the review, and it is the PR author's responsibility. The PR will not be reviewed until all the author has signed the Apollo CLA and all tests pass.
+2. **Simplicity.** Is this the simplest way to achieve the intended goal? If there are too many files, redundant functions, or complex lines of code, suggest a simpler way to do the same thing. In particular, avoid implementing an overly general solution when a simple, small, and pragmatic fix will do. Please also note that large pull requests take additional time to review. If your PR could be broken down into several smaller, more focused changes, please do that instead.
 3. **Testing.** Do the tests ensure this code won’t break when other stuff changes around it? When it does break, will the tests added help us identify which part of the library has the problem? Did we cover an appropriate set of edge cases? Look at the test coverage report if there is one. Are all significant code paths in the new code exercised at least once?
 4. **No unnecessary or unrelated changes.** PRs shouldn’t come with random formatting changes, especially in unrelated parts of the code. If there is some refactoring that needs to be done, it should be in a separate PR from a bug fix or feature, if possible.
 5. **Code has appropriate comments.** Code should be commented for *why* things are happening, not *what* is happening. *What* is happening should be clear from the names of your functions and variables. This is sometimes called "self-documenting code", but you may still need to add comments to explain why a workaround is necessary so other developers can better understand your code.
 6. **Idiomatic use of the language.** Make sure to use idiomatic Swift when working with this repository. We don't presently use SwiftLint or any other linter, but please use your common sense and follow the style of the surrounding code.
+
+## Testing
+
+We do not aim for 100% test coverage but we do require that all new code be thoroughly tested. If you find code that is not being tested, or you want to improve the existing tests, please submit a pull request for it.
+
+Apollo iOS makes extensive use of [Xcode test plans](https://developer.apple.com/documentation/xcode/organizing-tests-to-improve-feedback?changes=_8). All targets have a related scheme and schemes execute one or more of the test plans.
+
+### Unit tests
+
+These are the bulk of tests in Apollo iOS and ensure we cover as much of the logic and edge cases as possible. You can find supporting test infrastructure in the `ApolloInternalTestHelpers` and `ApolloCodegenInternalTestHelpers` modules. Please note that these are _not_ intended to be used for testing your own code that utilizes Apollo iOS.
+
+### Integration tests
+
+There are a number of local services in the repo that are used by CI jobs when the test suite requires interaction that cannot be stubbed with mock data. If the test you're adding is an integration test please ask yourself whether it really _needs_ to be. These tests are a more 'expensive' type of test as they can take longer to execute and be difficult to debug.
+
+### Code generation test projects
+
+The folder [`TestCodeGenConfigurations`](https://github.com/apollographql/apollo-ios/tree/main/Tests/TestCodeGenConfigurations) contains test projects that test the many different codegen configurations of the schema module, operation models and test mocks.
+
+## License
+
+By contributing to Apollo iOS you agree that your contributions will be licensed under its [MIT license](https://github.com/apollographql/apollo-ios/blob/main/LICENSE)

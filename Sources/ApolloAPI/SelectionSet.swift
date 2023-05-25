@@ -64,11 +64,18 @@ public protocol SelectionSet: Hashable {
   /// The data of the underlying GraphQL object represented by the generated selection set.
   var __data: DataDict { get }
 
-  /// Designated Initializer
+  /// **For Internal Use Only -** Designated Initializer
   ///
   /// - Warning: This initializer is not supported for public use. It should only be used by the
   /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
+  ///
+  /// To manually initialize a ``SelectionSet`` model with JSON data, use
+  /// `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
+  /// the `Apollo` library.
+  ///
+  /// To generate type safe initializers for your selection set models, use the
+  /// `selectionSetInitializers` option in your code generation configuration.
   ///
   /// - Parameter dataDict: The data of the underlying GraphQL object represented by the generated
   /// selection set.

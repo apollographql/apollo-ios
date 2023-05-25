@@ -30,12 +30,14 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     __typename: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "__fulfilled": Set([
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+      ],
+      fulfilledFragments: [
         ObjectIdentifier(Self.self)
-      ])
-    ]))
+      ]
+    ))
   }
 
   /// AsAnimal
@@ -57,14 +59,16 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       height: Height
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": __typename,
-        "height": height._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": __typename,
+          "height": height._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self),
           ObjectIdentifier(ClassroomPetDetailsCCN.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// AsAnimal.Height
@@ -85,13 +89,15 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
       public init(
         inches: Int
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": AnimalKingdomAPI.Objects.Height.typename,
-          "inches": inches,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": AnimalKingdomAPI.Objects.Height.typename,
+            "inches": inches,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
     }
   }

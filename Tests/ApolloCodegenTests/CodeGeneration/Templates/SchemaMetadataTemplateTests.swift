@@ -12,7 +12,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     referencedTypes: IR.Schema.ReferencedTypes = .init([]),
@@ -35,9 +35,9 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
   // MARK: Typealias & Protocol Tests
 
-  func test__render__givenModuleEmbeddedInTarget_shouldGenerateIDTypealias_noPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_withInternalAccessModifier_shouldGenerateIDTypealias_withInternalAccess() {
     // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget")))
+    buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget", accessModifier: .internal)))
 
     let expected = """
     typealias ID = String
@@ -51,7 +51,23 @@ class SchemaMetadataTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleSwiftPackageManager_shouldGenerateIDTypealias_withPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_shouldGenerateIDTypealias_withPublicAccess() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "CustomTarget", accessModifier: .public)))
+
+    let expected = """
+    typealias ID = String
+
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleSwiftPackageManager_shouldGenerateIDTypealias_withPublicAccess() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
@@ -67,7 +83,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleOther_shouldGenerateIDTypealias_withPublicModifier() {
+  func test__render__givenModuleOther_shouldGenerateIDTypealias_withPublicAccess() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -83,11 +99,56 @@ class SchemaMetadataTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test__render__givenModuleEmbeddedInTarget_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing_noPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_withInternalAccessModifier_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing_withInternalAccess() {
     // given
     buildSubject(
       config: .mock(
-        .embeddedInTarget(name: "CustomTarget"),
+        .embeddedInTarget(name: "CustomTarget", accessModifier: .internal),
+        schemaNamespace: "aName"
+      )
+    )
+
+    let expectedTemplate = """
+    typealias SelectionSet = AName_SelectionSet
+
+    typealias InlineFragment = AName_InlineFragment
+
+    typealias MutableSelectionSet = AName_MutableSelectionSet
+
+    typealias MutableInlineFragment = AName_MutableInlineFragment
+
+    """
+
+    let expectedDetached = """
+    protocol AName_SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
+    where Schema == AName.SchemaMetadata {}
+
+    protocol AName_InlineFragment: ApolloAPI.SelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.SchemaMetadata {}
+
+    protocol AName_MutableSelectionSet: ApolloAPI.MutableRootSelectionSet
+    where Schema == AName.SchemaMetadata {}
+
+    protocol AName_MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI.InlineFragment
+    where Schema == AName.SchemaMetadata {}
+    """
+
+    // when
+    let actualTemplate = renderTemplate()
+    let actualDetached = renderDetachedTemplate()
+
+    // then
+    expect(actualTemplate)
+      .to(equalLineByLine(expectedTemplate, atLine: 3, ignoringExtraLines: true))
+    expect(actualDetached)
+      .to(equalLineByLine(expectedDetached))
+  }
+
+  func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_shouldGenerateDetachedProtocols_withTypealias_withCorrectCasing_withPublicAccess() {
+    // given
+    buildSubject(
+      config: .mock(
+        .embeddedInTarget(name: "CustomTarget", accessModifier: .public),
         schemaNamespace: "aName"
       )
     )
@@ -233,9 +294,25 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
   // MARK: Schema Tests
 
-  func test__render__givenModuleEmbeddedInTarget_shouldGenerateEnumDefinition_noPublicModifier() {
+  func test__render__givenModuleEmbeddedInTarget_withInternalAccessModifier_shouldGenerateEnumDefinition_withInternalAccess() {
     // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget")))
+    buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget", accessModifier: .internal)))
+
+    let expected = """
+    enum SchemaMetadata: ApolloAPI.SchemaMetadata {
+      static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_shouldGenerateEnumDefinition_withPublicAccess() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "MockTarget", accessModifier: .public)))
 
     let expected = """
     enum SchemaMetadata: ApolloAPI.SchemaMetadata {
@@ -287,7 +364,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
 
     let expected = """
     enum SchemaMetadata: Apollo.SchemaMetadata {
-      public static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
+      static let configuration: Apollo.SchemaConfiguration.Type = SchemaConfiguration.self
     """
 
     // when
@@ -309,7 +386,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename typename: String) -> Object? {
+      static func objectType(forTypename typename: String) -> Object? {
         switch typename {
         case "objA": return ObjectSchema.Objects.ObjA
         case "objB": return ObjectSchema.Objects.ObjB
@@ -343,7 +420,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     )
 
     let expected = """
-      public static func objectType(forTypename typename: String) -> Object? {
+      static func objectType(forTypename typename: String) -> Object? {
         switch typename {
         case "ObjectA": return ObjectSchema.Objects.ObjectA
         default: return nil
@@ -360,7 +437,7 @@ class SchemaMetadataTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
   }
 
-  func test__render__rendersTypeNamespaceEnums() {
+  func test__render__givenModuleEmbeddedInTarget_withInternalAccessModifier_rendersTypeNamespaceEnums_withInternalAccess() {
     // given
     buildSubject(
       referencedTypes: .init([
@@ -371,7 +448,10 @@ class SchemaMetadataTemplateTests: XCTestCase {
         GraphQLEnumType.mock(name: "EnumE"),
         GraphQLInputObjectType.mock("InputObjectC"),
       ]),
-      config: .mock(schemaNamespace: "ObjectSchema")
+      config: .mock(
+        .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+        schemaNamespace: "ObjectSchema"
+      )
     )
 
     let expected = """
@@ -388,7 +468,38 @@ class SchemaMetadataTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 22))
   }
 
-  func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnumsAsPublic() {
+  func test__render__givenModuleEmbeddedInTarget_withPublicAccessModifier_rendersTypeNamespaceEnums_withPublicAccess() {
+    // given
+    buildSubject(
+      referencedTypes: .init([
+        GraphQLObjectType.mock("ObjectA"),
+        GraphQLInterfaceType.mock("InterfaceB"),
+        GraphQLUnionType.mock("UnionC"),
+        GraphQLScalarType.mock(name: "ScalarD"),
+        GraphQLEnumType.mock(name: "EnumE"),
+        GraphQLInputObjectType.mock("InputObjectC"),
+      ]),
+      config: .mock(
+        .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+        schemaNamespace: "ObjectSchema"
+      )
+    )
+
+    let expected = """
+    enum Objects {}
+    enum Interfaces {}
+    enum Unions {}
+
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 22))
+  }
+
+  func test__render__givenModuleSwiftPackageManager_rendersTypeNamespaceEnums_withPublicAccess() {
     // given
     buildSubject(
       referencedTypes: .init([
@@ -401,6 +512,37 @@ class SchemaMetadataTemplateTests: XCTestCase {
       ]),
       config: .mock(
         .swiftPackageManager,
+        schemaNamespace: "ObjectSchema"
+      )
+    )
+
+    let expected = """
+    public enum Objects {}
+    public enum Interfaces {}
+    public enum Unions {}
+
+    """
+
+    // when
+    let actual = renderTemplate()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 26))
+  }
+
+  func test__render__givenModuleOther_rendersTypeNamespaceEnums_withPublicAccess() {
+    // given
+    buildSubject(
+      referencedTypes: .init([
+        GraphQLObjectType.mock("ObjectA"),
+        GraphQLInterfaceType.mock("InterfaceB"),
+        GraphQLUnionType.mock("UnionC"),
+        GraphQLScalarType.mock(name: "ScalarD"),
+        GraphQLEnumType.mock(name: "EnumE"),
+        GraphQLInputObjectType.mock("InputObjectC"),
+      ]),
+      config: .mock(
+        .other,
         schemaNamespace: "ObjectSchema"
       )
     )

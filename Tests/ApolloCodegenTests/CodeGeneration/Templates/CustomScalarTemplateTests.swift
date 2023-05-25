@@ -75,7 +75,9 @@ class CustomScalarTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected))
   }
 
-  func test_render_givenModuleType_swiftPackageManager_generatesTypealias_withPublicModifier() {
+  // MARK: Access Level Tests
+
+  func test_render_givenModuleType_swiftPackageManager_generatesTypealias_withPublicAccess() {
     // given
     buildSubject(config: .mock(.swiftPackageManager))
 
@@ -90,7 +92,7 @@ class CustomScalarTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_other_generatesTypealias_withPublicModifier() {
+  func test_render_givenModuleType_other_generatesTypealias_withPublicAccess() {
     // given
     buildSubject(config: .mock(.other))
 
@@ -105,9 +107,24 @@ class CustomScalarTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenModuleType_embeddedInTarget_generatesTypealias_noPublicModifier() {
+  func test_render_givenModuleType_embeddedInTarget_withInternalAccessModifier_generatesTypealias_withInternalAccess() {
     // given
-    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget")))
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .internal)))
+
+    let expected = """
+    typealias MyCustomScalar = String
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test_render_givenModuleType_embeddedInTarget_withPublicAccessModifier_generatesTypealias_withPublicAccess() {
+    // given
+    buildSubject(config: .mock(.embeddedInTarget(name: "TestTarget", accessModifier: .public)))
 
     let expected = """
     typealias MyCustomScalar = String

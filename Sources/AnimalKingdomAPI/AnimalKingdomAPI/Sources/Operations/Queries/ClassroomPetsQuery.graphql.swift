@@ -34,13 +34,15 @@ public class ClassroomPetsQuery: GraphQLQuery {
     public init(
       classroomPets: [ClassroomPet?]? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "classroomPets": classroomPets._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "classroomPets": classroomPets._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// ClassroomPet
@@ -73,13 +75,15 @@ public class ClassroomPetsQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(ClassroomPetDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// ClassroomPet.AsAnimal
@@ -109,15 +113,17 @@ public class ClassroomPetsQuery: GraphQLQuery {
           __typename: String,
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "species": species,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "species": species,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -148,15 +154,17 @@ public class ClassroomPetsQuery: GraphQLQuery {
           __typename: String,
           humanName: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "humanName": humanName,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "humanName": humanName,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -190,16 +198,18 @@ public class ClassroomPetsQuery: GraphQLQuery {
           species: String,
           laysEggs: Bool
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "species": species,
-            "laysEggs": laysEggs,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "species": species,
+              "laysEggs": laysEggs,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -240,19 +250,21 @@ public class ClassroomPetsQuery: GraphQLQuery {
           bodyTemperature: Int,
           isJellicle: Bool
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Cat.typename,
-            "species": species,
-            "humanName": humanName,
-            "laysEggs": laysEggs,
-            "bodyTemperature": bodyTemperature,
-            "isJellicle": isJellicle,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Cat.typename,
+              "species": species,
+              "humanName": humanName,
+              "laysEggs": laysEggs,
+              "bodyTemperature": bodyTemperature,
+              "isJellicle": isJellicle,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -291,18 +303,20 @@ public class ClassroomPetsQuery: GraphQLQuery {
           laysEggs: Bool,
           wingspan: Double
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Bird.typename,
-            "species": species,
-            "humanName": humanName,
-            "laysEggs": laysEggs,
-            "wingspan": wingspan,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+              "species": species,
+              "humanName": humanName,
+              "laysEggs": laysEggs,
+              "wingspan": wingspan,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -335,16 +349,18 @@ public class ClassroomPetsQuery: GraphQLQuery {
           humanName: String? = nil,
           favoriteToy: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.PetRock.typename,
-            "humanName": humanName,
-            "favoriteToy": favoriteToy,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.PetRock.typename,
+              "humanName": humanName,
+              "favoriteToy": favoriteToy,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(ClassroomPet.self),
               ObjectIdentifier(ClassroomPetDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }

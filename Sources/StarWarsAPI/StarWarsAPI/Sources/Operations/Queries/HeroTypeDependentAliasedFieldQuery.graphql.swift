@@ -47,13 +47,15 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(Self.self)
-        ])
-      ]))
+        ]
+      ))
     }
 
     /// Hero
@@ -76,12 +78,14 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
             ObjectIdentifier(Self.self)
-          ])
-        ]))
+          ]
+        ))
       }
 
       /// Hero.AsHuman
@@ -103,14 +107,16 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(
           property: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Human.typename,
-            "property": property,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Human.typename,
+              "property": property,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(Hero.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -133,14 +139,16 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
         public init(
           property: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Droid.typename,
-            "property": property,
-            "__fulfilled": Set([
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "property": property,
+            ],
+            fulfilledFragments: [
               ObjectIdentifier(Self.self),
               ObjectIdentifier(Hero.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }

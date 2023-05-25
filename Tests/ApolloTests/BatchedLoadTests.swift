@@ -147,9 +147,9 @@ class BatchedLoadTests: XCTestCase {
     // then
     XCTAssertEqual(cache.numberOfBatchLoads, 3)
   }
-  
+
   func testParallelLoadsUseIndependentBatching() {
-    // given // given
+    // given
     class GivenSelectionSet: MockSelectionSet {
       override class var __selections: [Selection] {[
         .field("hero", Hero.self)

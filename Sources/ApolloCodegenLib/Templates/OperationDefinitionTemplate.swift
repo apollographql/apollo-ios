@@ -20,7 +20,8 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         operation.definition,
         identifier: operation.operationIdentifier,
         fragments: operation.referencedFragments,
-        config: config
+        config: config,
+        accessControlRenderer: { accessControlModifier(for: .member) }()
       ))
 
       \(section: VariableProperties(operation.definition.variables))
@@ -29,11 +30,12 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       \(section: VariableAccessors(operation.definition.variables))
 
-      public struct Data: \(definition.renderedSelectionSetType(config)) {
+      \(accessControlModifier(for: .member))struct Data: \(definition.renderedSelectionSetType(config)) {
         \(SelectionSetTemplate(
             definition: definition,
             generateInitializers: config.options.shouldGenerateSelectionSetInitializers(for: operation),
-            config: config
+            config: config,
+            renderAccessControl: { accessControlModifier(for: .member) }()
         ).renderBody())
       }
     }
@@ -43,10 +45,11 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
   private func OperationDeclaration() -> TemplateString {
     return """
-    \(embeddedAccessControlModifier)\
+    \(accessControlModifier(for: .parent))\
     class \(operation.generatedDefinitionName): \
     \(operation.definition.operationType.renderedProtocolName) {
-      public static let operationName: String = "\(operation.definition.name)"
+      \(accessControlModifier(for: .member))\
+    static let operationName: String = "\(operation.definition.name)"
     """
   }
 
@@ -55,13 +58,15 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       _ operation: CompilationResult.OperationDefinition,
       identifier: @autoclosure () -> String,
       fragments: OrderedSet<IR.NamedFragment>,
-      config: ApolloCodegen.ConfigurationContext
+      config: ApolloCodegen.ConfigurationContext,
+      accessControlRenderer: @autoclosure () -> String
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
       let includeDefinition = config.options.apqs != .persistedOperationsOnly
 
       return TemplateString("""
-      public static let document: \(config.ApolloAPITargetName).DocumentType = .\(config.options.apqs.rendered)(
+      \(accessControlRenderer())\
+      static let document: \(config.ApolloAPITargetName).DocumentType = .\(config.options.apqs.rendered)(
       \(if: config.options.apqs != .disabled, """
         operationIdentifier: \"\(identifier())\"\(if: includeDefinition, ",")
       """)

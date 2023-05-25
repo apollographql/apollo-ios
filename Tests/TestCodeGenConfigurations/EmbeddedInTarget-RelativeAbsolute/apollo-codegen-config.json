@@ -1,5 +1,5 @@
 {
-  "schemaName" : "MySchemaModule",
+  "schemaNamespace" : "MySchemaModule",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -33,7 +33,8 @@
       "path" : "PackageTwo\/Sources\/PackageTwo",
       "moduleType" : {
         "embeddedInTarget" : {
-          "name": "PackageTwo"
+          "name": "PackageTwo",
+          "accessModifier": "public"
         }
       }
     },
