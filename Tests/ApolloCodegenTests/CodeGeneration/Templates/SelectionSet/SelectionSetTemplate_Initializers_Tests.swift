@@ -365,8 +365,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
-            ObjectIdentifier(AllAnimal.AsAnimalUnion.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.self)
           ]
         ))
       }
@@ -430,8 +430,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
-            ObjectIdentifier(AllAnimal.AsPet.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self)
           ]
         ))
       }
@@ -1116,7 +1116,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -1378,7 +1378,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))
@@ -1455,7 +1455,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))
@@ -1574,7 +1574,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             ],
             fulfilledFragments: [
               ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1633,7 +1633,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             ],
             fulfilledFragments: [
               ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1694,8 +1694,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             ],
             fulfilledFragments: [
               ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
-              ObjectIdentifier(AllAnimal.IfA.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self)
             ]
           ))
         }
@@ -1756,7 +1756,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             ],
             fulfilledFragments: [
               ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.IfA.Friend.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.self)
             ]
           ))
         }
@@ -1834,7 +1834,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))

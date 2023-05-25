@@ -484,13 +484,10 @@ struct SelectionSetTemplate {
     while next.next != nil {
       defer { next = next.next.unsafelyUnwrapped }
 
-      let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
-        from: selectionSet.scopePath.head,
-        to: next,
-        withFieldPath: selectionSet.entity.fieldPath.head,
-        removingFirst: selectionSet.scopePath.head.value.type.isRootFieldType,
-        pluralizer: config.pluralizer
-      )
+      let selectionSetName = fullyQualifiedGeneratedSelectionSetName(
+        for: selectionSet.typeInfo,
+        to: next
+      )      
 
       fulfilledFragments.append(selectionSetName)
     }
@@ -546,7 +543,6 @@ struct SelectionSetTemplate {
       from: typeInfo.scopePath.head,
       to: toNode,
       withFieldPath: typeInfo.entity.fieldPath.head,
-      removingFirst: false,
       pluralizer: config.pluralizer
     )
   }
