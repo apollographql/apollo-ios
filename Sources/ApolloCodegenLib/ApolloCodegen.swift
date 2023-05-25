@@ -222,10 +222,12 @@ public class ApolloCodegen {
   }
   
   /// Validates that there are no type conflicts within a SelectionSet
-  static private func validateTypeConflicts(for selectionSet: IR.SelectionSet,
-                                            with context: ConfigurationContext,
-                                            in containingObject: String,
-                                            including parentTypes: [String: String] = [:]) throws {
+  static private func validateTypeConflicts(
+    for selectionSet: IR.SelectionSet,
+    with context: ConfigurationContext,
+    in containingObject: String,
+    including parentTypes: [String: String] = [:]
+  ) throws {
     // Check for type conflicts resulting from singularization/pluralization of fields
     var typeNamesByFormattedTypeName = [String: String]()
     
