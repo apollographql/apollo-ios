@@ -10,28 +10,28 @@ public class SimplePaginationMergeStrategy<Query: GraphQLQuery>: PaginationMerge
   /// - Parameter paginationResponse: A data type which contains the most recent response, the source of that response, and all other responses.
   /// - Returns: `Output`
   public func mergePageResults(paginationResponse: PaginationDataResponse<Query, Query.Data>) -> Query.Data {
-    var json: DataDict.SelectionSetData = [:]
+    var json: [String: AnyHashable] = [:]
     json = json.mergeMany(
       sets: paginationResponse.allResponses.map { $0.__data._data },
       mostRecent: paginationResponse.mostRecent.__data._data
     )
-    return Query.Data.init(_dataDict: .init(data: json))
+    return Query.Data.init(_dataDict: .init(data: json, fulfilledFragments: paginationResponse.mostRecent.__data._fulfilledFragments))
   }
 }
 
-private extension DataDict.SelectionSetData {
+private extension [String: AnyHashable] {
   func mergeMany(
-    sets: [DataDict.SelectionSetData],
-    mostRecent: DataDict.SelectionSetData
-  ) -> DataDict.SelectionSetData {
-    var data: DataDict.SelectionSetData = [:]
+    sets: [[String: AnyHashable]],
+    mostRecent: [String: AnyHashable]
+  ) -> [String: AnyHashable] {
+    var data: [String: AnyHashable] = [:]
     sets.forEach { selectionSet in
       data = data.merge(selectionSet: selectionSet)
     }
     return data
   }
 
-  func merge(selectionSet: DataDict.SelectionSetData) -> DataDict.SelectionSetData {
+  func merge(selectionSet: [String: AnyHashable]) -> [String: AnyHashable] {
     let values: [(String, AnyHashable)] = selectionSet.map { k, v in
       let currentValue = self[k]
       let newValue = v
