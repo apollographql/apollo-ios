@@ -24,10 +24,16 @@ extension IR.Definition {
 
 }
 
+extension CompilationResult.OperationDefinition {
+  var generatedDefinitionName: String {
+    nameWithSuffix.firstUppercased
+  }
+}
+
 extension IR.Operation {
 
   var generatedDefinitionName: String {
-    definition.nameWithSuffix.firstUppercased
+    definition.generatedDefinitionName
   }
 
 }

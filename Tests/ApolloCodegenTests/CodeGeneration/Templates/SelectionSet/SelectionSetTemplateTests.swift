@@ -6037,6 +6037,153 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
   }
 
+  func test__render_conditionalFragmentOnQueryRoot__rendersRootEntityType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      ...Details @include(if: $a)
+    }
+
+    fragment Details on Query {
+      name
+    }
+    """
+
+    let expected = """
+    /// IfA
+    public struct IfA: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = TestOperationQuery.Data
+    """
+    
+    // when
+    try buildSubjectAndOperation()
+    let query_ifA = try XCTUnwrap(
+      operation[field: "query"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: query_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
+  func test__render_conditionalTypeCaseFragmentOnQueryRoot__rendersRootEntityType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      name: String!
+    }
+
+    interface AdminQuery {
+      adminName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      ...AdminDetails @include(if: $a)
+    }
+
+    fragment AdminDetails on AdminQuery {
+      adminName
+    }
+    """
+
+    let expected = """
+    /// AsAdminQueryIfA
+    public struct AsAdminQueryIfA: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = TestOperationQuery.Data
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_ifA = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery", if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: query_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
+  func test__render_typeCaseInFragmentOnQueryRoot__rendersRootEntityTypeNamespacedToFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      predators: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      ...Details
+    }
+
+    fragment Details on Query {
+      predators {
+        predators {
+          ... on Pet {
+            name
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+    /// Predator.Predator.AsPet
+    public struct AsPet: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = Details.Predator.Predator
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let detailsFragment = try XCTUnwrap(
+      operation[fragment: "Details"]
+    )
+    let detailsFragment_predators_predators_asPet = try XCTUnwrap(
+      detailsFragment.fragment.rootField
+        .selectionSet[field: "predators"]?[field: "predators"]?[as: "Pet"]
+    )
+
+    let fragmentTemplate = SelectionSetTemplate(
+      definition: .namedFragment(detailsFragment.fragment),
+      generateInitializers: false,
+      config: self.subject.config,
+      renderAccessControl: self.subject.renderAccessControl()
+    )
+
+    let actual = fragmentTemplate.render(inlineFragment: detailsFragment_predators_predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
   // MARK: - Documentation Tests
 
   func test__render_nestedSelectionSet__givenSchemaDocumentation_include_hasDocumentation_shouldGenerateDocumentationComment() throws {

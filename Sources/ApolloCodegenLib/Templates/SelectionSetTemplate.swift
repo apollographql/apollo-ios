@@ -542,19 +542,13 @@ struct SelectionSetTemplate {
     for typeInfo: IR.SelectionSet.TypeInfo,
     to toNode: LinkedList<IR.ScopeCondition>.Node? = nil
   ) -> String {
-    let rootNode = typeInfo.scopePath.head
-    let rootTypeIsOperationRoot = rootNode.value.type.isRootFieldType
-
-    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
-      from: rootNode,
+    return SelectionSetNameGenerator.generatedSelectionSetName(
+      from: typeInfo.scopePath.head,
       to: toNode,
       withFieldPath: typeInfo.entity.fieldPath.head,
-      removingFirst: rootTypeIsOperationRoot,
+      removingFirst: false,
       pluralizer: config.pluralizer
     )
-
-    return rootTypeIsOperationRoot ?
-    "\(definition.generatedDefinitionName.firstUppercased).Data.\(rootEntityName)" : rootEntityName
   }
 
 }
