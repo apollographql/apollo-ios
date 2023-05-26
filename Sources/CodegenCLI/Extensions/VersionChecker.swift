@@ -40,14 +40,37 @@ enum VersionChecker {
       return fileManager.base.contents(atPath: path)
     }
 
-    // When using SPM via Xcode, the `Package.resolved` file is nested inside the `.xcproject`
-    // package. Since we don't know the name of your Xcode project, we just look for the first
-    // `.xcproject` file in project's root directory that depends on Apollo. This may not be
-    // 100% fool-proof, but it should be accurate in almost all cases.
-    func findInXcodeProject(named projectFileName: String) -> Data? {
-      let projectPackagePath =
-      "\(projectFileName)/project.xcworkspace/xcshareddata/swiftpm/\(Package_resolved)"
-
+    // When using SPM via Xcode, the `Package.resolved` file is nested inside either the
+    // `.xcworkspace` or the `.xcproject` package. Since we don't know the name of your project,
+    // we just look for the first workspace or project that depends on Apollo, prioritising
+    // workspaces. This may not be 100% fool-proof, but it should be accurate in almost all cases.
+    func findInXcodeWorkspaces() -> PackageResolvedModel? {
+      let projectEnumerator = fileManager.base.enumerator(atPath: projectRootURL?.path ?? ".")
+      while let file = projectEnumerator?.nextObject() as? String {
+        if file.hasSuffix(".xcworkspace") {
+          let projectPackagePath = "\(file)/xcshareddata/swiftpm/\(Package_resolved)"
+          if let package = apolloDependantPackage(atPath: projectPackagePath) {
+            return package
+          }
+        }
+      }
+      return nil
+    }
+      
+    func findInXcodeProjects() -> PackageResolvedModel? {
+      let projectEnumerator = fileManager.base.enumerator(atPath: projectRootURL?.path ?? ".")
+      while let file = projectEnumerator?.nextObject() as? String {
+        if file.hasSuffix(".xcodeproj") {
+          let projectPackagePath = "\(file)/project.xcworkspace/xcshareddata/swiftpm/\(Package_resolved)"
+          if let package = apolloDependantPackage(atPath: projectPackagePath) {
+            return package
+          }
+        }
+      }
+      return nil
+    }
+      
+    func apolloDependantPackage(atPath projectPackagePath: String) -> PackageResolvedModel? {
       let path: String
       if let projectRootURL {
         path = projectRootURL.appendingPathComponent(projectPackagePath, isDirectory: false).path
@@ -55,27 +78,25 @@ enum VersionChecker {
         path = projectPackagePath
       }
 
-      return fileManager.base.contents(atPath: path)
+      if let packageResolvedData = fileManager.base.contents(atPath: path),
+         var packageModel = try? PackageResolvedModel(data: packageResolvedData),
+             packageModel.apolloVersion != nil {
+        return packageModel
+      }
+      return nil
     }
 
 
     if let packageResolvedData = findInProjectRoot() {
       return try PackageResolvedModel(data: packageResolvedData)
+    }
 
-    } else {
-      // Find in Xcode Projects
-      let projectEnumerator = fileManager.base.enumerator(atPath: projectRootURL?.path ?? ".")
+    if let packageModel = findInXcodeWorkspaces() {
+      return packageModel
+    }
 
-      while let file = projectEnumerator?.nextObject() as? String {
-        if file.hasSuffix(".xcodeproj") {
-          if let packageResolvedData = findInXcodeProject(named: file),
-             var packageModel = try PackageResolvedModel(data: packageResolvedData),
-             packageModel.apolloVersion != nil {
-
-            return packageModel
-          }
-        }
-      }
+    if let packageModel = findInXcodeProjects() {
+      return packageModel
     }
 
     return nil
