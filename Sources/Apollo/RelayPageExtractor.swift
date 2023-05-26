@@ -34,11 +34,14 @@ public struct RelayPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
   /// - Parameters:
   ///   - hasNextPagePath: A `KeyPath` over a `Query.Data` which identifies the `hasNextPage` key within the `Query.Data`.
   ///   - endCursorPath: A `KeyPath` over a `Query.Data` which identifies the `endCursor` key within the `Query.Data`.
-  public init(hasNextPagePath: KeyPath<Query.Data, Bool>, endCursorPath: KeyPath<Query.Data, String?>) {
+  public init(
+    hasNextPagePath: KeyPath<Query.Data, Bool>?,
+    endCursorPath: KeyPath<Query.Data, String?>?
+  ) {
     _transform = { data in
       Page(
-        hasNextPage: data[keyPath: hasNextPagePath],
-        endCursor: data[keyPath: endCursorPath]
+        hasNextPage: hasNextPagePath.flatMap { data[keyPath: $0] } ?? false,
+        endCursor: endCursorPath.flatMap { data[keyPath: $0] }
       )
     }
   }
