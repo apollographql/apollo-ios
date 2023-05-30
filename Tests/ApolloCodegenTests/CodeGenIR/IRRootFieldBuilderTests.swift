@@ -42,10 +42,7 @@ class IRRootFieldBuilderTests: XCTestCase {
         type: .nonNull(.entity(operation.rootType)),
         selectionSet: operation.selectionSet
       ),
-      onRootEntity: IR.Entity(
-        source: .operation(operation),
-        rootTypePath: LinkedList(operation.rootType)
-      ),
+      onRootEntity: IR.Entity(source: .operation(operation)),
       inIR: ir
     )
     subject = result.rootField

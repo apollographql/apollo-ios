@@ -62,10 +62,19 @@ class IR {
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
   /// be selected on the same object share the same `Entity`.
   class Entity {
+
+    /// Represents the location within a GraphQL definition (operation or fragment) of an `Entity`.
     struct Location: Hashable {
       enum SourceDefinition: Hashable {
         case operation(CompilationResult.OperationDefinition)
         case namedFragment(CompilationResult.FragmentDefinition)
+
+        var rootType: GraphQLCompositeType {
+          switch self {
+          case let .operation(definition): return definition.rootType
+          case let .namedFragment(definition): return definition.type
+          }
+        }
       }
 
       struct FieldComponent: Hashable {
@@ -77,6 +86,23 @@ class IR {
 
       /// The operation or fragment definition that the entity belongs to.
       let source: SourceDefinition
+
+      /// The path of fields from the root of the ``source`` definition to the entity.
+      ///
+      /// Example:
+      /// For an operation:
+      /// ```graphql
+      /// query MyQuery {
+      ///   allAnimals {
+      ///     predators {
+      ///       height {
+      ///         ...
+      ///       }
+      ///     }
+      ///   }
+      /// }
+      /// ```
+      /// The `Height` entity would have a field path of [allAnimals, predators, height].
       let fieldPath: FieldPath?
 
       func appending(_ fieldComponent: FieldComponent) -> Location {
@@ -97,25 +123,18 @@ class IR {
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
     let selectionTree: EntitySelectionTree
-
-    #warning("TODO: udpate docs")
-    /// A list of path components indicating the path to the field containing the `Entity` in
-    /// an operation or fragment.
+    
+    /// The location within a GraphQL definition (operation or fragment) where the `Entity` is
+    /// located.
     let location: Location
 
     var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
 
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
-#warning("TODO: infer rootTypePath and remove param")
-    init(
-      source: Location.SourceDefinition,
-      rootTypePath: LinkedList<GraphQLCompositeType>
-//      fieldPath: FieldPath?
-    ) {
+    init(source: Location.SourceDefinition) {
       self.location = .init(source: source, fieldPath: nil)
-      self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
-//      self.fieldPath = fieldPath
+      self.selectionTree = EntitySelectionTree(rootTypePath: LinkedList(source.rootType))
     }
 
     init(
