@@ -77,15 +77,6 @@ struct SelectionSetTemplate {
 
   // MARK: - Selection Set Name Documentation
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
-//    let startingConditionNode: LinkedList<IR.ScopeCondition>.Node
-//    let startingEntityPath: LinkedList<IR.ScopeDescriptor>.Node
-//    if let rootEntityConditionNode = selectionSet.scopePath.head.value.scopePath.head.next {
-//      startingConditionNode = rootEntityConditionNode
-//      startingEntityPath = selectionSet.scopePath.head
-//    } else {
-//      startingConditionNode = selectionSet.scopePath.head.next?.value.scopePath.head
-//      startingEntityPath = selectionSet.scopePath.head.next
-//    }
     """
     /// \(SelectionSetNameGenerator.generatedSelectionSetName(
           for: selectionSet,
