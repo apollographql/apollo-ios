@@ -14,19 +14,19 @@ extension GraphQLType {
 
 extension IR.EntityField {
 
-  /// Takes the associated ``IR.EntityField`` and formats it into a selection set name
+  /// Takes the associated `IR.EntityField` and formats it into a selection set name
   func formattedSelectionSetName(
     with pluralizer: Pluralizer
   ) -> String {
-    IR.Entity.FieldPathComponent(name: responseKey, type: type)
+    IR.Entity.Location.FieldComponent(name: responseKey, type: type)
       .formattedSelectionSetName(with: pluralizer)
   }
 
 }
 
-extension IR.Entity.FieldPathComponent {
+extension IR.Entity.Location.FieldComponent {
 
-  /// Takes the associated ``IR.Entity.FieldPathComponent`` and formats it into a selection set name
+  /// Takes the associated `IR.Entity.Location.FieldComponent` and formats it into a selection set name
   func formattedSelectionSetName(
     with pluralizer: Pluralizer
   ) -> String {
@@ -35,6 +35,18 @@ extension IR.Entity.FieldPathComponent {
       fieldName = pluralizer.singularize(fieldName)
     }
     return fieldName.asSelectionSetName
+  }
+
+}
+
+extension IR.Entity.Location.SourceDefinition {
+
+  /// Takes the associated `IR.Entity.Location.SourceDefinition` and formats it into a selection set name
+  func formattedSelectionSetName() -> String {
+    switch self {
+    case .operation: return "Data"
+    case let .namedFragment(fragment): return fragment.generatedDefinitionName
+    }
   }
 
 }

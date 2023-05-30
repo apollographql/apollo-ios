@@ -41,8 +41,8 @@ class IRSelectionSet_IncludeSkip_Tests: XCTestCase {
         selectionSet: operation.selectionSet
       ),
       onRootEntity: IR.Entity(
-        rootTypePath: LinkedList(operation.rootType),
-        fieldPath: [.init(name: "query", type: .nonNull(.entity(operation.rootType)))]
+        source: .operation(operation),
+        rootTypePath: LinkedList(operation.rootType)        
       ),
       inIR: ir
     )

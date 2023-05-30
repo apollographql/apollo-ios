@@ -71,8 +71,8 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     expect(self.subject.rootField.selectionSet.entity.rootType).to(equal(Object_Animal))
     expect(self.subject.rootField.selectionSet.entity.rootTypePath)
       .to(equal(LinkedList(Object_Animal)))
-    expect(self.subject.rootField.selectionSet.entity.fieldPath)
-      .to(equal([.init(name: "TestFragment", type: .nonNull(.entity(Object_Animal)))]))
+    expect(self.subject.rootField.selectionSet.entity.location)
+      .to(equal(.init(source: .namedFragment(self.subject.definition), fieldPath: nil)))
   }
 
   func test__buildFragment__givenFragment_hasNamedFragmentInBuiltFragments() throws {
@@ -216,17 +216,20 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     let field_root_details1 = try field_root[field: "details1"].xctUnwrapped()
     let field_root_details1_details2 = try field_root_details1[field: "details2"].xctUnwrapped()
 
-    let rootFieldPath: IR.Entity.FieldPath = [.init(subject.rootField.underlyingField)]
-    let test1FieldPath: IR.Entity.FieldPath = rootFieldPath + [.init(field_test1.underlyingField)]
-    let test2FieldPath: IR.Entity.FieldPath = test1FieldPath + [.init(field_test1_test2.underlyingField)]
-    let test_details1FieldPath: IR.Entity.FieldPath =
-    test2FieldPath + [.init(field_test1_test2_details1.underlyingField)]
-    let test_details2FieldPath: IR.Entity.FieldPath =
-    test_details1FieldPath + [.init(field_test1_test2_details1_details2.underlyingField)]
-    let root_details1FieldPath: IR.Entity.FieldPath =
-    rootFieldPath + [.init(field_root_details1.underlyingField)]
-    let root_details2FieldPath: IR.Entity.FieldPath =
-    root_details1FieldPath + [.init(field_root_details1_details2.underlyingField)]
+    let rootFieldLocation: IR.Entity.Location = .init(
+      source: .namedFragment(subject.definition),
+      fieldPath: nil
+    )
+    let test1FieldLocation: IR.Entity.Location = rootFieldLocation + .init(field_test1.underlyingField)
+    let test2FieldLocation: IR.Entity.Location = test1FieldLocation + .init(field_test1_test2.underlyingField)
+    let test_details1FieldLocation: IR.Entity.Location =
+    test2FieldLocation + .init(field_test1_test2_details1.underlyingField)
+    let test_details2FieldLocation: IR.Entity.Location =
+    test_details1FieldLocation + .init(field_test1_test2_details1_details2.underlyingField)
+    let root_details1FieldLocation: IR.Entity.Location =
+    rootFieldLocation + .init(field_root_details1.underlyingField)
+    let root_details2FieldLocation: IR.Entity.Location =
+    root_details1FieldLocation + .init(field_root_details1_details2.underlyingField)
 
     let rootTypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal]
     let test1TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal]
@@ -236,14 +239,14 @@ class IRNamedFragmentBuilderTests: XCTestCase {
     let root_details1TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal]
     let root_details2TypePath: LinkedList<GraphQLCompositeType> = [Interface_Animal, Interface_Animal, Interface_Animal]
 
-    let expected: [IR.Entity.FieldPath: IR.Entity] = [
-      rootFieldPath: IR.Entity(rootTypePath: rootTypePath, fieldPath: rootFieldPath),
-      test1FieldPath: IR.Entity(rootTypePath: test1TypePath, fieldPath: test1FieldPath),
-      test2FieldPath: IR.Entity(rootTypePath: test2TypePath, fieldPath: test2FieldPath),
-      test_details1FieldPath: IR.Entity(rootTypePath: test_details1TypePath, fieldPath: test_details1FieldPath),
-      test_details2FieldPath: IR.Entity(rootTypePath: test_details2TypePath, fieldPath: test_details2FieldPath),
-      root_details1FieldPath: IR.Entity(rootTypePath: root_details1TypePath, fieldPath: root_details1FieldPath),
-      root_details2FieldPath: IR.Entity(rootTypePath: root_details2TypePath, fieldPath: root_details2FieldPath),
+    let expected: [IR.Entity.Location: IR.Entity] = [
+      rootFieldLocation: IR.Entity(location: rootFieldLocation, rootTypePath: rootTypePath),
+      test1FieldLocation: IR.Entity(location: test1FieldLocation, rootTypePath: test1TypePath),
+      test2FieldLocation: IR.Entity(location: test2FieldLocation, rootTypePath: test2TypePath),
+      test_details1FieldLocation: IR.Entity(location: test_details1FieldLocation, rootTypePath: test_details1TypePath),
+      test_details2FieldLocation: IR.Entity(location: test_details2FieldLocation, rootTypePath: test_details2TypePath),
+      root_details1FieldLocation: IR.Entity(location: root_details1FieldLocation, rootTypePath: root_details1TypePath),
+      root_details2FieldLocation: IR.Entity(location: root_details2FieldLocation, rootTypePath: root_details2TypePath),
     ]
 
     // then
@@ -254,7 +257,7 @@ class IRNamedFragmentBuilderTests: XCTestCase {
 
 // MARK: - Helpers
 
-extension IR.Entity.FieldPathComponent {
+extension IR.Entity.Location.FieldComponent {
   init(_ field: CompilationResult.Field) {
     self.init(name: field.responseKey, type: field.type)    
   }
@@ -263,8 +266,8 @@ extension IR.Entity.FieldPathComponent {
 // MARK: - Custom Matchers
 
 fileprivate func match(
-  _ expectedValue: [IR.Entity.FieldPath: IR.Entity]
-) -> Predicate<[IR.Entity.FieldPath: IR.Entity]> {
+  _ expectedValue: [IR.Entity.Location: IR.Entity]
+) -> Predicate<[IR.Entity.Location: IR.Entity]> {
   return Predicate.define { actual in
     let message: ExpectationMessage = .expectedActualValueTo("equal \(expectedValue)")
     guard var actual = try actual.evaluate(),
@@ -278,7 +281,7 @@ fileprivate func match(
       }
 
       if expected.value.rootTypePath != actual.rootTypePath ||
-          expected.value.fieldPath != actual.fieldPath {
+          expected.value.location != actual.location {
         return PredicateResult(status: .fail, message: message)
       }
     }

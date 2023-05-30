@@ -38,10 +38,16 @@ extension IR.Operation {
 
 }
 
+extension CompilationResult.FragmentDefinition {
+  var generatedDefinitionName: String {
+    name.firstUppercased
+  }
+}
+
 extension IR.NamedFragment {
 
   var generatedDefinitionName: String {
-    definition.name.firstUppercased
+    definition.generatedDefinitionName
   }
 
 }
