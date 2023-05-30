@@ -44,13 +44,25 @@ let package = Package(
       ],
       exclude: [
         "Info.plist"
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend", "-application-extension"])
+      ],
+      linkerSettings: [
+        .unsafeFlags(["-Xlinker", "-application_extension"])
       ]),
     .target(
       name: "ApolloAPI",
       dependencies: [],
       exclude: [
         "Info.plist"
-      ]),    
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend", "-application-extension"])
+      ],
+      linkerSettings: [
+        .unsafeFlags(["-Xlinker", "-application_extension"])
+      ]),
     .target(
       name: "ApolloCodegenLib",
       dependencies: [
@@ -69,6 +81,12 @@ let package = Package(
       ],
       exclude: [
         "Info.plist"
+      ],
+      swiftSettings: [
+        .unsafeFlags(["-Xfrontend", "-application-extension"])
+      ],
+      linkerSettings: [
+        .unsafeFlags(["-Xlinker", "-application_extension"])
       ]),
     .target(
       name: "ApolloWebSocket",
