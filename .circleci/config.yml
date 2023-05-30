@@ -6,7 +6,7 @@ parameters:
     default: "macos.x86.medium.gen2"
   xcode_version:
     type: string
-    default: "14.3.0"
+    default: "14.3.1"
   ios_current_version:
     type: string
     default: "16.4"
