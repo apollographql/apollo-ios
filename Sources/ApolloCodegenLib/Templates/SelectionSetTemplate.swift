@@ -659,15 +659,13 @@ fileprivate extension IR.MergedSelections.MergedSource {
     }
 
     let fieldPath = typeInfo.entity.location.fieldPath!.node(
-      at: typeInfo.entity.location.fieldPath!.count - nodesToSharedRoot
+      at: typeInfo.entity.location.fieldPath!.count - (nodesToSharedRoot + 1)
     )
-#warning("TODO: do we need the +1?")
-    //      (nodesToSharedRoot + 1)
 
     let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
-//      removingFirst: nodesToSharedRoot <= 1,
+      removingFirst: nodesToSharedRoot <= 1,
       pluralizer: pluralizer
     )
 
@@ -690,9 +688,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     if let fragmentNestedTypePath = rootEntityScopePath.next {
       let fieldPath = typeInfo.entity.location
         .fieldPath!
-        .head
-      #warning("TODO: do we need this?")
-//        .next.unsafelyUnwrapped
+        .head      
 
       selectionSetNameComponents.append(
         SelectionSetNameGenerator.generatedSelectionSetName(
@@ -767,84 +763,19 @@ fileprivate struct SelectionSetNameGenerator {
       components.append(sourceName)
     }
 
-    // If the root entity (ie. the operation or fragment root) has conditions, we need to add
-    // those components to the path before moving on to nested fields.
-    let rootEntityConditionPath = SelectionSetNameGenerator.generatedSelectionSetName(
+    let entityFieldPath = SelectionSetNameGenerator.generatedSelectionSetName(
       from: typeInfo.scopePath.head,
-      to: typeInfo.scopePath.head.value.scopePath.last,
-      withFieldPath: nil,
+      to: toNode,
+      withFieldPath: typeInfo.entity.location.fieldPath?.head,
       pluralizer: pluralizer
     )
-    if !rootEntityConditionPath.isEmpty {
-      components.append(rootEntityConditionPath)
-    }
-
-    // Finally, we calculate the path for nested fields starting with the first field after the
-    // root entity.
-    if let fieldPath = typeInfo.scopePath.head.next {
-      let fieldPathName = SelectionSetNameGenerator.generatedSelectionSetName(
-        from: fieldPath,
-        to: toNode,
-        withFieldPath: typeInfo.entity.location.fieldPath?.head,
-        pluralizer: pluralizer
-      )
-      if !fieldPathName.isEmpty {
-        components.append(fieldPathName)
-      }
+    if !entityFieldPath.isEmpty {
+      components.append(entityFieldPath)
     }
 
     // Join all the computed components to get the fully qualified name.
     return components.joined(separator: ".")
   }
-
-//  static func fullyQualifiedGeneratedSelectionSetName(
-//    for typeInfo: IR.SelectionSet.TypeInfo,
-//    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
-//    pluralizer: Pluralizer
-//  ) -> String {
-//    var components: [String] = []
-//
-//    // The root entity, which represents the operation or fragment root, will use the fully
-//    // qualified name of the operation/fragment.
-//    let sourceName: String = {
-//      switch typeInfo.entity.location.source {
-//      case let .operation(operation):
-//        return "\(operation.generatedDefinitionName).Data"
-//      case let .namedFragment(fragment):
-//        return fragment.generatedDefinitionName
-//      }
-//    }()
-//    components.append(sourceName)
-//
-//    // If the root entity (ie. the operation or fragment root) has conditions, we need to add
-//    // those components to the path before moving on to nested fields.
-//    let rootEntityConditionPath = SelectionSetNameGenerator.generatedSelectionSetName(
-//      from: typeInfo.scopePath.head,
-//      to: typeInfo.scopePath.head.value.scopePath.last,
-//      withFieldPath: nil,
-//      pluralizer: pluralizer
-//    )
-//    if !rootEntityConditionPath.isEmpty {
-//      components.append(rootEntityConditionPath)
-//    }
-//
-//    // Finally, we calculate the path for nested fields starting with the first field after the
-//    // root entity.
-//    if let fieldPath = typeInfo.scopePath.head.next {
-//      let fieldPathName = SelectionSetNameGenerator.generatedSelectionSetName(
-//        from: fieldPath,
-//        to: toNode,
-//        withFieldPath: typeInfo.entity.location.fieldPath?.head,
-//        pluralizer: pluralizer
-//      )
-//      if !fieldPathName.isEmpty {
-//        components.append(fieldPathName)
-//      }
-//    }
-//
-//    // Join all the computed components to get the fully qualified name.
-//    return components.joined(separator: ".")
-//  }
 
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
@@ -853,26 +784,21 @@ fileprivate struct SelectionSetNameGenerator {
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
-    generatedSelectionSetName(
-      from: typePathNode.value.scopePath.head,
-      in: typePathNode,
-      withFieldPath: fieldPathNode,
-      removingFirst: removingFirst,
-      pluralizer: pluralizer
-    )
-  }
-
-  static func generatedSelectionSetName(
-    from node: LinkedList<IR.ScopeCondition>.Node,
-    in typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
-    to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
-    withFieldPath fieldPathNode: IR.Entity.Location.FieldPath.Node?,
-    removingFirst: Bool = false,
-    pluralizer: Pluralizer
-  ) -> String {
+    // Set up starting nodes
     var currentTypePathNode = Optional(typePathNode)
-    var currentFieldPathNode = fieldPathNode
-    var currentConditionNode = Optional(node)
+    var currentConditionNode = Optional(typePathNode.value.scopePath.head)
+    // Because the Location's field path starts on the first field (not the location's source),
+    // If the typePath is starting from the root entity (ie. is the list's head node, we do not
+    // start using the field path until the second entity node.
+    var currentFieldPathNode: IR.Entity.Location.FieldPath.Node? =
+    typePathNode.isHead ? nil : fieldPathNode
+
+    func advanceToNextEntity() {
+      // Set the current nodes to the root node of the next entity.
+      currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
+      currentConditionNode = currentTypePathNode?.value.scopePath.head
+      currentFieldPathNode = currentFieldPathNode?.next ?? fieldPathNode
+    }
 
     var components: [String] = []
 
@@ -902,10 +828,7 @@ fileprivate struct SelectionSetNameGenerator {
         currentConditionNode = node.next
       }
 
-      // Set the current nodes to the root node of the next entity.
-      currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
-      currentFieldPathNode = currentFieldPathNode?.next
-      currentConditionNode = currentTypePathNode?.value.scopePath.head
+      advanceToNextEntity()
     } while currentTypePathNode !== nil
 
     if removingFirst && !components.isEmpty { components.removeFirst() }

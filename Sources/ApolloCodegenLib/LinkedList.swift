@@ -21,6 +21,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
       self.value = value
       self.index = index
     }
+
+    public var isHead: Bool {
+      index == 0      
+    }
   }
 
   final class HeadNode: Node {
