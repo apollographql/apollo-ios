@@ -77,10 +77,19 @@ struct SelectionSetTemplate {
 
   // MARK: - Selection Set Name Documentation
   func SelectionSetNameDocumentation(_ selectionSet: IR.SelectionSet) -> TemplateString {
+//    let startingConditionNode: LinkedList<IR.ScopeCondition>.Node
+//    let startingEntityPath: LinkedList<IR.ScopeDescriptor>.Node
+//    if let rootEntityConditionNode = selectionSet.scopePath.head.value.scopePath.head.next {
+//      startingConditionNode = rootEntityConditionNode
+//      startingEntityPath = selectionSet.scopePath.head
+//    } else {
+//      startingConditionNode = selectionSet.scopePath.head.next?.value.scopePath.head
+//      startingEntityPath = selectionSet.scopePath.head.next
+//    }
     """
     /// \(SelectionSetNameGenerator.generatedSelectionSetName(
-          from: selectionSet.scopePath.head,
-          withFieldPath: selectionSet.entity.location.fieldPath?.head,
+          for: selectionSet,
+          format: .omittingRoot,
           pluralizer: config.pluralizer))
     \(if: config.options.schemaDocumentation == .include, """
       ///
@@ -126,9 +135,10 @@ struct SelectionSetTemplate {
 
   private func RootEntityTypealias(_ selectionSet: IR.SelectionSet) -> TemplateString {
     guard !selectionSet.isEntityRoot else { return "" }
-    let rootEntityName = SelectionSetNameGenerator.fullyQualifiedGeneratedSelectionSetName(
-      for: selectionSet.typeInfo,
+    let rootEntityName = SelectionSetNameGenerator.generatedSelectionSetName(
+      for: selectionSet,
       to: selectionSet.scopePath.last.value.scopePath.head,
+      format: .fullyQualified,
       pluralizer: config.pluralizer
     )
 
@@ -149,8 +159,9 @@ struct SelectionSetTemplate {
     return """
     public static var __mergedSources: [any \(config.ApolloAPITargetName).SelectionSet.Type] { [
       \(selectionSet.selections.merged.mergedSources.map {
-        let selectionSetName = SelectionSetNameGenerator.fullyQualifiedGeneratedSelectionSetName(
-          for: $0.typeInfo,
+        let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+          for: $0,
+          format: .fullyQualified,
           pluralizer: config.pluralizer
         )
         return "\(selectionSetName).self"
@@ -487,9 +498,10 @@ struct SelectionSetTemplate {
     while next.next != nil {
       defer { next = next.next.unsafelyUnwrapped }
 
-      let selectionSetName = SelectionSetNameGenerator.fullyQualifiedGeneratedSelectionSetName(
-        for: selectionSet.typeInfo,
+      let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
+        for: selectionSet,
         to: next,
+        format: .fullyQualified,
         pluralizer: config.pluralizer
       )
 
@@ -655,7 +667,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
-      removingFirst: nodesToSharedRoot <= 1,
+//      removingFirst: nodesToSharedRoot <= 1,
       pluralizer: pluralizer
     )
 
@@ -698,24 +710,62 @@ fileprivate extension IR.MergedSelections.MergedSource {
 
 fileprivate struct SelectionSetNameGenerator {
 
-  static func fullyQualifiedGeneratedSelectionSetName(
+  enum Format {
+    /// Fully qualifies the name of the selection set including the name of the enclosing
+    /// operation or fragment.
+    case fullyQualified
+    /// Omits the root entity selection set name
+    /// (ie. the name of the enclosing operation or fragment).
+    case omittingRoot
+  }
+
+  static func generatedSelectionSetName(
+    for selectionSet: IR.SelectionSet,
+    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    format: Format,
+    pluralizer: Pluralizer
+  ) -> String {
+    generatedSelectionSetName(
+      for: selectionSet.typeInfo,
+      to: toNode,
+      format: format,
+      pluralizer: pluralizer
+    )
+  }
+
+  static func generatedSelectionSetName(
+    for mergedSource: IR.MergedSelections.MergedSource,
+    format: Format,
+    pluralizer: Pluralizer
+  ) -> String {
+    generatedSelectionSetName(
+      for: mergedSource.typeInfo,
+      format: format,
+      pluralizer: pluralizer
+    )
+  }
+
+  private static func generatedSelectionSetName(
     for typeInfo: IR.SelectionSet.TypeInfo,
     to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    format: Format,
     pluralizer: Pluralizer
   ) -> String {
     var components: [String] = []
 
-    // The root entity, which represents the operation or fragment root, will use the fully
-    // qualified name of the operation/fragment.
-    let sourceName: String = {
-      switch typeInfo.entity.location.source {
-      case let .operation(operation):
-        return "\(operation.generatedDefinitionName).Data"
-      case let .namedFragment(fragment):
-        return fragment.generatedDefinitionName
-      }
-    }()
-    components.append(sourceName)
+    if case .fullyQualified = format {
+      // The root entity, which represents the operation or fragment root, will use the fully
+      // qualified name of the operation/fragment.
+      let sourceName: String = {
+        switch typeInfo.entity.location.source {
+        case let .operation(operation):
+          return "\(operation.generatedDefinitionName).Data"
+        case let .namedFragment(fragment):
+          return fragment.generatedDefinitionName
+        }
+      }()
+      components.append(sourceName)
+    }
 
     // If the root entity (ie. the operation or fragment root) has conditions, we need to add
     // those components to the path before moving on to nested fields.
@@ -747,6 +797,55 @@ fileprivate struct SelectionSetNameGenerator {
     return components.joined(separator: ".")
   }
 
+//  static func fullyQualifiedGeneratedSelectionSetName(
+//    for typeInfo: IR.SelectionSet.TypeInfo,
+//    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+//    pluralizer: Pluralizer
+//  ) -> String {
+//    var components: [String] = []
+//
+//    // The root entity, which represents the operation or fragment root, will use the fully
+//    // qualified name of the operation/fragment.
+//    let sourceName: String = {
+//      switch typeInfo.entity.location.source {
+//      case let .operation(operation):
+//        return "\(operation.generatedDefinitionName).Data"
+//      case let .namedFragment(fragment):
+//        return fragment.generatedDefinitionName
+//      }
+//    }()
+//    components.append(sourceName)
+//
+//    // If the root entity (ie. the operation or fragment root) has conditions, we need to add
+//    // those components to the path before moving on to nested fields.
+//    let rootEntityConditionPath = SelectionSetNameGenerator.generatedSelectionSetName(
+//      from: typeInfo.scopePath.head,
+//      to: typeInfo.scopePath.head.value.scopePath.last,
+//      withFieldPath: nil,
+//      pluralizer: pluralizer
+//    )
+//    if !rootEntityConditionPath.isEmpty {
+//      components.append(rootEntityConditionPath)
+//    }
+//
+//    // Finally, we calculate the path for nested fields starting with the first field after the
+//    // root entity.
+//    if let fieldPath = typeInfo.scopePath.head.next {
+//      let fieldPathName = SelectionSetNameGenerator.generatedSelectionSetName(
+//        from: fieldPath,
+//        to: toNode,
+//        withFieldPath: typeInfo.entity.location.fieldPath?.head,
+//        pluralizer: pluralizer
+//      )
+//      if !fieldPathName.isEmpty {
+//        components.append(fieldPathName)
+//      }
+//    }
+//
+//    // Join all the computed components to get the fully qualified name.
+//    return components.joined(separator: ".")
+//  }
+
   static func generatedSelectionSetName(
     from typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
     to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
@@ -754,8 +853,26 @@ fileprivate struct SelectionSetNameGenerator {
     removingFirst: Bool = false,
     pluralizer: Pluralizer
   ) -> String {
+    generatedSelectionSetName(
+      from: typePathNode.value.scopePath.head,
+      in: typePathNode,
+      withFieldPath: fieldPathNode,
+      removingFirst: removingFirst,
+      pluralizer: pluralizer
+    )
+  }
+
+  static func generatedSelectionSetName(
+    from node: LinkedList<IR.ScopeCondition>.Node,
+    in typePathNode: LinkedList<IR.ScopeDescriptor>.Node,
+    to endingNode: LinkedList<IR.ScopeCondition>.Node? = nil,
+    withFieldPath fieldPathNode: IR.Entity.Location.FieldPath.Node?,
+    removingFirst: Bool = false,
+    pluralizer: Pluralizer
+  ) -> String {
     var currentTypePathNode = Optional(typePathNode)
     var currentFieldPathNode = fieldPathNode
+    var currentConditionNode = Optional(node)
 
     var components: [String] = []
 
@@ -766,8 +883,6 @@ fileprivate struct SelectionSetNameGenerator {
         components.append(fieldName)
       }
 
-      // Set the `currentConditionNode` to the root node of the entity.
-      var currentConditionNode = Optional(currentTypePathNode.unsafelyUnwrapped.value.scopePath.head)
       // If the ending node is the root of this entity, then we are done.
       // (We've already added the root of the entity to the components by using the fieldName)
       guard currentConditionNode !== endingNode else {
@@ -787,8 +902,10 @@ fileprivate struct SelectionSetNameGenerator {
         currentConditionNode = node.next
       }
 
+      // Set the current nodes to the root node of the next entity.
       currentTypePathNode = currentTypePathNode.unsafelyUnwrapped.next
       currentFieldPathNode = currentFieldPathNode?.next
+      currentConditionNode = currentTypePathNode?.value.scopePath.head
     } while currentTypePathNode !== nil
 
     if removingFirst && !components.isEmpty { components.removeFirst() }
