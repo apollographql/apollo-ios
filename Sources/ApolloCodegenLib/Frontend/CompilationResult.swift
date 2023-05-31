@@ -23,7 +23,7 @@ public class CompilationResult: JavaScriptObject {
     lazy var subscriptionType: GraphQLNamedType? = self["subscriptionType"]
   }
   
-  public class OperationDefinition: JavaScriptObject, Equatable {
+  public class OperationDefinition: JavaScriptObject, Hashable {
     lazy var name: String = self["name"]
     
     lazy var operationType: OperationType = self["operationType"]
@@ -44,6 +44,10 @@ public class CompilationResult: JavaScriptObject {
       "\(name) on \(rootType.debugDescription)"
     }
 
+    public func hash(into hasher: inout Hasher) {
+      hasher.combine(name)
+    }
+    
     public static func ==(lhs: OperationDefinition, rhs: OperationDefinition) -> Bool {
       return lhs.name == rhs.name
     }

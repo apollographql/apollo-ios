@@ -24,18 +24,30 @@ extension IR.Definition {
 
 }
 
+extension CompilationResult.OperationDefinition {
+  var generatedDefinitionName: String {
+    nameWithSuffix.firstUppercased
+  }
+}
+
 extension IR.Operation {
 
   var generatedDefinitionName: String {
-    definition.nameWithSuffix.firstUppercased
+    definition.generatedDefinitionName
   }
 
+}
+
+extension CompilationResult.FragmentDefinition {
+  var generatedDefinitionName: String {
+    name.firstUppercased
+  }
 }
 
 extension IR.NamedFragment {
 
   var generatedDefinitionName: String {
-    definition.name.firstUppercased
+    definition.generatedDefinitionName
   }
 
 }

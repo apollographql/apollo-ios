@@ -62,30 +62,87 @@ class IR {
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
   /// be selected on the same object share the same `Entity`.
   class Entity {
-    struct FieldPathComponent: Hashable {
-      let name: String
-      let type: GraphQLType
+
+    /// Represents the location within a GraphQL definition (operation or fragment) of an `Entity`.
+    struct Location: Hashable {
+      enum SourceDefinition: Hashable {
+        case operation(CompilationResult.OperationDefinition)
+        case namedFragment(CompilationResult.FragmentDefinition)
+
+        var rootType: GraphQLCompositeType {
+          switch self {
+          case let .operation(definition): return definition.rootType
+          case let .namedFragment(definition): return definition.type
+          }
+        }
+      }
+
+      struct FieldComponent: Hashable {
+        let name: String
+        let type: GraphQLType
+      }
+
+      typealias FieldPath = LinkedList<FieldComponent>
+
+      /// The operation or fragment definition that the entity belongs to.
+      let source: SourceDefinition
+
+      /// The path of fields from the root of the ``source`` definition to the entity.
+      ///
+      /// Example:
+      /// For an operation:
+      /// ```graphql
+      /// query MyQuery {
+      ///   allAnimals {
+      ///     predators {
+      ///       height {
+      ///         ...
+      ///       }
+      ///     }
+      ///   }
+      /// }
+      /// ```
+      /// The `Height` entity would have a field path of [allAnimals, predators, height].
+      let fieldPath: FieldPath?
+
+      func appending(_ fieldComponent: FieldComponent) -> Location {
+        let fieldPath = self.fieldPath?.appending(fieldComponent) ?? LinkedList(fieldComponent)
+        return Location(source: self.source, fieldPath: fieldPath)
+      }
+
+      func appending<C: Collection<FieldComponent>>(_ fieldComponents: C) -> Location {
+        let fieldPath = self.fieldPath?.appending(fieldComponents) ?? LinkedList(fieldComponents)
+        return Location(source: self.source, fieldPath: fieldPath)
+      }
+
+      static func +(lhs: IR.Entity.Location, rhs: FieldComponent) -> Location {
+        lhs.appending(rhs)
+      }
     }
-    typealias FieldPath = LinkedList<FieldPathComponent>
 
     /// The selections that are selected for the entity across all type scopes in the operation.
     /// Represented as a tree.
     let selectionTree: EntitySelectionTree
-
-    /// A list of path components indicating the path to the field containing the `Entity` in
-    /// an operation or fragment.
-    let fieldPath: FieldPath
+    
+    /// The location within a GraphQL definition (operation or fragment) where the `Entity` is
+    /// located.
+    let location: Location
 
     var rootTypePath: LinkedList<GraphQLCompositeType> { selectionTree.rootTypePath }
 
     var rootType: GraphQLCompositeType { rootTypePath.last.value }
 
+    init(source: Location.SourceDefinition) {
+      self.location = .init(source: source, fieldPath: nil)
+      self.selectionTree = EntitySelectionTree(rootTypePath: LinkedList(source.rootType))
+    }
+
     init(
-      rootTypePath: LinkedList<GraphQLCompositeType>,
-      fieldPath: FieldPath
+      location: Location,
+      rootTypePath: LinkedList<GraphQLCompositeType>
     ) {
+      self.location = location
       self.selectionTree = EntitySelectionTree(rootTypePath: rootTypePath)
-      self.fieldPath = fieldPath
     }
   }
 
@@ -143,11 +200,11 @@ class IR {
     let referencedFragments: OrderedSet<NamedFragment>
 
     /// All of the Entities that exist in the fragment's selection set,
-    /// keyed by their relative response path within the fragment.
+    /// keyed by their relative location (ie. path) within the fragment.
     ///
     /// - Note: The FieldPath for an entity within a fragment will begin with a path component
     /// with the fragment's name and type.
-    let entities: [IR.Entity.FieldPath: IR.Entity]
+    let entities: [IR.Entity.Location: IR.Entity]
 
     var name: String { definition.name }
     var type: GraphQLCompositeType { definition.type }
@@ -156,7 +213,7 @@ class IR {
       definition: CompilationResult.FragmentDefinition,
       rootField: EntityField,
       referencedFragments: OrderedSet<NamedFragment>,
-      entities: [IR.Entity.FieldPath: IR.Entity]
+      entities: [IR.Entity.Location: IR.Entity]
     ) {
       self.definition = definition
       self.rootField = rootField

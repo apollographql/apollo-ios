@@ -4,18 +4,18 @@ import OrderedCollections
 extension IR {
 
   class RootFieldEntityStorage {
-    private(set) var entitiesForFields: [Entity.FieldPath: IR.Entity] = [:]
+    private(set) var entitiesForFields: [Entity.Location: IR.Entity] = [:]
 
     init(rootEntity: Entity) {
-      entitiesForFields[rootEntity.fieldPath] = rootEntity
+      entitiesForFields[rootEntity.location] = rootEntity
     }
 
     func entity(
       for field: CompilationResult.Field,
       on enclosingEntity: Entity
     ) -> Entity {
-      let fieldPath = enclosingEntity
-        .fieldPath
+      let location = enclosingEntity
+        .location
         .appending(.init(name: field.responseKey, type: field.type))
 
       var rootTypePath: LinkedList<GraphQLCompositeType> {
@@ -25,32 +25,34 @@ extension IR {
         return enclosingEntity.rootTypePath.appending(fieldType)
       }
 
-      return entitiesForFields[fieldPath] ??
-      createEntity(fieldPath: fieldPath, rootTypePath: rootTypePath)
+      return entitiesForFields[location] ??
+      createEntity(location: location, rootTypePath: rootTypePath)
     }
 
     func entity(
-      for otherEntity: IR.Entity,
+      for entityInFragment: IR.Entity,
       inFragmentSpreadAtTypePath fragmentSpreadTypeInfo: SelectionSet.TypeInfo
     ) -> Entity {
-      let fieldPath = fragmentSpreadTypeInfo.entity.fieldPath +
-      otherEntity.fieldPath.dropFirst()
+      var location = fragmentSpreadTypeInfo.entity.location
+      if let pathInFragment = entityInFragment.location.fieldPath {
+        location = location.appending(pathInFragment)
+      }
 
       var rootTypePath: LinkedList<GraphQLCompositeType> {
-        let otherRootTypePath = otherEntity.rootTypePath.dropFirst()
+        let otherRootTypePath = entityInFragment.rootTypePath.dropFirst()
         return fragmentSpreadTypeInfo.entity.rootTypePath.appending(otherRootTypePath)
       }
 
-      return entitiesForFields[fieldPath] ??
-      createEntity(fieldPath: fieldPath, rootTypePath: rootTypePath)
+      return entitiesForFields[location] ??
+      createEntity(location: location, rootTypePath: rootTypePath)
     }
 
     private func createEntity(
-      fieldPath: Entity.FieldPath,
+      location: Entity.Location,
       rootTypePath: LinkedList<GraphQLCompositeType>
     ) -> Entity {
-      let entity = Entity(rootTypePath: rootTypePath, fieldPath: fieldPath)
-      entitiesForFields[fieldPath] = entity
+      let entity = Entity(location: location, rootTypePath: rootTypePath)
+      entitiesForFields[location] = entity
       return entity
     }
 
@@ -66,7 +68,7 @@ extension IR {
     struct Result {
       let rootField: IR.EntityField
       let referencedFragments: ReferencedFragments
-      let entities: [Entity.FieldPath: IR.Entity]
+      let entities: [Entity.Location: IR.Entity]
     }
 
     typealias ReferencedFragments = OrderedSet<NamedFragment>
