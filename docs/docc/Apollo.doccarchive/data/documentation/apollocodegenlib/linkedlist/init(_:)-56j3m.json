@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/init(_:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/init(_:)-56j3m"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib10LinkedListVyACyxGxcfc",
+    "externalID" : "s:16ApolloCodegenLib10LinkedListVyACyxGqd__c7ElementQyd__RszSlRd__lufc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -21,11 +21,19 @@
       },
       {
         "kind" : "text",
-        "text" : "("
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "C"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
       },
       {
         "kind" : "typeIdentifier",
-        "text" : "T"
+        "text" : "C"
       },
       {
         "kind" : "text",
@@ -59,7 +67,15 @@
             },
             {
               "kind" : "text",
-              "text" : "("
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
             },
             {
               "kind" : "externalParam",
@@ -71,7 +87,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "headValue"
+              "text" : "collection"
             },
             {
               "kind" : "text",
@@ -79,11 +95,56 @@
             },
             {
               "kind" : "typeIdentifier",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
               "text" : "T"
             },
             {
               "kind" : "text",
-              "text" : ")"
+              "text" : " == "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "C"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:Sl",
+              "text" : "Collection"
             }
           ]
         }
@@ -102,7 +163,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/linkedlist\/init(_:)"
+        "\/documentation\/apollocodegenlib\/linkedlist\/init(_:)-56j3m"
       ],
       "traits" : [
         {
@@ -161,7 +222,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/init(_:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/init(_:)-56j3m": {
   "abstract" : [
 
   ],
@@ -172,23 +233,31 @@
     },
     {
       "kind" : "text",
-      "text" : "("
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "C"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
     },
     {
       "kind" : "typeIdentifier",
-      "text" : "T"
+      "text" : "C"
     },
     {
       "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/init(_:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/init(_:)-56j3m",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/init(_:)"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/init(_:)-56j3m"
 }
 }
 }
