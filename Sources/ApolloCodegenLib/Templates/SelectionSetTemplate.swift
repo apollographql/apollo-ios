@@ -84,7 +84,7 @@ struct SelectionSetTemplate {
           pluralizer: config.pluralizer))
     \(if: config.options.schemaDocumentation == .include, """
       ///
-      /// Parent Type: `\(selectionSet.parentType.name.firstUppercased)`
+      /// Parent Type: `\(selectionSet.parentType.formattedName)`
       """)
     """
   }
@@ -162,7 +162,7 @@ struct SelectionSetTemplate {
   }
 
   private func GeneratedSchemaTypeReference(_ type: GraphQLCompositeType) -> TemplateString {
-    "\(config.schemaNamespace.firstUppercased).\(type.schemaTypesNamespace).\(type.name.firstUppercased)"
+    "\(config.schemaNamespace.firstUppercased).\(type.schemaTypesNamespace).\(type.formattedName)"
   }
 
   // MARK: - Selections
@@ -285,7 +285,7 @@ struct SelectionSetTemplate {
 
   private func FragmentSelectionTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
     """
-    .fragment(\(fragment.definition.name.firstUppercased).self)
+    .fragment(\(fragment.definition.name.asFragmentName).self)
     """
   }
 
@@ -380,7 +380,7 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     let name = fragment.definition.name
     let propertyName = name.firstLowercased
-    let typeName = name.firstUppercased
+    let typeName = name.asFragmentName
     let isOptional = fragment.inclusionConditions != nil &&
     !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
 
@@ -505,7 +505,7 @@ struct SelectionSetTemplate {
          !selectionSet.typeInfo.scope.matches(conditions) {
         continue
       }
-      fulfilledFragments.append(fragment.definition.name.firstUppercased)
+      fulfilledFragments.append(fragment.definition.name.asFragmentName)
     }
 
     return """
@@ -838,7 +838,7 @@ fileprivate extension IR.ScopeCondition {
 
   var selectionSetNameComponent: String {
     return TemplateString("""
-    \(ifLet: type, { "As\($0.name.firstUppercased)" })\
+    \(ifLet: type, { "As\($0.formattedName)" })\
     \(ifLet: conditions, { "If\($0.typeNameComponents)"})
     """).description
   }

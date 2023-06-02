@@ -138,10 +138,10 @@ extension GraphQLNamedType {
   var testMockFieldTypeName: String {
     if SwiftKeywords.TestMockFieldAbstractTypeNamesToNamespace.contains(name) &&
         self is GraphQLAbstractType {
-      return "MockObject.\(swiftName)"
+      return "MockObject.\(formattedName)"
     }
 
-    return swiftName
+    return formattedName
   }
 
   fileprivate func qualifiedRootTypeName(
@@ -154,7 +154,7 @@ extension GraphQLNamedType {
       if case .testMockField = context {
         return newTypeName ?? testMockFieldTypeName.firstUppercased
       } else {
-        return newTypeName ?? self.swiftName.firstUppercased
+        return newTypeName ?? self.formattedName
       }
     }()
 

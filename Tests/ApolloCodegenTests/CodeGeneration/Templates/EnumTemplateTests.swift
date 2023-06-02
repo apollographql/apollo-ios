@@ -461,4 +461,26 @@ class EnumTemplateTests: XCTestCase {
     // then
     expect(rendered).to(equalLineByLine(expected))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test_render_givenReservedKeywordType_AsEscapedType() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword)
+
+      let expected = """
+      enum \(keyword.firstUppercased)_Enum: String, EnumType {
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

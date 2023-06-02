@@ -56,7 +56,7 @@ struct SchemaMetadataTemplate: TemplateRenderer {
     static func objectType(forTypename typename: String) -> Object? {
       switch typename {
       \(schema.referencedTypes.objects.map {
-        "case \"\($0.name)\": return \(schemaNamespace).Objects.\($0.name.firstUppercased)"
+        "case \"\($0.name)\": return \(schemaNamespace).Objects.\($0.formattedName)"
       }, separator: "\n")
       default: return nil
       }

@@ -951,5 +951,53 @@ class MockObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__givenObjectUsingReservedKeyword_generatesTypeWithSuffix() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword, moduleType: .swiftPackageManager)
+
+      subject.graphqlObject.fields = [
+        "name": .mock("string", type: .nonNull(.string())),
+      ]
+
+      ir.fieldCollector.add(
+        fields: subject.graphqlObject.fields.values.map {
+          .mock($0.name, type: $0.type)
+        },
+        to: subject.graphqlObject
+      )
+
+      let expected = """
+      public class \(keyword.firstUppercased)_Object: MockObject {
+        public static let objectType: Object = TestSchema.Objects.\(keyword.firstUppercased)_Object
+        public static let _mockFields = MockFields()
+        public typealias MockValueCollectionType = Array<Mock<\(keyword.firstUppercased)_Object>>
+
+        public struct MockFields {
+          @Field<String>("string") public var string
+        }
+      }
+
+      public extension Mock where O == \(keyword.firstUppercased)_Object {
+        convenience init(
+          string: String? = nil
+        ) {
+          self.init()
+          _set(string, for: \\.string)
+        }
+      }
+      """
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
 
 }
