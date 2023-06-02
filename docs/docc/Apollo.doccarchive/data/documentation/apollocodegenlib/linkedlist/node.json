@@ -97,6 +97,7 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/isHead",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/next",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/previous",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/value"
@@ -265,6 +266,40 @@
   "title" : "Sequence Implementations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/sequence-implementations"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/isHead": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isHead"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/isHead",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isHead",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/ishead"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/next": {
   "abstract" : [
