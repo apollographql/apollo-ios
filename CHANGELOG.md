@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.2.1
+
+### Improved
+- **Added new validation to alert users to type naming conflict when running code generation([#2405](https://github.com/apollographql/apollo-ios/pull/2405)):** See PR [#3041](https://github.com/apollographql/apollo-ios/pull/3041).
+
+### Fixed
+- **Int values failing to cast to Scalar Type during cache key resolution ([#3034](https://github.com/apollographql/apollo-ios/issues/3034)):** See PR [#3037](https://github.com/apollographql/apollo-ios/pull/3037). _Thank you to [@asbhat](https://github.com/asbhat) for raising the issue._
+- **Fix malformed RootEntityType on generated fragment with `@include` condition. ([#2962](https://github.com/apollographql/apollo-ios/issues/2962)):** See PR [#3045](https://github.com/apollographql/apollo-ios/pull/3045). _Thank you to [@alexisbronchart](https://github.com/alexisbronchart) for raising the issue._
+
+
 ## v1.2
 
 Though 1.2 is a minor version bump, a critical problem was addressed in this version that requires a small breaking change during the upgrade.  While we strive to make the upgrade path for minor versions seamless, this issue could not be reasonably resolved without requiring this migration.
