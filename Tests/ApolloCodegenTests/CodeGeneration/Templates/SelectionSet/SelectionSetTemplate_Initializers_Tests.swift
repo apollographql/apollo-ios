@@ -53,6 +53,34 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     )
   }
 
+  func buildSubjectAndFragment(
+    named fragmentName: String = "TestFragment",
+    schemaNamespace: String = "TestSchema",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
+  ) throws -> IR.NamedFragment {
+    ir = try .mock(schema: schemaSDL, document: document)
+    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
+    let fragment = ir.build(fragment: fragmentDefinition)
+    let config = ApolloCodegenConfiguration.mock(
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init()
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: .init(config: config)
+    )
+    subject = SelectionSetTemplate(
+      definition: .namedFragment(fragment),
+      generateInitializers: true,
+      config: ApolloCodegen.ConfigurationContext(config: config),
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
+    )
+    return fragment
+  }
+
   func buildSimpleObjectSchemaAndDocument() {
     schemaSDL = """
     type Query {
@@ -1479,6 +1507,90 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     expect(allAnimals_asPet_actual).to(equalLineByLine(
       allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  /// This test verifies the fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentReferencingNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      predators {
+        ...PredatorFragment
+      }
+    }
+
+    fragment PredatorFragment on Animal {
+      ... on Pet {
+        ...PetFragment
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(PredatorFragment.self),
+            ObjectIdentifier(PredatorFragment.AsPet.self),
+            ObjectIdentifier(PetFragment.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 26, ignoringExtraLines: true))
   }
 
   // MARK: - Include/Skip Tests
