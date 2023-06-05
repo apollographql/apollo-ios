@@ -1,24 +1,28 @@
 #if !COCOAPODS
 import ApolloAPI
 #endif
+import Foundation
 
 /// A pagination strategy to be used with Relay-style cursor based pagination.
 public class RelayPaginationStrategy<
   Query: GraphQLQuery,
   Output: Hashable,
+  NextPageConstructor: NextPageStrategy,
   OutputTransformer: DataTransformer,
   MergeStrategy: PaginationMergeStrategy
 >: PaginationStrategy
 where MergeStrategy.Output == OutputTransformer.Output,
       OutputTransformer.Output == Output,
       MergeStrategy.Query == OutputTransformer.Query,
-      OutputTransformer.Query == Query {
+      OutputTransformer.Query == Query,
+      NextPageConstructor.Page == RelayPageExtractor<Query>.Page,
+      NextPageConstructor.Query == Query {
   public typealias PageInput = Query.Data
   public typealias Page = PageExtractor.Page
 
   public var pageExtractionStrategy: RelayPageExtractor<Query>
   public var outputTransformer: OutputTransformer
-  public var nextPageStrategy: CustomNextPageStrategy<RelayPageExtractor<Query>.Page, Query>
+  public var nextPageStrategy: NextPageConstructor
   public var mergeStrategy: MergeStrategy
 
   public var _resultHandler: (Result<MergeStrategy.Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
@@ -31,7 +35,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
   public init(
     pageExtractionStrategy: RelayPageExtractor<Query>,
     outputTransformer: OutputTransformer,
-    nextPageStrategy: CustomNextPageStrategy<RelayPageExtractor<Query>.Page, Query>,
+    nextPageStrategy: NextPageConstructor,
     mergeStrategy: MergeStrategy,
     resultHandler: @escaping (Result<Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
   ) {
