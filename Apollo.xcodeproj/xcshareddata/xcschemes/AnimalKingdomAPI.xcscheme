@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DE3C7A00260A6B9800D2F4FF"
-               BuildableName = "AnimalKingdomAPI.framework"
+               BuildableName = ".framework"
                BlueprintName = "AnimalKingdomAPI"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DE3C7A00260A6B9800D2F4FF"
-            BuildableName = "AnimalKingdomAPI.framework"
+            BuildableName = ".framework"
             BlueprintName = "AnimalKingdomAPI"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

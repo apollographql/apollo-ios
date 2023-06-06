@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "DE058606266978A100265760"
-               BuildableName = "ApolloAPI.framework"
+               BuildableName = ".framework"
                BlueprintName = "ApolloAPI"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "DE058606266978A100265760"
-            BuildableName = "ApolloAPI.framework"
+            BuildableName = ".framework"
             BlueprintName = "ApolloAPI"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

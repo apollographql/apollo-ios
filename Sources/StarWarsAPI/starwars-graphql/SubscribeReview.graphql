@@ -1,7 +1,0 @@
-subscription ReviewAdded($episode: Episode) {
-  reviewAdded(episode: $episode) {
-    episode
-    stars
-    commentary
-  }
-}

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-               BuildableName = "ApolloWebSocket.framework"
+               BuildableName = ".framework"
                BlueprintName = "ApolloWebSocket"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -41,7 +41,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-            BuildableName = "ApolloWebSocket.framework"
+            BuildableName = ".framework"
             BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -74,7 +74,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-            BuildableName = "ApolloWebSocket.framework"
+            BuildableName = ".framework"
             BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

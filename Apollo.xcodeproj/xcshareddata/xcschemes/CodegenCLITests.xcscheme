@@ -17,7 +17,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E6DC0ABD28B3AB890064A68F"
-               BuildableName = "CodegenCLITests.xctest"
+               BuildableName = ".xctest"
                BlueprintName = "CodegenCLITests"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>

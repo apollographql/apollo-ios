@@ -1,4 +1,0 @@
-#include "../Shared/Workspace-Target-Framework.xcconfig"
-#include "../Shared/Workspace-Target-Codegen.xcconfig"
-
-INFOPLIST_FILE = Sources/ApolloCodegenLib/Info.plist

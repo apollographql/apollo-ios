@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9FC750431D2A532C00458D91"
-               BuildableName = "Apollo.framework"
+               BuildableName = ".framework"
                BlueprintName = "Apollo"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -34,7 +34,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = "Apollo.framework"
+            BuildableName = ".framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -50,7 +50,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = "Apollo.framework"
+            BuildableName = ".framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = "Apollo.framework"
+            BuildableName = ".framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -101,7 +101,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = "Apollo.framework"
+            BuildableName = ".framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

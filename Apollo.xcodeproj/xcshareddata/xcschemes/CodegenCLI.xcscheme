@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E687B3C028B398CB00A9551C"
-               BuildableName = "CodegenCLI.framework"
+               BuildableName = ".framework"
                BlueprintName = "CodegenCLI"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E687B3C028B398CB00A9551C"
-            BuildableName = "CodegenCLI.framework"
+            BuildableName = ".framework"
             BlueprintName = "CodegenCLI"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
