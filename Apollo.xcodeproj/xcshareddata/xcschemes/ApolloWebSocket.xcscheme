@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-               BuildableName = ".framework"
+               BuildableName = "ApolloWebSocket.framework"
                BlueprintName = "ApolloWebSocket"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -29,7 +29,8 @@
       shouldUseLaunchSchemeArgsEnv = "NO"
       enableThreadSanitizer = "YES"
       codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
+      shouldAutocreateTestPlan = "YES">
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "APOLLO_TEST_CACHE_PROVIDER"
@@ -41,17 +42,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-            BuildableName = ".framework"
+            BuildableName = "ApolloWebSocket.framework"
             BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -74,7 +69,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9B7BDA7C23FDE90400ACD198"
-            BuildableName = ".framework"
+            BuildableName = "ApolloWebSocket.framework"
             BlueprintName = "ApolloWebSocket"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

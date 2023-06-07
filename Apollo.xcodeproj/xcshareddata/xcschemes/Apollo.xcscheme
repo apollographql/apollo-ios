@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9FC750431D2A532C00458D91"
-               BuildableName = ".framework"
+               BuildableName = "Apollo.framework"
                BlueprintName = "Apollo"
                ReferencedContainer = "container:Apollo.xcodeproj">
             </BuildableReference>
@@ -29,12 +29,13 @@
       shouldUseLaunchSchemeArgsEnv = "NO"
       enableThreadSanitizer = "YES"
       codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
+      shouldAutocreateTestPlan = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = ".framework"
+            BuildableName = "Apollo.framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -50,26 +51,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = ".framework"
+            BuildableName = "Apollo.framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-UnitTestPlan.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-IntegrationTestPlan.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan">
-         </TestPlanReference>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-CITestPlan.xctestplan">
-         </TestPlanReference>
-      </TestPlans>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -85,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = ".framework"
+            BuildableName = "Apollo.framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
@@ -101,7 +87,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9FC750431D2A532C00458D91"
-            BuildableName = ".framework"
+            BuildableName = "Apollo.framework"
             BlueprintName = "Apollo"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>

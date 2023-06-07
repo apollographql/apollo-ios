@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1430"
-   version = "2.1">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -9,39 +9,25 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <TestPlanReference
-               reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan">
-            </TestPlanReference>
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "DE9CEAB328299E8500959AF9"
+               BuildableName = "ApolloTestSupport.framework"
+               BlueprintName = "ApolloTestSupport"
+               ReferencedContainer = "container:Apollo.xcodeproj">
+            </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "PerformanceTesting"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
-      disableMainThreadChecker = "YES">
-      <TestPlans>
-         <TestPlanReference
-            reference = "container:Tests/TestPlans/Apollo-PerformanceTestPlan.xctestplan"
-            default = "YES">
-         </TestPlanReference>
-      </TestPlans>
-      <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9F54C8B3255D760B0065AFD6"
-               BuildableName = ".xctest"
-               BlueprintName = "ApolloPerformanceTests"
-               ReferencedContainer = "container:Apollo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
+      shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -63,9 +49,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9F54C8B3255D760B0065AFD6"
-            BuildableName = ".xctest"
-            BlueprintName = "ApolloPerformanceTests"
+            BlueprintIdentifier = "DE9CEAB328299E8500959AF9"
+            BuildableName = "ApolloTestSupport.framework"
+            BlueprintName = "ApolloTestSupport"
             ReferencedContainer = "container:Apollo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
