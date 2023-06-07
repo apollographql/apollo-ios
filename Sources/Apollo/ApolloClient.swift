@@ -12,7 +12,7 @@ public enum CachePolicy: Hashable {
   case fetchIgnoringCacheData
   ///  Always fetch results from the server, and don't store these in the cache.
   case fetchIgnoringCacheCompletely
-  /// Return data from the cache if available, else return nil.
+  /// Return data from the cache if available, else return an error.
   case returnCacheDataDontFetch
   /// Return data from the cache if available, and always fetch results from the server.
   case returnCacheDataAndFetch
