@@ -13,7 +13,7 @@ struct ObjectTemplate: TemplateRenderer {
   var template: TemplateString {
     """
     \(documentation: graphqlObject.documentation, config: config)
-    static let \(graphqlObject.name.firstUppercased) = Object(
+    static let \(graphqlObject.formattedName) = Object(
       typename: "\(graphqlObject.name)\",
       implementedInterfaces: \(ImplementedInterfacesTemplate())
     )
@@ -25,7 +25,7 @@ struct ObjectTemplate: TemplateRenderer {
     [\(list: graphqlObject.interfaces.map({ interface in
           TemplateString("""
           \(if: !config.output.schemaTypes.isInModule, "\(config.schemaNamespace.firstUppercased).")\
-          Interfaces.\(interface.name.firstUppercased).self
+          Interfaces.\(interface.formattedName).self
           """)
       }))]
     """

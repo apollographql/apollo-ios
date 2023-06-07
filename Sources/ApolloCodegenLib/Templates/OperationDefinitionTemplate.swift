@@ -74,7 +74,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         definition: .init(
           \(operation.source.formatted(for: config.options.queryStringLiteralFormat))\(if: includeFragments, ",")
           \(if: includeFragments,
-                            "fragments: [\(fragments.map { "\($0.name.firstUppercased).self" }, separator: ", ")]")
+                            "fragments: [\(fragments.map { "\($0.name.asFragmentName).self" }, separator: ", ")]")
         ))
       """,
       else: """

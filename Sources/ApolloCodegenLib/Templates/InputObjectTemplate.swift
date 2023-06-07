@@ -18,7 +18,7 @@ struct InputObjectTemplate: TemplateRenderer {
     """
     \(documentation: graphqlInputObject.documentation, config: config)
     \(accessControlModifier(for: .parent))\
-    struct \(graphqlInputObject.name.firstUppercased): InputObject {
+    struct \(graphqlInputObject.formattedName): InputObject {
       \(memberAccessControl)private(set) var __data: InputDict
     
       \(memberAccessControl)init(_ data: InputDict) {

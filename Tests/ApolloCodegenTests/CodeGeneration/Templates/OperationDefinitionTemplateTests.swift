@@ -933,4 +933,50 @@ class OperationDefinitionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__generate__givenInputObjectUsingReservedKeyword_rendersAsEscapedType() throws {
+    // given
+    schemaSDL = """
+    input Type {
+      id: String!
+    }
+
+    type Query {
+      getUser(type: Type!): User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      role: String!
+    }
+    """
+
+    document = """
+    query TestOperation($type: Type!) {
+        getUser(type: $type) {
+            name
+        }
+    }
+    """
+
+    let expectedOne = """
+      public var type: Type_InputObject
+    """
+    
+    let expectedTwo = """
+      public init(type: Type_InputObject) {
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 17, ignoringExtraLines: true))
+  }
+  
 }

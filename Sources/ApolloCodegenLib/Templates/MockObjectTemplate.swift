@@ -20,7 +20,7 @@ struct MockObjectTemplate: TemplateRenderer {
   )
 
   var template: TemplateString {
-    let objectName = graphqlObject.name.firstUppercased
+    let objectName = graphqlObject.formattedName
     let fields: [TemplateField] = ir.fieldCollector
       .collectedFields(for: graphqlObject)
       .map {
@@ -94,7 +94,7 @@ struct MockObjectTemplate: TemplateRenderer {
         case is GraphQLInterfaceType, is GraphQLUnionType:
           mockType = "AnyMock"
         default:
-          mockType = "Mock<\(graphQLCompositeType.name.firstUppercased)>"
+          mockType = "Mock<\(graphQLCompositeType.formattedName)>"
         }
         return TemplateString("\(mockType)\(if: !forceNonNull, "?")").description
       case .scalar,

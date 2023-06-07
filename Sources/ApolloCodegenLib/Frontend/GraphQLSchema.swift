@@ -31,6 +31,10 @@ public class GraphQLSchema: JavaScriptObject {
 
 public class GraphQLNamedType: JavaScriptObject, Hashable {
   lazy var name: String = self["name"]
+  
+  var formattedName: String {
+    swiftName
+  }
 
   lazy var documentation: String? = self["description"]
 
@@ -66,10 +70,26 @@ public class GraphQLScalarType: GraphQLNamedType {
       return false
     }
   }
+  
+  override var formattedName: String {
+    if !isCustomScalar {
+      return swiftName
+    }
+    
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Scalar" : uppercasedName
+  }
 }
 
 public class GraphQLEnumType: GraphQLNamedType {
   lazy var values: [GraphQLEnumValue] = try! invokeMethod("getValues")
+  
+  override var formattedName: String {
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Enum" : uppercasedName
+  }
 }
 
 public class GraphQLEnumValue: JavaScriptObject {
@@ -91,6 +111,12 @@ typealias GraphQLInputFieldDictionary = OrderedDictionary<String, GraphQLInputFi
 
 public class GraphQLInputObjectType: GraphQLNamedType {
   lazy var fields: GraphQLInputFieldDictionary = try! invokeMethod("getFields")
+  
+  override var formattedName: String {
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_InputObject" : uppercasedName
+  }
 }
 
 public class GraphQLInputField: JavaScriptObject {
@@ -131,6 +157,12 @@ public class GraphQLObjectType: GraphQLCompositeType, GraphQLInterfaceImplementi
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  
+  override var formattedName: String {
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Object" : uppercasedName
+  }
 
   public override var debugDescription: String {
     "Object - \(name)"
@@ -146,6 +178,12 @@ public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplemen
   lazy var fields: [String: GraphQLField] = try! invokeMethod("getFields")
   
   lazy var interfaces: [GraphQLInterfaceType] = try! invokeMethod("getInterfaces")
+  
+  override var formattedName: String {
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Interface" : uppercasedName
+  }
 
   public override var debugDescription: String {
     "Interface - \(name)"
@@ -154,6 +192,12 @@ public class GraphQLInterfaceType: GraphQLAbstractType, GraphQLInterfaceImplemen
 
 public class GraphQLUnionType: GraphQLAbstractType {
   lazy var types: [GraphQLObjectType] = try! invokeMethod("getTypes")
+  
+  override var formattedName: String {
+    let uppercasedName = swiftName.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Union" : uppercasedName
+  }
 
   public override var debugDescription: String {
     "Union - \(name)"

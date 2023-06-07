@@ -136,4 +136,29 @@ class MockInterfacesTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__usingReservedKeyword__generatesTypeWithSuffix() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      let interface = GraphQLInterfaceType.mock(keyword)
+      buildSubject(interfaces: [interface])
+
+      let expected = """
+      public extension MockObject {
+        typealias \(keyword.firstUppercased)_Interface = Interface
+      }
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }
