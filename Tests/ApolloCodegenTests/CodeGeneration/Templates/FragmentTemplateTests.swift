@@ -413,7 +413,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }
@@ -460,7 +460,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }
@@ -567,7 +567,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }

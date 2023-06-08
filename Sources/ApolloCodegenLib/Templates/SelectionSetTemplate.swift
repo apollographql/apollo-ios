@@ -483,15 +483,15 @@ struct SelectionSetTemplate {
   private func InitializerFulfilledFragments(
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
-    var fulfilledFragments: [String] = ["Self"]
+    var fulfilledFragments: OrderedSet<String> = []
 
-    var next = selectionSet.scopePath.last.value.scopePath.head
-    while next.next != nil {
-      defer { next = next.next.unsafelyUnwrapped }
+    var currentNode = Optional(selectionSet.scopePath.last.value.scopePath.head)
+    while let node = currentNode {
+      defer { currentNode = node.next }
 
       let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
         for: selectionSet,
-        to: next,
+        to: node,
         format: .fullyQualified,
         pluralizer: config.pluralizer
       )
@@ -694,8 +694,6 @@ fileprivate extension IR.MergedSelections.MergedSource {
   func generatedSelectionSetNamesOfFullfilledFragments(
     pluralizer: Pluralizer
   ) -> [String] {
-    guard let fragment else { return [] }
-
     let entityRootNameInFragment = SelectionSetNameGenerator
       .generatedSelectionSetName(
         for: self,
