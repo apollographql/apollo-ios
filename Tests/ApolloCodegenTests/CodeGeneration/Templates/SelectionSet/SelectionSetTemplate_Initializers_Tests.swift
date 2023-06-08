@@ -1572,9 +1572,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
             ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(PetFragment.self),
             ObjectIdentifier(PredatorFragment.self),
-            ObjectIdentifier(PredatorFragment.AsPet.self),
-            ObjectIdentifier(PetFragment.self)
+            ObjectIdentifier(PredatorFragment.AsPet.self)
           ]
         ))
       }

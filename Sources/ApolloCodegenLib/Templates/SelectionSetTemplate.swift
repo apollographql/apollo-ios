@@ -499,13 +499,22 @@ struct SelectionSetTemplate {
       fulfilledFragments.append(selectionSetName)
     }
 
-    let allFragments = IteratorSequence(selectionSet.selections.makeFragmentIterator())
-    for fragment in allFragments {
-      if let conditions = fragment.inclusionConditions,
-         !selectionSet.typeInfo.scope.matches(conditions) {
-        continue
+    for source in selectionSet.selections.merged.mergedSources {
+      guard let fragment = source.fragment else { continue }
+
+      var selectionSetNameComponents: [String] = [fragment.generatedDefinitionName]
+      fulfilledFragments.append(selectionSetNameComponents.joined(separator: "."))
+
+      var mergedFragmentEntityConditionPathNode = source.typeInfo.scopePath.last.value.scopePath.head
+      while let node = mergedFragmentEntityConditionPathNode.next {
+        defer {
+          mergedFragmentEntityConditionPathNode = node
+        }
+        selectionSetNameComponents.append(
+          SelectionSetNameGenerator.ConditionPath.path(for: node)
+        )
+        fulfilledFragments.append(selectionSetNameComponents.joined(separator: "."))
       }
-      fulfilledFragments.append(fragment.definition.name.firstUppercased)
     }
 
     return """
