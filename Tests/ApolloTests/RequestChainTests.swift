@@ -19,7 +19,7 @@ class RequestChainTests: XCTestCase {
       defer {
         expectation.fulfill()
       }
-      
+
       switch result {
       case .success:
         XCTFail("This should not have succeeded")
@@ -33,11 +33,11 @@ class RequestChainTests: XCTestCase {
         }
       }
     }
-    
-    
+
+
     self.wait(for: [expectation], timeout: 1)
   }
-  
+
   func testCancellingChainCallsCancelOnInterceptorsWhichImplementCancellableAndNotOnOnesThatDont() {
     class TestProvider: InterceptorProvider {
       let cancellationInterceptor = CancellationHandlingInterceptor()
@@ -60,29 +60,29 @@ class RequestChainTests: XCTestCase {
       XCTFail("This should not have gone through")
       expectation.fulfill()
     }
-    
+
     cancellable.cancel()
     XCTAssertTrue(provider.cancellationInterceptor.hasBeenCancelled)
     XCTAssertFalse(provider.retryInterceptor.hasBeenCancelled)
     self.wait(for: [expectation], timeout: 2)
   }
-  
+
   func test__send__ErrorInterceptorGetsCalledAfterAnErrorIsReceived() {
     class ErrorInterceptor: ApolloErrorInterceptor {
       var error: Error? = nil
-      
+
       func handleErrorAsync<Operation: GraphQLOperation>(
           error: Error,
           chain: RequestChain,
           request: HTTPRequest<Operation>,
           response: HTTPResponse<Operation>?,
           completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-      
+
         self.error = error
         completion(.failure(error))
       }
     }
-    
+
     class TestProvider: InterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
       func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
@@ -91,7 +91,7 @@ class RequestChainTests: XCTestCase {
           AutomaticPersistedQueryInterceptor()
         ]
       }
-      
+
       func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
         return self.errorInterceptor
       }
@@ -101,7 +101,7 @@ class RequestChainTests: XCTestCase {
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)
-    
+
     let expectation = self.expectation(description: "Hero name query complete")
     _ = transport.send(operation: MockQuery.mock()) { result in
       defer {
@@ -120,9 +120,9 @@ class RequestChainTests: XCTestCase {
         }
       }
     }
-    
+
     self.wait(for: [expectation], timeout: 1)
-    
+
     switch provider.errorInterceptor.error {
     case .some(let error):
       switch error {
@@ -213,33 +213,33 @@ class RequestChainTests: XCTestCase {
       XCTFail("Error interceptor did not receive an error!")
     }
   }
-  
+
   func testErrorInterceptorGetsCalledInDefaultInterceptorProviderSubclass() {
     class ErrorInterceptor: ApolloErrorInterceptor {
       var error: Error? = nil
-      
+
       func handleErrorAsync<Operation: GraphQLOperation>(
         error: Error,
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
         completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-        
+
         self.error = error
         completion(.failure(error))
       }
     }
-    
+
     class TestProvider: DefaultInterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
-      
+
       override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
         return [
           // An interceptor which will error without a response
           AutomaticPersistedQueryInterceptor()
         ]
       }
-      
+
       override func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
         return self.errorInterceptor
       }
@@ -249,7 +249,7 @@ class RequestChainTests: XCTestCase {
     let transport = RequestChainNetworkTransport(interceptorProvider: provider,
                                                  endpointURL: TestURL.mockServer.url,
                                                  autoPersistQueries: true)
-    
+
     let expectation = self.expectation(description: "Hero name query complete")
     _ = transport.send(operation: MockQuery.mock()) { result in
       defer {
@@ -268,9 +268,9 @@ class RequestChainTests: XCTestCase {
         }
       }
     }
-    
+
     self.wait(for: [expectation], timeout: 1)
-    
+
     switch provider.errorInterceptor.error {
     case .some(let error):
       switch error {
@@ -286,7 +286,7 @@ class RequestChainTests: XCTestCase {
   }
 
   // MARK: Multipart subscription tests
-  
+
   struct RequestTrapInterceptor: ApolloInterceptor {
     let callback: (URLRequest) -> (Void)
 
@@ -418,7 +418,7 @@ class RequestChainTests: XCTestCase {
     var name: String { __data["name"] }
   }
 
-  func test__retain_release__givenQuery_shouldNotHaveRetainCycle() throws {
+  func test__managedSelf__givenQuery_whenCompleted_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -479,7 +479,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__retain_release__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
+  func test__managedSelf__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -599,5 +599,205 @@ class RequestChainTests: XCTestCase {
     DispatchQueue.main.async {
       cancellable.cancel()
     }
+  }
+
+  func test__managedSelf__givenOperation_withEarlyInterceptorChainExit_success_shouldNotHaveRetainCycle() throws {
+    // given
+    let store = ApolloStore(cache: InMemoryNormalizedCache(records: [
+      "QUERY_ROOT": [
+        "__typename": "Hero",
+        "name": "R2-D2"
+      ]
+    ]))
+
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      CacheReadInterceptor(store: store),
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil)
+
+    let expectation = expectation(description: "Response received")
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version",
+      cachePolicy: .returnCacheDataDontFetch // early exit achieved by only wanting cache data
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
+
+  func test__managedSelf__givenOperation_withEarlyInterceptorChainExit_failure_shouldNotHaveRetainCycle() throws {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      CacheReadInterceptor(store: ApolloStore()),
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectation = expectation(description: "Response received")
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version",
+      cachePolicy: .returnCacheDataDontFetch // early exit achieved by only wanting cache data
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTFail("Unexpected success result - \(data)")
+      case .failure:
+        break
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
+
+  func test__managedSelf__givenOperation_withEarlyAndFinalInterceptorChainExit_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
+    // given
+    let store = ApolloStore(cache: InMemoryNormalizedCache(records: [
+      "QUERY_ROOT": [
+        "__typename": "Hero",
+        "name": "R2-D2"
+      ]
+    ]))
+
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      CacheReadInterceptor(store: store),
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil)
+
+    let expectation = expectation(description: "Response received")
+    expectation.expectedFulfillmentCount = 2
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version",
+      cachePolicy: .returnCacheDataAndFetch // early return achieved by wanting cache data too
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result - \(error)")
+      }
+    }
+
+    wait(for: [expectation], timeout: 1)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
   }
 }
