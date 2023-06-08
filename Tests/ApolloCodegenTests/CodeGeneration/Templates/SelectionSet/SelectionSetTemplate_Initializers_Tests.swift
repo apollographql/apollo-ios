@@ -1343,8 +1343,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           ],
           fulfilledFragments: [
             ObjectIdentifier(Self.self),
-            ObjectIdentifier(AnimalDetails.self),
-            ObjectIdentifier(Fragment2.self)
+            ObjectIdentifier(Fragment2.self),
+            ObjectIdentifier(AnimalDetails.self)
           ]
         ))
       }
@@ -1509,7 +1509,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
   }
 
-  /// This test verifies the fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  /// Verifies the fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
   ///
   /// When a fragment merges a type case from another fragment, the initializer at that type case
   /// scope needs to include both the root and type case selection sets of the merged fragment.
@@ -1591,6 +1591,90 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 26, ignoringExtraLines: true))
+  }
+
+  /// Verifies fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.Predator.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentWithNestedFieldMergedFromChildNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      ...PredatorFragment
+    }
+
+    fragment PredatorFragment on Animal {
+      predators {
+        ... on Pet {
+          ...PetFragment
+        }
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Self.self),
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(PetFragment.self),
+            ObjectIdentifier(PredatorFragment.Predator.self),
+            ObjectIdentifier(PredatorFragment.Predator.AsPet.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 24, ignoringExtraLines: true))
   }
 
   // MARK: - Include/Skip Tests
