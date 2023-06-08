@@ -65,6 +65,7 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               chain.returnValueAsync(for: request,
                                      value: graphQLResult,
                                      completion: completion)
+              chain.terminate()
             }
           }
         case .returnCacheDataDontFetch:
@@ -81,6 +82,8 @@ public struct CacheReadInterceptor: ApolloInterceptor {
                                      value: result,
                                      completion: completion)
             }
+
+            chain.terminate()
           }
         }
       }
