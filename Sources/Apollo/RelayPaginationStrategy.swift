@@ -25,7 +25,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
   public var nextPageStrategy: NextPageConstructor
   public var mergeStrategy: MergeStrategy
 
-  public var _resultHandler: (Result<MergeStrategy.Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
+  public var _resultHandler: (Result<PaginatedOutput<Query, MergeStrategy.Output>, Error>) -> Void
 
   public private(set) var pages: [Page?] = [nil]
   public private(set) var currentPage: Page?
@@ -37,7 +37,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
     outputTransformer: OutputTransformer,
     nextPageStrategy: NextPageConstructor,
     mergeStrategy: MergeStrategy,
-    resultHandler: @escaping (Result<Output, Error>, GraphQLResult<Query.Data>.Source?) -> Void
+    resultHandler: @escaping (Result<PaginatedOutput<Query, MergeStrategy.Output>, Error>) -> Void
   ) {
     self.pageExtractionStrategy = pageExtractionStrategy
     self.outputTransformer = outputTransformer
@@ -50,7 +50,7 @@ where MergeStrategy.Output == OutputTransformer.Output,
     switch result {
     case .failure(let error):
       guard !error.wasCancelled else { return }
-      resultHandler(result: .failure(error), source: nil)
+      resultHandler(result: .failure(error))
     case .success(let graphQLResult):
       guard let data = graphQLResult.data,
             let transformedModel = transformResult(input: data)
@@ -66,7 +66,11 @@ where MergeStrategy.Output == OutputTransformer.Output,
       ))
 
       guard model != self.mostRecentModel else { return }
-      resultHandler(result: .success(model), source: graphQLResult.source)
+      resultHandler(result: .success(.init(
+        value: model,
+        errors: graphQLResult.errors,
+        source: graphQLResult.source
+      )))
       self.mostRecentModel = model
     }
   }
@@ -83,10 +87,9 @@ where MergeStrategy.Output == OutputTransformer.Output,
   }
 
   func resultHandler(
-    result: Result<Output, Error>,
-    source: GraphQLResult<Query.Data>.Source?
+    result: Result<PaginatedOutput<Query, MergeStrategy.Output>, Error>
   ) {
-    _resultHandler(result, source)
+    _resultHandler(result)
   }
 
   func mergePageResults(response: PaginationDataResponse<Query, Output>) -> Output {

@@ -82,9 +82,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -219,9 +219,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -378,9 +378,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -519,9 +519,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
           resultExpectation.fulfill()
         }
       ),
@@ -631,9 +631,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
           resultExpectation.fulfill()
         }
       ),
@@ -739,9 +739,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
             friends: response.allResponses.flatMap { $0.friends }
           )
         }),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
           resultExpectation.fulfill()
         }
       ),
@@ -840,9 +840,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           return query
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -963,9 +963,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           return query
         },
         mergeStrategy: TargetedPaginationMergeStrategy(targetedKeyPath: \.hero.friendsConnection.friends),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -1086,9 +1086,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           return query
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
         }
       ),
       initialQuery: query
@@ -1246,9 +1246,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
           return query
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
-        resultHandler: { result, _ in
+        resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
-          results.append(value)
+          results.append(value.value)
           resultExpectation.fulfill()
         }
       ),
