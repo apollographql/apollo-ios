@@ -174,6 +174,20 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     _ = self.releaseManagedSelf
   }
 
+  /// Ends execution of the request chain.
+  ///
+  /// Call this function when there is an early exit of the request chain, such as a cache read
+  /// interceptor that handles a request to only fetch from the cache and not send the request to
+  /// the server.
+  public func terminate() {
+    guard !self.isCancelled else {
+      // Do not proceed, this chain has been cancelled.
+      return
+    }
+
+    _ = self.releaseManagedSelf
+  }
+
   /// Restarts the request starting from the first interceptor.
   ///
   /// - Parameters:

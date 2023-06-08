@@ -56,6 +56,15 @@ class ApolloInterceptorReentrantWrapper: RequestChain {
     }
   }
 
+  func terminate() {
+    guard !self.isCancelled else {
+      // Do not proceed, this chain has been cancelled.
+      return
+    }
+
+    requestChain.takeUnretainedValue().terminate()
+  }
+
   func retry<Operation>(
     request: HTTPRequest<Operation>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void

@@ -49,6 +49,8 @@ fileprivate class ResponseCaptureRequestChain: RequestChain {
 
   func cancel() {}
 
+  func terminate() {}
+
   func retry<Operation>(
     request: Apollo.HTTPRequest<Operation>,
     completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
