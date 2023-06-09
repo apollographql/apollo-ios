@@ -85,13 +85,14 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
   }
 
-  struct Constants {
+  @_spi(Tests)
+  public struct Constants {
     static let headerWSUpgradeName     = "Upgrade"
     static let headerWSUpgradeValue    = "websocket"
     static let headerWSHostName        = "Host"
     static let headerWSConnectionName  = "Connection"
     static let headerWSConnectionValue = "Upgrade"
-    static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
+    public static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
     static let headerWSVersionName     = "Sec-WebSocket-Version"
     static let headerWSVersionValue    = "13"
     static let headerWSExtensionName   = "Sec-WebSocket-Extensions"
