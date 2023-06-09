@@ -148,6 +148,8 @@ Before `1.2.0` all Swift types were generated with `public` access, the default 
 
 This means that where you might have been using publicly available Swift types before you might now have compiler errors where those types are no longer accessible. To resolve this you will need to add the configuration option to your codegen configuration specifying the `public` access modifier.
 
+**You may need to make manual changes to the schema configuration and custom scalar files because these files are not regenerated if they already exist. The alternative to manually updating them is to remove those files, run code generation, and then re-add any custom logic you may have had in the pre-existing custom scalar files.**
+
 ### Example
 
 #### Module type
