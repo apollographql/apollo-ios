@@ -569,14 +569,7 @@ class RequestChainTests: XCTestCase {
         httpVersion: nil,
         headerFields: nil
       ),
-      data: """
-      {
-        "data": {
-          "__typename": "Hero",
-          "name": "R2-D2"
-        }
-      }
-      """.data(using: .utf8)
+      data: nil
     )
 
     let provider = MockInterceptorProvider([
@@ -617,14 +610,7 @@ class RequestChainTests: XCTestCase {
         httpVersion: nil,
         headerFields: nil
       ),
-      data: """
-      {
-        "data": {
-          "__typename": "Hero",
-          "name": "R2-D2"
-        }
-      }
-      """.data(using: .utf8)
+      data: nil
     )
 
     var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
@@ -680,14 +666,7 @@ class RequestChainTests: XCTestCase {
         httpVersion: nil,
         headerFields: nil
       ),
-      data: """
-      {
-        "data": {
-          "__typename": "Hero",
-          "name": "R2-D2"
-        }
-      }
-      """.data(using: .utf8)
+      data: nil
     )
 
     var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
