@@ -7,8 +7,6 @@ This guide describes the process of migrating your code from version 1.0 or 1.1 
 
 Though 1.2 is a minor version bump, a critical problem was addressed in this version that requires a small breaking change during the upgrade. While we strive to make the upgrade path for minor versions seamless, this issue could not be reasonably resolved without requiring this migration.
 
-**For most users, this migration will only require a single change to your `SchemaConfiguration.swift` file.**
-
 ## Cache Key Configuration API
 
 The API for [configuring custom cache keys](../caching/cache-key-resolution) has had a minor change in this version. The signature of the `cacheKeyInfo(for:object:)` function, defined in your generated `SchemaConfiguration.swift` file, has been modified.
@@ -140,3 +138,107 @@ case Objects.User:
         jsonValue: object["info"]?["emailAddresses"]?[0]
     )
 ```
+## Swift Access Modifiers
+
+`1.2.0` introduces new codegen configuration parameters that allow you to specify the access control of the generated Swift types. When using a module type of [`embeddedInTarget`](../code-generation/codegen-configuration#module-type) or operation output types of [`relative` or `absolute`](../code-generation/codegen-configuration#operations) you can choose to have the generated Swift types be accessible with `public` or `internal` access.
+
+**You do not need to add these options to your codegen configuration but the default used when the option is not specified is different from previous Apollo iOS versions.**
+
+Before `1.2.0` all Swift types were generated with `public` access, the default for the new configuration option is `internal`.
+
+This means that where you might have been using publicly available Swift types before you might now have compiler errors where those types are no longer accessible. To resolve this you will need to add the configuration option to your codegen configuration specifying the `public` access modifier.
+
+### Example
+
+#### Module type
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+	"schemaTypes": {
+		"moduleType": {
+			"embeddedInTarget": {
+				"name": "MyApplicationTarget",
+				"accessModifier": "public"
+			}
+		},
+		"path": "./generated/schema/"
+	}
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
+			path: "./generated/schema/",
+			moduleType: .embeddedInTarget(name: "MyApplicationTarget", accessModifier: .public)
+		)
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
+
+#### Operations - `relative`
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+  "operations" : {
+    "relative" : {
+      "subpath": "Generated",
+      "accessModifier": "public"
+    }
+  }
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		operations: .relative(
+      subpath: "generated",
+      accessModifier: .public
+    )
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
+
+#### Operations - `absolute`
+
+<MultiCodeBlock>
+
+```json title="CLI Configuration JSON"
+"output": {
+  "operations" : {
+    "absolute" : {
+      "path": "Generated",
+      "accessModifier": "public"
+    }
+  }
+}
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		operations: .absolute(
+      path: "generated",
+      accessModifier: .public
+    )
+		...
+	)
+)
+```
+
+</MultiCodeBlock>
