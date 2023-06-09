@@ -779,4 +779,83 @@ class RequestChainTests: XCTestCase {
     requestChain = nil
     XCTAssertNil(weakRequestChain)
   }
+
+  func test__managedSelf__givenOperation_whenRetryInterceptorChain_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
+    // given
+    let store = ApolloStore()
+
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: nil
+    )
+
+    var requestChain: RequestChain? = InterceptorRequestChain(interceptors: [
+      CacheReadInterceptor(store: store),
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+
+    weak var weakRequestChain: RequestChain? = requestChain
+
+    let expectation = expectation(description: "Response received")
+    expectation.expectedFulfillmentCount = 2
+
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "Han Solo"
+    ], variables: nil)
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version",
+      cachePolicy: .returnCacheDataDontFetch // early exit achieved by only wanting cache data
+    )
+
+    // when
+    requestChain?.kickoff(request: request) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch (result) {
+      case let .success(data):
+        XCTFail("Unexpected success result - \(data)")
+      case .failure:
+        store.publish(records: [
+          "QUERY_ROOT": [
+            "__typename": "Hero",
+            "name": "Han Solo"
+          ]
+        ])
+
+        requestChain?.retry(request: request) { result in
+          defer {
+            expectation.fulfill()
+          }
+
+          switch result {
+          case let .success(data):
+            XCTAssertEqual(data.data, expectedData)
+          case let .failure(error):
+            XCTFail("Unexpected failure result - \(error)")
+          }
+        }
+        break
+      }
+    }
+
+    wait(for: [expectation], timeout: 2)
+
+    // then
+    XCTAssertNotNil(weakRequestChain)
+    requestChain = nil
+    XCTAssertNil(weakRequestChain)
+  }
 }
