@@ -112,6 +112,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             )
 
             // These are fatal-level transport errors, don't process anything else.
+            chain.terminate()
             return
           }
 

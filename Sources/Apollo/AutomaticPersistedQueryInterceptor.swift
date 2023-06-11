@@ -48,6 +48,8 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
                                request: request,
                                response: response,
                                completion: completion)
+
+        chain.terminate()
         return
       }
 
@@ -77,6 +79,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
           completion: completion
         )
 
+        chain.terminate()
         return
       }
 
@@ -88,6 +91,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
           completion: completion
         )
 
+        chain.terminate()
         return
       }
 

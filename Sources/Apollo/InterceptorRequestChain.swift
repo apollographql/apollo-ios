@@ -23,6 +23,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   private var interceptors: [ApolloInterceptorReentrantWrapper]
   private var callbackQueue: DispatchQueue
   @Atomic public var isCancelled: Bool = false
+  @Atomic private var isFinished: Bool = false
 
   private var managedSelf: Unmanaged<InterceptorRequestChain>!
 
@@ -127,6 +128,11 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
         completion: completion
       )
     } else {
+      // HTTP subscriptions are re-entrant and do not 'finish'
+      if Operation.operationType != .subscription {
+        self.$isFinished.mutate { $0 = true }
+      }
+
       if let result = response?.parsedResponse {
         // We got to the end of the chain with a parsed response. Yay! Return it.
         self.returnValueAsync(
@@ -153,7 +159,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
 
   /// Cancels the entire chain of interceptors.
   public func cancel() {
-    guard !self.isCancelled else {
+    guard !self.isCancelled && !self.isFinished else {
       // Do not proceed, this chain has been cancelled.
       return
     }

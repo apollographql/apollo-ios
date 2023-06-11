@@ -47,6 +47,8 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
                              request: request,
                              response: response,
                              completion: completion)
+
+        terminate(chain: chain, ifNeededFor: Operation.operationType)
         return
     }
     
@@ -69,6 +71,15 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
                              request: request,
                              response: response,
                              completion: completion)
+
+      terminate(chain: chain, ifNeededFor: Operation.operationType)
+    }
+  }
+
+  private func terminate(chain: RequestChain, ifNeededFor operationType: GraphQLOperationType) {
+    // HTTP-based subscriptions are re-entrant so this may not be terminal if not a subscription
+    if operationType != .subscription {
+      chain.terminate()
     }
   }
 }

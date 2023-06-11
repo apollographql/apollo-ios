@@ -51,6 +51,8 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
                              request: request,
                              response: response,
                              completion: completion)
+
+      chain.terminate()
       return
     }
     

@@ -29,6 +29,8 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
                              request: request,
                              response: response,
                              completion: completion)
+
+      chain.terminate()
       return
     }
     
@@ -53,6 +55,9 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
                                request: request,
                                response: response,
                                completion: completion)
+
+        chain.terminate()
+
       case .success(let (data, httpResponse)):
         let response = HTTPResponse<Operation>(response: httpResponse,
                                                rawData: data,

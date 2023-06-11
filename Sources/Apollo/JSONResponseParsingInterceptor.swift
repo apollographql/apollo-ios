@@ -66,6 +66,11 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
                              request: request,
                              response: createdResponse,
                              completion: completion)
+
+      // HTTP-based subscriptions are re-entrant so this may not be terminal if not a subscription
+      if Operation.operationType != .subscription {
+        chain.terminate()
+      }
     }
   }
 
