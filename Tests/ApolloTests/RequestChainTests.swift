@@ -418,6 +418,25 @@ class RequestChainTests: XCTestCase {
     var name: String { __data["name"] }
   }
 
+  struct DelayInterceptor: ApolloInterceptor {
+    let seconds: Double
+
+    init(_ seconds: Double) {
+      self.seconds = seconds
+    }
+
+    func interceptAsync<Operation>(
+      chain: RequestChain,
+      request: HTTPRequest<Operation>,
+      response: HTTPResponse<Operation>?,
+      completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
+    ) -> Void) {
+      DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now() + seconds) {
+        chain.proceedAsync(request: request, response: response, completion: completion)
+      }
+    }
+  }
+
   func test__managedSelf__givenQuery_whenCompleted_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
@@ -569,7 +588,60 @@ class RequestChainTests: XCTestCase {
         httpVersion: nil,
         headerFields: nil
       ),
-      data: nil
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
+    )
+
+    let provider = MockInterceptorProvider([
+      DelayInterceptor(0.5),
+      NetworkFetchInterceptor(client: client),
+      JSONResponseParsingInterceptor()
+    ])
+
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: provider,
+      endpointURL: TestURL.mockServer.url
+    )
+
+    let expectation = expectation(description: "Response received")
+    expectation.isInverted = true
+    
+    let cancellable = transport.send(operation: MockQuery<Hero>()) { result in
+      XCTFail("Unexpected response: \(result)")
+
+      expectation.fulfill()
+    }
+
+    DispatchQueue.main.async {
+      cancellable.cancel()
+    }
+
+    wait(for: [expectation], timeout: 1)
+  }
+
+  func test__managedSelf__givenQuery_whenCancelledAfterInterceptorChainFinished_shouldNotCrash() throws {
+    // given
+    let client = MockURLSessionClient(
+      response: .mock(
+        url: TestURL.mockServer.url,
+        statusCode: 200,
+        httpVersion: nil,
+        headerFields: nil
+      ),
+      data: """
+      {
+        "data": {
+          "__typename": "Hero",
+          "name": "R2-D2"
+        }
+      }
+      """.data(using: .utf8)
     )
 
     let provider = MockInterceptorProvider([
@@ -581,10 +653,24 @@ class RequestChainTests: XCTestCase {
       endpointURL: TestURL.mockServer.url
     )
 
+    let expectedData = try Hero(data: [
+      "__typename": "Hero",
+      "name": "R2-D2"
+    ], variables: nil)
+
     let expectation = expectation(description: "Response received")
 
-    let cancellable = transport.send(operation: MockQuery.mock()) { result in
-      expectation.fulfill()
+    let cancellable = transport.send(operation: MockQuery<Hero>()) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      switch result {
+      case let .success(data):
+        XCTAssertEqual(data.data, expectedData)
+      case let .failure(error):
+        XCTFail("Unexpected failure result: \(error)")
+      }
     }
 
     wait(for: [expectation], timeout: 1)
