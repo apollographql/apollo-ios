@@ -483,15 +483,15 @@ struct SelectionSetTemplate {
   private func InitializerFulfilledFragments(
     _ selectionSet: IR.SelectionSet
   ) -> TemplateString {
-    var fulfilledFragments: [String] = ["Self"]
+    var fulfilledFragments: OrderedSet<String> = []
 
-    var next = selectionSet.scopePath.last.value.scopePath.head
-    while next.next != nil {
-      defer { next = next.next.unsafelyUnwrapped }
+    var currentNode = Optional(selectionSet.scopePath.last.value.scopePath.head)
+    while let node = currentNode {
+      defer { currentNode = node.next }
 
       let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
         for: selectionSet,
-        to: next,
+        to: node,
         format: .fullyQualified,
         pluralizer: config.pluralizer
       )
@@ -499,13 +499,11 @@ struct SelectionSetTemplate {
       fulfilledFragments.append(selectionSetName)
     }
 
-    let allFragments = IteratorSequence(selectionSet.selections.makeFragmentIterator())
-    for fragment in allFragments {
-      if let conditions = fragment.inclusionConditions,
-         !selectionSet.typeInfo.scope.matches(conditions) {
-        continue
-      }
-      fulfilledFragments.append(fragment.definition.name.firstUppercased)
+    for source in selectionSet.selections.merged.mergedSources {
+      fulfilledFragments
+        .append(contentsOf: source.generatedSelectionSetNamesOfFullfilledFragments(
+          pluralizer: config.pluralizer
+        ))
     }
 
     return """
@@ -693,6 +691,34 @@ fileprivate extension IR.MergedSelections.MergedSource {
     return selectionSetNameComponents.joined(separator: ".")
   }
 
+  func generatedSelectionSetNamesOfFullfilledFragments(
+    pluralizer: Pluralizer
+  ) -> [String] {
+    let entityRootNameInFragment = SelectionSetNameGenerator
+      .generatedSelectionSetName(
+        for: self,
+        to: typeInfo.scopePath.last.value.scopePath.head,
+        format: .fullyQualified,
+        pluralizer: pluralizer
+      )
+
+    var fulfilledFragments: [String] = [entityRootNameInFragment]
+
+    var selectionSetNameComponents: [String] = [entityRootNameInFragment]
+
+    var mergedFragmentEntityConditionPathNode = typeInfo.scopePath.last.value.scopePath.head
+    while let node = mergedFragmentEntityConditionPathNode.next {
+      defer {
+        mergedFragmentEntityConditionPathNode = node
+      }
+      selectionSetNameComponents.append(
+        SelectionSetNameGenerator.ConditionPath.path(for: node)
+      )
+      fulfilledFragments.append(selectionSetNameComponents.joined(separator: "."))
+    }
+    return fulfilledFragments
+  }
+
 }
 
 fileprivate struct SelectionSetNameGenerator {
@@ -722,11 +748,13 @@ fileprivate struct SelectionSetNameGenerator {
 
   static func generatedSelectionSetName(
     for mergedSource: IR.MergedSelections.MergedSource,
+    to toNode: LinkedList<IR.ScopeCondition>.Node? = nil,
     format: Format,
     pluralizer: Pluralizer
   ) -> String {
     generatedSelectionSetName(
       for: mergedSource.typeInfo,
+      to: toNode,
       format: format,
       pluralizer: pluralizer
     )
