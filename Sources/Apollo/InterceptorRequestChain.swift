@@ -20,16 +20,9 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     }
   }
 
-  private var interceptors: [ApolloInterceptorReentrantWrapper]
+  private var interceptors: [ApolloInterceptor]
   private var callbackQueue: DispatchQueue
   @Atomic public var isCancelled: Bool = false
-
-  private var managedSelf: Unmanaged<InterceptorRequestChain>!
-  // This is to fix #2932, caused by overreleasing managedSelf on cancellation of a query or
-  // mutation. It can now only be released once.
-  private lazy var releaseManagedSelf: Void = {
-    self.managedSelf.release()
-  }()
 
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
@@ -44,18 +37,8 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     interceptors: [ApolloInterceptor],
     callbackQueue: DispatchQueue = .main
   ) {
-    self.interceptors = []
+    self.interceptors = interceptors
     self.callbackQueue = callbackQueue
-
-    managedSelf = Unmanaged<InterceptorRequestChain>.passRetained(self)
-
-    self.interceptors = interceptors.enumerated().map { (index, interceptor) in
-      ApolloInterceptorReentrantWrapper(
-        interceptor: interceptor,
-        requestChain: managedSelf,
-        index: index
-      )
-    }
   }
 
   /// Kicks off the request from the beginning of the interceptor array.
@@ -139,10 +122,6 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
           value: result,
           completion: completion
         )
-
-        if Operation.operationType != .subscription {
-          _ = self.releaseManagedSelf
-        }
       } else {
         // We got to the end of the chain and no parsed response is there, there needs to be more
         // processing.
@@ -165,13 +144,12 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
 
     self.$isCancelled.mutate { $0 = true }
 
-    // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as
-    // well.
+    // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
-      interceptor.cancel()
+      if let cancellableInterceptor = interceptor as? Cancellable {
+        cancellableInterceptor.cancel()
+      }
     }
-
-    _ = self.releaseManagedSelf
   }
 
   /// Restarts the request starting from the first interceptor.
