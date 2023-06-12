@@ -290,6 +290,9 @@ class RequestChainTests: XCTestCase {
   struct RequestTrapInterceptor: ApolloInterceptor {
     let callback: (URLRequest) -> (Void)
 
+    public typealias ID = String
+    public var id: String = UUID().uuidString
+
     init(_ callback: @escaping (URLRequest) -> (Void)) {
       self.callback = callback
     }
@@ -420,6 +423,9 @@ class RequestChainTests: XCTestCase {
 
   struct DelayInterceptor: ApolloInterceptor {
     let seconds: Double
+
+    public typealias ID = String
+    public var id: String = UUID().uuidString
 
     init(_ seconds: Double) {
       self.seconds = seconds

@@ -7,6 +7,9 @@ class BlindRetryingTestInterceptor: ApolloInterceptor {
   var hitCount = 0
   private(set) var hasBeenCancelled = false
 
+  public typealias ID = String
+  public var id: String = UUID().uuidString
+
   func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,

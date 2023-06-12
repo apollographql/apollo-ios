@@ -7,6 +7,9 @@ import ApolloAPI
 public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
   let client: URLSessionClient
   @Atomic private var currentTask: URLSessionTask?
+
+  public typealias ID = String
+  public var id: String = UUID().uuidString
   
   /// Designated initializer.
   ///

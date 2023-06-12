@@ -18,6 +18,9 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
   }
   
   public let store: ApolloStore
+
+  public typealias ID = String
+  public var id: String = UUID().uuidString
   
   /// Designated initializer
   ///

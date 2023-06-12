@@ -8,6 +8,9 @@ public class MaxRetryInterceptor: ApolloInterceptor {
   
   private let maxRetries: Int
   private var hitCount = 0
+
+  public typealias ID = String
+  public var id: String = UUID().uuidString
   
   public enum RetryError: Error, LocalizedError {
     case hitMaxRetryCount(count: Int, operationName: String)

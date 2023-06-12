@@ -12,6 +12,9 @@ import ApolloAPI
 
 class CancellationHandlingInterceptor: ApolloInterceptor, Cancellable {
   private(set) var hasBeenCancelled = false
+
+  public typealias ID = String
+  public var id: String = UUID().uuidString
   
   func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,

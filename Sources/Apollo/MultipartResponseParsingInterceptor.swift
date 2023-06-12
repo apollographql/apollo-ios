@@ -43,6 +43,9 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   private static let contentTypeHeader: StaticString = "content-type:"
   private static let heartbeat: StaticString = "{}"
 
+  public typealias ID = String
+  public var id: String = UUID().uuidString
+
   public init() { }
 
   public func interceptAsync<Operation>(

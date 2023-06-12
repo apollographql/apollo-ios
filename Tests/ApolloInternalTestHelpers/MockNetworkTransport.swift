@@ -41,6 +41,9 @@ private final class MockTask: Cancellable {
 
 private class MockGraphQLServerInterceptor: ApolloInterceptor {
   let server: MockGraphQLServer
+
+  public typealias ID = String
+  public var id: String = UUID().uuidString
   
   init(server: MockGraphQLServer) {
     self.server = server
