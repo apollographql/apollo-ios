@@ -28,10 +28,12 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
     do {
       urlRequest = try request.toURLRequest()
     } catch {
-      chain.handleErrorAsync(error,
-                             request: request,
-                             response: response,
-                             completion: completion)
+      chain.handleErrorAsync(
+        error,
+        request: request,
+        response: response,
+        completion: completion
+      )
       return
     }
     
@@ -52,17 +54,26 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
       
       switch result {
       case .failure(let error):
-        chain.handleErrorAsync(error,
-                               request: request,
-                               response: response,
-                               completion: completion)
+        chain.handleErrorAsync(
+          error,
+          request: request,
+          response: response,
+          completion: completion
+        )
+
       case .success(let (data, httpResponse)):
-        let response = HTTPResponse<Operation>(response: httpResponse,
-                                               rawData: data,
-                                               parsedResponse: nil)
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        let response = HTTPResponse<Operation>(
+          response: httpResponse,
+          rawData: data,
+          parsedResponse: nil
+        )
+
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
       }
     }
     

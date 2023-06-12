@@ -31,9 +31,12 @@ class RetryToCountThenSucceedInterceptor: ApolloInterceptor {
       chain.retry(request: request,
                   completion: completion)
     } else {
-      chain.proceedAsync(request: request,
-                         response: response,
-                         completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
+      )
     }
   }
 }

@@ -47,6 +47,15 @@ fileprivate class ResponseCaptureRequestChain: RequestChain {
     self.completion(.success(response?.rawData))
   }
 
+  func proceedAsync<Operation>(
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    interceptor: any ApolloInterceptor,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+  ) {
+    self.completion(.success(response?.rawData))
+  }
+
   func cancel() {}
 
   func retry<Operation>(

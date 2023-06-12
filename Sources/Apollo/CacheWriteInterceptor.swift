@@ -37,19 +37,24 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
       // If we're ignoring the cache completely, we're not writing to it.
-      chain.proceedAsync(request: request,
-                         response: response,
-                         completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
+      )
       return
     }
     
     guard
       let createdResponse = response,
       let legacyResponse = createdResponse.legacyResponse else {
-        chain.handleErrorAsync(CacheWriteError.noResponseToParse,
-                             request: request,
-                             response: response,
-                             completion: completion)
+      chain.handleErrorAsync(
+        CacheWriteError.noResponseToParse,
+        request: request,
+        response: response,
+        completion: completion
+      )
         return
     }
     
@@ -64,14 +69,20 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
         self.store.publish(records: records, identifier: request.contextIdentifier)
       }
       
-      chain.proceedAsync(request: request,
-                         response: createdResponse,
-                         completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: createdResponse,
+        interceptor: self,
+        completion: completion
+      )
+
     } catch {
-      chain.handleErrorAsync(error,
-                             request: request,
-                             response: response,
-                             completion: completion)
+      chain.handleErrorAsync(
+        error,
+        request: request,
+        response: response,
+        completion: completion
+      )
     }
   }
 }

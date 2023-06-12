@@ -438,7 +438,12 @@ class RequestChainTests: XCTestCase {
       completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
     ) -> Void) {
       DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now() + seconds) {
-        chain.proceedAsync(request: request, response: response, completion: completion)
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
       }
     }
   }

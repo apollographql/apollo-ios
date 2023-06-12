@@ -66,7 +66,12 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     }
 
     if !response.httpResponse.isMultipart {
-      chain.proceedAsync(request: request, response: response, completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
+      )
       return
     }
 
@@ -151,7 +156,12 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             rawData: data,
             parsedResponse: nil
           )
-          chain.proceedAsync(request: request, response: response, completion: completion)
+          chain.proceedAsync(
+            request: request,
+            response: response,
+            interceptor: self,
+            completion: completion
+          )
 
         case .unknown:
           chain.handleErrorAsync(
