@@ -1,0 +1,124 @@
+---
+title: Watching Paginated Queries
+---
+
+Apollo iOS allows us to watch a paginated query via the [`GraphQLPaginatedQueryWatcher`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/graphqlpaginatedquerywatcher). In order to accomodate the variety of different pagination strategies, this class has been designed to accept customizable inputs specifying how pagination should be performed.
+
+## Using a [`GraphQLPaginatedQueryWatcher`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/graphqlpaginatedquerywatcher)
+
+The `GraphQLPaginatedQueryWatcher` is the class which is used by consumers of Apollo iOS in order to retrieve results from a paginated query. It functions over a `Strategy`, which handles the details of pagination. The initializer of this class takes 4 arguments, 3 of which are required:
+
+1. **Required**  `client: ApolloClientProtocol`.
+2. **Optional** `callbackQueue: DispatchQueue`. Defaults to `main`.
+3. **Required** `strategy: Strategy`. This is the `PaginationStrategy` that the watcher employs to handle pagination. This is some type that conforms to `PaginationStrategy`.
+4. **Required** `initialQuery: Strategy.Query`. The `GraphQLQuery` which we are watching.
+
+> **NOTE:** Remember to call `cancel()` on a watcher when its parent object is deallocated, or you will get a memory leak!
+
+### Fetching queries with a `GraphQLPaginatedQueryWatcher`
+
+The `GraphQLPaginatedQueryWatcher` has several public methods for fetching data. These are:
+
+1. `fetch(cachePolicy: CachePolicy = .returnCacheDataAndFetch)`. This method will fetch the initial query and return the results. It will also begin watching the query for changes. The `cachePolicy` argument, `returnCacheDataAndFetch` by default, is passed to the `ApolloClient` when fetching the query. Note that this function will not trigger a callback if the return data is unaltered from the previous fetch.
+2. `fetchMore(cachePolicy: CachePolicy = .fetchIgnoringCachePolicy)`. This method will fetch the next page of data, if there is one, and return the results. It will also begin watching the query for changes. The `cachePolicy` argument, `fetchIgnoringCachePolicy` by default, is passed to the `ApolloClient` when fetching the query.
+3. `refetch(cachePolicy: CachePolicy = .fetchIgnoringCachePolicy)`. This method will refetch the initial query and return the results. It resets the internal state of the `GraphQLPaginatedQueryWatcher`, such that it will always trigger a callback when the query is refetched. The `cachePolicy` argument, `fetchIgnoringCachePolicy` by default, is passed to the `ApolloClient` when fetching the query.
+4. `refresh(page: Page?, cachePolicy: CachePolicy = .returnCacheDataAndFetch)`. This method will fetch a specified `Page` and return the results. The `cachePolicy` argument, `returnCacheDataAndFetch` by default, is passed to the `ApolloClient` when fetching the query. It does not refresh previous or subsequent pages, nor does it remove them from the return value in the callback.
+
+> Example of using a `GraphQLPaginatedQueryWatcher` to fetch a query with a `RelayPaginationStrategy`:
+
+```swift
+
+```swift
+let watcher = GraphQLPaginatedQueryWatcher(
+  client: client,
+  strategy: RelayPaginationStrategy(
+    pageExtractionStrategy: RelayPageExtractor { data in
+        .init(
+          hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
+          endCursor: data.hero.friendsConnection.pageInfo.endCursor
+        )
+    },
+    outputTransformer: PassthroughDataTransformer(),
+    nextPageStrategy: CustomNextPageStrategy { pageInfo in
+      HeroQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? GraphQLNullable<String>.null)
+    },
+    mergeStrategy: TargetedPaginationMergeStrategy(targetedKeyPath: \.hero.friendsConnection.friends),
+    resultHandler: { result in
+      handle(result)
+    }
+  ),
+  initialQuery: HeroQuery(id: "2001", first: 2)
+)
+```
+
+## Understanding [`PaginationStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/paginationstrategy)
+
+The `PaginationStrategy` is a protocol which defines the behavior of a `GraphQLPaginatedQueryWatcher`. Its design allows each component of the pagination process to be customized, as it is composed of several smaller protocols. The `PaginationStrategy` is composed of the following protocols:
+
+1. [`PageExtractionStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/pageextractionstrategy).  This protocol defines how to extract a `Page`.
+2. [`DataTransformer`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/datatransformer). This protocol allows us to modify the data returned by the `ApolloClient` before it is passed to the `GraphQLPaginatedQueryWatcher`.
+3. [`NextPageStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/nextpagestrategy). This protocol defines how to determine the next page to fetch.
+4. [`PaginationMergeStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/paginationmergestrategy). This protocol defines how to merge the results of a fetch with the previous results.
+
+A `PaginationStrategy` operates over a single `GraphQLQuery`, which is the query that we are watching. It also operates over a single `Output`, which is the type of the data is returned by the `GraphQLPaginatedQueryWatcher` when it triggers a callback. The only requirement of `Output` is that it is `Hashable`: it can be a `Query.Data` or custom user-defined type. Additionally, it operates over a single `PageInput`, which is the type of the data that is passed to the `PageExtractionStrategy` and `NextPageStrategy`. The only requirement of `PageInput` is that it is `Hashable`.
+
+### The [`RelayPaginationStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/relaypaginationstrategy)
+
+The `RelayPaginationStrategy` is a concrete implementation of the `PaginationStrategy` protocol. It is designed to handle pagination for queries that conform to the [Relay Connection Specification](https://relay.dev/graphql/connections.htm). Initializing it requires passing in five required fields:
+
+1. `pageExtractionStrategy`: The `RelayPageExtractor` that is used to extract a query.
+2. `outputTransformer`: The `DataTransformer` that is used to output a given data type.
+3. `nextPageStrategy`: The `NextPageStrategy` that is used to build the next query.
+4. `mergeStrategy`: The `PaginationMergeStrategy` that is used to combine outputs.
+5. `resultHandler`: The callback that is called when the query is updated.
+
+## Understanding `PageExtractionStrategy`
+
+The `PageExtractionStrategy` is a protocol which defines how to extract a `Page` from a given `Input`. A `Page` can be any `Hashable` type.
+
+### The [`RelayPageExtractor`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/relaypageextractor)
+
+The `RelayPageExtractor` is a concrete implementation of the `PageExtractionStrategy` protocol. It is designed to extract a `Page` from a query that conforms to the [Relay Connection Specification](https://relay.dev/graphql/connections.htm). Initializing it can be done in one of two ways:
+
+1. Passing in a closure that takes in a `Query.Data` and returns a `Page`.
+2. Passing in two key paths: one to the `hasNextPage` field and one to the `endCursor` field.
+
+## Understanding the `DataTransformer`
+
+The `DataTransformer` is a protocol which defines how to transform a given `Query.Data` into an `Output`. An `Output` can be any `Hashable` type.
+
+### The [`PassthroughDataTransformer`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/passthroughdatatransformer)
+
+The `PassthroughDataTransformer` is a concrete implementation of the `DataTransformer` protocol. It is designed to pass through the `Query.Data` without modification, intended for use with a return type of `Query.Data`. 
+
+### The [`CustomDataTransformer`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/customdatatransformer)
+
+The `CustomDataTransformer` is a concrete implementation of the `DataTransformer` protocol. It is designed to transform the `Query.Data` into a custom `Output` type. Initializing it requires passing in a closure that takes in a `Query.Data` and returns an `Output`. It can be used to output a custom data type. 
+
+## Understanding the `NextPageStrategy`
+
+The `NextPageStrategy` is a protocol which defines how to build the next query given a `PageInput`. A `PageInput` can be any `Hashable` type.
+
+### The [`RelayNextPageStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/relaynextpagestrategy)
+
+The `RelayNextPageStrategy` is a concrete implementation of the `NextPageStrategy` protocol. It is designed to build the next query given a `PageInput` that conforms to the [Relay Connection Specification](https://relay.dev/graphql/connections.htm). Initializing it requires passing in a closure that takes in a `PageInput` and returns a `GraphQLQuery`. It can be used to build a query that conforms to the Relay Connection Specification.
+
+### The [`CustomNextPageStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/customnextpagestrategy)
+
+The `CustomNextPageStrategy` is a concrete implementation of the `NextPageStrategy` protocol. It is designed to build the next query given a `PageInput`. Initializing it requires passing in a closure that takes in a `PageInput` and returns a `GraphQLQuery`. It can be used to build a custom query.
+
+## Understanding the `PaginationMergeStrategy`
+
+The `PaginationMergeStrategy` is a protocol which defines how to merge a given `Output` with the previous `Output`. An `Output` can be any `Hashable` type.
+
+### The [`SimplePaginationMergeStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/simplepaginationmergestrategy)
+
+The `SimplePaginationMergeStrategy` is a concrete implementation of the `PaginationMergeStrategy` protocol. It is designed to naively merge all arrays together. It is intended to be used in conjunction with a `PassthroughDataTransformer` for simple queries that only contain one list in the response. Since the strategy is not specific to any list, it will concatenate any static lists that may appear in multiple pages of a response. 
+
+### The [`TargetedPaginationMergeStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/targetedpaginationmergestrategy)
+
+The `TargetedPaginationMergeStrategy` is a concrete implementation of the `PaginationMergeStrategy` protocol. It is designed to merge a given `Output` with the previous `Output` by targeting a specific key path. Initializing it requires passing in a key path to the list that is being paginated. It is intended to be used in conjunction with a `PassthroughDataTransformer`. Since the strategy is specific to a list, it will only concatenate the list that is being paginated.
+
+### The [`CustomPaginationMergeStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/custompaginationmergestrategy)
+
+The `CustomPaginationMergeStrategy` is a concrete implementation of the `PaginationMergeStrategy` protocol. It is designed to merge a given `Output` with the previous `Output` by passing in a closure that takes in two `Output`s and returns a new `Output`. It can be used with any `DataTransformer` to merge the outputs in a custom way.
