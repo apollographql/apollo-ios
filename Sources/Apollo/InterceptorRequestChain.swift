@@ -23,12 +23,13 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     }
   }
 
-  private var interceptors: [any ApolloInterceptor]
+  private let interceptors: [any ApolloInterceptor]
+  private let callbackQueue: DispatchQueue
+
   private var interceptorIndexes: [AnyHashable: Int] = [:]
   private var currentIndex: Int
-  private var callbackQueue: DispatchQueue
-  @Atomic public var isCancelled: Bool = false
 
+  @Atomic public var isCancelled: Bool = false
   /// Something which allows additional error handling to occur when some kind of error has happened.
   public var additionalErrorHandler: ApolloErrorInterceptor?
 
@@ -43,8 +44,8 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     callbackQueue: DispatchQueue = .main
   ) {
     self.interceptors = interceptors
-    self.currentIndex = 0
     self.callbackQueue = callbackQueue
+    self.currentIndex = 0
 
     for (index, interceptor) in interceptors.enumerated() {
       self.interceptorIndexes[interceptor.id] = index
