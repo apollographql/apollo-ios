@@ -45,7 +45,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         "owner": owner._fieldData,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(PetDetails.self)
       ]
     ))
   }
@@ -74,7 +74,7 @@ public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "firstName": firstName,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetDetails.Owner.self)
         ]
       ))
     }

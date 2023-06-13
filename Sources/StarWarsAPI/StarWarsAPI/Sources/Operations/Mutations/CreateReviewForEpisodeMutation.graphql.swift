@@ -58,7 +58,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
           "createReview": createReview._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(CreateReviewForEpisodeMutation.Data.self)
         ]
       ))
     }
@@ -93,7 +93,7 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
             "commentary": commentary,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(CreateReviewForEpisodeMutation.Data.CreateReview.self)
           ]
         ))
       }

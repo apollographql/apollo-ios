@@ -43,7 +43,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
           "allAnimals": allAnimals._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(AllAnimalsCCNQuery.Data.self)
         ]
       ))
     }
@@ -73,7 +73,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
             "height": height._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(AllAnimalsCCNQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -106,7 +106,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
               "inches": inches,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(AllAnimalsCCNQuery.Data.AllAnimal.Height.self)
             ]
           ))
         }

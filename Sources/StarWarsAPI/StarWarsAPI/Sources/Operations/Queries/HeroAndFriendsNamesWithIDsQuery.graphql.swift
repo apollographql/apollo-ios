@@ -52,7 +52,7 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAndFriendsNamesWithIDsQuery.Data.self)
         ]
       ))
     }
@@ -93,7 +93,7 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAndFriendsNamesWithIDsQuery.Data.Hero.self)
           ]
         ))
       }
@@ -129,7 +129,7 @@ public class HeroAndFriendsNamesWithIDsQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroAndFriendsNamesWithIDsQuery.Data.Hero.Friend.self)
             ]
           ))
         }

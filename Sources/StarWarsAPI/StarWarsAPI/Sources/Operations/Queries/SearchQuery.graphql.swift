@@ -60,7 +60,7 @@ public class SearchQuery: GraphQLQuery {
           "search": search._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(SearchQuery.Data.self)
         ]
       ))
     }
@@ -92,7 +92,7 @@ public class SearchQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(SearchQuery.Data.Search.self)
           ]
         ))
       }
@@ -127,8 +127,8 @@ public class SearchQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsHuman.self)
             ]
           ))
         }
@@ -164,8 +164,8 @@ public class SearchQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsDroid.self)
             ]
           ))
         }
@@ -201,8 +201,8 @@ public class SearchQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsStarship.self)
             ]
           ))
         }

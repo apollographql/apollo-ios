@@ -47,7 +47,7 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.self)
         ]
       ))
     }
@@ -75,7 +75,7 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.self)
           ]
         ))
       }
@@ -116,8 +116,8 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
               "primaryFunction": primaryFunction,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
+              ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.self),
+              ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.AsDroid.self),
               ObjectIdentifier(DroidDetails.self)
             ]
           ))

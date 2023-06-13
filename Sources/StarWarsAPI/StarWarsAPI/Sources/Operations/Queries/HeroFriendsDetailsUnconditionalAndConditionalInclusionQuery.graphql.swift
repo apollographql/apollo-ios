@@ -57,7 +57,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -88,7 +88,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }
@@ -123,7 +123,7 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.self)
             ]
           ))
         }
@@ -157,8 +157,8 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.Friend.self)
+                ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.self),
+                ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.IfIncludeFriendsDetails.self)
               ]
             ))
           }
@@ -192,8 +192,8 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
                   "name": name,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self),
-                  ObjectIdentifier(Hero.Friend.self)
+                  ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.self),
+                  ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.AsDroid.self)
                 ]
               ))
             }
@@ -229,8 +229,8 @@ public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQ
                 "primaryFunction": primaryFunction,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.Friend.self)
+                ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.self),
+                ObjectIdentifier(HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.Data.Hero.Friend.AsDroid.self)
               ]
             ))
           }

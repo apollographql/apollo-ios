@@ -40,7 +40,7 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
       ]
     ))
   }
@@ -74,8 +74,8 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
           "name": name,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self),
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.AsDroid.self)
         ]
       ))
     }

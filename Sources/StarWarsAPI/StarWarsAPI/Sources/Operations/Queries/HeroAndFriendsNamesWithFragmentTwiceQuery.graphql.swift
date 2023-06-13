@@ -57,7 +57,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.self)
         ]
       ))
     }
@@ -91,7 +91,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self)
           ]
         ))
       }
@@ -129,7 +129,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.Friend.self),
               ObjectIdentifier(CharacterName.self)
             ]
           ))
@@ -161,8 +161,8 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self),
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.self)
             ]
           ))
         }
@@ -200,7 +200,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
+                ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.Friend.self),
                 ObjectIdentifier(CharacterName.self)
               ]
             ))

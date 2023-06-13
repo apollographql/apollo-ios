@@ -31,7 +31,7 @@ public struct DogFragment: AnimalKingdomAPI.SelectionSet, Fragment {
         "species": species,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(DogFragment.self)
       ]
     ))
   }

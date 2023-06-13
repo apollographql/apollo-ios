@@ -47,7 +47,7 @@ public class HumanQuery: GraphQLQuery {
           "human": human._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HumanQuery.Data.self)
         ]
       ))
     }
@@ -82,7 +82,7 @@ public class HumanQuery: GraphQLQuery {
             "mass": mass,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HumanQuery.Data.Human.self)
           ]
         ))
       }

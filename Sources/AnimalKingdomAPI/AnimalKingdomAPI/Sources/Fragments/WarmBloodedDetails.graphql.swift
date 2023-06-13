@@ -44,7 +44,7 @@ public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         "height": height._fieldData,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self),
+        ObjectIdentifier(WarmBloodedDetails.self),
         ObjectIdentifier(HeightInMeters.self)
       ]
     ))

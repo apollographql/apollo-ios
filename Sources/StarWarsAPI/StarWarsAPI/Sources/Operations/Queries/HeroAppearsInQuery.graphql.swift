@@ -40,7 +40,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAppearsInQuery.Data.self)
         ]
       ))
     }
@@ -71,7 +71,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
             "appearsIn": appearsIn,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAppearsInQuery.Data.Hero.self)
           ]
         ))
       }

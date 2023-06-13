@@ -47,7 +47,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroDetailsFragmentConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -82,7 +82,7 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroDetailsFragmentConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }
@@ -120,8 +120,8 @@ public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
+              ObjectIdentifier(HeroDetailsFragmentConditionalInclusionQuery.Data.Hero.self),
+              ObjectIdentifier(HeroDetailsFragmentConditionalInclusionQuery.Data.Hero.IfIncludeDetails.self),
               ObjectIdentifier(HeroDetails.self)
             ]
           ))

@@ -46,7 +46,7 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(HeroDetails.self)
       ]
     ))
   }
@@ -80,8 +80,8 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
           "name": name,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(HeroDetails.self)
+          ObjectIdentifier(HeroDetails.self),
+          ObjectIdentifier(HeroDetails.AsHuman.self)
         ]
       ))
     }
@@ -116,8 +116,8 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
           "name": name,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(HeroDetails.self)
+          ObjectIdentifier(HeroDetails.self),
+          ObjectIdentifier(HeroDetails.AsDroid.self)
         ]
       ))
     }

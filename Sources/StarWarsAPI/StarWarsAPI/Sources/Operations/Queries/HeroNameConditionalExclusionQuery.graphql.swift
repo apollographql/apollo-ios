@@ -46,7 +46,7 @@ public class HeroNameConditionalExclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroNameConditionalExclusionQuery.Data.self)
         ]
       ))
     }
@@ -77,7 +77,7 @@ public class HeroNameConditionalExclusionQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroNameConditionalExclusionQuery.Data.Hero.self)
           ]
         ))
       }

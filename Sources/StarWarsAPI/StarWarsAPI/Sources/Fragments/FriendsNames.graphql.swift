@@ -36,7 +36,7 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
         "friends": friends._fieldData,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(FriendsNames.self)
       ]
     ))
   }
@@ -67,7 +67,7 @@ public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
           "name": name,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(FriendsNames.Friend.self)
         ]
       ))
     }

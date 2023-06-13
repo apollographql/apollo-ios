@@ -48,7 +48,7 @@ public class SameHeroTwiceQuery: GraphQLQuery {
           "r2": r2._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(SameHeroTwiceQuery.Data.self)
         ]
       ))
     }
@@ -79,7 +79,7 @@ public class SameHeroTwiceQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(SameHeroTwiceQuery.Data.Hero.self)
           ]
         ))
       }
@@ -111,7 +111,7 @@ public class SameHeroTwiceQuery: GraphQLQuery {
             "appearsIn": appearsIn,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(SameHeroTwiceQuery.Data.R2.self)
           ]
         ))
       }

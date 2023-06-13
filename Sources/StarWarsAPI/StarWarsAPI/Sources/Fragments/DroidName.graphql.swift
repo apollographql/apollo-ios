@@ -32,7 +32,7 @@ public struct DroidName: StarWarsAPI.SelectionSet, Fragment {
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(DroidName.self)
       ]
     ))
   }

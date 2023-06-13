@@ -44,7 +44,7 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self),
+        ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.self),
         ObjectIdentifier(CharacterName.self)
       ]
     ))
@@ -87,10 +87,10 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
           "primaryFunction": primaryFunction,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
           ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.self),
-          ObjectIdentifier(DroidPrimaryFunction.self),
-          ObjectIdentifier(CharacterName.self)
+          ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.AsDroid.self),
+          ObjectIdentifier(CharacterName.self),
+          ObjectIdentifier(DroidPrimaryFunction.self)
         ]
       ))
     }
