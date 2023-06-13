@@ -963,4 +963,136 @@ class RequestChainTests: XCTestCase {
     requestChain = nil
     XCTAssertNil(weakRequestChain)
   }
+
+  // MARK: `proceedAsync` Tests
+
+  struct SimpleForwardingInterceptor_deprecated: ApolloInterceptor {
+    var id: String = UUID().uuidString
+
+    let expectation: XCTestExpectation
+
+    func interceptAsync<Operation>(
+      chain: Apollo.RequestChain,
+      request: Apollo.HTTPRequest<Operation>,
+      response: Apollo.HTTPResponse<Operation>?,
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
+      expectation.fulfill()
+
+      chain.proceedAsync(request: request, response: response, completion: completion)
+    }
+  }
+
+  struct SimpleForwardingInterceptor: ApolloInterceptor {
+    var id: String = UUID().uuidString
+
+    let expectation: XCTestExpectation
+
+    func interceptAsync<Operation>(
+      chain: Apollo.RequestChain,
+      request: Apollo.HTTPRequest<Operation>,
+      response: Apollo.HTTPResponse<Operation>?,
+      completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
+    ) {
+      expectation.fulfill()
+
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
+      )
+    }
+  }
+
+  func test__proceedAsync__givenInterceptors_usingDeprecatedFunction_shouldCallAllInterceptors() throws {
+    let expectations = [
+      expectation(description: "Interceptor 1 executed"),
+      expectation(description: "Interceptor 2 executed"),
+      expectation(description: "Interceptor 3 executed")
+    ]
+
+    let requestChain = InterceptorRequestChain(interceptors: [
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[0]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[1]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[2])
+    ])
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain.kickoff(request: request) { result in }
+
+    // then
+    wait(for: expectations, timeout: 1, enforceOrder: true)
+  }
+
+  func test__proceedAsync__givenInterceptors_usingNewFunction_shouldCallAllInterceptors() throws {
+    let expectations = [
+      expectation(description: "Interceptor 1 executed"),
+      expectation(description: "Interceptor 2 executed"),
+      expectation(description: "Interceptor 3 executed")
+    ]
+
+    let requestChain = InterceptorRequestChain(interceptors: [
+      SimpleForwardingInterceptor(expectation: expectations[0]),
+      SimpleForwardingInterceptor(expectation: expectations[1]),
+      SimpleForwardingInterceptor(expectation: expectations[2])
+    ])
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain.kickoff(request: request) { result in }
+
+    // then
+    wait(for: expectations, timeout: 1, enforceOrder: true)
+  }
+
+  func test__proceedAsync__givenInterceptors_usingBothFunctions_shouldCallAllInterceptors() throws {
+    let expectations = [
+      expectation(description: "Interceptor 1 executed"),
+      expectation(description: "Interceptor 2 executed"),
+      expectation(description: "Interceptor 3 executed"),
+      expectation(description: "Interceptor 4 executed"),
+      expectation(description: "Interceptor 5 executed"),
+      expectation(description: "Interceptor 6 executed"),
+      expectation(description: "Interceptor 7 executed"),
+      expectation(description: "Interceptor 8 executed")
+    ]
+
+    let requestChain = InterceptorRequestChain(interceptors: [
+      SimpleForwardingInterceptor(expectation: expectations[0]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[1]),
+      SimpleForwardingInterceptor(expectation: expectations[2]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[3]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[4]),
+      SimpleForwardingInterceptor(expectation: expectations[5]),
+      SimpleForwardingInterceptor(expectation: expectations[6]),
+      SimpleForwardingInterceptor_deprecated(expectation: expectations[7])
+    ])
+
+    let request = JSONRequest(
+      operation: MockQuery<Hero>(),
+      graphQLEndpoint: TestURL.mockServer.url,
+      clientName: "test-client",
+      clientVersion: "test-client-version"
+    )
+
+    // when
+    requestChain.kickoff(request: request) { result in }
+
+    // then
+    wait(for: expectations, timeout: 1, enforceOrder: true)
+  }
 }
