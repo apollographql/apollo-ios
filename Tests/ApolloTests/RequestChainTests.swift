@@ -456,7 +456,7 @@ class RequestChainTests: XCTestCase {
     }
   }
 
-  func test__managedSelf__givenQuery_whenCompleted_shouldNotHaveRetainCycle() throws {
+  func test__memory_management__givenQuery_whenCompleted_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -517,7 +517,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__managedSelf__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
+  func test__memory_management__givenSubscription_whenCancelled_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -598,7 +598,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__managedSelf__givenQuery_whenCancelled_shouldNotCrash() throws {
+  func test__memory_management__givenQuery_whenCancelled_shouldNotCrash() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -644,7 +644,7 @@ class RequestChainTests: XCTestCase {
     wait(for: [expectation], timeout: 1)
   }
 
-  func test__managedSelf__givenQuery_whenCancelledAfterInterceptorChainFinished_shouldNotCrash() throws {
+  func test__memory_management__givenQuery_whenCancelledAfterInterceptorChainFinished_shouldNotCrash() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -699,7 +699,7 @@ class RequestChainTests: XCTestCase {
     }
   }
 
-  func test__managedSelf__givenOperation_withEarlyInterceptorChainExit_success_shouldNotHaveRetainCycle() throws {
+  func test__memory_management__givenOperation_withEarlyInterceptorChainExit_success_shouldNotHaveRetainCycle() throws {
     // given
     let store = ApolloStore(cache: InMemoryNormalizedCache(records: [
       "QUERY_ROOT": [
@@ -762,7 +762,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__managedSelf__givenOperation_withEarlyInterceptorChainExit_failure_shouldNotHaveRetainCycle() throws {
+  func test__memory_management__givenOperation_withEarlyInterceptorChainExit_failure_shouldNotHaveRetainCycle() throws {
     // given
     let client = MockURLSessionClient(
       response: .mock(
@@ -814,7 +814,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__managedSelf__givenOperation_withEarlyAndFinalInterceptorChainExit_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
+  func test__memory_management__givenOperation_withEarlyAndFinalInterceptorChainExit_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
     // given
     let store = ApolloStore(cache: InMemoryNormalizedCache(records: [
       "QUERY_ROOT": [
@@ -885,7 +885,7 @@ class RequestChainTests: XCTestCase {
     XCTAssertNil(weakRequestChain)
   }
 
-  func test__managedSelf__givenOperation_whenRetryInterceptorChain_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
+  func test__memory_management__givenOperation_whenRetryInterceptorChain_shouldNotHaveRetainCycle_andShouldNotCrash() throws {
     // given
     let store = ApolloStore()
 
