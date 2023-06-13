@@ -9,7 +9,10 @@ class MaxRetryInterceptorTests: XCTestCase {
     class TestProvider: InterceptorProvider {
       let testInterceptor = BlindRetryingTestInterceptor()
       let retryCount = 15
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         [
           MaxRetryInterceptor(maxRetriesAllowed: self.retryCount),
           self.testInterceptor
@@ -63,7 +66,9 @@ class MaxRetryInterceptorTests: XCTestCase {
         return client
       }()
       
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         [
           MaxRetryInterceptor(maxRetriesAllowed: self.retryCount),
           self.testInterceptor,

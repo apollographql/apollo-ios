@@ -7,7 +7,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
 
   private let store: ApolloStore
 
-  public typealias ID = String
   public var id: String = UUID().uuidString
   
   /// Designated initializer

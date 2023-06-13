@@ -24,7 +24,6 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     }
   }
 
-  public typealias ID = String
   public var id: String = UUID().uuidString
   
   /// Designated initializer

@@ -19,7 +19,9 @@ public final class MockNetworkTransport: RequestChainNetworkTransport {
     let store: ApolloStore
     let server: MockGraphQLServer
     
-    func interceptors<Operation>(for operation: Operation) -> [ApolloInterceptor] where Operation: GraphQLOperation {
+    func interceptors<Operation>(
+      for operation: Operation
+    ) -> [any ApolloInterceptor] where Operation: GraphQLOperation {
       return [
         MaxRetryInterceptor(),
         CacheReadInterceptor(store: self.store),
@@ -42,7 +44,6 @@ private final class MockTask: Cancellable {
 private class MockGraphQLServerInterceptor: ApolloInterceptor {
   let server: MockGraphQLServer
 
-  public typealias ID = String
   public var id: String = UUID().uuidString
   
   init(server: MockGraphQLServer) {
@@ -69,6 +70,7 @@ private class MockGraphQLServerInterceptor: ApolloInterceptor {
                                                parsedResponse: nil)
         chain.proceedAsync(request: request,
                            response: response,
+                           interceptor: self,
                            completion: completion)
       }
     }

@@ -5,8 +5,7 @@ import ApolloAPI
 /// A protocol to set up a chainable unit of networking work.
 public protocol ApolloInterceptor {
 
-  associatedtype ID: Hashable
-  var id: Self.ID { get set }
+  var id: String { get set }
   
   /// Called when this interceptor should do its work.
   ///

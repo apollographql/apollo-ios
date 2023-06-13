@@ -6,7 +6,6 @@ import ApolloAPI
 /// An interceptor to check the response code returned with a request.
 public struct ResponseCodeInterceptor: ApolloInterceptor {
 
-  public typealias ID = String
   public var id: String = UUID().uuidString
   
   public enum ResponseCodeError: Error, LocalizedError {

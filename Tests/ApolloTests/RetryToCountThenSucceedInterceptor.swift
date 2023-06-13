@@ -14,7 +14,6 @@ class RetryToCountThenSucceedInterceptor: ApolloInterceptor {
   let timesToCallRetry: Int
   var timesRetryHasBeenCalled = 0
 
-  public typealias ID = String
   public var id: String = UUID().uuidString
   
   init(timesToCallRetry: Int) {

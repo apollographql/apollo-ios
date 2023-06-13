@@ -7,7 +7,9 @@ class RequestChainTests: XCTestCase {
 
   func testEmptyInterceptorArrayReturnsCorrectError() {
     class TestProvider: InterceptorProvider {
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         []
       }
     }
@@ -43,7 +45,9 @@ class RequestChainTests: XCTestCase {
       let cancellationInterceptor = CancellationHandlingInterceptor()
       let retryInterceptor = BlindRetryingTestInterceptor()
 
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         [
           self.cancellationInterceptor,
           self.retryInterceptor
@@ -85,7 +89,9 @@ class RequestChainTests: XCTestCase {
 
     class TestProvider: InterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         return [
           // An interceptor which will error without a response
           AutomaticPersistedQueryInterceptor()
@@ -155,7 +161,9 @@ class RequestChainTests: XCTestCase {
 
     class TestProvider: InterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         return [
           // An interceptor which will error without a response
           ResponseCodeInterceptor()
@@ -233,7 +241,9 @@ class RequestChainTests: XCTestCase {
     class TestProvider: DefaultInterceptorProvider {
       let errorInterceptor = ErrorInterceptor()
 
-      override func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      override func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         return [
           // An interceptor which will error without a response
           AutomaticPersistedQueryInterceptor()
@@ -290,7 +300,6 @@ class RequestChainTests: XCTestCase {
   struct RequestTrapInterceptor: ApolloInterceptor {
     let callback: (URLRequest) -> (Void)
 
-    public typealias ID = String
     public var id: String = UUID().uuidString
 
     init(_ callback: @escaping (URLRequest) -> (Void)) {
@@ -424,7 +433,6 @@ class RequestChainTests: XCTestCase {
   struct DelayInterceptor: ApolloInterceptor {
     let seconds: Double
 
-    public typealias ID = String
     public var id: String = UUID().uuidString
 
     init(_ seconds: Double) {

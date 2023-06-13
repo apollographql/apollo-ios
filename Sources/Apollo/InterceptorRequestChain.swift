@@ -9,6 +9,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   public enum ChainError: Error, LocalizedError {
     case invalidIndex(chain: RequestChain, index: Int)
     case noInterceptors
+    case unknownInterceptor(id: String)
 
     public var errorDescription: String? {
       switch self {
@@ -16,11 +17,15 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
         return "No interceptors were provided to this chain. This is a developer error."
       case .invalidIndex(_, let index):
         return "`proceedAsync` was called for index \(index), which is out of bounds of the receiver for this chain. Double-check the order of your interceptors."
+      case let .unknownInterceptor(id):
+        return "`proceedAsync` was called by unknown interceptor \(id)."
       }
     }
   }
 
-  private var interceptors: [ApolloInterceptor]
+  private var interceptors: [any ApolloInterceptor]
+  private var interceptorIndexes: [AnyHashable: Int] = [:]
+  private var currentIndex: Int
   private var callbackQueue: DispatchQueue
   @Atomic public var isCancelled: Bool = false
 
@@ -34,11 +39,16 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - callbackQueue: The `DispatchQueue` to call back on when an error or result occurs.
   ///   Defaults to `.main`.
   public init(
-    interceptors: [ApolloInterceptor],
+    interceptors: [any ApolloInterceptor],
     callbackQueue: DispatchQueue = .main
   ) {
     self.interceptors = interceptors
+    self.currentIndex = 0
     self.callbackQueue = callbackQueue
+
+    for (index, interceptor) in interceptors.enumerated() {
+      self.interceptorIndexes[interceptor.id] = index
+    }
   }
 
   /// Kicks off the request from the beginning of the interceptor array.
@@ -50,6 +60,8 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     request: HTTPRequest<Operation>,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) {
+    assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
+
     guard let firstInterceptor = self.interceptors.first else {
       handleErrorAsync(
         ChainError.noInterceptors,
@@ -80,8 +92,14 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) {
-      // Empty implementation, proceedAsync(request:response:completion:interceptor:) should be
-      // used instead.
+    let nextIndex = self.currentIndex + 1
+
+    proceedAsync(
+      interceptorIndex: nextIndex,
+      request: request,
+      response: response,
+      completion: completion
+    )
   }
 
   /// Proceeds to the next interceptor in the array.
@@ -89,24 +107,50 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   /// - Parameters:
   ///   - request: The in-progress request object
   ///   - response: [optional] The in-progress response object, if received yet
-  ///   - completion: The completion closure to call when data has been processed and should be
-  ///   returned to the UI.
   ///   - interceptor: The interceptor that has completed processing and is ready to pass control
   ///   on to the next interceptor in the chain.
-  func proceedAsync<Operation: GraphQLOperation>(
+  ///   - completion: The completion closure to call when data has been processed and should be
+  ///   returned to the UI.
+  public func proceedAsync<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void,
-    interceptor: ApolloInterceptorReentrantWrapper
+    interceptor: any ApolloInterceptor,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+  ) {
+    guard let currentIndex = interceptorIndexes[interceptor.id] else {
+      self.handleErrorAsync(
+        ChainError.unknownInterceptor(id: interceptor.id),
+        request: request,
+        response: response,
+        completion: completion
+      )
+      return
+    }
+
+    let nextIndex = currentIndex + 1
+
+    proceedAsync(
+      interceptorIndex: nextIndex,
+      request: request,
+      response: response,
+      completion: completion
+    )
+  }
+
+  private func proceedAsync<Operation: GraphQLOperation>(
+    interceptorIndex: Int,
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) {
     guard !self.isCancelled else {
       // Do not proceed, this chain has been cancelled.
       return
     }
 
-    let nextIndex = interceptor.index + 1
-    if self.interceptors.indices.contains(nextIndex) {
-      let interceptor = self.interceptors[nextIndex]
+    if self.interceptors.indices.contains(interceptorIndex) {
+      self.currentIndex = interceptorIndex
+      let interceptor = self.interceptors[interceptorIndex]
 
       interceptor.interceptAsync(
         chain: self,
@@ -114,6 +158,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
         response: response,
         completion: completion
       )
+
     } else {
       if let result = response?.parsedResponse {
         // We got to the end of the chain with a parsed response. Yay! Return it.
@@ -122,11 +167,11 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
           value: result,
           completion: completion
         )
+
       } else {
-        // We got to the end of the chain and no parsed response is there, there needs to be more
-        // processing.
+        // We got to the end of the chain and no parsed response is there, there needs to be more processing.
         self.handleErrorAsync(
-          ChainError.invalidIndex(chain: self, index: nextIndex),
+          ChainError.invalidIndex(chain: self, index: interceptorIndex),
           request: request,
           response: response,
           completion: completion
@@ -166,6 +211,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       return
     }
 
+    self.currentIndex = 0
     self.kickoff(request: request, completion: completion)
   }
 
