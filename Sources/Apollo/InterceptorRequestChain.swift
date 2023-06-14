@@ -26,7 +26,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   private let interceptors: [any ApolloInterceptor]
   private let callbackQueue: DispatchQueue
 
-  private var interceptorIndexes: [AnyHashable: Int] = [:]
+  private var interceptorIndexes: [String: Int] = [:]
   private var currentIndex: Int
 
   @Atomic public var isCancelled: Bool = false
