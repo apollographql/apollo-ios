@@ -42,7 +42,22 @@ extension GraphQLValue: JavaScriptValueDecodable {
       }
       self = .list(.fromJSValue(value, bridge: bridge))
     case "ObjectValue":
-      self = .object(.fromJSValue(jsValue["value"], bridge: bridge))
+      let value = jsValue["value"]
+
+      /// The JS frontend does not do value conversions of the default values for input objects,
+      /// because no other compliation is needed, these are passed through as is from `graphql-js`.
+      /// We need to handle both converted object values and default values and represented by
+      /// `graphql-js`.
+      if !value.isUndefined {
+        self = .object(.fromJSValue(value, bridge: bridge))
+
+      } else {
+        let fields = jsValue["fields"].toOrderedDictionary { field in
+          (field["name"]["value"].toString(), GraphQLValue(field["value"], bridge: bridge))
+        }
+        self = .object(fields)
+      }
+
     default:
       preconditionFailure("""
         Unknown GraphQL value of kind "\(kind)"
