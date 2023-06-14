@@ -53,6 +53,34 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     )
   }
 
+  func buildSubjectAndFragment(
+    named fragmentName: String = "TestFragment",
+    schemaNamespace: String = "TestSchema",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
+  ) throws -> IR.NamedFragment {
+    ir = try .mock(schema: schemaSDL, document: document)
+    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
+    let fragment = ir.build(fragment: fragmentDefinition)
+    let config = ApolloCodegenConfiguration.mock(
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init()
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: .init(config: config)
+    )
+    subject = SelectionSetTemplate(
+      definition: .namedFragment(fragment),
+      generateInitializers: true,
+      config: ApolloCodegen.ConfigurationContext(config: config),
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
+    )
+    return fragment
+  }
+
   func buildSimpleObjectSchemaAndDocument() {
     schemaSDL = """
     type Query {
@@ -246,7 +274,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -297,7 +325,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -364,9 +392,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
             ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
-            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.AsDog.self)
           ]
         ))
       }
@@ -429,9 +457,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
             ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
-            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
           ]
         ))
       }
@@ -576,7 +604,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "nestedList_optional_optional_optional": nestedList_optional_optional_optional,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -633,7 +661,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "fieldthree": fieldthree,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -682,7 +710,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "aliased": aliased,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -734,7 +762,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -786,7 +814,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -838,7 +866,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -890,7 +918,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friend": friend._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -948,7 +976,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "__typename": __typename,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1000,7 +1028,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1052,7 +1080,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friend": friend._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1115,8 +1143,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "age": age,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self)
           ]
         ))
       }
@@ -1193,7 +1221,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "feet": feet,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsCat.Height.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.Height.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.Height.self)
           ]
         ))
       }
@@ -1250,7 +1280,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))
@@ -1314,9 +1344,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AnimalDetails.self),
-            ObjectIdentifier(Fragment2.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(Fragment2.self),
+            ObjectIdentifier(AnimalDetails.self)
           ]
         ))
       }
@@ -1377,8 +1407,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
             ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))
@@ -1436,7 +1466,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -1454,8 +1484,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
             ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))
@@ -1479,6 +1509,174 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     expect(allAnimals_asPet_actual).to(equalLineByLine(
       allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  /// Verifies the fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentReferencingNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      predators {
+        ...PredatorFragment
+      }
+    }
+
+    fragment PredatorFragment on Animal {
+      ... on Pet {
+        ...PetFragment
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(Fragment1.Predator.AsPet.self),
+            ObjectIdentifier(PetFragment.self),
+            ObjectIdentifier(PredatorFragment.self),
+            ObjectIdentifier(PredatorFragment.AsPet.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 26, ignoringExtraLines: true))
+  }
+
+  /// Verifies fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.Predator.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentWithNestedFieldMergedFromChildNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      ...PredatorFragment
+    }
+
+    fragment PredatorFragment on Animal {
+      predators {
+        ... on Pet {
+          ...PetFragment
+        }
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(Fragment1.Predator.AsPet.self),
+            ObjectIdentifier(PetFragment.self),
+            ObjectIdentifier(PredatorFragment.Predator.self),
+            ObjectIdentifier(PredatorFragment.Predator.AsPet.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 24, ignoringExtraLines: true))
   }
 
   // MARK: - Include/Skip Tests
@@ -1515,7 +1713,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
             ]
           ))
         }
@@ -1573,8 +1771,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friend": friend._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self)
             ]
           ))
         }
@@ -1632,8 +1830,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friend": friend._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfAAndNotB.self)
             ]
           ))
         }
@@ -1693,9 +1891,9 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "friend": friend._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
               ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
-              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.IfNotB.self)
             ]
           ))
         }
@@ -1755,8 +1953,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.self)
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.IfNotB.self)
             ]
           ))
         }
@@ -1815,7 +2013,7 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -1833,8 +2031,8 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
             "species": species,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
             ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self),
             ObjectIdentifier(AnimalDetails.self)
           ]
         ))

@@ -333,7 +333,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
                   "species": species,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
                 ]
               ))
             }
@@ -381,7 +381,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
                   "species": species,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
                 ]
               ))
             }
