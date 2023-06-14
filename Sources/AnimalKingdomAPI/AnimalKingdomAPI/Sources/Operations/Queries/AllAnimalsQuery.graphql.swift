@@ -83,7 +83,7 @@ public class AllAnimalsQuery: GraphQLQuery {
           "allAnimals": allAnimals._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(AllAnimalsQuery.Data.self)
         ]
       ))
     }
@@ -144,8 +144,7 @@ public class AllAnimalsQuery: GraphQLQuery {
             "predators": predators._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(HeightInMeters.self)
+            ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -181,7 +180,8 @@ public class AllAnimalsQuery: GraphQLQuery {
               "meters": meters,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+              ObjectIdentifier(HeightInMeters.Height.self)
             ]
           ))
         }
@@ -215,7 +215,7 @@ public class AllAnimalsQuery: GraphQLQuery {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Predator.self)
             ]
           ))
         }
@@ -267,8 +267,8 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "height": height._fieldData,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.Predator.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Predator.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Predator.AsWarmBlooded.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(HeightInMeters.self)
               ]
@@ -300,7 +300,7 @@ public class AllAnimalsQuery: GraphQLQuery {
                   "species": species,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Predator.AsWarmBlooded.Predator.self)
                 ]
               ))
             }
@@ -353,10 +353,10 @@ public class AllAnimalsQuery: GraphQLQuery {
               "bodyTemperature": bodyTemperature,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
-              ObjectIdentifier(WarmBloodedDetails.self),
-              ObjectIdentifier(HeightInMeters.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
+              ObjectIdentifier(HeightInMeters.self),
+              ObjectIdentifier(WarmBloodedDetails.self)
             ]
           ))
         }
@@ -387,7 +387,9 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -449,10 +451,9 @@ public class AllAnimalsQuery: GraphQLQuery {
               "owner": owner._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
-              ObjectIdentifier(PetDetails.self),
-              ObjectIdentifier(HeightInMeters.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
+              ObjectIdentifier(PetDetails.self)
             ]
           ))
         }
@@ -494,7 +495,9 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -555,11 +558,11 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "owner": owner._fieldData,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.self),
-                ObjectIdentifier(AllAnimal.AsPet.self),
-                ObjectIdentifier(WarmBloodedDetails.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
                 ObjectIdentifier(HeightInMeters.self),
+                ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(PetDetails.self)
               ]
             ))
@@ -597,7 +600,10 @@ public class AllAnimalsQuery: GraphQLQuery {
                   "centimeters": centimeters,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.Height.self),
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                  ObjectIdentifier(HeightInMeters.Height.self),
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.Height.self)
                 ]
               ))
             }
@@ -662,11 +668,15 @@ public class AllAnimalsQuery: GraphQLQuery {
               "owner": owner._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsCat.self),
               ObjectIdentifier(HeightInMeters.self),
               ObjectIdentifier(WarmBloodedDetails.self),
-              ObjectIdentifier(PetDetails.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
+              ObjectIdentifier(PetDetails.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
             ]
           ))
         }
@@ -703,7 +713,10 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "centimeters": centimeters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsCat.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.Height.self)
               ]
             ))
           }
@@ -753,8 +766,8 @@ public class AllAnimalsQuery: GraphQLQuery {
               "predators": predators._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsClassroomPet.self),
               ObjectIdentifier(HeightInMeters.self)
             ]
           ))
@@ -786,7 +799,9 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsClassroomPet.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -849,12 +864,16 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "owner": owner._fieldData,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.self),
-                ObjectIdentifier(AllAnimal.AsClassroomPet.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsClassroomPet.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsClassroomPet.AsBird.self),
                 ObjectIdentifier(HeightInMeters.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
-                ObjectIdentifier(PetDetails.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
+                ObjectIdentifier(PetDetails.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
               ]
             ))
           }
@@ -891,7 +910,10 @@ public class AllAnimalsQuery: GraphQLQuery {
                   "centimeters": centimeters,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsClassroomPet.AsBird.Height.self),
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                  ObjectIdentifier(HeightInMeters.Height.self),
+                  ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.Height.self)
                 ]
               ))
             }
@@ -957,11 +979,15 @@ public class AllAnimalsQuery: GraphQLQuery {
               "owner": owner._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsDog.self),
               ObjectIdentifier(HeightInMeters.self),
               ObjectIdentifier(WarmBloodedDetails.self),
-              ObjectIdentifier(PetDetails.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
+              ObjectIdentifier(PetDetails.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
             ]
           ))
         }
@@ -998,7 +1024,10 @@ public class AllAnimalsQuery: GraphQLQuery {
                 "centimeters": centimeters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsDog.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self),
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.Height.self)
               ]
             ))
           }

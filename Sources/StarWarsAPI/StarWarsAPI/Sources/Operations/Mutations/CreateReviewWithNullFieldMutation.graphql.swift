@@ -47,7 +47,7 @@ public class CreateReviewWithNullFieldMutation: GraphQLMutation {
           "createReview": createReview._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(CreateReviewWithNullFieldMutation.Data.self)
         ]
       ))
     }
@@ -82,7 +82,7 @@ public class CreateReviewWithNullFieldMutation: GraphQLMutation {
             "commentary": commentary,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(CreateReviewWithNullFieldMutation.Data.CreateReview.self)
           ]
         ))
       }

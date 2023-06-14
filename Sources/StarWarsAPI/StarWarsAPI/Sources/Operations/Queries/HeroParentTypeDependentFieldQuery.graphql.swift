@@ -68,7 +68,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.self)
         ]
       ))
     }
@@ -104,7 +104,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.self)
           ]
         ))
       }
@@ -138,8 +138,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsHuman.self)
             ]
           ))
         }
@@ -173,7 +173,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsHuman.Friend.self)
               ]
             ))
           }
@@ -207,8 +207,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                   "name": name,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self),
-                  ObjectIdentifier(Hero.AsHuman.Friend.self)
+                  ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsHuman.Friend.self),
+                  ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsHuman.Friend.AsHuman.self)
                 ]
               ))
             }
@@ -245,8 +245,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsDroid.self)
             ]
           ))
         }
@@ -280,7 +280,7 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsDroid.Friend.self)
               ]
             ))
           }
@@ -314,8 +314,8 @@ public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
                   "name": name,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self),
-                  ObjectIdentifier(Hero.AsDroid.Friend.self)
+                  ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsDroid.Friend.self),
+                  ObjectIdentifier(HeroParentTypeDependentFieldQuery.Data.Hero.AsDroid.Friend.AsHuman.self)
                 ]
               ))
             }

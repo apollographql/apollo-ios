@@ -35,7 +35,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
         "__typename": __typename,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(ClassroomPetDetailsCCN.self)
       ]
     ))
   }
@@ -65,8 +65,8 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
           "height": height._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetailsCCN.self)
+          ObjectIdentifier(ClassroomPetDetailsCCN.self),
+          ObjectIdentifier(ClassroomPetDetailsCCN.AsAnimal.self)
         ]
       ))
     }
@@ -95,7 +95,7 @@ public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
             "inches": inches,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(ClassroomPetDetailsCCN.AsAnimal.Height.self)
           ]
         ))
       }

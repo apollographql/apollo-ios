@@ -48,7 +48,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
           "pets": pets._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetSearchLocalCacheMutation.Data.self)
         ]
       ))
     }
@@ -88,7 +88,7 @@ public class PetSearchLocalCacheMutation: LocalCacheMutation {
             "humanName": humanName,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(PetSearchLocalCacheMutation.Data.Pet.self)
           ]
         ))
       }

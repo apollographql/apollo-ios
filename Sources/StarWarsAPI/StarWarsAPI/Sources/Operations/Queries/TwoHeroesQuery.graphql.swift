@@ -48,7 +48,7 @@ public class TwoHeroesQuery: GraphQLQuery {
           "luke": luke._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(TwoHeroesQuery.Data.self)
         ]
       ))
     }
@@ -79,7 +79,7 @@ public class TwoHeroesQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TwoHeroesQuery.Data.R2.self)
           ]
         ))
       }
@@ -111,7 +111,7 @@ public class TwoHeroesQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(TwoHeroesQuery.Data.Luke.self)
           ]
         ))
       }

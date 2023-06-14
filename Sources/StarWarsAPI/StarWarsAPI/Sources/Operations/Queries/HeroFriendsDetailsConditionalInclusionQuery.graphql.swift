@@ -53,7 +53,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -84,7 +84,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }
@@ -118,7 +118,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.self)
             ]
           ))
         }
@@ -152,8 +152,8 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.Friend.self)
+                ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.self),
+                ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.AsDroid.self)
               ]
             ))
           }

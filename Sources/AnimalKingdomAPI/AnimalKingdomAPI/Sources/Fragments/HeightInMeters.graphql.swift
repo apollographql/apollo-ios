@@ -35,7 +35,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
         "height": height._fieldData,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(HeightInMeters.self)
       ]
     ))
   }
@@ -64,7 +64,7 @@ public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
           "meters": meters,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeightInMeters.Height.self)
         ]
       ))
     }

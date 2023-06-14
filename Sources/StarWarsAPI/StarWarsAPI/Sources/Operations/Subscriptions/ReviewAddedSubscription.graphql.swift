@@ -48,7 +48,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
           "reviewAdded": reviewAdded._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(ReviewAddedSubscription.Data.self)
         ]
       ))
     }
@@ -88,7 +88,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
             "commentary": commentary,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(ReviewAddedSubscription.Data.ReviewAdded.self)
           ]
         ))
       }

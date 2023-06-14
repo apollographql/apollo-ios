@@ -41,7 +41,7 @@ public class StarshipQuery: GraphQLQuery {
           "starship": starship._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(StarshipQuery.Data.self)
         ]
       ))
     }
@@ -75,7 +75,7 @@ public class StarshipQuery: GraphQLQuery {
             "coordinates": coordinates,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(StarshipQuery.Data.Starship.self)
           ]
         ))
       }

@@ -57,7 +57,7 @@ public class PetSearchQuery: GraphQLQuery {
           "pets": pets._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetSearchQuery.Data.self)
         ]
       ))
     }
@@ -91,7 +91,7 @@ public class PetSearchQuery: GraphQLQuery {
             "humanName": humanName,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(PetSearchQuery.Data.Pet.self)
           ]
         ))
       }

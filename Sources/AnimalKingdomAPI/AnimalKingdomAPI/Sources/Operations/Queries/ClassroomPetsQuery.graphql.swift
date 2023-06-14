@@ -40,7 +40,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
           "classroomPets": classroomPets._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(ClassroomPetsQuery.Data.self)
         ]
       ))
     }
@@ -80,8 +80,7 @@ public class ClassroomPetsQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(ClassroomPetDetails.self)
+            ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self)
           ]
         ))
       }
@@ -119,9 +118,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsAnimal.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsAnimal.self)
             ]
           ))
         }
@@ -160,9 +160,10 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "humanName": humanName,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsPet.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsPet.self)
             ]
           ))
         }
@@ -205,9 +206,11 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "laysEggs": laysEggs,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsWarmBlooded.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+              ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self)
             ]
           ))
         }
@@ -260,9 +263,13 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "isJellicle": isJellicle,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsCat.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+              ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+              ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self),
+              ObjectIdentifier(ClassroomPetDetails.AsCat.self)
             ]
           ))
         }
@@ -312,9 +319,13 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "wingspan": wingspan,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsBird.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+              ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+              ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self),
+              ObjectIdentifier(ClassroomPetDetails.AsBird.self)
             ]
           ))
         }
@@ -356,9 +367,11 @@ public class ClassroomPetsQuery: GraphQLQuery {
               "favoriteToy": favoriteToy,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetails.self)
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsQuery.Data.ClassroomPet.AsPetRock.self),
+              ObjectIdentifier(ClassroomPetDetails.self),
+              ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+              ObjectIdentifier(ClassroomPetDetails.AsPetRock.self)
             ]
           ))
         }

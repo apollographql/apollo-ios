@@ -43,7 +43,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
         "__typename": __typename,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(CharacterNameWithInlineFragment.self)
       ]
     ))
   }
@@ -73,8 +73,8 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
           "friends": friends._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(CharacterNameWithInlineFragment.self)
+          ObjectIdentifier(CharacterNameWithInlineFragment.self),
+          ObjectIdentifier(CharacterNameWithInlineFragment.AsHuman.self)
         ]
       ))
     }
@@ -105,7 +105,7 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
             "appearsIn": appearsIn,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(CharacterNameWithInlineFragment.AsHuman.Friend.self)
           ]
         ))
       }
@@ -150,8 +150,8 @@ public struct CharacterNameWithInlineFragment: StarWarsAPI.SelectionSet, Fragmen
           "friends": friends._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
           ObjectIdentifier(CharacterNameWithInlineFragment.self),
+          ObjectIdentifier(CharacterNameWithInlineFragment.AsDroid.self),
           ObjectIdentifier(CharacterName.self),
           ObjectIdentifier(FriendsNames.self)
         ]

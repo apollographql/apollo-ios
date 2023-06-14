@@ -47,7 +47,7 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
           "createReview": createReview._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(CreateAwesomeReviewMutation.Data.self)
         ]
       ))
     }
@@ -82,7 +82,7 @@ public class CreateAwesomeReviewMutation: GraphQLMutation {
             "commentary": commentary,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(CreateAwesomeReviewMutation.Data.CreateReview.self)
           ]
         ))
       }

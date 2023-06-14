@@ -58,7 +58,7 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
         "__typename": __typename,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(ClassroomPetDetails.self)
       ]
     ))
   }
@@ -88,8 +88,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "species": species,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self)
         ]
       ))
     }
@@ -120,8 +120,8 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "humanName": humanName,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self)
         ]
       ))
     }
@@ -155,8 +155,9 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "species": species,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self)
         ]
       ))
     }
@@ -199,8 +200,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "laysEggs": laysEggs,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsCat.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self)
         ]
       ))
     }
@@ -239,8 +243,11 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "laysEggs": laysEggs,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsBird.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self)
         ]
       ))
     }
@@ -273,8 +280,9 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
           "humanName": humanName,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPetRock.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self)
         ]
       ))
     }

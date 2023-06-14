@@ -46,7 +46,7 @@ public class PetAdoptionMutation: GraphQLMutation {
           "adoptPet": adoptPet._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetAdoptionMutation.Data.self)
         ]
       ))
     }
@@ -80,7 +80,7 @@ public class PetAdoptionMutation: GraphQLMutation {
             "humanName": humanName,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(PetAdoptionMutation.Data.AdoptPet.self)
           ]
         ))
       }

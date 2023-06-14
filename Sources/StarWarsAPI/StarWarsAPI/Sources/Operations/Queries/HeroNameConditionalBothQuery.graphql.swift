@@ -54,7 +54,7 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroNameConditionalBothQuery.Data.self)
         ]
       ))
     }
@@ -85,7 +85,7 @@ public class HeroNameConditionalBothQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroNameConditionalBothQuery.Data.Hero.self)
           ]
         ))
       }

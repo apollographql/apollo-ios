@@ -53,7 +53,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.self)
         ]
       ))
     }
@@ -83,7 +83,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self)
           ]
         ))
       }
@@ -113,8 +113,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
               "property": property,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.AsHuman.self)
             ]
           ))
         }
@@ -145,8 +145,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
               "property": property,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.AsDroid.self)
             ]
           ))
         }

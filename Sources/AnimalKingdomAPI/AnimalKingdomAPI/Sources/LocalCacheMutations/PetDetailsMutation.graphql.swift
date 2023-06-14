@@ -38,7 +38,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
         "owner": owner._fieldData,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(PetDetailsMutation.self)
       ]
     ))
   }
@@ -70,7 +70,7 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
           "firstName": firstName,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetDetailsMutation.Owner.self)
         ]
       ))
     }
