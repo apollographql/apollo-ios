@@ -29,41 +29,31 @@ let package = Package(
       name: "Apollo",
       dependencies: [
         "ApolloAPI"
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      ]
+    ),
     .target(
       name: "ApolloAPI",
-      dependencies: [],
-      exclude: [
-        "Info.plist"
-      ]),
+      dependencies: []
+    ),
     .target(
       name: "ApolloSQLite",
       dependencies: [
         "Apollo",
         .product(name: "SQLite", package: "SQLite.swift"),
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      ]
+    ),
     .target(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo"
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      ]
+    ),
     .target(
       name: "ApolloTestSupport",
       dependencies: [
         "Apollo",
         "ApolloAPI"
-      ],
-      exclude: [
-        "Info.plist"
-      ]),
+      ]
+    ),
   ]
 )
