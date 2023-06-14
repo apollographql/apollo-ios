@@ -1,3 +1,4 @@
+import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
@@ -6,6 +7,8 @@ import ApolloAPI
 public struct CacheReadInterceptor: ApolloInterceptor {
 
   private let store: ApolloStore
+
+  public var id: String = UUID().uuidString
   
   /// Designated initializer
   ///
@@ -24,17 +27,25 @@ public struct CacheReadInterceptor: ApolloInterceptor {
       case .mutation,
           .subscription:
         // Mutations and subscriptions don't need to hit the cache.
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
+
       case .query:
         switch request.cachePolicy {
         case .fetchIgnoringCacheCompletely,
             .fetchIgnoringCacheData:
           // Don't bother with the cache, just keep going
-          chain.proceedAsync(request: request,
-                             response: response,
-                             completion: completion)
+          chain.proceedAsync(
+            request: request,
+            response: response,
+            interceptor: self,
+            completion: completion
+          )
+
         case .returnCacheDataAndFetch:
           self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
             switch cacheFetchResult {
@@ -42,29 +53,40 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               // Don't return a cache miss error, just keep going
               break
             case .success(let graphQLResult):
-              chain.returnValueAsync(for: request,
-                                     value: graphQLResult,
-                                     completion: completion)
+              chain.returnValueAsync(
+                for: request,
+                value: graphQLResult,
+                completion: completion
+              )
             }
 
             // In either case, keep going asynchronously
-            chain.proceedAsync(request: request,
-                               response: response,
-                               completion: completion)
+            chain.proceedAsync(
+              request: request,
+              response: response,
+              interceptor: self,
+              completion: completion
+            )
           }
         case .returnCacheDataElseFetch:
           self.fetchFromCache(for: request, chain: chain) { cacheFetchResult in
             switch cacheFetchResult {
             case .failure:
               // Cache miss, proceed to network without returning error
-              chain.proceedAsync(request: request,
-                                 response: response,
-                                 completion: completion)
+              chain.proceedAsync(
+                request: request,
+                response: response,
+                interceptor: self,
+                completion: completion
+              )
+
             case .success(let graphQLResult):
               // Cache hit! We're done.
-              chain.returnValueAsync(for: request,
-                                     value: graphQLResult,
-                                     completion: completion)
+              chain.returnValueAsync(
+                for: request,
+                value: graphQLResult,
+                completion: completion
+              )
             }
           }
         case .returnCacheDataDontFetch:
@@ -72,14 +94,19 @@ public struct CacheReadInterceptor: ApolloInterceptor {
             switch cacheFetchResult {
             case .failure(let error):
               // Cache miss - don't hit the network, just return the error.
-              chain.handleErrorAsync(error,
-                                     request: request,
-                                     response: response,
-                                     completion: completion)
+              chain.handleErrorAsync(
+                error,
+                request: request,
+                response: response,
+                completion: completion
+              )
+
             case .success(let result):
-              chain.returnValueAsync(for: request,
-                                     value: result,
-                                     completion: completion)
+              chain.returnValueAsync(
+                for: request,
+                value: result,
+                completion: completion
+              )
             }
           }
         }

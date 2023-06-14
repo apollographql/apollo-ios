@@ -9,9 +9,17 @@ public protocol RequestChain: Cancellable {
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) where Operation : GraphQLOperation
 
+  @available(*, deprecated, renamed: "proceedAsync(request:response:interceptor:completion:)")
   func proceedAsync<Operation>(
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+  ) where Operation : GraphQLOperation
+
+  func proceedAsync<Operation>(
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    interceptor: any ApolloInterceptor,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) where Operation : GraphQLOperation
 

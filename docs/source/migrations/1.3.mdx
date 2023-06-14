@@ -1,0 +1,31 @@
+---
+title: Apollo iOS 1.3 migration guide
+description: From 1.2 to 1.3
+---
+
+This guide describes the process of migrating your code from version 1.2 to version 1.3 of Apollo iOS. Please follow the relevant migration guides if you're on a version other than 1.2.
+
+Though 1.3 is a minor version bump, a few critical bugs were fixed in this version that require some breaking changes during the upgrade. While we strive to make the upgrade path for minor versions seamless, these issues could not be reasonably resolved without requiring this migration.
+
+## Request Chain Interceptors
+
+The `ApolloInterceptor` protocol implemented by request chain interceptors has had a minor change in this version. Any custom interceptors you use are now required to be able to identify themselves through a new property.
+
+The `RequestChain` protocol has also had a minor change in this version. The `proceedAsync(request:response:completion:)` function has been deprecated and replaced with a function named identically except for the inclusion of the interceptor so that it can be identified. This removes the need for the request chain to maintain index positioning of the list of interceptors.
+
+### Migration Steps
+
+In order for your custom interceptors to conform to the protocol change you can simply add the following line to your interceptor.
+```swift title="Interceptor identification"
+public var id: String = UUID().uuidString
+```
+
+Wherever your custom interceptors call back to the request chain you should replace the call to `proceedAsync(request:response:completion:)` with a call to the new function.
+```swift title="Resolve deprecation warning"
+chain.proceedAsync(
+  request: request,
+  response: response,
+  interceptor: self,
+  completion: completion
+)
+```

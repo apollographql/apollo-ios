@@ -29,6 +29,8 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
     }
   }
 
+  public var id: String = UUID().uuidString
+
   public init() { }
 
   public func interceptAsync<Operation: GraphQLOperation>(
@@ -38,16 +40,19 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) {
     guard let createdResponse = response else {
-      chain.handleErrorAsync(JSONResponseParsingError.noResponseToParse,
-                             request: request,
-                             response: response,
-                             completion: completion)
+      chain.handleErrorAsync(
+        JSONResponseParsingError.noResponseToParse,
+        request: request,
+        response: response,
+        completion: completion
+      )
       return
     }
 
     do {
-      guard let body = try? JSONSerializationFormat
-              .deserialize(data: createdResponse.rawData) as? JSONObject else {
+      guard
+        let body = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
+      else {
         throw JSONResponseParsingError.couldNotParseToJSON(data: createdResponse.rawData)
       }
 
@@ -57,15 +62,20 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
 
       let result = try parseResult(from: graphQLResponse, cachePolicy: request.cachePolicy)
       createdResponse.parsedResponse = result
-      chain.proceedAsync(request: request,
-                         response: createdResponse,
-                         completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: createdResponse,
+        interceptor: self,
+        completion: completion
+      )
 
     } catch {
-      chain.handleErrorAsync(error,
-                             request: request,
-                             response: createdResponse,
-                             completion: completion)
+      chain.handleErrorAsync(
+        error,
+        request: request,
+        response: createdResponse,
+        completion: completion
+      )
     }
   }
 
