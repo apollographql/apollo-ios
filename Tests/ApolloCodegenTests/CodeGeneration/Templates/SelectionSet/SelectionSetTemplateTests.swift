@@ -3618,7 +3618,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Field Accessors - Merged From Parent
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_rendersFieldAccessorWithDirectName() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_notOperationRoot_rendersFieldAccessorWithNameNotIncludingParent() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3667,7 +3667,51 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_rendersFieldAccessorWithCorrectName() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_atOperationRoot_rendersFieldAccessorWithNameNotIncludingParent() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type AdminQuery {
+      name: String!
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+      ... on AdminQuery {
+        name
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { __data["name"] }
+      public var allAnimals: [AllAnimal]? { __data["allAnimals"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_asAdminQuery = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery"]
+    )
+
+    let actual = subject.render(inlineFragment: query_asAdminQuery)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_notOperationRoot_rendersFieldAccessorWithNameNotIncludingSharedParent() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3718,6 +3762,57 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(inlineFragment: allAnimals_asDog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_atOperationRoot_rendersFieldAccessorWithNotIncludingSharedParent() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      role: String!
+    }
+
+    type AdminQuery implements ModeratorQuery {
+      name: String!
+      allAnimals: [Animal!]
+    }
+
+    interface ModeratorQuery {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      ... on ModeratorQuery {
+        allAnimals {
+          species
+        }
+      }
+      ... on AdminQuery {
+        name
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { __data["name"] }
+      public var allAnimals: [AsModeratorQuery.AllAnimal]? { __data["allAnimals"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_asAdminQuery = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery"]
+    )
+
+    let actual = subject.render(inlineFragment: query_asAdminQuery)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))

@@ -584,8 +584,8 @@ fileprivate class SelectionSetNameCache {
     } else {
       return selectionSet.selections.merged.mergedSources
         .first.unsafelyUnwrapped
-        .generatedSelectionSetName(
-          for: selectionSet.typeInfo,
+        .generatedSelectionSetNamePath(
+          from: selectionSet.typeInfo,
           pluralizer: config.pluralizer
         )
     }
@@ -621,8 +621,8 @@ fileprivate extension IR.SelectionSet {
 
 fileprivate extension IR.MergedSelections.MergedSource {
 
-  func generatedSelectionSetName(
-    for targetTypeInfo: IR.SelectionSet.TypeInfo,
+  func generatedSelectionSetNamePath(
+    from targetTypeInfo: IR.SelectionSet.TypeInfo,
     pluralizer: Pluralizer
   ) -> String {
     if let fragment = fragment {
@@ -647,14 +647,30 @@ fileprivate extension IR.MergedSelections.MergedSource {
       nodesToSharedRoot += 1
     }
 
+    let sharedRootIndex =
+      typeInfo.entity.location.fieldPath!.count - (nodesToSharedRoot + 1)
+
+    /// We should remove the first component if the shared root is the previous scope and that
+    /// scope is not the root of the entity.
+    ///
+    /// This is because the selection set will be a direct sibling of the current selection set.
+    ///
+    /// Example: The `height` field on `AllAnimals.AsPet` can reference the `AllAnimals.Height`
+    /// object as just `Height`.
+    ///
+    /// However, if the shared root is the root of the definition, the component that would be
+    /// removed is the location's `source`. This is not included in the field path and is already
+    /// omitted by this function. In this case, the `sharedRootIndex` is `-1`.
+    let removeFirstComponent = nodesToSharedRoot <= 1 && !(sharedRootIndex < 0)
+
     let fieldPath = typeInfo.entity.location.fieldPath!.node(
-      at: typeInfo.entity.location.fieldPath!.count - (nodesToSharedRoot + 1)
+      at: max(0, sharedRootIndex)
     )
 
     let selectionSetName = SelectionSetNameGenerator.generatedSelectionSetName(
       from: sourceTypePathCurrentNode,
       withFieldPath: fieldPath,
-      removingFirst: nodesToSharedRoot <= 1,
+      removingFirst: removeFirstComponent,
       pluralizer: pluralizer
     )
 
