@@ -29,3 +29,53 @@ chain.proceedAsync(
   completion: completion
 )
 ```
+## Reserved Keyword Type Name Suffxing
+
+When using certain keywords as the name of a GraphQL Type the generated code would fail to compile, as a result we decided to enforce the same reserved keyword list already being used for a Selection Set to the following other GraphQL Types:
+
+- Custom Scalar
+- Enum
+- Fragment
+- Input Object
+- Interface
+- Object
+- Union
+
+Names for these types will be checked (case insensitive) against the following reserved list:
+
+- Any
+- DataDict
+- DocumentType
+- Fragments
+- FragmentContainer
+- ParentType
+- Protocol
+- Schema
+- Selection
+- Self
+- String
+- Bool
+- Int
+- Float
+- Double
+- ID
+- Type
+- Error
+- _
+
+If a reserved keyword is found it will have its type name suffixed based on the type it represents, take the following Enum example:
+
+```graphql title="Enum Example"
+enum Type {
+  valueOne
+  valueTwo
+}
+```
+
+This would result in a generated Swift enum that looks like this:
+
+```swift title="Generated Enum"
+enum Type_Enum: String, EnumType
+```
+
+Not all of the reserved keywords listed cause a compilation error, however we felt it best to apply suffixing to all of them. This could result in some minor breaking changes to your generated code if you are currently using any of the listed reserved keywords and will require you to update their usage to the new suffixed name.
