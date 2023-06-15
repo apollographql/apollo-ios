@@ -35,3 +35,7 @@ public class MockWebSocket: WebSocketClient {
   public func connect() {
   }
 }
+
+public class ProxyableMockWebSocket: MockWebSocket, SOCKSProxyable {
+  public var enableSOCKSProxy: Bool = false
+}

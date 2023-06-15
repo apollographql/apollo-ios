@@ -40,7 +40,7 @@ public struct SSLSettings {
 
 //WebSocket implementation
 
-public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
+public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate, SOCKSProxyable {
 
   public enum OpCode : UInt8 {
     case continueFrame = 0x0
@@ -165,6 +165,29 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   public var currentURL: URL { return request.url! }
 
   public var respondToPingWithPong: Bool = true
+
+  /// Determines whether a SOCKS proxy is enabled on the underlying request.
+  /// Mostly useful for debugging with tools like Charles Proxy.
+  /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
+  public var enableSOCKSProxy: Bool {
+    get {
+      guard let stream = stream as? SOCKSProxyable else {
+        // If it's not proxyable, then the proxy can't be enabled
+        return false
+      }
+
+      return stream.enableSOCKSProxy
+    }
+
+    set {
+      guard var stream = stream as? SOCKSProxyable else {
+        // If it's not proxyable, there's nothing to do here.
+        return
+      }
+
+      stream.enableSOCKSProxy = newValue
+    }
+  }
 
   // MARK: - Private
 
