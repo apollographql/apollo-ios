@@ -45,7 +45,7 @@ extension GraphQLValue: JavaScriptValueDecodable {
       let value = jsValue["value"]
 
       /// The JS frontend does not do value conversions of the default values for input objects,
-      /// because no other compliation is needed, these are passed through as is from `graphql-js`.
+      /// because no other compilation is needed, these are passed through as is from `graphql-js`.
       /// We need to handle both converted object values and default values and represented by
       /// `graphql-js`.
       if !value.isUndefined {
