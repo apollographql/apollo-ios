@@ -121,6 +121,7 @@ commands:
           command: |
             if [[ ! -z "${CIRCLE_PR_REPONAME}" ]]; then
               git clone "https://github.com/$CIRCLE_PR_USERNAME/$CIRCLE_PR_REPONAME.git"
+              cd apollo-ios
               git checkout $CIRCLE_SHA1
             else
               git clone -b "$CIRCLE_BRANCH" "$CIRCLE_REPOSITORY_URL"
