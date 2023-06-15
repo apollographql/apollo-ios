@@ -187,6 +187,7 @@
 		DE100B202887415D00BE11C2 /* Documentation.docc in Sources */ = {isa = PBXBuildFile; fileRef = DE100B1F2887415D00BE11C2 /* Documentation.docc */; };
 		DE12B2D7273B204B003371CC /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D6273B204B003371CC /* TestError.swift */; };
 		DE12B2D9273C4338003371CC /* MockIRSubscripts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */; };
+		DE1540DC2A3A76F700A5A8B6 /* IRInputObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1540DB2A3A76F700A5A8B6 /* IRInputObjectTests.swift */; };
 		DE1696D4298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1696D3298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift */; };
 		DE181A2C26C5C0CB000C0B9C /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */; };
 		DE181A2E26C5C299000C0B9C /* SSLClientCertificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */; };
@@ -1372,6 +1373,7 @@
 		DE100B1F2887415D00BE11C2 /* Documentation.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = Documentation.docc; sourceTree = "<group>"; };
 		DE12B2D6273B204B003371CC /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		DE12B2D8273C4338003371CC /* MockIRSubscripts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockIRSubscripts.swift; sourceTree = "<group>"; };
+		DE1540DB2A3A76F700A5A8B6 /* IRInputObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRInputObjectTests.swift; sourceTree = "<group>"; };
 		DE1696D3298C51CF00345E1A /* SelectionSetTemplate_Initializers_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionSetTemplate_Initializers_Tests.swift; sourceTree = "<group>"; };
 		DE181A2B26C5C0CB000C0B9C /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		DE181A2D26C5C299000C0B9C /* SSLClientCertificate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSLClientCertificate.swift; sourceTree = "<group>"; };
@@ -3851,6 +3853,7 @@
 				DEA9A22F27CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift */,
 				E66935322804AFE5004E1FFC /* IRCustomScalarTests.swift */,
 				DEFE694F28133E9B001CF4E8 /* IRFieldCollectorTests.swift */,
+				DE1540DB2A3A76F700A5A8B6 /* IRInputObjectTests.swift */,
 			);
 			path = CodeGenIR;
 			sourceTree = "<group>";
@@ -5123,6 +5126,7 @@
 				E6B42D0D27A4749100A3BD58 /* SwiftPackageManagerModuleTemplateTests.swift in Sources */,
 				DE296539279B3B8200BF9B49 /* SelectionSetTemplateTests.swift in Sources */,
 				E66F8897276C136B0000BDA8 /* ObjectFileGeneratorTests.swift in Sources */,
+				DE1540DC2A3A76F700A5A8B6 /* IRInputObjectTests.swift in Sources */,
 				DE79642B276999E700978A03 /* IRNamedFragmentBuilderTests.swift in Sources */,
 				E69BEDA72798B89600000D10 /* InputObjectTemplateTests.swift in Sources */,
 				E6EE62F327DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift in Sources */,
