@@ -101,6 +101,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/OperationMessageIdCreator",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SOCKSProxyable",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLTrustValidator",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClient",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketClientDelegate",
@@ -251,6 +252,37 @@
   "title" : "OperationMessageIdCreator",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/operationmessageidcreator"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SOCKSProxyable": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SOCKSProxyable"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SOCKSProxyable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SOCKSProxyable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SOCKSProxyable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/socksproxyable"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLCert": {
   "abstract" : [

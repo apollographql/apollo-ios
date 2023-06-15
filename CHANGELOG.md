@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.2.2
+
+### Added
+- **Support SOCKS proxies for debugging websocket based subscriptions([#2788](https://github.com/apollographql/apollo-ios/issues/2788)):** _Thank you to [@tahirmit](https://github.com/tahirmt) for the contribution._ 
+
+### Fixed
+- **Fix conversion of generated models into nested type cases ([#2989](https://github.com/apollographql/apollo-ios/issues/2989) & [#2980](https://github.com/apollographql/apollo-ios/issues/2980)):** In some cases, the generated models were missing types when calculating which fragments were fulfilled for a selection set. This was causing type case conversion to return `nil` incorrectly. See PR [#3067](https://github.com/apollographql/apollo-ios/pull/3067). _Thank you to [@tgyhlsb](https://github.com/tgyhlsb) and [@dafurman](https://github.com/dafurman) for raising these issues._
+- **Fix crashes in code generation when merging fragments at definition root ([#3071](https://github.com/apollographql/apollo-ios/issues/3071)):** When fragments with type conditions were defined on the root of an operation or named fragment, the code generation engine was crashing. See PR [#3073](https://github.com/apollographql/apollo-ios/pull/3073). _Thank you to [@tahirmit](https://github.com/tahirmt) for raising and helping us reproduce this issue._
+- **Fix parsing of input objects as default values for input params ([#2978](https://github.com/apollographql/apollo-ios/issues/2978)):** The codegen engine will no longer crash in this situation. _Thank you to [@ecunha-ta](https://github.com/ecunha-ta) for raising the issue._
+
 ## v1.2.1
 
 ### Improved
