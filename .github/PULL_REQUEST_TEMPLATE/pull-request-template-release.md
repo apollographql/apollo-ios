@@ -1,8 +1,9 @@
 #### Diff
-[1.0.2...main](https://github.com/apollographql/apollo-ios/compare/1.0.2...main). _Change this to show the diff since the last version._
+<!-- _Change this to show the diff since the last version._ -->
+[main...{$VERSION_BRANCH}](https://github.com/apollographql/apollo-ios/compare/main...{$VERSION_BRANCH}). 
 
 #### Relevant changes:
-* _List the highlight PRs_
+<!-- _List the highlight PRs_ -->
 
 #### Things to do in this PR
 - [ ] Update the version constants using the `set-version.sh` script.
