@@ -121,6 +121,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/id"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
@@ -274,6 +280,40 @@
   "title" : "JSONResponseParsingInterceptor.JSONResponseParsingError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror"
+},
+"doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONResponseParsingInterceptor\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/JSONResponseParsingInterceptor/init()": {
   "abstract" : [

@@ -105,6 +105,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/id"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
@@ -242,6 +248,40 @@
   "title" : "MultipartResponseParsingInterceptor.MultipartResponseParsingError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror"
+},
+"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/init()": {
   "abstract" : [

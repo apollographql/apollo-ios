@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.3.0
+
+### Fixed
+- **Using reserved keyword `Type` as in selection fields does not compile ([#3006](https://github.com/apollographql/apollo-ios/issues/3006)):** See PR [#3058](https://github.com/apollographql/apollo-ios/pull/3058). _Thank you to [@Nielssg](https://github.com/Nielssg) for raising the issue._
+- **Memory leak from `InterceptorRequestChain` when ending the chain with `returnValueAsync` ([#3057](https://github.com/apollographql/apollo-ios/issues/3057)):** See PR [#3070](https://github.com/apollographql/apollo-ios/pull/3070). _Thank you to [@marksvend](https://github.com/marksvend) for raising the issue._
+
 ## v1.2.2
 
 ### Added

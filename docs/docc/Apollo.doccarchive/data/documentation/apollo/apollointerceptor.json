@@ -106,6 +106,12 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor\/id"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
@@ -172,6 +178,41 @@
   "title" : "ApolloInterceptor",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apollointerceptor"
+},
+"doc://Apollo/documentation/Apollo/ApolloInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor\/id",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollointerceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/ApolloInterceptor/interceptAsync(chain:request:response:completion:)": {
   "abstract" : [

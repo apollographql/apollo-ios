@@ -878,6 +878,11 @@
                 "type" : "method"
               },
               {
+                "path" : "\/documentation\/apollo\/interceptorrequestchain\/proceedasync(request:response:interceptor:completion:)",
+                "title" : "func proceedAsync<Operation>(request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, interceptor: ApolloInterceptor, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
                 "path" : "\/documentation\/apollo\/interceptorrequestchain\/retry(request:completion:)",
                 "title" : "func retry<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
                 "type" : "method"
@@ -905,6 +910,11 @@
                   {
                     "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/nointerceptors",
                     "title" : "case noInterceptors",
+                    "type" : "case"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/unknowninterceptor(id:)",
+                    "title" : "case unknownInterceptor(id: String)",
                     "type" : "case"
                   },
                   {
@@ -1091,6 +1101,15 @@
                 "path" : "\/documentation\/apollo\/maxretryinterceptor\/init(maxretriesallowed:)",
                 "title" : "init(maxRetriesAllowed: Int)",
                 "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/maxretryinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "title" : "Instance Methods",
@@ -1291,6 +1310,15 @@
                 "path" : "\/documentation\/apollo\/networkfetchinterceptor\/init(client:)",
                 "title" : "init(client: URLSessionClient)",
                 "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/networkfetchinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "title" : "Instance Methods",
@@ -1879,6 +1907,15 @@
           {
             "children" : [
               {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/apollointerceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
+              },
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
@@ -2128,6 +2165,11 @@
                 "type" : "method"
               },
               {
+                "path" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:interceptor:completion:)",
+                "title" : "func proceedAsync<Operation>(request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, interceptor: ApolloInterceptor, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
+                "type" : "method"
+              },
+              {
                 "path" : "\/documentation\/apollo\/requestchain\/retry(request:completion:)",
                 "title" : "func retry<Operation>(request: HTTPRequest<Operation>, completion: (Result<GraphQLResult<Operation.Data>, Error>) -> Void)",
                 "type" : "method"
@@ -2208,6 +2250,15 @@
                 "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/init()",
                 "title" : "init()",
                 "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "title" : "Instance Methods",
@@ -2341,6 +2392,15 @@
                 "type" : "init"
               },
               {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/cachereadinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
+              },
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
@@ -2368,6 +2428,11 @@
               {
                 "title" : "Instance Properties",
                 "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/cachewriteinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "path" : "\/documentation\/apollo\/cachewriteinterceptor\/store",
@@ -3134,6 +3199,15 @@
                 "type" : "init"
               },
               {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
+              },
+              {
                 "title" : "Instance Methods",
                 "type" : "groupMarker"
               },
@@ -3242,6 +3316,15 @@
                 "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/init()",
                 "title" : "init()",
                 "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "title" : "Instance Methods",
@@ -3644,6 +3727,15 @@
                 "path" : "\/documentation\/apollo\/responsecodeinterceptor\/init()",
                 "title" : "init()",
                 "type" : "init"
+              },
+              {
+                "title" : "Instance Properties",
+                "type" : "groupMarker"
+              },
+              {
+                "path" : "\/documentation\/apollo\/responsecodeinterceptor\/id",
+                "title" : "var id: String",
+                "type" : "property"
               },
               {
                 "title" : "Instance Methods",

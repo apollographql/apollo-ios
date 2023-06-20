@@ -97,7 +97,8 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/ChainError\/invalidIndex(chain:index:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/ChainError\/noInterceptors"
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/ChainError\/noInterceptors",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/ChainError\/unknownInterceptor(id:)"
       ],
       "title" : "Enumeration Cases"
     },
@@ -361,6 +362,52 @@
   "title" : "InterceptorRequestChain.ChainError.noInterceptors",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/nointerceptors"
+},
+"doc://Apollo/documentation/Apollo/InterceptorRequestChain/ChainError/unknownInterceptor(id:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "unknownInterceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/ChainError\/unknownInterceptor(id:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "InterceptorRequestChain.ChainError.unknownInterceptor(id:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/unknowninterceptor(id:)"
 },
 "doc://Apollo/s5ErrorP": {
   "identifier" : "doc:\/\/Apollo\/s5ErrorP",

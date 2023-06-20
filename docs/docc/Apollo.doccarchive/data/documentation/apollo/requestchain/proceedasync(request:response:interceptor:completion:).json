@@ -9,11 +9,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)"
+    "url" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:interceptor:completion:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:6Apollo12RequestChainP12proceedAsync7request8response10completionyAA11HTTPRequestCyqd__G_AA12HTTPResponseCyqd__GSgys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0L11QLOperationRd__lF",
+    "externalID" : "s:6Apollo12RequestChainP12proceedAsync7request8response11interceptor10completionyAA11HTTPRequestCyqd__G_AA12HTTPResponseCyqd__GSgAA0A11Interceptor_pys6ResultOyAA13GraphQLResultVy4DataQyd__Gs5Error_pGct0A3API0N11QLOperationRd__lF",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -91,6 +91,23 @@
       },
       {
         "kind" : "externalParam",
+        "text" : "interceptor"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
+        "text" : "ApolloInterceptor"
+      },
+      {
+        "kind" : "text",
+        "text" : ", "
+      },
+      {
+        "kind" : "externalParam",
         "text" : "completion"
       },
       {
@@ -155,14 +172,11 @@
         "name" : "Apollo"
       }
     ],
-    "platforms" : [
-
-    ],
     "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "proceedAsync(request:response:completion:)"
+    "title" : "proceedAsync(request:response:interceptor:completion:)"
   },
   "primaryContentSections" : [
     {
@@ -250,6 +264,24 @@
             {
               "kind" : "text",
               "text" : ">?, "
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "interceptor"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
+              "text" : "ApolloInterceptor"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -358,7 +390,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollo\/requestchain\/proceedasync(request:response:completion:)"
+        "\/documentation\/apollo\/requestchain\/proceedasync(request:response:interceptor:completion:)"
       ],
       "traits" : [
         {
@@ -382,6 +414,40 @@
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/ApolloInterceptor": {
+  "abstract" : [
+    {
+      "text" : "A protocol to set up a chainable unit of networking work.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ApolloInterceptor"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloInterceptor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ApolloInterceptor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloInterceptor",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/apollointerceptor"
 },
 "doc://Apollo/documentation/Apollo/GraphQLResult": {
   "abstract" : [
@@ -516,11 +582,10 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchain"
 },
-"doc://Apollo/documentation/Apollo/RequestChain/proceedAsync(request:response:completion:)": {
+"doc://Apollo/documentation/Apollo/RequestChain/proceedAsync(request:response:interceptor:completion:)": {
   "abstract" : [
 
   ],
-  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -598,6 +663,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "interceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
+      "text" : "ApolloInterceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "completion"
     },
     {
@@ -657,13 +739,13 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:completion:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChain\/proceedAsync(request:response:interceptor:completion:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "proceedAsync(request:response:completion:)",
+  "title" : "proceedAsync(request:response:interceptor:completion:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:completion:)"
+  "url" : "\/documentation\/apollo\/requestchain\/proceedasync(request:response:interceptor:completion:)"
 }
 }
 }
