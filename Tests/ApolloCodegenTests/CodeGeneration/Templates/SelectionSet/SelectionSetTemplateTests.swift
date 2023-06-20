@@ -5871,7 +5871,7 @@ class SelectionSetTemplateTests: XCTestCase {
   // MARK: Nested Selection Sets - Reserved Keywords + Special Names
 
   func test__render_nestedSelectionSet__givenEntityFieldWithSwiftKeywordAndApolloReservedTypeNames_rendersSelectionSetWithNameSuffixed() throws {
-    let fieldNames = SwiftKeywords.SelectionSetTypeNamesToSuffix
+    let fieldNames = SwiftKeywords.TypeNamesToSuffix
     for fieldName in fieldNames {
       // given
       schemaSDL = """
@@ -6720,4 +6720,280 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Type Tests
+  
+  func test__render_enumType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: Type!
+    }
+
+    enum Type {
+      ADMIN
+      MEMBER
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            type
+        }
+    }
+    """
+
+    let expectedOne = """
+        .field("type", GraphQLEnum<TestSchema.Type_Enum>.self),
+    """
+    
+    let expectedTwo = """
+      public var type: GraphQLEnum<TestSchema.Type_Enum> { __data["type"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_NamedFragmentType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: UserRole!
+    }
+
+    enum UserRole {
+      ADMIN
+      MEMBER
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            ...Type
+        }
+    }
+
+    fragment Type on User {
+        name
+        type
+    }
+    """
+
+    let expectedOne = """
+        .fragment(Type_Fragment.self),
+    """
+    
+    let expectedTwo = """
+        public var type: Type_Fragment { _toFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 19, ignoringExtraLines: true))
+  }
+  
+  func test__render_CustomScalarType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    scalar Type
+
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: Type!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            type
+        }
+    }
+    """
+
+    let expectedOne = """
+        .field("type", TestSchema.Type_Scalar.self),
+    """
+    
+    let expectedTwo = """
+      public var type: TestSchema.Type_Scalar { __data["type"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_InterfaceType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    interface Type {
+      name: String!
+    }
+
+    type Query {
+      getUser: Type
+    }
+
+    type User implements Type {
+      id: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            name
+        }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Type_Interface }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
+  func test__render_UnionType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    union Type = User | Admin
+
+    type Query {
+      getUser: Type
+    }
+
+    type User {
+      id: String!
+      name: String!
+    }
+
+    type Admin {
+      id: String!
+      role: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            ... on User {
+              name
+            }
+            ... on Admin {
+              role
+            }
+        }
+    }
+
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Type_Union }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
+  func test__render_ObjectType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getType: Type
+    }
+
+    type Type {
+      id: String!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getType {
+            name
+        }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Type_Object }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getType"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
 }

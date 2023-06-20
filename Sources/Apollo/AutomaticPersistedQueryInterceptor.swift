@@ -23,6 +23,8 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
       }
     }
   }
+
+  public var id: String = UUID().uuidString
   
   /// Designated initializer
   public init() {}
@@ -36,35 +38,46 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
       guard let jsonRequest = request as? JSONRequest,
             jsonRequest.autoPersistQueries else {
         // Not a request that handles APQs, continue along
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
         return
       }
 
       guard let result = response?.parsedResponse else {
         // This is in the wrong order - this needs to be parsed before we can check it.
-        chain.handleErrorAsync(APQError.noParsedResponse,
-                               request: request,
-                               response: response,
-                               completion: completion)
+        chain.handleErrorAsync(
+          APQError.noParsedResponse,
+          request: request,
+          response: response,
+          completion: completion
+        )
         return
       }
 
       guard let errors = result.errors else {
         // No errors were returned so no retry is necessary, continue along.
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
         return
       }
 
       let errorMessages = errors.compactMap { $0.message }
       guard errorMessages.contains("PersistedQueryNotFound") else {
         // The errors were not APQ errors, continue along.
-        chain.proceedAsync(request: request,
-                           response: response,
-                           completion: completion)
+        chain.proceedAsync(
+          request: request,
+          response: response,
+          interceptor: self,
+          completion: completion
+        )
         return
       }
 
@@ -93,7 +106,6 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
 
       // We need to retry this query with the full body.
       jsonRequest.isPersistedQueryRetry = true
-      chain.retry(request: jsonRequest,
-                  completion: completion)
+      chain.retry(request: jsonRequest, completion: completion)
     }
 }

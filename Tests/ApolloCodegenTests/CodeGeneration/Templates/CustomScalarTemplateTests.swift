@@ -214,4 +214,27 @@ class CustomScalarTemplateTests: XCTestCase {
     // then
     expect(rendered).to(equalLineByLine(expected))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__givenCustomScalar_usingReservedKeyword_shouldRenderAsEscaped() throws {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword)
+
+      let expected = """
+      typealias \(keyword.firstUppercased)_Scalar = String
+
+      """
+
+      // when
+      let rendered = renderSubject()
+
+      // then
+      expect(rendered).to(equalLineByLine(expected))
+    }
+  }
+  
 }

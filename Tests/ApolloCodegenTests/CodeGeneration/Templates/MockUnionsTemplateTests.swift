@@ -133,4 +133,29 @@ class MockUnionsTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__usingReservedKeyword__generatesTypeWithSuffix() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      let union = GraphQLUnionType.mock(keyword)
+      buildSubject(unions: [union])
+
+      let expected = """
+      public extension MockObject {
+        typealias \(keyword.firstUppercased)_Union = Union
+      }
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

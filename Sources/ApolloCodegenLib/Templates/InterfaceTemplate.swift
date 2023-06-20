@@ -13,7 +13,7 @@ struct InterfaceTemplate: TemplateRenderer {
   var template: TemplateString {
     """
     \(documentation: graphqlInterface.documentation, config: config)
-    static let \(graphqlInterface.name.firstUppercased) = Interface(name: "\(graphqlInterface.name)")
+    static let \(graphqlInterface.formattedName) = Interface(name: "\(graphqlInterface.name)")
     """
   }
 }

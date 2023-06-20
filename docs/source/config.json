@@ -11,7 +11,8 @@
     "Migration Guides": [
       {
         "v1.0": "/migrations/1.0",
-        "v1.2": "/migrations/1.2"
+        "v1.2": "/migrations/1.2",
+        "v1.3": "/migrations/1.3"
       },
       true
     ],

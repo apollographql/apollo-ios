@@ -16,7 +16,9 @@ class ResponseCodeInterceptorTests: XCTestCase {
         return client
       }()
 
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         [
           NetworkFetchInterceptor(client: self.mockClient),
           ResponseCodeInterceptor(),
@@ -72,7 +74,9 @@ class ResponseCodeInterceptorTests: XCTestCase {
         return client
       }()
 
-      func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor] {
+      func interceptors<Operation: GraphQLOperation>(
+        for operation: Operation
+      ) -> [any ApolloInterceptor] {
         [
           NetworkFetchInterceptor(client: self.mockClient),
           ResponseCodeInterceptor(),
