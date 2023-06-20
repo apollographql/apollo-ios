@@ -1,1 +1,1 @@
-APOLLO_CONSTANTS_FILE="Constants.swift"
+APOLLO_CONSTANTS_FILE="Sources/Apollo/Constants.swift"
