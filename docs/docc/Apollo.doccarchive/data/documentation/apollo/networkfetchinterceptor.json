@@ -106,6 +106,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/id"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/cancel()",
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
@@ -270,6 +276,40 @@
   "title" : "cancel()",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networkfetchinterceptor\/cancel()"
+},
+"doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/networkfetchinterceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/NetworkFetchInterceptor/init(client:)": {
   "abstract" : [

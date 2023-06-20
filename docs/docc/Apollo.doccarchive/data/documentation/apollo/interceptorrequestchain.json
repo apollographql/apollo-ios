@@ -125,6 +125,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/handleErrorAsync(_:request:response:completion:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/kickoff(request:completion:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/proceedAsync(request:response:completion:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/proceedAsync(request:response:interceptor:completion:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/retry(request:completion:)",
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/returnValueAsync(for:value:completion:)"
       ],
@@ -870,6 +871,173 @@
   "title" : "proceedAsync(request:response:completion:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/interceptorrequestchain\/proceedasync(request:response:completion:)"
+},
+"doc://Apollo/documentation/Apollo/InterceptorRequestChain/proceedAsync(request:response:interceptor:completion:)": {
+  "abstract" : [
+    {
+      "text" : "Proceeds to the next interceptor in the array.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "proceedAsync"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "request"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo11HTTPRequestC",
+      "text" : "HTTPRequest"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "response"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo12HTTPResponseC",
+      "text" : "HTTPResponse"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : ">?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "interceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo0A11InterceptorP",
+      "text" : "ApolloInterceptor"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "completion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6ResultO",
+      "text" : "Result"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo13GraphQLResultV",
+      "text" : "GraphQLResult"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Operation"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Data"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s5ErrorP",
+      "text" : "Error"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s4Voida",
+      "text" : "Void"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain\/proceedAsync(request:response:interceptor:completion:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "proceedAsync(request:response:interceptor:completion:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/interceptorrequestchain\/proceedasync(request:response:interceptor:completion:)"
 },
 "doc://Apollo/documentation/Apollo/InterceptorRequestChain/retry(request:completion:)": {
   "abstract" : [
