@@ -6,6 +6,11 @@ import ApolloAPI
 public protocol ApolloInterceptor {
 
   var id: String { get set }
+  /// Used to uniquely identify this interceptor from other interceptors in a request chain.
+  ///
+  /// Each operation request has it's own interceptor request chain so the interceptors do not
+  /// need to be uniquely identifiable between each and every request, only unique between the
+  /// list of interceptors in a single request.
   
   /// Called when this interceptor should do its work.
   ///
