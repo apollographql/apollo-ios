@@ -23,11 +23,11 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? T
     }
     set {
-      _set(newValue, for: keyPath)
+      _setScalar(newValue, for: keyPath)
     }
   }
 
-  public func _set<T: AnyScalarType & Hashable>(
+  public func _setScalar<T: AnyScalarType & Hashable>(
     _ value: T?,
     for keyPath: KeyPath<O.MockFields, Field<T>>
   ) {
@@ -43,11 +43,11 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? T.MockValueCollectionType.Element
     }
     set {
-      _set(newValue, for: keyPath)
+      _setEntity(newValue, for: keyPath)
     }
   }
 
-  public func _set<T: MockFieldValue>(
+  public func _setEntity<T: MockFieldValue>(
     _ value: T.MockValueCollectionType.Element?,
     for keyPath: KeyPath<O.MockFields, Field<T>>
   ) {
@@ -63,12 +63,11 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? [T.MockValueCollectionType.Element]
     }
     set {
-      _set(newValue, for: keyPath)
+      _setList(newValue, for: keyPath)
     }
   }
 
-  @_disfavoredOverload
-  public func _set<T: MockFieldValue>(
+  public func _setList<T: MockFieldValue>(
     _ value: [T.MockValueCollectionType.Element]?,
     for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
   ) {
