@@ -67,7 +67,7 @@ struct MockObjectTemplate: TemplateRenderer {
         ) {
           self.init()
           \(fields.map {
-            return "_set\(getMockSetType($0.1))(\($0.0.initializerParameterName ?? $0.0.propertyName), for: \\.\($0.0.propertyName))"
+            return "_set\(mockFunctionDescriptor($0.1))(\($0.0.initializerParameterName ?? $0.0.propertyName), for: \\.\($0.0.propertyName))"
           }, separator: "\n")
         }
       }
@@ -77,7 +77,7 @@ struct MockObjectTemplate: TemplateRenderer {
     """
   }
   
-  private func getMockSetType(_ graphQLType: GraphQLType) -> String {
+  private func mockFunctionDescriptor(_ graphQLType: GraphQLType) -> String {
     switch graphQLType {
       case .list(_):
         return "List"
@@ -88,7 +88,7 @@ struct MockObjectTemplate: TemplateRenderer {
       case .inputObject(_):
         return ""
       case .nonNull(let type):
-        return getMockSetType(type)
+        return mockFunctionDescriptor(type)
     }
   }
 

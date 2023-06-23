@@ -39,7 +39,7 @@ public extension Mock where O == Human {
     _setScalar(id, for: \.id)
     _setScalar(laysEggs, for: \.laysEggs)
     _setList(predators, for: \.predators)
-    _setEntity(skinCovering, for: \.skinCovering)
+    _setScalar(skinCovering, for: \.skinCovering)
     _setScalar(species, for: \.species)
   }
 }

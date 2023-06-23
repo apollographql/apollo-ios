@@ -30,7 +30,7 @@ public extension Mock where O == Crocodile {
     _setEntity(height, for: \.height)
     _setScalar(id, for: \.id)
     _setList(predators, for: \.predators)
-    _setEntity(skinCovering, for: \.skinCovering)
+    _setScalar(skinCovering, for: \.skinCovering)
     _setScalar(species, for: \.species)
   }
 }

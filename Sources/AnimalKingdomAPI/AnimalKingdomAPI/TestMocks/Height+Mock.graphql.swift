@@ -31,6 +31,6 @@ public extension Mock where O == Height {
     _setScalar(feet, for: \.feet)
     _setScalar(inches, for: \.inches)
     _setScalar(meters, for: \.meters)
-    _setEntity(relativeSize, for: \.relativeSize)
+    _setScalar(relativeSize, for: \.relativeSize)
   }
 }

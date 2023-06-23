@@ -39,7 +39,7 @@ public extension Mock where O == Fish {
     _setScalar(id, for: \.id)
     _setEntity(owner, for: \.owner)
     _setList(predators, for: \.predators)
-    _setEntity(skinCovering, for: \.skinCovering)
+    _setScalar(skinCovering, for: \.skinCovering)
     _setScalar(species, for: \.species)
   }
 }

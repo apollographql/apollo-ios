@@ -48,7 +48,7 @@ public extension Mock where O == Dog {
     _setScalar(laysEggs, for: \.laysEggs)
     _setEntity(owner, for: \.owner)
     _setList(predators, for: \.predators)
-    _setEntity(skinCovering, for: \.skinCovering)
+    _setScalar(skinCovering, for: \.skinCovering)
     _setScalar(species, for: \.species)
   }
 }
