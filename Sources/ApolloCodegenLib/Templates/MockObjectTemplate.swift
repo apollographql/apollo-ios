@@ -83,7 +83,7 @@ struct MockObjectTemplate: TemplateRenderer {
       case .entity(_):
         return "Entity"
       case .inputObject(_):
-        preconditionFailure()
+        preconditionFailure("Input object found when determing mock set function descriptor.")
       case .nonNull(let type):
         return mockFunctionDescriptor(type)
     }
