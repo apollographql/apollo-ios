@@ -19,6 +19,6 @@ public extension Mock where O == Mutation {
     adoptPet: AnyMock? = nil
   ) {
     self.init()
-    _set(adoptPet, for: \.adoptPet)
+    _setEntity(adoptPet, for: \.adoptPet)
   }
 }

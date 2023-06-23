@@ -39,16 +39,16 @@ public extension Mock where O == Bird {
     wingspan: Double? = nil
   ) {
     self.init()
-    _set(bodyTemperature, for: \.bodyTemperature)
-    _set(favoriteToy, for: \.favoriteToy)
-    _set(height, for: \.height)
-    _set(humanName, for: \.humanName)
-    _set(id, for: \.id)
-    _set(laysEggs, for: \.laysEggs)
-    _set(owner, for: \.owner)
-    _set(predators, for: \.predators)
-    _set(skinCovering, for: \.skinCovering)
-    _set(species, for: \.species)
-    _set(wingspan, for: \.wingspan)
+    _setScalar(bodyTemperature, for: \.bodyTemperature)
+    _setScalar(favoriteToy, for: \.favoriteToy)
+    _setEntity(height, for: \.height)
+    _setScalar(humanName, for: \.humanName)
+    _setScalar(id, for: \.id)
+    _setScalar(laysEggs, for: \.laysEggs)
+    _setEntity(owner, for: \.owner)
+    _setList(predators, for: \.predators)
+    _setScalar(skinCovering, for: \.skinCovering)
+    _setScalar(species, for: \.species)
+    _setScalar(wingspan, for: \.wingspan)
   }
 }

@@ -14,7 +14,7 @@ struct MockObjectTemplate: TemplateRenderer {
     responseKey: String,
     propertyName: String,
     initializerParameterName: String?,
-    type: String,
+    type: GraphQLType,
     mockType: String,
     deprecationReason: String?
   )
@@ -24,14 +24,14 @@ struct MockObjectTemplate: TemplateRenderer {
     let fields: [TemplateField] = ir.fieldCollector
       .collectedFields(for: graphqlObject)
       .map {
-        (
+         (
           responseKey: $0.0,
           propertyName: $0.0.asTestMockFieldPropertyName,
           initializerParameterName: $0.0.asTestMockInitializerParameterName,
-          type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.config),
+          type: $0.1,
           mockType: mockTypeName(for: $0.1),
           deprecationReason: $0.deprecationReason
-        )
+         )
       }
 
     let memberAccessControl = accessControlModifier(for: .member)
@@ -46,7 +46,7 @@ struct MockObjectTemplate: TemplateRenderer {
         \(fields.map {
           TemplateString("""
           \(deprecationReason: $0.deprecationReason, config: config)
-          @Field<\($0.type)>("\($0.responseKey)") public var \($0.propertyName)
+          @Field<\($0.type.rendered(as: .testMockField(forceNonNull: true), config: config.config))>("\($0.responseKey)") public var \($0.propertyName)
           """)
         }, separator: "\n")
       }
@@ -63,13 +63,30 @@ struct MockObjectTemplate: TemplateRenderer {
             """ }, separator: ",\n")
         ) {
           self.init()
-          \(fields.map { "_set(\($0.initializerParameterName ?? $0.propertyName), for: \\.\($0.propertyName))" }, separator: "\n")
+          \(fields.map {
+            return "_set\(mockFunctionDescriptor($0.type))(\($0.initializerParameterName ?? $0.propertyName), for: \\.\($0.propertyName))"
+          }, separator: "\n")
         }
       }
       """) : TemplateString(stringLiteral: "")
     )
     
     """
+  }
+  
+  private func mockFunctionDescriptor(_ graphQLType: GraphQLType) -> String {
+    switch graphQLType {
+      case .list(_):
+        return "List"
+      case .scalar(_), .enum(_):
+        return "Scalar"
+      case .entity(_):
+        return "Entity"
+      case .inputObject(_):
+        preconditionFailure("Input object found when determing mock set function descriptor.")
+      case .nonNull(let type):
+        return mockFunctionDescriptor(type)
+    }
   }
 
   private func conflictingFieldNameProperties(_ fields: [TemplateField]) -> TemplateString {
