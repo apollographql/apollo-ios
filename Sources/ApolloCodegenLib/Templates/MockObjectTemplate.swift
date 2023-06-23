@@ -14,27 +14,24 @@ struct MockObjectTemplate: TemplateRenderer {
     responseKey: String,
     propertyName: String,
     initializerParameterName: String?,
-    type: String,
+    type: GraphQLType,
     mockType: String,
     deprecationReason: String?
   )
 
   var template: TemplateString {
     let objectName = graphqlObject.formattedName
-    let fields: [(TemplateField, GraphQLType)] = ir.fieldCollector
+    let fields: [TemplateField] = ir.fieldCollector
       .collectedFields(for: graphqlObject)
       .map {
-        (
          (
           responseKey: $0.0,
           propertyName: $0.0.asTestMockFieldPropertyName,
           initializerParameterName: $0.0.asTestMockInitializerParameterName,
-          type: $0.1.rendered(as: .testMockField(forceNonNull: true), config: config.config),
+          type: $0.1,
           mockType: mockTypeName(for: $0.1),
           deprecationReason: $0.deprecationReason
-         ),
-         $0.1
-        )
+         )
       }
 
     let memberAccessControl = accessControlModifier(for: .member)
@@ -48,8 +45,8 @@ struct MockObjectTemplate: TemplateRenderer {
       \(memberAccessControl)struct MockFields {
         \(fields.map {
           TemplateString("""
-          \(deprecationReason: $0.0.deprecationReason, config: config)
-          @Field<\($0.0.type)>("\($0.0.responseKey)") public var \($0.0.propertyName)
+          \(deprecationReason: $0.deprecationReason, config: config)
+          @Field<\($0.type.rendered(as: .testMockField(forceNonNull: true), config: config.config))>("\($0.responseKey)") public var \($0.propertyName)
           """)
         }, separator: "\n")
       }
@@ -59,15 +56,15 @@ struct MockObjectTemplate: TemplateRenderer {
       
       \(accessControlModifier(for: .parent))\
       extension Mock where O == \(objectName) {
-        \(conflictingFieldNameProperties(fields.map { $0.0 }))
+        \(conflictingFieldNameProperties(fields))
         convenience init(
           \(fields.map { """
-            \($0.0.propertyName)\(ifLet: $0.0.initializerParameterName, {" \($0)"}): \($0.0.mockType)? = nil
+            \($0.propertyName)\(ifLet: $0.initializerParameterName, {" \($0)"}): \($0.mockType)? = nil
             """ }, separator: ",\n")
         ) {
           self.init()
           \(fields.map {
-            return "_set\(mockFunctionDescriptor($0.1))(\($0.0.initializerParameterName ?? $0.0.propertyName), for: \\.\($0.0.propertyName))"
+            return "_set\(mockFunctionDescriptor($0.type))(\($0.initializerParameterName ?? $0.propertyName), for: \\.\($0.propertyName))"
           }, separator: "\n")
         }
       }
@@ -86,7 +83,7 @@ struct MockObjectTemplate: TemplateRenderer {
       case .entity(_):
         return "Entity"
       case .inputObject(_):
-        return ""
+        preconditionFailure()
       case .nonNull(let type):
         return mockFunctionDescriptor(type)
     }
