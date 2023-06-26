@@ -62,7 +62,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       accessControlRenderer: @autoclosure () -> String
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
-      let includeDefinition = config.options.apqs != .persistedOperationsOnly
+      let includeDefinition = config.options.operationDocumentFormat.contains(.definition)
 
       return TemplateString("""
       \(accessControlRenderer())\

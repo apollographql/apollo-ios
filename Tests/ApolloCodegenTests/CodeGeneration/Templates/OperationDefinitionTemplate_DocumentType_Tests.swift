@@ -28,14 +28,14 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
     operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule,
     queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = .singleLine,
-    apqs: ApolloCodegenConfiguration.APQConfig = .disabled,
+    operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat = .definition,
     cocoapodsCompatibleImportStatements: Bool = false
   ) {
     config = .mock(
       output: .mock(moduleType: moduleType, operations: operations),
       options: .init(
         queryStringLiteralFormat: queryStringLiteralFormat,
-        apqs: apqs,
+        operationDocumentFormat: operationDocumentFormat,
         cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements
       )
     )
@@ -71,7 +71,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -103,7 +103,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -131,7 +131,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -163,7 +163,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -195,7 +195,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -232,7 +232,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -265,7 +265,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -306,7 +306,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -355,7 +355,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
+      operationDocumentFormat: .definition
     )
 
     // when
@@ -385,7 +385,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .automaticallyPersist
+      operationDocumentFormat: [.definition, .operationId]
     )
 
     // when
@@ -419,7 +419,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
 
     buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .persistedOperationsOnly
+      operationDocumentFormat: .operationId
     )
 
     // when
