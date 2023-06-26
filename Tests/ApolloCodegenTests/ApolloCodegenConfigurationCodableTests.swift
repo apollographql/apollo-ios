@@ -36,7 +36,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           ),
           operations: .absolute(path: "/absolute/path", accessModifier: .internal),
           testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
-          operationIdentifiersPath: "/operation/identifiers/path"
+          operationManifest: .init(path: "/operation/identifiers/path")
         ),
         options: .init(
           additionalInflectionRules: [
@@ -45,7 +45,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           queryStringLiteralFormat: .singleLine,
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .exclude,
-          apqs: .persistedOperationsOnly,
+          operationDocumentFormat: .definition,
           cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .none),
@@ -82,12 +82,14 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
               }
             }
           ],
-          "apqs" : "persistedOperationsOnly",
           "cocoapodsCompatibleImportStatements" : true,
           "conversionStrategies" : {
             "enumCases" : "none"
           },
           "deprecatedEnumCases" : "exclude",
+          "operationDocumentFormat" : [
+            "definition"
+          ],
           "pruneGeneratedFiles" : false,
           "queryStringLiteralFormat" : "singleLine",
           "schemaDocumentation" : "exclude",
@@ -97,7 +99,10 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "warningsOnDeprecatedUsage" : "exclude"
         },
         "output" : {
-          "operationIdentifiersPath" : "/operation/identifiers/path",
+          "operationManifest" : {
+            "path" : "/operation/identifiers/path",
+            "version" : "persistedQueries"
+          },
           "operations" : {
             "absolute" : {
               "accessModifier" : "internal",
@@ -134,7 +139,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     let actual = encodedJSON.asString
 
     // then
-    expect(actual).to(equal(MockApolloCodegenConfiguration.encodedJSON))
+    expect(actual).to(equalLineByLine(MockApolloCodegenConfiguration.encodedJSON))
   }
 
   func test__decodeApolloCodegenConfiguration__givenAllParameters_shouldReturnStruct() throws {
@@ -661,98 +666,124 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(decoded).to(equal(expected))
   }
 
-  // MARK: - PersistedQueriesConfig Tests
+  // MARK: - OperationDocumentFormat Tests
 
-  #warning("TODO")
-//  func encodedValue(_ case: ApolloCodegenConfiguration.PersistedQueriesConfig) -> String {
-//    switch `case` {
-//    case .disabled: return "\"disabled\""
-//    case .automaticallyPersist: return "\"automaticallyPersist\""
-//    case .persistedOperationsOnly: return "\"persistedOperationsOnly\""
-//    }
-//  }
-//
-//  func test__encodePersistedQueriesConfig__givenDisabled_shouldReturnString() throws {
-//    // given
-//    let subject = ApolloCodegenConfiguration.PersistedQueriesConfig.disabled
-//
-//    // when
-//    let actual = try testJSONEncoder.encode(subject).asString
-//
-//    // then
-//    expect(actual).to(equal(encodedValue(.disabled)))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__encodeAPQConfig__givenAutomaticallyPersist_shouldReturnString() throws {
-//    // given
-//    let subject = ApolloCodegenConfiguration.APQConfig.automaticallyPersist
-//
-//    // when
-//    let actual = try testJSONEncoder.encode(subject).asString
-//
-//    // then
-//    expect(actual).to(equal(encodedValue(.automaticallyPersist)))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__encodeAPQConfig__givenPersistedOperationsOnly_shouldReturnString() throws {
-//    // given
-//    let subject = ApolloCodegenConfiguration.APQConfig.persistedOperationsOnly
-//
-//    // when
-//    let actual = try testJSONEncoder.encode(subject).asString
-//
-//    // then
-//    expect(actual).to(equal(encodedValue(.persistedOperationsOnly)))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__decodeAPQConfig__givenDisabled_shouldReturnEnum() throws {
-//    // given
-//    let subject = encodedValue(.disabled).asData
-//
-//    // when
-//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
-//
-//    // then
-//    expect(actual).to(equal(.disabled))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__decodeAPQConfig__givenAutomaticallyPersist_shouldReturnEnum() throws {
-//    // given
-//    let subject = encodedValue(.automaticallyPersist).asData
-//
-//    // when
-//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
-//
-//    // then
-//    expect(actual).to(equal(.automaticallyPersist))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__decodeAPQConfig__givenPersistedOperationsOnly_shouldReturnEnum() throws {
-//    // given
-//    let subject = encodedValue(.persistedOperationsOnly).asData
-//
-//    // when
-//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
-//
-//    // then
-//    expect(actual).to(equal(.persistedOperationsOnly))
-//  }
-//
-//  @available(*, deprecated, message: "Testing deprecated APQConfig")
-//  func test__decodeAPQConfig__givenUnknown_shouldThrow() throws {
-//    // given
-//    let subject = "\"unknown\"".asData
-//
-//    // then
-//    expect(
-//      try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
-//    ).to(throwError())
-//  }
+  func encodedValue(_ case: ApolloCodegenConfiguration.OperationDocumentFormat) -> String {
+    switch `case` {
+    case .definition:
+      return """
+    [
+      "definition"
+    ]
+    """
+    case .operationId:
+      return """
+    [
+      "operationId"
+    ]
+    """
+    case [.definition, .operationId]:
+      return """
+    [
+      "definition",
+      "operationId"
+    ]
+    """
+    default:
+      XCTFail("Invalid Definition")
+      return ""
+    }
+  }
+
+  func test__encodeOperationDocumentFormat__givenDefinition_shouldReturnStringArray() throws {
+    // given
+    let subject = ApolloCodegenConfiguration.OperationDocumentFormat.definition
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equalLineByLine(encodedValue(.definition)))
+  }
+
+  func test__encodeOperationDocumentFormat__givenOperationId_shouldReturnStringArray() throws {
+    // given
+    let subject = ApolloCodegenConfiguration.OperationDocumentFormat.operationId
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(encodedValue(.operationId)))
+  }
+
+  func test__encodeOperationDocumentFormat__givenBoth_shouldReturnStringArray() throws {
+    // given
+    let subject: ApolloCodegenConfiguration.OperationDocumentFormat = [
+      .definition, .operationId
+    ]
+
+    // when
+    let actual = try testJSONEncoder.encode(subject).asString
+
+    // then
+    expect(actual).to(equal(encodedValue([.definition, .operationId])))
+  }
+
+  func test__decodeOperationDocumentFormat__givenDefinition_shouldReturnOptionSet() throws {
+    // given
+    let subject = encodedValue(.definition).asData
+
+    // when
+    let actual = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      from: subject
+    )
+
+    // then
+    expect(actual).to(equal(.definition))
+  }
+
+  func test__decodeOperationDocumentFormat__givenOperationId_shouldReturnOptionSet() throws {
+    // given
+    let subject = encodedValue(.operationId).asData
+
+    // when
+    let actual = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      from: subject
+    )
+
+    // then
+    expect(actual).to(equal(.operationId))
+  }
+
+  func test__decodeOperationDocumentFormat__givenBoth_shouldReturnOptionSet() throws {
+    // given
+    let subject = encodedValue([.definition, .operationId]).asData
+
+    // when
+    let actual = try JSONDecoder().decode(
+      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      from: subject
+    )
+
+    // then
+    expect(actual).to(equal([.definition, .operationId]))
+  }
+
+  func test__decodeOperationDocumentFormat__givenUnknown_shouldThrow() throws {
+    // given
+    let subject = "\"unknown\"".asData
+
+    // then
+    expect(
+      try JSONDecoder().decode(
+        ApolloCodegenConfiguration.OperationDocumentFormat.self,
+        from: subject
+      )
+    ).to(throwError())
+  }
 
   // MARK: - APQConfig Tests
 

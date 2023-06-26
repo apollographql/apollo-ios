@@ -753,6 +753,39 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public init(rawValue: UInt8) {
       self.rawValue = rawValue
     }
+
+    // MARK: Codable
+
+    public enum CodingKeys: String, CodingKey {
+      case definition
+      case operationId
+    }
+
+    public init(from decoder: Decoder) throws {
+      self = OperationDocumentFormat(rawValue: 0)
+
+      var container = try decoder.unkeyedContainer()
+      while !container.isAtEnd {
+        let value = try container.decode(String.self)
+        switch CodingKeys(rawValue: value) {
+        case .definition:
+          self.insert(.definition)
+        case .operationId:
+          self.insert(.operationId)
+        default: continue
+        }
+      }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+      var container = encoder.unkeyedContainer()
+      if self.contains(.definition) {
+        try container.encode(CodingKeys.definition.rawValue)
+      }
+      if self.contains(.operationId) {
+        try container.encode(CodingKeys.operationId.rawValue)
+      }
+    }
   }
   
   /// The ``SelectionSetInitializers`` configuration is used to determine if you would like
