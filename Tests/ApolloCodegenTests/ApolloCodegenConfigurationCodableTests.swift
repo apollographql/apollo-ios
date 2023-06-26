@@ -661,6 +661,99 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(decoded).to(equal(expected))
   }
 
+  // MARK: - PersistedQueriesConfig Tests
+
+  #warning("TODO")
+//  func encodedValue(_ case: ApolloCodegenConfiguration.PersistedQueriesConfig) -> String {
+//    switch `case` {
+//    case .disabled: return "\"disabled\""
+//    case .automaticallyPersist: return "\"automaticallyPersist\""
+//    case .persistedOperationsOnly: return "\"persistedOperationsOnly\""
+//    }
+//  }
+//
+//  func test__encodePersistedQueriesConfig__givenDisabled_shouldReturnString() throws {
+//    // given
+//    let subject = ApolloCodegenConfiguration.PersistedQueriesConfig.disabled
+//
+//    // when
+//    let actual = try testJSONEncoder.encode(subject).asString
+//
+//    // then
+//    expect(actual).to(equal(encodedValue(.disabled)))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__encodeAPQConfig__givenAutomaticallyPersist_shouldReturnString() throws {
+//    // given
+//    let subject = ApolloCodegenConfiguration.APQConfig.automaticallyPersist
+//
+//    // when
+//    let actual = try testJSONEncoder.encode(subject).asString
+//
+//    // then
+//    expect(actual).to(equal(encodedValue(.automaticallyPersist)))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__encodeAPQConfig__givenPersistedOperationsOnly_shouldReturnString() throws {
+//    // given
+//    let subject = ApolloCodegenConfiguration.APQConfig.persistedOperationsOnly
+//
+//    // when
+//    let actual = try testJSONEncoder.encode(subject).asString
+//
+//    // then
+//    expect(actual).to(equal(encodedValue(.persistedOperationsOnly)))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__decodeAPQConfig__givenDisabled_shouldReturnEnum() throws {
+//    // given
+//    let subject = encodedValue(.disabled).asData
+//
+//    // when
+//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
+//
+//    // then
+//    expect(actual).to(equal(.disabled))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__decodeAPQConfig__givenAutomaticallyPersist_shouldReturnEnum() throws {
+//    // given
+//    let subject = encodedValue(.automaticallyPersist).asData
+//
+//    // when
+//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
+//
+//    // then
+//    expect(actual).to(equal(.automaticallyPersist))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__decodeAPQConfig__givenPersistedOperationsOnly_shouldReturnEnum() throws {
+//    // given
+//    let subject = encodedValue(.persistedOperationsOnly).asData
+//
+//    // when
+//    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
+//
+//    // then
+//    expect(actual).to(equal(.persistedOperationsOnly))
+//  }
+//
+//  @available(*, deprecated, message: "Testing deprecated APQConfig")
+//  func test__decodeAPQConfig__givenUnknown_shouldThrow() throws {
+//    // given
+//    let subject = "\"unknown\"".asData
+//
+//    // then
+//    expect(
+//      try JSONDecoder().decode(ApolloCodegenConfiguration.APQConfig.self, from: subject)
+//    ).to(throwError())
+//  }
+
   // MARK: - APQConfig Tests
 
   func encodedValue(_ case: ApolloCodegenConfiguration.APQConfig) -> String {
@@ -671,39 +764,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     }
   }
 
-  func test__encodeAPQConfig__givenDisabled_shouldReturnString() throws {
-    // given
-    let subject = ApolloCodegenConfiguration.APQConfig.disabled
-
-    // when
-    let actual = try testJSONEncoder.encode(subject).asString
-
-    // then
-    expect(actual).to(equal(encodedValue(.disabled)))
-  }
-
-  func test__encodeAPQConfig__givenAutomaticallyPersist_shouldReturnString() throws {
-    // given
-    let subject = ApolloCodegenConfiguration.APQConfig.automaticallyPersist
-
-    // when
-    let actual = try testJSONEncoder.encode(subject).asString
-
-    // then
-    expect(actual).to(equal(encodedValue(.automaticallyPersist)))
-  }
-
-  func test__encodeAPQConfig__givenPersistedOperationsOnly_shouldReturnString() throws {
-    // given
-    let subject = ApolloCodegenConfiguration.APQConfig.persistedOperationsOnly
-
-    // when
-    let actual = try testJSONEncoder.encode(subject).asString
-
-    // then
-    expect(actual).to(equal(encodedValue(.persistedOperationsOnly)))
-  }
-
+  @available(*, deprecated, message: "Testing deprecated APQConfig")
   func test__decodeAPQConfig__givenDisabled_shouldReturnEnum() throws {
     // given
     let subject = encodedValue(.disabled).asData
@@ -715,6 +776,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.disabled))
   }
 
+  @available(*, deprecated, message: "Testing deprecated APQConfig")
   func test__decodeAPQConfig__givenAutomaticallyPersist_shouldReturnEnum() throws {
     // given
     let subject = encodedValue(.automaticallyPersist).asData
@@ -726,6 +788,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.automaticallyPersist))
   }
 
+  @available(*, deprecated, message: "Testing deprecated APQConfig")
   func test__decodeAPQConfig__givenPersistedOperationsOnly_shouldReturnEnum() throws {
     // given
     let subject = encodedValue(.persistedOperationsOnly).asData
@@ -737,6 +800,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     expect(actual).to(equal(.persistedOperationsOnly))
   }
 
+  @available(*, deprecated, message: "Testing deprecated APQConfig")
   func test__decodeAPQConfig__givenUnknown_shouldThrow() throws {
     // given
     let subject = "\"unknown\"".asData

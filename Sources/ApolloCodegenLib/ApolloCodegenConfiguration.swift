@@ -450,10 +450,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let schemaDocumentation: Composition
     /// Which generated selection sets should include generated initializers.
     public let selectionSetInitializers: SelectionSetInitializers
-    /// Whether the generated operations should use Automatic Persisted Queries.
-    ///
-    /// See `APQConfig` for more information on Automatic Persisted Queries.
-    public let apqs: APQConfig
+    /// Configure generated operations to use operation identifiers for use with persisted queries
+    /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    public let persistedQueriesConfig: PersistedQueriesConfig
     /// Generate import statements that are compatible with including `Apollo` via Cocoapods.
     ///
     /// Cocoapods bundles all files from subspecs into the main target for a pod. This means that
@@ -498,7 +497,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let deprecatedEnumCases: Composition = .include
       public static let schemaDocumentation: Composition = .include
       public static let selectionSetInitializers: SelectionSetInitializers = [.localCacheMutations]
-      public static let apqs: APQConfig = .disabled
+      public static let persistedQueriesConfig: PersistedQueriesConfig = .disabled
       public static let cocoapodsCompatibleImportStatements: Bool = false
       public static let warningsOnDeprecatedUsage: Composition = .include
       public static let conversionStrategies: ConversionStrategies = .init()
@@ -516,7 +515,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - schemaDocumentation: Whether schema documentation is added to the generated files.
     ///   - selectionSetInitializers: Which generated selection sets should include
     ///     generated initializers.
-    ///   - apqs: Whether the generated operations should use Automatic Persisted Queries.
+    ///   - persistedQueriesConfig: Whether the generated operations should include persisted query identifiers.
     ///   - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
     ///     including `Apollo` via Cocoapods.
     ///   - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
@@ -531,7 +530,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
       schemaDocumentation: Composition = Default.schemaDocumentation,
       selectionSetInitializers: SelectionSetInitializers = Default.selectionSetInitializers,
-      apqs: APQConfig = Default.apqs,
+      persistedQueriesConfig: PersistedQueriesConfig = Default.persistedQueriesConfig,
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
       conversionStrategies: ConversionStrategies = Default.conversionStrategies,
@@ -542,7 +541,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.selectionSetInitializers = selectionSetInitializers
-      self.apqs = apqs
+      self.persistedQueriesConfig = persistedQueriesConfig
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
       self.conversionStrategies = conversionStrategies
@@ -558,6 +557,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case schemaDocumentation
       case selectionSetInitializers
       case apqs
+      case persistedQueriesConfig
       case cocoapodsCompatibleImportStatements
       case warningsOnDeprecatedUsage
       case conversionStrategies
@@ -592,10 +592,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         forKey: .selectionSetInitializers
       ) ?? Default.selectionSetInitializers
 
-      apqs = try values.decodeIfPresent(
+      persistedQueriesConfig = try values.decodeIfPresent(
+        PersistedQueriesConfig.self,
+        forKey: .persistedQueriesConfig
+      ) ??
+      values.decodeIfPresent(
         APQConfig.self,
         forKey: .apqs
-      ) ?? Default.apqs
+      )?.persistedQueryConfig ??
+      Default.persistedQueriesConfig
 
       cocoapodsCompatibleImportStatements = try values.decodeIfPresent(
         Bool.self,
@@ -616,6 +621,21 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         Bool.self,
         forKey: .pruneGeneratedFiles
       ) ?? Default.pruneGeneratedFiles
+    }
+
+    public func encode(to encoder: Encoder) throws {
+      var container = encoder.container(keyedBy: CodingKeys.self)
+
+      try container.encode(self.additionalInflectionRules, forKey: .additionalInflectionRules)
+      try container.encode(self.queryStringLiteralFormat, forKey: .queryStringLiteralFormat)
+      try container.encode(self.deprecatedEnumCases, forKey: .deprecatedEnumCases)
+      try container.encode(self.schemaDocumentation, forKey: .schemaDocumentation)
+      try container.encode(self.selectionSetInitializers, forKey: .selectionSetInitializers)
+      try container.encode(self.persistedQueriesConfig, forKey: .persistedQueriesConfig)
+      try container.encode(self.cocoapodsCompatibleImportStatements, forKey: .cocoapodsCompatibleImportStatements)
+      try container.encode(self.warningsOnDeprecatedUsage, forKey: .warningsOnDeprecatedUsage)
+      try container.encode(self.conversionStrategies, forKey: .conversionStrategies)
+      try container.encode(self.pruneGeneratedFiles, forKey: .pruneGeneratedFiles)
     }
   }
 
@@ -678,28 +698,31 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
-  /// Enum to enable using
-  /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq)
-  /// with your generated operations.
-  ///
-  /// APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,
-  /// `APQConfig` should be set to `.disabled`
-  public enum APQConfig: String, Codable, Equatable {
-    /// The default value. Disables APQs.
-    /// The operation document is sent to the server with each operation request.
-    case disabled
+  public struct PersistedQueriesConfig: OptionSet, Codable, Equatable {
+    /// The default value when not using persisted queries.
+    ///
+    /// Generated operations will include the GraphQL source document for the operation.
+    public static let disabled = PersistedQueriesConfig.operationDocument
+    public static let safelistedQueriesOnly = PersistedQueriesConfig.operationIdentifier
 
-    /// Automatically persists your operations using Apollo Server's
-    /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
-    case automaticallyPersist
-
-    /// Provides only the `operationIdentifier` for operations that have been previously persisted
-    /// to an Apollo Server using
+    /// Option used to automatically persist your operations using Apollo Server's
     /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
     ///
-    /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
-    /// method should only be used if you are manually persisting your queries to an Apollo Server.
-    case persistedOperationsOnly
+    /// - Note: APQs are an Apollo Server feature. They will not function when using Apollo iOS
+    /// to connect to any other GraphQL server.
+    public static let automaticallyPersistedQueries: PersistedQueriesConfig = [
+      .operationIdentifier, .operationDocument
+    ]
+
+    /// Include the GraphQL source document for the operation in the generated operation models.
+    public static let operationDocument = PersistedQueriesConfig(rawValue: 1 << 1)
+    /// Include the computed operation identifier hash.
+    public static let operationIdentifier = PersistedQueriesConfig(rawValue: 1)
+
+    public var rawValue: UInt8
+    public init(rawValue: UInt8) {
+      self.rawValue = rawValue
+    }
   }
   
   /// The ``SelectionSetInitializers`` configuration is used to determine if you would like
@@ -1113,5 +1136,110 @@ extension ApolloCodegenConfiguration {
       options: options,
       experimentalFeatures: experimentalFeatures,
       schemaDownloadConfiguration: schemaDownloadConfiguration)
+  }
+
+  /// Enum to enable using
+  /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq)
+  /// with your generated operations.
+  ///
+  /// APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,
+  /// `APQConfig` should be set to `.disabled`
+  public enum APQConfig: String, Decodable {
+    /// The default value. Disables APQs.
+    /// The operation document is sent to the server with each operation request.
+    @available(*, deprecated, message: "Use PersistedQueryConfig.disabled instead.")
+    case disabled
+
+    /// Automatically persists your operations using Apollo Server's
+    /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    @available(*, deprecated, message: "Use PersistedQueryConfig.automaticallyPersistedQueries instead.")
+    case automaticallyPersist
+
+    /// Provides only the `operationIdentifier` for operations that have been previously persisted
+    /// to an Apollo Server using
+    /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    ///
+    /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
+    /// method should only be used if you are manually persisting your queries to an Apollo Server.
+    @available(*, deprecated, message: "Use PersistedQueryConfig.safelistedQueriesOnly instead.")
+    case persistedOperationsOnly
+
+    var persistedQueryConfig: ApolloCodegenConfiguration.PersistedQueriesConfig {
+      switch self {
+      case .disabled:
+        return .disabled
+      case .automaticallyPersist:
+        return .automaticallyPersistedQueries
+      case .persistedOperationsOnly:
+        return .safelistedQueriesOnly
+      }
+    }
+  }
+}
+
+extension ApolloCodegenConfiguration.OutputOptions {
+  /// Deprecated initializer.
+  ///
+  /// - Parameters:
+  ///   - additionalInflectionRules: Any non-default rules for pluralization or singularization
+  ///   you wish to include.
+  ///   - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
+  ///   included in each generated operation object.
+  ///   - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
+  ///   - schemaDocumentation: Whether schema documentation is added to the generated files.
+  ///   - selectionSetInitializers: Which generated selection sets should include
+  ///     generated initializers.
+  ///   - apqs: Whether the generated operations should use Automatic Persisted Queries.
+  ///   - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
+  ///     including `Apollo` via Cocoapods.
+  ///   - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
+  ///     attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
+  ///     built-in `@deprecated` directive.
+  ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
+  ///     generated code.
+  ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+  @available(*, deprecated,
+              renamed: "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:persistedQueriesConfig:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+  )
+  @_disfavoredOverload
+  public init(
+    additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
+    queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = Default.queryStringLiteralFormat,
+    deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
+    schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
+    selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
+    apqs: ApolloCodegenConfiguration.APQConfig = .disabled,
+    cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
+    conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
+    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
+  ) {
+    self.additionalInflectionRules = additionalInflectionRules
+    self.queryStringLiteralFormat = queryStringLiteralFormat
+    self.deprecatedEnumCases = deprecatedEnumCases
+    self.schemaDocumentation = schemaDocumentation
+    self.selectionSetInitializers = selectionSetInitializers
+    self.persistedQueriesConfig = apqs.persistedQueryConfig
+    self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
+    self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
+    self.conversionStrategies = conversionStrategies
+    self.pruneGeneratedFiles = pruneGeneratedFiles
+  }
+
+  /// Whether the generated operations should use Automatic Persisted Queries.
+  ///
+  /// See `APQConfig` for more information on Automatic Persisted Queries.
+  @available(*, deprecated, message: "Use PersistedQueryConfig instead.")
+  public var apqs: ApolloCodegenConfiguration.APQConfig {
+    switch self.persistedQueriesConfig {
+    case .operationDocument:
+      return .disabled
+    case .operationIdentifier:
+      return .persistedOperationsOnly
+    case [.operationIdentifier, .operationDocument]:
+      return .automaticallyPersist
+    default:
+      return .disabled
+    }
   }
 }
