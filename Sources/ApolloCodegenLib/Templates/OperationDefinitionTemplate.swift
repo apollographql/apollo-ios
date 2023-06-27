@@ -66,8 +66,8 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
 
       return TemplateString("""
       \(accessControlRenderer())\
-      static let document: \(config.ApolloAPITargetName).DocumentType = .\(config.options.apqs.rendered)(
-      \(if: config.options.apqs != .disabled, """
+      static let operationDocument: \(config.ApolloAPITargetName).OperationDocument = .init(
+      \(if: config.options.operationDocumentFormat.contains(.operationId), """
         operationIdentifier: \"\(identifier())\"\(if: includeDefinition, ",")
       """)
       \(if: includeDefinition, """
@@ -85,16 +85,6 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
     }
   }
 
-}
-
-fileprivate extension ApolloCodegenConfiguration.APQConfig {
-  var rendered: String {
-    switch self {
-    case .disabled: return "notPersisted"
-    case .automaticallyPersist: return "automaticallyPersisted"
-    case .persistedOperationsOnly: return "persistedOperationsOnly"
-    }
-  }
 }
 
 fileprivate extension CompilationResult.OperationType {
