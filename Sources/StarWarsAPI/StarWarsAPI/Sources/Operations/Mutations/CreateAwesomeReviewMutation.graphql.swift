@@ -5,7 +5,7 @@
 
 public class CreateAwesomeReviewMutation: GraphQLMutation {
   public static let operationName: String = "CreateAwesomeReview"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
     definition: .init(
       #"""

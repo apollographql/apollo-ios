@@ -5,7 +5,7 @@
 
 public class CreateReviewWithNullFieldMutation: GraphQLMutation {
   public static let operationName: String = "CreateReviewWithNullField"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "a9600d176cd7e4671b8689f1d01fe79ea896932bfafb8a925af673f0e4111828",
     definition: .init(
       #"""

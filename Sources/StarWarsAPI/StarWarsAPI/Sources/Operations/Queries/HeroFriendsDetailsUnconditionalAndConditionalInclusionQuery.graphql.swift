@@ -5,7 +5,7 @@
 
 public class HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsDetailsUnconditionalAndConditionalInclusion"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "65381a20574db4b458a0821328252deb0da1a107f9ab77c99fb2467e66a5f12d",
     definition: .init(
       #"""

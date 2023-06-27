@@ -5,7 +5,7 @@
 
 public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalBothSeparate"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5",
     definition: .init(
       #"""

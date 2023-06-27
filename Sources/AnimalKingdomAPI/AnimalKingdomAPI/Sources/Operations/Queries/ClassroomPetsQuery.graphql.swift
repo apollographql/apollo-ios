@@ -5,7 +5,7 @@
 
 public class ClassroomPetsQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPets"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query ClassroomPets {

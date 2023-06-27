@@ -5,7 +5,7 @@
 
 public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsIncludeSkipQuery"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {
