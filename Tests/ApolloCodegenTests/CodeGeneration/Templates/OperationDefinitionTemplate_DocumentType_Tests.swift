@@ -80,7 +80,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -112,7 +112,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #"query NameQuery {  name}"#
       ))
@@ -140,7 +140,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery($filter: String = "MyName") {
@@ -172,7 +172,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #"query NameQuery($filter: String = "MyName") {  name}"#
       ))
@@ -204,7 +204,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -241,7 +241,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #"query NameQuery {  ...NameFragment}"#,
         fragments: [NameFragment.self]
@@ -274,7 +274,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #"query NameQuery {  ...nameFragment}"#,
         fragments: [NameFragment.self]
@@ -315,7 +315,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -364,7 +364,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #"query NameQuery {  ...Fragment1  ...Fragment2  ...Fragment3  ...Fragment4  ...FragmentWithLongName1234123412341234123412341234}"#,
         fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
@@ -394,7 +394,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
       definition: .init(
         #""\"
@@ -428,7 +428,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .persistedOperationsOnly(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     )
     """
@@ -456,7 +456,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: Apollo.DocumentType = .notPersisted(
+    public static let operationDocument: Apollo.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -480,7 +480,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -507,7 +507,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -532,7 +532,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -557,7 +557,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -582,7 +582,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -607,7 +607,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -632,7 +632,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -657,7 +657,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    static let document: ApolloAPI.DocumentType = .notPersisted(
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }

@@ -21,11 +21,16 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
   // MARK: Test Helpers
 
   private func buildSubject(path: String? = nil) throws {
+    let manifest: ApolloCodegenConfiguration.OperationManifestFileOutput? = {
+      guard let path else { return nil }
+      return .init(path: path)
+    }()
+
     subject = try OperationIdentifiersFileGenerator(
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
         output: .init(
           schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
-          operationIdentifiersPath: path
+          operationManifest: manifest
         )
       ))
     ).xctUnwrapped()
@@ -37,7 +42,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     // given
     let config = ApolloCodegenConfiguration.mock(output: .init(
       schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
-      operationIdentifiersPath: "a/file/path"
+      operationManifest: .init(path: "a/file/path")
     ))
 
     // when
@@ -51,7 +56,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     // given
     let config = ApolloCodegenConfiguration.mock(output: .init(
       schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
-      operationIdentifiersPath: nil
+      operationManifest: nil
     ))
 
     // when
