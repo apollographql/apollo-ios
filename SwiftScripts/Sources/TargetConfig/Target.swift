@@ -98,10 +98,13 @@ public enum Target: CaseIterable {
       ),
       operations: .inSchemaModule,
       testMocks: includeTestMocks ? .swiftPackage() : .none,
-      operationIdentifiersPath: includeOperationIdentifiers ?
-      try graphQLFolder(fromTargetRoot: targetRootURL)
-        .childFileURL(fileName: "operationIDs.json")
-        .path : nil
+      operationManifest: includeOperationIdentifiers ?
+        .init(
+          path: try graphQLFolder(fromTargetRoot: targetRootURL)
+            .childFileURL(fileName: "operationIDs.json")
+            .path
+        )
+      : nil
     )
   }
 
@@ -124,7 +127,7 @@ public enum Target: CaseIterable {
     case .starWars: return .init(
       schemaDocumentation: .include,
       selectionSetInitializers: .all,
-      apqs: .automaticallyPersist
+      operationDocumentFormat: [.definition, .operationId]
     )
     case .animalKingdom: return .init(
       schemaDocumentation: .include,

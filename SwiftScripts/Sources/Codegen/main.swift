@@ -20,7 +20,7 @@ struct Codegen: ParsableCommand {
     name: [.customLong("package-type"), .customShort("p")],
     help: "The package manager for the generated module - Required."
   )
-  var packageManager: String
+  var packageManager: String = "SPM"
 
   mutating func run() throws {
     let targets = targetNames.isEmpty ?

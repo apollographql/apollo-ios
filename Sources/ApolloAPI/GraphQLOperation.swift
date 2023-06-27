@@ -24,6 +24,7 @@ public struct OperationDocument {
     operationIdentifier: String? = nil,
     definition: OperationDefinition? = nil
   ) {
+    precondition(operationIdentifier != nil || definition != nil)
     self.operationIdentifier = operationIdentifier
     self.definition = definition
   }
@@ -170,7 +171,7 @@ public enum DocumentType {
 
 extension GraphQLOperation {
   @available(*, deprecated, renamed: "operationDocument")
-  static var document: DocumentType {
+  static public var document: DocumentType {
     switch (operationDocument.definition, operationDocument.operationIdentifier) {
     case let (definition?, id?):
       return .automaticallyPersisted(operationIdentifier: id, definition: definition)
