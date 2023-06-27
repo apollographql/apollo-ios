@@ -18,6 +18,7 @@ let package = Package(
     .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
+    .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
   dependencies: [
     .package(
@@ -55,5 +56,17 @@ let package = Package(
         "ApolloAPI"
       ]
     ),
+    .plugin(
+      name: "Install CLI",
+      capability: .command(
+        intent: .custom(
+          verb: "apollo-cli-install",
+          description: "Installs the Apollo iOS Command line interface."),
+        permissions: [
+          .writeToPackageDirectory(reason: "Creates a symbolic link to the CLI executable in your project directory."),
+        ]),
+      dependencies: [],
+      path: "Plugins/InstallCLI"
+    )
   ]
 )
