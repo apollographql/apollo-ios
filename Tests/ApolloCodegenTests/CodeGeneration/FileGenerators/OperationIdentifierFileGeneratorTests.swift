@@ -5,7 +5,7 @@ import ApolloCodegenInternalTestHelpers
 
 class OperationIdentifierFileGeneratorTests: XCTestCase {
   var fileManager: MockApolloFileManager!
-  var subject: OperationIdentifiersFileGenerator!
+  var subject: OperationManifestFileGenerator!
 
   override func setUp() {
     super.setUp()
@@ -26,7 +26,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
       return .init(path: path)
     }()
 
-    subject = try OperationIdentifiersFileGenerator(
+    subject = try OperationManifestFileGenerator(
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
         output: .init(
           schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
@@ -46,7 +46,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ))
 
     // when
-    let instance = OperationIdentifiersFileGenerator(config: .init(config: config))
+    let instance = OperationManifestFileGenerator(config: .init(config: config))
 
     // then
     expect(instance).notTo(beNil())
@@ -60,7 +60,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ))
 
     // when
-    let instance = OperationIdentifiersFileGenerator(config: .init(config: config))
+    let instance = OperationManifestFileGenerator(config: .init(config: config))
 
     // then
     expect(instance).to(beNil())

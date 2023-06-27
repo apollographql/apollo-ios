@@ -789,10 +789,10 @@
 		E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */; };
 		E6A6866427F63AEF008A1D13 /* FileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */; };
 		E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */; };
-		E6AAA732286BC58200F4659D /* OperationIdentifiersFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */; };
-		E6AAA737286C11E600F4659D /* OperationIdentifiersFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */; };
-		E6AAA739286C87EA00F4659D /* OperationIdentifiersTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */; };
-		E6AAA73B286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */; };
+		E6AAA732286BC58200F4659D /* OperationManifestFileGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA731286BC58200F4659D /* OperationManifestFileGenerator.swift */; };
+		E6AAA737286C11E600F4659D /* OperationIdentifierFileGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA735286C0F8E00F4659D /* OperationIdentifierFileGeneratorTests.swift */; };
+		E6AAA739286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA738286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift */; };
+		E6AAA73B286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AAA73A286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift */; };
 		E6B1FEBB29F2FC97003D12E0 /* InterceptorTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B1FEBA29F2FC97003D12E0 /* InterceptorTester.swift */; };
 		E6B2B26C29C2447F004B16F4 /* MultipartResponseParsingInterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2B26B29C2447F004B16F4 /* MultipartResponseParsingInterceptorTests.swift */; };
 		E6B42D0927A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */; };
@@ -1973,10 +1973,10 @@
 		E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartResponseParsingInterceptor.swift; sourceTree = "<group>"; };
 		E6A6866327F63AEF008A1D13 /* FileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileGeneratorTests.swift; sourceTree = "<group>"; };
 		E6A6866527F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileGenerator_ResolvePath_Tests.swift; sourceTree = "<group>"; };
-		E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersFileGenerator.swift; sourceTree = "<group>"; };
-		E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersFileGeneratorTests.swift; sourceTree = "<group>"; };
-		E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersTemplate.swift; sourceTree = "<group>"; };
-		E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifiersTemplateTests.swift; sourceTree = "<group>"; };
+		E6AAA731286BC58200F4659D /* OperationManifestFileGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationManifestFileGenerator.swift; sourceTree = "<group>"; };
+		E6AAA735286C0F8E00F4659D /* OperationIdentifierFileGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentifierFileGeneratorTests.swift; sourceTree = "<group>"; };
+		E6AAA738286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAPQOperationManifestTemplate.swift; sourceTree = "<group>"; };
+		E6AAA73A286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAPQOperationManifestTemplateTests.swift; sourceTree = "<group>"; };
 		E6B1FEBA29F2FC97003D12E0 /* InterceptorTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterceptorTester.swift; sourceTree = "<group>"; };
 		E6B2B26B29C2447F004B16F4 /* MultipartResponseParsingInterceptorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartResponseParsingInterceptorTests.swift; sourceTree = "<group>"; };
 		E6B42D0827A472A700A3BD58 /* SwiftPackageManagerModuleTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackageManagerModuleTemplate.swift; sourceTree = "<group>"; };
@@ -2951,7 +2951,7 @@
 				DEB05B49289C3EC300170299 /* MockInterfacesTemplate.swift */,
 				E64F7EC027A122300059C021 /* ObjectTemplate.swift */,
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
-				E6AAA738286C87EA00F4659D /* OperationIdentifiersTemplate.swift */,
+				E6AAA738286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaMetadataTemplate.swift */,
 				DE454BAA28B40E56009DC80E /* SchemaConfigurationTemplate.swift */,
@@ -2980,7 +2980,7 @@
 				DE6D07FA27BC3BE9009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift */,
 				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
-				E6AAA73A286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift */,
+				E6AAA73A286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift */,
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaMetadataTemplateTests.swift */,
 				DE454BB428B43058009DC80E /* SchemaConfigurationTemplateTests.swift */,
@@ -3994,7 +3994,7 @@
 				DE5E79BA289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift */,
 				E66F8896276C136B0000BDA8 /* ObjectFileGeneratorTests.swift */,
 				E607AD8D27A88F340026742A /* OperationFileGeneratorTests.swift */,
-				E6AAA735286C0F8E00F4659D /* OperationIdentifiersFileGeneratorTests.swift */,
+				E6AAA735286C0F8E00F4659D /* OperationIdentifierFileGeneratorTests.swift */,
 				E6D90D0C278FFE35009CAC5D /* SchemaMetadataFileGeneratorTests.swift */,
 				DE454BA628B40D52009DC80E /* SchemaConfigurationFileGeneratorTests.swift */,
 				E6B42D0A27A4746800A3BD58 /* SchemaModuleFileGeneratorTests.swift */,
@@ -4133,7 +4133,7 @@
 				DEB05B47289C3B4000170299 /* MockInterfacesFileGenerator.swift */,
 				E66F8898276C15580000BDA8 /* ObjectFileGenerator.swift */,
 				DE4D54E627A3504B00D26B68 /* OperationFileGenerator.swift */,
-				E6AAA731286BC58200F4659D /* OperationIdentifiersFileGenerator.swift */,
+				E6AAA731286BC58200F4659D /* OperationManifestFileGenerator.swift */,
 				E6D90D0A278FFDDA009CAC5D /* SchemaMetadataFileGenerator.swift */,
 				DE454BA828B40DA8009DC80E /* SchemaConfigurationFileGenerator.swift */,
 				E68D824627A228A80040A46F /* SchemaModuleFileGenerator.swift */,
@@ -5012,7 +5012,7 @@
 				DE6B650C27C4293D00970E4E /* FieldArgumentRendering.swift in Sources */,
 				DE5EEC8527988F1A00AF5913 /* IR+SelectionSet.swift in Sources */,
 				DE8C51CA29E8B03700E47A64 /* IRDefinition+RenderingHelpers.swift in Sources */,
-				E6AAA739286C87EA00F4659D /* OperationIdentifiersTemplate.swift in Sources */,
+				E6AAA739286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift in Sources */,
 				DE3484622746FF8F0065B77E /* IR+OperationBuilder.swift in Sources */,
 				E669352F2803F09C004E1FFC /* CustomScalarFileGenerator.swift in Sources */,
 				E610D8DF278F8F1E0023E495 /* UnionFileGenerator.swift in Sources */,
@@ -5049,7 +5049,7 @@
 				E6E3BBE2276A8D6200E5218B /* FileGenerator.swift in Sources */,
 				DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */,
 				9F62E03F2590896400E6E808 /* GraphQLError.swift in Sources */,
-				E6AAA732286BC58200F4659D /* OperationIdentifiersFileGenerator.swift in Sources */,
+				E6AAA732286BC58200F4659D /* OperationManifestFileGenerator.swift in Sources */,
 				9B7B6F5A233C287200F32205 /* ApolloCodegenConfiguration.swift in Sources */,
 				66321AE72A126C4400CC35CB /* IR+Formatting.swift in Sources */,
 				9F1A966B258F34BB00A06EEB /* GraphQLJSFrontend.swift in Sources */,
@@ -5103,7 +5103,7 @@
 				9BAEEC10234BB95B00808306 /* FileManagerExtensionTests.swift in Sources */,
 				DE454BA728B40D52009DC80E /* SchemaConfigurationFileGeneratorTests.swift in Sources */,
 				DE5E79BB289DA90600CD0DE5 /* MockInterfacesFileGeneratorTests.swift in Sources */,
-				E6AAA737286C11E600F4659D /* OperationIdentifiersFileGeneratorTests.swift in Sources */,
+				E6AAA737286C11E600F4659D /* OperationIdentifierFileGeneratorTests.swift in Sources */,
 				E6D90D09278FA5C3009CAC5D /* InputObjectFileGeneratorTests.swift in Sources */,
 				E674DB43274C0AD9009BB90E /* GlobTests.swift in Sources */,
 				DE223C1C271F3288004A0148 /* AnimalKingdomIRCreationTests.swift in Sources */,
@@ -5152,7 +5152,7 @@
 				E61EF713275EC99A00191DA7 /* ApolloCodegenTests.swift in Sources */,
 				DE6D07FD27BC3D53009F5F33 /* OperationDefinition_VariableDefinition_Tests.swift in Sources */,
 				E6B4E9992798A8CB004EC8C4 /* InterfaceTemplateTests.swift in Sources */,
-				E6AAA73B286CC7EF00F4659D /* OperationIdentifiersTemplateTests.swift in Sources */,
+				E6AAA73B286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift in Sources */,
 				DE71FDBE2853B6D3005FA9CC /* LocalCacheMutationDefinitionTemplateTests.swift in Sources */,
 				E6EFDD0B27E8328E00B17FE5 /* TemplateRenderer_SchemaFile_Tests.swift in Sources */,
 				E6A6866627F63BDC008A1D13 /* FileGenerator_ResolvePath_Tests.swift in Sources */,
