@@ -132,24 +132,12 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       separator: String = ",\n",
       terminator: String? = nil
     ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
-      #warning("TODO: Use forEachIn")
-      var iterator = sequence.makeIterator()
-      guard
-        var elementsString = iterator.next()?.description,
-        !elementsString.isEmpty
-      else {
-        removeLineIfEmpty()
-        return
-      }
-
-      while let element = iterator.next(), !element.description.isEmpty {
-        elementsString.append(separator + element.description)
-      }
-
-      appendInterpolation(elementsString)
-      if let terminator = terminator {
-        appendInterpolation(terminator)
-      }
+      appendInterpolation(
+        forEachIn: sequence,
+        separator: separator,
+        terminator: terminator,
+        { TemplateString($0.description) }
+      )
     }
 
     mutating func appendInterpolation<T>(
