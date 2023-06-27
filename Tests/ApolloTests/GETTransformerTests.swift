@@ -29,8 +29,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWithSingleParameterAndVariable_encodesURL() {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .notPersisted(definition: .init(
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init(
         """
         query MockQuery($param: String) {
           testField(param: $param) {
@@ -61,8 +61,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__query_withEnumParameterAndVariable_encodesURL() {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .notPersisted(definition: .init(
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init(
         """
         query MockQuery($param: MockEnum) {
           testField(param: $param) {
@@ -93,8 +93,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWithMoreThanOneParameter_withIncludeDirective_encodesURL() throws {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .notPersisted(definition: .init(
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init(
         """
         query MockQuery($a: String, $b: Boolean!) {
           testField(param: $a) {
@@ -125,8 +125,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWith2DParameter_encodesURL_withBodyComponentsInAlphabeticalOrder() throws {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .automaticallyPersisted(
+      override class var operationDocument: OperationDocument {
+        .init(
           operationIdentifier: "4d465fbc6e3731d01102504850",
           definition: .init("query MockQuery {}"))
       }
@@ -195,8 +195,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWithPersistedQueryID_withoutQueryParameter_encodesURL() throws {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .persistedOperationsOnly(operationIdentifier: "4d465fbc6e3731d01102504850")
+      override class var operationDocument: OperationDocument {
+        .init(operationIdentifier: "4d465fbc6e3731d01102504850")
       }
     }
     
@@ -225,8 +225,8 @@ class GETTransformerTests: XCTestCase {
   func test__createGetURL__queryWithNullValueForVariable_encodesVariableWithNull() {
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "TestOpName" }
-      override class var document: DocumentType {
-        .notPersisted(definition: .init(
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init(
         """
         query MockQuery($param: String) {
           testField(param: $param) {
