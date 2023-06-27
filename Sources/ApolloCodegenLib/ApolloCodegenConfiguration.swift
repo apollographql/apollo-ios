@@ -164,7 +164,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let operations: OperationsFileOutput
     /// The local path structure for the test mock operation object files.
     public let testMocks: TestMockFileOutput
-    #warning("TODO: Docs")
+    /// Configures the generation of an operation manifest JSON file for use with persisted queries
+    /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    /// Defaults to `nil`.
     public let operationManifest: OperationManifestFileOutput?
 
     /// Default property values
@@ -182,9 +184,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  Defaults to `.inSchemaModule`.
     ///  - testMocks: The local path structure for the test mock operation object files.
     ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
-    ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file.
-    ///  If specified, also stores the operation IDs (hashes) as properties on operation types.
-    ///  Defaults to `nil`.
+    ///  - operationManifest: Configures the generation of an operation manifest JSON file for use
+    ///  with persisted queries or
+    ///  [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    /// Defaults to `nil`.
     public init(
       schemaTypes: SchemaTypesFileOutput,
       operations: OperationsFileOutput = Default.operations,
@@ -466,15 +469,33 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     }
   }
 
+  /// Configures the generation of an operation manifest JSON file for use with persisted queries
+  /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  ///
+  /// The operation manifest is a JSON file that maps all generated GraphQL operations to an
+  /// operation identifier. This manifest can be used to register operations with a server utilizing
+  /// persisted queries
+  /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  /// Defaults to `nil`.
   public struct OperationManifestFileOutput: Codable, Equatable {
+    /// Local path where the generated operation manifest file should be written.
     let path: String
+    /// The version format to use when generating the operation manifest.
     let version: Version
 
     public enum Version: String, Codable, Equatable {
+      /// Generates an operation manifest for use with GraphOS persisted queries.
       case persistedQueries
+      /// Generates an operation manifest for pre-registering operations with the legacy
+      /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+      /// functionality of Apollo Server.
       case legacyAPQ
     }
 
+    /// Designated Initializer
+    /// - Parameters:
+    ///   - path: Local path where the generated operation manifest file should be written.
+    ///   - version: The version format to use when generating the operation manifest.
     public init(path: String, version: Version = .persistedQueries) {
       self.path = path
       self.version = version
