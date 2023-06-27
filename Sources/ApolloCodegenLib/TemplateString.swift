@@ -178,6 +178,36 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       if shouldWrapInNewlines { appendInterpolation("\n") }
     }
 
+    // MARK: For Each
+
+    mutating func appendInterpolation<T>(
+      forEachIn sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil,
+      _ template: (T.Element) -> TemplateString?
+    ) where T: Sequence {
+      var iterator = sequence.makeIterator()
+      var resultString = ""
+
+      while let element = iterator.next(),
+            let elementString = template(element)?.description {
+        resultString.append(
+          resultString.isEmpty ?
+          elementString : separator + elementString
+        )
+      }
+
+      guard !resultString.isEmpty else {
+        removeLineIfEmpty()
+        return
+      }
+
+      appendInterpolation(resultString)
+      if let terminator = terminator {
+        appendInterpolation(terminator)
+      }
+    }
+
     // MARK: While
 
     mutating func appendInterpolation(

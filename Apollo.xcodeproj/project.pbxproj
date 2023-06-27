@@ -708,6 +708,8 @@
 		DED5B35B286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */; };
 		DEE2060B27E14498002B4B82 /* IR+InclusionConditionsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */; };
 		DEE2DAA227BAF00500EC0607 /* GraphQLType+Rendered.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */; };
+		DEF330352A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF330342A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift */; };
+		DEF330372A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF330362A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift */; };
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		DEFE694E280F6CBE001CF4E8 /* IR+FieldCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE694D280F6CBE001CF4E8 /* IR+FieldCollector.swift */; };
@@ -1889,6 +1891,8 @@
 		DED5B35A286CF16600AE6BFF /* TemplateString+CodegenConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TemplateString+CodegenConfiguration.swift"; sourceTree = "<group>"; };
 		DEE2060A27E14498002B4B82 /* IR+InclusionConditionsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+InclusionConditionsMock.swift"; sourceTree = "<group>"; };
 		DEE2DAA127BAF00500EC0607 /* GraphQLType+Rendered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLType+Rendered.swift"; sourceTree = "<group>"; };
+		DEF330342A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedQueriesOperationManifestTemplate.swift; sourceTree = "<group>"; };
+		DEF330362A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedQueriesOperationManifestTemplateTests.swift; sourceTree = "<group>"; };
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		DEFE694D280F6CBE001CF4E8 /* IR+FieldCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+FieldCollector.swift"; sourceTree = "<group>"; };
@@ -2952,6 +2956,7 @@
 				E64F7EC027A122300059C021 /* ObjectTemplate.swift */,
 				DE5FD5FC2769222D0033EE23 /* OperationDefinitionTemplate.swift */,
 				E6AAA738286C87EA00F4659D /* LegacyAPQOperationManifestTemplate.swift */,
+				DEF330342A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift */,
 				E6EE62F027DBE6F200627257 /* SchemaModuleNamespaceTemplate.swift */,
 				DE5FD60427694FA70033EE23 /* SchemaMetadataTemplate.swift */,
 				DE454BAA28B40E56009DC80E /* SchemaConfigurationTemplate.swift */,
@@ -2981,6 +2986,7 @@
 				DE09F9C5270269F800795949 /* OperationDefinitionTemplate_DocumentType_Tests.swift */,
 				DE09066E27A4713F00211300 /* OperationDefinitionTemplateTests.swift */,
 				E6AAA73A286CC7EF00F4659D /* LegacyAPQOperationManifestTemplateTests.swift */,
+				DEF330362A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift */,
 				E6EE62F227DBE75A00627257 /* SchemaModuleNamespaceTemplateTests.swift */,
 				DE5FD608276956C70033EE23 /* SchemaMetadataTemplateTests.swift */,
 				DE454BB428B43058009DC80E /* SchemaConfigurationTemplateTests.swift */,
@@ -5000,6 +5006,7 @@
 				E64F7EB827A0854E0059C021 /* UnionTemplate.swift in Sources */,
 				E60AE2EE27E3FC6C003C093A /* TemplateRenderer.swift in Sources */,
 				9BCA8C0926618226004FF2F6 /* UntypedGraphQLRequestBodyCreator.swift in Sources */,
+				DEF330352A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift in Sources */,
 				DE5FD60527694FA70033EE23 /* SchemaMetadataTemplate.swift in Sources */,
 				DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */,
 				9F62DFD02590710E00E6E808 /* GraphQLSource.swift in Sources */,
@@ -5135,6 +5142,7 @@
 				E6203346284F252A00A291D1 /* MockUnionsFileGeneratorTests.swift in Sources */,
 				E6908E55282694630054682B /* ApolloCodegenConfigurationCodableTests.swift in Sources */,
 				DE223C3327221144004A0148 /* IRMatchers.swift in Sources */,
+				DEF330372A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift in Sources */,
 				E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */,
 				DE79642F2769A1EB00978A03 /* IROperationBuilderTests.swift in Sources */,
 				DEA9A23027CD990500F96C36 /* IRSelectionSet_IncludeSkip_Tests.swift in Sources */,

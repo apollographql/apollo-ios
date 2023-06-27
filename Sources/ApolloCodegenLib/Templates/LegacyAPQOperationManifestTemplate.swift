@@ -1,7 +1,6 @@
 import Foundation
-import OrderedCollections
 
-/// Provides the format to output a file used for APQ registration.
+/// Provides the format to output an operation manifest file used for APQ registration.
 struct LegacyAPQOperationManifestTemplate {
 
   struct OperationJSONValue: Codable {
