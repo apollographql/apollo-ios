@@ -1,6 +1,6 @@
 * Feature Name: GraphQL `@defer`
 * Start Date: 2023-06-26
-* RFC PR: TBD
+* RFC PR: [3093](https://github.com/apollographql/apollo-ios/pull/3093)
 
 # Summary
 
@@ -12,7 +12,7 @@ Based on the progress of `@defer`/`@stream` through the approval process there m
 
 ## Update graphql-js dependency
 
-Apollo iOS uses [graphql-js](https://github.com/graphql/graphql-js) for validation of the GraphQL schema and operation documents as the first step in the code generation workflow. The version of this [dependency](https://github.com/apollographql/apollo-ios/blob/main/Sources/ApolloCodegenLib/Frontend/JavaScript/package.json#L16) is fixed at [`16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b`](https://www.npmjs.com/package/graphql/v/16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b?activeTab=versions). This is a version of graphql-js that supports the [Client Controlled Nullability](https://github.com/graphql/graphql-wg/blob/main/rfcs/ClientControlledNullability.md) feature but does not support the `@defer` directive.
+Apollo iOS uses [graphql-js](https://github.com/graphql/graphql-js) for validation of the GraphQL schema and operation documents as the first step in the code generation workflow. The version of this [dependency](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/ApolloCodegenLib/Frontend/JavaScript/package.json#L16) is fixed at [`16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b`](https://www.npmjs.com/package/graphql/v/16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b?activeTab=versions). This is a version of graphql-js that supports the experimental [Client Controlled Nullability](https://github.com/graphql/graphql-wg/blob/main/rfcs/ClientControlledNullability.md) feature but does not support the `@defer` directive.
 
 The latest `16.x` release of graphql-js with support for the `@defer` directive is [`16.1.0-experimental-stream-defer.6`](https://www.npmjs.com/package/graphql/v/16.1.0-experimental-stream-defer.6) but it looks like the 'experimental' named releases for `@defer` have been discontinued and the recommendation is to use [`17.0.0-alpha.2`](https://www.npmjs.com/package/graphql/v/17.0.0-alpha.2). This is further validated by the fact that [`16.7.0` does not](https://github.com/graphql/graphql-js/blob/v16.7.0/src/type/directives.ts#L167) include the @defer directive whereas [`17.0.0-alpha.2` does](https://github.com/graphql/graphql-js/blob/v17.0.0-alpha.2/src/type/directives.ts#L159).
 
@@ -35,9 +35,23 @@ _In progress_
 
 ### Request header
 
-Operation requests that want an incremental delivery response need to send the version of the protocol specification that they are compliant with. Apollo iOS currently requests incremental delivery responses for HTTP-based subscriptions. `@defer` would introduce another operation feature that would request an incremental delivery response.
+If an operation can support an incremental delivery response it must add an `Accept` header to the HTTP request specifying the protocol version that can be parsed. An [example](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/Apollo/RequestChainNetworkTransport.swift#L115) is HTTP subscription requests that include the `subscriptionSpec=1.0` specification. `@defer` would introduce another operation feature that would request an incremental delivery response.
 
-At the time of writing the latest `deferSpec` version is `20220824`. This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header.
+This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header, something like this:
+```swift
+if operation.hasDeferredFragments {
+  request.addHeader(
+    name: "Accept",
+    value: "multipart/mixed;deferSpec=20220824,application/json"
+  )
+}
+
+extension GraphQLOperation {
+  var hasDeferredFragments: Bool {
+    // enumerate through selection sets and check fragments
+  }
+}
+```
 
 ### Response parsing
 
