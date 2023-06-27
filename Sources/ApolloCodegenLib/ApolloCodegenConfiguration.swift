@@ -228,19 +228,20 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         forKey: .testMocks
       )
 
-      if values.contains(.operationManifest) {
-        operationManifest = try values.decode(
-          OperationManifestFileOutput.self,
-          forKey: .operationManifest
-        )
-      } else if values.contains(.operationIdentifiersPath) {
-        let operationIdsPath = try values.decode(
-          String.self,
-          forKey: .operationIdentifiersPath
-        )
-        operationManifest = .init(path: operationIdsPath, version: .legacyAPQ)
+      if let operationManifest = try values.decodeIfPresent(
+        OperationManifestFileOutput.self,
+        forKey: .operationManifest
+      ) {
+        self.operationManifest = operationManifest
+
+      } else if let operationIdsPath = try values.decodeIfPresent(
+        String.self,
+        forKey: .operationIdentifiersPath
+      ){
+        self.operationManifest = .init(path: operationIdsPath, version: .legacyAPQ)
+
       } else {
-        operationManifest = nil
+        self.operationManifest = nil
       }
     }
 

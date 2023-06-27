@@ -287,6 +287,22 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
       .to(throwError())
   }
 
+  func test__encodeMinimalConfigurationStruct__canBeDecoded() throws {
+    let config = ApolloCodegenConfiguration(
+      schemaNamespace: "MinimalSchema",
+      input: .init(schemaPath: "/path/to/schema.graphqls"),
+      output: .init(schemaTypes: .init(
+        path: "/output/path",
+        moduleType: .embeddedInTarget(name: "SomeTarget")
+      ))
+    )
+
+    let encodedConfig = try testJSONEncoder.encode(config)
+
+    expect(try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encodedConfig))
+      .toNot(throwError())
+  }
+
   // MARK: - QueryStringLiteralFormat Tests
 
   func encodedValue(_ case: ApolloCodegenConfiguration.QueryStringLiteralFormat) -> String {
