@@ -1,7 +1,7 @@
 import Foundation
 
 /// Provides the format to output an operation manifest file used for persisted queries.
-struct PersistedQueriesOperationManifestTemplate {
+struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {
 
   let config: ApolloCodegen.ConfigurationContext
   let encoder = JSONEncoder()

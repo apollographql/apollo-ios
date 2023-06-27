@@ -20,10 +20,14 @@ struct OperationManifestItem {
   }
 }
 
+protocol OperationManifestTemplate {
+  func render(operations: [OperationManifestItem]) throws -> String
+}
+
 /// File generator to create an operation manifest file.
 struct OperationManifestFileGenerator {
   /// The `OperationManifestFileOutput` used to generated the operation manifest file.
-  let config: ApolloCodegenConfiguration.OperationManifestFileOutput
+  let config: ApolloCodegen.ConfigurationContext
 
   /// Collection of operation identifiers to be serialized.
   private var operationManifest: [OperationManifestItem] = []
@@ -33,7 +37,7 @@ struct OperationManifestFileGenerator {
   /// Parameters:
   ///  - config: A configuration object specifying output behavior.
   init?(config: ApolloCodegen.ConfigurationContext) {
-    guard let config = config.config.output.operationManifest else {
+    guard config.output.operationManifest != nil else {
       return nil
     }
 
@@ -51,13 +55,21 @@ struct OperationManifestFileGenerator {
   ///  - fileManager: `ApolloFileManager` object used to create the file. Defaults to
   ///  `ApolloFileManager.default`.
   func generate(fileManager: ApolloFileManager = .default) throws {
-    let template = LegacyAPQOperationManifestTemplate()
     let rendered: String = try template.render(operations: operationManifest)
 
     try fileManager.createFile(
-      atPath: config.path,
+      atPath: config.output.operationManifest.unsafelyUnwrapped.path,
       data: rendered.data(using: .utf8),
       overwrite: true
     )
+  }
+
+  var template: any OperationManifestTemplate {
+    switch config.output.operationManifest.unsafelyUnwrapped.version {
+    case .persistedQueries:
+      return PersistedQueriesOperationManifestTemplate(config: config)
+    case .legacyAPQ:
+      return LegacyAPQOperationManifestTemplate()
+    }
   }
 }
