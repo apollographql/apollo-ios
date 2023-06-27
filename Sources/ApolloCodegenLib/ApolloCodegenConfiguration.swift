@@ -489,7 +489,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case persistedQueries
       /// Generates an operation manifest for pre-registering operations with the legacy
       /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
-      /// functionality of Apollo Server.
+      /// functionality of Apollo Server/Router.
       case legacyAPQ
     }
 
@@ -1236,26 +1236,27 @@ extension ApolloCodegenConfiguration {
   /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq)
   /// with your generated operations.
   ///
-  /// APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,
+  /// APQs are a feature of Apollo Server/Router. When using Apollo iOS to connect to any other GraphQL server,
   /// `APQConfig` should be set to `.disabled`
   public enum APQConfig: String, Decodable {
     /// The default value. Disables APQs.
     /// The operation document is sent to the server with each operation request.
-    @available(*, deprecated, message: "Use PersistedQueryConfig.disabled instead.")
+    @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
     case disabled
 
-    /// Automatically persists your operations using Apollo Server's
+    /// Automatically persists your operations using Apollo Server/Router's
     /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
-    @available(*, deprecated, message: "Use PersistedQueryConfig.automaticallyPersistedQueries instead.")
+    @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
     case automaticallyPersist
 
     /// Provides only the `operationIdentifier` for operations that have been previously persisted
-    /// to an Apollo Server using
+    /// to an Apollo Server/Router using
     /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
     ///
     /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
-    /// method should only be used if you are manually persisting your queries to an Apollo Server.
-    @available(*, deprecated, message: "Use PersistedQueryConfig.safelistedQueriesOnly instead.")
+    /// method should only be used if you are manually persisting your queries to an
+    /// Apollo Server/Router.
+    @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
     case persistedOperationsOnly
 
     var operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat {
