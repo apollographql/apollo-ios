@@ -3,6 +3,10 @@ import Foundation
 /// Provides the format to output an operation manifest file used for persisted queries.
 struct PersistedQueriesOperationManifestTemplate {
 
+  func render(operations: [OperationManifestItem]) throws -> String {
+    try template(operations).description
+  }
+
   private func template(_ operations: [OperationManifestItem]) throws -> TemplateString {
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
@@ -27,10 +31,6 @@ struct PersistedQueriesOperationManifestTemplate {
       }
       """
     )
-  }
-
-  func render(operations: [OperationManifestItem]) throws -> String {
-    try template(operations).description
   }
 
 }

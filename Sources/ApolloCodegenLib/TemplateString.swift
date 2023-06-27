@@ -132,6 +132,7 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       separator: String = ",\n",
       terminator: String? = nil
     ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
+      #warning("TODO: Use forEachIn")
       var iterator = sequence.makeIterator()
       guard
         var elementsString = iterator.next()?.description,
@@ -422,5 +423,11 @@ extension String {
   
   var isAllUppercased: Bool {
     return self == self.uppercased()
+  }
+
+  func convertedToSingleLine() -> String {
+    return components(separatedBy: .newlines)
+      .map { $0.trimmingCharacters(in: .whitespaces) }
+      .joined(separator: " ")
   }
 }
