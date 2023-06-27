@@ -3,14 +3,13 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-#warning("TODO test and implement single line string formatting!")
 class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
   var subject: PersistedQueriesOperationManifestTemplate!
 
   override func setUp() {
     super.setUp()
 
-    subject = PersistedQueriesOperationManifestTemplate()
+    subject = PersistedQueriesOperationManifestTemplate(config: .init(config: .mock()))
   }
 
   override func tearDown() {
@@ -158,6 +157,60 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
           {
             "id": "c5754cef39f339f0a0d0437b8cc58fddd3c147d791441d5fdaa0f8d4265730ff",
             "body": "query Friends {\\n  friends {\\n    ...Name\\n  }\\n}\\nfragment Name on Friend {\\n  name\\n}",
+            "name": "Friends",
+            "type": "query"
+          },
+        ]
+      }
+      """
+
+    // when
+    let rendered = try subject.render(operations: operations)
+
+    expect(rendered).to(equalLineByLine(expected))
+  }
+
+  func test__render__givenOperationsUsingSingleLineString_shouldOutputJSONFormatBodyFormattedAsSingleLineString() throws {
+    // given
+    subject = PersistedQueriesOperationManifestTemplate(
+      config: .init(config: .mock(
+        options: .init(queryStringLiteralFormat: .singleLine))
+      )
+    )
+
+    let operations = [
+      IR.Operation.mock(
+        name: "Friends",
+        type: .query,
+        source: """
+        query Friends {
+          friends {
+            ...Name
+          }
+        }
+        """,
+        referencedFragments: [
+          .mock(
+            "Name",
+            type: .mock(),
+            source: """
+            fragment Name on Friend {
+              name
+            }
+            """
+          )
+        ]
+      )
+    ].map(OperationManifestItem.init)
+
+    let expected = """
+      {
+        "format": "apollo-persisted-queries",
+        "version": 1,
+        "operations": [
+          {
+            "id": "c5754cef39f339f0a0d0437b8cc58fddd3c147d791441d5fdaa0f8d4265730ff",
+            "body": "query Friends { friends { ...Name } } fragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
           },
