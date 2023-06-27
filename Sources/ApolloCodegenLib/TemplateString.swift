@@ -185,13 +185,13 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       forEachIn sequence: T,
       separator: String = ",\n",
       terminator: String? = nil,
-      _ template: (T.Element) -> TemplateString?
-    ) where T: Sequence {
+      _ template: (T.Element) throws -> TemplateString?
+    ) rethrows where T: Sequence {
       var iterator = sequence.makeIterator()
       var resultString = ""
 
       while let element = iterator.next(),
-            let elementString = template(element)?.description {
+            let elementString = try template(element)?.description {
         resultString.append(
           resultString.isEmpty ?
           elementString : separator + elementString
@@ -339,6 +339,12 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
         .joinedAsCommentLines(withLinePrefix: prefix)
 
       appendInterpolation(components)
+    }
+
+    // MARK: JSON
+
+    mutating func appendInterpolation(json jsonData: Data) {
+      appendInterpolation(String(decoding: jsonData, as: UTF8.self))
     }
 
     // MARK: - Helpers

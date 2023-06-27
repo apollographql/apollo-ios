@@ -3,6 +3,7 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
+#warning("TODO test and implement single line string formatting!")
 class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
   var subject: PersistedQueriesOperationManifestTemplate!
 
@@ -38,9 +39,9 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "version": 1,
         "operations": [
           {
-            "id": b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
-            "body" : "query TestQuery {\\n  test\\n}",
-            "name" : "TestQuery",
+            "id": "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
+            "body": "query TestQuery {\\n  test\\n}",
+            "name": "TestQuery",
             "type": "query"
           },
         ]
@@ -96,20 +97,20 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "operations": [
           {
             "id": "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
-            "body" : "query TestQuery {\\n  test\\n}",
-            "name" : "TestQuery",
+            "body": "query TestQuery {\\n  test\\n}",
+            "name": "TestQuery",
             "type": "query"
           },
           {
             "id": "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1",
-            "body" : "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}",
-            "name" : "TestMutation",
+            "body": "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}",
+            "name": "TestMutation",
             "type": "mutation"
           },
           {
             "id": "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed",
-            "body" : "subscription TestSubscription {\\n  watched\\n}",
-            "name" : "TestSubscription",
+            "body": "subscription TestSubscription {\\n  watched\\n}",
+            "name": "TestSubscription",
             "type": "subscription"
           },
         ]
@@ -156,8 +157,8 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "operations": [
           {
             "id": "c5754cef39f339f0a0d0437b8cc58fddd3c147d791441d5fdaa0f8d4265730ff",
-            "body" : "query Friends {\\n  friends {\\n    ...Name\\n  }\\n}\\nfragment Name on Friend {\\n  name\\n}",
-            "name" : "Friends",
+            "body": "query Friends {\\n  friends {\\n    ...Name\\n  }\\n}\\nfragment Name on Friend {\\n  name\\n}",
+            "name": "Friends",
             "type": "query"
           },
         ]

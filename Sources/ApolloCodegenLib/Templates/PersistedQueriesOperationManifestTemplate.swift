@@ -9,9 +9,8 @@ struct PersistedQueriesOperationManifestTemplate {
 
   private func template(_ operations: [OperationManifestItem]) throws -> TemplateString {
     let encoder = JSONEncoder()
-    encoder.outputFormatting = .prettyPrinted
 
-    return TemplateString(
+    return try TemplateString(
       """
       {
         "format": "apollo-persisted-queries",
@@ -21,9 +20,9 @@ struct PersistedQueriesOperationManifestTemplate {
             return """
             {
               "id": "\(operation.identifier)",
-              "body": "\(operation.source)",
-              "name": "\(operation.name),
-              "type": "\(operation.type.rawValue)
+              "body": \(json: try encoder.encode(operation.source)),
+              "name": "\(operation.name)",
+              "type": "\(operation.type.rawValue)"
             }
             """
           })

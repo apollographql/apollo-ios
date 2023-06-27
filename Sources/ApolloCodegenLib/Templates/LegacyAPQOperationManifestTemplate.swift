@@ -16,10 +16,11 @@ struct LegacyAPQOperationManifestTemplate {
     """
     {
       \(try operations.map({ operation in
-        let value = OperationJSONValue(name: operation.name, source: operation.source)
-        return String("""
-        "\(operation.identifier)" : \(json: try encoder.encode(value))
-        """)}), separator: ",\n")
+          let value = OperationJSONValue(name: operation.name, source: operation.source)
+          return """
+            "\(operation.identifier)" : \(json: try encoder.encode(value))
+            """
+        }), separator: ",\n")
     }
     """
     )
@@ -27,11 +28,5 @@ struct LegacyAPQOperationManifestTemplate {
 
   func render(operations: [OperationManifestItem]) throws -> String {
     try template(operations).description
-  }
-}
-
-fileprivate extension String.StringInterpolation {
-  mutating func appendInterpolation(json jsonData: Data) {
-    appendInterpolation(String(decoding: jsonData, as: UTF8.self))
   }
 }
