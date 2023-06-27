@@ -484,7 +484,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     let version: Version
 
     public enum Version: String, Codable, Equatable {
-      /// Generates an operation manifest for use with GraphOS persisted queries.
+      /// Generates an operation manifest for use with persisted queries.
       case persistedQueries
       /// Generates an operation manifest for pre-registering operations with the legacy
       /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).

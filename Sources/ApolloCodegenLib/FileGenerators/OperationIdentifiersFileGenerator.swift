@@ -12,7 +12,7 @@ struct OperationIdentifiersFileGenerator {
   /// Parameters:
   ///  - config: A configuration object specifying output behavior.
   init?(config: ApolloCodegen.ConfigurationContext) {
-    guard let path = config.config.output.operationIdentifiersPath else {
+    guard let path = config.config.output.operationManifest?.path else {
       return nil
     }
 
