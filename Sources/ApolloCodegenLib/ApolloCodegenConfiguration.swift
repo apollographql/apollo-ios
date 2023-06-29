@@ -481,7 +481,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public struct OperationManifestFileOutput: Codable, Equatable {
     /// Local path where the generated operation manifest file should be written.
     let path: String
-    /// The version format to use when generating the operation manifest.
+    /// The version format to use when generating the operation manifest. Defaults to `.persistedQueries`.
     let version: Version
 
     public enum Version: String, Codable, Equatable {
@@ -497,6 +497,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// - Parameters:
     ///   - path: Local path where the generated operation manifest file should be written.
     ///   - version: The version format to use when generating the operation manifest.
+    ///   Defaults to `.persistedQueries`.
     public init(path: String, version: Version = .persistedQueries) {
       self.path = path
       self.version = version
@@ -1274,12 +1275,11 @@ extension ApolloCodegenConfiguration.FileOutput {
   ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file
   ///  for use with APQ registration. Defaults to `nil`.
   @available(*, deprecated, renamed: "init(schemaTypes:operations:testMocks:operationManifest:)")
-  @_disfavoredOverload
   public init(
     schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput,
     operations: ApolloCodegenConfiguration.OperationsFileOutput = Default.operations,
     testMocks: ApolloCodegenConfiguration.TestMockFileOutput = Default.testMocks,
-    operationIdentifiersPath: String? = nil
+    operationIdentifiersPath: String?
   ) {
     self.schemaTypes = schemaTypes
     self.operations = operations
@@ -1320,14 +1320,13 @@ extension ApolloCodegenConfiguration.OutputOptions {
   @available(*, deprecated,
               renamed: "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
   )
-  @_disfavoredOverload
   public init(
     additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
     queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = Default.queryStringLiteralFormat,
     deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
     schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
     selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
-    apqs: ApolloCodegenConfiguration.APQConfig = .disabled,
+    apqs: ApolloCodegenConfiguration.APQConfig,
     cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
     conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
