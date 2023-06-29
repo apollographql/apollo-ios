@@ -4,7 +4,7 @@
 
 # Summary
 
-The specification for `@defer`/`@stream` is slowly making it's way through the GraphQL Foundation approval process and once formally merged into the GraphQL specification Apollo iOS will need to support it. However, Apollo already has a public implementation of `@defer` in the other OSS offerings, namely Apollo Server, Apollo Client, and Apollo Kotlin. The goal of this project is to implement support for `@defer` that matches the other Apollo OSS clients.
+The specification for `@defer`/`@stream` is slowly making it's way through the GraphQL Foundation approval process and once formally merged into the GraphQL specification Apollo iOS will need to support it. However, Apollo already has a public implementation of `@defer` in the other OSS offerings, namely Apollo Server, Apollo Client, and Apollo Kotlin. The goal of this project is to implement support for `@defer` that matches the other Apollo OSS clients. This project will not include support for the `@stream` directive.
 
 Based on the progress of `@defer`/`@stream` through the approval process there may be some differences in the final specification vs. what is currently implemented in Apollo's OSS. This project does not attempt to preemptively anticipate those changes nor comply with the potential merged specification. Any client affecting-changes in the merged specification will be implemented into Apollo iOS.
 
@@ -37,15 +37,32 @@ _In progress_
 
 If an operation can support an incremental delivery response it must add an `Accept` header to the HTTP request specifying the protocol version that can be parsed. An [example](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/Apollo/RequestChainNetworkTransport.swift#L115) is HTTP subscription requests that include the `subscriptionSpec=1.0` specification. `@defer` would introduce another operation feature that would request an incremental delivery response.
 
-This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header, something like this:
-```swift
-if operation.hasDeferredFragments {
-  request.addHeader(
-    name: "Accept",
-    value: "multipart/mixed;deferSpec=20220824,application/json"
-  )
-}
+This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header.
 
+_Sample code for `RequestChainNetworkTransport`_
+```swift
+public func send<Operation: GraphQLOperation>(
+  operation: Operation,
+  cachePolicy: CachePolicy = .default,
+  contextIdentifier: UUID? = nil,
+  callbackQueue: DispatchQueue = .main,
+  completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+) -> Cancellable {
+    // request chain and request are built
+
+    if operation.hasDeferredFragments {
+      request.addHeader(
+        name: "Accept",
+        value: "multipart/mixed;deferSpec=20220824,application/json"
+      )
+    }
+
+    // request chain kickoff
+  }
+```
+
+_Sample extension on `GraphQLOperation`_
+```swift
 extension GraphQLOperation {
   var hasDeferredFragments: Bool {
     // enumerate through selection sets and check fragments
@@ -57,9 +74,97 @@ extension GraphQLOperation {
 
 Apollo iOS already has support for parsing incremental delivery responses. That provides a great foundation to build on however there are some changes needed.
 
-#### Specification
+#### Multipart parsing protocol
 
-The current `MultipartResponseParsingInterceptor` implementation is specific to the `subscriptionSpec` version `1.0` specification. Adopting a `MultipartResponseSpecification` protocol that states the specification and version will enable us to support any number of incremental delivery specifications in the future. These will be registered with the `MultipartResponseParsingInterceptor` and when a response is received the correct specification parser will be used.
+The current `MultipartResponseParsingInterceptor` implementation is specific to the `subscriptionSpec` version `1.0` specification. Adopting a protocol with implementations for each of the supported specifications will enable us to support any number of incremental delivery specifications in the future.
+
+These are registered with the `MultipartResponseParsingInterceptor` for an exact specification name and version, and when a response is received the specification and version is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
+
+_Sample code in `MultipartResponseParsingInterceptor`_
+```swift
+public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
+  private static let multipartParsers: [String: MultipartResponseSpecificationParser.Type] = [
+    SubscriptionResponseParser.protocolSpec: SubscriptionResponseParser.self,
+    DeferResponseParser.protocolSpec: DeferResponseParser.self
+  ]
+
+  public func interceptAsync<Operation>(
+    chain: RequestChain,
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+  ) where Operation : GraphQLOperation {
+    // response validators
+
+    guard
+      let multipartBoundary = response.httpResponse.multipartBoundary,
+      let protocolSpec = response.httpResponse.multipartProtocolSpec,
+      let protocolParser = Self.multipartParsers[protocolSpec]
+    else {
+      // call request chain error handler
+
+      return
+    }
+
+    let dataHandler: ((Data) -> Void) = { data in
+      // proceed ahead on the request chain
+    }
+
+    let errorHandler: (() -> Void) = {
+      // call request chain error handler
+    }
+
+    protocolParser.parse(
+      data: response.rawData,
+      boundary: multipartBoundary,
+      dataHandler: dataHandler,
+      errorHandler: errorHandler
+    )
+  }
+```
+
+_Sample protocol for multipart specification parsing_
+```swift
+protocol MultipartResponseSpecificationParser {
+  static var protocolSpec: String { get }
+
+  static func parse(
+    data: Data,
+    boundary: String,
+    dataHandler: ((Data) -> Void),
+    errorHandler: (() -> Void)
+  )
+}
+```
+
+_Sample implementations of multipart specification parsers_
+```swift
+struct SubscriptionResponseParser: MultipartResponseSpecificationParser {
+  static let protocolSpec: String = "subscriptionSpec=1.0"
+
+  static func parse(
+    data: Data,
+    boundary: String,
+    dataHandler: ((Data) -> Void),
+    errorHandler: (() -> Void)
+  ) {
+    // parsing code currently in MultipartResponseParsingInterceptor
+  }
+}
+
+struct DeferResponseParser: MultipartResponseSpecificationParser {
+  static let protocolSpec: String = "deferSpec=20220824"
+
+  static func parse(
+    data: Data,
+    boundary: String,
+    dataHandler: ((Data) -> Void),
+    errorHandler: (() -> Void)
+  ) {
+    // new code to parser the defer specification
+  }
+}
+```
 
 #### Data
 
