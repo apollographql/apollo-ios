@@ -801,6 +801,19 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     ).to(throwError())
   }
 
+  func test__decodeOperationDocumentFormat__givenEmptyArray_shouldThrow() throws {
+    // given
+    let subject = "[]".asData
+
+    // then
+    expect(
+      try JSONDecoder().decode(
+        ApolloCodegenConfiguration.OperationDocumentFormat.self,
+        from: subject
+      )
+    ).to(throwError())
+  }
+
   // MARK: - APQConfig Tests
 
   func encodedValue(_ case: ApolloCodegenConfiguration.APQConfig) -> String {

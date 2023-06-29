@@ -798,6 +798,14 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         default: continue
         }
       }
+      guard self.rawValue != 0 else {
+        throw DecodingError.valueNotFound(
+          OperationDocumentFormat.self,
+          .init(codingPath: [
+            ApolloCodegenConfiguration.CodingKeys.options,
+            OutputOptions.CodingKeys.operationDocumentFormat
+          ], debugDescription: "operationDocumentFormat configuration cannot be empty."))
+      }
     }
 
     public func encode(to encoder: Encoder) throws {
