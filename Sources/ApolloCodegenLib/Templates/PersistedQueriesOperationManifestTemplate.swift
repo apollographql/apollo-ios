@@ -14,7 +14,7 @@ struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {
     return try TemplateString(
       """
       {
-        "format": "apollo-persisted-queries",
+        "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           \(forEachIn: operations, terminator: ",", { operation in

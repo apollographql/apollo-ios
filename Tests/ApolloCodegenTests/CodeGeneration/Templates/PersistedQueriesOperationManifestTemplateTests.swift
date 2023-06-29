@@ -34,7 +34,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "format": "apollo-persisted-queries",
+        "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
@@ -91,7 +91,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "format": "apollo-persisted-queries",
+        "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
@@ -151,7 +151,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "format": "apollo-persisted-queries",
+        "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
@@ -205,7 +205,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
 
     let expected = """
       {
-        "format": "apollo-persisted-queries",
+        "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
