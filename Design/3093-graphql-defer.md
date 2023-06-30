@@ -77,6 +77,18 @@ _Example usage in a generated model_
   ] }
 ```
 
+### Deferred fragments
+
+_In progress_
+
+### Merged fields
+
+_In progress_
+
+### Selection set initializers
+
+_In progress_
+
 ## Networking 
 
 ### Request header
