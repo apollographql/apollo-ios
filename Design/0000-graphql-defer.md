@@ -201,6 +201,20 @@ public struct GraphQLResult<Data: RootSelectionSet> {
 }
 ```
 
+_Sample usage in an app_
+```swift
+  client.fetch(query: ExampleQuery()) { result in
+    switch (result) {
+    case let .success(data):
+      switch (data.response) {
+      case .complete:
+      case .partial:
+      }
+    case let .failure(error):
+    }
+  }
+```
+
 Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received.
 
 ```swift
@@ -217,6 +231,21 @@ public struct GraphQLResult<Data: RootSelectionSet> {
     case server(_ response: Response)
   }
 }
+```
+
+_Sample usage in an app_
+```swift
+  client.fetch(query: ExampleQuery()) { result in
+    switch (result) {
+    case let .success(data):
+      switch (data.source) {
+      case .server(.complete):
+      case .server(.partial):
+      case .cache:
+      }
+    case let .failure(error):
+    }
+  }
 ```
 
 ## GraphQL execution
