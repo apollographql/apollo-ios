@@ -6,7 +6,7 @@
 
 The specification for `@defer`/`@stream` is slowly making it's way through the GraphQL Foundation approval process and once formally merged into the GraphQL specification Apollo iOS will need to support it. However, Apollo already has a public implementation of `@defer` in the other OSS offerings, namely Apollo Server, Apollo Client, and Apollo Kotlin. The goal of this project is to implement support for `@defer` that matches the other Apollo OSS clients. This project will not include support for the `@stream` directive.
 
-Based on the progress of `@defer`/`@stream` through the approval process there may be some differences in the final specification vs. what is currently implemented in Apollo's OSS. This project does not attempt to preemptively anticipate those changes nor comply with the potential merged specification. Any client affecting-changes in the merged specification will be implemented into Apollo iOS.
+Based on the progress of `@defer`/`@stream` through the approval process there may be some differences in the final specification vs. what is currently implemented in Apollo's OSS. This project does not attempt to preemptively anticipate those changes nor comply with the potentially merged specification. Any client affecting-changes in the merged specification will be implemented into Apollo iOS.
 
 # Proposed Changes
 
@@ -60,7 +60,7 @@ public func send<Operation: GraphQLOperation>(
 ) -> Cancellable {
     // request chain and request are built
 
-    if operation.hasDeferredFragments {
+    if Operation.hasDeferredFragments {
       request.addHeader(
         name: "Accept",
         value: "multipart/mixed;deferSpec=20220824,application/json"
@@ -71,12 +71,12 @@ public func send<Operation: GraphQLOperation>(
   }
 ```
 
-_Sample extension on `GraphQLOperation`_
+_Sample of new property on `GraphQLOperation`_
 ```swift
-extension GraphQLOperation {
-  var hasDeferredFragments: Bool {
-    // enumerate through selection sets and check fragments
-  }
+public protocol GraphQLOperation: AnyObject, Hashable {
+  // other properties not shown
+
+  static var hasDeferredFragments: Bool { get } // computed for each operation during codegen
 }
 ```
 
@@ -88,7 +88,7 @@ Apollo iOS already has support for parsing incremental delivery responses. That 
 
 The current `MultipartResponseParsingInterceptor` implementation is specific to the `subscriptionSpec` version `1.0` specification. Adopting a protocol with implementations for each of the supported specifications will enable us to support any number of incremental delivery specifications in the future.
 
-These are registered with the `MultipartResponseParsingInterceptor` for an exact specification name and version, and when a response is received the specification and version is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
+These would be registered with the `MultipartResponseParsingInterceptor` for an each specification string, and when a response is received the specification string is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
 
 _Sample code in `MultipartResponseParsingInterceptor`_
 ```swift
@@ -201,7 +201,7 @@ public struct GraphQLResult<Data: RootSelectionSet> {
 }
 ```
 
-Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete.
+Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received.
 
 ```swift
 public struct GraphQLResult<Data: RootSelectionSet> {
