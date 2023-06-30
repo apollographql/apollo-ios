@@ -5,7 +5,7 @@
 
 public class HeroAppearsInWithFragmentQuery: GraphQLQuery {
   public static let operationName: String = "HeroAppearsInWithFragment"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb",
     definition: .init(
       #"""

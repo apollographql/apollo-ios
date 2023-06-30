@@ -5,7 +5,7 @@
 
 public class ReviewAddedSubscription: GraphQLSubscription {
   public static let operationName: String = "ReviewAdded"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
     definition: .init(
       #"""

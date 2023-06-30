@@ -93,7 +93,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         return
       }
 
-      if case .persistedOperationsOnly = Operation.document {
+      if Operation.operationDocument.definition == nil {
         chain.handleErrorAsync(
           APQError.persistedQueryNotFoundForPersistedOnlyQuery(operationName: Operation.operationName),
           request: jsonRequest,

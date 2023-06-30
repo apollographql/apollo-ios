@@ -966,6 +966,7 @@ class RequestChainTests: XCTestCase {
 
   // MARK: `proceedAsync` Tests
 
+  @available(*, deprecated)
   struct SimpleForwardingInterceptor_deprecated: ApolloInterceptor {
     var id: String = UUID().uuidString
 
@@ -1005,6 +1006,7 @@ class RequestChainTests: XCTestCase {
     }
   }
 
+  @available(*, deprecated, message: "Testing deprecated function")
   func test__proceedAsync__givenInterceptors_usingDeprecatedFunction_shouldCallAllInterceptors() throws {
     let expectations = [
       expectation(description: "Interceptor 1 executed"),
@@ -1059,6 +1061,7 @@ class RequestChainTests: XCTestCase {
     wait(for: expectations, timeout: 1, enforceOrder: true)
   }
 
+  @available(*, deprecated, message: "Testing deprecated function")
   func test__proceedAsync__givenInterceptors_usingBothFunctions_shouldCallAllInterceptors() throws {
     let expectations = [
       expectation(description: "Interceptor 1 executed"),

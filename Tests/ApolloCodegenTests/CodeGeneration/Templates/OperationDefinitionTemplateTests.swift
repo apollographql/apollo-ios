@@ -247,7 +247,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     """
     class LowercaseOperationQuery: GraphQLQuery {
       static let operationName: String = "lowercaseOperation"
-      static let document: ApolloAPI.DocumentType = .notPersisted(
+      static let operationDocument: ApolloAPI.OperationDocument = .init(
         definition: .init(
           #\"\"\"
           query lowercaseOperation($variable: String = "TestVar") {

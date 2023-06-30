@@ -5,7 +5,7 @@
 
 public class SearchQuery: GraphQLQuery {
   public static let operationName: String = "Search"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
     definition: .init(
       #"""

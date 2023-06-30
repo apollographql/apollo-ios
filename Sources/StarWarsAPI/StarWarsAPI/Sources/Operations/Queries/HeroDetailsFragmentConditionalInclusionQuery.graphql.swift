@@ -5,7 +5,7 @@
 
 public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsFragmentConditionalInclusion"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b",
     definition: .init(
       #"""
