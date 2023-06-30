@@ -3,9 +3,9 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class OperationIdentifierFileGeneratorTests: XCTestCase {
+class OperationManifestFileGeneratorTests: XCTestCase {
   var fileManager: MockApolloFileManager!
-  var subject: OperationIdentifiersFileGenerator!
+  var subject: OperationManifestFileGenerator!
 
   override func setUp() {
     super.setUp()
@@ -20,13 +20,16 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
 
   // MARK: Test Helpers
 
-  private func buildSubject(path: String? = nil) throws {
+  private func buildSubject(
+    path: String? = nil,
+    version: ApolloCodegenConfiguration.OperationManifestFileOutput.Version = .legacyAPQ
+  ) throws {
     let manifest: ApolloCodegenConfiguration.OperationManifestFileOutput? = {
       guard let path else { return nil }
-      return .init(path: path)
+      return .init(path: path, version: version)
     }()
 
-    subject = try OperationIdentifiersFileGenerator(
+    subject = try OperationManifestFileGenerator(
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
         output: .init(
           schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
@@ -46,7 +49,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ))
 
     // when
-    let instance = OperationIdentifiersFileGenerator(config: .init(config: config))
+    let instance = OperationManifestFileGenerator(config: .init(config: config))
 
     // then
     expect(instance).notTo(beNil())
@@ -60,7 +63,7 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     ))
 
     // when
-    let instance = OperationIdentifiersFileGenerator(config: .init(config: config))
+    let instance = OperationManifestFileGenerator(config: .init(config: config))
 
     // then
     expect(instance).to(beNil())
@@ -147,5 +150,30 @@ class OperationIdentifierFileGeneratorTests: XCTestCase {
     try subject.generate(fileManager: fileManager)
 
     expect(self.fileManager.allClosuresCalled).to(beTrue())
+  }
+
+  // MARK: - Template Type Selection Tests
+
+  func test__template__givenOperationManifestVersion_apqLegacy__isLegacyAPQTemplate() throws {
+    // given
+    try buildSubject(path: "a/path", version: .legacyAPQ)
+
+    // when
+    let actual = subject.template
+
+    // then
+    expect(actual).to(beAKindOf(LegacyAPQOperationManifestTemplate.self))
+  }
+
+  func test__template__givenOperationManifestVersion_persistedQueries__isPersistedQueriesTemplate() throws {
+    // given
+    try buildSubject(path: "a/path", version: .persistedQueries)
+
+    // when
+    let actual = subject.template as? PersistedQueriesOperationManifestTemplate
+
+    // then
+    expect(actual).toNot(beNil())
+    expect(actual?.config).to(beIdenticalTo(self.subject.config))
   }
 }

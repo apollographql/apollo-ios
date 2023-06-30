@@ -385,7 +385,7 @@ public class ApolloCodegen {
       }
     }
 
-    var operationIDsFileGenerator = OperationIdentifiersFileGenerator(config: config)
+    var operationIDsFileGenerator = OperationManifestFileGenerator(config: config)
 
     for operation in compilationResult.operations {
       try autoreleasepool {

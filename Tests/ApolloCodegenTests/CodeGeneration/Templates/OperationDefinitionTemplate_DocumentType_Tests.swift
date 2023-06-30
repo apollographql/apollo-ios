@@ -114,7 +114,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  name}"#
+        #"query NameQuery { name }"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -174,7 +174,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery($filter: String = "MyName") {  name}"#
+        #"query NameQuery($filter: String = "MyName") { name }"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -243,7 +243,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...NameFragment}"#,
+        #"query NameQuery { ...NameFragment }"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -276,7 +276,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...nameFragment}"#,
+        #"query NameQuery { ...nameFragment }"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -366,7 +366,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     """
     public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...Fragment1  ...Fragment2  ...Fragment3  ...Fragment4  ...FragmentWithLongName1234123412341234123412341234}"#,
+        #"query NameQuery { ...Fragment1 ...Fragment2 ...Fragment3 ...Fragment4 ...FragmentWithLongName1234123412341234123412341234 }"#,
         fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
       ))
     """
