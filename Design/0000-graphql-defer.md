@@ -29,6 +29,16 @@ Adding support for `@defer` brings new meaning of the word 'deferred' to the cod
 
 ## Generated models
 
+### Deferred fragments
+
+_In progress_
+
+### Merged fields
+
+_In progress_
+
+### Selection set initializers
+
 _In progress_
 
 ## Networking 
@@ -94,7 +104,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) where Operation : GraphQLOperation {
-    // response validators
+    // response validators not shown
 
     guard
       let multipartBoundary = response.httpResponse.multipartBoundary,
@@ -174,8 +184,40 @@ The data being retained and combined should not require another pass through the
 
 ### Completion handler
 
-_In progress_
+`GraphQLResult` should be modified to provide query completion blocks with a high-level abstraction of whether the request has been fulfilled or is still in progress. This prevents clients from having to dig into the deferred fragments to identify the state of the overall request.
 
+One way to do this is through a property on the `GraphQLResult` type.
+
+```swift
+public struct GraphQLResult<Data: RootSelectionSet> {
+  // other properties and types
+
+  public enum Response {
+    case partial
+    case complete
+  }
+
+  public let response: Response
+}
+```
+
+Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete.
+
+```swift
+public struct GraphQLResult<Data: RootSelectionSet> {
+  // other properties and types
+
+  public enum Response {
+    case partial
+    case complete
+  }
+
+  public enum Source: Hashable {
+    case cache
+    case server(_ response: Response)
+  }
+}
+```
 
 ## GraphQL execution
 
@@ -185,9 +227,35 @@ _In progress_
 
 ## Caching
 
-Similarly to GraphQL execution the cache write interceptor is designed to work holistically on the operation and write cache records for a single response. This currently works in HTTP-based subscriptions because each incremental response is a selection set for the entire operation.
+Similarly to GraphQL execution the cache write interceptor is designed to work holistically on the operation and write cache records for a single response. This approach still works for HTTP-based subscriptions because each incremental response contains a selection set for the entire operation.
 
-Resolve cache key info on each incremental payload to gather the key required for the incremental data update to the cache record.
+This approach is not going to work for the incremental responses of `@defer` though and partial responses cannot be written to the cache for the operation. Instead all deferred responses will need to be fulfilled before the record is written to the cache.
 
-_In progress_
+_Only write cache records for complete responses_
+```swift
+public struct CacheWriteInterceptor: ApolloInterceptor {
+  ...
 
+  public func interceptAsync<Operation: GraphQLOperation>(
+    chain: RequestChain,
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+  ) {
+    // response validators not shown
+
+    guard
+      let createdResponse = response,
+      let parsedResponse = createdResponse.parsedResponse,
+      parsedResponse.source == .server(.complete)
+    else {
+      // a partial response must have been received and should not be written to the cache
+      return
+    }
+
+    // cache write code not shown
+  }
+}
+```
+
+There is a bunch of complexity in writing partial records to the cache such as: query watchers without deferred fragments; how would we handle failed requests; race conditions to fulfil deferred data; amongst others. These problems need careful, thoughtful solutions and this project will not include them in the scope for initial implementation. 
