@@ -29,17 +29,53 @@ Adding support for `@defer` brings new meaning of the word 'deferred' to the cod
 
 ## Generated models
 
-### Deferred fragments
+Generated models will definitely be affected by `@defer` statements in the operation. Ideally there is easy-to-read annotation indicating something is deferred by simply reading the generated model code but more importantly it must be easy when using the generated models in code to detect whether something is deferred or not.
 
-_In progress_
+The most simple solution is to change the deferred property type to an optional version of that type. This hides detail though because you wouldn't be able to tell whether the value is `nil` because the response data has been received yet (i.e.: deferred) or whether the data was returned and it was explicitly `null`. It also gets more complicated when a type is already optional; would that result in a Swift double-optional type? As we learnt with the legacy implementation of GraphQL nullability, double-optionals are difficult to interpret and easy lead to errors.
 
-### Merged fields
+I explored Swift's property wrappers but they suffer from the limitation of not being able to be applied to a computed property. All model properties are computed properties because they simply route access the value in the underlying dictionary data storage. It would be nice to be able to simply annotate fragments and fields with some like `@Deferred` but it doesn't look like that is possible.
 
-_In progress_
+An idea that was suggested by [`@Iron-Ham`](https://github.com/apollographql/apollo-ios/issues/2395#issuecomment-1433628466) is to wrap the type in a Swift enum that can expose the deferred state as well as the underlying value once it has been received.
 
-### Selection set initializers
+_Example enum to wrap deferred properties_
+```swift
+enum DeferredValue<T> {
+    case loading
+    case result(Result<T, Error>)
+}
+```
+_Sample model with `DeferredResponse`_
+```swift
+public struct ModelSelectionSet: GraphAPI.SelectionSet {
+  // other properties no shown
 
-_In progress_
+  public var name: DeferredValue<String?> { __data["name"] }
+}
+```
+
+Deferred fragment definitions in generated models will get an additional property to indicate they are deferred.
+
+_Updated `Selection` enum_
+```swift
+public enum Selection {
+  // other cases not shown
+  case fragment(any Fragment.Type, deferred: Bool)
+  case inlineFragment(any InlineFragment.Type, deferred: Bool)
+
+  // other properties and types not shown
+}
+```
+
+_Example usage in a generated model_
+```swift
+  public static var __selections: [ApolloAPI.Selection] { [
+    .inlineFragment(AsEntity.self, deferred: true),
+  ] }
+
+  public static var __selections: [ApolloAPI.Selection] { [
+    .fragment(EntityFragment.self, deferred: true),
+  ] }
+```
 
 ## Networking 
 
