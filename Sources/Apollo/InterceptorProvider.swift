@@ -10,7 +10,7 @@ public protocol InterceptorProvider {
   /// Creates a new array of interceptors when called
   ///
   /// - Parameter operation: The operation to provide interceptors for
-  func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [ApolloInterceptor]
+  func interceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any ApolloInterceptor]
   
   /// Provides an additional error interceptor for any additional handling of errors
   /// before returning to the UI, such as logging.

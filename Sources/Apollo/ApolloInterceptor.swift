@@ -4,6 +4,13 @@ import ApolloAPI
 
 /// A protocol to set up a chainable unit of networking work.
 public protocol ApolloInterceptor {
+
+  /// Used to uniquely identify this interceptor from other interceptors in a request chain.
+  ///
+  /// Each operation request has it's own interceptor request chain so the interceptors do not
+  /// need to be uniquely identifiable between each and every request, only unique between the
+  /// list of interceptors in a single request.
+  var id: String { get set }
   
   /// Called when this interceptor should do its work.
   ///
