@@ -250,9 +250,9 @@ _Sample usage in an app_
 
 ## GraphQL execution
 
-The executor currently executes on an entire operation selection set. It will need to be adapted to be able to execute on an isolated fragment selection set so that incremental responses can be parsed in isolation instead of needing to execute on the whole operation’s selection set.
+The executor currently executes on an entire operation selection set. It will need to be adapted to be able to execute on a partial response when deferred fragments have not been received and on an isolated fragment selection set so that incremental responses can be parsed alone instead of needing to execute on the whole operation’s selection set.
 
-_In progress_
+An alternative to parsing isolated fragment selection sets would be to execute on all the data currently received. The inefficiency with this is executing on data that would have already been executed on during prior responses.
 
 ## Caching
 
