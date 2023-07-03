@@ -1,5 +1,3 @@
-import Foundation
-
 // MARK: - Unzipping
 // MARK: Arrays of tuples to tuples of arrays
 

@@ -1,5 +1,3 @@
-import Foundation
-
 public protocol LocalCacheMutation: AnyObject, Hashable {
   static var operationType: GraphQLOperationType { get }
 

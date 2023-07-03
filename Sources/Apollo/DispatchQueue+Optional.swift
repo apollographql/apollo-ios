@@ -1,5 +1,3 @@
-import Foundation
-
 extension DispatchQueue {
 
   static func performAsyncIfNeeded(on callbackQueue: DispatchQueue?, action: @escaping () -> Void) {

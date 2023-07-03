@@ -1,5 +1,3 @@
-import Foundation
-
 /// A helper protocol to enable `AnyHashable` conversion for types that do not have automatic
 /// `AnyHashable` conversion implemented.
 ///
