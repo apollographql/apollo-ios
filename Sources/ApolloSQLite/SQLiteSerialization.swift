@@ -1,5 +1,4 @@
 import Foundation
-import SQLite
 #if !COCOAPODS
 import Apollo
 import ApolloAPI
