@@ -3,10 +3,6 @@ extension HTTPURLResponse {
     return (200..<300).contains(statusCode)
   }
 
-  var statusCodeDescription: String {
-    return HTTPURLResponse.localizedString(forStatusCode: statusCode)
-  }
-
   var isMultipart: Bool {
     return (allHeaderFields["Content-Type"] as? String)?.contains("multipart/mixed") ?? false
   }
