@@ -222,24 +222,56 @@ public class ApolloCodegen {
   }
   
   /// Validates that there are no type conflicts within a SelectionSet
-  static private func validateTypeConflicts(for selectionSet: IR.SelectionSet, with context: ConfigurationContext, in containingObject: String) throws {
+  static private func validateTypeConflicts(
+    for selectionSet: IR.SelectionSet,
+    with context: ConfigurationContext,
+    in containingObject: String,
+    including parentTypes: [String: String] = [:]
+  ) throws {
     // Check for type conflicts resulting from singularization/pluralization of fields
-    var fieldNamesByFormattedTypeName = [String: String]()
+    var typeNamesByFormattedTypeName = [String: String]()
+    
     var fields: [IR.EntityField] = selectionSet.selections.direct?.fields.values.compactMap { $0 as? IR.EntityField } ?? []
     fields.append(contentsOf: selectionSet.selections.merged.fields.values.compactMap { $0 as? IR.EntityField } )
 
     try fields.forEach { field in
       let formattedTypeName = field.formattedSelectionSetName(with: context.pluralizer)
-      if let existingFieldName = fieldNamesByFormattedTypeName[formattedTypeName] {
+      if let existingFieldName = typeNamesByFormattedTypeName[formattedTypeName] {
         throw Error.typeNameConflict(
           name: existingFieldName,
           conflictingName: field.name,
           containingObject: containingObject
         )
       }
-      
-      fieldNamesByFormattedTypeName[formattedTypeName] = field.name
-      try validateTypeConflicts(for: field.selectionSet, with: context, in: containingObject)
+      typeNamesByFormattedTypeName[formattedTypeName] = field.name
+    }
+    
+    // Combine `parentTypes` and `typeNamesByFormattedTypeName` to check against fragment names and
+    // pass into recursive function calls
+    var combinedTypeNames = parentTypes
+    combinedTypeNames.merge(typeNamesByFormattedTypeName) { (current, _) in current }
+    
+    // passing each fields selection set for validation after we have fully built our `typeNamesByFormattedTypeName` dictionary
+    try fields.forEach { field in
+      try validateTypeConflicts(
+        for: field.selectionSet,
+        with: context,
+        in: containingObject,
+        including: combinedTypeNames
+      )
+    }
+    
+    var fragments: [IR.NamedFragment] = selectionSet.selections.direct?.fragments.values.map { $0.fragment } ?? []
+    fragments.append(contentsOf: selectionSet.selections.merged.fragments.values.map { $0.fragment })
+    
+    try fragments.forEach { fragment in
+      if let existingTypeName = combinedTypeNames[fragment.generatedDefinitionName] {
+        throw Error.typeNameConflict(
+          name: existingTypeName,
+          conflictingName: fragment.name,
+          containingObject: containingObject
+        )
+      }
     }
     
     // gather nested fragments to loop through and check as well
@@ -247,7 +279,12 @@ public class ApolloCodegen {
     nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values)
     
     try nestedSelectionSets.forEach { nestedSet in
-      try validateTypeConflicts(for: nestedSet, with: context, in: containingObject)
+      try validateTypeConflicts(
+        for: nestedSet,
+        with: context,
+        in: containingObject,
+        including: combinedTypeNames
+      )
     }
   }
 
@@ -348,7 +385,7 @@ public class ApolloCodegen {
       }
     }
 
-    var operationIDsFileGenerator = OperationIdentifiersFileGenerator(config: config)
+    var operationIDsFileGenerator = OperationManifestFileGenerator(config: config)
 
     for operation in compilationResult.operations {
       try autoreleasepool {

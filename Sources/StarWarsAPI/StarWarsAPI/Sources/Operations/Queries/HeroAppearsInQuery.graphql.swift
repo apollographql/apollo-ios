@@ -5,7 +5,7 @@
 
 public class HeroAppearsInQuery: GraphQLQuery {
   public static let operationName: String = "HeroAppearsIn"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522",
     definition: .init(
       #"""
@@ -40,7 +40,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAppearsInQuery.Data.self)
         ]
       ))
     }
@@ -71,7 +71,7 @@ public class HeroAppearsInQuery: GraphQLQuery {
             "appearsIn": appearsIn,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAppearsInQuery.Data.Hero.self)
           ]
         ))
       }

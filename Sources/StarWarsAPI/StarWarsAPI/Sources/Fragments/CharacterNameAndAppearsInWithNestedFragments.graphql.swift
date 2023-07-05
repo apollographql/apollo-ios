@@ -45,9 +45,9 @@ public struct CharacterNameAndAppearsInWithNestedFragments: StarWarsAPI.Selectio
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self),
-        ObjectIdentifier(CharacterNameWithNestedAppearsInFragment.self),
-        ObjectIdentifier(CharacterAppearsIn.self)
+        ObjectIdentifier(CharacterNameAndAppearsInWithNestedFragments.self),
+        ObjectIdentifier(CharacterAppearsIn.self),
+        ObjectIdentifier(CharacterNameWithNestedAppearsInFragment.self)
       ]
     ))
   }

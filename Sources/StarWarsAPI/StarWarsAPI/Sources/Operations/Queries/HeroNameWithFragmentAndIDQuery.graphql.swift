@@ -5,7 +5,7 @@
 
 public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameWithFragmentAndID"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02",
     definition: .init(
       #"""
@@ -48,7 +48,7 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroNameWithFragmentAndIDQuery.Data.self)
         ]
       ))
     }
@@ -91,7 +91,7 @@ public class HeroNameWithFragmentAndIDQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
+            ObjectIdentifier(HeroNameWithFragmentAndIDQuery.Data.Hero.self),
             ObjectIdentifier(CharacterName.self)
           ]
         ))

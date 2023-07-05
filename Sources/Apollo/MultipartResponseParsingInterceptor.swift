@@ -43,6 +43,8 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   private static let contentTypeHeader: StaticString = "content-type:"
   private static let heartbeat: StaticString = "{}"
 
+  public var id: String = UUID().uuidString
+
   public init() { }
 
   public func interceptAsync<Operation>(
@@ -63,7 +65,12 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     }
 
     if !response.httpResponse.isMultipart {
-      chain.proceedAsync(request: request, response: response, completion: completion)
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
+      )
       return
     }
 
@@ -148,7 +155,12 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             rawData: data,
             parsedResponse: nil
           )
-          chain.proceedAsync(request: request, response: response, completion: completion)
+          chain.proceedAsync(
+            request: request,
+            response: response,
+            interceptor: self,
+            completion: completion
+          )
 
         case .unknown:
           chain.handleErrorAsync(

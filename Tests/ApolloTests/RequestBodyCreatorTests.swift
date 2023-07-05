@@ -29,7 +29,9 @@ class RequestBodyCreatorTests: XCTestCase {
     // given
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "Test Operation Name" }
-      override class var document: DocumentType { .notPersisted(definition: .init("Test Query Document")) }
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init("Test Query Document"))
+      }
     }
 
     let operation = GivenMockOperation()
@@ -75,7 +77,9 @@ class RequestBodyCreatorTests: XCTestCase {
 
     class GivenMockOperation: MockOperation<MockSelectionSet> {
       override class var operationName: String { "Test Operation Name" }
-      override class var document: DocumentType { .notPersisted(definition: .init("Test Query Document")) }
+      override class var operationDocument: OperationDocument {
+        .init(definition: .init("Test Query Document"))
+      }
     }
 
     let operation = GivenMockOperation()

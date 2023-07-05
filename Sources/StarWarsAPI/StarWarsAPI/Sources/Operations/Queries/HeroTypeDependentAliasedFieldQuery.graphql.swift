@@ -5,7 +5,7 @@
 
 public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroTypeDependentAliasedField"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c",
     definition: .init(
       #"""
@@ -53,7 +53,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.self)
         ]
       ))
     }
@@ -83,7 +83,7 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self)
           ]
         ))
       }
@@ -113,8 +113,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
               "property": property,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.AsHuman.self)
             ]
           ))
         }
@@ -145,8 +145,8 @@ public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
               "property": property,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.self),
+              ObjectIdentifier(HeroTypeDependentAliasedFieldQuery.Data.Hero.AsDroid.self)
             ]
           ))
         }

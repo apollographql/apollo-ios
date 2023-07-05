@@ -257,4 +257,27 @@ class UnionTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test_render_usingReservedKeyword_shouldHaveSuffixedType() throws {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword)
+
+      let expected = """
+      static let \(keyword.firstUppercased)_Union = Union(
+        name: "\(keyword)",
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

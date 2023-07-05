@@ -31,7 +31,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           "allAnimals": allAnimals._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.self)
         ]
       ))
     }
@@ -77,7 +77,7 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
             "skinCovering": skinCovering,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.self)
           ]
         ))
       }
@@ -121,8 +121,8 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
               "skinCovering": skinCovering,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
+              ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.AsBird.self)
             ]
           ))
         }

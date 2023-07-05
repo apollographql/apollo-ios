@@ -413,7 +413,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }
@@ -460,7 +460,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }
@@ -567,7 +567,7 @@ class FragmentTemplateTests: XCTestCase {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(TestFragment.self)
             ]
           ))
         }
@@ -723,4 +723,42 @@ class FragmentTemplateTests: XCTestCase {
 
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__givenFragmentReservedKeywordName_rendersEscapedName() throws {
+    let keywords = ["Type", "type"]
+    
+    try keywords.forEach { keyword in
+      // given
+      schemaSDL = """
+      type Query {
+        getUser(id: String): User
+      }
+
+      type User {
+        id: String!
+        name: String!
+      }
+      """
+
+      document = """
+      fragment \(keyword) on User {
+          name
+      }
+      """
+
+      let expected = """
+      struct \(keyword.firstUppercased)_Fragment: TestSchema.SelectionSet, Fragment {
+      """
+
+      // when
+      try buildSubjectAndFragment(named: keyword)
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

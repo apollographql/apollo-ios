@@ -93,6 +93,7 @@
       "identifiers" : [
         "doc:\/\/ApolloWebSocket\/objc(pl)NSStreamDelegate",
         "doc:\/\/ApolloWebSocket\/objc(pl)NSObject",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SOCKSProxyable",
         "doc:\/\/ApolloWebSocket\/s7CVarArgP",
         "doc:\/\/ApolloWebSocket\/s28CustomDebugStringConvertibleP",
         "doc:\/\/ApolloWebSocket\/s23CustomStringConvertibleP",
@@ -136,6 +137,7 @@
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/desiredTrustHostname",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/disableSSLCertValidation",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/enableCompression",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/enableSOCKSProxy",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/enabledSSLCipherSuites",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/isConnected",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/onConnect",
@@ -229,6 +231,37 @@
   "title" : "ApolloWebSocket",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SOCKSProxyable": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SOCKSProxyable"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SOCKSProxyable",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SOCKSProxyable"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SOCKSProxyable",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/socksproxyable"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket": {
   "abstract" : [
@@ -676,6 +709,75 @@
   "title" : "enableCompression",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocket\/enablecompression"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/enableSOCKSProxy": {
+  "abstract" : [
+    {
+      "text" : "Determines whether a SOCKS proxy is enabled on the underlying request.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Mostly useful for debugging with tools like Charles Proxy.",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "Note: Will return ",
+      "type" : "text"
+    },
+    {
+      "code" : "false",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " from the getter and no-op the setter for implementations that do not conform to ",
+      "type" : "text"
+    },
+    {
+      "code" : "SOCKSProxyable",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "enableSOCKSProxy"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocket\/enableSOCKSProxy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "enableSOCKSProxy",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocket\/enablesocksproxy"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocket/enabledSSLCipherSuites": {
   "abstract" : [

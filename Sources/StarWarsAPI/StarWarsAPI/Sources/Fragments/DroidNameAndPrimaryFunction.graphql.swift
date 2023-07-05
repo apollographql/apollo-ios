@@ -46,9 +46,9 @@ public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
         "name": name,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self),
-        ObjectIdentifier(CharacterName.self),
-        ObjectIdentifier(DroidPrimaryFunction.self)
+        ObjectIdentifier(DroidNameAndPrimaryFunction.self),
+        ObjectIdentifier(DroidPrimaryFunction.self),
+        ObjectIdentifier(CharacterName.self)
       ]
     ))
   }

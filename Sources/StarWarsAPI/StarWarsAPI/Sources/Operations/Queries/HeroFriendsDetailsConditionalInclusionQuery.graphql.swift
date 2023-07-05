@@ -5,7 +5,7 @@
 
 public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsDetailsConditionalInclusion"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "8cada231691ff2f5a0a07c54b7332114588f11b947795da345c5b054211fbcfd",
     definition: .init(
       #"""
@@ -53,7 +53,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -84,7 +84,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }
@@ -118,7 +118,7 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.self)
             ]
           ))
         }
@@ -152,8 +152,8 @@ public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(Hero.Friend.self)
+                ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.self),
+                ObjectIdentifier(HeroFriendsDetailsConditionalInclusionQuery.Data.Hero.Friend.AsDroid.self)
               ]
             ))
           }

@@ -5,7 +5,7 @@
 
 public class DogQuery: GraphQLQuery {
   public static let operationName: String = "DogQuery"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query DogQuery {
@@ -44,7 +44,7 @@ public class DogQuery: GraphQLQuery {
           "allAnimals": allAnimals._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(DogQuery.Data.self)
         ]
       ))
     }
@@ -81,7 +81,7 @@ public class DogQuery: GraphQLQuery {
             "skinCovering": skinCovering,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(DogQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -123,8 +123,8 @@ public class DogQuery: GraphQLQuery {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(DogQuery.Data.AllAnimal.self),
+              ObjectIdentifier(DogQuery.Data.AllAnimal.AsDog.self),
               ObjectIdentifier(DogFragment.self)
             ]
           ))

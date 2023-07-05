@@ -132,23 +132,12 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       separator: String = ",\n",
       terminator: String? = nil
     ) where T: LazySequenceProtocol, T.Element: CustomStringConvertible {
-      var iterator = sequence.makeIterator()
-      guard
-        var elementsString = iterator.next()?.description,
-        !elementsString.isEmpty
-      else {
-        removeLineIfEmpty()
-        return
-      }
-
-      while let element = iterator.next(), !element.description.isEmpty {
-        elementsString.append(separator + element.description)
-      }
-
-      appendInterpolation(elementsString)
-      if let terminator = terminator {
-        appendInterpolation(terminator)
-      }
+      appendInterpolation(
+        forEachIn: sequence,
+        separator: separator,
+        terminator: terminator,
+        { TemplateString($0.description) }
+      )
     }
 
     mutating func appendInterpolation<T>(
@@ -176,6 +165,36 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
         terminator: terminator
       )
       if shouldWrapInNewlines { appendInterpolation("\n") }
+    }
+
+    // MARK: For Each
+
+    mutating func appendInterpolation<T>(
+      forEachIn sequence: T,
+      separator: String = ",\n",
+      terminator: String? = nil,
+      _ template: (T.Element) throws -> TemplateString?
+    ) rethrows where T: Sequence {
+      var iterator = sequence.makeIterator()
+      var resultString = ""
+
+      while let element = iterator.next(),
+            let elementString = try template(element)?.description {
+        resultString.append(
+          resultString.isEmpty ?
+          elementString : separator + elementString
+        )
+      }
+
+      guard !resultString.isEmpty else {
+        removeLineIfEmpty()
+        return
+      }
+
+      appendInterpolation(resultString)
+      if let terminator = terminator {
+        appendInterpolation(terminator)
+      }
     }
 
     // MARK: While
@@ -310,6 +329,12 @@ struct TemplateString: ExpressibleByStringInterpolation, CustomStringConvertible
       appendInterpolation(components)
     }
 
+    // MARK: JSON
+
+    mutating func appendInterpolation(json jsonData: Data) {
+      appendInterpolation(String(decoding: jsonData, as: UTF8.self))
+    }
+
     // MARK: - Helpers
 
     mutating func removeLineIfEmpty() {
@@ -392,5 +417,11 @@ extension String {
   
   var isAllUppercased: Bool {
     return self == self.uppercased()
+  }
+
+  func convertedToSingleLine() -> String {
+    return components(separatedBy: .newlines)
+      .map { $0.trimmingCharacters(in: .whitespaces) }
+      .joined(separator: " ")
   }
 }

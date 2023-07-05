@@ -5,7 +5,7 @@
 
 public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsOfFriendsNames"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01",
     definition: .init(
       #"""
@@ -53,7 +53,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.self)
         ]
       ))
     }
@@ -84,7 +84,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.self)
           ]
         ))
       }
@@ -120,7 +120,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.Friend.self)
             ]
           ))
         }
@@ -151,7 +151,7 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.Friend.Friend.self)
               ]
             ))
           }

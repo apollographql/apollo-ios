@@ -33,10 +33,11 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   }
 
   fileprivate class MockHeroNameQuery: MockQuery<HeroNameSelectionSet> {
-    override class var document: DocumentType {
-      .automaticallyPersisted(
+    override class var operationDocument: OperationDocument {
+      .init(
         operationIdentifier: "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671",
-        definition: .init("MockHeroNameQuery - Operation Definition"))
+        definition: .init("MockHeroNameQuery - Operation Definition")
+      )
     }
 
     var episode: GraphQLNullable<MockEnum> {
@@ -53,10 +54,11 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   }
 
   fileprivate class APQMockMutation: MockMutation<MockSelectionSet> {
-    override class var document: DocumentType {
-      .automaticallyPersisted(
-      operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
-      definition: .init("APQMockMutation - Operation Definition"))
+    override class var operationDocument: OperationDocument {
+      .init(
+        operationIdentifier: "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374",
+        definition: .init("APQMockMutation - Operation Definition")
+      )
     }
   }
 
@@ -554,8 +556,8 @@ class AutomaticPersistedQueriesTests: XCTestCase {
   func test__retryPersistedQuery__givenOperation_persistedOperationsOnly_PersistedQueryNotFoundResponseError_doesNotRetryAndThrows_persistedQueryNotFoundForPersistedOnlyQuery_error() throws {
     // given
     class MockPersistedOnlyQuery: MockHeroNameQuery {
-      override class var document: DocumentType {
-        .persistedOperationsOnly(operationIdentifier: "12345")
+      override class var operationDocument: OperationDocument {
+        .init(operationIdentifier: "12345")
       }
     }
 

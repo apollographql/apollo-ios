@@ -2702,6 +2702,247 @@ class ApolloCodegenTests: XCTestCase {
         expect(containingObject).to(equal("ContainerFields"))
       })
   }
+  
+  func test__validation__selectionSet_typeConflicts_withNamedFragmentFieldCollisionWithinInlineFragment_shouldThrowError() throws {
+    let schemaDefData: Data = {
+      """
+      type Query {
+          user: User
+      }
+
+      type User {
+          containers: [ContainerInterface]
+      }
+
+      interface ContainerInterface {
+          value: Value
+      }
+
+      type Container implements ContainerInterface{
+          value: Value
+          values: [Value]
+          user: Int
+      }
+
+      type Value {
+          propertyA: String!
+          propertyB: String!
+          propertyC: String!
+          propertyD: String!
+      }
+      """
+    }().data(using: .utf8)!
+    
+    let operationData: Data =
+      """
+      query ConflictingQuery {
+          user {
+            containers {
+              value {
+                propertyA
+                propertyB
+                propertyC
+                propertyD
+              }
+              ... on Container {
+                ...ValueFragment
+              }
+            }
+          }
+      }
+
+      fragment ValueFragment on Container {
+          values {
+              propertyA
+              propertyC
+          }
+      }
+      """.data(using: .utf8)!
+    
+    try createFile(containing: schemaDefData, named: "schema.graphqls")
+    try createFile(containing: operationData, named: "operation.graphql")
+    
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      )
+    )
+    
+    expect(try ApolloCodegen.build(with: config))
+      .to(throwError { error in
+        guard case let ApolloCodegen.Error.typeNameConflict(name, conflictingName, containingObject) = error else {
+          fail("Expected .typeNameConflict, got .\(error)")
+          return
+        }
+        expect(name).to(equal("value"))
+        expect(conflictingName).to(equal("values"))
+        expect(containingObject).to(equal("ConflictingQuery"))
+      })
+  }
+  
+  func test__validation__selectionSet_typeConflicts_withNamedFragmentWithinInlineFragmentTypeCollision_shouldThrowError() throws {
+    let schemaDefData: Data = {
+      """
+      type Query {
+          user: User
+      }
+
+      type User {
+          containers: [ContainerInterface]
+      }
+
+      interface ContainerInterface {
+          value: Value
+      }
+
+      type Container implements ContainerInterface{
+          nestedContainer: NestedContainer
+          value: Value
+          values: [Value]
+          user: Int
+      }
+
+      type Value {
+          propertyA: String!
+          propertyB: String!
+          propertyC: String!
+          propertyD: String!
+      }
+
+      type NestedContainer {
+          values: [Value]
+          description: String
+      }
+      """
+    }().data(using: .utf8)!
+    
+    let operationData: Data =
+      """
+      query ConflictingQuery {
+          user {
+            containers {
+              value {
+                propertyA
+                propertyB
+                propertyC
+                propertyD
+              }
+              ... on Container {
+                nestedContainer {
+                  ...value
+                }
+              }
+            }
+          }
+      }
+
+      fragment value on NestedContainer {
+          description
+      }
+      """.data(using: .utf8)!
+    
+    try createFile(containing: schemaDefData, named: "schema.graphqls")
+    try createFile(containing: operationData, named: "operation.graphql")
+    
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      )
+    )
+    
+    expect(try ApolloCodegen.build(with: config))
+      .to(throwError { error in
+        guard case let ApolloCodegen.Error.typeNameConflict(name, conflictingName, containingObject) = error else {
+          fail("Expected .typeNameConflict, got .\(error)")
+          return
+        }
+        expect(name).to(equal("value"))
+        expect(conflictingName).to(equal("value"))
+        expect(containingObject).to(equal("ConflictingQuery"))
+      })
+  }
+  
+  func test__validation__selectionSet_typeConflicts_withFieldUsingNamedFragmentCollision_shouldThrowError() throws {
+    let schemaDefData: Data = {
+      """
+      type Query {
+          user: User
+      }
+
+      type User {
+          containers: [Container]
+      }
+
+      type Container {
+          info: Value
+      }
+
+      type Value {
+          propertyA: String!
+          propertyB: String!
+          propertyC: String!
+          propertyD: String!
+      }
+      """
+    }().data(using: .utf8)!
+    
+    let operationData: Data =
+      """
+      query ConflictingQuery {
+          user {
+            containers {
+              info {
+                  ...Info
+              }
+            }
+          }
+      }
+
+      fragment Info on Value {
+          propertyA
+          propertyB
+          propertyD
+      }
+      """.data(using: .utf8)!
+    
+    try createFile(containing: schemaDefData, named: "schema.graphqls")
+    try createFile(containing: operationData, named: "operation.graphql")
+    
+    let config = ApolloCodegenConfiguration.mock(
+      input: .init(
+        schemaSearchPaths: ["schema*.graphqls"],
+        operationSearchPaths: ["*.graphql"]
+      ),
+      output: .init(
+        schemaTypes: .init(path: "SchemaModule",
+                           moduleType: .swiftPackageManager),
+        operations: .inSchemaModule
+      )
+    )
+    
+    expect(try ApolloCodegen.build(with: config))
+      .to(throwError { error in
+        guard case let ApolloCodegen.Error.typeNameConflict(name, conflictingName, containingObject) = error else {
+          fail("Expected .typeNameConflict, got .\(error)")
+          return
+        }
+        expect(name).to(equal("info"))
+        expect(conflictingName).to(equal("Info"))
+        expect(containingObject).to(equal("ConflictingQuery"))
+      })
+  }
 
   // MARK: Path Match Exclusion Tests
 

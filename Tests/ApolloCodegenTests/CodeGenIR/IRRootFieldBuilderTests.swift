@@ -42,10 +42,7 @@ class IRRootFieldBuilderTests: XCTestCase {
         type: .nonNull(.entity(operation.rootType)),
         selectionSet: operation.selectionSet
       ),
-      onRootEntity: IR.Entity(
-        rootTypePath: LinkedList(operation.rootType),
-        fieldPath: [.init(name: "query", type: .nonNull(.entity(operation.rootType)))]
-      ),
+      onRootEntity: IR.Entity(source: .operation(operation)),
       inIR: ir
     )
     subject = result.rootField
@@ -2617,7 +2614,7 @@ class IRRootFieldBuilderTests: XCTestCase {
       givenAllTypesInSchema: schema.referencedTypes
     )
 
-    let expectedTypePath = LinkedList(array: [
+    let expectedTypePath = LinkedList([
       query_TypeScope,
       allAnimals_TypeScope,
     ])
@@ -3704,13 +3701,13 @@ class IRRootFieldBuilderTests: XCTestCase {
       inclusionConditions: nil,
       givenAllTypesInSchema: schema.referencedTypes)
 
-    let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
+    let allAnimals_asCat_predator_expectedTypePath = LinkedList([
       query_TypeScope,
       allAnimals_asCat_TypeScope,
       allAnimals_asCat_predator_TypeScope
     ])
 
-    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList(array: [
+    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList([
       query_TypeScope,
       allAnimals_asCat_TypeScope,
       allAnimals_asCat_predator_TypeScope,
@@ -3811,13 +3808,13 @@ class IRRootFieldBuilderTests: XCTestCase {
       givenAllTypesInSchema: schema.referencedTypes
     )
 
-    let allAnimals_asCat_predator_expectedTypePath = LinkedList(array: [
+    let allAnimals_asCat_predator_expectedTypePath = LinkedList([
       query_TypeScope,
       allAnimals_asCat_TypeScope,
       allAnimals_asCat_predator_TypeScope
     ])
 
-    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList(array: [
+    let allAnimals_asCat_predator_height_expectedTypePath = LinkedList([
       query_TypeScope,
       allAnimals_asCat_TypeScope,
       allAnimals_asCat_predator_asPet_TypeScope,

@@ -5,7 +5,7 @@
 
 public class UploadOneFileMutation: GraphQLMutation {
   public static let operationName: String = "UploadOneFile"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       mutation UploadOneFile($file: Upload!) {

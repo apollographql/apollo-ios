@@ -5,7 +5,7 @@
 
 public class RepoURLQuery: GraphQLQuery {
   public static let operationName: String = "RepoURL"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query RepoURL {

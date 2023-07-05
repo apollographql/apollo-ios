@@ -5,7 +5,7 @@
 
 public class HeroNameConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalInclusion"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8",
     definition: .init(
       #"""
@@ -46,7 +46,7 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroNameConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -77,7 +77,7 @@ public class HeroNameConditionalInclusionQuery: GraphQLQuery {
             "name": name,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroNameConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }

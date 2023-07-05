@@ -11,8 +11,7 @@ extension IR {
     )
 
     let rootEntity = Entity(
-      rootTypePath: LinkedList(operationDefinition.rootType),
-      fieldPath: [.init(name: rootField.name, type: rootField.type)]
+      source: .operation(operationDefinition)      
     )
 
     let result = RootFieldBuilder.buildRootEntityField(

@@ -5,7 +5,7 @@
 
 public class ClassroomPetsCCNQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPetsCCN"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query ClassroomPetsCCN {
@@ -40,7 +40,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
           "classroomPets": classroomPets._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(ClassroomPetsCCNQuery.Data.self)
         ]
       ))
     }
@@ -75,8 +75,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(ClassroomPetDetailsCCN.self)
+            ObjectIdentifier(ClassroomPetsCCNQuery.Data.ClassroomPet.self)
           ]
         ))
       }
@@ -114,9 +113,10 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
               "height": height._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(ClassroomPet.self),
-              ObjectIdentifier(ClassroomPetDetailsCCN.self)
+              ObjectIdentifier(ClassroomPetsCCNQuery.Data.ClassroomPet.self),
+              ObjectIdentifier(ClassroomPetsCCNQuery.Data.ClassroomPet.AsAnimal.self),
+              ObjectIdentifier(ClassroomPetDetailsCCN.self),
+              ObjectIdentifier(ClassroomPetDetailsCCN.AsAnimal.self)
             ]
           ))
         }

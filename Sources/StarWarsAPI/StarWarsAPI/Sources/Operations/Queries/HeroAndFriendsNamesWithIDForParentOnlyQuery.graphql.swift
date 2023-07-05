@@ -5,7 +5,7 @@
 
 public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithIDForParentOnly"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f",
     definition: .init(
       #"""
@@ -51,7 +51,7 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.self)
         ]
       ))
     }
@@ -92,7 +92,7 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.Hero.self)
           ]
         ))
       }
@@ -123,7 +123,7 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.Hero.Friend.self)
             ]
           ))
         }

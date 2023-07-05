@@ -5,7 +5,7 @@
 
 public class StarshipQuery: GraphQLQuery {
   public static let operationName: String = "Starship"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a",
     definition: .init(
       #"""
@@ -41,7 +41,7 @@ public class StarshipQuery: GraphQLQuery {
           "starship": starship._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(StarshipQuery.Data.self)
         ]
       ))
     }
@@ -75,7 +75,7 @@ public class StarshipQuery: GraphQLQuery {
             "coordinates": coordinates,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(StarshipQuery.Data.Starship.self)
           ]
         ))
       }

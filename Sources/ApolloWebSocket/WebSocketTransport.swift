@@ -125,6 +125,29 @@ public class WebSocketTransport {
     }
   }
 
+  /// Determines whether a SOCKS proxy is enabled on the underlying request.
+  /// Mostly useful for debugging with tools like Charles Proxy.
+  /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
+  public var enableSOCKSProxy: Bool {
+    get {
+      guard let websocket = websocket as? SOCKSProxyable else {
+        // If it's not proxyable, then the proxy can't be enabled
+        return false
+      }
+
+      return websocket.enableSOCKSProxy
+    }
+
+    set {
+      guard var websocket = websocket as? SOCKSProxyable else {
+        // If it's not proxyable, there's nothing to do here.
+        return
+      }
+
+      websocket.enableSOCKSProxy = newValue
+    }
+  }
+
   /// Designated initializer
   ///
   /// - Parameters:

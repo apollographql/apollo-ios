@@ -33,7 +33,7 @@ public struct CharacterAppearsIn: StarWarsAPI.SelectionSet, Fragment {
         "appearsIn": appearsIn,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(CharacterAppearsIn.self)
       ]
     ))
   }

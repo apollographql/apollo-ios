@@ -32,7 +32,7 @@ public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
         "height": height,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(HumanHeightWithVariable.self)
       ]
     ))
   }

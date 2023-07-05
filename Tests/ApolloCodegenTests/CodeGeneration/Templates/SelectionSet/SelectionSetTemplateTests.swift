@@ -3618,7 +3618,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Field Accessors - Merged From Parent
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_rendersFieldAccessorWithDirectName() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_notOperationRoot_rendersFieldAccessorWithNameNotIncludingParent() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3667,7 +3667,51 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_rendersFieldAccessorWithCorrectName() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_atOperationRoot_rendersFieldAccessorWithNameNotIncludingParent() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    type AdminQuery {
+      name: String!
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        species
+      }
+      ... on AdminQuery {
+        name
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { __data["name"] }
+      public var allAnimals: [AllAnimal]? { __data["allAnimals"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_asAdminQuery = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery"]
+    )
+
+    let actual = subject.render(inlineFragment: query_asAdminQuery)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_notOperationRoot_rendersFieldAccessorWithNameNotIncludingSharedParent() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3718,6 +3762,57 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(inlineFragment: allAnimals_asDog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+
+  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_atOperationRoot_rendersFieldAccessorWithNotIncludingSharedParent() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      role: String!
+    }
+
+    type AdminQuery implements ModeratorQuery {
+      name: String!
+      allAnimals: [Animal!]
+    }
+
+    interface ModeratorQuery {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      ... on ModeratorQuery {
+        allAnimals {
+          species
+        }
+      }
+      ... on AdminQuery {
+        name
+      }
+    }
+    """
+
+    let expected = """
+      public var name: String { __data["name"] }
+      public var allAnimals: [AsModeratorQuery.AllAnimal]? { __data["allAnimals"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_asAdminQuery = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery"]
+    )
+
+    let actual = subject.render(inlineFragment: query_asAdminQuery)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
@@ -5776,7 +5871,7 @@ class SelectionSetTemplateTests: XCTestCase {
   // MARK: Nested Selection Sets - Reserved Keywords + Special Names
 
   func test__render_nestedSelectionSet__givenEntityFieldWithSwiftKeywordAndApolloReservedTypeNames_rendersSelectionSetWithNameSuffixed() throws {
-    let fieldNames = SwiftKeywords.SelectionSetTypeNamesToSuffix
+    let fieldNames = SwiftKeywords.TypeNamesToSuffix
     for fieldName in fieldNames {
       // given
       schemaSDL = """
@@ -6032,6 +6127,153 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
+  func test__render_conditionalFragmentOnQueryRoot__rendersRootEntityType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      ...Details @include(if: $a)
+    }
+
+    fragment Details on Query {
+      name
+    }
+    """
+
+    let expected = """
+    /// IfA
+    public struct IfA: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = TestOperationQuery.Data
+    """
+    
+    // when
+    try buildSubjectAndOperation()
+    let query_ifA = try XCTUnwrap(
+      operation[field: "query"]?[if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: query_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
+  func test__render_conditionalTypeCaseFragmentOnQueryRoot__rendersRootEntityType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      name: String!
+    }
+
+    interface AdminQuery {
+      adminName: String!
+    }
+    """
+
+    document = """
+    query TestOperation($a: Boolean!) {
+      ...AdminDetails @include(if: $a)
+    }
+
+    fragment AdminDetails on AdminQuery {
+      adminName
+    }
+    """
+
+    let expected = """
+    /// AsAdminQueryIfA
+    public struct AsAdminQueryIfA: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = TestOperationQuery.Data
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let query_ifA = try XCTUnwrap(
+      operation[field: "query"]?[as: "AdminQuery", if: "a"]
+    )
+
+    let actual = subject.render(inlineFragment: query_ifA)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
+  }
+
+  func test__render_typeCaseInFragmentOnQueryRoot__rendersRootEntityTypeNamespacedToFragment() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      predators: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      ...Details
+    }
+
+    fragment Details on Query {
+      predators {
+        predators {
+          ... on Pet {
+            name
+          }
+        }
+      }
+    }
+    """
+
+    let expected = """
+    /// Predator.Predator.AsPet
+    public struct AsPet: TestSchema.InlineFragment {
+      public let __data: DataDict
+      public init(_dataDict: DataDict) { __data = _dataDict }
+
+      public typealias RootEntityType = Details.Predator.Predator
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let detailsFragment = try XCTUnwrap(
+      operation[fragment: "Details"]
+    )
+    let detailsFragment_predators_predators_asPet = try XCTUnwrap(
+      detailsFragment.fragment.rootField
+        .selectionSet[field: "predators"]?[field: "predators"]?[as: "Pet"]
+    )
+
+    let fragmentTemplate = SelectionSetTemplate(
+      definition: .namedFragment(detailsFragment.fragment),
+      generateInitializers: false,
+      config: self.subject.config,
+      renderAccessControl: self.subject.renderAccessControl()
+    )
+
+    let actual = fragmentTemplate.render(inlineFragment: detailsFragment_predators_predators_asPet)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 1, ignoringExtraLines: true))
@@ -6478,4 +6720,280 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Type Tests
+  
+  func test__render_enumType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: Type!
+    }
+
+    enum Type {
+      ADMIN
+      MEMBER
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            type
+        }
+    }
+    """
+
+    let expectedOne = """
+        .field("type", GraphQLEnum<TestSchema.Type_Enum>.self),
+    """
+    
+    let expectedTwo = """
+      public var type: GraphQLEnum<TestSchema.Type_Enum> { __data["type"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_NamedFragmentType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: UserRole!
+    }
+
+    enum UserRole {
+      ADMIN
+      MEMBER
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            ...Type
+        }
+    }
+
+    fragment Type on User {
+        name
+        type
+    }
+    """
+
+    let expectedOne = """
+        .fragment(Type_Fragment.self),
+    """
+    
+    let expectedTwo = """
+        public var type: Type_Fragment { _toFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 19, ignoringExtraLines: true))
+  }
+  
+  func test__render_CustomScalarType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    scalar Type
+
+    type Query {
+      getUser: User
+    }
+
+    type User {
+      id: String!
+      name: String!
+      type: Type!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            type
+        }
+    }
+    """
+
+    let expectedOne = """
+        .field("type", TestSchema.Type_Scalar.self),
+    """
+    
+    let expectedTwo = """
+      public var type: TestSchema.Type_Scalar { __data["type"] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 9, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_InterfaceType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    interface Type {
+      name: String!
+    }
+
+    type Query {
+      getUser: Type
+    }
+
+    type User implements Type {
+      id: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            name
+        }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Interfaces.Type_Interface }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
+  func test__render_UnionType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    union Type = User | Admin
+
+    type Query {
+      getUser: Type
+    }
+
+    type User {
+      id: String!
+      name: String!
+    }
+
+    type Admin {
+      id: String!
+      role: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getUser {
+            ... on User {
+              name
+            }
+            ... on Admin {
+              role
+            }
+        }
+    }
+
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Unions.Type_Union }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getUser"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
+  func test__render_ObjectType__usingReservedKeyword_rendersAsSuffixedType() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      getType: Type
+    }
+
+    type Type {
+      id: String!
+      name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+        getType {
+            name
+        }
+    }
+    """
+
+    let expected = """
+      public static var __parentType: ApolloAPI.ParentType { TestSchema.Objects.Type_Object }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+    let user = try XCTUnwrap(
+      operation[field: "query"]?[field: "getType"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: user)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
 }

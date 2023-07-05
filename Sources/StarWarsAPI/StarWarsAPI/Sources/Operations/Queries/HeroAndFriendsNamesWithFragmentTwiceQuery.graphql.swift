@@ -5,7 +5,7 @@
 
 public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb",
     definition: .init(
       #"""
@@ -57,7 +57,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.self)
         ]
       ))
     }
@@ -91,7 +91,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             "friends": friends._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self)
           ]
         ))
       }
@@ -129,7 +129,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.Friend.self),
               ObjectIdentifier(CharacterName.self)
             ]
           ))
@@ -161,8 +161,8 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
               "friends": friends._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self),
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.self)
             ]
           ))
         }
@@ -200,7 +200,7 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
                 "name": name,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
+                ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.Friend.self),
                 ObjectIdentifier(CharacterName.self)
               ]
             ))

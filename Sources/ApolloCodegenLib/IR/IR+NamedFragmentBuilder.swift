@@ -15,8 +15,7 @@ extension IR {
     )
 
     let rootEntity = Entity(
-      rootTypePath: LinkedList(fragmentDefinition.type),
-      fieldPath: [.init(name: rootField.name, type: rootField.type)]
+      source: .namedFragment(fragmentDefinition)      
     )
 
     let result = RootFieldBuilder.buildRootEntityField(

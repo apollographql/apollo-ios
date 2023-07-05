@@ -38,7 +38,7 @@ public struct DroidDetails: StarWarsAPI.SelectionSet, Fragment {
         "primaryFunction": primaryFunction,
       ],
       fulfilledFragments: [
-        ObjectIdentifier(Self.self)
+        ObjectIdentifier(DroidDetails.self)
       ]
     ))
   }

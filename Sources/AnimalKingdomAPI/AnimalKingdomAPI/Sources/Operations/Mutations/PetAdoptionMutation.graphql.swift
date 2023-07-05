@@ -5,7 +5,7 @@
 
 public class PetAdoptionMutation: GraphQLMutation {
   public static let operationName: String = "PetAdoptionMutation"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       mutation PetAdoptionMutation($input: PetAdoptionInput!) {
@@ -46,7 +46,7 @@ public class PetAdoptionMutation: GraphQLMutation {
           "adoptPet": adoptPet._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetAdoptionMutation.Data.self)
         ]
       ))
     }
@@ -80,7 +80,7 @@ public class PetAdoptionMutation: GraphQLMutation {
             "humanName": humanName,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(PetAdoptionMutation.Data.AdoptPet.self)
           ]
         ))
       }

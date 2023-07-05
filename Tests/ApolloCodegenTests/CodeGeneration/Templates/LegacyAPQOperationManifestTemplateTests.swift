@@ -3,13 +3,13 @@ import Nimble
 @testable import ApolloCodegenLib
 import ApolloCodegenInternalTestHelpers
 
-class OperationIdentifiersTemplateTests: XCTestCase {
-  var subject: OperationIdentifiersTemplate!
+class LegacyAPQOperationManifestTemplateTests: XCTestCase {
+  var subject: LegacyAPQOperationManifestTemplate!
 
   override func setUp() {
     super.setUp()
 
-    subject = OperationIdentifiersTemplate()
+    subject = LegacyAPQOperationManifestTemplate()
   }
 
   override func tearDown() {
@@ -22,7 +22,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
 
   func test__render__givenSingleOperation_shouldOutputJSONFormat() throws {
     // given
-    subject.collectOperationIdentifier(.mock(
+    let operation = IR.Operation.mock(
       name: "TestQuery",
       type: .query,
       source: """
@@ -30,7 +30,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
           test
         }
         """
-    ))
+    )
 
     let expected = """
       {
@@ -41,43 +41,47 @@ class OperationIdentifiersTemplateTests: XCTestCase {
       }
       """
 
+    let operations = [operation].map(OperationManifestItem.init)
+
     // when
-    let rendered = try subject.render()
+    let rendered = try subject.render(operations: operations)
 
     expect(rendered).to(equal(expected))
   }
 
   func test__render__givenMultipleOperations_shouldOutputJSONFormat() throws {
     // given
-    subject.collectOperationIdentifier(.mock(
-      name: "TestQuery",
-      type: .query,
-      source: """
+    let operations = [
+      IR.Operation.mock(
+        name: "TestQuery",
+        type: .query,
+        source: """
         query TestQuery {
           test
         }
         """
-    ))
-    subject.collectOperationIdentifier(.mock(
-      name: "TestMutation",
-      type: .mutation,
-      source: """
+      ),
+      IR.Operation.mock(
+        name: "TestMutation",
+        type: .mutation,
+        source: """
         mutation TestMutation {
           update {
             result
           }
         }
         """
-    ))
-    subject.collectOperationIdentifier(.mock(
-      name: "TestSubscription",
-      type: .subscription,
-      source: """
+      ),
+      IR.Operation.mock(
+        name: "TestSubscription",
+        type: .subscription,
+        source: """
         subscription TestSubscription {
           watched
         }
         """
-    ))
+      )
+    ].map(OperationManifestItem.init)
 
     let expected = """
       {
@@ -97,35 +101,37 @@ class OperationIdentifiersTemplateTests: XCTestCase {
       """
 
     // when
-    let rendered = try subject.render()
+    let rendered = try subject.render(operations: operations)
 
     expect(rendered).to(equal(expected))
   }
 
   func test__render__givenReferencedFragments_shouldOutputJSONFormat() throws {
     // given
-    subject.collectOperationIdentifier(.mock(
-      name: "Friends",
-      type: .query,
-      source: """
+    let operations = [
+      IR.Operation.mock(
+        name: "Friends",
+        type: .query,
+        source: """
         query Friends {
           friends {
             ...Name
           }
         }
         """,
-      referencedFragments: [
-        .mock(
-          "Name",
-          type: .mock(),
-          source: """
+        referencedFragments: [
+          .mock(
+            "Name",
+            type: .mock(),
+            source: """
             fragment Name on Friend {
               name
             }
             """
-        )
-      ]
-    ))
+          )
+        ]
+      )
+    ].map(OperationManifestItem.init)
 
     let expected = """
       {
@@ -137,7 +143,7 @@ class OperationIdentifiersTemplateTests: XCTestCase {
       """
 
     // when
-    let rendered = try subject.render()
+    let rendered = try subject.render(operations: operations)
 
     expect(rendered).to(equal(expected))
   }

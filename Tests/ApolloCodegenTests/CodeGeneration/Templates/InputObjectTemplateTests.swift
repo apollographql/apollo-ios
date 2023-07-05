@@ -2438,4 +2438,34 @@ class InputObjectTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__generatesInputObject_usingReservedKeyword_asEscapedType() throws {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(
+        name: keyword,
+        fields: [GraphQLInputField.mock("field", type: .scalar(.integer()), defaultValue: nil)]
+      )
+
+      let expected = """
+      public struct \(keyword.firstUppercased)_InputObject: InputObject {
+        public private(set) var __data: InputDict
+
+        public init(_ data: InputDict) {
+          __data = data
+        }
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

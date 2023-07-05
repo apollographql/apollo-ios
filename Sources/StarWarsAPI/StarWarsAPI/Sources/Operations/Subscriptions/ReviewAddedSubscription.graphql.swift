@@ -5,7 +5,7 @@
 
 public class ReviewAddedSubscription: GraphQLSubscription {
   public static let operationName: String = "ReviewAdded"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
     definition: .init(
       #"""
@@ -48,7 +48,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
           "reviewAdded": reviewAdded._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(ReviewAddedSubscription.Data.self)
         ]
       ))
     }
@@ -88,7 +88,7 @@ public class ReviewAddedSubscription: GraphQLSubscription {
             "commentary": commentary,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(ReviewAddedSubscription.Data.ReviewAdded.self)
           ]
         ))
       }

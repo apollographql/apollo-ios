@@ -5,7 +5,7 @@
 
 public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsInlineConditionalInclusion"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c",
     definition: .init(
       #"""
@@ -50,7 +50,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
           "hero": hero._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(HeroDetailsInlineConditionalInclusionQuery.Data.self)
         ]
       ))
     }
@@ -78,7 +78,7 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
             "__typename": __typename,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(HeroDetailsInlineConditionalInclusionQuery.Data.Hero.self)
           ]
         ))
       }
@@ -114,8 +114,8 @@ public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
               "appearsIn": appearsIn,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
+              ObjectIdentifier(HeroDetailsInlineConditionalInclusionQuery.Data.Hero.self),
+              ObjectIdentifier(HeroDetailsInlineConditionalInclusionQuery.Data.Hero.IfIncludeDetails.self)
             ]
           ))
         }

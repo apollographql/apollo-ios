@@ -121,6 +121,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/id",
         "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/store"
       ],
       "title" : "Instance Properties"
@@ -280,6 +281,40 @@
   "title" : "CacheWriteInterceptor.CacheWriteError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror"
+},
+"doc://Apollo/documentation/Apollo/CacheWriteInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/CacheWriteInterceptor\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/cachewriteinterceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/CacheWriteInterceptor/init(store:)": {
   "abstract" : [

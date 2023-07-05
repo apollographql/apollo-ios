@@ -5,7 +5,7 @@
 
 public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {
@@ -57,7 +57,7 @@ public class PetSearchQuery: GraphQLQuery {
           "pets": pets._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(PetSearchQuery.Data.self)
         ]
       ))
     }
@@ -91,7 +91,7 @@ public class PetSearchQuery: GraphQLQuery {
             "humanName": humanName,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(PetSearchQuery.Data.Pet.self)
           ]
         ))
       }

@@ -66,7 +66,8 @@ flowchart TB
   max(MaxRetryInterceptor) --> cacheRead(CacheReadInterceptor)
   cacheRead --> network(NetworkFetchInterceptor)
   network --> response(ResponseCodeInterceptor)
-  response --> json(JSONResponseParsingInterceptor)
+  response --> multipart(MultipartResponseParsingInterceptor)
+  multipart --> json(JSONResponseParsingInterceptor)
   json --> apq(AutomaticPersistedQueryInterceptor)
   apq --> cacheWrite(CacheWriteInterceptor)
 ```
@@ -196,6 +197,21 @@ For more information, see [this article on error handling in GraphQL](https://me
 <td>
 
 Checks a GraphQL server's response _after_ execution to see whether the provided APQ hash for the operation was successfully found by the server. If it _wasn't_, the interceptor restarts the chain and the operation is retried with the full query string.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+##### [`MultipartResponseParsingInterceptor`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/multipartresponseparsinginterceptor)
+
+</td>
+<td>
+
+Parses a multipart response using the Incremental Delivery over HTTP spec, and passes it on to the next interceptor.
+
+It is important that the next interceptor must be the JSONResponseParsingInterceptor in order to have the individual messages parsed into a `GraphQLResult`.
 
 </td>
 </tr>

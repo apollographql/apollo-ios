@@ -5,7 +5,7 @@
 
 public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsIncludeSkipQuery"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {
@@ -102,7 +102,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
           "allAnimals": allAnimals._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(Self.self)
+          ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.self)
         ]
       ))
     }
@@ -162,7 +162,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
             "predators": predators._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(Self.self)
+            ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self)
           ]
         ))
       }
@@ -195,7 +195,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "inches": inches,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self)
             ]
           ))
         }
@@ -229,7 +229,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "species": species,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self)
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Predator.self)
             ]
           ))
         }
@@ -278,8 +278,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "height": height._fieldData,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.Predator.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Predator.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Predator.AsWarmBloodedIfGetWarmBlooded.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(HeightInMeters.self)
               ]
@@ -329,8 +329,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "predators": predators._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.IfNotSkipHeightInMeters.self),
               ObjectIdentifier(HeightInMeters.self)
             ]
           ))
@@ -362,7 +362,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.IfNotSkipHeightInMeters.Height.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -414,8 +416,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "bodyTemperature": bodyTemperature,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsWarmBloodedIfGetWarmBlooded.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(HeightInMeters.self)
             ]
@@ -448,7 +450,9 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsWarmBloodedIfGetWarmBlooded.Height.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -510,8 +514,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "owner": owner._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
               ObjectIdentifier(PetDetails.self)
             ]
           ))
@@ -553,7 +557,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "inches": inches,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.Height.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self)
               ]
             ))
           }
@@ -614,12 +619,12 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "bodyTemperature": bodyTemperature,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.self),
-                ObjectIdentifier(AllAnimal.AsPet.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+                ObjectIdentifier(PetDetails.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
-                ObjectIdentifier(HeightInMeters.self),
-                ObjectIdentifier(PetDetails.self)
+                ObjectIdentifier(HeightInMeters.self)
               ]
             ))
           }
@@ -656,7 +661,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                   "meters": meters,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.Height.self),
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self),
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.Height.self),
+                  ObjectIdentifier(HeightInMeters.Height.self)
                 ]
               ))
             }
@@ -721,11 +729,14 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "bodyTemperature": bodyTemperature,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
-              ObjectIdentifier(HeightInMeters.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsCatIfGetCat.self),
               ObjectIdentifier(PetDetails.self),
-              ObjectIdentifier(WarmBloodedDetails.self)
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
+              ObjectIdentifier(WarmBloodedDetails.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
+              ObjectIdentifier(HeightInMeters.self)
             ]
           ))
         }
@@ -762,7 +773,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "meters": meters,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self)
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsCatIfGetCat.Height.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.Height.self),
+                ObjectIdentifier(HeightInMeters.Height.self)
               ]
             ))
           }
@@ -812,8 +826,8 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               "predators": predators._fieldData,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsClassroomPet.self)
             ]
           ))
         }
@@ -875,12 +889,15 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 "bodyTemperature": bodyTemperature,
               ],
               fulfilledFragments: [
-                ObjectIdentifier(Self.self),
-                ObjectIdentifier(AllAnimal.self),
-                ObjectIdentifier(AllAnimal.AsClassroomPet.self),
-                ObjectIdentifier(HeightInMeters.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsClassroomPet.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsClassroomPet.AsBird.self),
                 ObjectIdentifier(PetDetails.self),
-                ObjectIdentifier(WarmBloodedDetails.self)
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
+                ObjectIdentifier(WarmBloodedDetails.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
+                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
+                ObjectIdentifier(HeightInMeters.self)
               ]
             ))
           }
@@ -917,7 +934,10 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                   "meters": meters,
                 ],
                 fulfilledFragments: [
-                  ObjectIdentifier(Self.self)
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsClassroomPet.AsBird.Height.self),
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.Height.self),
+                  ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.Height.self),
+                  ObjectIdentifier(HeightInMeters.Height.self)
                 ]
               ))
             }
