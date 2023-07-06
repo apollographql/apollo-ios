@@ -3,26 +3,8 @@
 
 @_exported import ApolloAPI
 
-public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
-  public static let operationName: String = "HeroFriendsOffsetPaginated"
-  public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "493e2240900e091aa81c9aafd30454e25d14f116056981a1e18e3042e92dcdd0",
-    definition: .init(
-      #"""
-      query HeroFriendsOffsetPaginated($id: ID!, $limit: Int!, $offset: Int!) {
-        character(id: $id) {
-          __typename
-          id
-          name
-          friendsPaginated(limit: $limit, offset: $offset) {
-            __typename
-            id
-            name
-          }
-        }
-      }
-      """#
-    ))
+public class HeroFriendsPaginatedLocalCacheMutation: LocalCacheMutation {
+  public static let operationType: GraphQLOperationType = .query
 
   public var id: ID
   public var limit: Int
@@ -38,14 +20,14 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
     self.offset = offset
   }
 
-  public var __variables: Variables? { [
+  public var __variables: GraphQLOperation.Variables? { [
     "id": id,
     "limit": limit,
     "offset": offset
   ] }
 
-  public struct Data: StarWarsAPI.SelectionSet {
-    public let __data: DataDict
+  public struct Data: StarWarsAPI.MutableSelectionSet {
+    public var __data: DataDict
     public init(_dataDict: DataDict) { __data = _dataDict }
 
     public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Objects.Query }
@@ -53,7 +35,10 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
       .field("character", Character?.self, arguments: ["id": .variable("id")]),
     ] }
 
-    public var character: Character? { __data["character"] }
+    public var character: Character? {
+      get { __data["character"] }
+      set { __data["character"] = newValue }
+    }
 
     public init(
       character: Character? = nil
@@ -64,7 +49,7 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
           "character": character._fieldData,
         ],
         fulfilledFragments: [
-          ObjectIdentifier(HeroFriendsOffsetPaginatedQuery.Data.self)
+          ObjectIdentifier(HeroFriendsPaginatedLocalCacheMutation.Data.self)
         ]
       ))
     }
@@ -72,8 +57,8 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
     /// Character
     ///
     /// Parent Type: `Character`
-    public struct Character: StarWarsAPI.SelectionSet {
-      public let __data: DataDict
+    public struct Character: StarWarsAPI.MutableSelectionSet {
+      public var __data: DataDict
       public init(_dataDict: DataDict) { __data = _dataDict }
 
       public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
@@ -88,11 +73,20 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
       ] }
 
       /// The ID of the character
-      public var id: StarWarsAPI.ID { __data["id"] }
+      public var id: StarWarsAPI.ID {
+        get { __data["id"] }
+        set { __data["id"] = newValue }
+      }
       /// The name of the character
-      public var name: String { __data["name"] }
+      public var name: String {
+        get { __data["name"] }
+        set { __data["name"] = newValue }
+      }
       /// The friends of the character, with pagination.
-      public var friendsPaginated: [FriendsPaginated?]? { __data["friendsPaginated"] }
+      public var friendsPaginated: [FriendsPaginated?]? {
+        get { __data["friendsPaginated"] }
+        set { __data["friendsPaginated"] = newValue }
+      }
 
       public init(
         __typename: String,
@@ -108,7 +102,7 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
             "friendsPaginated": friendsPaginated._fieldData,
           ],
           fulfilledFragments: [
-            ObjectIdentifier(HeroFriendsOffsetPaginatedQuery.Data.Character.self)
+            ObjectIdentifier(HeroFriendsPaginatedLocalCacheMutation.Data.Character.self)
           ]
         ))
       }
@@ -116,8 +110,8 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
       /// Character.FriendsPaginated
       ///
       /// Parent Type: `Character`
-      public struct FriendsPaginated: StarWarsAPI.SelectionSet {
-        public let __data: DataDict
+      public struct FriendsPaginated: StarWarsAPI.MutableSelectionSet {
+        public var __data: DataDict
         public init(_dataDict: DataDict) { __data = _dataDict }
 
         public static var __parentType: ApolloAPI.ParentType { StarWarsAPI.Interfaces.Character }
@@ -128,9 +122,15 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
         ] }
 
         /// The ID of the character
-        public var id: StarWarsAPI.ID { __data["id"] }
+        public var id: StarWarsAPI.ID {
+          get { __data["id"] }
+          set { __data["id"] = newValue }
+        }
         /// The name of the character
-        public var name: String { __data["name"] }
+        public var name: String {
+          get { __data["name"] }
+          set { __data["name"] = newValue }
+        }
 
         public init(
           __typename: String,
@@ -144,7 +144,7 @@ public class HeroFriendsOffsetPaginatedQuery: GraphQLQuery {
               "name": name,
             ],
             fulfilledFragments: [
-              ObjectIdentifier(HeroFriendsOffsetPaginatedQuery.Data.Character.FriendsPaginated.self)
+              ObjectIdentifier(HeroFriendsPaginatedLocalCacheMutation.Data.Character.FriendsPaginated.self)
             ]
           ))
         }

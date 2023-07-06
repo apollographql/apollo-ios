@@ -42,6 +42,24 @@ public struct OffsetPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
     self._transform = transform
   }
 
+  /// Convenience initializer
+  /// - Parameter arrayKeyPath: A `KeyPath` over a `Query.Data` which identifies the array key within the `Query.Data`.
+  public init(arrayKeyPath: KeyPath<Query.Data, [(some SelectionSet)?]?>) {
+    self._transform = { input in
+      let count = input.data[keyPath: arrayKeyPath]?.count ?? 0
+      return Page(offset: input.offset + count, hasNextPage: count == input.pageSize)
+    }
+  }
+
+  /// Convenience initializer
+  /// - Parameter arrayKeyPath: A `KeyPath` over a `Query.Data` which identifies the array key within the `Query.Data`.
+  public init(arrayKeyPath: KeyPath<Query.Data, [(some SelectionSet)]?>) {
+    self._transform = { input in
+      let count = input.data[keyPath: arrayKeyPath]?.count ?? 0
+      return Page(offset: input.offset + count, hasNextPage: count == input.pageSize)
+    }
+  }
+
   /// Transforms the `Query.Data` into a `Page` by utilizing the user-provided functions or key paths.
   /// - Parameter input: A query response data.
   /// - Returns: A `Page`.

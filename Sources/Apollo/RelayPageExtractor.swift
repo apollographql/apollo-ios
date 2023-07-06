@@ -35,7 +35,7 @@ public struct RelayPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
   ///   - hasNextPagePath: A `KeyPath` over a `Query.Data` which identifies the `hasNextPage` key within the `Query.Data`.
   ///   - endCursorPath: A `KeyPath` over a `Query.Data` which identifies the `endCursor` key within the `Query.Data`.
   public init(
-    hasNextPagePath: KeyPath<Query.Data, Bool>?,
+    hasNextPagePath: KeyPath<Query.Data, Bool?>?,
     endCursorPath: KeyPath<Query.Data, String?>?
   ) {
     _transform = { data in

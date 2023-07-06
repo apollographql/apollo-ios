@@ -51,31 +51,29 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   // MARK: Custom Pagination Strategy
 
   func testMultiPageResults() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 2, after: .none)
 
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor { data in
-            .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
-            )
+          .init(
+            hasNextPage: data.character?.friendsConnection.pageInfo.hasNextPage ?? false,
+            endCursor: data.character?.friendsConnection.pageInfo.endCursor
+          )
         },
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -93,10 +91,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -137,10 +135,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -190,29 +188,27 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testRefetchSecondPage() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 2, after: .none)
 
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor(
-          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+          hasNextPagePath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.endCursor
         ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -230,10 +226,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -268,10 +264,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -314,10 +310,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     runActivity("Re-fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -349,29 +345,27 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndRefetch() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 3, after: .none)
 
     var results: [HeroViewModel] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor(
-          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+          hasNextPagePath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.endCursor
         ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 3, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -389,10 +383,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -431,10 +425,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     runActivity("Re-fetch from server") { _ in
-      let refetchExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let refetchExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -488,8 +482,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndLocalCacheUpdate() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 3, after: .none)
     var results: [HeroViewModel] = []
     // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
@@ -498,21 +491,20 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor(
-          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+          hasNextPagePath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.endCursor
         ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 3, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -531,10 +523,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -574,11 +566,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
     runActivity("Local Cache Mutation") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<LocalCacheMutationSelection>()
-        cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+        let cacheMutation = HeroFriendsConnectionLocalCacheMutation(id: "2001", first: 3, after: .none)
         try transaction.update(cacheMutation) { data in
-          data.hero?.name = "Marty McFly"
-          data.hero?.friendsConnection.friends[0].name = "Doc Brown"
+          data.character?.name = "Marty McFly"
+          data.character?.friendsConnection.friends?[0]?.name = "Doc Brown"
         }
       }
 
@@ -600,8 +591,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndLocalCacheObjectDeletion() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 3, after: .none)
     var results: [HeroViewModel] = []
     // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
@@ -610,21 +600,20 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor(
-          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+          hasNextPagePath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.endCursor
         ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 3, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -643,10 +632,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -686,11 +675,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
     runActivity("Local Cache Mutation: Delete Friends") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<LocalCacheMutationSelection>()
-        cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+        let cacheMutation = HeroFriendsConnectionLocalCacheMutation(id: "2001", first: 3, after: .none)
         try transaction.update(cacheMutation) { data in
-          data.hero?.name = "Marty McFly"
-          data.hero?.friendsConnection.friends.removeAll()
+          data.character?.name = "Marty McFly"
+          data.character?.friendsConnection.friends?.removeAll()
         }
       }
 
@@ -708,8 +696,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testFetchAndLocalCacheUpdateWithHeroNameMutation() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 3, after: .none)
     var results: [HeroViewModel] = []
     // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
@@ -718,21 +705,20 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor(
-          hasNextPagePath: \.hero.friendsConnection.pageInfo.hasNextPage,
-          endCursorPath: \.hero.friendsConnection.pageInfo.endCursor
+          hasNextPagePath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.hasNextPage,
+          endCursorPath: \HeroFriendsConnectionQuery.Data.character?.friendsConnection.pageInfo.endCursor
         ),
         outputTransformer: CustomDataTransformer(transform: { data in
           HeroViewModel(
-            name: data.hero.name,
-            friends: data.hero.friendsConnection.friends.map {
-              HeroViewModel.Friend(name: $0.name, id: $0.id)
-            }
+            name: data.character?.name ?? "",
+            friends: data.character?.friendsConnection.friends?.compactMap { friend in
+              guard let friend else { return nil }
+              return HeroViewModel.Friend(name: friend.name, id: friend.id)
+            } ?? []
           )
         }),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 3, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: CustomPaginationMergeStrategy(transform: { response in
           HeroViewModel(
@@ -751,10 +737,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -794,10 +780,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
     runActivity("Local Cache Mutation") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<NameCacheMutation>()
-        cacheMutation.__variables = ["id": "2001"]
+        let cacheMutation = HeroNameLocalCacheMutation(id: "2001")
         try! transaction.update(cacheMutation) { data in
-          data.hero?.name = "C3PO"
+          data.character?.name = "C3PO"
         }
       }
 
@@ -821,24 +806,21 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   // MARK: Simple Pagination Strategy
 
   func testSimpleMultipageFetch() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 2, after: .none)
 
-    var results: [MockQuery<MockPaginatedSelectionSet>.Data] = []
+    var results: [HeroFriendsConnectionQuery.Data] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor { data in
             .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+              hasNextPage: data.character?.friendsConnection.pageInfo.hasNextPage ?? false,
+              endCursor: data.character?.friendsConnection.pageInfo.endCursor
             )
         },
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
         resultHandler: { result in
@@ -851,10 +833,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -891,15 +873,15 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         .init(hasNextPage: true, endCursor: "Y3Vyc29yMg=="),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(firstResult.hero.friendsConnection.friends.count, 2)
+      XCTAssertEqual(firstResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(firstResult.character?.friendsConnection.friends?.count, 2)
     }
 
     runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -929,11 +911,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
       XCTAssertEqual(results.count, 2)
       guard let lastResult = results.last else { return XCTFail() }
-      XCTAssertEqual(lastResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends.count, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[0].name, "Luke Skywalker")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[1].name, "Han Solo")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[2].name, "Leia Organa")
+      XCTAssertEqual(lastResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[2]?.name, "Leia Organa")
       XCTAssertEqual(watcher.strategy.pages.count, 3)
       XCTAssertEqual(watcher.strategy.pages, [
         nil,
@@ -944,26 +926,23 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testTargetedMultipageFetch() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 2, after: .none)
 
-    var results: [MockQuery<MockPaginatedSelectionSet>.Data] = []
+    var results: [HeroFriendsConnectionQuery.Data] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor { data in
             .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+              hasNextPage: data.character?.friendsConnection.pageInfo.hasNextPage ?? false,
+              endCursor: data.character?.friendsConnection.pageInfo.endCursor
             )
         },
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? nil)
         },
-        mergeStrategy: TargetedPaginationMergeStrategy(targetedKeyPath: \.hero.friendsConnection.friends),
+        mergeStrategy: TargetedPaginationMergeStrategy(targetedKeyPath: \.character?.friendsConnection.friends),
         resultHandler: { result in
           guard case let .success(value) = result else { return XCTFail() }
           results.append(value.value)
@@ -974,10 +953,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1014,15 +993,15 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         .init(hasNextPage: true, endCursor: "Y3Vyc29yMg=="),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(firstResult.hero.friendsConnection.friends.count, 2)
+      XCTAssertEqual(firstResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(firstResult.character?.friendsConnection.friends?.count, 2)
     }
 
     runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1052,11 +1031,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
       XCTAssertEqual(results.count, 2)
       guard let lastResult = results.last else { return XCTFail() }
-      XCTAssertEqual(lastResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends.count, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[0].name, "Luke Skywalker")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[1].name, "Han Solo")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[2].name, "Leia Organa")
+      XCTAssertEqual(lastResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[2]?.name, "Leia Organa")
       XCTAssertEqual(watcher.strategy.pages.count, 3)
       XCTAssertEqual(watcher.strategy.pages, [
         nil,
@@ -1067,24 +1046,21 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testSimpleRefetchSecondPage() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 2, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 2, after: .none)
 
-    var results: [MockQuery<MockPaginatedSelectionSet>.Data] = []
+    var results: [HeroFriendsConnectionQuery.Data] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor { data in
             .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+              hasNextPage: data.character?.friendsConnection.pageInfo.hasNextPage ?? false,
+              endCursor: data.character?.friendsConnection.pageInfo.endCursor
             )
         },
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 2, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 2, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
         resultHandler: { result in
@@ -1097,10 +1073,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1137,15 +1113,15 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         .init(hasNextPage: true, endCursor: "Y3Vyc29yMg=="),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(firstResult.hero.friendsConnection.friends.count, 2)
+      XCTAssertEqual(firstResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(firstResult.character?.friendsConnection.friends?.count, 2)
     }
 
     runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1175,11 +1151,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
       XCTAssertEqual(results.count, 2)
       guard let lastResult = results.last else { return XCTFail() }
-      XCTAssertEqual(lastResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends.count, 3)
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[0].name, "Luke Skywalker")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[1].name, "Han Solo")
-      XCTAssertEqual(lastResult.hero.friendsConnection.friends[2].name, "Leia Organa")
+      XCTAssertEqual(lastResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsConnection.friends?[2]?.name, "Leia Organa")
       XCTAssertEqual(watcher.strategy.pages.count, 3)
       XCTAssertEqual(watcher.strategy.pages, [
         nil,
@@ -1189,10 +1165,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
 
     runActivity("Re-fetch second page") { _ in
-      let secondPageExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1224,10 +1200,9 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
   }
 
   func testSimpleFetchAndLocalCacheUpdate() {
-    let query = MockQuery<MockPaginatedSelectionSet>()
-    query.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+    let query = HeroFriendsConnectionQuery(id: "2001", first: 3, after: .none)
 
-    var results: [MockQuery<MockPaginatedSelectionSet>.Data] = []
+    var results: [HeroFriendsConnectionQuery.Data] = []
     // Once for the initial update, once for the local cache update
     let resultExpectation = expectation(description: "Results block has been updated")
     resultExpectation.expectedFulfillmentCount = 2
@@ -1236,15 +1211,13 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       strategy: RelayPaginationStrategy(
         pageExtractionStrategy: RelayPageExtractor { data in
             .init(
-              hasNextPage: data.hero.friendsConnection.pageInfo.hasNextPage,
-              endCursor: data.hero.friendsConnection.pageInfo.endCursor
+              hasNextPage: data.character?.friendsConnection.pageInfo.hasNextPage ?? false,
+              endCursor: data.character?.friendsConnection.pageInfo.endCursor
             )
         },
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          let query = MockQuery<MockPaginatedSelectionSet>()
-          query.__variables = ["id": "2001", "first": 3, "after": pageInfo.endCursor ?? GraphQLNullable<String>.null]
-          return query
+          HeroFriendsConnectionQuery(id: "2001", first: 3, after: pageInfo.endCursor ?? nil)
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
         resultHandler: { result in
@@ -1258,10 +1231,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
-      let serverExpectation = server.expect(MockQuery<MockPaginatedSelectionSet>.self) { _ in
+      let serverExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1303,17 +1276,16 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         .init(hasNextPage: false, endCursor: "Y3Vyc29yMw=="),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.hero.friendsConnection.totalCount, 3)
-      XCTAssertEqual(firstResult.hero.friendsConnection.friends.count, 3)
+      XCTAssertEqual(firstResult.character?.friendsConnection.totalCount, 3)
+      XCTAssertEqual(firstResult.character?.friendsConnection.friends?.count, 3)
     }
 
     runActivity("Local Cache Mutation") { _ in
       client.store.withinReadWriteTransaction { transaction in
-        let cacheMutation = MockLocalCacheMutation<LocalCacheMutationSelection>()
-        cacheMutation.__variables = ["id": "2001", "first": 3, "after": GraphQLNullable<String>.null]
+        let cacheMutation = HeroFriendsConnectionLocalCacheMutation(id: "2001", first: 3, after: .none)
         try transaction.update(cacheMutation) { data in
-          data.hero?.name = "Marty McFly"
-          data.hero?.friendsConnection.friends[0].name = "Doc Brown"
+          data.character?.name = "Marty McFly"
+          data.character?.friendsConnection.friends?[0]?.name = "Doc Brown"
         }
       }
     }
@@ -1321,21 +1293,21 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     wait(for: [resultExpectation], timeout: 1.0)
     XCTAssertEqual(results.count, 2)
     guard let lastResult = results.last else { return XCTFail() }
-    XCTAssertEqual(lastResult.hero.name, "Marty McFly")
-    XCTAssertEqual(lastResult.hero.friendsConnection.friends.first?.name, "Doc Brown")
+    XCTAssertEqual(lastResult.character?.name, "Marty McFly")
+    XCTAssertEqual(lastResult.character?.friendsConnection.friends?.first??.name, "Doc Brown")
   }
 
   // MARK: Offset Simple Paginated Strategy
 
   func testOffsetSimpleMultipageFetch() {
-    let query = HeroFriendsOffsetPaginatedQuery(limit: 2, offset: 0)
+    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: 0)
     var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: OffsetPaginationStrategy(
         pageSize: 2,
         pageExtractionStrategy: OffsetPageExtractor { (input: OffsetPageExtractor<HeroFriendsOffsetPaginatedQuery>.Input) in
-          let count = input.data.hero?.friendsPaginated?.count ?? 0
+          let count = input.data.character?.friendsPaginated?.count ?? 0
           return .init(
             offset: input.offset + count,
             hasNextPage: count == input.pageSize
@@ -1343,7 +1315,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         },
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          HeroFriendsOffsetPaginatedQuery(limit: 2, offset: pageInfo.offset)
+          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: pageInfo.offset)
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
         resultHandler: { result in
@@ -1359,7 +1331,7 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       let serverExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1387,14 +1359,14 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         .init(offset: 2, hasNextPage: true),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.hero?.friendsPaginated?.count, 2)
+      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 2)
     }
 
     runActivity("Fetch second page") { _ in
       let secondPageExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
         [
           "data": [
-            "hero": [
+            "character": [
               "__typename": "Droid",
               "id": "2001",
               "name": "R2-D2",
@@ -1415,10 +1387,10 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
 
       XCTAssertEqual(results.count, 2)
       guard let lastResult = results.last else { return XCTFail() }
-      XCTAssertEqual(lastResult.hero?.friendsPaginated?.count, 3)
-      XCTAssertEqual(lastResult.hero?.friendsPaginated?[0]?.name, "Luke Skywalker")
-      XCTAssertEqual(lastResult.hero?.friendsPaginated?[1]?.name, "Han Solo")
-      XCTAssertEqual(lastResult.hero?.friendsPaginated?[2]?.name, "Leia Organa")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[2]?.name, "Leia Organa")
       XCTAssertEqual(watcher.strategy.pages.count, 3)
       XCTAssertEqual(watcher.strategy.pages, [
         nil,
@@ -1427,180 +1399,302 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       ])
     }
   }
-}
 
-// MARK: - Mock Selection Sets
-
-// MARK: Mock Paginated Query
-
-private class MockPaginatedSelectionSet: MockSelectionSet {
-  override class var __selections: [Selection] { [
-    .field("hero", Hero?.self, arguments: ["id": .variable("id")])
-  ]}
-
-  var hero: Hero { __data["hero"] }
-
-  class Hero: MockSelectionSet {
-    override class var __selections: [Selection] {[
-      .field("__typename", String.self),
-      .field("id", String.self),
-      .field("name", String.self),
-      .field("friendsConnection", FriendsConnection.self, arguments: [
-        "first": .variable("first"),
-        "after": .variable("after")
-      ])
-    ]}
-
-    var name: String { __data["name"] }
-    var id: String { __data["id"] }
-    var friendsConnection: FriendsConnection { __data["friendsConnection"] }
-
-    class FriendsConnection: MockSelectionSet {
-      override class var __selections: [Selection] {[
-        .field("__typename", String.self),
-        .field("totalCount", Int.self),
-        .field("friends", [Character].self),
-        .field("pageInfo", PageInfo.self)
-      ]}
-
-      var totalCount: Int { __data["totalCount"] }
-      var friends: [Character] { __data["friends"] }
-      var pageInfo: PageInfo { __data["pageInfo"] }
-
-      class Character: MockSelectionSet {
-        override class var __selections: [Selection] {[
-          .field("__typename", String.self),
-          .field("name", String.self),
-          .field("id", String.self),
-        ]}
-
-        var name: String { __data["name"] }
-        var id: String { __data["id"] }
-      }
-
-      class PageInfo: MockSelectionSet {
-        override class var __selections: [Selection] {[
-          .field("__typename", String.self),
-          .field("endCursor", Optional<String>.self),
-          .field("hasNextPage", Bool.self)
-        ]}
-
-        var endCursor: String? { __data["endCursor"] }
-        var hasNextPage: Bool { __data["hasNextPage"] }
-      }
-    }
-  }
-}
-
-// MARK: Mock Local Cache Mutation: Similar to the Query
-
-private struct LocalCacheMutationSelection: MockMutableRootSelectionSet {
-  public var __data: DataDict = .empty()
-  init(_dataDict: DataDict) { __data = _dataDict }
-  static var __selections: [Selection] { [
-    .field("hero", Hero?.self, arguments: ["id": .variable("id")])
-  ]}
-
-  var hero: Hero? {
-    get { __data["hero"] }
-    set { __data["hero"] = newValue }
-  }
-
-  struct Hero: MockMutableRootSelectionSet {
-    public var __data: DataDict = .empty()
-    init(_dataDict: DataDict) { __data = _dataDict }
-    static var __selections: [Selection] {[
-      .field("__typename", String.self),
-      .field("id", String.self),
-      .field("name", String.self),
-      .field("friendsConnection", FriendsConnection.self, arguments: [
-        "first": .variable("first"),
-        "after": .variable("after")
-      ])
-    ]}
-
-    var id: String {
-      get { __data["id"] }
-      set { __data["id"] = newValue }
-    }
-
-    var name: String {
-      get { __data["name"] }
-      set { __data["name"] = newValue }
-    }
-    var friendsConnection: FriendsConnection {
-      get { __data["friendsConnection"] }
-      set { __data["friendsConnection"] = newValue }
-    }
-
-    struct FriendsConnection: MockMutableRootSelectionSet {
-      public var __data: DataDict = .empty()
-      init(_dataDict: DataDict) { __data = _dataDict }
-      static var __selections: [Selection] {[
-        .field("__typename", String.self),
-        .field("friends", [Character].self),
-      ]}
-
-      var totalCount: Int { __data["totalCount"] }
-      var friends: [Character] {
-        get { __data["friends"] }
-        set { __data["friends"] = newValue }
-      }
-
-      struct Character: MockMutableRootSelectionSet {
-        public var __data: DataDict = .empty()
-        init(_dataDict: DataDict) { __data = _dataDict }
-        static var __selections: [Selection] {[
-          .field("__typename", String.self),
-          .field("name", String.self),
-          .field("id", String.self),
-        ]}
-
-        var id: String {
-          get { __data["id"] }
-          set { __data["id"] = newValue }
+  func testOffsetTargetedMultipageFetch() {
+    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: 0)
+    var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      strategy: OffsetPaginationStrategy(
+        pageSize: 2,
+        pageExtractionStrategy: OffsetPageExtractor(arrayKeyPath: \.character?.friendsPaginated),
+        outputTransformer: PassthroughDataTransformer(),
+        nextPageStrategy: CustomNextPageStrategy { pageInfo in
+          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: pageInfo.offset)
+        },
+        mergeStrategy: TargetedPaginationMergeStrategy(targetedKeyPath: \.character?.friendsPaginated),
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value.value)
         }
+      ),
+      initialQuery: query
+    )
+    addTeardownBlock { watcher.cancel() }
 
-        var name: String {
-          get { __data["name"] }
-          set { __data["name"] = newValue }
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Luke Skywalker",
+                  "id": "1000",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Han Solo",
+                  "id": "1002",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+      XCTAssertEqual(watcher.strategy.pages.count, 2)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+      ])
+      guard let firstResult = results.first else { return XCTFail() }
+      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 2)
+    }
+
+    runActivity("Fetch second page") { _ in
+      let secondPageExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      _ = watcher.fetchMore()
+      wait(for: [secondPageExpectation], timeout: 1.0)
+
+      XCTAssertEqual(results.count, 2)
+      guard let lastResult = results.last else { return XCTFail() }
+      XCTAssertEqual(lastResult.character?.friendsPaginated?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[2]?.name, "Leia Organa")
+      XCTAssertEqual(watcher.strategy.pages.count, 3)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+        .init(offset: 3, hasNextPage: false),
+      ])
+    }
+  }
+
+  func testOffsetSimpleRefetchSecondPage() {
+    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: 0)
+    var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      strategy: OffsetPaginationStrategy(
+        pageSize: 2,
+        pageExtractionStrategy: OffsetPageExtractor(arrayKeyPath: \.character?.friendsPaginated),
+        outputTransformer: PassthroughDataTransformer(),
+        nextPageStrategy: CustomNextPageStrategy { pageInfo in
+          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: pageInfo.offset)
+        },
+        mergeStrategy: SimplePaginationMergeStrategy(),
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value.value)
+        }
+      ),
+      initialQuery: query
+    )
+    addTeardownBlock { watcher.cancel() }
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Luke Skywalker",
+                  "id": "1000",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Han Solo",
+                  "id": "1002",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+      XCTAssertEqual(watcher.strategy.pages.count, 2)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+      ])
+      guard let firstResult = results.first else { return XCTFail() }
+      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 2)
+    }
+
+    runActivity("Fetch second page") { _ in
+      let secondPageExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      _ = watcher.fetchMore()
+      wait(for: [secondPageExpectation], timeout: 1.0)
+
+      XCTAssertEqual(results.count, 2)
+      guard let lastResult = results.last else { return XCTFail() }
+      XCTAssertEqual(lastResult.character?.friendsPaginated?.count, 3)
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.character?.friendsPaginated?[2]?.name, "Leia Organa")
+      XCTAssertEqual(watcher.strategy.pages.count, 3)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+        .init(offset: 3, hasNextPage: false),
+      ])
+    }
+
+    runActivity("Re-fetch second page") { _ in
+      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      let page = watcher.strategy.pages[1]
+      watcher.refresh(page: page)
+      wait(for: [secondPageExpectation], timeout: 1.0)
+    }
+  }
+
+  func testOffsetSimpleFetchAndLocalCacheUpdate() {
+    let pageSize = 3
+    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: pageSize, offset: 0)
+    var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
+    // Once for the initial update, once for the local cache update
+    let resultExpectation = expectation(description: "Results block has been updated")
+    resultExpectation.expectedFulfillmentCount = 2
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      strategy: OffsetPaginationStrategy(
+        pageSize: pageSize,
+        pageExtractionStrategy: OffsetPageExtractor(arrayKeyPath: \.character?.friendsPaginated),
+        outputTransformer: PassthroughDataTransformer(),
+        nextPageStrategy: CustomNextPageStrategy { pageInfo in
+          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: pageSize, offset: pageInfo.offset)
+        },
+        mergeStrategy: SimplePaginationMergeStrategy(),
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value.value)
+          resultExpectation.fulfill()
+        }
+      ),
+      initialQuery: query
+    )
+    addTeardownBlock { watcher.cancel() }
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "character": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Luke Skywalker",
+                  "id": "1000",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Han Solo",
+                  "id": "1002",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+      XCTAssertEqual(watcher.strategy.pages.count, 2)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 3, hasNextPage: true)
+      ])
+      guard let firstResult = results.first else { return XCTFail() }
+      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 3)
+    }
+
+    runActivity("Local Cache Mutation") { _ in
+      client.store.withinReadWriteTransaction { transaction in
+        let cacheMutation = HeroFriendsPaginatedLocalCacheMutation(id: "2001", limit: pageSize, offset: 0)
+        try transaction.update(cacheMutation) { data in
+          data.character?.name = "Marty McFly"
         }
       }
     }
-  }
-}
 
-// MARK: Mock Local Cache Mutation: Unrelated to pagination
-
-private struct NameCacheMutation: MockMutableRootSelectionSet {
-  public var __data: DataDict = .empty()
-  init(_dataDict: DataDict) { __data = _dataDict }
-  static var __selections: [Selection] { [
-    .field("hero", Hero?.self, arguments: ["id": .variable("id")])
-  ]}
-
-  var hero: Hero? {
-    get { __data["hero"] }
-    set { __data["hero"] = newValue }
+    wait(for: [resultExpectation], timeout: 1.0)
+    XCTAssertEqual(results.count, 2)
+    guard let lastResult = results.last else { return XCTFail() }
+    XCTAssertEqual(lastResult.character?.name, "Marty McFly")
   }
 
-  struct Hero: MockMutableRootSelectionSet {
-    public var __data: DataDict = .empty()
-    init(_dataDict: DataDict) { __data = _dataDict }
-    static var __selections: [Selection] {[
-      .field("__typename", String.self),
-      .field("id", String.self),
-      .field("name", String.self),
-    ]}
-
-    var id: String {
-      get { __data["id"] }
-      set { __data["id"] = newValue }
-    }
-
-    var name: String {
-      get { __data["name"] }
-      set { __data["name"] = newValue }
-    }
-  }
 }

@@ -1,0 +1,17 @@
+query HeroFriendsConnection($id: ID!, $first: Int!, $after: ID) {
+  character(id: $id) {
+    id
+    name
+    friendsConnection(first: $first, after: $after) {
+        friends {
+            id
+            name
+        }
+        totalCount
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+    }
+  }
+}

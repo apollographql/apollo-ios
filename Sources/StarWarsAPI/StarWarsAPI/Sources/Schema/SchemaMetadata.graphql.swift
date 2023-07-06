@@ -26,6 +26,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "Human": return StarWarsAPI.Objects.Human
     case "Droid": return StarWarsAPI.Objects.Droid
     case "Starship": return StarWarsAPI.Objects.Starship
+    case "FriendsConnection": return StarWarsAPI.Objects.FriendsConnection
+    case "PageInfo": return StarWarsAPI.Objects.PageInfo
     case "Subscription": return StarWarsAPI.Objects.Subscription
     case "Review": return StarWarsAPI.Objects.Review
     case "Mutation": return StarWarsAPI.Objects.Mutation

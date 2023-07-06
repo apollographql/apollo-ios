@@ -1,0 +1,6 @@
+query HeroNameLocalCacheMutation($id: ID!) @apollo_client_ios_localCacheMutation {
+    character(id: $id) {
+        id
+        name
+    }
+}

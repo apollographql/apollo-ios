@@ -9,7 +9,15 @@ public class TargetedPaginationMergeStrategy<Query: GraphQLQuery>: PaginationMer
   /// Designated initializer
   /// - Parameter targetedKeyPath: `KeyPath` that leads to the list of results to be concatenated.
   public init(
-    targetedKeyPath: KeyPath<Query.Data, [some SelectionSet]>
+    targetedKeyPath: KeyPath<Query.Data, [(some SelectionSet)?]?>
+  ) {
+    self.keyPath = targetedKeyPath
+  }
+
+  /// Designated initializer
+  /// - Parameter targetedKeyPath: `KeyPath` that leads to the list of results to be concatenated.
+  public init(
+    targetedKeyPath: KeyPath<Query.Data, [(some SelectionSet)]?>
   ) {
     self.keyPath = targetedKeyPath
   }

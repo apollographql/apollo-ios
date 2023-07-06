@@ -3,6 +3,12 @@
   "version": 1,
   "operations": [
     {
+      "id": "1e2c6b7d6c3b562561d4a6cbac60e0a806e3888b1e7b742c8e3c8eb483732f7f",
+      "body": "query HeroNameLocalCacheMutation($id: ID!) {\n  character(id: $id) {\n    __typename\n    id\n    name\n  }\n}",
+      "name": "HeroNameLocalCacheMutation",
+      "type": "query"
+    },
+    {
       "id": "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556",
       "body": "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}",
       "name": "HeroAndFriendsNames",
@@ -66,6 +72,12 @@
       "id": "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406",
       "body": "query StarshipCoordinates($coordinates: [[Float!]!]) {\n  starshipCoordinates(coordinates: $coordinates) {\n    __typename\n    name\n    coordinates\n    length\n  }\n}",
       "name": "StarshipCoordinates",
+      "type": "query"
+    },
+    {
+      "id": "762082ecae815f8a2bfec1d11d15c977dbb1f52cda2c58c66716bf220d7a6fbd",
+      "body": "query HeroFriendsConnection($id: ID!, $first: Int!, $after: ID) {\n  character(id: $id) {\n    __typename\n    id\n    name\n    friendsConnection(first: $first, after: $after) {\n      __typename\n      friends {\n        __typename\n        id\n        name\n      }\n      totalCount\n      pageInfo {\n        __typename\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}",
+      "name": "HeroFriendsConnection",
       "type": "query"
     },
     {
@@ -165,9 +177,21 @@
       "type": "query"
     },
     {
+      "id": "b5412d2cfaa28d6320abf8c279f367ff9545953a70b1b5b7d40b935704019f24",
+      "body": "query HeroFriendsPaginatedLocalCacheMutation($id: ID!, $limit: Int!, $offset: Int!) {\n  character(id: $id) {\n    __typename\n    id\n    name\n    friendsPaginated(limit: $limit, offset: $offset) {\n      __typename\n      id\n      name\n    }\n  }\n}",
+      "name": "HeroFriendsPaginatedLocalCacheMutation",
+      "type": "query"
+    },
+    {
       "id": "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
       "body": "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      __typename\n      id\n      name\n    }\n    ... on Droid {\n      __typename\n      id\n      name\n    }\n    ... on Starship {\n      __typename\n      id\n      name\n    }\n  }\n}",
       "name": "Search",
+      "type": "query"
+    },
+    {
+      "id": "d38569dddb18d0e3aea8522ce2454de779c3da687fae3077dcf570c6e17af5d7",
+      "body": "query HeroFriendsConnectionLocalCacheMutation($id: ID!, $first: Int!, $after: ID) {\n  character(id: $id) {\n    __typename\n    id\n    name\n    friendsConnection(first: $first, after: $after) {\n      __typename\n      friends {\n        __typename\n        id\n        name\n      }\n      totalCount\n      pageInfo {\n        __typename\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}",
+      "name": "HeroFriendsConnectionLocalCacheMutation",
       "type": "query"
     },
     {
@@ -213,8 +237,8 @@
       "type": "query"
     },
     {
-      "id": "abc818152f2617a753cd73aeee3f1d582f473eadbdb433ca4e0bdcc42c5b4745",
-      "body": "query HeroFriendsOffsetPaginated($limit: Int!, $offset: Int!) {\n  hero {\n    __typename\n    id\n    friendsPaginated(limit: $limit, offset: $offset) {\n      __typename\n      id\n      name\n    }\n  }\n}",
+      "id": "493e2240900e091aa81c9aafd30454e25d14f116056981a1e18e3042e92dcdd0",
+      "body": "query HeroFriendsOffsetPaginated($id: ID!, $limit: Int!, $offset: Int!) {\n  character(id: $id) {\n    __typename\n    id\n    name\n    friendsPaginated(limit: $limit, offset: $offset) {\n      __typename\n      id\n      name\n    }\n  }\n}",
       "name": "HeroFriendsOffsetPaginated",
       "type": "query"
     },
