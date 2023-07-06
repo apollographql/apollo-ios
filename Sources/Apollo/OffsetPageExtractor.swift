@@ -5,9 +5,16 @@ import ApolloAPI
 /// Can extract and identify a `Page` for cursor-based endpoints
 public struct OffsetPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
 
+  /// A formed input for the `OffsetPageExtractor`
   public struct Input: Hashable {
+
+    /// The `Query.Data`
     public let data: Query.Data
+
+    /// The current offset
     public let offset: Int
+
+    /// The number of expected results per page
     public let pageSize: Int
 
     init(data: Query.Data, offset: Int, pageSize: Int) {
@@ -22,12 +29,13 @@ public struct OffsetPageExtractor<Query: GraphQLQuery>: PageExtractionStrategy {
     /// Where in the list the server should start when returning items for a particular query
     public let offset: Int
 
+    /// Whether or not there is potentially another page of results
     public let hasNextPage: Bool
 
     /// Designated Initializer
     /// - Parameters:
     ///   - offset: Where in the list the server should start when returning items for a particular query
-    ///   - resultCount: Number of results in this page
+    ///   - hasNextPage: Whether or not there is potentially another page of results
     public init(offset: Int, hasNextPage: Bool) {
       self.offset = offset
       self.hasNextPage = hasNextPage
