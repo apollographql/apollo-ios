@@ -2,6 +2,7 @@
 import ApolloAPI
 import ApolloInternalTestHelpers
 import Nimble
+import StarWarsAPI
 import XCTest
 
 class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
@@ -1322,6 +1323,109 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     guard let lastResult = results.last else { return XCTFail() }
     XCTAssertEqual(lastResult.hero.name, "Marty McFly")
     XCTAssertEqual(lastResult.hero.friendsConnection.friends.first?.name, "Doc Brown")
+  }
+
+  // MARK: Offset Simple Paginated Strategy
+
+  func testOffsetSimpleMultipageFetch() {
+    let query = HeroFriendsOffsetPaginatedQuery(limit: 2, offset: 0)
+    var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
+    let watcher = GraphQLPaginatedQueryWatcher(
+      client: client,
+      strategy: OffsetPaginationStrategy(
+        pageSize: 2,
+        pageExtractionStrategy: OffsetPageExtractor { (input: OffsetPageExtractor<HeroFriendsOffsetPaginatedQuery>.Input) in
+          let count = input.data.hero?.friendsPaginated?.count ?? 0
+          return .init(
+            offset: input.offset + count,
+            hasNextPage: count == input.pageSize
+          )
+        },
+        outputTransformer: PassthroughDataTransformer(),
+        nextPageStrategy: CustomNextPageStrategy { pageInfo in
+          HeroFriendsOffsetPaginatedQuery(limit: 2, offset: pageInfo.offset)
+        },
+        mergeStrategy: SimplePaginationMergeStrategy(),
+        resultHandler: { result in
+          guard case let .success(value) = result else { return XCTFail() }
+          results.append(value.value)
+        }
+      ),
+      initialQuery: query
+    )
+    addTeardownBlock { watcher.cancel() }
+
+    runActivity("Initial fetch from server") { _ in
+      let serverExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Luke Skywalker",
+                  "id": "1000",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Han Solo",
+                  "id": "1002",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+      watcher.fetch()
+      wait(for: [serverExpectation], timeout: 1.0)
+      XCTAssertEqual(watcher.strategy.pages.count, 2)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+      ])
+      guard let firstResult = results.first else { return XCTFail() }
+      XCTAssertEqual(firstResult.hero?.friendsPaginated?.count, 2)
+    }
+
+    runActivity("Fetch second page") { _ in
+      let secondPageExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+        [
+          "data": [
+            "hero": [
+              "__typename": "Droid",
+              "id": "2001",
+              "name": "R2-D2",
+              "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
+                ]
+              ]
+            ],
+          ]
+        ]
+      }
+
+      _ = watcher.fetchMore()
+      wait(for: [secondPageExpectation], timeout: 1.0)
+
+      XCTAssertEqual(results.count, 2)
+      guard let lastResult = results.last else { return XCTFail() }
+      XCTAssertEqual(lastResult.hero?.friendsPaginated?.count, 3)
+      XCTAssertEqual(lastResult.hero?.friendsPaginated?[0]?.name, "Luke Skywalker")
+      XCTAssertEqual(lastResult.hero?.friendsPaginated?[1]?.name, "Han Solo")
+      XCTAssertEqual(lastResult.hero?.friendsPaginated?[2]?.name, "Leia Organa")
+      XCTAssertEqual(watcher.strategy.pages.count, 3)
+      XCTAssertEqual(watcher.strategy.pages, [
+        nil,
+        .init(offset: 2, hasNextPage: true),
+        .init(offset: 3, hasNextPage: false),
+      ])
+    }
   }
 }
 

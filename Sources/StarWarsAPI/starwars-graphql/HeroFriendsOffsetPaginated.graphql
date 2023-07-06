@@ -1,0 +1,9 @@
+query HeroFriendsOffsetPaginated($limit: Int!, $offset: Int!) {
+  hero {
+    id
+    friendsPaginated(limit: $limit, offset: $offset) {
+      id
+      name
+    } 
+  }
+}

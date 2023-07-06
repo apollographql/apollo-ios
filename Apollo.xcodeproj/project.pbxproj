@@ -158,6 +158,9 @@
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
+		D03F6DF32A55E65E0028B2FC /* OffsetPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF22A55E65E0028B2FC /* OffsetPaginationStrategy.swift */; };
+		D03F6DF52A55E6A80028B2FC /* OffsetPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF42A55E6A80028B2FC /* OffsetPageExtractor.swift */; };
+		D03F6DF72A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF62A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
 		D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */; };
 		D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */; };
@@ -1366,6 +1369,9 @@
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
+		D03F6DF22A55E65E0028B2FC /* OffsetPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPaginationStrategy.swift; sourceTree = "<group>"; };
+		D03F6DF42A55E6A80028B2FC /* OffsetPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageExtractor.swift; sourceTree = "<group>"; };
+		D03F6DF62A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroFriendsOffsetPaginatedQuery.graphql.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
 		D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationStrategy.swift; sourceTree = "<group>"; };
 		D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPageExtractor.swift; sourceTree = "<group>"; };
@@ -2891,6 +2897,7 @@
 				D0B9970C2A1E802E00A550F4 /* PageExtractors */,
 				D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */,
 				D0B9971F2A1EA78200A550F4 /* RelayPaginationStrategy.swift */,
+				D03F6DF22A55E65E0028B2FC /* OffsetPaginationStrategy.swift */,
 			);
 			name = "Pagination Strategies";
 			sourceTree = "<group>";
@@ -2910,6 +2917,7 @@
 			children = (
 				D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */,
 				D0B9970F2A1E81B000A550F4 /* PageExtractionStrategy.swift */,
+				D03F6DF42A55E6A80028B2FC /* OffsetPageExtractor.swift */,
 			);
 			name = PageExtractors;
 			sourceTree = "<group>";
@@ -3435,41 +3443,42 @@
 		DE63897528D3D63700559697 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
-				DE63897628D3D63700559697 /* HeroDetailsQuery.graphql.swift */,
-				DE63897728D3D63700559697 /* HeroNameTypeSpecificConditionalInclusionQuery.graphql.swift */,
-				DE63897828D3D63700559697 /* HeroAndFriendsNamesWithFragmentTwiceQuery.graphql.swift */,
-				DE63897928D3D63700559697 /* SearchQuery.graphql.swift */,
-				DE63897A28D3D63700559697 /* HeroNameWithIDQuery.graphql.swift */,
-				DE63897B28D3D63700559697 /* HeroAndFriendsNamesWithFragmentQuery.graphql.swift */,
-				DE63897C28D3D63700559697 /* HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.graphql.swift */,
-				DE63897D28D3D63700559697 /* HeroDetailsFragmentConditionalInclusionQuery.graphql.swift */,
-				DE63897E28D3D63700559697 /* HeroAppearsInQuery.graphql.swift */,
-				DE63897F28D3D63700559697 /* HeroNameAndAppearsInWithFragmentQuery.graphql.swift */,
 				DE63898028D3D63700559697 /* DroidDetailsWithFragmentQuery.graphql.swift */,
-				DE63898128D3D63700559697 /* HeroDetailsWithFragmentQuery.graphql.swift */,
-				DE63898228D3D63700559697 /* HeroNameWithFragmentAndIDQuery.graphql.swift */,
-				DE63898328D3D63700559697 /* HeroNameConditionalBothSeparateQuery.graphql.swift */,
-				DE63898428D3D63700559697 /* StarshipCoordinatesQuery.graphql.swift */,
-				DE63898528D3D63700559697 /* HeroNameConditionalBothQuery.graphql.swift */,
-				DE63898628D3D63700559697 /* HeroAndFriendsNamesWithIDsQuery.graphql.swift */,
-				DE63898728D3D63700559697 /* HeroNameConditionalExclusionQuery.graphql.swift */,
-				DE63898828D3D63700559697 /* HeroNameAndAppearsInQuery.graphql.swift */,
-				DE63898928D3D63700559697 /* HeroFriendsDetailsConditionalInclusionQuery.graphql.swift */,
-				DE63898A28D3D63700559697 /* HeroDetailsInlineConditionalInclusionQuery.graphql.swift */,
-				DE63898B28D3D63700559697 /* HeroAndFriendsNamesWithIDForParentOnlyQuery.graphql.swift */,
-				DE63898C28D3D63700559697 /* StarshipQuery.graphql.swift */,
-				DE63898D28D3D63700559697 /* HumanQuery.graphql.swift */,
-				DE63898E28D3D63700559697 /* HeroAndFriendsNamesQuery.graphql.swift */,
-				DE63898F28D3D63700559697 /* HeroTypeDependentAliasedFieldQuery.graphql.swift */,
-				DE63899028D3D63700559697 /* HeroNameWithFragmentQuery.graphql.swift */,
-				DE63899128D3D63800559697 /* HeroParentTypeDependentFieldQuery.graphql.swift */,
-				DE63899228D3D63800559697 /* TwoHeroesQuery.graphql.swift */,
-				DE63899328D3D63800559697 /* HeroNameConditionalInclusionQuery.graphql.swift */,
-				DE63899428D3D63800559697 /* HeroFriendsOfFriendsNamesQuery.graphql.swift */,
-				DE63899528D3D63800559697 /* HeroNameQuery.graphql.swift */,
-				DE63899628D3D63800559697 /* SameHeroTwiceQuery.graphql.swift */,
 				DE63899728D3D63800559697 /* HeroAndFriendsIDsQuery.graphql.swift */,
+				DE63898E28D3D63700559697 /* HeroAndFriendsNamesQuery.graphql.swift */,
+				DE63897B28D3D63700559697 /* HeroAndFriendsNamesWithFragmentQuery.graphql.swift */,
+				DE63897828D3D63700559697 /* HeroAndFriendsNamesWithFragmentTwiceQuery.graphql.swift */,
+				DE63898B28D3D63700559697 /* HeroAndFriendsNamesWithIDForParentOnlyQuery.graphql.swift */,
+				DE63898628D3D63700559697 /* HeroAndFriendsNamesWithIDsQuery.graphql.swift */,
+				DE63897E28D3D63700559697 /* HeroAppearsInQuery.graphql.swift */,
 				DE63899828D3D63800559697 /* HeroAppearsInWithFragmentQuery.graphql.swift */,
+				DE63897D28D3D63700559697 /* HeroDetailsFragmentConditionalInclusionQuery.graphql.swift */,
+				DE63898A28D3D63700559697 /* HeroDetailsInlineConditionalInclusionQuery.graphql.swift */,
+				DE63897628D3D63700559697 /* HeroDetailsQuery.graphql.swift */,
+				DE63898128D3D63700559697 /* HeroDetailsWithFragmentQuery.graphql.swift */,
+				DE63898928D3D63700559697 /* HeroFriendsDetailsConditionalInclusionQuery.graphql.swift */,
+				DE63897C28D3D63700559697 /* HeroFriendsDetailsUnconditionalAndConditionalInclusionQuery.graphql.swift */,
+				DE63899428D3D63800559697 /* HeroFriendsOfFriendsNamesQuery.graphql.swift */,
+				D03F6DF62A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift */,
+				DE63898828D3D63700559697 /* HeroNameAndAppearsInQuery.graphql.swift */,
+				DE63897F28D3D63700559697 /* HeroNameAndAppearsInWithFragmentQuery.graphql.swift */,
+				DE63898528D3D63700559697 /* HeroNameConditionalBothQuery.graphql.swift */,
+				DE63898328D3D63700559697 /* HeroNameConditionalBothSeparateQuery.graphql.swift */,
+				DE63898728D3D63700559697 /* HeroNameConditionalExclusionQuery.graphql.swift */,
+				DE63899328D3D63800559697 /* HeroNameConditionalInclusionQuery.graphql.swift */,
+				DE63899528D3D63800559697 /* HeroNameQuery.graphql.swift */,
+				DE63897728D3D63700559697 /* HeroNameTypeSpecificConditionalInclusionQuery.graphql.swift */,
+				DE63898228D3D63700559697 /* HeroNameWithFragmentAndIDQuery.graphql.swift */,
+				DE63899028D3D63700559697 /* HeroNameWithFragmentQuery.graphql.swift */,
+				DE63897A28D3D63700559697 /* HeroNameWithIDQuery.graphql.swift */,
+				DE63899128D3D63800559697 /* HeroParentTypeDependentFieldQuery.graphql.swift */,
+				DE63898F28D3D63700559697 /* HeroTypeDependentAliasedFieldQuery.graphql.swift */,
+				DE63898D28D3D63700559697 /* HumanQuery.graphql.swift */,
+				DE63899628D3D63800559697 /* SameHeroTwiceQuery.graphql.swift */,
+				DE63897928D3D63700559697 /* SearchQuery.graphql.swift */,
+				DE63898428D3D63700559697 /* StarshipCoordinatesQuery.graphql.swift */,
+				DE63898C28D3D63700559697 /* StarshipQuery.graphql.swift */,
+				DE63899228D3D63800559697 /* TwoHeroesQuery.graphql.swift */,
 			);
 			path = Queries;
 			sourceTree = "<group>";
@@ -5569,6 +5578,7 @@
 				9B260C0A245A532500562176 /* JSONResponseParsingInterceptor.swift in Sources */,
 				DE903E1729C10B7600A74415 /* FieldSelectionCollector.swift in Sources */,
 				9B96500C24BE7239003C29C0 /* CacheReadInterceptor.swift in Sources */,
+				D03F6DF52A55E6A80028B2FC /* OffsetPageExtractor.swift in Sources */,
 				DE0586392669985000265760 /* Dictionary+Helpers.swift in Sources */,
 				DE4B1E572891D2F40058D1F6 /* Atomic.swift in Sources */,
 				E69F437229BBD958006FF548 /* MultipartResponseParsingInterceptor.swift in Sources */,
@@ -5639,6 +5649,7 @@
 				9BC742AC24CFB2FF0029282C /* ApolloErrorInterceptor.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */,
+				D03F6DF32A55E65E0028B2FC /* OffsetPaginationStrategy.swift in Sources */,
 				D0B997232A1EA80200A550F4 /* PaginationMergeStrategy.swift in Sources */,
 				DE8F7B6F29F7478C005F3902 /* SelectionSetModelExecutionSource.swift in Sources */,
 			);
@@ -5756,6 +5767,7 @@
 				DE6389BC28D3D63800559697 /* CharacterNameAndDroidPrimaryFunction.graphql.swift in Sources */,
 				DE6389B328D3D63800559697 /* CharacterName.graphql.swift in Sources */,
 				DE6389CD28D3D63800559697 /* HeroNameWithFragmentAndIDQuery.graphql.swift in Sources */,
+				D03F6DF72A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift in Sources */,
 				DE6389E728D3D63800559697 /* Subscription.graphql.swift in Sources */,
 				DE6389EA28D3D63800559697 /* Mutation.graphql.swift in Sources */,
 				DE6389D428D3D63800559697 /* HeroFriendsDetailsConditionalInclusionQuery.graphql.swift in Sources */,
