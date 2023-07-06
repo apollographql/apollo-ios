@@ -72,6 +72,17 @@ The `RelayPaginationStrategy` is a concrete implementation of the `PaginationStr
 4. `mergeStrategy`: The `PaginationMergeStrategy` that is used to combine outputs.
 5. `resultHandler`: The callback that is called when the query is updated.
 
+### The [`OffsetPaginationStrategy`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/offsetpaginationstrategy)
+
+The `OffsetPaginationStrategy` is a concrete implementation of the `PaginationStrategy` protocol. It is designed to handle pagination for queries that use a pagination offset. Initializing it requires passing in six required fields:
+
+1. `pageSize`: The size of the page that is being fetched.
+2. `pageExtractionStrategy`: The `OffsetPageExtractor` that is used to extract a query.
+3. `outputTransformer`: The `DataTransformer` that is used to output a given data type.
+4. `nextPageStrategy`: The `NextPageStrategy` that is used to build the next query.
+5. `mergeStrategy`: The `PaginationMergeStrategy` that is used to combine outputs.
+6. `resultHandler`: The callback that is called when the query is updated.
+
 ## Understanding `PageExtractionStrategy`
 
 The `PageExtractionStrategy` is a protocol which defines how to extract a `Page` from a given `Input`. A `Page` can be any `Hashable` type.
@@ -82,6 +93,13 @@ The `RelayPageExtractor` is a concrete implementation of the `PageExtractionStra
 
 1. Passing in a closure that takes in a `Query.Data` and returns a `Page`.
 2. Passing in two key paths: one to the `hasNextPage` field and one to the `endCursor` field.
+
+### The [`OffsetPageExtractor`](https://www.apollographql.com/docs/ios/docc/documentation/apollo/offsetpageextractor)
+
+The `OffsetPageExtractor` is a concrete implementation of the `PageExtractionStrategy` protocol. It is designed to extract a `Page` from a query that use a pagination offset. Initializing it can be done in one of two ways:
+
+1. Passing in a closure that takes in a `OffsetPageExtractor.Input` and returns a `Page`.
+2. Passing in a key path to the array that contains paginated data.
 
 ## Understanding the `DataTransformer`
 
