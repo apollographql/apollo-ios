@@ -156,11 +156,17 @@
 		C338DF1722DD9DE9006AF33E /* RequestBodyCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */; };
 		C377CCA922D798BD00572E03 /* GraphQLFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCA822D798BD00572E03 /* GraphQLFile.swift */; };
 		C377CCAB22D7992E00572E03 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C377CCAA22D7992E00572E03 /* MultipartFormData.swift */; };
+		D00F84B82A572BED00B0426F /* HeroFriendsPaginatedLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00F84B72A572BED00B0426F /* HeroFriendsPaginatedLocalCacheMutation.graphql.swift */; };
 		D03E80D42A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */; };
 		D03E80D62A0D579300269361 /* PaginatedWatchQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */; };
 		D03F6DF32A55E65E0028B2FC /* OffsetPaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF22A55E65E0028B2FC /* OffsetPaginationStrategy.swift */; };
 		D03F6DF52A55E6A80028B2FC /* OffsetPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF42A55E6A80028B2FC /* OffsetPageExtractor.swift */; };
 		D03F6DF72A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF62A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift */; };
+		D03F6DF92A5714B30028B2FC /* HeroFriendsConnectionQuery.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DF82A5714B30028B2FC /* HeroFriendsConnectionQuery.graphql.swift */; };
+		D03F6E002A5715470028B2FC /* HeroNameLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DFE2A5715470028B2FC /* HeroNameLocalCacheMutation.graphql.swift */; };
+		D03F6E012A5715470028B2FC /* HeroFriendsConnectionLocalCacheMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6DFF2A5715470028B2FC /* HeroFriendsConnectionLocalCacheMutation.graphql.swift */; };
+		D03F6E042A571A390028B2FC /* PageInfo.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6E022A571A390028B2FC /* PageInfo.graphql.swift */; };
+		D03F6E052A571A390028B2FC /* FriendsConnection.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03F6E032A571A390028B2FC /* FriendsConnection.graphql.swift */; };
 		D082F1D02A13FC600043B601 /* PaginationDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */; };
 		D0AAA33A2A13C6570031C482 /* PaginationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */; };
 		D0B9970E2A1E803900A550F4 /* RelayPageExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */; };
@@ -1367,11 +1373,17 @@
 		C338DF1622DD9DE9006AF33E /* RequestBodyCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestBodyCreatorTests.swift; sourceTree = "<group>"; };
 		C377CCA822D798BD00572E03 /* GraphQLFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLFile.swift; sourceTree = "<group>"; };
 		C377CCAA22D7992E00572E03 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
+		D00F84B72A572BED00B0426F /* HeroFriendsPaginatedLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroFriendsPaginatedLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
 		D03E80D32A0D56F300269361 /* GraphQLPaginatedQueryWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLPaginatedQueryWatcher.swift; sourceTree = "<group>"; };
 		D03E80D52A0D579300269361 /* PaginatedWatchQueryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedWatchQueryTests.swift; sourceTree = "<group>"; };
 		D03F6DF22A55E65E0028B2FC /* OffsetPaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPaginationStrategy.swift; sourceTree = "<group>"; };
 		D03F6DF42A55E6A80028B2FC /* OffsetPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetPageExtractor.swift; sourceTree = "<group>"; };
 		D03F6DF62A567F570028B2FC /* HeroFriendsOffsetPaginatedQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroFriendsOffsetPaginatedQuery.graphql.swift; sourceTree = "<group>"; };
+		D03F6DF82A5714B30028B2FC /* HeroFriendsConnectionQuery.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroFriendsConnectionQuery.graphql.swift; sourceTree = "<group>"; };
+		D03F6DFE2A5715470028B2FC /* HeroNameLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroNameLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		D03F6DFF2A5715470028B2FC /* HeroFriendsConnectionLocalCacheMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroFriendsConnectionLocalCacheMutation.graphql.swift; sourceTree = "<group>"; };
+		D03F6E022A571A390028B2FC /* PageInfo.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageInfo.graphql.swift; sourceTree = "<group>"; };
+		D03F6E032A571A390028B2FC /* FriendsConnection.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsConnection.graphql.swift; sourceTree = "<group>"; };
 		D082F1CF2A13FC600043B601 /* PaginationDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationDataResponse.swift; sourceTree = "<group>"; };
 		D0AAA3392A13C6570031C482 /* PaginationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationStrategy.swift; sourceTree = "<group>"; };
 		D0B9970D2A1E803900A550F4 /* RelayPageExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelayPageExtractor.swift; sourceTree = "<group>"; };
@@ -2887,6 +2899,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D03F6DFD2A5715180028B2FC /* LocalCacheMutations */ = {
+			isa = PBXGroup;
+			children = (
+				D00F84B72A572BED00B0426F /* HeroFriendsPaginatedLocalCacheMutation.graphql.swift */,
+				D03F6DFF2A5715470028B2FC /* HeroFriendsConnectionLocalCacheMutation.graphql.swift */,
+				D03F6DFE2A5715470028B2FC /* HeroNameLocalCacheMutation.graphql.swift */,
+			);
+			path = LocalCacheMutations;
+			sourceTree = "<group>";
+		};
 		D082F1CA2A13FC210043B601 /* Pagination Strategies */ = {
 			isa = PBXGroup;
 			children = (
@@ -3390,6 +3412,7 @@
 		DE63895F28D3D63700559697 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				D03F6DFD2A5715180028B2FC /* LocalCacheMutations */,
 				DE63896028D3D63700559697 /* Fragments */,
 				DE63897028D3D63700559697 /* Operations */,
 				DE63899B28D3D63800559697 /* Schema */,
@@ -3443,6 +3466,7 @@
 		DE63897528D3D63700559697 /* Queries */ = {
 			isa = PBXGroup;
 			children = (
+				D03F6DF82A5714B30028B2FC /* HeroFriendsConnectionQuery.graphql.swift */,
 				DE63898028D3D63700559697 /* DroidDetailsWithFragmentQuery.graphql.swift */,
 				DE63899728D3D63800559697 /* HeroAndFriendsIDsQuery.graphql.swift */,
 				DE63898E28D3D63700559697 /* HeroAndFriendsNamesQuery.graphql.swift */,
@@ -3524,6 +3548,8 @@
 		DE6389A028D3D63800559697 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				D03F6E032A571A390028B2FC /* FriendsConnection.graphql.swift */,
+				D03F6E022A571A390028B2FC /* PageInfo.graphql.swift */,
 				DE6389A128D3D63800559697 /* Subscription.graphql.swift */,
 				DE6389A228D3D63800559697 /* Droid.graphql.swift */,
 				DE6389A328D3D63800559697 /* Starship.graphql.swift */,
@@ -5740,6 +5766,7 @@
 				DE6389D828D3D63800559697 /* HumanQuery.graphql.swift in Sources */,
 				DE6389E928D3D63800559697 /* Starship.graphql.swift in Sources */,
 				DE6389D128D3D63800559697 /* HeroAndFriendsNamesWithIDsQuery.graphql.swift in Sources */,
+				D00F84B82A572BED00B0426F /* HeroFriendsPaginatedLocalCacheMutation.graphql.swift in Sources */,
 				DE6389DD28D3D63800559697 /* TwoHeroesQuery.graphql.swift in Sources */,
 				DE6389EF28D3D63800559697 /* ColorInput.graphql.swift in Sources */,
 				DE6389B928D3D63800559697 /* CharacterNameAndAppearsInWithNestedFragments.graphql.swift in Sources */,
@@ -5747,6 +5774,7 @@
 				DE6389E128D3D63800559697 /* SameHeroTwiceQuery.graphql.swift in Sources */,
 				DE6389CE28D3D63800559697 /* HeroNameConditionalBothSeparateQuery.graphql.swift in Sources */,
 				DE6389BB28D3D63800559697 /* CharacterNameWithNestedAppearsInFragment.graphql.swift in Sources */,
+				D03F6E042A571A390028B2FC /* PageInfo.graphql.swift in Sources */,
 				DE6389CA28D3D63800559697 /* HeroNameAndAppearsInWithFragmentQuery.graphql.swift in Sources */,
 				DE6389E428D3D63800559697 /* ReviewAddedSubscription.graphql.swift in Sources */,
 				DE6389BD28D3D63800559697 /* CharacterAppearsIn.graphql.swift in Sources */,
@@ -5758,11 +5786,13 @@
 				DE6389C028D3D63800559697 /* CreateReviewWithNullFieldMutation.graphql.swift in Sources */,
 				DE6389B628D3D63800559697 /* CharacterNameAndDroidAppearsIn.graphql.swift in Sources */,
 				DE6389C228D3D63800559697 /* HeroNameTypeSpecificConditionalInclusionQuery.graphql.swift in Sources */,
+				D03F6E012A5715470028B2FC /* HeroFriendsConnectionLocalCacheMutation.graphql.swift in Sources */,
 				DE6389D528D3D63800559697 /* HeroDetailsInlineConditionalInclusionQuery.graphql.swift in Sources */,
 				DE6389D928D3D63800559697 /* HeroAndFriendsNamesQuery.graphql.swift in Sources */,
 				DE6389EE28D3D63800559697 /* SchemaConfiguration.swift in Sources */,
 				DE6389D328D3D63800559697 /* HeroNameAndAppearsInQuery.graphql.swift in Sources */,
 				DE6389D028D3D63800559697 /* HeroNameConditionalBothQuery.graphql.swift in Sources */,
+				D03F6DF92A5714B30028B2FC /* HeroFriendsConnectionQuery.graphql.swift in Sources */,
 				DE6389E828D3D63800559697 /* Droid.graphql.swift in Sources */,
 				DE6389BC28D3D63800559697 /* CharacterNameAndDroidPrimaryFunction.graphql.swift in Sources */,
 				DE6389B328D3D63800559697 /* CharacterName.graphql.swift in Sources */,
@@ -5779,6 +5809,7 @@
 				DE6389DF28D3D63800559697 /* HeroFriendsOfFriendsNamesQuery.graphql.swift in Sources */,
 				DE6389BF28D3D63800559697 /* CreateReviewForEpisodeMutation.graphql.swift in Sources */,
 				DE6389DA28D3D63800559697 /* HeroTypeDependentAliasedFieldQuery.graphql.swift in Sources */,
+				D03F6E052A571A390028B2FC /* FriendsConnection.graphql.swift in Sources */,
 				DE6389DC28D3D63800559697 /* HeroParentTypeDependentFieldQuery.graphql.swift in Sources */,
 				DE6389BA28D3D63800559697 /* DroidDetails.graphql.swift in Sources */,
 				DE6389C828D3D63800559697 /* HeroDetailsFragmentConditionalInclusionQuery.graphql.swift in Sources */,
@@ -5795,6 +5826,7 @@
 				DE6389B828D3D63800559697 /* CharacterNameWithInlineFragment.graphql.swift in Sources */,
 				DE6389D728D3D63800559697 /* StarshipQuery.graphql.swift in Sources */,
 				DE6389B728D3D63800559697 /* HumanHeightWithVariable.graphql.swift in Sources */,
+				D03F6E002A5715470028B2FC /* HeroNameLocalCacheMutation.graphql.swift in Sources */,
 				DE6389E028D3D63800559697 /* HeroNameQuery.graphql.swift in Sources */,
 				DE6389C428D3D63800559697 /* SearchQuery.graphql.swift in Sources */,
 			);
