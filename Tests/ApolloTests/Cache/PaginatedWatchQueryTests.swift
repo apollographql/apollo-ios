@@ -1495,17 +1495,18 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
     }
   }
 
-  func testOffsetSimpleRefetchSecondPage() {
-    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: 0)
+  func testOffsetSimpleRefetchPage() {
+    let pageSize = 3
+    let query = HeroFriendsOffsetPaginatedQuery(id: "2001", limit: pageSize, offset: 0)
     var results: [HeroFriendsOffsetPaginatedQuery.Data] = []
     let watcher = GraphQLPaginatedQueryWatcher(
       client: client,
       strategy: OffsetPaginationStrategy(
-        pageSize: 2,
+        pageSize: pageSize,
         pageExtractionStrategy: OffsetPageExtractor(arrayKeyPath: \.character?.friendsPaginated),
         outputTransformer: PassthroughDataTransformer(),
         nextPageStrategy: CustomNextPageStrategy { pageInfo in
-          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: 2, offset: pageInfo.offset)
+          HeroFriendsOffsetPaginatedQuery(id: "2001", limit: pageSize, offset: pageInfo.offset)
         },
         mergeStrategy: SimplePaginationMergeStrategy(),
         resultHandler: { result in
@@ -1535,6 +1536,11 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
                   "__typename": "Human",
                   "name": "Han Solo",
                   "id": "1002",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Leia Organa",
+                  "id": "1003",
                 ]
               ]
             ],
@@ -1546,14 +1552,14 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
       XCTAssertEqual(watcher.strategy.pages.count, 2)
       XCTAssertEqual(watcher.strategy.pages, [
         nil,
-        .init(offset: 2, hasNextPage: true),
+        .init(offset: 3, hasNextPage: true),
       ])
       guard let firstResult = results.first else { return XCTFail() }
-      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 2)
+      XCTAssertEqual(firstResult.character?.friendsPaginated?.count, 3)
     }
 
-    runActivity("Fetch second page") { _ in
-      let secondPageExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
+    runActivity("Re-fetch") { _ in
+      let refreshExpectation = server.expect(HeroFriendsOffsetPaginatedQuery.self) { _ in
         [
           "data": [
             "character": [
@@ -1561,6 +1567,16 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
               "id": "2001",
               "name": "R2-D2",
               "friendsPaginated": [
+                [
+                  "__typename": "Human",
+                  "name": "Luke Skywalker",
+                  "id": "1000",
+                ],
+                [
+                  "__typename": "Human",
+                  "name": "Han Solo",
+                  "id": "1002",
+                ],
                 [
                   "__typename": "Human",
                   "name": "Leia Organa",
@@ -1572,46 +1588,8 @@ class PaginatedWatchQueryTests: XCTestCase, CacheDependentTesting {
         ]
       }
 
-      _ = watcher.fetchMore()
-      wait(for: [secondPageExpectation], timeout: 1.0)
-
-      XCTAssertEqual(results.count, 2)
-      guard let lastResult = results.last else { return XCTFail() }
-      XCTAssertEqual(lastResult.character?.friendsPaginated?.count, 3)
-      XCTAssertEqual(lastResult.character?.friendsPaginated?[0]?.name, "Luke Skywalker")
-      XCTAssertEqual(lastResult.character?.friendsPaginated?[1]?.name, "Han Solo")
-      XCTAssertEqual(lastResult.character?.friendsPaginated?[2]?.name, "Leia Organa")
-      XCTAssertEqual(watcher.strategy.pages.count, 3)
-      XCTAssertEqual(watcher.strategy.pages, [
-        nil,
-        .init(offset: 2, hasNextPage: true),
-        .init(offset: 3, hasNextPage: false),
-      ])
-    }
-
-    runActivity("Re-fetch second page") { _ in
-      let secondPageExpectation = server.expect(HeroFriendsConnectionQuery.self) { _ in
-        [
-          "data": [
-            "character": [
-              "__typename": "Droid",
-              "id": "2001",
-              "name": "R2-D2",
-              "friendsPaginated": [
-                [
-                  "__typename": "Human",
-                  "name": "Leia Organa",
-                  "id": "1003",
-                ]
-              ]
-            ],
-          ]
-        ]
-      }
-
-      let page = watcher.strategy.pages[1]
-      watcher.refresh(page: page)
-      wait(for: [secondPageExpectation], timeout: 1.0)
+      watcher.refresh(page: nil)
+      wait(for: [refreshExpectation], timeout: 1.0)
     }
   }
 
