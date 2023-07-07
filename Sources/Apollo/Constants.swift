@@ -1,5 +1,5 @@
 import Foundation
 
 public enum Constants {
-    public static let ApolloVersion: String = "1.2.2"
+    public static let ApolloVersion: String = "1.3.0"
 }
