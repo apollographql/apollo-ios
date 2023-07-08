@@ -109,7 +109,12 @@ class ResponseCodeInterceptorTests: XCTestCase {
               XCTFail("Incorrect data returned with error")
               return
           }
-
+          
+          if let castError = error as? ResponseCodeInterceptor.ResponseCodeError {
+            XCTAssertEqual("GraphQL Error", castError.graphQLError?.description)
+          }
+            
+          
           XCTAssertEqual(dataString, "{\"data\":{\"hero\":{\"__typename\":\"Human\",\"name\":\"Luke Skywalker\"}}}")
         default:
           XCTFail("Unexpected error type: \(error.localizedDescription)")

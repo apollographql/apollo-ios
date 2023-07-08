@@ -33,6 +33,19 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
         return errorStrings.joined(separator: " ")
       }
     }
+    
+    public var graphQLError: GraphQLError? {
+      switch self {
+      case .invalidResponseCode(_, let rawData):
+        if let jsonRawData = rawData,
+           let jsonData = try? JSONSerialization.jsonObject(with: jsonRawData, options: .allowFragments) as? JSONObject {
+          return GraphQLError(jsonData)
+        }
+        return nil
+      default:
+        return nil
+      }
+    }
   }
   
   /// Designated initializer
