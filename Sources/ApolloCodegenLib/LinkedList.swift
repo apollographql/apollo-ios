@@ -21,6 +21,10 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
       self.value = value
       self.index = index
     }
+
+    public var isHead: Bool {
+      index == 0      
+    }
   }
 
   final class HeadNode: Node {
@@ -71,24 +75,25 @@ public struct LinkedList<T>: ExpressibleByArrayLiteral {
     self.headNode = head
   }
 
+  @_disfavoredOverload
   public init(_ headValue: T) {    
     self.init(head: HeadNode(value: headValue))
   }
 
-  public init(array: [T]) {
-    precondition(!array.isEmpty, "Cannot initialize LinkedList with an empty array. LinkedList must have at least one element.")
-    var segments = array
-    let headNode = HeadNode(value: segments.removeFirst())
+  public init<C: Collection<T>>(_ collection: C) {
+    precondition(!collection.isEmpty, "Cannot initialize LinkedList with an empty collection. LinkedList must have at least one element.")
+    var iterator = collection.makeIterator()
+    let headNode = HeadNode(value: iterator.next()!)
 
     self.init(head: headNode)
 
-    for segment in segments {
+    while let segment = iterator.next() {
       append(segment)
     }
   }
 
   public init(arrayLiteral segments: T...) {
-    self.init(array: segments)
+    self.init(segments)
   }
 
   private func copy() -> Self {

@@ -60,6 +60,7 @@ let package = Package(
       exclude: [
         "Info.plist",
         "Frontend/JavaScript",
+        "Frontend/auto_rollup.sh",
       ]),
     .target(
       name: "ApolloSQLite",

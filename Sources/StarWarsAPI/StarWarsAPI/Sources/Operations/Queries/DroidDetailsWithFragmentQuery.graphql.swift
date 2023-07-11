@@ -5,7 +5,7 @@
 
 public class DroidDetailsWithFragmentQuery: GraphQLQuery {
   public static let operationName: String = "DroidDetailsWithFragment"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739",
     definition: .init(
       #"""
@@ -41,13 +41,15 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -68,12 +70,14 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.self)
+          ]
+        ))
       }
 
       /// Hero.AsDroid
@@ -105,16 +109,18 @@ public class DroidDetailsWithFragmentQuery: GraphQLQuery {
           name: String,
           primaryFunction: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Droid.typename,
-            "name": name,
-            "primaryFunction": primaryFunction,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self),
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "name": name,
+              "primaryFunction": primaryFunction,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.self),
+              ObjectIdentifier(DroidDetailsWithFragmentQuery.Data.Hero.AsDroid.self),
               ObjectIdentifier(DroidDetails.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
     }

@@ -84,4 +84,28 @@ class WebSocketTransportTests: XCTestCase {
       XCTFail("Delay interrupted")
     }
   }
+
+  func testSocksProxyable_whenNotProxyable() {
+    let request = URLRequest(url: TestURL.mockServer.url)
+    self.webSocketTransport = WebSocketTransport(
+      websocket: MockWebSocket(request: request, protocol: .graphql_ws),
+      store: ApolloStore()
+    )
+
+    self.webSocketTransport.enableSOCKSProxy = true
+
+    XCTAssertEqual(self.webSocketTransport.enableSOCKSProxy, false)
+  }
+
+  func testSocksProxyable() {
+    let request = URLRequest(url: TestURL.mockServer.url)
+    self.webSocketTransport = WebSocketTransport(
+      websocket: ProxyableMockWebSocket(request: request, protocol: .graphql_ws),
+      store: ApolloStore()
+    )
+
+    self.webSocketTransport.enableSOCKSProxy = true
+
+    XCTAssertEqual(self.webSocketTransport.enableSOCKSProxy, true)
+  }
 }

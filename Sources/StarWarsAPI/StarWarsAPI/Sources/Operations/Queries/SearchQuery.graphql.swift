@@ -5,7 +5,7 @@
 
 public class SearchQuery: GraphQLQuery {
   public static let operationName: String = "Search"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
     definition: .init(
       #"""
@@ -54,13 +54,15 @@ public class SearchQuery: GraphQLQuery {
     public init(
       search: [Search?]? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "search": search._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "search": search._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(SearchQuery.Data.self)
+        ]
+      ))
     }
 
     /// Search
@@ -85,12 +87,14 @@ public class SearchQuery: GraphQLQuery {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(SearchQuery.Data.Search.self)
+          ]
+        ))
       }
 
       /// Search.AsHuman
@@ -116,15 +120,17 @@ public class SearchQuery: GraphQLQuery {
           id: StarWarsAPI.ID,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Human.typename,
-            "id": id,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Human.typename,
+              "id": id,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsHuman.self)
+            ]
+          ))
         }
       }
 
@@ -151,15 +157,17 @@ public class SearchQuery: GraphQLQuery {
           id: StarWarsAPI.ID,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Droid.typename,
-            "id": id,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "id": id,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsDroid.self)
+            ]
+          ))
         }
       }
 
@@ -186,15 +194,17 @@ public class SearchQuery: GraphQLQuery {
           id: StarWarsAPI.ID,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Starship.typename,
-            "id": id,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Search.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Starship.typename,
+              "id": id,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(SearchQuery.Data.Search.self),
+              ObjectIdentifier(SearchQuery.Data.Search.AsStarship.self)
+            ]
+          ))
         }
       }
     }

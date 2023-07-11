@@ -155,6 +155,9 @@
         "name" : "Apollo"
       }
     ],
+    "platforms" : [
+
+    ],
     "required" : true,
     "role" : "symbol",
     "roleHeading" : "Instance Method",
@@ -517,6 +520,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

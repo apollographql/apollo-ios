@@ -5,7 +5,7 @@
 
 public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalBothSeparate"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5",
     definition: .init(
       #"""
@@ -49,13 +49,15 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroNameConditionalBothSeparateQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -78,13 +80,15 @@ public class HeroNameConditionalBothSeparateQuery: GraphQLQuery {
         __typename: String,
         name: String? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroNameConditionalBothSeparateQuery.Data.Hero.self)
+          ]
+        ))
       }
     }
   }

@@ -26,12 +26,14 @@ public struct DroidName: StarWarsAPI.SelectionSet, Fragment {
   public init(
     name: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": StarWarsAPI.Objects.Droid.typename,
-      "name": name,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self)
-      ])
-    ]))
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": StarWarsAPI.Objects.Droid.typename,
+        "name": name,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(DroidName.self)
+      ]
+    ))
   }
 }

@@ -24,12 +24,37 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     operationIdentifier = nil
   }
 
+  func buildConfig(
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule,
+    queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = .singleLine,
+    operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat = .definition,
+    cocoapodsCompatibleImportStatements: Bool = false
+  ) {
+    config = .mock(
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init(
+        queryStringLiteralFormat: queryStringLiteralFormat,
+        operationDocumentFormat: operationDocumentFormat,
+        cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements
+      )
+    )
+  }
+
   func renderDocumentType() throws -> String {
-    OperationDefinitionTemplate.DocumentType.render(
+    let config = ApolloCodegen.ConfigurationContext(config: config)
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: config
+    )
+
+    return OperationDefinitionTemplate.DocumentType.render(
       try XCTUnwrap(definition),
       identifier: operationIdentifier,
       fragments: referencedFragments ?? [],
-      config: ApolloCodegen.ConfigurationContext(config: config)
+      config: config,
+      accessControlRenderer: mockTemplateRenderer.accessControlModifier(for: .member)
     ).description
   }
 
@@ -43,10 +68,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -54,7 +80,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -74,10 +100,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -85,9 +112,9 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  name}"#
+        #"query NameQuery { name }"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -101,10 +128,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -112,7 +140,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery($filter: String = "MyName") {
@@ -132,10 +160,11 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -143,9 +172,9 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery($filter: String = "MyName") {  name}"#
+        #"query NameQuery($filter: String = "MyName") { name }"#
       ))
     """
     expect(actual).to(equalLineByLine(expected))
@@ -164,10 +193,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -175,7 +204,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -201,10 +230,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -212,9 +241,9 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...NameFragment}"#,
+        #"query NameQuery { ...NameFragment }"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -234,10 +263,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -245,9 +274,9 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...nameFragment}"#,
+        #"query NameQuery { ...nameFragment }"#,
         fragments: [NameFragment.self]
       ))
     """
@@ -275,10 +304,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -286,7 +315,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
         #""\"
         query NameQuery {
@@ -324,10 +353,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .singleLine,
-      apqs: .disabled
-    ))
+      operationDocumentFormat: .definition
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -335,9 +364,9 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query NameQuery {  ...Fragment1  ...Fragment2  ...Fragment3  ...Fragment4  ...FragmentWithLongName1234123412341234123412341234}"#,
+        #"query NameQuery { ...Fragment1 ...Fragment2 ...Fragment3 ...Fragment4 ...FragmentWithLongName1234123412341234123412341234 }"#,
         fragments: [Fragment1.self, Fragment2.self, Fragment3.self, Fragment4.self, FragmentWithLongName1234123412341234123412341234.self]
       ))
     """
@@ -354,10 +383,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .automaticallyPersist
-    ))
+      operationDocumentFormat: [.definition, .operationId]
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -365,7 +394,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5",
       definition: .init(
         #""\"
@@ -388,10 +417,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     }
     """
 
-    config = .mock(options: .init(
+    buildConfig(
       queryStringLiteralFormat: .multiline,
-      apqs: .persistedOperationsOnly
-    ))
+      operationDocumentFormat: .operationId
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -399,7 +428,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .persistedOperationsOnly(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
       operationIdentifier: "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5"
     )
     """
@@ -416,9 +445,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       cocoapodsCompatibleImportStatements: true
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -426,7 +456,7 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: Apollo.DocumentType = .notPersisted(
+    public static let operationDocument: Apollo.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
@@ -439,9 +469,10 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
       name
     }
     """
-    config = .mock(options: .init(
+
+    buildConfig(
       cocoapodsCompatibleImportStatements: false
-    ))
+    )
 
     // when
     let actual = try renderDocumentType()
@@ -449,7 +480,184 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
     // then
     let expected =
     """
-    public static let document: ApolloAPI.DocumentType = .notPersisted(
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  // MARK: Access Level Tests
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsInSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsEmbeddedInTargetWithPublicAccessModifier_andOperationsInSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsEmbeddedInTargetWithInternalAccessModifier_andOperationsInSchemaModule_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+      operations: .inSchemaModule
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .public)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsRelativeWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .internal)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .public)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    public static let operationDocument: ApolloAPI.OperationDocument = .init(
+    """
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
+  func test__accessLevel__givenQuery_whenModuleTypeIsSwiftPackageManager_andOperationsAbsoluteWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    definition.source =
+    """
+    query NameQuery {
+      name
+    }
+    """
+
+    buildConfig(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .internal)
+    )
+
+    // when
+    let actual = try renderDocumentType()
+
+    // then
+    let expected =
+    """
+    static let operationDocument: ApolloAPI.OperationDocument = .init(
     """
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }

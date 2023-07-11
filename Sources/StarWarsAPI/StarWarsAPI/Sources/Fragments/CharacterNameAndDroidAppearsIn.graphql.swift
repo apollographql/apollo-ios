@@ -34,13 +34,15 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
     __typename: String,
     name: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "name": name,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self)
-      ])
-    ]))
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "name": name,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
+      ]
+    ))
   }
 
   /// AsDroid
@@ -65,15 +67,17 @@ public struct CharacterNameAndDroidAppearsIn: StarWarsAPI.SelectionSet, Fragment
       appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?],
       name: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Droid.typename,
-        "appearsIn": appearsIn,
-        "name": name,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Droid.typename,
+          "appearsIn": appearsIn,
+          "name": name,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.self),
+          ObjectIdentifier(CharacterNameAndDroidAppearsIn.AsDroid.self)
+        ]
+      ))
     }
   }
 }

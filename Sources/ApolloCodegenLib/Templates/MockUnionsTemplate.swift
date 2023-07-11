@@ -11,9 +11,9 @@ struct MockUnionsTemplate: TemplateRenderer {
 
   var template: TemplateString {
     TemplateString("""
-    public extension MockObject {
+    \(accessControlModifier(for: .parent))extension MockObject {
       \(graphQLUnions.map {
-        "typealias \($0.name.firstUppercased) = Union"
+        "typealias \($0.formattedName) = Union"
       }, separator: "\n")
     }
     

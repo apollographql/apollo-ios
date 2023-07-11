@@ -5,7 +5,7 @@
 
 public class PetAdoptionMutation: GraphQLMutation {
   public static let operationName: String = "PetAdoptionMutation"
-  public static let document: ApolloAPI.DocumentType = .notPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
       #"""
       mutation PetAdoptionMutation($input: PetAdoptionInput!) {
@@ -40,13 +40,15 @@ public class PetAdoptionMutation: GraphQLMutation {
     public init(
       adoptPet: AdoptPet
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Mutation.typename,
-        "adoptPet": adoptPet._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Mutation.typename,
+          "adoptPet": adoptPet._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(PetAdoptionMutation.Data.self)
+        ]
+      ))
     }
 
     /// AdoptPet
@@ -71,14 +73,16 @@ public class PetAdoptionMutation: GraphQLMutation {
         id: AnimalKingdomAPI.ID,
         humanName: String? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "id": id,
-          "humanName": humanName,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "id": id,
+            "humanName": humanName,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(PetAdoptionMutation.Data.AdoptPet.self)
+          ]
+        ))
       }
     }
   }

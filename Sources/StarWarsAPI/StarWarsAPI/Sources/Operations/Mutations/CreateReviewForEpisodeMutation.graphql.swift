@@ -5,7 +5,7 @@
 
 public class CreateReviewForEpisodeMutation: GraphQLMutation {
   public static let operationName: String = "CreateReviewForEpisode"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d",
     definition: .init(
       #"""
@@ -52,13 +52,15 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
     public init(
       createReview: CreateReview? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Mutation.typename,
-        "createReview": createReview._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Mutation.typename,
+          "createReview": createReview._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(CreateReviewForEpisodeMutation.Data.self)
+        ]
+      ))
     }
 
     /// CreateReview
@@ -84,14 +86,16 @@ public class CreateReviewForEpisodeMutation: GraphQLMutation {
         stars: Int,
         commentary: String? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": StarWarsAPI.Objects.Review.typename,
-          "stars": stars,
-          "commentary": commentary,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": StarWarsAPI.Objects.Review.typename,
+            "stars": stars,
+            "commentary": commentary,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(CreateReviewForEpisodeMutation.Data.CreateReview.self)
+          ]
+        ))
       }
     }
   }

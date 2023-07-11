@@ -39,14 +39,16 @@ public struct CharacterNameWithNestedAppearsInFragment: StarWarsAPI.SelectionSet
     name: String,
     appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "name": name,
-      "appearsIn": appearsIn,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self),
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "name": name,
+        "appearsIn": appearsIn,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(CharacterNameWithNestedAppearsInFragment.self),
         ObjectIdentifier(CharacterAppearsIn.self)
-      ])
-    ]))
+      ]
+    ))
   }
 }

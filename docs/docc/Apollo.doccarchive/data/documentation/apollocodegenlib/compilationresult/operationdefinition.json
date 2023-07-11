@@ -85,7 +85,8 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
-        "doc:\/\/ApolloCodegenLib\/SQ"
+        "doc:\/\/ApolloCodegenLib\/SQ",
+        "doc:\/\/ApolloCodegenLib\/SH"
       ],
       "kind" : "relationships",
       "title" : "Conforms To",
@@ -114,6 +115,12 @@
       "title" : "Instance Properties"
     },
     {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition\/hash(into:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
       "generated" : true,
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition\/Equatable-Implementations"
@@ -135,6 +142,11 @@
   ]
 , 
 "references": {
+"doc://ApolloCodegenLib/SH": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
+  "title" : "Swift.Hashable",
+  "type" : "unresolvable"
+},
 "doc://ApolloCodegenLib/SQ": {
   "identifier" : "doc:\/\/ApolloCodegenLib\/SQ",
   "title" : "Swift.Equatable",
@@ -345,6 +357,60 @@
   "title" : "debugDescription",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationdefinition\/debugdescription"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/CompilationResult/OperationDefinition/hash(into:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hash"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "into"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s6HasherV",
+      "text" : "Hasher"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/CompilationResult\/OperationDefinition\/hash(into:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hash(into:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/compilationresult\/operationdefinition\/hash(into:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/JavaScriptObject": {
   "abstract" : [

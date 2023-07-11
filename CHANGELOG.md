@@ -1,5 +1,59 @@
 # Change Log
 
+## v1.3.0
+
+Though `1.3.0` is a minor version bump, some critical issues were addressed in this version that requires a small breaking change during the upgrade.  While we strive to make the upgrade path for minor versions seamless, these issues could not be reasonably resolved without requiring this migration.
+
+For a detailed explanation of the breaking changes and a guide on how to migrate to `1.3.0`, see our [migration guide](https://www.apollographql.com/docs/ios/migrations/1.3).
+
+### Breaking
+- **Using reserved keyword `Type` as in selection fields does not compile ([#3006](https://github.com/apollographql/apollo-ios/issues/3006)):** See PR [#3058](https://github.com/apollographql/apollo-ios/pull/3058). _Thank you to [@Nielssg](https://github.com/Nielssg) for raising the issue._
+- **Memory leak from `InterceptorRequestChain` when ending the chain with `returnValueAsync` ([#3057](https://github.com/apollographql/apollo-ios/issues/3057)):** See PR [#3070](https://github.com/apollographql/apollo-ios/pull/3070). _Thank you to [@marksvend](https://github.com/marksvend) for raising the issue._
+
+## v1.2.2
+
+### Added
+- **Support SOCKS proxies for debugging websocket based subscriptions([#2788](https://github.com/apollographql/apollo-ios/issues/2788)):** _Thank you to [@tahirmit](https://github.com/tahirmt) for the contribution._ 
+
+### Fixed
+- **Fix conversion of generated models into nested type cases ([#2989](https://github.com/apollographql/apollo-ios/issues/2989) & [#2980](https://github.com/apollographql/apollo-ios/issues/2980)):** In some cases, the generated models were missing types when calculating which fragments were fulfilled for a selection set. This was causing type case conversion to return `nil` incorrectly. See PR [#3067](https://github.com/apollographql/apollo-ios/pull/3067). _Thank you to [@tgyhlsb](https://github.com/tgyhlsb) and [@dafurman](https://github.com/dafurman) for raising these issues._
+- **Fix crashes in code generation when merging fragments at definition root ([#3071](https://github.com/apollographql/apollo-ios/issues/3071)):** When fragments with type conditions were defined on the root of an operation or named fragment, the code generation engine was crashing. See PR [#3073](https://github.com/apollographql/apollo-ios/pull/3073). _Thank you to [@tahirmit](https://github.com/tahirmt) for raising and helping us reproduce this issue._
+- **Fix parsing of input objects as default values for input params ([#2978](https://github.com/apollographql/apollo-ios/issues/2978)):** The codegen engine will no longer crash in this situation. _Thank you to [@ecunha-ta](https://github.com/ecunha-ta) for raising the issue._
+
+## v1.2.1
+
+### Improved
+- **Added new validation to alert users to type naming conflict when running code generation([#2405](https://github.com/apollographql/apollo-ios/issues/2405)):** See PR [#3041](https://github.com/apollographql/apollo-ios/pull/3041).
+
+### Fixed
+- **Int values failing to cast to Scalar Type during cache key resolution ([#3034](https://github.com/apollographql/apollo-ios/issues/3034)):** See PR [#3037](https://github.com/apollographql/apollo-ios/pull/3037). _Thank you to [@asbhat](https://github.com/asbhat) for raising the issue._
+- **Fix malformed RootEntityType on generated fragment with `@include` condition. ([#2962](https://github.com/apollographql/apollo-ios/issues/2962)):** See PR [#3045](https://github.com/apollographql/apollo-ios/pull/3045). _Thank you to [@alexisbronchart](https://github.com/alexisbronchart) for raising the issue._
+
+
+## v1.2
+
+Though 1.2 is a minor version bump, a critical problem was addressed in this version that requires a small breaking change during the upgrade.  While we strive to make the upgrade path for minor versions seamless, this issue could not be reasonably resolved without requiring this migration.
+
+**For most users, this migration will only require a single change to your `SchemaConfiguration.swift` file.**
+
+For a detailed explanation of the breaking changes and a guide on how to migrate to v1.2, see our [migration guide](https://www.apollographql.com/docs/ios/migrations/1.2).
+
+### Breaking
+- **Cache Key Configuration API Changes ([#2990](https://github.com/apollographql/apollo-ios/pull/2990)):** The API for configuring custom cache keys has had a minor change in this version. The signature of the `cacheKeyInfo(for:object:)` function, defined in your generated SchemaConfiguration.swift file, has been modified. For more information, see our [migration guide](https://www.apollographql.com/docs/ios/migrations/1.2).
+
+### Improved
+- **Improved performance of GraphQL execution ([#2990](https://github.com/apollographql/apollo-ios/pull/2990)):** Improvements to the `GraphQLExecutor` resulted in a ~15-20% reduction in execution time for parsing and mapping network response or cache data onto generated models.
+- **Improved performance of generated model initialization and type conversions ([#2990](https://github.com/apollographql/apollo-ios/pull/2990)):** The `DataDict` used to store the data for generated models has been updated to use copy-on-write value semantics. This resulted in a ~70-80% reduction in the execution time of initialization and type case conversions in the generated models.
+
+### Fixed
+- **Pruning generated files for `.relative(subpath:)` operations ([#2969](https://github.com/apollographql/apollo-ios/issues/2969)):** See PR [#2994](https://github.com/apollographql/apollo-ios/pull/2994). _Thank you to [@jimisaacs](https://github.com/jimisaacs) for raising the issue._
+- **InputObjects generated with incorrect getter/setter key ([#2858](https://github.com/apollographql/apollo-ios/issues/2858)):** See PR [#2996](https://github.com/apollographql/apollo-ios/pull/2996). _Thank you to [@Austinpayne](https://github.com/Austinpayne) for raising the issue._
+- **Generates conflicting types for fields of singular and plural names ([#2850](https://github.com/apollographql/apollo-ios/issues/2850)):** See PR [#3009](https://github.com/apollographql/apollo-ios/pull/3009). _Thank you to [@sgade](https://github.com/sgade) for raising the issue._
+- **Equality operator shows incorrect values based on value of `__fulfilled` ([#2944](https://github.com/apollographql/apollo-ios/issues/2944)):** See PR [#2990](https://github.com/apollographql/apollo-ios/pull/2990). _Thank you to [@scottasoutherland](https://github.com/scottasoutherland) for raising the issue._
+
+### New
+- **Add option to generate objects with `internal` access modifier ([#2630](https://github.com/apollographql/apollo-ios/issues/2630)):** See PR [#2917](https://github.com/apollographql/apollo-ios/pull/2917). _Thank you to [@simonbilskyrollins](https://github.com/simonbilskyrollins) for the feature request._
+
 ## v1.1.3
 
 ### Fixed

@@ -558,7 +558,7 @@ enum TestMockSchema: SchemaMetadata {
   static var configuration: SchemaConfiguration.Type { Configuration.self }
 
   enum Configuration: SchemaConfiguration {
-    static func cacheKeyInfo(for type: Object, object: JSONObject) -> CacheKeyInfo? {
+    static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo? {
       return nil
     }
   }
@@ -615,7 +615,7 @@ class Dog: MockObject {
 extension Mock where O == Dog {
   var hash: String? {
     get { _data["hash"] as? String }
-    set { _set(newValue, for: \.hash) }
+    set { _setScalar(newValue, for: \.hash) }
   }
 
   convenience init(
@@ -623,8 +623,8 @@ extension Mock where O == Dog {
     hash: String? = nil
   ) {
     self.init()
-    _set(speciesType, for: \.speciesType)
-    _set(hash, for: \.hash)
+    _setScalar(speciesType, for: \.speciesType)
+    _setScalar(hash, for: \.hash)
   }
 }
 

@@ -5,7 +5,7 @@
 
 public class HumanQuery: GraphQLQuery {
   public static let operationName: String = "Human"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e",
     definition: .init(
       #"""
@@ -41,13 +41,15 @@ public class HumanQuery: GraphQLQuery {
     public init(
       human: Human? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "human": human._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "human": human._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HumanQuery.Data.self)
+        ]
+      ))
     }
 
     /// Human
@@ -73,14 +75,16 @@ public class HumanQuery: GraphQLQuery {
         name: String,
         mass: Double? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": StarWarsAPI.Objects.Human.typename,
-          "name": name,
-          "mass": mass,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": StarWarsAPI.Objects.Human.typename,
+            "name": name,
+            "mass": mass,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HumanQuery.Data.Human.self)
+          ]
+        ))
       }
     }
   }

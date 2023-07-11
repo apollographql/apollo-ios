@@ -53,12 +53,14 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public init(
     __typename: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self)
-      ])
-    ]))
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(ClassroomPetDetails.self)
+      ]
+    ))
   }
 
   /// AsAnimal
@@ -80,14 +82,16 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       species: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": __typename,
-        "species": species,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": __typename,
+          "species": species,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self)
+        ]
+      ))
     }
   }
 
@@ -110,14 +114,16 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       __typename: String,
       humanName: String? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": __typename,
-        "humanName": humanName,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": __typename,
+          "humanName": humanName,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self)
+        ]
+      ))
     }
   }
 
@@ -142,15 +148,18 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       laysEggs: Bool,
       species: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": __typename,
-        "laysEggs": laysEggs,
-        "species": species,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": __typename,
+          "laysEggs": laysEggs,
+          "species": species,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self)
+        ]
+      ))
     }
   }
 
@@ -181,18 +190,23 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       humanName: String? = nil,
       laysEggs: Bool
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Cat.typename,
-        "bodyTemperature": bodyTemperature,
-        "isJellicle": isJellicle,
-        "species": species,
-        "humanName": humanName,
-        "laysEggs": laysEggs,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Cat.typename,
+          "bodyTemperature": bodyTemperature,
+          "isJellicle": isJellicle,
+          "species": species,
+          "humanName": humanName,
+          "laysEggs": laysEggs,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsCat.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self)
+        ]
+      ))
     }
   }
 
@@ -220,17 +234,22 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       humanName: String? = nil,
       laysEggs: Bool
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Bird.typename,
-        "wingspan": wingspan,
-        "species": species,
-        "humanName": humanName,
-        "laysEggs": laysEggs,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+          "wingspan": wingspan,
+          "species": species,
+          "humanName": humanName,
+          "laysEggs": laysEggs,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsBird.self),
+          ObjectIdentifier(ClassroomPetDetails.AsAnimal.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self),
+          ObjectIdentifier(ClassroomPetDetails.AsWarmBlooded.self)
+        ]
+      ))
     }
   }
 
@@ -254,15 +273,18 @@ public struct ClassroomPetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
       favoriteToy: String,
       humanName: String? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.PetRock.typename,
-        "favoriteToy": favoriteToy,
-        "humanName": humanName,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(ClassroomPetDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.PetRock.typename,
+          "favoriteToy": favoriteToy,
+          "humanName": humanName,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ClassroomPetDetails.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPetRock.self),
+          ObjectIdentifier(ClassroomPetDetails.AsPet.self)
+        ]
+      ))
     }
   }
 }

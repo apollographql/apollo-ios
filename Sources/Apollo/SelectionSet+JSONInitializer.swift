@@ -21,10 +21,7 @@ extension RootSelectionSet {
     let accumulator = GraphQLSelectionSetMapper<Self>(
       handleMissingValues: .allowForOptionalFields
     )
-    let executor = GraphQLExecutor { object, info in
-      return object[info.responseKeyForField]
-    }
-    executor.shouldComputeCachePath = false
+    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
     self = try executor.execute(
       selectionSet: Self.self,

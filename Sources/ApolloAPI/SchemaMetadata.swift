@@ -32,7 +32,7 @@ extension SchemaMetadata {
   /// - Returns: An ``Object`` type representing the response object if the type is known to the
   /// schema. If the schema does not include a known ``Object`` with the given ``Object/typename``,
   /// returns `nil`.
-  @inlinable public static func graphQLType(for object: JSONObject) -> Object? {
+  @inlinable public static func graphQLType(for object: ObjectData) -> Object? {
     guard let typename = object["__typename"] as? String else {
       return nil
     }
@@ -40,7 +40,7 @@ extension SchemaMetadata {
     Object(typename: typename, implementedInterfaces: [])
   }
 
-  /// Resolves the ``CacheReference`` for an object in a GraphQL response to be used by
+  /// Resolves the cache key for an object in a GraphQL response to be used by
   /// `NormalizedCache` mechanisms.
   ///
   /// Maps the type of the `object` using the ``graphQLType(for:)`` function, then gets the
@@ -50,13 +50,13 @@ extension SchemaMetadata {
   /// for the `NormalizedCache`.
   ///
   /// - Parameter object: A ``JSONObject`` dictionary representing an object in a GraphQL response.
-  /// - Returns: The ``CacheReference`` for the `object` to be used by
+  /// - Returns: A `String` representing the cache key for the `object` to be used by
   /// `NormalizedCache` mechanisms.
-  @inlinable public static func cacheKey(for object: JSONObject) -> CacheReference? {
+  @inlinable public static func cacheKey(for object: ObjectData) -> String? {
     guard let type = graphQLType(for: object),
           let info = configuration.cacheKeyInfo(for: type, object: object) else {
       return nil
     }
-    return CacheReference("\(info.uniqueKeyGroup ?? type.typename):\(info.id)")
+    return "\(info.uniqueKeyGroup ?? type.typename):\(info.id)"
   }
 }

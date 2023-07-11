@@ -5,7 +5,7 @@
 
 public class HeroNameAndAppearsInQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameAndAppearsIn"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce",
     definition: .init(
       #"""
@@ -41,13 +41,15 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroNameAndAppearsInQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -74,14 +76,16 @@ public class HeroNameAndAppearsInQuery: GraphQLQuery {
         name: String,
         appearsIn: [GraphQLEnum<StarWarsAPI.Episode>?]
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "appearsIn": appearsIn,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+            "appearsIn": appearsIn,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroNameAndAppearsInQuery.Data.Hero.self)
+          ]
+        ))
       }
     }
   }

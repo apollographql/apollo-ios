@@ -40,13 +40,15 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
     __typename: String,
     name: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "name": name,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self)
-      ])
-    ]))
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "name": name,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(HeroDetails.self)
+      ]
+    ))
   }
 
   /// AsHuman
@@ -71,15 +73,17 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       height: Double? = nil,
       name: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Human.typename,
-        "height": height,
-        "name": name,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(HeroDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Human.typename,
+          "height": height,
+          "name": name,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroDetails.self),
+          ObjectIdentifier(HeroDetails.AsHuman.self)
+        ]
+      ))
     }
   }
 
@@ -105,15 +109,17 @@ public struct HeroDetails: StarWarsAPI.SelectionSet, Fragment {
       primaryFunction: String? = nil,
       name: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Droid.typename,
-        "primaryFunction": primaryFunction,
-        "name": name,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
-          ObjectIdentifier(HeroDetails.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Droid.typename,
+          "primaryFunction": primaryFunction,
+          "name": name,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroDetails.self),
+          ObjectIdentifier(HeroDetails.AsDroid.self)
+        ]
+      ))
     }
   }
 }

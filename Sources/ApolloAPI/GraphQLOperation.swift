@@ -12,30 +12,22 @@ public enum GraphQLOperationType: Hashable {
 /// This data represents the `Document` as defined in the GraphQL Spec.
 /// - See: [GraphQLSpec - Document](https://spec.graphql.org/draft/#Document)
 ///
-/// The Apollo Code Generation Engine will generate the `DocumentType` on each generated
-/// `GraphQLOperation`. You can change the type of `DocumentType` generated in your
-/// [code generation configuration](// TODO: ADD URL TO DOCUMENTATION HERE).
-public enum DocumentType {
-  /// The traditional way of providing the operation `Document`.
-  /// The `Document` is sent with every operation request.
-  case notPersisted(definition: OperationDefinition)
+/// The Apollo Code Generation Engine will generate the ``OperationDocument`` on each generated
+/// ``GraphQLOperation``. You can configure the the code generation engine to include the
+/// ``OperationDefinition``, ``operationIdentifier``, or both using the `OperationDocumentFormat`
+/// options in your `ApolloCodegenConfiguration`.
+public struct OperationDocument {
+  public let operationIdentifier: String?
+  public let definition: OperationDefinition?
 
-  /// Automatically persists your operations using Apollo Server's
-  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
-  ///
-  /// This allow the operation definition to be persisted using an `operationIdentifier` instead of
-  /// being sent with every operation request. If the server does not recognize the
-  /// `operationIdentifier`, the network transport can send the provided definition to
-  /// "automatically persist" the operation definition.
-  case automaticallyPersisted(operationIdentifier: String, definition: OperationDefinition)
-
-  /// Provides only the `operationIdentifier` for operations that have been previously persisted
-  /// to an Apollo Server using
-  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
-  ///
-  /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
-  /// method should only be used if you are manually persisting your queries to an Apollo Server.  
-  case persistedOperationsOnly(operationIdentifier: String)
+  public init(
+    operationIdentifier: String? = nil,
+    definition: OperationDefinition? = nil
+  ) {
+    precondition(operationIdentifier != nil || definition != nil)
+    self.operationIdentifier = operationIdentifier
+    self.definition = definition
+  }
 }
 
 /// The definition of an operation to be provided over network transport.
@@ -66,7 +58,7 @@ public protocol GraphQLOperation: AnyObject, Hashable {
 
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
-  static var document: DocumentType { get }
+  static var operationDocument: OperationDocument { get }
 
   var __variables: Variables? { get }
 
@@ -79,21 +71,11 @@ public extension GraphQLOperation {
   }
 
   static var definition: OperationDefinition? {
-    switch self.document {
-    case let .automaticallyPersisted(_, definition),
-      let .notPersisted(definition):
-      return definition
-    default: return nil
-    }
+    operationDocument.definition
   }
   
   static var operationIdentifier: String? {
-    switch self.document {
-    case let .automaticallyPersisted(identifier, _),
-      let .persistedOperationsOnly(identifier):
-      return identifier
-    default: return nil
-    }
+    operationDocument.operationIdentifier
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
@@ -159,4 +141,46 @@ extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperatio
 
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
+}
+
+// MARK: - Deprecations
+
+@available(*, deprecated, renamed: "OperationDocument")
+public enum DocumentType {
+  /// The traditional way of providing the operation `Document`.
+  /// The `Document` is sent with every operation request.
+  case notPersisted(definition: OperationDefinition)
+
+  /// Automatically persists your operations using Apollo Server's
+  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  ///
+  /// This allow the operation definition to be persisted using an `operationIdentifier` instead of
+  /// being sent with every operation request. If the server does not recognize the
+  /// `operationIdentifier`, the network transport can send the provided definition to
+  /// "automatically persist" the operation definition.
+  case automaticallyPersisted(operationIdentifier: String, definition: OperationDefinition)
+
+  /// Provides only the `operationIdentifier` for operations that have been previously persisted
+  /// to an Apollo Server using
+  /// [APQs](https://www.apollographql.com/docs/apollo-server/performance/apq).
+  ///
+  /// If the server does not recognize the `operationIdentifier`, the operation will fail. This
+  /// method should only be used if you are manually persisting your queries to an Apollo Server.
+  case persistedOperationsOnly(operationIdentifier: String)
+}
+
+extension GraphQLOperation {
+  @available(*, deprecated, renamed: "operationDocument")
+  static public var document: DocumentType {
+    switch (operationDocument.definition, operationDocument.operationIdentifier) {
+    case let (definition?, id?):
+      return .automaticallyPersisted(operationIdentifier: id, definition: definition)
+    case let (definition?, .none):
+      return .notPersisted(definition: definition)
+    case let (.none, id?):
+      return .persistedOperationsOnly(operationIdentifier: id)
+    default:
+      preconditionFailure("operationDocument must have either a definition or an identifier.")
+    }
+  }
 }

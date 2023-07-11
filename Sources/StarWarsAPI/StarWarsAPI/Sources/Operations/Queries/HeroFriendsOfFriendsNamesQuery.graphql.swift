@@ -5,7 +5,7 @@
 
 public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsOfFriendsNames"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01",
     definition: .init(
       #"""
@@ -47,13 +47,15 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -76,13 +78,15 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
         __typename: String,
         friends: [Friend?]? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "friends": friends._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "friends": friends._fieldData,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.self)
+          ]
+        ))
       }
 
       /// Hero.Friend
@@ -109,14 +113,16 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
           id: StarWarsAPI.ID,
           friends: [Friend?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "id": id,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "id": id,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.Friend.self)
+            ]
+          ))
         }
 
         /// Hero.Friend.Friend
@@ -139,13 +145,15 @@ public class HeroFriendsOfFriendsNamesQuery: GraphQLQuery {
             __typename: String,
             name: String
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": __typename,
-              "name": name,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self)
-              ])
-            ]))
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": __typename,
+                "name": name,
+              ],
+              fulfilledFragments: [
+                ObjectIdentifier(HeroFriendsOfFriendsNamesQuery.Data.Hero.Friend.Friend.self)
+              ]
+            ))
           }
         }
       }

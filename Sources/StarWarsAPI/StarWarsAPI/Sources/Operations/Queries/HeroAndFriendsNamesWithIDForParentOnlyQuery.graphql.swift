@@ -5,7 +5,7 @@
 
 public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithIDForParentOnly"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f",
     definition: .init(
       #"""
@@ -45,13 +45,15 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -82,15 +84,17 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
         name: String,
         friends: [Friend?]? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "id": id,
-          "name": name,
-          "friends": friends._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "id": id,
+            "name": name,
+            "friends": friends._fieldData,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.Hero.self)
+          ]
+        ))
       }
 
       /// Hero.Friend
@@ -113,13 +117,15 @@ public class HeroAndFriendsNamesWithIDForParentOnlyQuery: GraphQLQuery {
           __typename: String,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroAndFriendsNamesWithIDForParentOnlyQuery.Data.Hero.Friend.self)
+            ]
+          ))
         }
       }
     }

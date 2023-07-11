@@ -314,8 +314,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI10JSONObjecta",
-      "text" : "JSONObject"
+      "preciseIdentifier" : "s:9ApolloAPI10ObjectDataV",
+      "text" : "ObjectData"
     },
     {
       "kind" : "text",

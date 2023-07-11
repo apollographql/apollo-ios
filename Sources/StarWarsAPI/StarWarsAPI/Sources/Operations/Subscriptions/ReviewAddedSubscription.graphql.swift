@@ -5,7 +5,7 @@
 
 public class ReviewAddedSubscription: GraphQLSubscription {
   public static let operationName: String = "ReviewAdded"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
     definition: .init(
       #"""
@@ -42,13 +42,15 @@ public class ReviewAddedSubscription: GraphQLSubscription {
     public init(
       reviewAdded: ReviewAdded? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Subscription.typename,
-        "reviewAdded": reviewAdded._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Subscription.typename,
+          "reviewAdded": reviewAdded._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(ReviewAddedSubscription.Data.self)
+        ]
+      ))
     }
 
     /// ReviewAdded
@@ -78,15 +80,17 @@ public class ReviewAddedSubscription: GraphQLSubscription {
         stars: Int,
         commentary: String? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": StarWarsAPI.Objects.Review.typename,
-          "episode": episode,
-          "stars": stars,
-          "commentary": commentary,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": StarWarsAPI.Objects.Review.typename,
+            "episode": episode,
+            "stars": stars,
+            "commentary": commentary,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(ReviewAddedSubscription.Data.ReviewAdded.self)
+          ]
+        ))
       }
     }
   }

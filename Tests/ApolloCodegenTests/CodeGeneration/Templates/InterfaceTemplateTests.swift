@@ -12,7 +12,7 @@ class InterfaceTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "Dog",
@@ -49,23 +49,6 @@ class InterfaceTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected))
-  }
-
-  // MARK: Class Definition Tests
-
-  func test_render_givenModuleType_swiftPackageManager_generatesSwiftClassDefinition_withPublicModifier() {
-    // given
-    buildSubject(config: .mock(.swiftPackageManager))
-
-    let expected = """
-    static let Dog = Interface(name: "Dog")
-    """
-
-    // when
-    let actual = renderSubject()
-
-    // then
-    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
   // MARK: Documentation Tests
@@ -109,4 +92,26 @@ class InterfaceTemplateTests: XCTestCase {
     // then
     expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test_render_givenSchemaInterfaceUsingReservedKeyword_generatesWithEscapedType() throws {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword)
+
+      let expected = """
+      static let \(keyword.firstUppercased)_Interface = Interface(name: "\(keyword)")
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected))
+    }
+  }
+  
 }

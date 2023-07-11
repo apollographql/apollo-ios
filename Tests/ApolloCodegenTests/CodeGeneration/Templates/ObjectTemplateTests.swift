@@ -13,7 +13,7 @@ class ObjectTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "Dog",
@@ -169,4 +169,26 @@ class ObjectTemplateTests: XCTestCase {
     expect(rendered).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  // MARK: - Reserved Keyword Tests
+  
+  func test_render_usingReservedKeyword_shouldHaveSuffixedType() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword)
+
+      let expected = """
+      static let \(keyword.firstUppercased)_Object = Object(
+        typename: "\(keyword)",
+      """
+
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
+  }
+  
 }

@@ -7,8 +7,8 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
 
   open class var operationName: String { "MockOperationName" }
 
-  open class var document: DocumentType {
-    .notPersisted(definition: .init("Mock Operation Definition"))
+  open class var operationDocument: OperationDocument {
+    .init(definition: .init("Mock Operation Definition"))
   }
 
   open var __variables: Variables?
@@ -92,6 +92,6 @@ open class ConcreteMockTypeCase<T: MockSelectionSet>: MockSelectionSet, InlineFr
 
 extension DataDict {
   public static func empty() -> DataDict {
-    DataDict(data: [:])
+    DataDict(data: [:], fulfilledFragments: [])
   }
 }

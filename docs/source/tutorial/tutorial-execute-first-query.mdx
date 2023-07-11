@@ -1,0 +1,61 @@
+---
+title: "5. Execute your first query"
+---
+
+To use the generated operations in `RocketReserverAPI`, you first create an instance of `ApolloClient`. This instance takes your generated code and uses it to make network calls to your server. It's recommended that this instance is a singleton or static instance that's accessible from anywhere in your codebase.
+
+## Create an ApolloClient
+
+1. Create a new Swift file within `RocketReserver` called `Network.swift`.  Set the target to `RocketReserver` and add `import Apollo` to the top of the file.
+
+2. Now add the following code into the file:
+
+```swift title="Network.swift"
+class Network {
+  static let shared = Network()
+
+  private(set) lazy var apollo = ApolloClient(url: URL(string: "https://apollo-fullstack-tutorial.herokuapp.com/graphql")!)
+}
+```
+
+## Implement the query
+
+To make sure your `ApolloClient` instance is communicating correctly with the server, go to `LaunchListViewModel`, add these imports, then add the following code to the `init()` method just below the TODO:
+
+```swift title="LaunchListViewModel.swift"
+import Apollo
+import RocketReserverAPI
+
+...
+
+init() {
+    // TODO (Section 13 - https://www.apollographql.com/docs/ios/tutorial/tutorial-subscriptions#use-your-subscription)
+    Network.shared.apollo.fetch(query: LaunchListQuery()) { result in
+        switch result {
+        case .success(let graphQLResult):
+            print("Success! Result: \(graphQLResult)")
+        case .failure(let error):
+            print("Failure! Error: \(error)")
+        }
+    }
+}
+```
+
+## Test your query
+
+Build and run your application. The web host might take a few seconds to spin up your GraphQL server if nobody's been using it recently, but once it's up, you should see a response that resembles the following:
+
+<img src="images/query_console_log_sample.png" class="screenshot" alt="Query console log output, beginning with 'Success! Result: GraphQLResult...'"/>
+
+This means the request was correctly executed and you now have a list of launch sites 🚀🚀🚀.
+
+Go ahead and remove the code added to the `init()` method so there is just the TODO for later:
+
+
+```swift title="LaunchListViewModel.swift"
+init() {
+    // TODO (Section 13 - https://www.apollographql.com/docs/ios/tutorial/tutorial-subscriptions#use-your-subscription)
+}
+```
+
+Next, let's [connect this data to your UI](tutorial-connect-queries-to-ui)

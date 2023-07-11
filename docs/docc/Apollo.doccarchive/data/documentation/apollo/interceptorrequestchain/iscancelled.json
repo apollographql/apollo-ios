@@ -73,6 +73,20 @@
           ],
           "tokens" : [
             {
+              "kind" : "attribute",
+              "text" : "@"
+            },
+            {
+              "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Atomic",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:6Apollo6AtomicC",
+              "text" : "Atomic"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
               "kind" : "keyword",
               "text" : "var"
             },
@@ -146,6 +160,44 @@
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
+},
+"doc://Apollo/documentation/Apollo/Atomic": {
+  "abstract" : [
+    {
+      "text" : "Wrapper for a value protected by an ",
+      "type" : "text"
+    },
+    {
+      "code" : "NSLock",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "class"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Atomic",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Atomic"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Atomic",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/atomic"
 },
 "doc://Apollo/documentation/Apollo/InterceptorRequestChain": {
   "abstract" : [

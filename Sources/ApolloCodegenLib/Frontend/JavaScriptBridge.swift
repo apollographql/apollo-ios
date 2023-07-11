@@ -394,6 +394,25 @@ extension JSValue {
 
     return dictionary
   }
+
+  // The regular `toDictionary()` creates an `NSDictionary` that while it preserves the order of
+  // `keys` from JavaScript during initialization, there is no order afterwards. `OrderedDictionary`
+  // provides for the preservation and subsequent use of ordering in the collection.
+  func toOrderedDictionary<Value>(_ transform: (JSValue) throws -> (String, Value)) rethrows -> OrderedDictionary<String, Value> {
+    precondition(isArray, "Expected JavaScript array but found: \(self)")
+
+    let length = self["length"].toInt()
+
+    var dictionary = OrderedDictionary<String, Value>()
+    dictionary.reserveCapacity(length)
+
+    for index in 0..<length {
+      let (key, value) = try transform(self[index])
+      dictionary[key] = value
+    }
+
+    return dictionary
+  }
 }
 
 private func checkedDowncast<ExpectedType: AnyObject>(_ object: AnyObject) -> ExpectedType {

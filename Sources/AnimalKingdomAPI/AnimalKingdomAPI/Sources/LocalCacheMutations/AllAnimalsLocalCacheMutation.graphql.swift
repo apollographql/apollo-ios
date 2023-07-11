@@ -25,13 +25,15 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
     public init(
       allAnimals: [AllAnimal]
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Query.typename,
-        "allAnimals": allAnimals._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Query.typename,
+          "allAnimals": allAnimals._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.self)
+        ]
+      ))
     }
 
     /// AllAnimal
@@ -68,14 +70,16 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
         species: String,
         skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "skinCovering": skinCovering,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+            "skinCovering": skinCovering,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.self)
+          ]
+        ))
       }
 
       /// AllAnimal.AsBird
@@ -109,16 +113,18 @@ public class AllAnimalsLocalCacheMutation: LocalCacheMutation {
           species: String,
           skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": AnimalKingdomAPI.Objects.Bird.typename,
-            "wingspan": wingspan,
-            "species": species,
-            "skinCovering": skinCovering,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": AnimalKingdomAPI.Objects.Bird.typename,
+              "wingspan": wingspan,
+              "species": species,
+              "skinCovering": skinCovering,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.self),
+              ObjectIdentifier(AllAnimalsLocalCacheMutation.Data.AllAnimal.AsBird.self)
+            ]
+          ))
         }
       }
     }

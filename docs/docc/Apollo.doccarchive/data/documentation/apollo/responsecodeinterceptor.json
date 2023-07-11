@@ -105,6 +105,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/id"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/interceptAsync(chain:request:response:completion:)"
       ],
       "title" : "Instance Methods"
@@ -242,6 +248,40 @@
   "title" : "ResponseCodeInterceptor.ResponseCodeError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror"
+},
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/id": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "id"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/id",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "id",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsecodeinterceptor\/id"
 },
 "doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/init()": {
   "abstract" : [

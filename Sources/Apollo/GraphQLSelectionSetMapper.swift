@@ -5,6 +5,8 @@ import ApolloAPI
 /// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
 final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
+  let requiresCacheKeyComputation: Bool = false
+
   let stripNullValues: Bool
   let handleMissingValues: HandleMissingValues
 
@@ -64,7 +66,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     return list
   }
 
-  func accept(childObject: DataDict.SelectionSetData, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
     return childObject
   }
 
@@ -76,13 +78,14 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
-  ) throws -> DataDict.SelectionSetData {
-    var data = DataDict.SelectionSetData.init(fieldEntries, uniquingKeysWith: { (_, last) in last })
-    data["__fulfilled"] = info.fulfilledFragments
-    return data
+  ) throws -> DataDict {
+    return DataDict(
+      data: .init(fieldEntries, uniquingKeysWith: { (_, last) in last }),
+      fulfilledFragments: info.fulfilledFragments
+    )
   }
 
-  func finish(rootValue: DataDict.SelectionSetData, info: ObjectExecutionInfo) -> T {
-    return T.init(_dataDict: DataDict(data: rootValue))
+  func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
+    return T.init(_dataDict: rootValue)
   }
 }

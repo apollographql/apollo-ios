@@ -15,19 +15,20 @@ class MockObjectTemplateTests: XCTestCase {
     super.tearDown()
   }
 
-  // MARK: Helpers
+  // MARK: - Helpers
 
   private func buildSubject(
     name: String = "Dog",
     interfaces: [GraphQLInterfaceType] = [],
     schemaNamespace: String = "TestSchema",
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    testMocks: ApolloCodegenConfiguration.TestMockFileOutput = .swiftPackage(),
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude
   ) {
     let config = ApolloCodegenConfiguration.mock(
-      moduleType,
-      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage),
-      schemaNamespace: schemaNamespace
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, testMocks: testMocks),
+      options: .init(warningsOnDeprecatedUsage: warningsOnDeprecatedUsage)
     )
     ir = IR.mock(compilationResult: .mock())
 
@@ -50,7 +51,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(self.subject.target).to(equal(.testMockFile))
   }
 
-  func test_render_givenSchemaType_generatesExtension() {
+  func test__render__givenSchemaType_generatesExtension() {
     // given
     buildSubject(name: "Dog", moduleType: .swiftPackageManager)
 
@@ -75,7 +76,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Casing Tests
 
-  func test_render_givenSchemaTypeWithLowercaseName_generatesCapitalizedClassName() {
+  func test__render__givenSchemaTypeWithLowercaseName_generatesCapitalizedClassName() {
     // given
     buildSubject(name: "dog")
 
@@ -98,7 +99,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
-  func test_render_givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
+  func test__render__givenLowercasedSchemaName_generatesFirstUppercasedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "lowercased")
 
@@ -113,7 +114,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
+  func test__render__givenUppercasedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "UPPER")
 
@@ -128,7 +129,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 2, ignoringExtraLines: true))
   }
 
-  func test_render_givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
+  func test__render__givenCapitalizedSchemaName_generatesCapitalizedSchemaNameReferences() {
     // given
     buildSubject(schemaNamespace: "MySchema")
 
@@ -145,7 +146,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Mock Field Tests
 
-  func test_render_givenSchemaType_generatesFieldAccessors() {
+  func test__render__givenSchemaType_generatesFieldAccessors() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -186,7 +187,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldsWithLowercaseTypeNames_generatesFieldAccessors() {
+  func test__render__givenFieldsWithLowercaseTypeNames_generatesFieldAccessors() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -219,7 +220,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
+  func test__render__givenFieldsWithSwiftReservedKeyworkNames_generatesFieldsEscapedWithBackticks() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -354,7 +355,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Interface_named_Actor_generatesFieldsWithNamespace() {
+  func test__render__givenFieldType_Interface_named_Actor_generatesFieldsWithNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -383,7 +384,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Union_named_Actor_generatesFieldsWithNamespace() {
+  func test__render__givenFieldType_Union_named_Actor_generatesFieldsWithNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -412,7 +413,7 @@ class MockObjectTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
-  func test_render_givenFieldType_Object_named_Actor_generatesFieldsWithoutNamespace() {
+  func test__render__givenFieldType_Object_named_Actor_generatesFieldsWithoutNamespace() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -475,7 +476,7 @@ class MockObjectTemplateTests: XCTestCase {
 
   // MARK: Convenience Initializer Tests
 
-  func test_render_givenSchemaType_generatesConvenienceInitializer() {
+  func test__render__givenSchemaType_generatesConvenienceInitializer() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -532,22 +533,22 @@ class MockObjectTemplateTests: XCTestCase {
         unionOptionalList: [AnyMock?]? = nil
       ) {
         self.init()
-        _set(customScalar, for: \\.customScalar)
-        _set(enumType, for: \\.enumType)
-        _set(interface, for: \\.interface)
-        _set(interfaceList, for: \\.interfaceList)
-        _set(interfaceNestedList, for: \\.interfaceNestedList)
-        _set(interfaceOptionalList, for: \\.interfaceOptionalList)
-        _set(object, for: \\.object)
-        _set(objectList, for: \\.objectList)
-        _set(objectNestedList, for: \\.objectNestedList)
-        _set(objectOptionalList, for: \\.objectOptionalList)
-        _set(optionalString, for: \\.optionalString)
-        _set(string, for: \\.string)
-        _set(union, for: \\.union)
-        _set(unionList, for: \\.unionList)
-        _set(unionNestedList, for: \\.unionNestedList)
-        _set(unionOptionalList, for: \\.unionOptionalList)
+        _setScalar(customScalar, for: \\.customScalar)
+        _setScalar(enumType, for: \\.enumType)
+        _setEntity(interface, for: \\.interface)
+        _setList(interfaceList, for: \\.interfaceList)
+        _setList(interfaceNestedList, for: \\.interfaceNestedList)
+        _setList(interfaceOptionalList, for: \\.interfaceOptionalList)
+        _setEntity(object, for: \\.object)
+        _setList(objectList, for: \\.objectList)
+        _setList(objectNestedList, for: \\.objectNestedList)
+        _setList(objectOptionalList, for: \\.objectOptionalList)
+        _setScalar(optionalString, for: \\.optionalString)
+        _setScalar(string, for: \\.string)
+        _setEntity(union, for: \\.union)
+        _setList(unionList, for: \\.unionList)
+        _setList(unionNestedList, for: \\.unionNestedList)
+        _setList(unionOptionalList, for: \\.unionOptionalList)
       }
     }
 
@@ -563,7 +564,7 @@ class MockObjectTemplateTests: XCTestCase {
     )
   }
   
-  func test_render_givenSchemaTypeWithoutFields_doesNotgenerateConvenienceInitializer() {
+  func test__render__givenSchemaTypeWithoutFields_doesNotgenerateConvenienceInitializer() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -582,7 +583,7 @@ class MockObjectTemplateTests: XCTestCase {
     )
   }
 
-  func test_render_givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
+  func test__render__givenFieldsWithSwiftReservedKeyworkNames_generatesConvenienceInitializerParamatersEscapedWithBackticksAndInternalNames() {
     // given
     buildSubject(moduleType: .swiftPackageManager)
 
@@ -713,61 +714,61 @@ class MockObjectTemplateTests: XCTestCase {
         `while`: String? = nil
       ) {
         self.init()
-        _set(`Any`, for: \\.`Any`)
-        _set(`Protocol`, for: \\.`Protocol`)
-        _set(`Self`, for: \\.`Self`)
-        _set(`Type`, for: \\.`Type`)
-        _set(`as`, for: \\.`as`)
-        _set(`associatedtype`, for: \\.`associatedtype`)
-        _set(`break`, for: \\.`break`)
-        _set(`case`, for: \\.`case`)
-        _set(`catch`, for: \\.`catch`)
-        _set(`class`, for: \\.`class`)
-        _set(`continue`, for: \\.`continue`)
-        _set(`default`, for: \\.`default`)
-        _set(`defer`, for: \\.`defer`)
-        _set(`deinit`, for: \\.`deinit`)
-        _set(`do`, for: \\.`do`)
-        _set(`else`, for: \\.`else`)
-        _set(`enum`, for: \\.`enum`)
-        _set(`extension`, for: \\.`extension`)
-        _set(`fallthrough`, for: \\.`fallthrough`)
-        _set(`false`, for: \\.`false`)
-        _set(`fileprivate`, for: \\.`fileprivate`)
-        _set(`for`, for: \\.`for`)
-        _set(`func`, for: \\.`func`)
-        _set(`guard`, for: \\.`guard`)
-        _set(`if`, for: \\.`if`)
-        _set(`import`, for: \\.`import`)
-        _set(`in`, for: \\.`in`)
-        _set(`init`, for: \\.`init`)
-        _set(`inout`, for: \\.`inout`)
-        _set(`internal`, for: \\.`internal`)
-        _set(`is`, for: \\.`is`)
-        _set(`let`, for: \\.`let`)
-        _set(`nil`, for: \\.`nil`)
-        _set(`operator`, for: \\.`operator`)
-        _set(`precedencegroup`, for: \\.`precedencegroup`)
-        _set(`private`, for: \\.`private`)
-        _set(`protocol`, for: \\.`protocol`)
-        _set(`public`, for: \\.`public`)
-        _set(`repeat`, for: \\.`repeat`)
-        _set(`rethrows`, for: \\.`rethrows`)
-        _set(`return`, for: \\.`return`)
-        _set(self_value, for: \\.`self`)
-        _set(`static`, for: \\.`static`)
-        _set(`struct`, for: \\.`struct`)
-        _set(`subscript`, for: \\.`subscript`)
-        _set(`super`, for: \\.`super`)
-        _set(`switch`, for: \\.`switch`)
-        _set(`throw`, for: \\.`throw`)
-        _set(`throws`, for: \\.`throws`)
-        _set(`true`, for: \\.`true`)
-        _set(`try`, for: \\.`try`)
-        _set(`typealias`, for: \\.`typealias`)
-        _set(`var`, for: \\.`var`)
-        _set(`where`, for: \\.`where`)
-        _set(`while`, for: \\.`while`)
+        _setScalar(`Any`, for: \\.`Any`)
+        _setScalar(`Protocol`, for: \\.`Protocol`)
+        _setScalar(`Self`, for: \\.`Self`)
+        _setScalar(`Type`, for: \\.`Type`)
+        _setScalar(`as`, for: \\.`as`)
+        _setScalar(`associatedtype`, for: \\.`associatedtype`)
+        _setScalar(`break`, for: \\.`break`)
+        _setScalar(`case`, for: \\.`case`)
+        _setScalar(`catch`, for: \\.`catch`)
+        _setScalar(`class`, for: \\.`class`)
+        _setScalar(`continue`, for: \\.`continue`)
+        _setScalar(`default`, for: \\.`default`)
+        _setScalar(`defer`, for: \\.`defer`)
+        _setScalar(`deinit`, for: \\.`deinit`)
+        _setScalar(`do`, for: \\.`do`)
+        _setScalar(`else`, for: \\.`else`)
+        _setScalar(`enum`, for: \\.`enum`)
+        _setScalar(`extension`, for: \\.`extension`)
+        _setScalar(`fallthrough`, for: \\.`fallthrough`)
+        _setScalar(`false`, for: \\.`false`)
+        _setScalar(`fileprivate`, for: \\.`fileprivate`)
+        _setScalar(`for`, for: \\.`for`)
+        _setScalar(`func`, for: \\.`func`)
+        _setScalar(`guard`, for: \\.`guard`)
+        _setScalar(`if`, for: \\.`if`)
+        _setScalar(`import`, for: \\.`import`)
+        _setScalar(`in`, for: \\.`in`)
+        _setScalar(`init`, for: \\.`init`)
+        _setScalar(`inout`, for: \\.`inout`)
+        _setScalar(`internal`, for: \\.`internal`)
+        _setScalar(`is`, for: \\.`is`)
+        _setScalar(`let`, for: \\.`let`)
+        _setScalar(`nil`, for: \\.`nil`)
+        _setScalar(`operator`, for: \\.`operator`)
+        _setScalar(`precedencegroup`, for: \\.`precedencegroup`)
+        _setScalar(`private`, for: \\.`private`)
+        _setScalar(`protocol`, for: \\.`protocol`)
+        _setScalar(`public`, for: \\.`public`)
+        _setScalar(`repeat`, for: \\.`repeat`)
+        _setScalar(`rethrows`, for: \\.`rethrows`)
+        _setScalar(`return`, for: \\.`return`)
+        _setScalar(self_value, for: \\.`self`)
+        _setScalar(`static`, for: \\.`static`)
+        _setScalar(`struct`, for: \\.`struct`)
+        _setScalar(`subscript`, for: \\.`subscript`)
+        _setScalar(`super`, for: \\.`super`)
+        _setScalar(`switch`, for: \\.`switch`)
+        _setScalar(`throw`, for: \\.`throw`)
+        _setScalar(`throws`, for: \\.`throws`)
+        _setScalar(`true`, for: \\.`true`)
+        _setScalar(`try`, for: \\.`try`)
+        _setScalar(`typealias`, for: \\.`typealias`)
+        _setScalar(`var`, for: \\.`var`)
+        _setScalar(`where`, for: \\.`where`)
+        _setScalar(`while`, for: \\.`while`)
       }
     }
 
@@ -781,6 +782,116 @@ class MockObjectTemplateTests: XCTestCase {
       atLine: 8 + self.subject.graphqlObject.fields.count,
       ignoringExtraLines: false)
     )
+  }
+
+  // MARK: Access Level Tests
+
+  func test__render__givenSchemaTypeAndFields_whenTestMocksIsSwiftPackage_shouldRenderWithPublicAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .swiftPackage())
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    public class Dog: MockObject {
+      public static let objectType: Object = TestSchema.Objects.Dog
+      public static let _mockFields = MockFields()
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      public struct MockFields {
+    """
+
+    let expectedExtensionDefinition = """
+    public extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaType_whenTestMocksAbsolute_withPublicAccessModifier_shouldRenderWithPublicAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .absolute(path: "", accessModifier: .public))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    public class Dog: MockObject {
+      public static let objectType: Object = TestSchema.Objects.Dog
+      public static let _mockFields = MockFields()
+      public typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      public struct MockFields {
+    """
+
+    let expectedExtensionDefinition = """
+    public extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSchemaType_whenTestMocksAbsolute_withInternalAccessModifier_shouldRenderWithInternalAccess() {
+    // given
+    buildSubject(name: "Dog", testMocks: .absolute(path: "", accessModifier: .internal))
+
+    subject.graphqlObject.fields = [
+      "string": .mock("string", type: .nonNull(.string()))
+    ]
+
+    ir.fieldCollector.add(
+      fields: subject.graphqlObject.fields.values.map {
+        .mock($0.name, type: $0.type)
+      },
+      to: subject.graphqlObject
+    )
+
+    let expectedClassDefinition = """
+    class Dog: MockObject {
+      static let objectType: Object = TestSchema.Objects.Dog
+      static let _mockFields = MockFields()
+      typealias MockValueCollectionType = Array<Mock<Dog>>
+
+      struct MockFields {
+    """
+
+    let expectedExtensionDefinition = """
+    extension Mock where O == Dog {
+    """
+
+    // when
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expectedClassDefinition, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedExtensionDefinition, atLine: 11, ignoringExtraLines: true))
   }
 
   // MARK: - Deprecation Warnings
@@ -839,6 +950,54 @@ class MockObjectTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
+  }
+  
+  // MARK: - Reserved Keyword Tests
+  
+  func test__render__givenObjectUsingReservedKeyword_generatesTypeWithSuffix() {
+    let keywords = ["Type", "type"]
+    
+    keywords.forEach { keyword in
+      // given
+      buildSubject(name: keyword, moduleType: .swiftPackageManager)
+
+      subject.graphqlObject.fields = [
+        "name": .mock("string", type: .nonNull(.string())),
+      ]
+
+      ir.fieldCollector.add(
+        fields: subject.graphqlObject.fields.values.map {
+          .mock($0.name, type: $0.type)
+        },
+        to: subject.graphqlObject
+      )
+
+      let expected = """
+      public class \(keyword.firstUppercased)_Object: MockObject {
+        public static let objectType: Object = TestSchema.Objects.\(keyword.firstUppercased)_Object
+        public static let _mockFields = MockFields()
+        public typealias MockValueCollectionType = Array<Mock<\(keyword.firstUppercased)_Object>>
+
+        public struct MockFields {
+          @Field<String>("string") public var string
+        }
+      }
+
+      public extension Mock where O == \(keyword.firstUppercased)_Object {
+        convenience init(
+          string: String? = nil
+        ) {
+          self.init()
+          _setScalar(string, for: \\.string)
+        }
+      }
+      """
+      // when
+      let actual = renderSubject()
+
+      // then
+      expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+    }
   }
 
 }

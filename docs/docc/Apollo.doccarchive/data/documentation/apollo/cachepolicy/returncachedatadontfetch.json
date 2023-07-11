@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Return data from the cache if available, else return nil.",
+      "text" : "Return data from the cache if available, else return an error.",
       "type" : "text"
     }
   ],
@@ -146,7 +146,7 @@
 "doc://Apollo/documentation/Apollo/CachePolicy/returnCacheDataDontFetch": {
   "abstract" : [
     {
-      "text" : "Return data from the cache if available, else return nil.",
+      "text" : "Return data from the cache if available, else return an error.",
       "type" : "text"
     }
   ],

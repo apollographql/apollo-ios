@@ -61,10 +61,11 @@ extension IR.NamedFragment {
     type: GraphQLCompositeType = .mock("MockType"),
     source: String? = nil
   ) -> IR.NamedFragment {
+    let definition = CompilationResult.FragmentDefinition.mock(name, type: type, source: source)
     let rootField = CompilationResult.Field.mock(name, type: .entity(type))
     let rootEntity = IR.Entity(
-      rootTypePath: LinkedList(type),
-      fieldPath: [.init(name: name, type: .entity(type))]
+      location: .init(source: .namedFragment(definition), fieldPath: nil),
+      rootTypePath: LinkedList(type)
     )
     let rootEntityField = IR.EntityField.init(
       rootField,
@@ -79,10 +80,10 @@ extension IR.NamedFragment {
           ))))
 
     return IR.NamedFragment(
-      definition: CompilationResult.FragmentDefinition.mock(name, type: type, source: source),
+      definition: definition,
       rootField: rootEntityField,
       referencedFragments: [],
-      entities: [rootEntity.fieldPath: rootEntity]
+      entities: [rootEntity.location: rootEntity]
     )
   }
 }
@@ -93,15 +94,17 @@ extension IR.Operation {
     definition: CompilationResult.OperationDefinition? = nil,
     referencedFragments: OrderedSet<IR.NamedFragment> = []
   ) -> IR.Operation {
-    IR.Operation.init(
-      definition: definition ?? .mock(),
+    let definition = definition ?? .mock()
+    return IR.Operation.init(
+      definition: definition,
       rootField: .init(
         .mock(),
         inclusionConditions: nil,
         selectionSet: .init(
           entity: .init(
-            rootTypePath: [.mock()],
-            fieldPath: [.init(name: "mock", type: .entity(.mock("name")))]),
+            location: .init(source: .operation(definition), fieldPath: nil),
+            rootTypePath: [.mock()]
+          ),
           scopePath: [.descriptor(
             forType: .mock(),
             inclusionConditions: nil,

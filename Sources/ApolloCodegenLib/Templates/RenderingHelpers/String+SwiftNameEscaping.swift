@@ -14,8 +14,14 @@ extension String {
   }
 
   var asSelectionSetName: String {
-    SwiftKeywords.SelectionSetTypeNamesToSuffix.contains(self) ?
+    SwiftKeywords.TypeNamesToSuffix.contains(self) ?
     "\(self)_SelectionSet" : self
+  }
+  
+  var asFragmentName: String {
+    let uppercasedName = self.firstUppercased
+    return SwiftKeywords.TypeNamesToSuffix.contains(uppercasedName) ?
+            "\(uppercasedName)_Fragment" : uppercasedName
   }
   
   var asTestMockFieldPropertyName: String {
@@ -54,7 +60,7 @@ enum SwiftKeywords {
     "apollo", "apolloapi"
   ]
 
-  static let SelectionSetTypeNamesToSuffix: Set<String> = [
+  static let TypeNamesToSuffix: Set<String> = [
     "Any",
     "DataDict",
     "DocumentType",
@@ -72,6 +78,7 @@ enum SwiftKeywords {
     "Double",
     "ID",
     "Type",
+    "Error",
     "_",
   ]
 

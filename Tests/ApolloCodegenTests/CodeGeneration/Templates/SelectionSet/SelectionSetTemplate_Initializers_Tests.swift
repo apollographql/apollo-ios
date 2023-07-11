@@ -25,40 +25,73 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
   }
   
   // MARK: - Helpers
-  
+
   func buildSubjectAndOperation(
-    named operationName: String = "TestOperation"
+    named operationName: String = "TestOperation",
+    schemaNamespace: String = "TestSchema",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
     let operationDefinition = try XCTUnwrap(ir.compilationResult[operation: operationName])
     operation = ir.build(operation: operationDefinition)
     let config = ApolloCodegenConfiguration.mock(
-      schemaNamespace: "TestSchema",
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, operations: operations),
       options: .init()
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: .init(config: config)
     )
     subject = SelectionSetTemplate(
       definition: .operation(self.operation),
       generateInitializers: true,
-      config: ApolloCodegen.ConfigurationContext(config: config)
+      config: ApolloCodegen.ConfigurationContext(config: config),
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
     )
   }
-  
-  // MARK: - Tests
-  
-  // MARK: Object Type Tests
-  
-  func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
-    // given
+
+  func buildSubjectAndFragment(
+    named fragmentName: String = "TestFragment",
+    schemaNamespace: String = "TestSchema",
+    moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
+    operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule
+  ) throws -> IR.NamedFragment {
+    ir = try .mock(schema: schemaSDL, document: document)
+    let fragmentDefinition = try XCTUnwrap(ir.compilationResult[fragment: fragmentName])
+    let fragment = ir.build(fragment: fragmentDefinition)
+    let config = ApolloCodegenConfiguration.mock(
+      schemaNamespace: schemaNamespace,
+      output: .mock(moduleType: moduleType, operations: operations),
+      options: .init()
+    )
+    let mockTemplateRenderer = MockTemplateRenderer(
+      target: .operationFile,
+      template: "",
+      config: .init(config: config)
+    )
+    subject = SelectionSetTemplate(
+      definition: .namedFragment(fragment),
+      generateInitializers: true,
+      config: ApolloCodegen.ConfigurationContext(config: config),
+      renderAccessControl: mockTemplateRenderer.accessControlModifier(for: .member)
+    )
+    return fragment
+  }
+
+  func buildSimpleObjectSchemaAndDocument() {
     schemaSDL = """
     type Query {
       allAnimals: [Animal!]
     }
-    
+
     type Animal {
       species: String!
     }
     """
-    
+
     document = """
     query TestOperation {
       allAnimals {
@@ -66,19 +99,184 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
+  }
+  
+  // MARK: - Access Level Tests
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_inSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_EmbededInTargetWithPublicAccessModifier_andOperations_inSchemaModule_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .public),
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_EmbededInTargetWithInternalAccessModifier_andOperations_inSchemaModule_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .embeddedInTarget(name: "TestTarget", accessModifier: .internal),
+      operations: .inSchemaModule
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_relativeWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .public)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_relativeWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .relative(subpath: nil, accessModifier: .internal)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_absoluteWithPublicAccessModifier_shouldRenderWithPublicAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      public init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .public)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+
+  func test__render__givenSelectionSet_whenModuleType_swiftPackageManager_andOperations_absoluteWithInternalAccessModifier_shouldRenderWithInternalAccess() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
+
+    let expected = """
+      init(
+    """
+
+    try buildSubjectAndOperation(
+      moduleType: .swiftPackageManager,
+      operations: .absolute(path: "", accessModifier: .internal)
+    )
+
+    let basic = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: basic)
+
+    expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
+  }
+  
+  // MARK: Object Type Tests
+  
+  func test__render_givenSelectionSetOnObjectType_parametersDoNotIncludeTypenameFieldAndObjectTypeIsRenderedDirectly() throws {
+    // given
+    buildSimpleObjectSchemaAndDocument()
     
     let expected =
     """
       public init(
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Animal.typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Animal.typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+          ]
+        ))
       }
     """
     
@@ -101,12 +299,12 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     type Query {
       allAnimals: [Animal!]
     }
-    
+
     interface Animal {
       species: String!
     }
     """
-    
+
     document = """
     query TestOperation {
       allAnimals {
@@ -114,20 +312,22 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       }
     }
     """
-    
+
     let expected =
     """
       public init(
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+          ]
+        ))
       }
     """
     
@@ -185,16 +385,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         name: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Dog.typename,
-          "name": name,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
-            ObjectIdentifier(AllAnimal.AsAnimalUnion.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Dog.typename,
+            "name": name,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsAnimalUnion.AsDog.self)
+          ]
+        ))
       }
     """
 
@@ -249,15 +451,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
-            ObjectIdentifier(AllAnimal.AsPet.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
+          ]
+        ))
       }
     """
     
@@ -371,36 +575,38 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           nestedList_optional_optional_required: [[String]?]? = nil,
           nestedList_optional_optional_optional: [[String?]?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "string": string,
-            "string_optional": string_optional,
-            "int": int,
-            "int_optional": int_optional,
-            "float": float,
-            "float_optional": float_optional,
-            "boolean": boolean,
-            "boolean_optional": boolean_optional,
-            "custom": custom,
-            "custom_optional": custom_optional,
-            "custom_required_list": custom_required_list,
-            "custom_optional_list": custom_optional_list,
-            "list_required_required": list_required_required,
-            "list_optional_required": list_optional_required,
-            "list_required_optional": list_required_optional,
-            "list_optional_optional": list_optional_optional,
-            "nestedList_required_required_required": nestedList_required_required_required,
-            "nestedList_required_required_optional": nestedList_required_required_optional,
-            "nestedList_required_optional_optional": nestedList_required_optional_optional,
-            "nestedList_required_optional_required": nestedList_required_optional_required,
-            "nestedList_optional_required_required": nestedList_optional_required_required,
-            "nestedList_optional_required_optional": nestedList_optional_required_optional,
-            "nestedList_optional_optional_required": nestedList_optional_optional_required,
-            "nestedList_optional_optional_optional": nestedList_optional_optional_optional,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "string": string,
+              "string_optional": string_optional,
+              "int": int,
+              "int_optional": int_optional,
+              "float": float,
+              "float_optional": float_optional,
+              "boolean": boolean,
+              "boolean_optional": boolean_optional,
+              "custom": custom,
+              "custom_optional": custom_optional,
+              "custom_required_list": custom_required_list,
+              "custom_optional_list": custom_optional_list,
+              "list_required_required": list_required_required,
+              "list_optional_required": list_optional_required,
+              "list_required_optional": list_required_optional,
+              "list_optional_optional": list_optional_optional,
+              "nestedList_required_required_required": nestedList_required_required_required,
+              "nestedList_required_required_optional": nestedList_required_required_optional,
+              "nestedList_required_optional_optional": nestedList_required_optional_optional,
+              "nestedList_required_optional_required": nestedList_required_optional_required,
+              "nestedList_optional_required_required": nestedList_optional_required_required,
+              "nestedList_optional_required_optional": nestedList_optional_required_optional,
+              "nestedList_optional_optional_required": nestedList_optional_optional_required,
+              "nestedList_optional_optional_optional": nestedList_optional_optional_optional,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
     
@@ -447,15 +653,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           fieldTwo: String,
           fieldthree: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "FIELDONE": fieldone,
-            "FieldTwo": fieldTwo,
-            "fieldthree": fieldthree,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "FIELDONE": fieldone,
+              "FieldTwo": fieldTwo,
+              "fieldthree": fieldthree,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
     
@@ -496,13 +704,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           aliased: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "aliased": aliased,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "aliased": aliased,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -546,13 +756,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -596,13 +808,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -646,13 +860,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -696,13 +912,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -753,12 +971,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           __typename: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -802,13 +1022,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friends: [Friend]
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """#
 
@@ -852,13 +1074,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           friend: Friend? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -912,15 +1136,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         species: String,
         age: Int
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "age": age,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+            "age": age,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self)
+          ]
+        ))
       }
     """
 
@@ -988,14 +1214,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         inches: Int? = nil,
         feet: Int? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": TestSchema.Objects.Height.typename,
-          "inches": inches,
-          "feet": feet,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Height.typename,
+            "inches": inches,
+            "feet": feet,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsCat.Height.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.Height.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.Height.self)
+          ]
+        ))
       }
     """
 
@@ -1044,14 +1274,16 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1105,16 +1337,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         name: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AnimalDetails.self),
-            ObjectIdentifier(Fragment2.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(Fragment2.self),
+            ObjectIdentifier(AnimalDetails.self)
+          ]
+        ))
       }
     """
 
@@ -1167,15 +1401,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1225,12 +1461,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+          ]
+        ))
       }
     """
 
@@ -1240,15 +1478,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 
@@ -1269,6 +1509,174 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
 
     expect(allAnimals_asPet_actual).to(equalLineByLine(
       allAnimals_asPet_expected, atLine: 23, ignoringExtraLines: true))
+  }
+
+  /// Verifies the fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentReferencingNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      predators {
+        ...PredatorFragment
+      }
+    }
+
+    fragment PredatorFragment on Animal {
+      ... on Pet {
+        ...PetFragment
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(Fragment1.Predator.AsPet.self),
+            ObjectIdentifier(PetFragment.self),
+            ObjectIdentifier(PredatorFragment.self),
+            ObjectIdentifier(PredatorFragment.AsPet.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 26, ignoringExtraLines: true))
+  }
+
+  /// Verifies fix for [#2989](https://github.com/apollographql/apollo-ios/issues/2989).
+  ///
+  /// When a fragment merges a type case from another fragment, the initializer at that type case
+  /// scope needs to include both the root and type case selection sets of the merged fragment.
+  ///
+  /// In this test, we are verifying that the `PredatorFragment.Predator.AsPet` selection set is included in
+  /// `fulfilledFragments`.
+  func test__render_givenNamedFragmentWithNestedFieldMergedFromChildNamedFragmentInitializedAsTypeCaseFromChildFragment_fulfilledFragmentsIncludesChildFragmentTypeCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+      predators: [Animal!]
+    }
+
+    interface Pet {
+      name: String!
+      predators: [Animal!]
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ...Fragment1
+      }
+    }
+
+    fragment Fragment1 on Animal {
+      ...PredatorFragment
+    }
+
+    fragment PredatorFragment on Animal {
+      predators {
+        ... on Pet {
+          ...PetFragment
+        }
+      }
+    }
+
+    fragment PetFragment on Pet {
+      name
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        __typename: String,
+        name: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(Fragment1.Predator.self),
+            ObjectIdentifier(Fragment1.Predator.AsPet.self),
+            ObjectIdentifier(PetFragment.self),
+            ObjectIdentifier(PredatorFragment.Predator.self),
+            ObjectIdentifier(PredatorFragment.Predator.AsPet.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    let fragment = try buildSubjectAndFragment(named: "Fragment1")
+
+    let predators_asPet = try XCTUnwrap(
+      fragment[field: "predators"]?[as: "Pet"]
+    )
+
+    let actual = subject.render(inlineFragment: predators_asPet)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 24, ignoringExtraLines: true))
   }
 
   // MARK: - Include/Skip Tests
@@ -1299,13 +1707,15 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         public init(
           name: String? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+            ]
+          ))
         }
       """
 
@@ -1354,15 +1764,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self)
+            ]
+          ))
         }
       """
 
@@ -1411,15 +1823,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfAAndNotB.self)
+            ]
+          ))
         }
       """
 
@@ -1470,16 +1884,18 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           friend: Friend
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "friend": friend._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.self),
-              ObjectIdentifier(AllAnimal.IfA.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "friend": friend._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.IfNotB.self)
+            ]
+          ))
         }
       """
 
@@ -1530,15 +1946,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
           name: String,
           species: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": TestSchema.Objects.Animal.typename,
-            "name": name,
-            "species": species,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(AllAnimal.IfA.Friend.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": TestSchema.Objects.Animal.typename,
+              "name": name,
+              "species": species,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.self),
+              ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.Friend.IfNotB.self)
+            ]
+          ))
         }
       """
 
@@ -1590,12 +2008,14 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
       public init(
         __typename: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self)
+          ]
+        ))
       }
     """
 
@@ -1605,15 +2025,17 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
         __typename: String,
         species: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "species": species,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self),
-            ObjectIdentifier(AllAnimal.self),
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.IfA.self),
             ObjectIdentifier(AnimalDetails.self)
-          ])
-        ]))
+          ]
+        ))
       }
     """
 

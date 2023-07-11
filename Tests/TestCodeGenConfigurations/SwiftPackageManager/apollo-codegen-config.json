@@ -1,5 +1,5 @@
 {
-  "schemaName" : "AnimalKingdomAPI",
+  "schemaNamespace" : "AnimalKingdomAPI",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",
@@ -26,7 +26,7 @@
   "output" : {
     "testMocks" : {
       "swiftPackage" : {
-        "name": "AnimalKingdomAPITestMocks"
+        "targetName": "AnimalKingdomAPITestMocks"
       }
     },
     "schemaTypes" : {

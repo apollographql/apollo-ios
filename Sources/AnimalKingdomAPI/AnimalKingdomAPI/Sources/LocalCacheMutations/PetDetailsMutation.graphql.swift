@@ -32,13 +32,15 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     __typename: String,
     owner: Owner? = nil
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "owner": owner._fieldData,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self)
-      ])
-    ]))
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "owner": owner._fieldData,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(PetDetailsMutation.self)
+      ]
+    ))
   }
 
   /// Owner
@@ -62,13 +64,15 @@ public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment
     public init(
       firstName: String
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": AnimalKingdomAPI.Objects.Human.typename,
-        "firstName": firstName,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": AnimalKingdomAPI.Objects.Human.typename,
+          "firstName": firstName,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(PetDetailsMutation.Owner.self)
+        ]
+      ))
     }
   }
 }

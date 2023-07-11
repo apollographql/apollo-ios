@@ -54,7 +54,7 @@ protocol TemplateRenderer {
   var config: ApolloCodegen.ConfigurationContext { get }
 }
 
-// MARK: Extensions
+// MARK: Extension - File rendering
 
 extension TemplateRenderer {
 
@@ -103,7 +103,7 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.SchemaType.template(for: config))
 
     \(ifLet: detachedTemplate, { "\($0)\n" })
-    \(ifLet: namespace, template.wrappedInNamespace(_:), else: template)
+    \(ifLet: namespace, { template.wrappedInNamespace($0, accessModifier: accessControlModifier(for: .namespace)) }, else: template)
     """
     ).description
   }
@@ -115,8 +115,10 @@ extension TemplateRenderer {
     \(ImportStatementTemplate.Operation.template(for: config))
 
     \(if: config.output.operations.isInModule && !config.output.schemaTypes.isInModule,
-      template.wrappedInNamespace(config.schemaNamespace.firstUppercased),
-    else:
+      template.wrappedInNamespace(
+        config.schemaNamespace.firstUppercased,
+        accessModifier: accessControlModifier(for: .namespace)
+    ), else:
       template)
     """
     ).description
@@ -141,20 +143,96 @@ extension TemplateRenderer {
     """
     ).description
   }
+}
 
-  var embeddedAccessControlModifier: String {
-    guard config.output.schemaTypes.isInModule else { return "" }
+// MARK: Extension - Access modifier
 
-    return "public "
+fileprivate extension ApolloCodegenConfiguration.AccessModifier {
+  var swiftString: String {
+    switch self {
+    case .public: return "public " // there should be no spaces in these strings
+    case .internal: return ""
+    }
   }
 }
 
+enum AccessControlScope {
+  case namespace
+  case parent
+  case member
+}
+
+extension TemplateRenderer {
+  func accessControlModifier(for scope: AccessControlScope) -> String {
+    switch target {
+    case .moduleFile, .schemaFile: return schemaAccessControlModifier(scope: scope)
+    case .operationFile: return operationAccessControlModifier(scope: scope)
+    case .testMockFile: return testMockAccessControlModifier(scope: scope)
+    }
+  }
+
+  private func schemaAccessControlModifier(
+    scope: AccessControlScope
+  ) -> String {
+    switch (config.output.schemaTypes.moduleType, scope) {
+    case (.embeddedInTarget, .parent):
+      return ""
+    case
+      (.embeddedInTarget(_, .public), .namespace),
+      (.embeddedInTarget(_, .public), .member):
+        return ApolloCodegenConfiguration.AccessModifier.public.swiftString
+    case
+      (.embeddedInTarget(_, .internal), .namespace),
+      (.embeddedInTarget(_, .internal), .member):
+        return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
+    case
+      (.swiftPackageManager, _),
+      (.other, _):
+        return ApolloCodegenConfiguration.AccessModifier.public.swiftString
+    }
+  }
+
+  private func operationAccessControlModifier(
+    scope: AccessControlScope
+  ) -> String {
+    switch (config.output.operations, scope) {
+    case (.inSchemaModule, _):
+        return schemaAccessControlModifier(scope: scope)
+    case
+      (.absolute(_, .public), _),
+      (.relative(_, .public), _):
+        return ApolloCodegenConfiguration.AccessModifier.public.swiftString
+    case
+      (.absolute(_, .internal), _),
+      (.relative(_, .internal), _):
+        return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
+    }
+  }
+
+  private func testMockAccessControlModifier(
+    scope: AccessControlScope
+  ) -> String {
+    switch (config.config.output.testMocks, scope) {
+    case (.none, _):
+      return ""
+    case (.absolute(_, .internal), _):
+        return ApolloCodegenConfiguration.AccessModifier.internal.swiftString
+    case
+      (.swiftPackage, _),
+      (.absolute(_, .public), _):
+        return ApolloCodegenConfiguration.AccessModifier.public.swiftString
+    }
+  }
+}
+
+// MARK: Extension - Namespace
+
 extension TemplateString {
-  /// Wraps `namespace` in a public `enum` extension.
-  fileprivate func wrappedInNamespace(_ namespace: String) -> Self {
+  /// Wraps `self` in an extension on `namespace`.
+  fileprivate func wrappedInNamespace(_ namespace: String, accessModifier: String) -> Self {
     TemplateString(
     """
-    public extension \(namespace) {
+    \(accessModifier)extension \(namespace) {
       \(self)
     }
     """
@@ -222,7 +300,7 @@ struct ImportStatementTemplate {
 fileprivate extension ApolloCodegenConfiguration {
   var schemaModuleName: String {
     switch output.schemaTypes.moduleType {
-    case let .embeddedInTarget(targetName): return targetName
+    case let .embeddedInTarget(targetName, _): return targetName
     case .swiftPackageManager, .other: return schemaNamespace.firstUppercased
     }
   }

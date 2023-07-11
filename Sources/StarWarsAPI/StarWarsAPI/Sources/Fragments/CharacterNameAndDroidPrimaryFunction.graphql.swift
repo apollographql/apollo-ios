@@ -38,14 +38,16 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
     __typename: String,
     name: String
   ) {
-    self.init(_dataDict: DataDict(data: [
-      "__typename": __typename,
-      "name": name,
-      "__fulfilled": Set([
-        ObjectIdentifier(Self.self),
+    self.init(_dataDict: DataDict(
+      data: [
+        "__typename": __typename,
+        "name": name,
+      ],
+      fulfilledFragments: [
+        ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.self),
         ObjectIdentifier(CharacterName.self)
-      ])
-    ]))
+      ]
+    ))
   }
 
   /// AsDroid
@@ -78,17 +80,19 @@ public struct CharacterNameAndDroidPrimaryFunction: StarWarsAPI.SelectionSet, Fr
       name: String,
       primaryFunction: String? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Droid.typename,
-        "name": name,
-        "primaryFunction": primaryFunction,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self),
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Droid.typename,
+          "name": name,
+          "primaryFunction": primaryFunction,
+        ],
+        fulfilledFragments: [
           ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.self),
-          ObjectIdentifier(DroidPrimaryFunction.self),
-          ObjectIdentifier(CharacterName.self)
-        ])
-      ]))
+          ObjectIdentifier(CharacterNameAndDroidPrimaryFunction.AsDroid.self),
+          ObjectIdentifier(CharacterName.self),
+          ObjectIdentifier(DroidPrimaryFunction.self)
+        ]
+      ))
     }
   }
 }

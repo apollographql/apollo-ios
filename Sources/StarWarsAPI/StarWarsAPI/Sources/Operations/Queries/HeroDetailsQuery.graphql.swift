@@ -5,7 +5,7 @@
 
 public class HeroDetailsQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetails"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "207d29944f5822bff08a07db4a55274ea14035bacfe20699da41a47454f1181e",
     definition: .init(
       #"""
@@ -48,13 +48,15 @@ public class HeroDetailsQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroDetailsQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -82,13 +84,15 @@ public class HeroDetailsQuery: GraphQLQuery {
         __typename: String,
         name: String
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "name": name,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "name": name,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroDetailsQuery.Data.Hero.self)
+          ]
+        ))
       }
 
       /// Hero.AsHuman
@@ -113,15 +117,17 @@ public class HeroDetailsQuery: GraphQLQuery {
           height: Double? = nil,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Human.typename,
-            "height": height,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Human.typename,
+              "height": height,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroDetailsQuery.Data.Hero.self),
+              ObjectIdentifier(HeroDetailsQuery.Data.Hero.AsHuman.self)
+            ]
+          ))
         }
       }
 
@@ -147,15 +153,17 @@ public class HeroDetailsQuery: GraphQLQuery {
           primaryFunction: String? = nil,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Droid.typename,
-            "primaryFunction": primaryFunction,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "primaryFunction": primaryFunction,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroDetailsQuery.Data.Hero.self),
+              ObjectIdentifier(HeroDetailsQuery.Data.Hero.AsDroid.self)
+            ]
+          ))
         }
       }
     }

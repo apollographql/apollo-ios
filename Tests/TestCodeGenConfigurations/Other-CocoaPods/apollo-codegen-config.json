@@ -1,5 +1,5 @@
 {
-  "schemaName" : "CocoaPodsProject",
+  "schemaNamespace" : "CocoaPodsProject",
   "options" : {
     "schemaDocumentation" : "include",
     "deprecatedEnumCases" : "include",

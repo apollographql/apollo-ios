@@ -12,20 +12,21 @@ struct InputObjectTemplate: TemplateRenderer {
 
   var template: TemplateString {
     let (validFields, deprecatedFields) = filterFields(graphqlInputObject.fields)
+    let memberAccessControl = accessControlModifier(for: .member)
 
     return TemplateString(
     """
     \(documentation: graphqlInputObject.documentation, config: config)
-    \(embeddedAccessControlModifier)\
-    struct \(graphqlInputObject.name.firstUppercased): InputObject {
-      public private(set) var __data: InputDict
+    \(accessControlModifier(for: .parent))\
+    struct \(graphqlInputObject.formattedName): InputObject {
+      \(memberAccessControl)private(set) var __data: InputDict
     
-      public init(_ data: InputDict) {
+      \(memberAccessControl)init(_ data: InputDict) {
         __data = data
       }
 
       \(if: !deprecatedFields.isEmpty && !validFields.isEmpty && shouldIncludeDeprecatedWarnings, """
-      public init(
+      \(memberAccessControl)init(
         \(InitializerParametersTemplate(validFields))
       ) {
         __data = InputDict([
@@ -38,7 +39,7 @@ struct InputObjectTemplate: TemplateRenderer {
       \(if: !deprecatedFields.isEmpty && shouldIncludeDeprecatedWarnings, """
       @available(*, deprecated, message: "\(deprecatedMessage(for: deprecatedFields))")
       """)
-      public init(
+      \(memberAccessControl)init(
         \(InitializerParametersTemplate(graphqlInputObject.fields))
       ) {
         __data = InputDict([
@@ -108,7 +109,8 @@ struct InputObjectTemplate: TemplateRenderer {
     """
     \(documentation: field.documentation, config: config)
     \(deprecationReason: field.deprecationReason, config: config)
-    public var \(field.name.asFieldPropertyName): \(field.renderInputValueType(config: config.config)) {
+    \(accessControlModifier(for: .member))\
+    var \(field.name.asFieldPropertyName): \(field.renderInputValueType(config: config.config)) {
       get { __data["\(field.name)"] }
       set { __data["\(field.name)"] = newValue }
     }

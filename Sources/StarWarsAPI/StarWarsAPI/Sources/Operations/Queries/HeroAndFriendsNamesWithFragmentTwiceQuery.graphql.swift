@@ -5,7 +5,7 @@
 
 public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
-  public static let document: ApolloAPI.DocumentType = .automaticallyPersisted(
+  public static let operationDocument: ApolloAPI.OperationDocument = .init(
     operationIdentifier: "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb",
     definition: .init(
       #"""
@@ -51,13 +51,15 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
     public init(
       hero: Hero? = nil
     ) {
-      self.init(_dataDict: DataDict(data: [
-        "__typename": StarWarsAPI.Objects.Query.typename,
-        "hero": hero._fieldData,
-        "__fulfilled": Set([
-          ObjectIdentifier(Self.self)
-        ])
-      ]))
+      self.init(_dataDict: DataDict(
+        data: [
+          "__typename": StarWarsAPI.Objects.Query.typename,
+          "hero": hero._fieldData,
+        ],
+        fulfilledFragments: [
+          ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.self)
+        ]
+      ))
     }
 
     /// Hero
@@ -83,13 +85,15 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         __typename: String,
         friends: [Friend?]? = nil
       ) {
-        self.init(_dataDict: DataDict(data: [
-          "__typename": __typename,
-          "friends": friends._fieldData,
-          "__fulfilled": Set([
-            ObjectIdentifier(Self.self)
-          ])
-        ]))
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": __typename,
+            "friends": friends._fieldData,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self)
+          ]
+        ))
       }
 
       /// Hero.Friend
@@ -119,14 +123,16 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
           __typename: String,
           name: String
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": __typename,
-            "name": name,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": __typename,
+              "name": name,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.Friend.self),
               ObjectIdentifier(CharacterName.self)
-            ])
-          ]))
+            ]
+          ))
         }
       }
 
@@ -149,14 +155,16 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
         public init(
           friends: [Friend?]? = nil
         ) {
-          self.init(_dataDict: DataDict(data: [
-            "__typename": StarWarsAPI.Objects.Droid.typename,
-            "friends": friends._fieldData,
-            "__fulfilled": Set([
-              ObjectIdentifier(Self.self),
-              ObjectIdentifier(Hero.self)
-            ])
-          ]))
+          self.init(_dataDict: DataDict(
+            data: [
+              "__typename": StarWarsAPI.Objects.Droid.typename,
+              "friends": friends._fieldData,
+            ],
+            fulfilledFragments: [
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.self),
+              ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.self)
+            ]
+          ))
         }
 
         /// Hero.AsDroid.Friend
@@ -186,14 +194,16 @@ public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
             __typename: String,
             name: String
           ) {
-            self.init(_dataDict: DataDict(data: [
-              "__typename": __typename,
-              "name": name,
-              "__fulfilled": Set([
-                ObjectIdentifier(Self.self),
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": __typename,
+                "name": name,
+              ],
+              fulfilledFragments: [
+                ObjectIdentifier(HeroAndFriendsNamesWithFragmentTwiceQuery.Data.Hero.AsDroid.Friend.self),
                 ObjectIdentifier(CharacterName.self)
-              ])
-            ]))
+              ]
+            ))
           }
         }
       }
