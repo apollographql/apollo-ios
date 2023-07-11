@@ -139,7 +139,7 @@ Apollo iOS already has support for parsing incremental delivery responses. That 
 
 The current `MultipartResponseParsingInterceptor` implementation is specific to the `subscriptionSpec` version `1.0` specification. Adopting a protocol with implementations for each of the supported specifications will enable us to support any number of incremental delivery specifications in the future.
 
-These would be registered with the `MultipartResponseParsingInterceptor` for an each specification string, and when a response is received the specification string is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
+These would be registered with the `MultipartResponseParsingInterceptor` each with a unique specification string, to be used as a lookup key. When a response is received the specification string is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
 
 _Sample code in `MultipartResponseParsingInterceptor`_
 ```swift
