@@ -42,8 +42,7 @@ export function NoAnonymousQueries(context: ValidationContext) {
         context.reportError(
           new GraphQLError(
             "Apollo does not support anonymous operations because operation names are used during code generation. Please give this operation a name.",
-            node
-          )
+            { nodes: node })
         );
       }
       return false;
@@ -59,8 +58,7 @@ export function NoTypenameAlias(context: ValidationContext) {
         context.reportError(
           new GraphQLError(
             "Apollo needs to be able to insert __typename when needed, so using it as an alias is not supported.",
-            node
-          )
+            { nodes: node })
         );
       }
     },
@@ -77,8 +75,9 @@ function ApolloIOSDisallowedFieldNames(fieldNames?: Array<string>) {
           const responseKeyFirstLowercase = responseKey.charAt(0).toLowerCase() + responseKey.slice(1)
           if (disallowedFieldNames.includes(responseKeyFirstLowercase)) {
             context.reportError(
-              new GraphQLError(`Field name "${responseKey}" is not allowed because it conflicts with generated object APIs. Please use an alias to change the field name.`,
-               { nodes: node })
+              new GraphQLError(
+                `Field name "${responseKey}" is not allowed because it conflicts with generated object APIs. Please use an alias to change the field name.`,
+                { nodes: node })
             );
           }
         },
@@ -98,8 +97,9 @@ function ApolloIOSDisallowedInputParameterNames(names?: Array<string>) {
           const parameterNameFirstLowercase = parameterName.charAt(0).toLowerCase() + parameterName.slice(1)
           if (disallowedNames.includes(parameterNameFirstLowercase)) {
             context.reportError(
-              new GraphQLError(`Input Parameter name "${parameterName}" is not allowed because it conflicts with generated object APIs.`,
-               { nodes: node })
+              new GraphQLError(
+                `Input Parameter name "${parameterName}" is not allowed because it conflicts with generated object APIs.`,
+                { nodes: node })
             );
           }
         },

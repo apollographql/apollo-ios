@@ -102,6 +102,8 @@ class CompilationTests: XCTestCase {
   }
 
   func test__compile__givenSingleQuery_withClientControlledNullability() throws {
+    throw XCTSkip("CCN tests skipped until issue #3114 done or closed.")
+
     // given
     try useStarWarsSchema()
 

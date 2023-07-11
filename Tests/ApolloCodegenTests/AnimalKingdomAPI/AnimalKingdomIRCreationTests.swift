@@ -996,6 +996,8 @@ final class AnimalKingdomIRCreationTests: XCTestCase {
   }
 
   func test__mergedSelections_AllAnimalsQuery_AllAnimal_AsClassroomPet_AsBird_Height__isCorrect_CCN() throws {
+    throw XCTSkip("CCN tests skipped until issue #3114 done or closed.")
+
     // given
     let enableCCN = true
 
