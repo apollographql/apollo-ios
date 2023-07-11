@@ -1,4 +1,3 @@
-import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
@@ -14,12 +13,12 @@ struct NetworkResponseExecutionSource:
 
   func resolveField(
     with info: FieldExecutionInfo,
-    on object: JSONObject
+    on object: RawData
   ) -> PossiblyDeferred<AnyHashable?> {
     .immediate(.success(object[info.responseKeyForField]))
   }
 
-  func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: RawData) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 
@@ -36,7 +35,7 @@ struct NetworkResponseExecutionSource:
 
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as JSONObject:
+      case let object as RawData:
         return ObjectData(_transformer: self, _rawData: object)
       default: return nil
       }

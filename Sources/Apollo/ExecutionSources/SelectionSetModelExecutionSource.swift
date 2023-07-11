@@ -1,4 +1,3 @@
-import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
@@ -14,12 +13,12 @@ struct SelectionSetModelExecutionSource:
 
   func resolveField(
     with info: FieldExecutionInfo,
-    on object: DataDict
+    on object: RawData
   ) -> PossiblyDeferred<AnyHashable?> {
     .immediate(.success(object._data[info.responseKeyForField]))
   }
 
-  func opaqueObjectDataWrapper(for rawData: DataDict) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: RawData) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData._data)
   }
 
@@ -36,7 +35,7 @@ struct SelectionSetModelExecutionSource:
 
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as DataDict:
+      case let object as RawData:
         return ObjectData(_transformer: self, _rawData: object._data)
       default: return nil
       }
