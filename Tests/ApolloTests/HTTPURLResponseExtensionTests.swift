@@ -88,7 +88,7 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     let response = createResponse(statusCode: 0)
 
     // then
-    expect(response.multipartBoundary).to(beNil())
+    expect(response.multipartHeaderComponents.boundary).to(beNil())
   }
 
   func test__multipartBoundary__givenMissingBoundaryMarker_shouldReturnNil() {
@@ -96,7 +96,7 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     let response = createResponse(statusCode: 0, headers: ["Content-Type": "multipart/mixed"])
 
     // then
-    expect(response.multipartBoundary).to(beNil())
+    expect(response.multipartHeaderComponents.boundary).to(beNil())
   }
 
   func test__multipartBoundary__givenBoundaryMarker_shouldReturnBoundaryMarker() {
@@ -107,7 +107,7 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     )
 
     // then
-    expect(response.multipartBoundary).to(equal("apollo"))
+    expect(response.multipartHeaderComponents.boundary).to(equal("apollo"))
   }
 
   func test__multipartBoundary__givenBoundaryMarkerWithPrefixWhitespace_shouldReturnBoundaryMarkerPreservingPrefixWhitespace() {
@@ -118,7 +118,7 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     )
 
     // then
-    expect(response.multipartBoundary).to(equal(" apollo"))
+    expect(response.multipartHeaderComponents.boundary).to(equal(" apollo"))
   }
 
   func test__multipartBoundary__givenBoundaryMarkerWithQuotations_shouldReturnBoundaryMarkerWithoutQuotations() {
@@ -129,7 +129,7 @@ final class HTTPURLResponseExtensionTests: XCTestCase {
     )
 
     // then
-    expect(response.multipartBoundary).to(equal("apollo"))
+    expect(response.multipartHeaderComponents.boundary).to(equal("apollo"))
   }
 
 }
