@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer.",
       "type" : "text"
     }
   ],
@@ -20,6 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "ApolloCodegenLib",
     "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV25additionalInflectionRules24queryStringLiteralFormat19deprecatedEnumCases19schemaDocumentation24selectionSetInitializers4apqs35cocoapodsCompatibleImportStatements25warningsOnDeprecatedUsage20conversionStrategies19pruneGeneratedFilesAESayAA0H4RuleOG_AC05QueryklM0OAC11CompositionOAvC09SelectiontU0VAC9APQConfigOSbAvC20ConversionStrategiesVSbtcfc",
     "fragments" : [
       {
@@ -269,6 +270,9 @@
         "name" : "ApolloCodegenLib"
       }
     ],
+    "platforms" : [
+
+    ],
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
@@ -449,7 +453,7 @@
             },
             {
               "kind" : "text",
-              "text" : " = Default.apqs, "
+              "text" : ", "
             },
             {
               "kind" : "externalParam",
@@ -1040,10 +1044,11 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)": {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer.",
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "identifier",

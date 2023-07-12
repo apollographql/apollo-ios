@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Automatically persists your operations using Apollo Server’s",
+      "text" : "Automatically persists your operations using Apollo Server\/Router’s",
       "type" : "text"
     },
     {
@@ -16,6 +16,17 @@
     {
       "text" : ".",
       "type" : "text"
+    }
+  ],
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "Use OperationDocumentFormat instead.",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
     }
   ],
   "hierarchy" : {
@@ -52,6 +63,9 @@
       {
         "name" : "ApolloCodegenLib"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Case",
@@ -211,7 +225,7 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig/automaticallyPersist": {
   "abstract" : [
     {
-      "text" : "Automatically persists your operations using Apollo Server’s",
+      "text" : "Automatically persists your operations using Apollo Server\/Router’s",
       "type" : "text"
     },
     {
@@ -228,6 +242,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

@@ -503,7 +503,7 @@
       "type" : "text"
     },
     {
-      "identifier" : "https:\/\/github.dev\/apollographql\/apollo-tooling",
+      "identifier" : "https:\/\/github.com\/apollographql\/apollo-tooling",
       "isActive" : true,
       "type" : "reference"
     },
@@ -546,8 +546,8 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/experimentalfeatures-swift.struct\/legacysafelistingcompatibleoperations"
 },
-"https://github.dev/apollographql/apollo-tooling": {
-  "identifier" : "https:\/\/github.dev\/apollographql\/apollo-tooling",
+"https://github.com/apollographql/apollo-tooling": {
+  "identifier" : "https:\/\/github.com\/apollographql\/apollo-tooling",
   "title" : "apollo-tooling",
   "titleInlineContent" : [
     {
@@ -556,7 +556,7 @@
     }
   ],
   "type" : "link",
-  "url" : "https:\/\/github.dev\/apollographql\/apollo-tooling"
+  "url" : "https:\/\/github.com\/apollographql\/apollo-tooling"
 }
 }
 }

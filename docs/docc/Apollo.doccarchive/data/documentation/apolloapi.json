@@ -173,7 +173,8 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/InputDict",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ListData",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/ObjectData",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDefinition",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDocument"
       ],
       "title" : "Structures"
     },
@@ -608,19 +609,9 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/DocumentType": {
   "abstract" : [
-    {
-      "text" : "The means of providing the operation document that includes the definition of the operation",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "over network transport.",
-      "type" : "text"
-    }
+
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -1873,6 +1864,48 @@
   "title" : "OperationDefinition",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/operationdefinition"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/OperationDocument": {
+  "abstract" : [
+    {
+      "text" : "The means of providing the operation document that includes the definition of the operation",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "over network transport.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OperationDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/OperationDocument",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OperationDocument"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OperationDocument",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/operationdocument"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/OutputTypeConvertible": {
   "abstract" : [
