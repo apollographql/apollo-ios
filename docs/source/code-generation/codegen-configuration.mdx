@@ -395,25 +395,38 @@ Specify the directory for your test mocks using the `path` parameter. This is re
 >
 > Test mocks generated this way may also be manually embedded in a test utility module that is imported by your test target.
 
-### Operation identifiers
+### Operation Manifest
 
-Providing a path for this property will generate a JSON document with all your operations and their computed identifier hashes. This document can be used to pre-register the identifiers for your operations with an Apollo Server instance for use with [Automatic Persisted Queries](./../fetching/apqs).
+Providing a value for this property will generate a JSON document with all your operations and their computed identifier hashes. This document can be used to pre-register the identifiers for your operations with a server that supports [persisted queries or Automatic Persisted Queries](./../fetching/apqs).
+
+The properties of the Operation Manifest configuration object are:
+
+| Property Name | Description |
+| ----- | ----------- |
+| `path` | Local path where the generated operation manifest file should be written. |
+| [`version`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestfileoutput/version) | The version format to use when generating the operation manifest. |
+
+<MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
-{
-	"b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad": {
-		"name": "TestQuery",
-		"source": "query TestQuery {\\n  test\\n}"
-	},
-	"50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1": {
-		"name": "TestMutation",
-		"source": "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}"
-	},
-	"55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed": {
-		"name": "TestSubscription",
-		"source": "subscription TestSubscription {\\n  watched\\n}"
+"output": {
+	"operationManifest" : {
+		"path" : "./generated/operationIdentifiers.json",
+		"version" : "persistedQueries"
 	}
 }
+```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+	// Other properties not shown
+	output: ApolloCodegenConfiguration.FileOutput(
+		operationManifest: .init(
+			path: "./generated/operationIdentifiers.json",
+			version: .persistedQueries
+		)
+	)
+)
 ```
 
 ## Output options
@@ -429,7 +442,7 @@ The top-level properties are:
 | [`deprecatedEnumCases`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/deprecatedenumcases) | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`schemaDocumentation`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/schemadocumentation) | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
 | [`selectionSetInitializers`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/selectionsetinitializers) | Generate initializers for your generated selection set models. |
-| [`apqs`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/apqs) | Whether the generated operations should use Automatic Persisted Queries. |
+| [`operationDocumentFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/operationdocumentformat) | How to generate the operation documents for your generated operations. This can be used to generate operation identifiers for use with a server that supports [persisted queries or Automatic Persisted Queries](./../fetching/apqs) |
 | [`cocoapodsCompatibleImportStatements`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/cocoapodscompatibleimportstatements) | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
 | [`warningsOnDeprecatedUsage`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/warningsondeprecatedusage) | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`conversionStrategies`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/conversionstrategies) | Rules for how to convert the names of values from the schema in generated code. |
@@ -457,7 +470,7 @@ The top-level properties are:
 			"MyFragment"
 		]
 	},
-	"apqs": "disabled",
+	"operationDocumentFormat" : ["definition", "operationId"],
 	"cocoapodsCompatibleImportStatements": false,
 	"warningsOnDeprecatedUsage": "include",
 	"conversionStrategies": {
@@ -485,7 +498,7 @@ let configuration = ApolloCodegenConfiguration(
 			.operation(named: "MyOperation"),
 			.fragment(named: "MyFragment)
 		],
-		apqs: .disabled,
+		operationDocumentFormat: [.document, .operationId],
 		cocoapodsCompatibleImportStatements: false,
 		warningsOnDeprecatedUsage: .include,
 		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
