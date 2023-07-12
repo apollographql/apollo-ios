@@ -36,6 +36,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "ApolloCodegenLib",
     "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
     "fragments" : [
       {
@@ -106,7 +107,7 @@
         {
           "inlineContent" : [
             {
-              "text" : "APQs are an Apollo Server feature. When using Apollo iOS to connect to any other GraphQL server,",
+              "text" : "APQs are a feature of Apollo Server\/Router. When using Apollo iOS to connect to any other GraphQL server,",
               "type" : "text"
             },
             {
@@ -136,7 +137,6 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/Se",
-        "doc:\/\/ApolloCodegenLib\/SE",
         "doc:\/\/ApolloCodegenLib\/SQ",
         "doc:\/\/ApolloCodegenLib\/SH",
         "doc:\/\/ApolloCodegenLib\/SY"
@@ -192,11 +192,6 @@
   ]
 , 
 "references": {
-"doc://ApolloCodegenLib/SE": {
-  "identifier" : "doc:\/\/ApolloCodegenLib\/SE",
-  "title" : "Swift.Encodable",
-  "type" : "unresolvable"
-},
 "doc://ApolloCodegenLib/SH": {
   "identifier" : "doc:\/\/ApolloCodegenLib\/SH",
   "title" : "Swift.Hashable",
@@ -341,7 +336,7 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig/automaticallyPersist": {
   "abstract" : [
     {
-      "text" : "Automatically persists your operations using Apollo Server’s",
+      "text" : "Automatically persists your operations using Apollo Server\/Router’s",
       "type" : "text"
     },
     {
@@ -358,6 +353,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -394,6 +390,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -472,7 +469,7 @@
       "type" : "text"
     },
     {
-      "text" : "to an Apollo Server using",
+      "text" : "to an Apollo Server\/Router using",
       "type" : "text"
     },
     {
@@ -489,6 +486,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

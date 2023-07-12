@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Used to uniquely identify this interceptor from other interceptors in a request chain.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -104,6 +110,42 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "discussion",
+          "level" : 2,
+          "text" : "Discussion",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Each operation request has it’s own interceptor request chain so the interceptors do not",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "need to be uniquely identifiable between each and every request, only unique between the",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "list of interceptors in a single request.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -178,7 +220,10 @@
 },
 "doc://Apollo/documentation/Apollo/ApolloInterceptor/id": {
   "abstract" : [
-
+    {
+      "text" : "Used to uniquely identify this interceptor from other interceptors in a request chain.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -181,7 +181,10 @@
 },
 "doc://Apollo/documentation/Apollo/ApolloInterceptor/id": {
   "abstract" : [
-
+    {
+      "text" : "Used to uniquely identify this interceptor from other interceptors in a request chain.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

@@ -1,18 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "The means of providing the operation document that includes the definition of the operation",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "over network transport.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -52,6 +38,9 @@
         "text" : "DocumentType"
       }
     ],
+    "platforms" : [
+
+    ],
     "role" : "symbol",
     "roleHeading" : "Enumeration",
     "symbolKind" : "enum",
@@ -84,102 +73,6 @@
         }
       ],
       "kind" : "declarations"
-    },
-    {
-      "content" : [
-        {
-          "anchor" : "overview",
-          "level" : 2,
-          "text" : "Overview",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "This data represents the ",
-              "type" : "text"
-            },
-            {
-              "code" : "Document",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " as defined in the GraphQL Spec.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        },
-        {
-          "items" : [
-            {
-              "content" : [
-                {
-                  "inlineContent" : [
-                    {
-                      "text" : "See: ",
-                      "type" : "text"
-                    },
-                    {
-                      "identifier" : "https:\/\/spec.graphql.org\/draft\/#Document",
-                      "isActive" : true,
-                      "type" : "reference"
-                    }
-                  ],
-                  "type" : "paragraph"
-                }
-              ]
-            }
-          ],
-          "type" : "unorderedList"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The Apollo Code Generation Engine will generate the ",
-              "type" : "text"
-            },
-            {
-              "code" : "DocumentType",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " on each generated",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "code" : "GraphQLOperation",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : ". You can change the type of ",
-              "type" : "text"
-            },
-            {
-              "code" : "DocumentType",
-              "type" : "codeVoice"
-            },
-            {
-              "text" : " generated in your",
-              "type" : "text"
-            },
-            {
-              "text" : " ",
-              "type" : "text"
-            },
-            {
-              "text" : "[code generation configuration](\/\/ TODO: ADD URL TO DOCUMENTATION HERE).",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
     }
   ],
   "schemaVersion" : {
@@ -268,19 +161,9 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/DocumentType": {
   "abstract" : [
-    {
-      "text" : "The means of providing the operation document that includes the definition of the operation",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "over network transport.",
-      "type" : "text"
-    }
+
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -328,6 +211,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -418,6 +302,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -496,6 +381,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -537,18 +423,6 @@
   "title" : "DocumentType.persistedOperationsOnly(operationIdentifier:)",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/documenttype\/persistedoperationsonly(operationidentifier:)"
-},
-"https://spec.graphql.org/draft/#Document": {
-  "identifier" : "https:\/\/spec.graphql.org\/draft\/#Document",
-  "title" : "GraphQLSpec - Document",
-  "titleInlineContent" : [
-    {
-      "text" : "GraphQLSpec - Document",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/spec.graphql.org\/draft\/#Document"
 },
 "https://www.apollographql.com/docs/apollo-server/performance/apq": {
   "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",

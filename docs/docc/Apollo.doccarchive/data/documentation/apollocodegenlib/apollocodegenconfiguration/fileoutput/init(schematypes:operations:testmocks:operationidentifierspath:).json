@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer.",
       "type" : "text"
     }
   ],
@@ -20,6 +20,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
+    "extendedModule" : "ApolloCodegenLib",
     "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV10FileOutputV11schemaTypes10operations9testMocks24operationIdentifiersPathAeC06SchemaheF0V_AC010OperationseF0OAC08TestMockeF0OSSSgtcfc",
     "fragments" : [
       {
@@ -130,6 +131,9 @@
       {
         "name" : "ApolloCodegenLib"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Initializer",
@@ -254,7 +258,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? = Default.operationIdentifiersPath)"
+              "text" : "?)"
             }
           ]
         }
@@ -355,7 +359,7 @@
                 {
                   "inlineContent" : [
                     {
-                      "text" : "operationIdentifiersPath: An absolute location to an operation id JSON map file.",
+                      "text" : "operationIdentifiersPath: An absolute location to an operation id JSON map file",
                       "type" : "text"
                     },
                     {
@@ -363,15 +367,7 @@
                       "type" : "text"
                     },
                     {
-                      "text" : "If specified, also stores the operation IDs (hashes) as properties on operation types.",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : " ",
-                      "type" : "text"
-                    },
-                    {
-                      "text" : "Defaults to ",
+                      "text" : "for use with APQ registration. Defaults to ",
                       "type" : "text"
                     },
                     {
@@ -501,10 +497,11 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput/init(schemaTypes:operations:testMocks:operationIdentifiersPath:)": {
   "abstract" : [
     {
-      "text" : "Designated initializer.",
+      "text" : "Deprecated initializer.",
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "identifier",

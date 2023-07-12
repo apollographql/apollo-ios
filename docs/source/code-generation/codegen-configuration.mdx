@@ -98,7 +98,7 @@ The properties to configure `output` are:
 | [`schemaTypes`](#schema-types) | Location and structure of the generated schema types files. |
 | [`operations`](#operations)    | Location and structure of the generated operation files such as queries, mutations, subscriptions, and fragments. |
 | [`testMocks`](#test-mocks)     | Location and structure of the test mock operation object files.<br/><br/>If `.none`, test mocks will not be generated. |
-| [`operationIdentifiersPath`](#operation-identifiers) | An absolute location to an operation identifier JSON map file. This can be used in conjunction with [APQs](../fetching/apqs). |
+| [`operationManifest`](#operation-manifest) | Configures the generation of an operation manifest JSON file for use with persisted queries or [Automatic Persisted Queries](../fetching/apqs). |
 
 <MultiCodeBlock>
 
@@ -116,7 +116,10 @@ The properties to configure `output` are:
 	"testMocks": {
 		"none": {}
 	},
-	"operationIdentifiersPath": "./generated/"
+	"operationManifest" : {
+		"path" : "./generated/operationIdentifiers.json",
+		"version" : "persistedQueries"
+	}
 }
 ```
 

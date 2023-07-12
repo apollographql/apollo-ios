@@ -127,6 +127,7 @@
       "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/definition",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/document",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationDocument",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType"
@@ -418,6 +419,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -451,11 +453,53 @@
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/document",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "document",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/document"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationDocument": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "operationDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI17OperationDocumentV",
+      "text" : "OperationDocument"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationDocument",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "operationDocument",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/graphqloperation\/operationdocument"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationIdentifier": {
   "abstract" : [

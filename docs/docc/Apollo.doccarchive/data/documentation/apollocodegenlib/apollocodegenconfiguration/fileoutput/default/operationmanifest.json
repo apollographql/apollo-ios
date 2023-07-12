@@ -4,18 +4,18 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput\/Default"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/apqs"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput\/Default\/operationManifest"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV7DefaultV4apqsAC9APQConfigOvpZ",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV10FileOutputV7DefaultV17operationManifestAC09OperationieF0VSgvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -35,7 +35,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "apqs"
+        "text" : "operationManifest"
       },
       {
         "kind" : "text",
@@ -52,8 +52,12 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-        "text" : "APQConfig"
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV27OperationManifestFileOutputV",
+        "text" : "OperationManifestFileOutput"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -64,7 +68,7 @@
     "role" : "symbol",
     "roleHeading" : "Type Property",
     "symbolKind" : "property",
-    "title" : "apqs"
+    "title" : "operationManifest"
   },
   "primaryContentSections" : [
     {
@@ -95,7 +99,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "apqs"
+              "text" : "operationManifest"
             },
             {
               "kind" : "text",
@@ -112,10 +116,14 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestFileOutput",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-              "text" : "APQConfig"
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV27OperationManifestFileOutputV",
+              "text" : "OperationManifestFileOutput"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
             }
           ]
         }
@@ -134,7 +142,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/default\/apqs"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileoutput\/default\/operationmanifest"
       ],
       "traits" : [
         {
@@ -193,60 +201,12 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput": {
   "abstract" : [
     {
-      "text" : "Enum to enable using",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with your generated operations.",
+      "text" : "The paths and files output by code generation.",
       "type" : "text"
     }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "APQConfig"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "APQConfig"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.APQConfig",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions": {
-  "abstract" : [
-
   ],
   "fragments" : [
     {
@@ -259,23 +219,23 @@
     },
     {
       "kind" : "identifier",
-      "text" : "OutputOptions"
+      "text" : "FileOutput"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "OutputOptions"
+      "text" : "FileOutput"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OutputOptions",
+  "title" : "ApolloCodegenConfiguration.FileOutput",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileoutput"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/Default": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput/Default": {
   "abstract" : [
     {
       "text" : "Default property values",
@@ -296,7 +256,7 @@
       "text" : "Default"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput\/Default",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -305,11 +265,11 @@
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OutputOptions.Default",
+  "title" : "ApolloCodegenConfiguration.FileOutput.Default",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/default"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileoutput\/default"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/Default/apqs": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/FileOutput/Default/operationManifest": {
   "abstract" : [
 
   ],
@@ -332,7 +292,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "apqs"
+      "text" : "operationManifest"
     },
     {
       "kind" : "text",
@@ -349,16 +309,71 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-      "text" : "APQConfig"
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV27OperationManifestFileOutputV",
+      "text" : "OperationManifestFileOutput"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/apqs",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput\/Default\/operationManifest",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "apqs",
+  "title" : "operationManifest",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/default\/apqs"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/fileoutput\/default\/operationmanifest"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationManifestFileOutput": {
+  "abstract" : [
+    {
+      "text" : "Configures the generation of an operation manifest JSON file for use with persisted queries",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "or ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OperationManifestFileOutput"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestFileOutput",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OperationManifestFileOutput"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.OperationManifestFileOutput",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationmanifestfileoutput"
 },
 "https://www.apollographql.com/docs/apollo-server/performance/apq": {
   "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
