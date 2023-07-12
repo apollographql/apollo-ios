@@ -1,6 +1,7 @@
 #if !COCOAPODS
 import ApolloAPI
 #endif
+import Dispatch
 
 /// Handles pagination in the queue by managing multiple query watchers.
 public final class GraphQLPaginatedQueryWatcher<Strategy: PaginationStrategy> {
