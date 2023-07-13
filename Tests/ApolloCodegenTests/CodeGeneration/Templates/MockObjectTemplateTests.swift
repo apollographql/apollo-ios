@@ -462,7 +462,7 @@ class MockObjectTemplateTests: XCTestCase {
     let expected = """
       var hash: String? {
         get { _data["hash"] as? String }
-        set { _set(newValue, for: \\.hash) }
+        set { _setScalar(newValue, for: \\.hash) }
       }
 
     """
