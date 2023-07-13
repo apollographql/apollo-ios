@@ -75,6 +75,14 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
     _data[field.key.description] = value?._unsafelyConvertToMockValue()
   }
 
+  public func _setList<T: AnyScalarType & Hashable>(
+    _ value: [T]?,
+    for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
+  ) {
+    let field = O._mockFields[keyPath: keyPath]
+    _data[field.key.description] = value?._unsafelyConvertToMockValue()
+  }
+
   public var _selectionSetMockData: JSONObject {
     _data.mapValues {
       if let mock = $0 as? AnyMock {
