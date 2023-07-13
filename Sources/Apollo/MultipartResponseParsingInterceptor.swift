@@ -6,42 +6,23 @@ import ApolloAPI
 /// Parses multipart response data into chunks and forwards each on to the next interceptor.
 public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
-  public enum MultipartResponseParsingError: Error, LocalizedError, Equatable {
+  public enum ParsingError: Error, LocalizedError, Equatable {
     case noResponseToParse
-    case cannotParseResponseData
-    case unsupportedContentType(type: String)
-    case cannotParseChunkData
-    case irrecoverableError(message: String?)
-    case cannotParsePayloadData
+    case cannotParseResponse
 
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
         return "There is no response to parse. Check the order of your interceptors."
-      case .cannotParseResponseData:
+      case .cannotParseResponse:
         return "The response data could not be parsed."
-      case let .unsupportedContentType(type):
-        return "Unsupported content type: application/json is required but got \(type)."
-      case .cannotParseChunkData:
-        return "The chunk data could not be parsed."
-      case let .irrecoverableError(message):
-        return "An irrecoverable error occured: \(message ?? "unknown")."
-      case .cannotParsePayloadData:
-        return "The payload data could not be parsed."
       }
     }
   }
 
-  private enum ChunkedDataLine {
-    case heartbeat
-    case contentHeader(type: String)
-    case json(object: JSONObject)
-    case unknown
-  }
-
-  private static let dataLineSeparator: StaticString = "\r\n\r\n"
-  private static let contentTypeHeader: StaticString = "content-type:"
-  private static let heartbeat: StaticString = "{}"
+  private static let responseParsers: [String: MultipartResponseSpecificationParser.Type] = [
+    MultipartResponseSubscriptionParser.protocolSpec: MultipartResponseSubscriptionParser.self
+  ]
 
   public var id: String = UUID().uuidString
 
@@ -56,7 +37,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
     guard let response else {
       chain.handleErrorAsync(
-        MultipartResponseParsingError.noResponseToParse,
+        ParsingError.noResponseToParse,
         request: request,
         response: response,
         completion: completion
@@ -74,12 +55,15 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       return
     }
 
+    let multipartComponents = response.httpResponse.multipartHeaderComponents
+
     guard
-      let boundaryString = response.httpResponse.multipartBoundary,
-      let dataString = String(data: response.rawData, encoding: .utf8)
+      let boundary = multipartComponents.boundary,
+      let `protocol` = multipartComponents.protocol,
+      let parser = Self.responseParsers[`protocol`]
     else {
       chain.handleErrorAsync(
-        MultipartResponseParsingError.cannotParseResponseData,
+        ParsingError.cannotParseResponse,
         request: request,
         response: response,
         completion: completion
@@ -87,116 +71,51 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       return
     }
 
-    for chunk in dataString.components(separatedBy: "--\(boundaryString)") {
-      if chunk.isEmpty || chunk.isBoundaryPrefix { continue }
+    let dataHandler: ((Data) -> Void) = { data in
+      let response = HTTPResponse<Operation>(
+        response: response.httpResponse,
+        rawData: data,
+        parsedResponse: nil
+      )
 
-      for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
-        switch (parse(dataLine: dataLine.trimmingCharacters(in: .newlines))) {
-        case .heartbeat:
-          // Periodically sent by the router - noop
-          continue
-
-        case let .contentHeader(type):
-          guard type == "application/json" else {
-            chain.handleErrorAsync(
-              MultipartResponseParsingError.unsupportedContentType(type: type),
-              request: request,
-              response: response,
-              completion: completion
-            )
-            return
-          }
-
-        case let .json(object):
-          if let errors = object["errors"] as? [JSONObject] {
-            let message = errors.first?["message"] as? String
-
-            chain.handleErrorAsync(
-              MultipartResponseParsingError.irrecoverableError(message: message),
-              request: request,
-              response: response,
-              completion: completion
-            )
-
-            // These are fatal-level transport errors, don't process anything else.
-            return
-          }
-
-          guard let payload = object["payload"] else {
-            chain.handleErrorAsync(
-              MultipartResponseParsingError.cannotParsePayloadData,
-              request: request,
-              response: response,
-              completion: completion
-            )
-            return
-          }
-
-          if payload is NSNull {
-            // `payload` can be null such as in the case of a transport error
-            continue
-          }
-
-          guard
-            let payload = payload as? JSONObject,
-            let data: Data = try? JSONSerializationFormat.serialize(value: payload)
-          else {
-            chain.handleErrorAsync(
-              MultipartResponseParsingError.cannotParsePayloadData,
-              request: request,
-              response: response,
-              completion: completion
-            )
-            return
-          }
-
-          let response = HTTPResponse<Operation>(
-            response: response.httpResponse,
-            rawData: data,
-            parsedResponse: nil
-          )
-          chain.proceedAsync(
-            request: request,
-            response: response,
-            interceptor: self,
-            completion: completion
-          )
-
-        case .unknown:
-          chain.handleErrorAsync(
-            MultipartResponseParsingError.cannotParseChunkData,
-            request: request,
-            response: response,
-            completion: completion
-          )
-        }
-      }
-    }
-  }
-
-  /// Parses the data line of a multipart response chunk
-  private func parse(dataLine: String) -> ChunkedDataLine {
-    if dataLine == Self.heartbeat.description {
-      return .heartbeat
-    }
-
-    if dataLine.starts(with: Self.contentTypeHeader.description) {
-      return .contentHeader(type: (dataLine.components(separatedBy: ":").last ?? dataLine)
-        .trimmingCharacters(in: .whitespaces)
+      chain.proceedAsync(
+        request: request,
+        response: response,
+        interceptor: self,
+        completion: completion
       )
     }
 
-    if
-      let data = dataLine.data(using: .utf8),
-      let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-    {
-      return .json(object: jsonObject)
+    let errorHandler: ((Error) -> Void) = { parserError in
+      chain.handleErrorAsync(
+        parserError,
+        request: request,
+        response: response,
+        completion: completion
+      )
     }
 
-    return .unknown
+    parser.parse(
+      data: response.rawData,
+      boundary: boundary,
+      dataHandler: dataHandler,
+      errorHandler: errorHandler
+    )
   }
 }
 
-fileprivate extension String {
-  var isBoundaryPrefix: Bool { self == "--" }
+/// A protocol that multipart response parsers must conform to in order to be added to the list of
+/// available response specification parsers.
+protocol MultipartResponseSpecificationParser {
+  /// The specification string matching what is expected to be received in the `Content-Type` header
+  /// in an HTTP response.
+  static var protocolSpec: String { get }
+
+  /// Function that will be called to process the response data.
+  static func parse(
+    data: Data,
+    boundary: String,
+    dataHandler: ((Data) -> Void),
+    errorHandler: ((Error) -> Void)
+  )
 }
