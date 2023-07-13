@@ -487,6 +487,7 @@ class MockObjectTemplateTests: XCTestCase {
     subject.graphqlObject.fields = [
       "string": .mock("string", type: .nonNull(.string())),
       "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "CustomScalar")))),
+      "customScalarList": .mock("customScalarList", type: .list(.nonNull(.scalar(.mock(name: "CustomScalar"))))),
       "optionalString": .mock("optionalString", type: .string()),
       "object": .mock("object", type: Cat),
       "objectList": .mock("objectList", type: .list(.nonNull(Cat))),
@@ -516,6 +517,7 @@ class MockObjectTemplateTests: XCTestCase {
     public extension Mock where O == Dog {
       convenience init(
         customScalar: TestSchema.CustomScalar? = nil,
+        customScalarList: [TestSchema.CustomScalar]? = nil,
         enumType: GraphQLEnum<TestSchema.EnumType>? = nil,
         interface: AnyMock? = nil,
         interfaceList: [AnyMock]? = nil,
@@ -534,6 +536,7 @@ class MockObjectTemplateTests: XCTestCase {
       ) {
         self.init()
         _setScalar(customScalar, for: \\.customScalar)
+        _setList(customScalarList, for: \\.customScalarList)
         _setScalar(enumType, for: \\.enumType)
         _setEntity(interface, for: \\.interface)
         _setList(interfaceList, for: \\.interfaceList)
