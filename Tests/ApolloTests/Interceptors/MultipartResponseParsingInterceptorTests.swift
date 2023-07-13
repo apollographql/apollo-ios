@@ -52,4 +52,50 @@ final class MultipartResponseParsingInterceptorTests: XCTestCase {
 
     wait(for: [expectation], timeout: defaultTimeout)
   }
+
+  func test__error__givenResponse_withMissingMultipartProtocolHeader_shouldReturnError() throws {
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
+
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(headerFields: ["Content-Type": "multipart/mixed;boundary=\"graphql\""])
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.ParsingError.cannotParseResponse)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
+  }
+
+  func test__error__givenResponse_withUnknownMultipartParser_shouldReturnError() throws {
+    let subject = InterceptorTester(interceptor: MultipartResponseParsingInterceptor())
+
+    let expectation = expectation(description: "Received callback")
+
+    subject.intercept(
+      request: .mock(operation: MockSubscription.mock()),
+      response: .mock(headerFields: ["Content-Type": "multipart/mixed;boundary=\"graphql\";unknownSpec=0"])
+    ) { result in
+      defer {
+        expectation.fulfill()
+      }
+
+      expect(result).to(beFailure { error in
+        expect(error).to(
+          matchError(MultipartResponseParsingInterceptor.ParsingError.cannotParseResponse)
+        )
+      })
+    }
+
+    wait(for: [expectation], timeout: defaultTimeout)
+  }
 }
