@@ -16,7 +16,7 @@ Apollo iOS uses [graphql-js](https://github.com/graphql/graphql-js) for validati
 
 The latest `16.x` release of graphql-js with support for the `@defer` directive is [`16.1.0-experimental-stream-defer.6`](https://www.npmjs.com/package/graphql/v/16.1.0-experimental-stream-defer.6) but it looks like the 'experimental' named releases for `@defer` have been discontinued and the recommendation is to use [`17.0.0-alpha.2`](https://www.npmjs.com/package/graphql/v/17.0.0-alpha.2). This is further validated by the fact that [`16.7.0` does not](https://github.com/graphql/graphql-js/blob/v16.7.0/src/type/directives.ts#L167) include the @defer directive whereas [`17.0.0-alpha.2` does](https://github.com/graphql/graphql-js/blob/v17.0.0-alpha.2/src/type/directives.ts#L159).
 
-There are a few options for updating the graphql-js dependency:
+Potential solutions:
 1. Add support for Client Controlled Nullability to `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, and publish that to NPM. The level of effort for this is unknown but it would allow us to maintain support for CCN.
 2. Use `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, as-is and remove the experimental Client Controlled Nullability feature. We do not know how many users rely on the CCN functionality so this may be a controversial decision. This path doesn’t necessarily imply an easier dependency update because there will be changes needed to our frontend javascript to adapt to the changes in graphql-js.
 3. Another option is a staggered approach where we adopt `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, limiting the changes to our frontend javascript only and at a later stage bring the CCN changes from [PR `#3510`](https://github.com/graphql/graphql-js/pull/3510) to the `17.x` release path and reintroduce support for CCN to Apollo iOS. This would also require the experiemental CCN feature to be removed, with no committment to when it would be reintroduced.
@@ -31,37 +31,36 @@ Adding support for `@defer` brings new meaning of the word 'deferred' to the cod
 
 Generated models will definitely be affected by `@defer` statements in the operation. Ideally there is easy-to-read annotation indicating something is deferred by simply reading the generated model code but more importantly it must be easy when using the generated models in code to detect whether something is deferred or not.
 
-### Optional types
+Potential fragment/field solutions:
+1. Property wrappers - I explored Swift's property wrappers but they suffer from the limitation of not being able to be applied to a computed property. All GraphQL fields in the generated models are computed properties because they simply route access to the value in the underlying data dictionary storage. It would be nice to be able to simply annotate fragments and fields with something like `@Deferred` but unfortunately that is not possible.
+4. `Enum` wrapper - an idea that was suggested by [`@Iron-Ham`](https://github.com/apollographql/apollo-ios/issues/2395#issuecomment-1433628466) is to wrap the type in a Swift enum that can expose the deferred state as well as the underlying value once it has been received.
 
-The most simple solution is to change the deferred property type to an optional version of that type. This hides detail though because you wouldn't be able to tell whether the value is `nil` because the response data hasn't been received yet (i.e.: deferred) or whether the data was returned and it was explicitly `null`. It also gets more complicated when a type is already optional; would that result in a Swift double-optional type? As we learnt with the legacy implementation of GraphQL nullability, double-optionals are difficult to interpret and easily lead to unintentional mistakes.
-
-### Property wrappers
-
-I explored Swift's property wrappers but they suffer from the limitation of not being able to be applied to a computed property. All model properties are computed properties because they simply route access to the value in the underlying dictionary data storage. It would be nice to be able to simply annotate fragments and fields with some like `@Deferred` but it doesn't look like that is possible.
-
-### `Enum` wrapper
-An idea that was suggested by [`@Iron-Ham`](https://github.com/apollographql/apollo-ios/issues/2395#issuecomment-1433628466) is to wrap the type in a Swift enum that can expose the deferred state as well as the underlying value once it has been received.
-
-_Example enum to wrap deferred properties_
 ```swift
+// Example enum to wrap deferred properties
 enum DeferredValue<T> {
     case loading
     case result(Result<T, Error>)
 }
-```
-_Sample model with `DeferredResponse`_
-```swift
+
+// Sample model with a deferred property
 public struct ModelSelectionSet: GraphAPI.SelectionSet {
-  // other properties no shown
+  // other properties not shown
 
   public var name: DeferredValue<String?> { __data["name"] }
 }
 ```
 
-Deferred fragment definitions in generated models will get an additional property to indicate they are deferred.
+3. Optional types - this solution would change the deferred property type to an optional version of that type. This may not seem necessary when considering that only fragments can be marked as deferred but it would be required to cater for the way that Apollo iOS does field merging in the generated model fragments. Field merging is non-optional at the moment but there is an issue ([#2560](https://github.com/apollographql/apollo-ios/issues/2560)) that would make this a configuration option. This solution hides detail though because you wouldn't be able to tell whether the field value is `nil` because the response data hasn't been received yet (i.e.: deferred) or whether the data was returned and it was explicitly `null`. It also gets more complicated when a field type is already optional; would that result in a Swift double-optional type? As we learnt with the legacy implementation of GraphQL nullability, double-optionals are difficult to interpret and easily lead to mistakes.
+4. Optional fragments - optional types are only needed when fragment fields are merged into entity selection sets. If field merging were disabled automatically for deferred fragments then this problem goes away and fragments can be made optional. A `nil` fragment value would indicate that the fragment data has not yet been received and when received the fragment value is populated with the received field values. This seems a more elegant and ergonimic way to indicate the status of deferred data but complicates the understanding of field merging.
 
-_Updated `Selection` enum_
 ```swift
+TODO: add code sample for Optional fragments
+```
+
+Regardless of the fragment/field solution chosen all deferred fragment definitions in generated models `__selections` will get an additional property to indicate they are deferred. This helps to understand the models when reading them as well as being used by internal code.
+
+```swift
+// Updated Selection enum
 public enum Selection {
   // other cases not shown
   case fragment(any Fragment.Type, deferred: Bool)
@@ -69,28 +68,19 @@ public enum Selection {
 
   // other properties and types not shown
 }
+
+// Example usage in a generated model
+public class ExampleQuery: GraphQLQuery {
+  // other properties and types not shown
+
+  public struct Data: ExampleSchema.SelectionSet {
+    public static var __selections: [ApolloAPI.Selection] { [
+      .fragment(EntityFragment.self, deferred: true),
+      .inlineFragment(AsEntity.self, deferred: true),
+    ] }
+  }
+}
 ```
-
-_Example usage in a generated model_
-```swift
-  public static var __selections: [ApolloAPI.Selection] { [
-    .inlineFragment(AsEntity.self, deferred: true),
-  ] }
-
-  public static var __selections: [ApolloAPI.Selection] { [
-    .fragment(EntityFragment.self, deferred: true),
-  ] }
-```
-
-### Optional fragments
-
-_This can be viewed as both a simplification and improvement on the [Optional types](#optional-types) option above._
-
-Optional types are only needed when fragment fields are merged into entity selection sets. This is because they're no longer contained within a fragment struct and the type would need to be able to indicate whether the value is being deferred or has been received and is null.
-
-If field merging were disabled automatically for deferred fragments then this problem goes away and fragments can be made optional. A nil fragment value would indicate that the fragment data has not yet been received and when received the fragment value is populated with the received field values.
-
-This seems a more elegant and ergonimic way to indicate the status of deferred data but complicates the understanding of field merging.
 
 ## Networking 
 
@@ -100,8 +90,8 @@ If an operation can support an incremental delivery response it must add an `Acc
 
 This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header.
 
-_Sample code for `RequestChainNetworkTransport`_
 ```swift
+// Sample code for RequestChainNetworkTransport
 public func send<Operation: GraphQLOperation>(
   operation: Operation,
   cachePolicy: CachePolicy = .default,
@@ -109,21 +99,19 @@ public func send<Operation: GraphQLOperation>(
   callbackQueue: DispatchQueue = .main,
   completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
 ) -> Cancellable {
-    // request chain and request are built
+  // request chain and request are built
 
-    if Operation.hasDeferredFragments {
-      request.addHeader(
-        name: "Accept",
-        value: "multipart/mixed;deferSpec=20220824,application/json"
-      )
-    }
-
-    // request chain kickoff
+  if Operation.hasDeferredFragments {
+    request.addHeader(
+      name: "Accept",
+      value: "multipart/mixed;deferSpec=20220824,application/json"
+    )
   }
-```
 
-_Sample of new property on `GraphQLOperation`_
-```swift
+  // request chain kickoff
+}
+
+// Sample of new property on GraphQLOperation
 public protocol GraphQLOperation: AnyObject, Hashable {
   // other properties not shown
 
@@ -141,8 +129,8 @@ The current `MultipartResponseParsingInterceptor` implementation is specific to 
 
 These would be registered with the `MultipartResponseParsingInterceptor` each with a unique specification string, to be used as a lookup key. When a response is received the specification string is extracted from the response `content-type` header, and the correct specification parser can be used to parse the response data.
 
-_Sample code in `MultipartResponseParsingInterceptor`_
 ```swift
+// Sample code in MultipartResponseParsingInterceptor
 public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   private static let multipartParsers: [String: MultipartResponseSpecificationParser.Type] = [
     SubscriptionResponseParser.protocolSpec: SubscriptionResponseParser.self,
@@ -182,10 +170,9 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       errorHandler: errorHandler
     )
   }
-```
+}
 
-_Sample protocol for multipart specification parsing_
-```swift
+// Sample protocol for multipart specification parsing
 protocol MultipartResponseSpecificationParser {
   static var protocolSpec: String { get }
 
@@ -196,10 +183,8 @@ protocol MultipartResponseSpecificationParser {
     errorHandler: (() -> Void)
   )
 }
-```
 
-_Sample implementations of multipart specification parsers_
-```swift
+// Sample implementations of multipart specification parsers
 struct SubscriptionResponseParser: MultipartResponseSpecificationParser {
   static let protocolSpec: String = "subscriptionSpec=1.0"
 
@@ -222,7 +207,7 @@ struct DeferResponseParser: MultipartResponseSpecificationParser {
     dataHandler: ((Data) -> Void),
     errorHandler: (() -> Void)
   ) {
-    // new code to parser the defer specification
+    // new code to parse the defer specification
   }
 }
 ```
@@ -237,11 +222,13 @@ The data being retained and combined should not require another pass through the
 
 `GraphQLResult` should be modified to provide query completion blocks with a high-level abstraction of whether the request has been fulfilled or is still in progress. This prevents clients from having to dig into the deferred fragments to identify the state of the overall request.
 
-One way to do this is through a property on the `GraphQLResult` type.
+Potential solutions:
+1. Introduce a new property on the `GraphQLResult` type that can be used to express the state of the request
 
 ```swift
+// New Response type and property
 public struct GraphQLResult<Data: RootSelectionSet> {
-  // other properties and types
+  // other properties and types not shown
 
   public enum Response {
     case partial
@@ -250,27 +237,26 @@ public struct GraphQLResult<Data: RootSelectionSet> {
 
   public let response: Response
 }
-```
 
-_Sample usage in an app_
-```swift
-  client.fetch(query: ExampleQuery()) { result in
-    switch (result) {
-    case let .success(data):
-      switch (data.response) {
-      case .complete:
-      case .partial:
-      }
-    case let .failure(error):
+// Sample usage in an app completion block
+client.fetch(query: ExampleQuery()) { result in
+  switch (result) {
+  case let .success(data):
+    switch (data.response) {
+    case .complete:
+    case .partial:
     }
+  case let .failure(error):
   }
+}
 ```
 
-Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received.
+2. Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received.
 
 ```swift
+// Updated server case on Source with associated value of Response type
 public struct GraphQLResult<Data: RootSelectionSet> {
-  // other properties and types
+  // other properties and types not shown
 
   public enum Response {
     case partial
@@ -282,21 +268,19 @@ public struct GraphQLResult<Data: RootSelectionSet> {
     case server(_ response: Response)
   }
 }
-```
 
-_Sample usage in an app_
-```swift
-  client.fetch(query: ExampleQuery()) { result in
-    switch (result) {
-    case let .success(data):
-      switch (data.source) {
-      case .server(.complete):
-      case .server(.partial):
-      case .cache:
-      }
-    case let .failure(error):
+// Sample usage in an app
+client.fetch(query: ExampleQuery()) { result in
+  switch (result) {
+  case let .success(data):
+    switch (data.source) {
+    case .server(.complete):
+    case .server(.partial):
+    case .cache:
     }
+  case let .failure(error):
   }
+}
 ```
 
 ## GraphQL execution
@@ -311,10 +295,10 @@ Similarly to GraphQL execution the cache write interceptor is designed to work h
 
 This approach is not going to work for the incremental responses of `@defer` though and partial responses cannot be written to the cache for the operation. Instead all deferred responses will need to be fulfilled before the record is written to the cache.
 
-_Only write cache records for complete responses_
 ```swift
+// Only write cache records for complete responses
 public struct CacheWriteInterceptor: ApolloInterceptor {
-  ...
+  // other code not shown
 
   public func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
