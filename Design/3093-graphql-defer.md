@@ -223,7 +223,7 @@ The data being retained and combined should not require another pass through the
 `GraphQLResult` should be modified to provide query completion blocks with a high-level abstraction of whether the request has been fulfilled or is still in progress. This prevents clients from having to dig into the deferred fragments to identify the state of the overall request.
 
 Potential solutions:
-1. Introduce a new property on the `GraphQLResult` type that can be used to express the state of the request
+1. Introduce a new property on the `GraphQLResult` type that can be used to express the state of the request.
 
 ```swift
 // New Response type and property
@@ -251,7 +251,7 @@ client.fetch(query: ExampleQuery()) { result in
 }
 ```
 
-2. Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received.
+2. Another way which may be a bit more intuitive is to make the `server` case on `Source` have an associated value since `cache` sources will always be complete. The cache could return partial responses for deferred operations but for the initial implementation we will probably only write the cache record once all deferred fragments have been received. This solution becomes invalid though once the cache can return partial responses, with that in mind maybe option 1 is better.
 
 ```swift
 // Updated server case on Source with associated value of Response type
