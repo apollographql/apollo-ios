@@ -17,7 +17,7 @@
       "type" : "text"
     },
     {
-      "text" : "to an Apollo Server using",
+      "text" : "to an Apollo Server\/Router using",
       "type" : "text"
     },
     {
@@ -32,6 +32,17 @@
     {
       "text" : ".",
       "type" : "text"
+    }
+  ],
+  "deprecationSummary" : [
+    {
+      "inlineContent" : [
+        {
+          "text" : "Use OperationDocumentFormat instead.",
+          "type" : "text"
+        }
+      ],
+      "type" : "paragraph"
     }
   ],
   "hierarchy" : {
@@ -68,6 +79,9 @@
       {
         "name" : "ApolloCodegenLib"
       }
+    ],
+    "platforms" : [
+
     ],
     "role" : "symbol",
     "roleHeading" : "Case",
@@ -129,7 +143,15 @@
               "type" : "text"
             },
             {
-              "text" : "method should only be used if you are manually persisting your queries to an Apollo Server.",
+              "text" : "method should only be used if you are manually persisting your queries to an",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "Apollo Server\/Router.",
               "type" : "text"
             }
           ],
@@ -279,7 +301,7 @@
       "type" : "text"
     },
     {
-      "text" : "to an Apollo Server using",
+      "text" : "to an Apollo Server\/Router using",
       "type" : "text"
     },
     {
@@ -296,6 +318,7 @@
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",

@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "RawRepresentable.encode(to:)",
+      "code" : "OptionSet.update(with:)",
       "type" : "codeVoice"
     },
     {
@@ -18,14 +18,14 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat\/OptionSet-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig\/encode(to:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat\/update(with:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -48,27 +48,11 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " conforms to ",
-          "type" : "text"
-        },
-        {
-          "code" : "Encodable",
-          "type" : "codeVoice"
-        },
-        {
-          "text" : " and ",
-          "type" : "text"
-        },
-        {
-          "code" : "RawValue",
-          "type" : "codeVoice"
-        },
-        {
           "text" : " is ",
           "type" : "text"
         },
         {
-          "code" : "String",
+          "code" : "Self.Element",
           "type" : "codeVoice"
         },
         {
@@ -78,7 +62,7 @@
       ]
     },
     "extendedModule" : "Swift",
-    "externalID" : "s:SYsSERzSS8RawValueSYRtzrlE6encode2toys7Encoder_p_tKF::SYNTHESIZED::s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
+    "externalID" : "s:s9OptionSetPs7ElementQzRszrlE6update4withxSgx_tF::SYNTHESIZED::s:16ApolloCodegenLib0aB13ConfigurationV23OperationDocumentFormatV",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -90,7 +74,7 @@
       },
       {
         "kind" : "identifier",
-        "text" : "encode"
+        "text" : "update"
       },
       {
         "kind" : "text",
@@ -98,7 +82,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "to"
+        "text" : "with"
       },
       {
         "kind" : "text",
@@ -106,16 +90,35 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:s7EncoderP",
-        "text" : "Encoder"
+        "text" : "Self"
       },
       {
         "kind" : "text",
-        "text" : ") "
+        "text" : "."
       },
       {
-        "kind" : "keyword",
-        "text" : "throws"
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : ") -> "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Self"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Element"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
       }
     ],
     "modules" : [
@@ -126,7 +129,7 @@
     "role" : "symbol",
     "roleHeading" : "Instance Method",
     "symbolKind" : "method",
-    "title" : "encode(to:)"
+    "title" : "update(with:)"
   },
   "primaryContentSections" : [
     {
@@ -140,6 +143,22 @@
           ],
           "tokens" : [
             {
+              "kind" : "attribute",
+              "text" : "@discardableResult"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "mutating"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
               "kind" : "keyword",
               "text" : "func"
             },
@@ -149,7 +168,7 @@
             },
             {
               "kind" : "identifier",
-              "text" : "encode"
+              "text" : "update"
             },
             {
               "kind" : "text",
@@ -157,7 +176,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "to"
+              "text" : "with"
             },
             {
               "kind" : "text",
@@ -165,7 +184,7 @@
             },
             {
               "kind" : "internalParam",
-              "text" : "encoder"
+              "text" : "newMember"
             },
             {
               "kind" : "text",
@@ -173,16 +192,35 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:s7EncoderP",
-              "text" : "Encoder"
+              "text" : "Self"
             },
             {
               "kind" : "text",
-              "text" : ") "
+              "text" : "."
             },
             {
-              "kind" : "keyword",
-              "text" : "throws"
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : ") -> "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Self"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : "?"
             }
           ]
         }
@@ -201,7 +239,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig\/encode(to:)"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat\/update(with:)"
       ],
       "traits" : [
         {
@@ -260,34 +298,14 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationDocumentFormat": {
   "abstract" : [
-    {
-      "text" : "Enum to enable using",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with your generated operations.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -295,34 +313,34 @@
     },
     {
       "kind" : "identifier",
-      "text" : "APQConfig"
+      "text" : "OperationDocumentFormat"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "APQConfig"
+      "text" : "OperationDocumentFormat"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.APQConfig",
+  "title" : "ApolloCodegenConfiguration.OperationDocumentFormat",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig/RawRepresentable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationDocumentFormat/OptionSet-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat\/OptionSet-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
-  "title" : "RawRepresentable Implementations",
+  "title" : "OptionSet Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig\/rawrepresentable-implementations"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat\/optionset-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig/encode(to:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationDocumentFormat/update(with:)": {
   "abstract" : [
 
   ],
@@ -345,27 +363,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "Encodable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "RawValue",
-        "type" : "codeVoice"
-      },
-      {
         "text" : " is ",
         "type" : "text"
       },
       {
-        "code" : "String",
+        "code" : "Self.Element",
         "type" : "codeVoice"
       },
       {
@@ -385,7 +387,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "encode"
+      "text" : "update"
     },
     {
       "kind" : "text",
@@ -393,7 +395,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "to"
+      "text" : "with"
     },
     {
       "kind" : "text",
@@ -401,36 +403,43 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s7EncoderP",
-      "text" : "Encoder"
+      "text" : "Self"
     },
     {
       "kind" : "text",
-      "text" : ") "
+      "text" : "."
     },
     {
-      "kind" : "keyword",
-      "text" : "throws"
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig\/encode(to:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat\/update(with:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "encode(to:)",
+  "title" : "update(with:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig\/encode(to:)"
-},
-"https://www.apollographql.com/docs/apollo-server/performance/apq": {
-  "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-  "title" : "Automatic Persisted Queries (APQs)",
-  "titleInlineContent" : [
-    {
-      "text" : "Automatic Persisted Queries (APQs)",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat\/update(with:)"
 }
 }
 }

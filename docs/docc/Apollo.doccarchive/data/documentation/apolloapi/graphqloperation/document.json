@@ -13,7 +13,8 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:9ApolloAPI16GraphQLOperationP8documentAA12DocumentTypeOvpZ",
+    "extendedModule" : "ApolloAPI",
+    "externalID" : "s:9ApolloAPI16GraphQLOperationPAAE8documentAA12DocumentTypeOvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -50,7 +51,9 @@
         "name" : "ApolloAPI"
       }
     ],
-    "required" : true,
+    "platforms" : [
+
+    ],
     "role" : "symbol",
     "roleHeading" : "Type Property",
     "symbolKind" : "property",
@@ -191,19 +194,9 @@
 },
 "doc://ApolloAPI/documentation/ApolloAPI/DocumentType": {
   "abstract" : [
-    {
-      "text" : "The means of providing the operation document that includes the definition of the operation",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "over network transport.",
-      "type" : "text"
-    }
+
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -266,6 +259,7 @@
   "abstract" : [
 
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -299,7 +293,6 @@
   ],
   "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/document",
   "kind" : "symbol",
-  "required" : true,
   "role" : "symbol",
   "title" : "document",
   "type" : "topic",
