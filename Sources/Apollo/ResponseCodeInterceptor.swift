@@ -42,8 +42,6 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
           return GraphQLError(jsonData)
         }
         return nil
-      default:
-        return nil
       }
     }
   }
