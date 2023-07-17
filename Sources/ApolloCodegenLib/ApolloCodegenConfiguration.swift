@@ -202,7 +202,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case schemaTypes
       case operations
       case testMocks
@@ -214,6 +214,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// specified defaults when not present.
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Unrecognized key found",
+          underlyingError: nil
+        ))
+      }
 
       schemaTypes = try values.decode(
         SchemaTypesFileOutput.self,
@@ -617,7 +626,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case additionalInflectionRules
       case queryStringLiteralFormat
       case deprecatedEnumCases
@@ -633,6 +642,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Unrecognized key found",
+          underlyingError: nil
+        ))
+      }
 
       additionalInflectionRules = try values.decodeIfPresent(
         [InflectionRule].self,
@@ -757,6 +775,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+      guard values.allKeys.first != nil else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
 
       enumCases = try values.decodeIfPresent(
         CaseConversionStrategy.self,
@@ -931,13 +956,22 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    public enum CodingKeys: CodingKey {
+    public enum CodingKeys: CodingKey, CaseIterable {
       case clientControlledNullability
       case legacySafelistingCompatibleOperations
     }
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+
+      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Unrecognized key found",
+          underlyingError: nil
+        ))
+      }
 
       clientControlledNullability = try values.decodeIfPresent(
         Bool.self,
@@ -1008,7 +1042,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case schemaName
     case schemaNamespace
     case input
@@ -1034,6 +1068,14 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
+      throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+        codingPath: values.codingPath,
+        debugDescription: "Unrecognized key found",
+        underlyingError: nil
+      ))
+    }
 
     func getSchemaNamespaceValue() throws -> String {
       if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
@@ -1152,7 +1194,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case operations
     case namedFragments
     case localCacheMutations
@@ -1161,6 +1203,14 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
+      throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+        codingPath: values.codingPath,
+        debugDescription: "Unrecognized key found",
+        underlyingError: nil
+      ))
+    }
     var options: Options = []
 
     func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
@@ -1369,4 +1419,19 @@ extension ApolloCodegenConfiguration.OutputOptions {
       return .disabled
     }
   }
+}
+
+private struct AnyCodingKey: CodingKey {
+    var stringValue: String
+
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+    }
+
+    var intValue: Int?
+
+    init?(intValue: Int) {
+        self.intValue = intValue
+        self.stringValue = "\(intValue)"
+    }
 }

@@ -923,4 +923,49 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
       ))
     )
   }
+
+  func test__decodeApolloCodegenConfiguration__withInvalidOptions() throws {
+    // given
+    let subject = """
+    {
+      "schemaName": "MySchema",
+      "input": {
+        "operationSearchPaths": ["/search/path/**/*.graphql"],
+        "schemaSearchPaths": ["/path/to/schema.graphqls"]
+      },
+      "output": {
+        "testMocks": {
+          "none": {}
+        },
+        "schemaTypes": {
+          "path": "./MySchema",
+          "moduleType": {
+            "swiftPackageManager": {}
+          }
+        },
+        "operations": {
+          "inSchemaModule": {}
+        },
+        "options": {
+          "selectionSetInitializers" : {
+            "operations": true,
+            "namedFragments": true,
+            "localCacheMutations" : true
+          },
+          "queryStringLiteralFormat": "multiline",
+          "schemaDocumentation": "include",
+          "apqs": "disabled",
+          "warningsOnDeprecatedUsage": "include"
+        }
+      }
+    }
+    """.asData
+
+    func decodeConfiguration(subject: Data) throws -> ApolloCodegenConfiguration {
+      try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+    }
+    XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
+      XCTAssert(error is DecodingError)
+    }
+  }
 }
