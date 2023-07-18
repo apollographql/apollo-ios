@@ -60,7 +60,7 @@ public class ExampleQuery: GraphQLQuery {
 
   public struct Data: ExampleSchema.SelectionSet {
     public static var __selections: [ApolloAPI.Selection] { [
-      .fragment(EntityFragment?.self)
+      .fragment(EntityFragment?.self, deferred: true)
     ] }
   }
 }
