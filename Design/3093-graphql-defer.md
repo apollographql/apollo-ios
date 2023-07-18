@@ -72,7 +72,7 @@ client.fetch(query: ExampleQuery()) { result in
     client.fetch(query: ExampleQuery()) { result in
       switch (result) {
       case let .success(data):
-        guard let fragment = data.data?.item.fragments.entityFragment {
+        guard let fragment = data.data?.item.fragments.entityFragment else {
           // partial result
         }
     
