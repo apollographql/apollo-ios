@@ -1402,8 +1402,11 @@ private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
   type: T.Type,
   decoder: Decoder
 ) throws {
-  let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-  guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(C.allCases.map(\.stringValue))) else {
+  // Map all keys from the input object
+  let allKeys = Set(try decoder.container(keyedBy: AnyCodingKey.self).allKeys.map(\.stringValue))
+  // Map all valid keys from the given `CodingKey` enum
+  let validKeys = Set(C.allCases.map(\.stringValue))
+  guard allKeys.isSubset(of: validKeys) else {
     throw DecodingError.typeMismatch(type, DecodingError.Context.init(
       codingPath: container.codingPath,
       debugDescription: "Unrecognized key found",
