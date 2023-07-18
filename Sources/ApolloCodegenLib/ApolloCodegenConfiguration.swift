@@ -214,16 +214,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// specified defaults when not present.
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-
-      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
-        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
-          codingPath: values.codingPath,
-          debugDescription: "Unrecognized key found",
-          underlyingError: nil
-        ))
-      }
-
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
       schemaTypes = try values.decode(
         SchemaTypesFileOutput.self,
         forKey: .schemaTypes
@@ -642,15 +633,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-
-      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
-        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
-          codingPath: values.codingPath,
-          debugDescription: "Unrecognized key found",
-          underlyingError: nil
-        ))
-      }
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
       additionalInflectionRules = try values.decodeIfPresent(
         [InflectionRule].self,
@@ -963,15 +946,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-
-      let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
-        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
-          codingPath: values.codingPath,
-          debugDescription: "Unrecognized key found",
-          underlyingError: nil
-        ))
-      }
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
       clientControlledNullability = try values.decodeIfPresent(
         Bool.self,
@@ -1068,14 +1043,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
-      throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
-        codingPath: values.codingPath,
-        debugDescription: "Unrecognized key found",
-        underlyingError: nil
-      ))
-    }
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
     func getSchemaNamespaceValue() throws -> String {
       if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
@@ -1203,14 +1171,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
-      guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(CodingKeys.allCases.map(\.stringValue))) else {
-      throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
-        codingPath: values.codingPath,
-        debugDescription: "Unrecognized key found",
-        underlyingError: nil
-      ))
-    }
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
     var options: Options = []
 
     func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
@@ -1434,4 +1395,19 @@ private struct AnyCodingKey: CodingKey {
         self.intValue = intValue
         self.stringValue = "\(intValue)"
     }
+}
+
+private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
+  container: KeyedDecodingContainer<C>,
+  type: T.Type,
+  decoder: Decoder
+) throws {
+  let allKeysContainer = try decoder.container(keyedBy: AnyCodingKey.self)
+  guard Set(allKeysContainer.allKeys.map(\.stringValue)).isSubset(of: Set(C.allCases.map(\.stringValue))) else {
+    throw DecodingError.typeMismatch(type, DecodingError.Context.init(
+      codingPath: container.codingPath,
+      debugDescription: "Unrecognized key found",
+      underlyingError: nil
+    ))
+  }
 }
