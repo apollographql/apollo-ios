@@ -33,10 +33,11 @@ Generated models will definitely be affected by `@defer` statements in the opera
 
 Potential fragment/field solutions:
 1. Property wrappers - I explored Swift's property wrappers but they suffer from the limitation of not being able to be applied to a computed property. All GraphQL fields in the generated models are computed properties because they simply route access to the value in the underlying data dictionary storage. It would be nice to be able to simply annotate fragments and fields with something like `@Deferred` but unfortunately that is not possible.
-4. `Enum` wrapper - an idea that was suggested by [`@Iron-Ham`](https://github.com/apollographql/apollo-ios/issues/2395#issuecomment-1433628466) is to wrap the type in a Swift enum that can expose the deferred state as well as the underlying value once it has been received.
+2. Optional types - this solution would change the deferred property type to an optional version of that type. This may not seem necessary when considering that only fragments can be marked as deferred but it would be required to cater for the way that Apollo iOS does field merging in the generated model fragments. Field merging is non-optional at the moment but there is an issue ([#2560](https://github.com/apollographql/apollo-ios/issues/2560)) that would make this a configuration option. This solution hides detail though because you wouldn't be able to tell whether the field value is `nil` because the response data hasn't been received yet (i.e.: deferred) or whether the data was returned and it was explicitly `null`. It also gets more complicated when a field type is already optional; would that result in a Swift double-optional type? As we learnt with the legacy implementation of GraphQL nullability, double-optionals are difficult to interpret and easily lead to mistakes.
+3. `Enum` wrapper - an idea that was suggested by [`@Iron-Ham`](https://github.com/apollographql/apollo-ios/issues/2395#issuecomment-1433628466) is to wrap the type in a Swift enum that can expose the deferred state as well as the underlying value once it has been received. This is an improvement to option 2 where the state of the deferred value can be determined.
 
 ```swift
-// Example enum to wrap deferred properties
+// Sample enum to wrap deferred properties
 enum DeferredValue<T> {
     case loading
     case result(Result<T, Error>)
@@ -50,11 +51,40 @@ public struct ModelSelectionSet: GraphAPI.SelectionSet {
 }
 ```
 
-3. Optional types - this solution would change the deferred property type to an optional version of that type. This may not seem necessary when considering that only fragments can be marked as deferred but it would be required to cater for the way that Apollo iOS does field merging in the generated model fragments. Field merging is non-optional at the moment but there is an issue ([#2560](https://github.com/apollographql/apollo-ios/issues/2560)) that would make this a configuration option. This solution hides detail though because you wouldn't be able to tell whether the field value is `nil` because the response data hasn't been received yet (i.e.: deferred) or whether the data was returned and it was explicitly `null`. It also gets more complicated when a field type is already optional; would that result in a Swift double-optional type? As we learnt with the legacy implementation of GraphQL nullability, double-optionals are difficult to interpret and easily lead to mistakes.
-4. Optional fragments - optional types are only needed when fragment fields are merged into entity selection sets. If field merging were disabled automatically for deferred fragments then this problem goes away and fragments can be made optional. A `nil` fragment value would indicate that the fragment data has not yet been received and when received the fragment value is populated with the received field values. This seems a more elegant and ergonimic way to indicate the status of deferred data but complicates the understanding of field merging.
+4. Optional fragments (disabling field merging) - optional types are only needed when fragment fields are merged into entity selection sets. If field merging were disabled automatically for deferred fragments then the solution is simplified and we only need to alter the deferred fragments to be optional. Consuming the result data is intuitive too where a `nil` fragment value would indicate that the fragment data has not yet been received (i.e.: deferred) and when the complete response is received the fragment value is populated and the result sent to the client. This seems a more elegant and ergonimic way to indicate the status of deferred data but complicates the understanding of field merging.
 
 ```swift
-TODO: add code sample for Optional fragments
+// Sample usage in a generated model
+public class ExampleQuery: GraphQLQuery {
+  // other properties and types not shown
+
+  public struct Data: ExampleSchema.SelectionSet {
+    public static var __selections: [ApolloAPI.Selection] { [
+      .fragment(EntityFragment?.self)
+    ] }
+  }
+}
+
+// Sample usage in an app completion block
+client.fetch(query: ExampleQuery()) { result in
+  switch (result) {
+  case let .success(data):
+    client.fetch(query: ExampleQuery()) { result in
+      switch (result) {
+      case let .success(data):
+        guard let fragment = data.data?.item.fragments.entityFragment {
+          // partial result
+        }
+    
+        // complete result
+      case let .failure(error):
+        print("Query Failure! \(error)")
+      }
+    }
+  case let .failure(error):
+  }
+}
+
 ```
 
 Regardless of the fragment/field solution chosen all deferred fragment definitions in generated models `__selections` will get an additional property to indicate they are deferred. This helps to understand the models when reading them as well as being used by internal code.
@@ -69,7 +99,7 @@ public enum Selection {
   // other properties and types not shown
 }
 
-// Example usage in a generated model
+// Sample usage in a generated model
 public class ExampleQuery: GraphQLQuery {
   // other properties and types not shown
 
@@ -185,6 +215,7 @@ protocol MultipartResponseSpecificationParser {
 }
 
 // Sample implementations of multipart specification parsers
+
 struct SubscriptionResponseParser: MultipartResponseSpecificationParser {
   static let protocolSpec: String = "subscriptionSpec=1.0"
 
