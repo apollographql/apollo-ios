@@ -1,2 +1,2 @@
 # https://help.github.com/articles/about-code-owners/
-/docs/ @stephenbarlow
+/docs/ @apollographql/docs
