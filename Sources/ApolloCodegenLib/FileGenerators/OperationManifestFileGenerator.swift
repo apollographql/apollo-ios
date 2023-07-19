@@ -67,7 +67,7 @@ struct OperationManifestFileGenerator {
           .resolvingSymlinksInPath()
           .appendingPathExtension("json")
           .path
-    } else {
+    } else if !manifestPath.hasSuffix(".json") {
       manifestPath.append(".json")
     }
       
