@@ -19,9 +19,9 @@ struct FragmentTemplate: TemplateRenderer {
     struct \(fragment.generatedDefinitionName.asFragmentName): \
     \(definition.renderedSelectionSetType(config)), Fragment {
       \(accessControlModifier(for: .member))\
-    static var fragmentDefinition: StaticString { ""\"
-        \(fragment.definition.source)
-        ""\" }
+    static var fragmentDefinition: StaticString {
+        "\(fragment.definition.source.convertedToSingleLine())"
+        }
 
       \(SelectionSetTemplate(
         definition: definition,

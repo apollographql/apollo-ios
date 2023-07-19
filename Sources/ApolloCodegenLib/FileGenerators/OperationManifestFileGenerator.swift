@@ -12,9 +12,9 @@ struct OperationManifestItem {
     self.identifier = operation.operationIdentifier
     self.type = operation.definition.operationType
 
-    var source = operation.definition.source
+    var source = operation.definition.source.convertedToSingleLine()
     for fragment in operation.referencedFragments {
-      source += "\n\(fragment.definition.source)"
+      source += "\\n\(fragment.definition.source.convertedToSingleLine())"
     }
     self.source = source
   }
