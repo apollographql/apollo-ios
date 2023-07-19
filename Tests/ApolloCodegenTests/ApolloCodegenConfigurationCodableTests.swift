@@ -1067,7 +1067,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     }
   }
 
-  func test__decodeApolloCodegenConfiguration__withBaseConfiguration_multipleErrors() throws {
+  func test__decodeApolloCodegenConfiguration__withInvalidBaseConfiguration_multipleErrors() throws {
     // given
     let subject = """
     {
