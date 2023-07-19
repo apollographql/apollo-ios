@@ -71,7 +71,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   // MARK: Generate Tests
 
-  func test__generate__givenOperation_shouldWriteToPath() throws {
+  func test__generate__givenOperation_shouldWriteToAbsolutePath() throws {
     // given
     let filePath = "path/to/match"
     try buildSubject(path: filePath)
@@ -95,7 +95,46 @@ class OperationManifestFileGeneratorTests: XCTestCase {
     }))
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(filePath))
+      expect(path).to(equal("\(filePath).json"))
+
+      return true
+    }))
+
+    // when
+    try subject.generate(fileManager: fileManager)
+
+    expect(self.fileManager.allClosuresCalled).to(beTrue())
+  }
+  
+  func test__generate__givenOperation_shouldWriteToRelativePath() throws {
+    // given
+    let filePath = "./path/to/match"
+    try buildSubject(path: filePath)
+
+    subject.collectOperationIdentifier(.mock(
+      name: "TestQuery",
+      type: .query,
+      source: """
+        query TestQuery {
+          test
+        }
+        """
+    ))
+
+    fileManager.mock(closure: .fileExists({ path, isDirectory in
+      return false
+    }))
+
+    fileManager.mock(closure: .createDirectory({ path, intermediateDirectories, attributes in
+      // no-op
+    }))
+
+    fileManager.mock(closure: .createFile({ path, data, attributes in
+      let expectedPath = URL(fileURLWithPath: String(filePath.dropFirst(2)), relativeTo: self.subject.config.rootURL)
+        .resolvingSymlinksInPath()
+        .appendingPathExtension("json")
+        .path
+      expect(path).to(equal(expectedPath))
 
       return true
     }))
@@ -130,7 +169,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
     }))
 
     fileManager.mock(closure: .createFile({ path, data, attributes in
-      expect(path).to(equal(filePath))
+      expect(path).to(equal("\(filePath).json"))
 
       expect(String(data: data!, encoding: .utf8)).to(equal(
         """
