@@ -202,7 +202,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case schemaTypes
       case operations
       case testMocks
@@ -214,7 +214,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// specified defaults when not present.
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
       schemaTypes = try values.decode(
         SchemaTypesFileOutput.self,
         forKey: .schemaTypes
@@ -617,7 +617,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case additionalInflectionRules
       case queryStringLiteralFormat
       case deprecatedEnumCases
@@ -633,6 +633,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
       additionalInflectionRules = try values.decodeIfPresent(
         [InflectionRule].self,
@@ -757,6 +758,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+      guard values.allKeys.first != nil else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
 
       enumCases = try values.decodeIfPresent(
         CaseConversionStrategy.self,
@@ -931,7 +939,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    public enum CodingKeys: CodingKey {
+    public enum CodingKeys: CodingKey, CaseIterable {
       case clientControlledNullability
       case legacySafelistingCompatibleOperations
     }
@@ -1008,7 +1016,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case schemaName
     case schemaNamespace
     case input
@@ -1034,6 +1042,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
     func getSchemaNamespaceValue() throws -> String {
       if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
@@ -1152,7 +1161,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case operations
     case namedFragments
     case localCacheMutations
@@ -1161,6 +1170,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
     var options: Options = []
 
     func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
@@ -1368,5 +1378,39 @@ extension ApolloCodegenConfiguration.OutputOptions {
     default:
       return .disabled
     }
+  }
+}
+
+private struct AnyCodingKey: CodingKey {
+  var stringValue: String
+
+  init?(stringValue: String) {
+    self.stringValue = stringValue
+  }
+
+  var intValue: Int?
+
+  init?(intValue: Int) {
+    self.intValue = intValue
+    self.stringValue = "\(intValue)"
+  }
+}
+
+private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
+  container: KeyedDecodingContainer<C>,
+  type: T.Type,
+  decoder: Decoder
+) throws {
+  // Map all keys from the input object
+  let allKeys = Set(try decoder.container(keyedBy: AnyCodingKey.self).allKeys.map(\.stringValue))
+  // Map all valid keys from the given `CodingKey` enum
+  let validKeys = Set(C.allCases.map(\.stringValue))
+  guard allKeys.isSubset(of: validKeys) else {
+    let invalidKeys = allKeys.subtracting(validKeys).sorted()
+    throw DecodingError.typeMismatch(type, DecodingError.Context.init(
+      codingPath: container.codingPath,
+      debugDescription: "Unrecognized \(invalidKeys.count > 1 ? "keys" : "key") found: \(invalidKeys.joined(separator: ", "))",
+      underlyingError: nil
+    ))
   }
 }
