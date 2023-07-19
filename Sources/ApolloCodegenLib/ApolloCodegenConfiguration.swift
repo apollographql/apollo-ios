@@ -1382,18 +1382,18 @@ extension ApolloCodegenConfiguration.OutputOptions {
 }
 
 private struct AnyCodingKey: CodingKey {
-    var stringValue: String
+  var stringValue: String
 
-    init?(stringValue: String) {
-        self.stringValue = stringValue
-    }
+  init?(stringValue: String) {
+    self.stringValue = stringValue
+  }
 
-    var intValue: Int?
+  var intValue: Int?
 
-    init?(intValue: Int) {
-        self.intValue = intValue
-        self.stringValue = "\(intValue)"
-    }
+  init?(intValue: Int) {
+    self.intValue = intValue
+    self.stringValue = "\(intValue)"
+  }
 }
 
 private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
