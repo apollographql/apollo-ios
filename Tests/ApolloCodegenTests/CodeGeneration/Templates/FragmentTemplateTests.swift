@@ -67,15 +67,9 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
-        fragment TestFragment on Query {
-          __typename
-          allAnimals {
-            __typename
-            species
-          }
-        }
-        ""\" }
+      static var fragmentDefinition: StaticString {
+        "fragment TestFragment on Query { __typename allAnimals { __typename species } }"
+      }
 
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
@@ -104,8 +98,8 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
-        fragment testFragment on Query {
+      static var fragmentDefinition: StaticString {
+        "fragment testFragment on Query { __typename allAnimals { __typename species } }"
     """
 
     // when
@@ -174,7 +168,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Interface_rendersParentType() throws {
@@ -204,7 +198,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
   func test__render_parentType__givenFragmentTypeConditionAs_Union_rendersParentType() throws {
@@ -238,7 +232,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 9, ignoringExtraLines: true))
   }
 
   func test__render__givenFragmentOnRootOperationTypeWithOnlyTypenameField_generatesFragmentDefinition_withNoSelections() throws {
@@ -253,11 +247,9 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
-        fragment TestFragment on Query {
-          __typename
-        }
-        ""\" }
+      static var fragmentDefinition: StaticString {
+        "fragment TestFragment on Query { __typename }"
+      }
 
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
@@ -288,11 +280,9 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
-        fragment TestFragment on Animal {
-          __typename
-        }
-        ""\" }
+      static var fragmentDefinition: StaticString {
+        "fragment TestFragment on Animal { __typename }"
+      }
 
       let __data: DataDict
       init(_dataDict: DataDict) { __data = _dataDict }
@@ -320,7 +310,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      public static var fragmentDefinition: StaticString {
     """
 
     // when
@@ -336,7 +326,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     public struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      public static var fragmentDefinition: StaticString {
     """
 
     // when
@@ -354,7 +344,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
+      static var fragmentDefinition: StaticString {
     """
 
     // when
@@ -372,7 +362,7 @@ class FragmentTemplateTests: XCTestCase {
 
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
-      public static var fragmentDefinition: StaticString { ""\"
+      public static var fragmentDefinition: StaticString {
     """
 
     // when
@@ -428,7 +418,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragment_configIncludesSpecificFragment_rendersInitializer() throws {
@@ -475,7 +465,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragment_configDoesNotIncludeNamedFragments_doesNotRenderInitializer() throws {
@@ -505,7 +495,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine("}", atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragments_configIncludeSpecificFragmentWithOtherName_doesNotRenderInitializer() throws {
@@ -535,7 +525,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine("}", atLine: 19, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine("}", atLine: 16, ignoringExtraLines: true))
   }
 
   func test__render_givenNamedFragments_asLocalCacheMutation_configIncludeLocalCacheMutations_rendersInitializer() throws {
@@ -582,7 +572,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 23, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 20, ignoringExtraLines: true))
   }
 
   // MARK: Local Cache Mutation Tests
@@ -624,15 +614,9 @@ class FragmentTemplateTests: XCTestCase {
     let expected =
     """
     struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
-      static var fragmentDefinition: StaticString { ""\"
-        fragment TestFragment on Query {
-          __typename
-          allAnimals {
-            __typename
-            species
-          }
-        }
-        ""\" }
+      static var fragmentDefinition: StaticString {
+        "fragment TestFragment on Query { __typename allAnimals { __typename species } }"
+      }
     """
 
     // when
@@ -677,7 +661,7 @@ class FragmentTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 6, ignoringExtraLines: true))
   }
 
   // MARK: Casing

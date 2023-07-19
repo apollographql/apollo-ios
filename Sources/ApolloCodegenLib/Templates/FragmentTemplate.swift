@@ -21,7 +21,7 @@ struct FragmentTemplate: TemplateRenderer {
       \(accessControlModifier(for: .member))\
     static var fragmentDefinition: StaticString {
         "\(fragment.definition.source.convertedToSingleLine())"
-        }
+      }
 
       \(SelectionSetTemplate(
         definition: definition,
