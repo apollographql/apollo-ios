@@ -1112,7 +1112,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
       guard case let DecodingError.typeMismatch(type, context) = error else { return fail("Incorrect error type") }
       XCTAssertEqual("\(type)", String(describing: ApolloCodegenConfiguration.self))
-      XCTAssertEqual(context.debugDescription, "Unrecognized keys found: motto, contact_info")
+      XCTAssertEqual(context.debugDescription, "Unrecognized keys found: contact_info, motto")
     }
   }
 }
