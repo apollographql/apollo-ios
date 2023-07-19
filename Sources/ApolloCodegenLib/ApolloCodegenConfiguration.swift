@@ -1354,7 +1354,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
   )
   public init(
     additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
-    queryStringLiteralFormat: QueryStringLiteralFormat = .singleLine,
+    queryStringLiteralFormat: QueryStringLiteralFormat,
     deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
     schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
     selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
