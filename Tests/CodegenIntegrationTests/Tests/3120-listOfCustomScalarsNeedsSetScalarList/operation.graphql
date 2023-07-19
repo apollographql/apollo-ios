@@ -1,0 +1,6 @@
+query TestMeWithMocks {
+  testMeWithMocks {
+    scalarList
+    nullableScalarList
+  }
+}

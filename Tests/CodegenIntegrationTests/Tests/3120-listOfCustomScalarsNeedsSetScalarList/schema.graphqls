@@ -1,0 +1,10 @@
+type Query {
+  testMeWithMocks: Event!
+}
+
+type Event {
+  scalarList: [Text!]!
+  nullableScalarList: [Text]!
+}
+
+scalar Text

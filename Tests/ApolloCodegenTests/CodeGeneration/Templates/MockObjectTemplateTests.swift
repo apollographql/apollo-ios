@@ -536,7 +536,7 @@ class MockObjectTemplateTests: XCTestCase {
       ) {
         self.init()
         _setScalar(customScalar, for: \\.customScalar)
-        _setList(customScalarList, for: \\.customScalarList)
+        _setScalarList(customScalarList, for: \\.customScalarList)
         _setScalar(enumType, for: \\.enumType)
         _setEntity(interface, for: \\.interface)
         _setList(interfaceList, for: \\.interfaceList)

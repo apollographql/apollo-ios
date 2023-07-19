@@ -83,11 +83,11 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       return _data[field.key.description] as? [T]
     }
     set {
-      _setList(newValue, for: keyPath)
+      _setScalarList(newValue, for: keyPath)
     }
   }
 
-  public func _setList<T: AnyScalarType & Hashable>(
+  public func _setScalarList<T: AnyScalarType & Hashable>(
     _ value: [T]?,
     for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
   ) {

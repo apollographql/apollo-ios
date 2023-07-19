@@ -76,6 +76,8 @@ struct MockObjectTemplate: TemplateRenderer {
   
   private func mockFunctionDescriptor(_ graphQLType: GraphQLType) -> String {
     switch graphQLType {
+      case .list(.nonNull(.scalar(_))):
+        return "ScalarList"
       case .list(_):
         return "List"
       case .scalar(_), .enum(_):
