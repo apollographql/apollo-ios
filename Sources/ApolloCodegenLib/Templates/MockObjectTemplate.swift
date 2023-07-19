@@ -76,6 +76,8 @@ struct MockObjectTemplate: TemplateRenderer {
   
   private func mockFunctionDescriptor(_ graphQLType: GraphQLType) -> String {
     switch graphQLType {
+      case .list(.nonNull(.scalar(_))):
+        return "ScalarList"
       case .list(_):
         return "List"
       case .scalar(_), .enum(_):
@@ -95,7 +97,7 @@ struct MockObjectTemplate: TemplateRenderer {
       \(if: $0.propertyName.isConflictingTestMockFieldName, """
         var \($0.propertyName): \($0.mockType)? {
           get { _data["\($0.propertyName)"] as? \($0.mockType) }
-          set { _set(newValue, for: \\.\($0.propertyName)) }
+          set { _set\(mockFunctionDescriptor($0.type))(newValue, for: \\.\($0.propertyName)) }
         }
         """)
       """ }, separator: "\n", terminator: "\n")

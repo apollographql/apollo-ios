@@ -75,6 +75,26 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
     _data[field.key.description] = value?._unsafelyConvertToMockValue()
   }
 
+  public subscript<T: AnyScalarType & Hashable>(
+    dynamicMember keyPath: KeyPath<O.MockFields, Field<Array<T>>>
+  ) -> [T]? {
+    get {
+      let field = O._mockFields[keyPath: keyPath]
+      return _data[field.key.description] as? [T]
+    }
+    set {
+      _setScalarList(newValue, for: keyPath)
+    }
+  }
+
+  public func _setScalarList<T: AnyScalarType & Hashable>(
+    _ value: [T]?,
+    for keyPath: KeyPath<O.MockFields, Field<Array<T>>>
+  ) {
+    let field = O._mockFields[keyPath: keyPath]
+    _data[field.key.description] = value?._unsafelyConvertToMockValue()
+  }
+
   public var _selectionSetMockData: JSONObject {
     _data.mapValues {
       if let mock = $0 as? AnyMock {
