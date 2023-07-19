@@ -65,9 +65,10 @@ struct OperationManifestFileGenerator {
       let fileURL = URL(fileURLWithPath: String(manifestPath.dropFirst(relativePrefix.count)), relativeTo: config.rootURL)
       manifestPath = fileURL
           .resolvingSymlinksInPath()
-          .appendingPathExtension("json")
           .path
-    } else if !manifestPath.hasSuffix(".json") {
+    }
+    
+    if !manifestPath.hasSuffix(".json") {
       manifestPath.append(".json")
     }
       
