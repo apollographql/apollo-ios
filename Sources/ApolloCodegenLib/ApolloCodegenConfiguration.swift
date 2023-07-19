@@ -946,7 +946,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
       clientControlledNullability = try values.decodeIfPresent(
         Bool.self,
@@ -1407,9 +1406,10 @@ private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
   // Map all valid keys from the given `CodingKey` enum
   let validKeys = Set(C.allCases.map(\.stringValue))
   guard allKeys.isSubset(of: validKeys) else {
+    let invalidKeys = allKeys.subtracting(validKeys)
     throw DecodingError.typeMismatch(type, DecodingError.Context.init(
       codingPath: container.codingPath,
-      debugDescription: "Unrecognized key found",
+      debugDescription: "Unrecognized \(invalidKeys.count > 1 ? "keys" : "key") found: \(invalidKeys.joined(separator: ", "))",
       underlyingError: nil
     ))
   }
