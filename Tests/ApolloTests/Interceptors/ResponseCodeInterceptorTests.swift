@@ -102,7 +102,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
         switch error {
         case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode(response: let response, let rawData):
           XCTAssertEqual(response?.statusCode, 401)
-          
+
           guard
             let data = rawData,
             let dataString = String(bytes: data, encoding: .utf8) else {
