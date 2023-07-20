@@ -15,7 +15,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
         client.data = Data()
         return client
       }()
-      
+
       func interceptors<Operation: GraphQLOperation>(
         for operation: Operation
       ) -> [any ApolloInterceptor] {
@@ -26,17 +26,17 @@ class ResponseCodeInterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
-    
+
     let expectation = self.expectation(description: "Request sent")
-    
+
     _ = network.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }
-      
+
       switch result {
       case .success:
         XCTFail("This should not have succeeded")
@@ -49,10 +49,10 @@ class ResponseCodeInterceptorTests: XCTestCase {
         }
       }
     }
-    
+
     self.wait(for: [expectation], timeout: 1)
   }
-  
+
   func testResponseCodeInterceptorDoesNotLetDataThroughWithInvalidResponseCode() {
     class TestProvider: InterceptorProvider {
       let mockClient: MockURLSessionClient = {
@@ -73,7 +73,7 @@ class ResponseCodeInterceptorTests: XCTestCase {
         client.data = data
         return client
       }()
-      
+
       func interceptors<Operation: GraphQLOperation>(
         for operation: Operation
       ) -> [any ApolloInterceptor] {
@@ -84,17 +84,17 @@ class ResponseCodeInterceptorTests: XCTestCase {
         ]
       }
     }
-    
+
     let network = RequestChainNetworkTransport(interceptorProvider: TestProvider(),
                                                endpointURL: TestURL.mockServer.url)
-    
+
     let expectation = self.expectation(description: "Request sent")
-    
+
     _ = network.send(operation: MockQuery.mock()) { result in
       defer {
         expectation.fulfill()
       }
-      
+
       switch result {
       case .success:
         XCTFail("This should not have succeeded")
