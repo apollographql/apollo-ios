@@ -249,8 +249,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       static let operationName: String = "lowercaseOperation"
       static let operationDocument: ApolloAPI.OperationDocument = .init(
         definition: .init(
-          #\"\"\"
-          query lowercaseOperation($variable: String = "TestVar") {
+          #\"query lowercaseOperation($variable: String = \"TestVar\") { allAnimals { __typename species } }\"#
     """
 
     // when
@@ -297,7 +296,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))    
+    expect(actual).to(equalLineByLine(expected, atLine: 10, ignoringExtraLines: true))
   }
 
   // MARK: - Selection Set Initializers
@@ -347,7 +346,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 57, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
     }
 
     func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
@@ -397,7 +396,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine(expected, atLine: 57, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
     }
 
     func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
@@ -428,7 +427,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine("    }", atLine: 42, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
     }
 
     func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
@@ -461,7 +460,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       let actual = renderSubject()
 
       // then
-      expect(actual).to(equalLineByLine("    }", atLine: 42, ignoringExtraLines: true))
+      expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
     }
 
 
@@ -504,7 +503,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
      let actual = renderSubject()
 
      // then
-     expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
    }
 
   func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
@@ -557,7 +556,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithNullableScalarVariable_generatesQueryOperationWithVariable() throws {
@@ -597,7 +596,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   func test__generate__givenQueryWithCapitalizedVariable_generatesQueryOperationWithLowercaseVariable() throws {
@@ -637,7 +636,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
 
   // MARK: Variables - Reserved Keywords + Special Names
@@ -931,7 +930,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expected, atLine: 15, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
   }
   
   // MARK: - Reserved Keyword Tests
@@ -975,8 +974,8 @@ class OperationDefinitionTemplateTests: XCTestCase {
     let actual = renderSubject()
 
     // then
-    expect(actual).to(equalLineByLine(expectedOne, atLine: 15, ignoringExtraLines: true))
-    expect(actual).to(equalLineByLine(expectedTwo, atLine: 17, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedOne, atLine: 8, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTwo, atLine: 10, ignoringExtraLines: true))
   }
   
 }

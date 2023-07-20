@@ -164,13 +164,15 @@ class IR {
             hasher.update(bufferPointer: UnsafeRawBufferPointer(buffer))
           })
         }
-        updateHash(with: &definition.source)
+        var definitionSource = definition.source.convertedToSingleLine()
+        updateHash(with: &definitionSource)
 
         var newline: String
         for fragment in referencedFragments {
-          newline = "\n"
+          newline = #"\n"#
           updateHash(with: &newline)
-          updateHash(with: &fragment.definition.source)
+          var fragmentSource = fragment.definition.source.convertedToSingleLine()
+          updateHash(with: &fragmentSource)
         }
 
         let digest = hasher.finalize()
