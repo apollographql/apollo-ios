@@ -54,9 +54,9 @@ class SchemaLoadingTests: XCTestCase {
         let error = try XCTDowncast(error as AnyObject, to: GraphQLError.self)
         XCTAssert(try XCTUnwrap(error.message).starts(with: "Syntax Error"))
         
-        XCTAssertEqual(error.sourceLocations.count, 1)
-        XCTAssertEqual(error.sourceLocations[0].filePath, "schema.graphqls")
-        XCTAssertEqual(error.sourceLocations[0].lineNumber, 3)
+        XCTAssertEqual(error.sourceLocations?.count, 1)
+        XCTAssertEqual(error.sourceLocations?[0].filePath, "schema.graphqls")
+        XCTAssertEqual(error.sourceLocations?[0].lineNumber, 3)
       }
     }
   }

@@ -305,8 +305,14 @@ public class ApolloCodegen {
     )
 
     guard graphqlErrors.isEmpty else {
-      let errorlines = graphqlErrors.flatMap({ $0.logLines })
-      CodegenLogger.log(String(describing: errorlines), logLevel: .error)
+      let errorlines = graphqlErrors.flatMap({
+        if let logLines = $0.logLines {
+          return logLines
+        } else {
+          return ["\($0.name ?? "unknown"): \($0.message ?? "")"]
+        }
+      })
+      CodegenLogger.log(errorlines.joined(separator: "\n"), logLevel: .error)
       throw Error.graphQLSourceValidationFailure(atLines: errorlines)
     }
 
