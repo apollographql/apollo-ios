@@ -1,5 +1,20 @@
 # Change Log
 
+## v1.3.2
+
+### Improved
+- **Throw an error when an invalid key is present in the codegen configuration JSON ([#2942](https://github.com/apollographql/apollo-ios/issues/2942)):** See PR ([#3125](https://github.com/apollographql/apollo-ios/pull/3125)) _Thank you to [@Iron-Ham](https://github.com/Iron-Ham) for the contribution._
+- **Cleanup unused imports and declarations. ([#3099](https://github.com/apollographql/apollo-ios/issues/3099)):** See PR ([#3100](https://github.com/apollographql/apollo-ios/pull/3100)) _Thank you to [@Iron-Ham](https://github.com/Iron-Ham) for raising the issue and contributing the fix._
+- **Improvement to response code error API ([#2426](https://github.com/apollographql/apollo-ios/issues/2426)):** See PR ([#3123](https://github.com/apollographql/apollo-ios/pull/3123)). _Thank you to [dfperry5](https://github.com/dfperry5) for the contribution._
+- **Improved file path support for operation manifest generation:** See PR ([#3128](https://github.com/apollographql/apollo-ios/pull/3128))
+
+### Fixed
+- **Fix two issues in test mock generation:** See PR ([#3120](https://github.com/apollographql/apollo-ios/pull/3120)). _Thank you to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for finding this issue and contributing the fix._
+- **Fixed precondition failure when surpassing graphql-js max error count ([#3126](https://github.com/apollographql/apollo-ios/issues/3126)):** See PR ([#3132](https://github.com/apollographql/apollo-ios/pull/3132)).
+
+### Deprecated
+- **Deprecated `queryStringLiteralFormat` in `ApolloCodegenConfiguration`:** Query string literals will now always be generated as single line strings. See PR ([#3129](https://github.com/apollographql/apollo-ios/pull/3129)).
+
 ## v1.3.1
 
 ### Fixed
