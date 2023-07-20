@@ -309,7 +309,7 @@ public class ApolloCodegen {
         if let logLines = $0.logLines {
           return logLines
         } else {
-          return ["[Error] \($0.name ?? "unknown"): \($0.message ?? "")"]
+          return ["\($0.name ?? "unknown"): \($0.message ?? "")"]
         }
       })
       CodegenLogger.log(errorlines.joined(separator: "\n"), logLevel: .error)
