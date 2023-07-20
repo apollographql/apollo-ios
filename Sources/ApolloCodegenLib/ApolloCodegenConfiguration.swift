@@ -611,6 +611,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     enum CodingKeys: CodingKey, CaseIterable {
       case additionalInflectionRules
+      case queryStringLiteralFormat
       case deprecatedEnumCases
       case schemaDocumentation
       case selectionSetInitializers

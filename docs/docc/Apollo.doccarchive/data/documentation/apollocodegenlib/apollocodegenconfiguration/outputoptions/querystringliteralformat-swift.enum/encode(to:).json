@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "RawRepresentable.hashValue",
+      "code" : "RawRepresentable.encode(to:)",
       "type" : "codeVoice"
     },
     {
@@ -18,14 +18,15 @@
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/RawRepresentable-Implementations"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/hashValue"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/encode(to:)"
   },
   "kind" : "symbol",
   "metadata" : {
@@ -52,7 +53,7 @@
           "type" : "text"
         },
         {
-          "code" : "Hashable",
+          "code" : "Encodable",
           "type" : "codeVoice"
         },
         {
@@ -64,11 +65,11 @@
           "type" : "codeVoice"
         },
         {
-          "text" : " conforms to ",
+          "text" : " is ",
           "type" : "text"
         },
         {
-          "code" : "Hashable",
+          "code" : "String",
           "type" : "codeVoice"
         },
         {
@@ -78,11 +79,11 @@
       ]
     },
     "extendedModule" : "Swift",
-    "externalID" : "s:SYsSHRzSH8RawValueSYRpzrlE04hashB0Sivp::SYNTHESIZED::s:16ApolloCodegenLib0aB13ConfigurationV24QueryStringLiteralFormatO",
+    "externalID" : "s:SYsSERzSS8RawValueSYRtzrlE6encode2toys7Encoder_p_tKF::SYNTHESIZED::s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV24QueryStringLiteralFormatO",
     "fragments" : [
       {
         "kind" : "keyword",
-        "text" : "var"
+        "text" : "func"
       },
       {
         "kind" : "text",
@@ -90,7 +91,15 @@
       },
       {
         "kind" : "identifier",
-        "text" : "hashValue"
+        "text" : "encode"
+      },
+      {
+        "kind" : "text",
+        "text" : "("
+      },
+      {
+        "kind" : "externalParam",
+        "text" : "to"
       },
       {
         "kind" : "text",
@@ -98,8 +107,16 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:Si",
-        "text" : "Int"
+        "preciseIdentifier" : "s:s7EncoderP",
+        "text" : "Encoder"
+      },
+      {
+        "kind" : "text",
+        "text" : ") "
+      },
+      {
+        "kind" : "keyword",
+        "text" : "throws"
       }
     ],
     "modules" : [
@@ -108,9 +125,9 @@
       }
     ],
     "role" : "symbol",
-    "roleHeading" : "Instance Property",
-    "symbolKind" : "property",
-    "title" : "hashValue"
+    "roleHeading" : "Instance Method",
+    "symbolKind" : "method",
+    "title" : "encode(to:)"
   },
   "primaryContentSections" : [
     {
@@ -125,7 +142,7 @@
           "tokens" : [
             {
               "kind" : "keyword",
-              "text" : "var"
+              "text" : "func"
             },
             {
               "kind" : "text",
@@ -133,7 +150,23 @@
             },
             {
               "kind" : "identifier",
-              "text" : "hashValue"
+              "text" : "encode"
+            },
+            {
+              "kind" : "text",
+              "text" : "("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "to"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "encoder"
             },
             {
               "kind" : "text",
@@ -141,20 +174,16 @@
             },
             {
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:Si",
-              "text" : "Int"
+              "preciseIdentifier" : "s:s7EncoderP",
+              "text" : "Encoder"
             },
             {
               "kind" : "text",
-              "text" : " { "
+              "text" : ") "
             },
             {
               "kind" : "keyword",
-              "text" : "get"
-            },
-            {
-              "kind" : "text",
-              "text" : " }"
+              "text" : "throws"
             }
           ]
         }
@@ -173,7 +202,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/hashvalue"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/encode(to:)"
       ],
       "traits" : [
         {
@@ -232,7 +261,38 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.OutputOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum": {
   "abstract" : [
     {
       "text" : "Specify the formatting of the GraphQL query string literal.",
@@ -253,7 +313,7 @@
       "text" : "QueryStringLiteralFormat"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -262,22 +322,22 @@
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.QueryStringLiteralFormat",
+  "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/RawRepresentable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/rawrepresentable-implementations"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/rawrepresentable-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/hashValue": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/encode(to:)": {
   "abstract" : [
 
   ],
@@ -304,7 +364,7 @@
         "type" : "text"
       },
       {
-        "code" : "Hashable",
+        "code" : "Encodable",
         "type" : "codeVoice"
       },
       {
@@ -316,11 +376,11 @@
         "type" : "codeVoice"
       },
       {
-        "text" : " conforms to ",
+        "text" : " is ",
         "type" : "text"
       },
       {
-        "code" : "Hashable",
+        "code" : "String",
         "type" : "codeVoice"
       },
       {
@@ -332,7 +392,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "var"
+      "text" : "func"
     },
     {
       "kind" : "text",
@@ -340,7 +400,15 @@
     },
     {
       "kind" : "identifier",
-      "text" : "hashValue"
+      "text" : "encode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
     },
     {
       "kind" : "text",
@@ -348,16 +416,24 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
+      "preciseIdentifier" : "s:s7EncoderP",
+      "text" : "Encoder"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/hashValue",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/encode(to:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "hashValue",
+  "title" : "encode(to:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/hashvalue"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/encode(to:)"
 }
 }
 }

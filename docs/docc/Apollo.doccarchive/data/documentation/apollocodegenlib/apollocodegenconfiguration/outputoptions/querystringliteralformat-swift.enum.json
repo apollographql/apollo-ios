@@ -9,17 +9,19 @@
     "paths" : [
       [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions"
       ]
     ]
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum"
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV24QueryStringLiteralFormatO",
+    "extendedModule" : "ApolloCodegenLib",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV24QueryStringLiteralFormatO",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -48,7 +50,7 @@
     "role" : "symbol",
     "roleHeading" : "Enumeration",
     "symbolKind" : "enum",
-    "title" : "ApolloCodegenConfiguration.QueryStringLiteralFormat"
+    "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat"
   },
   "primaryContentSections" : [
     {
@@ -104,22 +106,22 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/multiline",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/singleLine"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/multiline",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/singleLine"
       ],
       "title" : "Enumeration Cases"
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/init(rawValue:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/init(rawValue:)"
       ],
       "title" : "Initializers"
     },
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/Equatable-Implementations",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/RawRepresentable-Implementations"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/Equatable-Implementations",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/RawRepresentable-Implementations"
       ],
       "title" : "Default Implementations"
     }
@@ -127,7 +129,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum"
       ],
       "traits" : [
         {
@@ -211,7 +213,38 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OutputOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.OutputOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum": {
   "abstract" : [
     {
       "text" : "Specify the formatting of the GraphQL query string literal.",
@@ -232,7 +265,7 @@
       "text" : "QueryStringLiteralFormat"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -241,33 +274,33 @@
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.QueryStringLiteralFormat",
+  "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/Equatable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/Equatable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/Equatable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/Equatable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "Equatable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/equatable-implementations"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/equatable-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/RawRepresentable-Implementations": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/RawRepresentable-Implementations": {
   "abstract" : [
 
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/RawRepresentable-Implementations",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/RawRepresentable-Implementations",
   "kind" : "article",
   "role" : "collectionGroup",
   "title" : "RawRepresentable Implementations",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/rawrepresentable-implementations"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/rawrepresentable-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/init(rawValue:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/init(rawValue:)": {
   "abstract" : [
 
   ],
@@ -298,20 +331,21 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/init(rawValue:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/init(rawValue:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "init(rawValue:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/init(rawvalue:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/init(rawvalue:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/multiline": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/multiline": {
   "abstract" : [
     {
       "text" : "The query string will be copied with original formatting into the operation object.",
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -326,20 +360,21 @@
       "text" : "multiline"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/multiline",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/multiline",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.QueryStringLiteralFormat.multiline",
+  "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat.multiline",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/multiline"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/multiline"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/QueryStringLiteralFormat/singleLine": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum/singleLine": {
   "abstract" : [
     {
       "text" : "The query string will be copied into the operation object with all line break formatting removed.",
       "type" : "text"
     }
   ],
+  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "keyword",
@@ -354,12 +389,12 @@
       "text" : "singleLine"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/QueryStringLiteralFormat\/singleLine",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum\/singleLine",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.QueryStringLiteralFormat.singleLine",
+  "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat.singleLine",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/querystringliteralformat\/singleline"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum\/singleline"
 }
 }
 }

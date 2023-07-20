@@ -97,7 +97,6 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/deprecatedEnumCases",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/operationDocumentFormat",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/pruneGeneratedFiles",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/queryStringLiteralFormat",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/schemaDocumentation",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/selectionSetInitializers",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/warningsOnDeprecatedUsage"
@@ -514,57 +513,6 @@
   "title" : "pruneGeneratedFiles",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/default\/prunegeneratedfiles"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/Default/queryStringLiteralFormat": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "let"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "queryStringLiteralFormat"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
-      "text" : "ApolloCodegenConfiguration"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV24QueryStringLiteralFormatO",
-      "text" : "QueryStringLiteralFormat"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/Default\/queryStringLiteralFormat",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "queryStringLiteralFormat",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/default\/querystringliteralformat"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/Default/schemaDocumentation": {
   "abstract" : [

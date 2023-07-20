@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "Deprecated initializer.",
+      "text" : "Designated initializer.",
       "type" : "text"
     }
   ],
@@ -16,12 +16,11 @@
   },
   "identifier" : {
     "interfaceLanguage" : "swift",
-    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
   },
   "kind" : "symbol",
   "metadata" : {
-    "extendedModule" : "ApolloCodegenLib",
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV25additionalInflectionRules24queryStringLiteralFormat19deprecatedEnumCases19schemaDocumentation24selectionSetInitializers4apqs35cocoapodsCompatibleImportStatements25warningsOnDeprecatedUsage20conversionStrategies19pruneGeneratedFilesAESayAA0H4RuleOG_AE05QueryklM0OAC11CompositionOAvC09SelectiontU0VAC9APQConfigOSbAvC20ConversionStrategiesVSbtcfc",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV25additionalInflectionRules19deprecatedEnumCases19schemaDocumentation24selectionSetInitializers23operationDocumentFormat35cocoapodsCompatibleImportStatements25warningsOnDeprecatedUsage20conversionStrategies19pruneGeneratedFilesAESayAA0H4RuleOG_AC11CompositionOAsC09SelectionpQ0VAC09OperationsT0VSbAsC20ConversionStrategiesVSbtcfc",
     "fragments" : [
       {
         "kind" : "identifier",
@@ -47,41 +46,6 @@
       {
         "kind" : "text",
         "text" : "], "
-      },
-      {
-        "kind" : "externalParam",
-        "text" : "queryStringLiteralFormat"
-      },
-      {
-        "kind" : "text",
-        "text" : ": "
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
-        "text" : "ApolloCodegenConfiguration"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV",
-        "text" : "OutputOptions"
-      },
-      {
-        "kind" : "text",
-        "text" : "."
-      },
-      {
-        "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV24QueryStringLiteralFormatO",
-        "text" : "QueryStringLiteralFormat"
-      },
-      {
-        "kind" : "text",
-        "text" : ", "
       },
       {
         "kind" : "externalParam",
@@ -163,7 +127,7 @@
       },
       {
         "kind" : "externalParam",
-        "text" : "apqs"
+        "text" : "operationDocumentFormat"
       },
       {
         "kind" : "text",
@@ -180,8 +144,8 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-        "text" : "APQConfig"
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV23OperationDocumentFormatV",
+        "text" : "OperationDocumentFormat"
       },
       {
         "kind" : "text",
@@ -279,13 +243,10 @@
         "name" : "ApolloCodegenLib"
       }
     ],
-    "platforms" : [
-
-    ],
     "role" : "symbol",
     "roleHeading" : "Initializer",
     "symbolKind" : "init",
-    "title" : "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+    "title" : "init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
   },
   "primaryContentSections" : [
     {
@@ -323,44 +284,6 @@
             {
               "kind" : "text",
               "text" : "] = Default.additionalInflectionRules, "
-            },
-            {
-              "kind" : "externalParam",
-              "text" : "queryStringLiteralFormat"
-            },
-            {
-              "kind" : "text",
-              "text" : ": "
-            },
-            {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
-              "text" : "ApolloCodegenConfiguration"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV",
-              "text" : "OutputOptions"
-            },
-            {
-              "kind" : "text",
-              "text" : "."
-            },
-            {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum",
-              "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV24QueryStringLiteralFormatO",
-              "text" : "QueryStringLiteralFormat"
-            },
-            {
-              "kind" : "text",
-              "text" : " = .singleLine, "
             },
             {
               "kind" : "externalParam",
@@ -448,7 +371,7 @@
             },
             {
               "kind" : "externalParam",
-              "text" : "apqs"
+              "text" : "operationDocumentFormat"
             },
             {
               "kind" : "text",
@@ -465,14 +388,14 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-              "text" : "APQConfig"
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV23OperationDocumentFormatV",
+              "text" : "OperationDocumentFormat"
             },
             {
               "kind" : "text",
-              "text" : ", "
+              "text" : " = Default.operationDocumentFormat, "
             },
             {
               "kind" : "externalParam",
@@ -599,28 +522,6 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Formatting of the GraphQL query string literal that is",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "included in each generated operation object.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "queryStringLiteralFormat"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
                   "text" : "How deprecated enum cases from the schema should be handled.",
                   "type" : "text"
                 }
@@ -671,14 +572,14 @@
             {
               "inlineContent" : [
                 {
-                  "text" : "Whether the generated operations should use Automatic Persisted Queries.",
+                  "text" : "How to generate the operation documents for your generated operations.",
                   "type" : "text"
                 }
               ],
               "type" : "paragraph"
             }
           ],
-          "name" : "apqs"
+          "name" : "operationDocumentFormat"
         },
         {
           "content" : [
@@ -810,7 +711,7 @@
   "variants" : [
     {
       "paths" : [
-        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/init(additionalinflectionrules:querystringliteralformat:deprecatedenumcases:schemadocumentation:selectionsetinitializers:apqs:cocoapodscompatibleimportstatements:warningsondeprecatedusage:conversionstrategies:prunegeneratedfiles:)"
+        "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/init(additionalinflectionrules:deprecatedenumcases:schemadocumentation:selectionsetinitializers:operationdocumentformat:cocoapodscompatibleimportstatements:warningsondeprecatedusage:conversionstrategies:prunegeneratedfiles:)"
       ],
       "traits" : [
         {
@@ -868,57 +769,6 @@
   "title" : "ApolloCodegenConfiguration",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/APQConfig": {
-  "abstract" : [
-    {
-      "text" : "Enum to enable using",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "with your generated operations.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "APQConfig"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "APQConfig"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.APQConfig",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/apqconfig"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/Composition": {
   "abstract" : [
@@ -1029,6 +879,37 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/conversionstrategies"
 },
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationDocumentFormat": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OperationDocumentFormat"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OperationDocumentFormat"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.OperationDocumentFormat",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat"
+},
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions": {
   "abstract" : [
 
@@ -1060,48 +941,13 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/QueryStringLiteralFormat-swift.enum": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)": {
   "abstract" : [
     {
-      "text" : "Specify the formatting of the GraphQL query string literal.",
+      "text" : "Designated initializer.",
       "type" : "text"
     }
   ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "QueryStringLiteralFormat"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/QueryStringLiteralFormat-swift.enum",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "QueryStringLiteralFormat"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OutputOptions.QueryStringLiteralFormat",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/querystringliteralformat-swift.enum"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OutputOptions/init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)": {
-  "abstract" : [
-    {
-      "text" : "Deprecated initializer.",
-      "type" : "text"
-    }
-  ],
-  "deprecated" : true,
   "fragments" : [
     {
       "kind" : "identifier",
@@ -1127,41 +973,6 @@
     {
       "kind" : "text",
       "text" : "], "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "queryStringLiteralFormat"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
-      "text" : "ApolloCodegenConfiguration"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV",
-      "text" : "OutputOptions"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV13OutputOptionsV24QueryStringLiteralFormatO",
-      "text" : "QueryStringLiteralFormat"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
     },
     {
       "kind" : "externalParam",
@@ -1243,7 +1054,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "apqs"
+      "text" : "operationDocumentFormat"
     },
     {
       "kind" : "text",
@@ -1260,8 +1071,8 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV9APQConfigO",
-      "text" : "APQConfig"
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV23OperationDocumentFormatV",
+      "text" : "OperationDocumentFormat"
     },
     {
       "kind" : "text",
@@ -1354,12 +1165,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions\/init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:apqs:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)",
+  "title" : "init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/init(additionalinflectionrules:querystringliteralformat:deprecatedenumcases:schemadocumentation:selectionsetinitializers:apqs:cocoapodscompatibleimportstatements:warningsondeprecatedusage:conversionstrategies:prunegeneratedfiles:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/outputoptions\/init(additionalinflectionrules:deprecatedenumcases:schemadocumentation:selectionsetinitializers:operationdocumentformat:cocoapodscompatibleimportstatements:warningsondeprecatedusage:conversionstrategies:prunegeneratedfiles:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/SelectionSetInitializers": {
   "abstract" : [
@@ -1445,18 +1256,6 @@
   "title" : "InflectionRule",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/inflectionrule"
-},
-"https://www.apollographql.com/docs/apollo-server/performance/apq": {
-  "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-  "title" : "Automatic Persisted Queries (APQs)",
-  "titleInlineContent" : [
-    {
-      "text" : "Automatic Persisted Queries (APQs)",
-      "type" : "text"
-    }
-  ],
-  "type" : "link",
-  "url" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq"
 }
 }
 }
