@@ -5,7 +5,7 @@
 ### Improved
 - **Throw an error when an invalid key is present in the codegen configuration JSON ([#2942](https://github.com/apollographql/apollo-ios/issues/2942)):** See PR ([#3125](https://github.com/apollographql/apollo-ios/pull/3125)) _Thank you to [@Iron-Ham](https://github.com/Iron-Ham) for the contribution._
 - **Cleanup unused imports and declarations. ([#3099](https://github.com/apollographql/apollo-ios/issues/3099)):** See PR ([#3100](https://github.com/apollographql/apollo-ios/pull/3100)) _Thank you to [@Iron-Ham](https://github.com/Iron-Ham) for raising the issue and contributing the fix._
-- **Improvement to response code error API ([#2426](https://github.com/apollographql/apollo-ios/issues/2426)):** See PR ([#3123](https://github.com/apollographql/apollo-ios/pull/3123)). _Thank you to [dfperry5](https://github.com/dfperry5) for the contribution._
+- **Improvement to response code error API ([#2426](https://github.com/apollographql/apollo-ios/issues/2426)):** See PR ([#3123](https://github.com/apollographql/apollo-ios/pull/3123)). _Thank you to [@dfperry5](https://github.com/dfperry5) for the contribution._
 - **Improved file path support for operation manifest generation:** See PR ([#3128](https://github.com/apollographql/apollo-ios/pull/3128))
 
 ### Fixed
