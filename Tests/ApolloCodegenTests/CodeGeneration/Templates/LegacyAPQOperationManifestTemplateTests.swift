@@ -133,14 +133,14 @@ class LegacyAPQOperationManifestTemplateTests: XCTestCase {
       )
     ].map(OperationManifestItem.init)
 
-    let expected = """
+    let expected = #"""
       {
-        "efc7785ac9768b2be96e061911b97c9c898df41561dda36d9435e94994910f67" : {
+        "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd" : {
           "name": "Friends",
           "source": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }"
         }
       }
-      """
+      """#
 
     // when
     let rendered = subject.render(operations: operations)

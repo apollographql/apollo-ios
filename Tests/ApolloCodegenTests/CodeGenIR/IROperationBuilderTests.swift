@@ -205,7 +205,7 @@ class IROperationBuilderTests: XCTestCase {
     schemaSDL = try String(
       contentsOf: ApolloCodegenInternalTestHelpers.Resources.StarWars.JSONSchema)
 
-    let expected = "599cd7d91ede7a5508cdb26b424e3b8e99e6c2c5575b799f6090695289ff8e99"
+    let expected = "64c202d03546e91cd18840ad6a98d31e2b843b5687a9adf1d99a1eca09c0d983"
 
     // when
     try buildSubjectOperation(named: "HeroAndFriendsNamesWithFragment", fromJSONSchema: true)

@@ -17,7 +17,7 @@ struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
-          \(forEachIn: operations, terminator: ",", { operation in
+          \(forEachIn: operations, { operation in
             return """
             {
               "id": "\(operation.identifier)",

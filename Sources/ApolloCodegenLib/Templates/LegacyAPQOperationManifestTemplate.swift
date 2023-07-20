@@ -11,14 +11,14 @@ struct LegacyAPQOperationManifestTemplate: OperationManifestTemplate {
     return TemplateString(
     """
     {
-      \(operations.map({ operation in
+      \(forEachIn: operations, { operation in
           return """
             "\(operation.identifier)" : {
               "name": "\(operation.name)",
               "source": "\(operation.source)"
             }
             """
-        }), separator: ",\n")
+        })
     }
     """
     )

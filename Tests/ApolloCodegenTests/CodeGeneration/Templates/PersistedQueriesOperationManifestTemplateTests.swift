@@ -42,7 +42,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
             "body": "query TestQuery { test }",
             "name": "TestQuery",
             "type": "query"
-          },
+          }
         ]
       }
       """
@@ -111,7 +111,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
             "body": "subscription TestSubscription { watched }",
             "name": "TestSubscription",
             "type": "subscription"
-          },
+          }
         ]
       }
       """
@@ -149,20 +149,20 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
       )
     ].map(OperationManifestItem.init)
 
-    let expected = """
+    let expected = #"""
       {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
-            "id": "efc7785ac9768b2be96e061911b97c9c898df41561dda36d9435e94994910f67",
+            "id": "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd",
             "body": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
-          },
+          }
         ]
       }
-      """
+      """#
 
     // when
     let rendered = subject.render(operations: operations)
@@ -201,20 +201,20 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
       )
     ].map(OperationManifestItem.init)
 
-    let expected = """
+    let expected = #"""
       {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
-            "id": "efc7785ac9768b2be96e061911b97c9c898df41561dda36d9435e94994910f67",
+            "id": "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd",
             "body": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
-          },
+          }
         ]
       }
-      """
+      """#
 
     // when
     let rendered = subject.render(operations: operations)
