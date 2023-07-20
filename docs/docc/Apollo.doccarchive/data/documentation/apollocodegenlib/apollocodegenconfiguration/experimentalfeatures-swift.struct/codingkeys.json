@@ -77,6 +77,7 @@
   "relationshipsSections" : [
     {
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/s12CaseIterableP",
         "doc:\/\/ApolloCodegenLib\/s9CodingKeyP",
         "doc:\/\/ApolloCodegenLib\/s28CustomDebugStringConvertibleP",
         "doc:\/\/ApolloCodegenLib\/s23CustomStringConvertibleP",
@@ -402,6 +403,11 @@
   "title" : "ApolloCodegenConfiguration.ExperimentalFeatures.CodingKeys.legacySafelistingCompatibleOperations",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/experimentalfeatures-swift.struct\/codingkeys\/legacysafelistingcompatibleoperations"
+},
+"doc://ApolloCodegenLib/s12CaseIterableP": {
+  "identifier" : "doc:\/\/ApolloCodegenLib\/s12CaseIterableP",
+  "title" : "Swift.CaseIterable",
+  "type" : "unresolvable"
 },
 "doc://ApolloCodegenLib/s23CustomStringConvertibleP": {
   "identifier" : "doc:\/\/ApolloCodegenLib\/s23CustomStringConvertibleP",
