@@ -4,21 +4,18 @@ import ApolloAPI
 
 /// A `GraphQLExecutionSource` designed for use when the data source is a generated model's
 /// `SelectionSet` data.
-struct SelectionSetModelExecutionSource:
-  GraphQLExecutionSource,
-  CacheKeyComputingExecutionSource
-{
-  typealias RawData = DataDict
+struct SelectionSetModelExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
+  typealias RawObjectData = DataDict
   typealias FieldCollector = CustomCacheDataWritingFieldSelectionCollector
 
   func resolveField(
     with info: FieldExecutionInfo,
-    on object: RawData
+    on object: DataDict
   ) -> PossiblyDeferred<AnyHashable?> {
     .immediate(.success(object._data[info.responseKeyForField]))
   }
 
-  func opaqueObjectDataWrapper(for rawData: RawData) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: DataDict) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData._data)
   }
 
@@ -35,7 +32,7 @@ struct SelectionSetModelExecutionSource:
 
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as RawData:
+      case let object as DataDict:
         return ObjectData(_transformer: self, _rawData: object._data)
       default: return nil
       }

@@ -4,21 +4,18 @@ import ApolloAPI
 
 /// A `GraphQLExecutionSource` configured to execute upon the JSON data from the network response
 /// for a GraphQL operation.
-struct NetworkResponseExecutionSource:
-  GraphQLExecutionSource,
-  CacheKeyComputingExecutionSource
-{
-  typealias RawData = JSONObject
+struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
+  typealias RawObjectData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 
   func resolveField(
     with info: FieldExecutionInfo,
-    on object: RawData
+    on object: JSONObject
   ) -> PossiblyDeferred<AnyHashable?> {
     .immediate(.success(object[info.responseKeyForField]))
   }
 
-  func opaqueObjectDataWrapper(for rawData: RawData) -> ObjectData {
+  func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 
@@ -35,7 +32,7 @@ struct NetworkResponseExecutionSource:
 
     func transform(_ value: AnyHashable) -> ObjectData? {
       switch value {
-      case let object as RawData:
+      case let object as JSONObject:
         return ObjectData(_transformer: self, _rawData: object)
       default: return nil
       }
