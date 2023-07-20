@@ -135,9 +135,9 @@ class LegacyAPQOperationManifestTemplateTests: XCTestCase {
 
     let expected = #"""
       {
-        "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd" : {
+        "8a600240c49d72b1639fb4e41af5305ee0918f2258847eb7a9c1db09813cc154" : {
           "name": "Friends",
-          "source": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }"
+          "source": "query Friends { friends { ...Name } }\nfragment Name on Friend { name }"
         }
       }
       """#

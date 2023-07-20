@@ -155,8 +155,8 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "version": 1,
         "operations": [
           {
-            "id": "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd",
-            "body": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }",
+            "id": "8a600240c49d72b1639fb4e41af5305ee0918f2258847eb7a9c1db09813cc154",
+            "body": "query Friends { friends { ...Name } }\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
           }
@@ -207,8 +207,8 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "version": 1,
         "operations": [
           {
-            "id": "9db65faebf9e503b403964a81c90edbeeb894d46029b1b42b16639dda96772bd",
-            "body": "query Friends { friends { ...Name } }\\nfragment Name on Friend { name }",
+            "id": "8a600240c49d72b1639fb4e41af5305ee0918f2258847eb7a9c1db09813cc154",
+            "body": "query Friends { friends { ...Name } }\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
           }
