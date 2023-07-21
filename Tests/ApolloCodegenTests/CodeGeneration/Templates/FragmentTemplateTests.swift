@@ -68,7 +68,7 @@ class FragmentTemplateTests: XCTestCase {
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
       static var fragmentDefinition: StaticString {
-        "fragment TestFragment on Query { __typename allAnimals { __typename species } }"
+        #"fragment TestFragment on Query { __typename allAnimals { __typename species } }"#
       }
 
       let __data: DataDict
@@ -99,7 +99,7 @@ class FragmentTemplateTests: XCTestCase {
     """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
       static var fragmentDefinition: StaticString {
-        "fragment testFragment on Query { __typename allAnimals { __typename species } }"
+        #"fragment testFragment on Query { __typename allAnimals { __typename species } }"#
     """
 
     // when
@@ -248,7 +248,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
       static var fragmentDefinition: StaticString {
-        "fragment TestFragment on Query { __typename }"
+        #"fragment TestFragment on Query { __typename }"#
       }
 
       let __data: DataDict
@@ -281,7 +281,7 @@ class FragmentTemplateTests: XCTestCase {
     let expected = """
     struct TestFragment: TestSchema.SelectionSet, Fragment {
       static var fragmentDefinition: StaticString {
-        "fragment TestFragment on Animal { __typename }"
+        #"fragment TestFragment on Animal { __typename }"#
       }
 
       let __data: DataDict
@@ -615,7 +615,7 @@ class FragmentTemplateTests: XCTestCase {
     """
     struct TestFragment: TestSchema.MutableSelectionSet, Fragment {
       static var fragmentDefinition: StaticString {
-        "fragment TestFragment on Query { __typename allAnimals { __typename species } }"
+        #"fragment TestFragment on Query { __typename allAnimals { __typename species } }"#
       }
     """
 
