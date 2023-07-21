@@ -1,158 +1,240 @@
 {
-  "fe3f21394eb861aa515c4d582e645469045793c9cbbeca4b5d4ce4d7dd617556" : {
-    "name" : "HeroAndFriendsNames",
-    "source" : "query HeroAndFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
-  },
-  "8e4ca76c63660898cfd5a3845e3709027750b5f0151c7f9be65759b869c5486d" : {
-    "name" : "HeroAndFriendsNamesWithIDs",
-    "source" : "query HeroAndFriendsNamesWithIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n      name\n    }\n  }\n}"
-  },
-  "117d0f6831d8f4abe5b61ed1dbb8071b0825e19649916c0fe0906a6f578bb088" : {
-    "name" : "HeroAndFriendsIDs",
-    "source" : "query HeroAndFriendsIDs($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      id\n    }\n  }\n}"
-  },
-  "f091468a629f3b757c03a1b7710c6ede8b5c8f10df7ba3238f2bbcd71c56f90f" : {
-    "name" : "HeroAndFriendsNamesWithIDForParentOnly",
-    "source" : "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n    friends {\n      __typename\n      name\n    }\n  }\n}"
-  },
-  "37cd5626048e7243716ffda9e56503939dd189772124a1c21b0e0b87e69aae01" : {
-    "name" : "HeroFriendsOfFriendsNames",
-    "source" : "query HeroFriendsOfFriendsNames($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      id\n      friends {\n        __typename\n        name\n      }\n    }\n  }\n}"
-  },
-  "1d3ad903dad146ff9d7aa09813fc01becd017489bfc1af8ffd178498730a5a26" : {
-    "name" : "HeroAndFriendsNamesWithFragment",
-    "source" : "query HeroAndFriendsNamesWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ...FriendsNames\n  }\n}\nfragment FriendsNames on Character {\n  __typename\n  friends {\n    __typename\n    name\n  }\n}"
-  },
-  "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb" : {
-    "name" : "HeroAndFriendsNamesWithFragmentTwice",
-    "source" : "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    friends {\n      __typename\n      ...CharacterName\n    }\n    ... on Droid {\n      __typename\n      friends {\n        __typename\n        ...CharacterName\n      }\n    }\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
-  },
-  "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce" : {
-    "name" : "HeroNameAndAppearsIn",
-    "source" : "query HeroNameAndAppearsIn($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    appearsIn\n  }\n}"
-  },
-  "0664fed3eb4f9fbdb44e8691d9e8fd11f2b3c097ba11327592054f602bd3ba1a" : {
-    "name" : "HeroNameAndAppearsInWithFragment",
-    "source" : "query HeroNameAndAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterNameAndAppearsIn\n  }\n}\nfragment CharacterNameAndAppearsIn on Character {\n  __typename\n  name\n  appearsIn\n}"
-  },
-  "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a" : {
-    "name" : "Starship",
-    "source" : "query Starship {\n  starship(id: 3000) {\n    __typename\n    name\n    coordinates\n  }\n}"
-  },
-  "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406" : {
-    "name" : "StarshipCoordinates",
-    "source" : "query StarshipCoordinates($coordinates: [[Float!]!]) {\n  starshipCoordinates(coordinates: $coordinates) {\n    __typename\n    name\n    coordinates\n    length\n  }\n}"
-  },
-  "22d772c0fc813281705e8f0a55fc70e71eeff6e98f3f9ef96cf67fb896914522" : {
-    "name" : "HeroAppearsIn",
-    "source" : "query HeroAppearsIn {\n  hero {\n    __typename\n    appearsIn\n  }\n}"
-  },
-  "1756158bd7736d58db45a48d74a724fa1b6fdac735376df8afac8318ba5431fb" : {
-    "name" : "HeroAppearsInWithFragment",
-    "source" : "query HeroAppearsInWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterAppearsIn\n  }\n}\nfragment CharacterAppearsIn on Character {\n  __typename\n  appearsIn\n}"
-  },
-  "207d29944f5822bff08a07db4a55274ea14035bacfe20699da41a47454f1181e" : {
-    "name" : "HeroDetails",
-    "source" : "query HeroDetails($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      __typename\n      height\n    }\n    ... on Droid {\n      __typename\n      primaryFunction\n    }\n  }\n}"
-  },
-  "b55bd9d56d1b5972345412b6adb88ceb64d6086c8051d2588d8ab701f0ee7c2f" : {
-    "name" : "HeroDetailsWithFragment",
-    "source" : "query HeroDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...HeroDetails\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    __typename\n    height\n  }\n  ... on Droid {\n    __typename\n    primaryFunction\n  }\n}"
-  },
-  "7277e97563e911ac8f5c91d401028d218aae41f38df014d7fa0b037bb2a2e739" : {
-    "name" : "DroidDetailsWithFragment",
-    "source" : "query DroidDetailsWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...DroidDetails\n  }\n}\nfragment DroidDetails on Droid {\n  __typename\n  name\n  primaryFunction\n}"
-  },
-  "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364" : {
-    "name" : "SameHeroTwice",
-    "source" : "query SameHeroTwice {\n  hero {\n    __typename\n    name\n  }\n  r2: hero {\n    __typename\n    appearsIn\n  }\n}"
-  },
-  "b868fa9c48f19b8151c08c09f46831e3b9cd09f5c617d328647de785244b52bb" : {
-    "name" : "TwoHeroes",
-    "source" : "query TwoHeroes {\n  r2: hero {\n    __typename\n    name\n  }\n  luke: hero(episode: EMPIRE) {\n    __typename\n    name\n  }\n}"
-  },
-  "3dd42259adf2d0598e89e0279bee2c128a7913f02b1da6aa43f3b5def6a8a1f8" : {
-    "name" : "HeroNameConditionalExclusion",
-    "source" : "query HeroNameConditionalExclusion($skipName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n  }\n}"
-  },
-  "338081aea3acc83d04af0741ecf0da1ec2ee8e6468a88383476b681015905ef8" : {
-    "name" : "HeroNameConditionalInclusion",
-    "source" : "query HeroNameConditionalInclusion($includeName: Boolean!) {\n  hero {\n    __typename\n    name @include(if: $includeName)\n  }\n}"
-  },
-  "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064" : {
-    "name" : "HeroNameConditionalBoth",
-    "source" : "query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName) @include(if: $includeName)\n  }\n}"
-  },
-  "d0f9e9205cdc09320035662f528a177654d3275b0bf94cf0e259a65fde33e7e5" : {
-    "name" : "HeroNameConditionalBothSeparate",
-    "source" : "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) {\n  hero {\n    __typename\n    name @skip(if: $skipName)\n    name @include(if: $includeName)\n  }\n}"
-  },
-  "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c" : {
-    "name" : "HeroDetailsInlineConditionalInclusion",
-    "source" : "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ... @include(if: $includeDetails) {\n      __typename\n      name\n      appearsIn\n    }\n  }\n}"
-  },
-  "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b" : {
-    "name" : "HeroDetailsFragmentConditionalInclusion",
-    "source" : "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {\n  hero {\n    __typename\n    ...HeroDetails @include(if: $includeDetails)\n  }\n}\nfragment HeroDetails on Character {\n  __typename\n  name\n  ... on Human {\n    __typename\n    height\n  }\n  ... on Droid {\n    __typename\n    primaryFunction\n  }\n}"
-  },
-  "76aecc75265295818d3990000b17e32d5524ca85a4bc159ae8a3f8ec7ce91cc3" : {
-    "name" : "HeroNameTypeSpecificConditionalInclusion",
-    "source" : "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) {\n  hero(episode: $episode) {\n    __typename\n    name @include(if: $includeName)\n    ... on Droid {\n      __typename\n      name\n    }\n  }\n}"
-  },
-  "8cada231691ff2f5a0a07c54b7332114588f11b947795da345c5b054211fbcfd" : {
-    "name" : "HeroFriendsDetailsConditionalInclusion",
-    "source" : "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        __typename\n        primaryFunction\n      }\n    }\n  }\n}"
-  },
-  "65381a20574db4b458a0821328252deb0da1a107f9ab77c99fb2467e66a5f12d" : {
-    "name" : "HeroFriendsDetailsUnconditionalAndConditionalInclusion",
-    "source" : "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) {\n  hero {\n    __typename\n    friends {\n      __typename\n      name\n    }\n    friends @include(if: $includeFriendsDetails) {\n      __typename\n      name\n      ... on Droid {\n        __typename\n        primaryFunction\n      }\n    }\n  }\n}"
-  },
-  "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a" : {
-    "name" : "Search",
-    "source" : "query Search($term: String) {\n  search(text: $term) {\n    __typename\n    ... on Human {\n      __typename\n      id\n      name\n    }\n    ... on Droid {\n      __typename\n      id\n      name\n    }\n    ... on Starship {\n      __typename\n      id\n      name\n    }\n  }\n}"
-  },
-  "f6e76545cd03aa21368d9969cb39447f6e836a16717823281803778e7805d671" : {
-    "name" : "HeroName",
-    "source" : "query HeroName($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n  }\n}"
-  },
-  "83c03f612c46fca72f6cb902df267c57bffc9209bc44dd87d2524fb2b34f6f18" : {
-    "name" : "HeroNameWithID",
-    "source" : "query HeroNameWithID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    name\n  }\n}"
-  },
-  "b952f0054915a32ec524ac0dde0244bcda246649debe149f9e32e303e21c8266" : {
-    "name" : "HeroNameWithFragment",
-    "source" : "query HeroNameWithFragment($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ...CharacterName\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
-  },
-  "a87a0694c09d1ed245e9a80f245d96a5f57b20a4aa936ee9ab09b2a43620db02" : {
-    "name" : "HeroNameWithFragmentAndID",
-    "source" : "query HeroNameWithFragmentAndID($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    id\n    ...CharacterName\n  }\n}\nfragment CharacterName on Character {\n  __typename\n  name\n}"
-  },
-  "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c" : {
-    "name" : "HeroTypeDependentAliasedField",
-    "source" : "query HeroTypeDependentAliasedField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    ... on Human {\n      __typename\n      property: homePlanet\n    }\n    ... on Droid {\n      __typename\n      property: primaryFunction\n    }\n  }\n}"
-  },
-  "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe" : {
-    "name" : "ReviewAdded",
-    "source" : "subscription ReviewAdded($episode: Episode) {\n  reviewAdded(episode: $episode) {\n    __typename\n    episode\n    stars\n    commentary\n  }\n}"
-  },
-  "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b" : {
-    "name" : "HeroParentTypeDependentField",
-    "source" : "query HeroParentTypeDependentField($episode: Episode) {\n  hero(episode: $episode) {\n    __typename\n    name\n    ... on Human {\n      __typename\n      friends {\n        __typename\n        name\n        ... on Human {\n          __typename\n          height(unit: FOOT)\n        }\n      }\n    }\n    ... on Droid {\n      __typename\n      friends {\n        __typename\n        name\n        ... on Human {\n          __typename\n          height(unit: METER)\n        }\n      }\n    }\n  }\n}"
-  },
-  "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d" : {
-    "name" : "CreateReviewForEpisode",
-    "source" : "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {\n  createReview(episode: $episode, review: $review) {\n    __typename\n    stars\n    commentary\n  }\n}"
-  },
-  "4a1250de93ebcb5cad5870acf15001112bf27bb963e8709555b5ff67a1405374" : {
-    "name" : "CreateAwesomeReview",
-    "source" : "mutation CreateAwesomeReview {\n  createReview(episode: JEDI, review: {stars: 10, commentary: \"This is awesome!\"}) {\n    __typename\n    stars\n    commentary\n  }\n}"
-  },
-  "a9600d176cd7e4671b8689f1d01fe79ea896932bfafb8a925af673f0e4111828" : {
-    "name" : "CreateReviewWithNullField",
-    "source" : "mutation CreateReviewWithNullField {\n  createReview(episode: JEDI, review: {stars: 10, commentary: null}) {\n    __typename\n    stars\n    commentary\n  }\n}"
-  },
-  "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e" : {
-    "name" : "Human",
-    "source" : "query Human($id: ID!) {\n  human(id: $id) {\n    __typename\n    name\n    mass\n  }\n}"
-  }
+  "format": "apollo-persisted-query-manifest",
+  "version": 1,
+  "operations": [
+    {
+      "id": "1e36c3331171b74c012b86caa04fbb01062f37c61227655d9c0729a62c6f7285",
+      "body": "query HeroAndFriendsNames($episode: Episode) { hero(episode: $episode) { __typename name friends { __typename name } } }",
+      "name": "HeroAndFriendsNames",
+      "type": "query"
+    },
+    {
+      "id": "cdf121c8a2f2188bd1c4dcc04df6104e989164b27f1e7f13d27ccc9c03fbda0c",
+      "body": "query HeroAndFriendsNamesWithIDs($episode: Episode) { hero(episode: $episode) { __typename id name friends { __typename id name } } }",
+      "name": "HeroAndFriendsNamesWithIDs",
+      "type": "query"
+    },
+    {
+      "id": "8f1f880891cdfbf7be7ea11bb4b09708bcbf1e3f8e8a40ecb6fcb33c6078955f",
+      "body": "query HeroAndFriendsIDs($episode: Episode) { hero(episode: $episode) { __typename id name friends { __typename id } } }",
+      "name": "HeroAndFriendsIDs",
+      "type": "query"
+    },
+    {
+      "id": "de03aaedeb69050ef75e3aa56b262b4ea1e08bb6fd174f2e91ddd9b84a8ff897",
+      "body": "query HeroAndFriendsNamesWithIDForParentOnly($episode: Episode) { hero(episode: $episode) { __typename id name friends { __typename name } } }",
+      "name": "HeroAndFriendsNamesWithIDForParentOnly",
+      "type": "query"
+    },
+    {
+      "id": "513b65fa459185f88540be8d60cdeefb69fd6c82a21b804214337558aa6ecb0b",
+      "body": "query HeroFriendsOfFriendsNames($episode: Episode) { hero(episode: $episode) { __typename friends { __typename id friends { __typename name } } } }",
+      "name": "HeroFriendsOfFriendsNames",
+      "type": "query"
+    },
+    {
+      "id": "07c54599c2b5f9d4215d1bff7f5f6ff458c983aa5c13338fd44b051210d5ecc6",
+      "body": "query HeroAndFriendsNamesWithFragment($episode: Episode) { hero(episode: $episode) { __typename name ...FriendsNames } }\nfragment FriendsNames on Character { __typename friends { __typename name } }",
+      "name": "HeroAndFriendsNamesWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "9a769ab058900912bff4e4c51c1b257f609e4dfb4aaa1f17166adc19d510e363",
+      "body": "query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) { hero(episode: $episode) { __typename friends { __typename ...CharacterName } ... on Droid { __typename friends { __typename ...CharacterName } } } }\nfragment CharacterName on Character { __typename name }",
+      "name": "HeroAndFriendsNamesWithFragmentTwice",
+      "type": "query"
+    },
+    {
+      "id": "ecdf5248575524004a9d43832abc54e8c0e1d2b3c0afb8bb0c1c1c514b4f9baf",
+      "body": "query HeroNameAndAppearsIn($episode: Episode) { hero(episode: $episode) { __typename name appearsIn } }",
+      "name": "HeroNameAndAppearsIn",
+      "type": "query"
+    },
+    {
+      "id": "4fc9c2e7f9fbe8ef3f28936bd0b12e8f32bc8d70f3e8ec5df8a6aaf3efd4921c",
+      "body": "query HeroNameAndAppearsInWithFragment($episode: Episode) { hero(episode: $episode) { __typename ...CharacterNameAndAppearsIn } }\nfragment CharacterNameAndAppearsIn on Character { __typename name appearsIn }",
+      "name": "HeroNameAndAppearsInWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "e42a9be2ae0f222985e3eacf8d8d513002954d5031dcf544bbb0d27b1089fc58",
+      "body": "query Starship { starship(id: 3000) { __typename name coordinates } }",
+      "name": "Starship",
+      "type": "query"
+    },
+    {
+      "id": "c10b54b8dd9361556f3b12d71f28c859ace043525d8d19541b39eadc47d14b15",
+      "body": "query StarshipCoordinates($coordinates: [[Float!]!]) { starshipCoordinates(coordinates: $coordinates) { __typename name coordinates length } }",
+      "name": "StarshipCoordinates",
+      "type": "query"
+    },
+    {
+      "id": "59243627e0166c9b631551b56dc4d29701f2d90336d83c231172c50152e02475",
+      "body": "query HeroAppearsIn { hero { __typename appearsIn } }",
+      "name": "HeroAppearsIn",
+      "type": "query"
+    },
+    {
+      "id": "b7e9c75d75c77765849b67116235609b3a05b9052975c617f51a315f8fbaf45a",
+      "body": "query HeroAppearsInWithFragment($episode: Episode) { hero(episode: $episode) { __typename ...CharacterAppearsIn } }\nfragment CharacterAppearsIn on Character { __typename appearsIn }",
+      "name": "HeroAppearsInWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "bf81c1338a3953d1c17c5cad3db3c3ab18b16a6822125ab81c15eb0dd3e82193",
+      "body": "query HeroDetails($episode: Episode) { hero(episode: $episode) { __typename name ... on Human { __typename height } ... on Droid { __typename primaryFunction } } }",
+      "name": "HeroDetails",
+      "type": "query"
+    },
+    {
+      "id": "09fe4fc0cbcde5f0ba08b1207526cae13eb2b73ca95f929d4153dd3f643b6780",
+      "body": "query HeroDetailsWithFragment($episode: Episode) { hero(episode: $episode) { __typename ...HeroDetails } }\nfragment HeroDetails on Character { __typename name ... on Human { __typename height } ... on Droid { __typename primaryFunction } }",
+      "name": "HeroDetailsWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "6696d5064faa0c379b73574aa6d4c5b912eb17339afc8b66babae61542d233d7",
+      "body": "query DroidDetailsWithFragment($episode: Episode) { hero(episode: $episode) { __typename ...DroidDetails } }\nfragment DroidDetails on Droid { __typename name primaryFunction }",
+      "name": "DroidDetailsWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "3d960acb3caffc4e42701ccada8535b1a5640f0cc46966b6a12830c755ff46d8",
+      "body": "query SameHeroTwice { hero { __typename name } r2: hero { __typename appearsIn } }",
+      "name": "SameHeroTwice",
+      "type": "query"
+    },
+    {
+      "id": "79c1cf70ead0fb9d7bb0811982560f1585b0b0a4ad7507c934b43a4482bb2097",
+      "body": "query TwoHeroes { r2: hero { __typename name } luke: hero(episode: EMPIRE) { __typename name } }",
+      "name": "TwoHeroes",
+      "type": "query"
+    },
+    {
+      "id": "b6d6f1d10cde449adbf2891d489159006188e63d4dea4edb9a23eddcbe0bd361",
+      "body": "query HeroNameConditionalExclusion($skipName: Boolean!) { hero { __typename name @skip(if: $skipName) } }",
+      "name": "HeroNameConditionalExclusion",
+      "type": "query"
+    },
+    {
+      "id": "dd8e5df9634bb4fb6455e4aaddd2941c5abf785b7d28cda959aba65157e950c6",
+      "body": "query HeroNameConditionalInclusion($includeName: Boolean!) { hero { __typename name @include(if: $includeName) } }",
+      "name": "HeroNameConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "e063fa4ab5493e9c67bfa96dfedfa8570475f6286f38c482f6e85ced4ea206af",
+      "body": "query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) { hero { __typename name @skip(if: $skipName) @include(if: $includeName) } }",
+      "name": "HeroNameConditionalBoth",
+      "type": "query"
+    },
+    {
+      "id": "60741c6fca15865a9af75a269ed05871e681f48ac48edfac2a77d953d217d03c",
+      "body": "query HeroNameConditionalBothSeparate($skipName: Boolean!, $includeName: Boolean!) { hero { __typename name @skip(if: $skipName) name @include(if: $includeName) } }",
+      "name": "HeroNameConditionalBothSeparate",
+      "type": "query"
+    },
+    {
+      "id": "e251576f8c1cfcd442f44d2fbe5fd4b425a36ddd41fb4b6c1019c501ac6ac5bc",
+      "body": "query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) { hero { __typename ... @include(if: $includeDetails) { __typename name appearsIn } } }",
+      "name": "HeroDetailsInlineConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "17dfb13c5d9e6c67703fc037b9114ea53ccc8f9274dfecb4abfc2d5a168cf612",
+      "body": "query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) { hero { __typename ...HeroDetails @include(if: $includeDetails) } }\nfragment HeroDetails on Character { __typename name ... on Human { __typename height } ... on Droid { __typename primaryFunction } }",
+      "name": "HeroDetailsFragmentConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "c05a6e91e1a3ddc3df21205ed7fca49cf6f3f171e4390ac98e7690c391b18baf",
+      "body": "query HeroNameTypeSpecificConditionalInclusion($episode: Episode, $includeName: Boolean!) { hero(episode: $episode) { __typename name @include(if: $includeName) ... on Droid { __typename name } } }",
+      "name": "HeroNameTypeSpecificConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "ca1b86ff4a0f8212bdac70fbb59c9bb8023d0a30ca0225b24831bb3e807b22a0",
+      "body": "query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) { hero { __typename friends @include(if: $includeFriendsDetails) { __typename name ... on Droid { __typename primaryFunction } } } }",
+      "name": "HeroFriendsDetailsConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "e36c8e5d752afda2a90fe44bcbfeb92de68f0da92b8390d626d3005cbad16dbe",
+      "body": "query HeroFriendsDetailsUnconditionalAndConditionalInclusion($includeFriendsDetails: Boolean!) { hero { __typename friends { __typename name } friends @include(if: $includeFriendsDetails) { __typename name ... on Droid { __typename primaryFunction } } } }",
+      "name": "HeroFriendsDetailsUnconditionalAndConditionalInclusion",
+      "type": "query"
+    },
+    {
+      "id": "29ecc9c7acac3eab2585d305aed9f8257b448bc7ea57341a135d1fa476973ecb",
+      "body": "query Search($term: String) { search(text: $term) { __typename ... on Human { __typename id name } ... on Droid { __typename id name } ... on Starship { __typename id name } } }",
+      "name": "Search",
+      "type": "query"
+    },
+    {
+      "id": "b9d49e889d6f5877c0bf09b8b4f88a71f88836a771e0e48c270a9aa8b506dda1",
+      "body": "query HeroName($episode: Episode) { hero(episode: $episode) { __typename name } }",
+      "name": "HeroName",
+      "type": "query"
+    },
+    {
+      "id": "675d636002a28e24e3802d5f04772943b0a78b8795203fcab53f4c8466e1e53c",
+      "body": "query HeroNameWithID($episode: Episode) { hero(episode: $episode) { __typename id name } }",
+      "name": "HeroNameWithID",
+      "type": "query"
+    },
+    {
+      "id": "68baad3c27796cb1bf980681324e43b948aa1109698ba57404c1afa46e914ab1",
+      "body": "query HeroNameWithFragment($episode: Episode) { hero(episode: $episode) { __typename ...CharacterName } }\nfragment CharacterName on Character { __typename name }",
+      "name": "HeroNameWithFragment",
+      "type": "query"
+    },
+    {
+      "id": "ec14e5fffc56163c516a21f0d211a7a86d68a3512e6fb6df38a19babe0d1df8d",
+      "body": "query HeroNameWithFragmentAndID($episode: Episode) { hero(episode: $episode) { __typename id ...CharacterName } }\nfragment CharacterName on Character { __typename name }",
+      "name": "HeroNameWithFragmentAndID",
+      "type": "query"
+    },
+    {
+      "id": "5b1ed6a84e96a4e48a3cad675ebb46020bce176f47361d097d8a0a824b7b8452",
+      "body": "query HeroTypeDependentAliasedField($episode: Episode) { hero(episode: $episode) { __typename ... on Human { __typename property: homePlanet } ... on Droid { __typename property: primaryFunction } } }",
+      "name": "HeroTypeDependentAliasedField",
+      "type": "query"
+    },
+    {
+      "id": "2a05903b49a3b665eeb8f7a24240623aff77f1555e006f11bca604540c7cdba8",
+      "body": "subscription ReviewAdded($episode: Episode) { reviewAdded(episode: $episode) { __typename episode stars commentary } }",
+      "name": "ReviewAdded",
+      "type": "subscription"
+    },
+    {
+      "id": "dc3b582f2baa66cfb5cd53eb3c215933427fd0537076767c8e0ef894d3990d15",
+      "body": "query HeroParentTypeDependentField($episode: Episode) { hero(episode: $episode) { __typename name ... on Human { __typename friends { __typename name ... on Human { __typename height(unit: FOOT) } } } ... on Droid { __typename friends { __typename name ... on Human { __typename height(unit: METER) } } } } }",
+      "name": "HeroParentTypeDependentField",
+      "type": "query"
+    },
+    {
+      "id": "3edcd1f17839f43db021eccbe2ecd41ad7dcb1ba6cd4b7e9897afb4162e4c223",
+      "body": "mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) { createReview(episode: $episode, review: $review) { __typename stars commentary } }",
+      "name": "CreateReviewForEpisode",
+      "type": "mutation"
+    },
+    {
+      "id": "36634ea692d455075551673f2f529e85c8acf6f5e3707243781324cd3d968d02",
+      "body": "mutation CreateAwesomeReview { createReview(episode: JEDI, review: {stars: 10, commentary: "This is awesome!"}) { __typename stars commentary } }",
+      "name": "CreateAwesomeReview",
+      "type": "mutation"
+    },
+    {
+      "id": "e962313bc77c193dc516d097b5e41efea073de16c3a5f2e8c00f082853835d49",
+      "body": "mutation CreateReviewWithNullField { createReview(episode: JEDI, review: {stars: 10, commentary: null}) { __typename stars commentary } }",
+      "name": "CreateReviewWithNullField",
+      "type": "mutation"
+    },
+    {
+      "id": "22b975c180932a926f48bfec1e002b9d1389e0ee1d84b3cdfa337d80fb036a26",
+      "body": "query Human($id: ID!) { human(id: $id) { __typename name mass } }",
+      "name": "Human",
+      "type": "query"
+    }
+  ]
 }

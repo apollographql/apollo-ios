@@ -6,17 +6,9 @@
 public class HumanQuery: GraphQLQuery {
   public static let operationName: String = "Human"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "b37eb69b82fd52358321e49453769750983be1c286744dbf415735d7bcf12f1e",
+    operationIdentifier: "22b975c180932a926f48bfec1e002b9d1389e0ee1d84b3cdfa337d80fb036a26",
     definition: .init(
-      #"""
-      query Human($id: ID!) {
-        human(id: $id) {
-          __typename
-          name
-          mass
-        }
-      }
-      """#
+      #"query Human($id: ID!) { human(id: $id) { __typename name mass } }"#
     ))
 
   public var id: ID

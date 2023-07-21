@@ -7,18 +7,7 @@ public class AllAnimalsCCNQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsCCN"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query AllAnimalsCCN {
-        allAnimals {
-          __typename
-          height? {
-            __typename
-            feet?
-            inches!
-          }
-        }
-      }
-      """#
+      #"query AllAnimalsCCN { allAnimals { __typename height? { __typename feet? inches! } } }"#
     ))
 
   public init() {}

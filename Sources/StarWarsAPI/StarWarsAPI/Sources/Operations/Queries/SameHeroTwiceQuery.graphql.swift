@@ -6,20 +6,9 @@
 public class SameHeroTwiceQuery: GraphQLQuery {
   public static let operationName: String = "SameHeroTwice"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "2a8ad85a703add7d64622aaf6be76b58a1134caf28e4ff6b34dd00ba89541364",
+    operationIdentifier: "3d960acb3caffc4e42701ccada8535b1a5640f0cc46966b6a12830c755ff46d8",
     definition: .init(
-      #"""
-      query SameHeroTwice {
-        hero {
-          __typename
-          name
-        }
-        r2: hero {
-          __typename
-          appearsIn
-        }
-      }
-      """#
+      #"query SameHeroTwice { hero { __typename name } r2: hero { __typename appearsIn } }"#
     ))
 
   public init() {}

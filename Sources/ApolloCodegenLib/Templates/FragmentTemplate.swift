@@ -20,7 +20,7 @@ struct FragmentTemplate: TemplateRenderer {
     \(definition.renderedSelectionSetType(config)), Fragment {
       \(accessControlModifier(for: .member))\
     static var fragmentDefinition: StaticString {
-        "\(fragment.definition.source.convertedToSingleLine())"
+        #"\(fragment.definition.source.convertedToSingleLine())"#
       }
 
       \(SelectionSetTemplate(

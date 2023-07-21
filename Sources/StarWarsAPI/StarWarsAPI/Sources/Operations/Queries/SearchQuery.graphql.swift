@@ -6,30 +6,9 @@
 public class SearchQuery: GraphQLQuery {
   public static let operationName: String = "Search"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "477b77c476899915498a56ae7bb835667b1e875cb94f6daa7f75e05018be2c3a",
+    operationIdentifier: "29ecc9c7acac3eab2585d305aed9f8257b448bc7ea57341a135d1fa476973ecb",
     definition: .init(
-      #"""
-      query Search($term: String) {
-        search(text: $term) {
-          __typename
-          ... on Human {
-            __typename
-            id
-            name
-          }
-          ... on Droid {
-            __typename
-            id
-            name
-          }
-          ... on Starship {
-            __typename
-            id
-            name
-          }
-        }
-      }
-      """#
+      #"query Search($term: String) { search(text: $term) { __typename ... on Human { __typename id name } ... on Droid { __typename id name } ... on Starship { __typename id name } } }"#
     ))
 
   public var term: GraphQLNullable<String>
