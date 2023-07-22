@@ -81,8 +81,8 @@ export function printSchemaToSDL(schema: GraphQLSchema): string {
   return printSchema(schema)
 }
 
-export function parseOperationDocument(source: Source, experimentalClientControlledNullability: boolean): DocumentNode {
-  return parse(source, {experimentalClientControlledNullability: experimentalClientControlledNullability});
+export function parseOperationDocument(source: Source): DocumentNode {
+  return parse(source);
 }
 
 export function mergeDocuments(documents: DocumentNode[]): DocumentNode {
