@@ -43,8 +43,7 @@ interface Pet {
 }`;
 
     const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Query", { line: 1, column: 1 }),
-      false
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
     describe("compile document", () => {
@@ -105,8 +104,7 @@ interface Pet {
 }`;
 
     const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Query", { line: 1, column: 1 }),
-      false
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
     it("operation definition should have source including __typename field with no directives.", () => {
@@ -140,8 +138,7 @@ interface Pet {
 }`;
 
     const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Query", { line: 1, column: 1 }),
-      false
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
     it("operation definition should have source not including local cache mutation directive.", () => {
@@ -170,8 +167,7 @@ interface Pet {
 }`;
 
     const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Fragment", { line: 1, column: 1 }),
-      false
+      new Source(documentString, "Test Fragment", { line: 1, column: 1 })
     );
 
     it("fragment definition should have source including __typename field.", () => {
