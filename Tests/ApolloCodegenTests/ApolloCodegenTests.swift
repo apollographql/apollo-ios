@@ -211,6 +211,8 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_CCN_compileResults_givenOperations_withNoErrors_shouldReturn() throws {
+    throw XCTSkip("CCN tests skipped until issue #3114 done or closed.")
+
     let schemaData: Data = {
       """
       type Query {
@@ -251,6 +253,8 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_CCN_compileResults_givenOperations_withErrors_shouldError() throws {
+    throw XCTSkip("CCN tests skipped until issue #3114 done or closed.")
+
     // given
     let schemaPath = try createFile(containing: schemaData, named: "schema.graphqls")
 
@@ -775,6 +779,8 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
+    throw XCTSkip("CCN-related tests skipped until issue #3114 done or closed.")
+
     // given
     let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
@@ -877,6 +883,8 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
+    throw XCTSkip("CCN-related tests skipped until issue #3114 done or closed.")
+    
     // given
     let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
