@@ -14,12 +14,14 @@ Based on the progress of `@defer`/`@stream` through the approval process there m
 
 Apollo iOS uses [graphql-js](https://github.com/graphql/graphql-js) for validation of the GraphQL schema and operation documents as the first step in the code generation workflow. The version of this [dependency](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/ApolloCodegenLib/Frontend/JavaScript/package.json#L16) is fixed at [`16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b`](https://www.npmjs.com/package/graphql/v/16.3.0-canary.pr.3510.5099f4491dc2a35a3e4a0270a55e2a228c15f13b?activeTab=versions). This is a version of graphql-js that supports the experimental [Client Controlled Nullability](https://github.com/graphql/graphql-wg/blob/main/rfcs/ClientControlledNullability.md) feature but does not support the `@defer` directive.
 
-The latest `16.x` release of graphql-js with support for the `@defer` directive is [`16.1.0-experimental-stream-defer.6`](https://www.npmjs.com/package/graphql/v/16.1.0-experimental-stream-defer.6) but it looks like the 'experimental' named releases for `@defer` have been discontinued and the recommendation is to use [`17.0.0-alpha.2`](https://www.npmjs.com/package/graphql/v/17.0.0-alpha.2). This is further validated by the fact that [`16.7.0` does not](https://github.com/graphql/graphql-js/blob/v16.7.0/src/type/directives.ts#L167) include the @defer directive whereas [`17.0.0-alpha.2` does](https://github.com/graphql/graphql-js/blob/v17.0.0-alpha.2/src/type/directives.ts#L159).
+The latest `16.x` release of graphql-js with support for the `@defer` directive is [`16.1.0-experimental-stream-defer.6`](https://www.npmjs.com/package/graphql/v/16.1.0-experimental-stream-defer.6) but it looks like the 'experimental' named releases for `@defer` have been discontinued and the recommendation is to use [`17.0.0-alpha.2`](https://www.npmjs.com/package/graphql/v/17.0.0-alpha.2). This is further validated by the fact that [`16.7.0` does not](https://github.com/graphql/graphql-js/blob/v16.7.0/src/type/directives.ts#L167) include the `@defer` directive whereas [`17.0.0-alpha.2` does](https://github.com/graphql/graphql-js/blob/v17.0.0-alpha.2/src/type/directives.ts#L159).
 
 Potential solutions:
 1. Add support for Client Controlled Nullability to `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, and publish that to NPM. The level of effort for this is unknown but it would allow us to maintain support for CCN.
 2. Use `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, as-is and remove the experimental Client Controlled Nullability feature. We do not know how many users rely on the CCN functionality so this may be a controversial decision. This path doesn’t necessarily imply an easier dependency update because there will be changes needed to our frontend javascript to adapt to the changes in graphql-js.
 3. Another option is a staggered approach where we adopt `17.0.0-alpha.2`, or the latest 17.0.0 alpha release, limiting the changes to our frontend javascript only and at a later stage bring the CCN changes from [PR `#3510`](https://github.com/graphql/graphql-js/pull/3510) to the `17.x` release path and reintroduce support for CCN to Apollo iOS. This would also require the experiemental CCN feature to be removed, with no committment to when it would be reintroduced.
+
+**Decision:** Option 3 is the preferred solution. The work to port the CCN PRs to `17.0.0-alpha.2` is being done externally as part of the renewed interest in the CCN proposal.
 
 ## Rename `PossiblyDeferred` types/functions
 
@@ -86,6 +88,8 @@ client.fetch(query: ExampleQuery()) { result in
 }
 
 ```
+
+**Decision:** Option 4 is the preferred solution.
 
 Regardless of the fragment/field solution chosen all deferred fragment definitions in generated models `__selections` will get an additional property to indicate they are deferred. This helps to understand the models when reading them as well as being used by internal code.
 
@@ -247,7 +251,7 @@ struct DeferResponseParser: MultipartResponseSpecificationParser {
 
 The initial response data and data received in each incremental response will need to be retained and combined so that each incremental response can insert the latest received incremental response data at the correct path and return an up-to-date response to the request callback.
 
-The data being retained and combined should not require another pass through the GraphQL executor though.
+The data being retained and combined will be passed through the GraphQL executor on each response, initial and incremental.
 
 ### Completion handler
 
@@ -314,11 +318,13 @@ client.fetch(query: ExampleQuery()) { result in
 }
 ```
 
+**Decision:** Option 1 is the preferred solution.
+
 ## GraphQL execution
 
-The executor currently executes on an entire operation selection set. It will need to be adapted to be able to execute on a partial response when deferred fragments have not been received and on an isolated fragment selection set so that incremental responses can be parsed alone instead of needing to execute on the whole operation’s selection set.
+The executor currently executes on an entire operation selection set. It will need to be adapted to be able to execute on a partial response when deferred fragments have not been received, this may Just Work™ once the generated models have been updated for optional fragments.
 
-An alternative to parsing isolated fragment selection sets would be to execute on all the data currently received. The inefficiency with this is executing on data that would have already been executed on during prior responses.
+Each response will be passed to the GraphQL executor.
 
 ## Caching
 
