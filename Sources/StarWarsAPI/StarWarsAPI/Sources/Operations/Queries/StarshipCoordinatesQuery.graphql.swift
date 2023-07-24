@@ -6,18 +6,9 @@
 public class StarshipCoordinatesQuery: GraphQLQuery {
   public static let operationName: String = "StarshipCoordinates"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "8dd77d4bc7494c184606da092a665a7c2ca3c2a3f14d3b23fa5e469e207b3406",
+    operationIdentifier: "c10b54b8dd9361556f3b12d71f28c859ace043525d8d19541b39eadc47d14b15",
     definition: .init(
-      #"""
-      query StarshipCoordinates($coordinates: [[Float!]!]) {
-        starshipCoordinates(coordinates: $coordinates) {
-          __typename
-          name
-          coordinates
-          length
-        }
-      }
-      """#
+      #"query StarshipCoordinates($coordinates: [[Float!]!]) { starshipCoordinates(coordinates: $coordinates) { __typename name coordinates length } }"#
     ))
 
   public var coordinates: GraphQLNullable<[[Double]]>

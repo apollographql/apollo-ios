@@ -6,16 +6,9 @@
 public class HeroNameConditionalBothQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameConditionalBoth"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "66f4dc124b6374b1912b22a2a208e34a4b1997349402a372b95bcfafc7884064",
+    operationIdentifier: "e063fa4ab5493e9c67bfa96dfedfa8570475f6286f38c482f6e85ced4ea206af",
     definition: .init(
-      #"""
-      query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) {
-        hero {
-          __typename
-          name @skip(if: $skipName) @include(if: $includeName)
-        }
-      }
-      """#
+      #"query HeroNameConditionalBoth($skipName: Boolean!, $includeName: Boolean!) { hero { __typename name @skip(if: $skipName) @include(if: $includeName) } }"#
     ))
 
   public var skipName: Bool

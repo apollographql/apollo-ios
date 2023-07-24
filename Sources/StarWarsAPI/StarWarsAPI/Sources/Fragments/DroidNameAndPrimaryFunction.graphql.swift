@@ -4,13 +4,9 @@
 @_exported import ApolloAPI
 
 public struct DroidNameAndPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment DroidNameAndPrimaryFunction on Droid {
-      __typename
-      ...CharacterName
-      ...DroidPrimaryFunction
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    "fragment DroidNameAndPrimaryFunction on Droid { __typename ...CharacterName ...DroidPrimaryFunction }"
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

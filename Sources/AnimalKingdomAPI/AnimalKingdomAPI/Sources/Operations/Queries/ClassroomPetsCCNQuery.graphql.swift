@@ -7,14 +7,7 @@ public class ClassroomPetsCCNQuery: GraphQLQuery {
   public static let operationName: String = "ClassroomPetsCCN"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query ClassroomPetsCCN {
-        classroomPets[!]? {
-          __typename
-          ...ClassroomPetDetailsCCN
-        }
-      }
-      """#,
+      #"query ClassroomPetsCCN { classroomPets[!]? { __typename ...ClassroomPetDetailsCCN } }"#,
       fragments: [ClassroomPetDetailsCCN.self]
     ))
 

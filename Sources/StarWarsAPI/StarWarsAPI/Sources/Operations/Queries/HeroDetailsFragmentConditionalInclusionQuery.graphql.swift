@@ -6,16 +6,9 @@
 public class HeroDetailsFragmentConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsFragmentConditionalInclusion"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "b0fa7927ff93b4a579c3460fb04d093072d34c8018e41197c7e080aeeec5e19b",
+    operationIdentifier: "17dfb13c5d9e6c67703fc037b9114ea53ccc8f9274dfecb4abfc2d5a168cf612",
     definition: .init(
-      #"""
-      query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) {
-        hero {
-          __typename
-          ...HeroDetails @include(if: $includeDetails)
-        }
-      }
-      """#,
+      #"query HeroDetailsFragmentConditionalInclusion($includeDetails: Boolean!) { hero { __typename ...HeroDetails @include(if: $includeDetails) } }"#,
       fragments: [HeroDetails.self]
     ))
 

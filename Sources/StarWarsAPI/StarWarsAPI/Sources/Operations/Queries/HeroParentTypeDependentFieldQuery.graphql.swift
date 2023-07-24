@@ -6,38 +6,9 @@
 public class HeroParentTypeDependentFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroParentTypeDependentField"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "39eb41b5a9477c36fa529c23d6f0de6ebcc0312daf5bdcfe208d5baec752dc5b",
+    operationIdentifier: "dc3b582f2baa66cfb5cd53eb3c215933427fd0537076767c8e0ef894d3990d15",
     definition: .init(
-      #"""
-      query HeroParentTypeDependentField($episode: Episode) {
-        hero(episode: $episode) {
-          __typename
-          name
-          ... on Human {
-            __typename
-            friends {
-              __typename
-              name
-              ... on Human {
-                __typename
-                height(unit: FOOT)
-              }
-            }
-          }
-          ... on Droid {
-            __typename
-            friends {
-              __typename
-              name
-              ... on Human {
-                __typename
-                height(unit: METER)
-              }
-            }
-          }
-        }
-      }
-      """#
+      #"query HeroParentTypeDependentField($episode: Episode) { hero(episode: $episode) { __typename name ... on Human { __typename friends { __typename name ... on Human { __typename height(unit: FOOT) } } } ... on Droid { __typename friends { __typename name ... on Human { __typename height(unit: METER) } } } } }"#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>

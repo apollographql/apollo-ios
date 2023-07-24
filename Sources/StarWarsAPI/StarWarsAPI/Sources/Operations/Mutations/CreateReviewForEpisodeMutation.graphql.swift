@@ -6,17 +6,9 @@
 public class CreateReviewForEpisodeMutation: GraphQLMutation {
   public static let operationName: String = "CreateReviewForEpisode"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "9bbf5b4074d0635fb19d17c621b7b04ebfb1920d468a94266819e149841e7d5d",
+    operationIdentifier: "3edcd1f17839f43db021eccbe2ecd41ad7dcb1ba6cd4b7e9897afb4162e4c223",
     definition: .init(
-      #"""
-      mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) {
-        createReview(episode: $episode, review: $review) {
-          __typename
-          stars
-          commentary
-        }
-      }
-      """#
+      #"mutation CreateReviewForEpisode($episode: Episode!, $review: ReviewInput!) { createReview(episode: $episode, review: $review) { __typename stars commentary } }"#
     ))
 
   public var episode: GraphQLEnum<Episode>

@@ -4,12 +4,9 @@
 @_exported import ApolloAPI
 
 public struct DogFragment: AnimalKingdomAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment DogFragment on Dog {
-      __typename
-      species
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    "fragment DogFragment on Dog { __typename species }"
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

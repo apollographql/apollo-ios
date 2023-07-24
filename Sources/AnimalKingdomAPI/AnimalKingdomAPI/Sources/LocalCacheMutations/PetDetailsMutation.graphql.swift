@@ -4,15 +4,9 @@
 @_exported import ApolloAPI
 
 public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment PetDetailsMutation on Pet {
-      __typename
-      owner {
-        __typename
-        firstName
-      }
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    "fragment PetDetailsMutation on Pet { __typename owner { __typename firstName } }"
+  }
 
   public var __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

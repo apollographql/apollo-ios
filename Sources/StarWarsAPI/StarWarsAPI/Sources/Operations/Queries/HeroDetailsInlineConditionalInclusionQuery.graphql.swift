@@ -6,20 +6,9 @@
 public class HeroDetailsInlineConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroDetailsInlineConditionalInclusion"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "3091d9d3f1d2374e2f835ce05d332e50b3fe61502d73213b9aa511f0f94f091c",
+    operationIdentifier: "e251576f8c1cfcd442f44d2fbe5fd4b425a36ddd41fb4b6c1019c501ac6ac5bc",
     definition: .init(
-      #"""
-      query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) {
-        hero {
-          __typename
-          ... @include(if: $includeDetails) {
-            __typename
-            name
-            appearsIn
-          }
-        }
-      }
-      """#
+      #"query HeroDetailsInlineConditionalInclusion($includeDetails: Boolean!) { hero { __typename ... @include(if: $includeDetails) { __typename name appearsIn } } }"#
     ))
 
   public var includeDetails: Bool
