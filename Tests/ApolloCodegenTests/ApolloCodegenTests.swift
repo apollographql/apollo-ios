@@ -779,7 +779,7 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_fileGenerators_givenSchemaAndMultipleOperationDocuments_shouldGenerateSchemaAndOperationsFiles_CCN() throws {
-    throw XCTSkip("CCN-related tests skipped until issue #3114 done or closed.")
+    throw XCTSkip("CCN-related tests skipped until issue #3114 done or closed - need to bring back the CCN operations in AnimalKingdomAPI.")
 
     // given
     let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
@@ -883,8 +883,6 @@ class ApolloCodegenTests: XCTestCase {
   }
 
   func test_fileGenerators_givenTestMockOutput_absolutePath_shouldGenerateTestMocks() throws {
-    throw XCTSkip("CCN-related tests skipped until issue #3114 done or closed.")
-    
     // given
     let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
