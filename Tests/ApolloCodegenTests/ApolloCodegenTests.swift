@@ -887,7 +887,7 @@ class ApolloCodegenTests: XCTestCase {
     let schemaPath = ApolloCodegenInternalTestHelpers.Resources.AnimalKingdom.Schema.path
     let operationsPath = ApolloCodegenInternalTestHelpers.Resources.url
       .appendingPathComponent("animalkingdom-graphql")
-      .appendingPathComponent("**/*.graphql").path
+      .appendingPathComponent("/*.graphql").path
 
     let config =  ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration(
       schemaNamespace: "AnimalKingdomAPI",

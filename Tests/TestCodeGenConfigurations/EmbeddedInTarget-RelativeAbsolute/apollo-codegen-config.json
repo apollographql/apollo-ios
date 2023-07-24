@@ -17,7 +17,7 @@
   },
   "input" : {
     "operationSearchPaths" : [
-      "PackageOne\/Sources\/PackageOne\/graphql\/**\/*.graphql"
+      "PackageOne\/Sources\/PackageOne\/graphql\/*.graphql"
     ],
     "schemaSearchPaths" : [
       "PackageOne\/Sources\/PackageOne\/graphql\/AnimalSchema.graphqls"
