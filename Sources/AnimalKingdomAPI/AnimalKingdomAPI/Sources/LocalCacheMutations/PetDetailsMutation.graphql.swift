@@ -5,7 +5,7 @@
 
 public struct PetDetailsMutation: AnimalKingdomAPI.MutableSelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment PetDetailsMutation on Pet { __typename owner { __typename firstName } }"
+    #"fragment PetDetailsMutation on Pet { __typename owner { __typename firstName } }"#
   }
 
   public var __data: DataDict

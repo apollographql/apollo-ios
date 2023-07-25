@@ -5,7 +5,7 @@
 
 public struct DroidPrimaryFunction: StarWarsAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment DroidPrimaryFunction on Droid { __typename primaryFunction }"
+    #"fragment DroidPrimaryFunction on Droid { __typename primaryFunction }"#
   }
 
   public let __data: DataDict

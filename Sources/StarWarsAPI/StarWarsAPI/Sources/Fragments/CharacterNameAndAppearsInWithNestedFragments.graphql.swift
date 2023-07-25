@@ -5,7 +5,7 @@
 
 public struct CharacterNameAndAppearsInWithNestedFragments: StarWarsAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment CharacterNameAndAppearsInWithNestedFragments on Character { __typename ...CharacterNameWithNestedAppearsInFragment }"
+    #"fragment CharacterNameAndAppearsInWithNestedFragments on Character { __typename ...CharacterNameWithNestedAppearsInFragment }"#
   }
 
   public let __data: DataDict

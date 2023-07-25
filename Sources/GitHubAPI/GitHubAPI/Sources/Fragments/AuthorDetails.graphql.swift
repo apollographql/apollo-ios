@@ -5,7 +5,7 @@
 
 public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment AuthorDetails on Actor { __typename login ... on User { __typename id name } }"
+    #"fragment AuthorDetails on Actor { __typename login ... on User { __typename id name } }"#
   }
 
   public let __data: DataDict

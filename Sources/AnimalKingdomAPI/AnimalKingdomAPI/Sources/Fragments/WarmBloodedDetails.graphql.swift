@@ -5,7 +5,7 @@
 
 public struct WarmBloodedDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment WarmBloodedDetails on WarmBlooded { __typename bodyTemperature ...HeightInMeters }"
+    #"fragment WarmBloodedDetails on WarmBlooded { __typename bodyTemperature ...HeightInMeters }"#
   }
 
   public let __data: DataDict

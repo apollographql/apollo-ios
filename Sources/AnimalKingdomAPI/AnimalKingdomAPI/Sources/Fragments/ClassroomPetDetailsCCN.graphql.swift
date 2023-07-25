@@ -5,7 +5,7 @@
 
 public struct ClassroomPetDetailsCCN: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment ClassroomPetDetailsCCN on ClassroomPet { __typename ... on Animal { height { __typename inches! } } }"
+    #"fragment ClassroomPetDetailsCCN on ClassroomPet { __typename ... on Animal { height { __typename inches! } } }"#
   }
 
   public let __data: DataDict

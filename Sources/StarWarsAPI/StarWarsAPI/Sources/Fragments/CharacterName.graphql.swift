@@ -5,7 +5,7 @@
 
 public struct CharacterName: StarWarsAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment CharacterName on Character { __typename name }"
+    #"fragment CharacterName on Character { __typename name }"#
   }
 
   public let __data: DataDict

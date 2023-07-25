@@ -5,7 +5,7 @@
 
 public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment HumanHeightWithVariable on Human { __typename height(unit: $heightUnit) }"
+    #"fragment HumanHeightWithVariable on Human { __typename height(unit: $heightUnit) }"#
   }
 
   public let __data: DataDict

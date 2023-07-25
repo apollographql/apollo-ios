@@ -653,6 +653,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Fragments/ClassroomPetDetails.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/HeightInMeters.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/WarmBloodedDetails.graphql.swift").path,
+      directoryURL.appendingPathComponent("Sources/Fragments/CrocodileFragment.graphql.swift").path,
 
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
@@ -749,6 +750,7 @@ class ApolloCodegenTests: XCTestCase {
       operationsOutputURL.appendingPathComponent("Fragments/ClassroomPetDetails.graphql.swift").path,
       operationsOutputURL.appendingPathComponent("Fragments/HeightInMeters.graphql.swift").path,
       operationsOutputURL.appendingPathComponent("Fragments/WarmBloodedDetails.graphql.swift").path,
+      operationsOutputURL.appendingPathComponent("Fragments/CrocodileFragment.graphql.swift").path,
 
       operationsOutputURL.appendingPathComponent("LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       operationsOutputURL.appendingPathComponent("LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
@@ -848,6 +850,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("Sources/Fragments/ClassroomPetDetails.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/HeightInMeters.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/Fragments/WarmBloodedDetails.graphql.swift").path,
+      directoryURL.appendingPathComponent("Sources/Fragments/CrocodileFragment.graphql.swift").path,
 
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
@@ -1016,6 +1019,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/ClassroomPetDetails.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/HeightInMeters.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/WarmBloodedDetails.graphql.swift").path,
+      directoryURL.appendingPathComponent("RelativePath/Sources/Fragments/CrocodileFragment.graphql.swift").path,
 
       directoryURL.appendingPathComponent("RelativePath/Sources/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativePath/Sources/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,
@@ -1115,6 +1119,7 @@ class ApolloCodegenTests: XCTestCase {
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/ClassroomPetDetails.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/HeightInMeters.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/Fragments/WarmBloodedDetails.graphql.swift").path,
+      directoryURL.appendingPathComponent("RelativeOperations/Fragments/CrocodileFragment.graphql.swift").path,
 
       directoryURL.appendingPathComponent("RelativeOperations/LocalCacheMutations/AllAnimalsLocalCacheMutation.graphql.swift").path,
       directoryURL.appendingPathComponent("RelativeOperations/LocalCacheMutations/PetDetailsMutation.graphql.swift").path,

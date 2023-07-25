@@ -5,7 +5,7 @@
 
 public struct PetDetails: AnimalKingdomAPI.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    "fragment PetDetails on Pet { __typename humanName favoriteToy owner { __typename firstName } }"
+    #"fragment PetDetails on Pet { __typename humanName favoriteToy owner { __typename firstName } }"#
   }
 
   public let __data: DataDict
