@@ -7,6 +7,12 @@ public protocol CodegenProvider {
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL?
   ) throws
+  
+  static func generateOperationManifest(
+    with configuration: ApolloCodegenConfiguration,
+    withRootURL rootURL: URL?,
+    fileManager: ApolloFileManager
+  ) throws
 }
 
 extension ApolloCodegen: CodegenProvider { }

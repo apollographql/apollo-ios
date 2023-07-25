@@ -19,4 +19,20 @@ class MockApolloCodegen: CodegenProvider {
 
     try handler(configuration)
   }
+  
+  static func generateOperationManifest(
+    with configuration: ApolloCodegenLib.ApolloCodegenConfiguration,
+    withRootURL rootURL: URL?,
+    fileManager: ApolloCodegenLib.ApolloFileManager
+  ) throws {
+    guard let handler = buildHandler else {
+      fatalError("You must set buildHandler before calling \(#function)!")
+    }
+    
+    defer {
+      buildHandler = nil
+    }
+    
+    try handler(configuration)
+  }
 }

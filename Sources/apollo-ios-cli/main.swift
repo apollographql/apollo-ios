@@ -11,6 +11,7 @@ struct Apollo_iOS_CLI: ParsableCommand {
       CodegenCLI.Initialize.self,
       CodegenCLI.Generate.self,
       CodegenCLI.FetchSchema.self,
+      CodegenCLI.GenerateOperationManifest.self
     ]
   )
 }
