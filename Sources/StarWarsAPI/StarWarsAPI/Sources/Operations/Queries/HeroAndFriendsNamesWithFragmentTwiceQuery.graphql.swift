@@ -6,26 +6,9 @@
 public class HeroAndFriendsNamesWithFragmentTwiceQuery: GraphQLQuery {
   public static let operationName: String = "HeroAndFriendsNamesWithFragmentTwice"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "b5f4eca712a136f0d5d9f96203ef7d03cd119d8388f093f4b78ae124acb904cb",
+    operationIdentifier: "9a769ab058900912bff4e4c51c1b257f609e4dfb4aaa1f17166adc19d510e363",
     definition: .init(
-      #"""
-      query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) {
-        hero(episode: $episode) {
-          __typename
-          friends {
-            __typename
-            ...CharacterName
-          }
-          ... on Droid {
-            __typename
-            friends {
-              __typename
-              ...CharacterName
-            }
-          }
-        }
-      }
-      """#,
+      #"query HeroAndFriendsNamesWithFragmentTwice($episode: Episode) { hero(episode: $episode) { __typename friends { __typename ...CharacterName } ... on Droid { __typename friends { __typename ...CharacterName } } } }"#,
       fragments: [CharacterName.self]
     ))
 

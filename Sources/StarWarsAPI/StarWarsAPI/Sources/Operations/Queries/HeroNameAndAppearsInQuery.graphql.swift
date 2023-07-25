@@ -6,17 +6,9 @@
 public class HeroNameAndAppearsInQuery: GraphQLQuery {
   public static let operationName: String = "HeroNameAndAppearsIn"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "f714414a2002404f9943490c8cc9c1a7b8ecac3ca229fa5a326186b43c1385ce",
+    operationIdentifier: "ecdf5248575524004a9d43832abc54e8c0e1d2b3c0afb8bb0c1c1c514b4f9baf",
     definition: .init(
-      #"""
-      query HeroNameAndAppearsIn($episode: Episode) {
-        hero(episode: $episode) {
-          __typename
-          name
-          appearsIn
-        }
-      }
-      """#
+      #"query HeroNameAndAppearsIn($episode: Episode) { hero(episode: $episode) { __typename name appearsIn } }"#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>

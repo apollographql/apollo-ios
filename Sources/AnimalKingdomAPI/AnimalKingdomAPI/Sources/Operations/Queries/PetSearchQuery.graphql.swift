@@ -7,15 +7,7 @@ public class PetSearchQuery: GraphQLQuery {
   public static let operationName: String = "PetSearch"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) {
-        pets(filters: $filters) {
-          __typename
-          id
-          humanName
-        }
-      }
-      """#
+      #"query PetSearch($filters: PetSearchFilters = {species: ["Dog", "Cat"], size: SMALL, measurements: {height: 10.5, weight: 5.0}}) { pets(filters: $filters) { __typename id humanName } }"#
     ))
 
   public var filters: GraphQLNullable<PetSearchFilters>

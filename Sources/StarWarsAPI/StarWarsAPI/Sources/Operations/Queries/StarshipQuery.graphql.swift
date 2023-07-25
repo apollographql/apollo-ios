@@ -6,17 +6,9 @@
 public class StarshipQuery: GraphQLQuery {
   public static let operationName: String = "Starship"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "a3734516185da9919e3e66d74fe92b60d65292a1943dc54913f7332637dfdd2a",
+    operationIdentifier: "e42a9be2ae0f222985e3eacf8d8d513002954d5031dcf544bbb0d27b1089fc58",
     definition: .init(
-      #"""
-      query Starship {
-        starship(id: 3000) {
-          __typename
-          name
-          coordinates
-        }
-      }
-      """#
+      #"query Starship { starship(id: 3000) { __typename name coordinates } }"#
     ))
 
   public init() {}

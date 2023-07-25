@@ -4,17 +4,9 @@
 @_exported import ApolloAPI
 
 public struct AuthorDetails: GitHubAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment AuthorDetails on Actor {
-      __typename
-      login
-      ... on User {
-        __typename
-        id
-        name
-      }
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    #"fragment AuthorDetails on Actor { __typename login ... on User { __typename id name } }"#
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }
