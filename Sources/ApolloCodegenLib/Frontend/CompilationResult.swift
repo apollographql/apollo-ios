@@ -4,6 +4,7 @@ import JavaScriptCore
 public class CompilationResult: JavaScriptObject {
   private enum Constants {
     static let LocalCacheMutationDirectiveName = "apollo_client_ios_localCacheMutation"
+    static let DeferDirectiveName = "defer"
   }
   lazy var rootTypes: RootTypeDefinition = self["rootTypes"]
   
@@ -170,6 +171,12 @@ public class CompilationResult: JavaScriptObject {
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
+    lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isDeferred: Bool = {
+      directives?.contains { $0.name == Constants.DeferDirectiveName } ?? false
+    }()
+
     public override var debugDescription: String {
       selectionSet.debugDescription
     }
@@ -193,6 +200,10 @@ public class CompilationResult: JavaScriptObject {
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isDeferred: Bool = {
+      directives?.contains { $0.name == Constants.DeferDirectiveName } ?? false
+    }()
 
     var parentType: GraphQLCompositeType { fragment.type }
 
