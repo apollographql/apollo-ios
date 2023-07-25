@@ -486,8 +486,12 @@ class MockObjectTemplateTests: XCTestCase {
 
     subject.graphqlObject.fields = [
       "string": .mock("string", type: .nonNull(.string())),
+      "stringList": .mock("stringList", type: .list(.nonNull(.string()))),
+      "stringNestedList": .mock("stringNestedList", type: .list(.list(.nonNull(.string())))),
+      "stringOptionalList": .mock("stringOptionalList", type: .list(.string())),
       "customScalar": .mock("customScalar", type: .nonNull(.scalar(.mock(name: "CustomScalar")))),
       "customScalarList": .mock("customScalarList", type: .list(.nonNull(.scalar(.mock(name: "CustomScalar"))))),
+      "customScalarOptionalList": .mock("customScalarOptionalList", type: .list(.scalar(.mock(name: "CustomScalar")))),
       "optionalString": .mock("optionalString", type: .string()),
       "object": .mock("object", type: Cat),
       "objectList": .mock("objectList", type: .list(.nonNull(Cat))),
@@ -502,6 +506,8 @@ class MockObjectTemplateTests: XCTestCase {
       "unionNestedList": .mock("unionNestedList", type: .list(.nonNull(.list(.nonNull(Pet))))),
       "unionOptionalList": .mock("unionOptionalList", type: .list(Pet)),
       "enumType": .mock("enumType", type: .enum(.mock(name: "enumType"))),
+      "enumList": .mock("enumList", type: .list(.nonNull(.enum(.mock(name: "enumType"))))),
+      "enumOptionalList": .mock("enumOptionalList", type: .list(.enum(.mock(name: "enumType"))))
     ]
 
     ir.fieldCollector.add(
@@ -518,6 +524,9 @@ class MockObjectTemplateTests: XCTestCase {
       convenience init(
         customScalar: TestSchema.CustomScalar? = nil,
         customScalarList: [TestSchema.CustomScalar]? = nil,
+        customScalarOptionalList: [TestSchema.CustomScalar]? = nil,
+        enumList: [GraphQLEnum<TestSchema.EnumType>]? = nil,
+        enumOptionalList: [GraphQLEnum<TestSchema.EnumType>]? = nil,
         enumType: GraphQLEnum<TestSchema.EnumType>? = nil,
         interface: AnyMock? = nil,
         interfaceList: [AnyMock]? = nil,
@@ -529,6 +538,9 @@ class MockObjectTemplateTests: XCTestCase {
         objectOptionalList: [Mock<Cat>?]? = nil,
         optionalString: String? = nil,
         string: String? = nil,
+        stringList: [String]? = nil,
+        stringNestedList: [[String]]? = nil,
+        stringOptionalList: [String]? = nil,
         union: AnyMock? = nil,
         unionList: [AnyMock]? = nil,
         unionNestedList: [[AnyMock]]? = nil,
@@ -537,6 +549,9 @@ class MockObjectTemplateTests: XCTestCase {
         self.init()
         _setScalar(customScalar, for: \\.customScalar)
         _setScalarList(customScalarList, for: \\.customScalarList)
+        _setScalarList(customScalarOptionalList, for: \\.customScalarOptionalList)
+        _setScalarList(enumList, for: \\.enumList)
+        _setScalarList(enumOptionalList, for: \\.enumOptionalList)
         _setScalar(enumType, for: \\.enumType)
         _setEntity(interface, for: \\.interface)
         _setList(interfaceList, for: \\.interfaceList)
@@ -548,6 +563,9 @@ class MockObjectTemplateTests: XCTestCase {
         _setList(objectOptionalList, for: \\.objectOptionalList)
         _setScalar(optionalString, for: \\.optionalString)
         _setScalar(string, for: \\.string)
+        _setScalarList(stringList, for: \\.stringList)
+        _setScalarList(stringNestedList, for: \\.stringNestedList)
+        _setScalarList(stringOptionalList, for: \\.stringOptionalList)
         _setEntity(union, for: \\.union)
         _setList(unionList, for: \\.unionList)
         _setList(unionNestedList, for: \\.unionNestedList)
