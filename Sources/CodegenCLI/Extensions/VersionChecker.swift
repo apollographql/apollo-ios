@@ -44,24 +44,22 @@ enum VersionChecker {
     // `.xcworkspace` or the `.xcproject` package. Since we don't know the name of your project,
     // we just look for the first workspace or project that depends on Apollo, prioritising
     // workspaces. This may not be 100% fool-proof, but it should be accurate in almost all cases.
-    func findInXcodeWorkspaces() -> PackageResolvedModel? {
+    func findInXcode(
+      fileSuffix: String,
+      packagePath: String,
+      excludeFilePathComponents: [String] = []
+    ) -> PackageResolvedModel? {
       let projectEnumerator = fileManager.base.enumerator(atPath: projectRootURL?.path ?? ".")
-      while let file = projectEnumerator?.nextObject() as? String {
-        if file.hasSuffix(".xcworkspace") {
-          let projectPackagePath = "\(file)/xcshareddata/swiftpm/\(Package_resolved)"
-          if let package = apolloDependantPackage(atPath: projectPackagePath) {
-            return package
+      enumeratorLoop: while let file = projectEnumerator?.nextObject() as? String {
+        if file.hasSuffix(fileSuffix) {
+          //check if this file should be ignored
+          for component in excludeFilePathComponents {
+            if file.contains(component) {
+              continue enumeratorLoop
+            }
           }
-        }
-      }
-      return nil
-    }
-      
-    func findInXcodeProjects() -> PackageResolvedModel? {
-      let projectEnumerator = fileManager.base.enumerator(atPath: projectRootURL?.path ?? ".")
-      while let file = projectEnumerator?.nextObject() as? String {
-        if file.hasSuffix(".xcodeproj") {
-          let projectPackagePath = "\(file)/project.xcworkspace/xcshareddata/swiftpm/\(Package_resolved)"
+          
+          let projectPackagePath = "\(file)\(packagePath)"
           if let package = apolloDependantPackage(atPath: projectPackagePath) {
             return package
           }
@@ -91,11 +89,18 @@ enum VersionChecker {
       return try PackageResolvedModel(data: packageResolvedData)
     }
 
-    if let packageModel = findInXcodeWorkspaces() {
+    if let packageModel = findInXcode(
+      fileSuffix: ".xcworkspace",
+      packagePath: "/xcshareddata/swiftpm/\(Package_resolved)",
+      excludeFilePathComponents: [".xcodeproj/project.xcworkspace"]
+    ) {
       return packageModel
     }
 
-    if let packageModel = findInXcodeProjects() {
+    if let packageModel = findInXcode(
+      fileSuffix: ".xcodeproj",
+      packagePath: "/project.xcworkspace/xcshareddata/swiftpm/\(Package_resolved)"
+    ) {
       return packageModel
     }
 

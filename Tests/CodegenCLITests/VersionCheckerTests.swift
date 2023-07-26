@@ -255,6 +255,30 @@ class VersionCheckerTests: XCTestCase {
     // then
     expect(result).to(equal(.versionMismatch(cliVersion: Constants.CLIVersion, apolloVersion: apolloVersion)))
   }
+  
+  func test__matchCLIVersionToApolloVersion__givenPackageResolvedFileInXcodeWorkspaceAndProject_withVersion2FileFormat_hasMatchingVersion_returns_versionMatch_fromWorkspace() throws {
+    // given
+    try fileManager.createFile(
+      body: version2PackageResolvedFileBody(apolloVersion: Constants.CLIVersion),
+      named: "Package.resolved",
+      inDirectory: "MyProject.xcworkspace/xcshareddata/swiftpm"
+    )
+    
+    let apolloProjectVersion = "1.0.0.test-1"
+    try fileManager.createFile(
+      body: version2PackageResolvedFileBody(apolloVersion: apolloProjectVersion),
+      named: "Package.resolved",
+      inDirectory: "MyProject.xcodeproj/project.xcworkspace/xcshareddata/swiftpm"
+    )
+
+    // when
+    let result = try VersionChecker.matchCLIVersionToApolloVersion(
+      projectRootURL: fileManager.directoryURL
+    )
+
+    // then
+    expect(result).to(equal(.versionMatch))
+  }
 
 }
 
