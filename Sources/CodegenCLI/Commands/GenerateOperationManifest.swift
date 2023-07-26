@@ -12,12 +12,6 @@ public struct GenerateOperationManifest: ParsableCommand {
   
   @OptionGroup var inputs: InputOptions
   
-  @Flag(
-    name: .long,
-    help: "Ignore Apollo version mismatch errors. Warning: This may lead to incompatible generated objects."
-  )
-  var ignoreVersionMismatch: Bool = false
-  
   // MARK: - Implementation
   
   public init() { }
@@ -34,27 +28,27 @@ public struct GenerateOperationManifest: ParsableCommand {
     logger.SetLoggingLevel(verbose: inputs.verbose)
     
     try checkForCLIVersionMismatch(
-      with: inputs,
-      ignoreVersionMismatch: ignoreVersionMismatch
+      with: inputs
     )
     
-    var configData: Data?
     switch (inputs.string, inputs.path) {
     case let (.some(string), _):
-      configData = try string.asData()
+      try generateManifest(
+        data: try string.asData(),
+        codegenProvider: codegenProvider
+      )
     case let (nil, path):
-      configData = try fileManager.unwrappedContents(atPath: path)
+      try generateManifest(
+        data: try fileManager.unwrappedContents(atPath: path),
+        codegenProvider: codegenProvider
+      )
     }
-    
-    guard let data = configData else {
-      print("""
-        Error: Codegen Configuration Error
-        
-        No valid codegen configuration data was found. Please double check
-        the string/path provided and try again.
-        """)
-      return
-    }
+  }
+  
+  private func generateManifest(
+    data: Data,
+    codegenProvider: CodegenProvider.Type
+  ) throws {
     let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
     
     try codegenProvider.generateOperationManifest(

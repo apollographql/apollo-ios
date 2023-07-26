@@ -22,4 +22,10 @@ struct InputOptions: ParsableArguments {
     help: "Increase verbosity to include debug output."
   )
   var verbose: Bool = false
+  
+  @Flag(
+    name: .long,
+    help: "Ignore Apollo version mismatch errors. Warning: This may lead to incompatible generated objects."
+  )
+  var ignoreVersionMismatch: Bool = false
 }

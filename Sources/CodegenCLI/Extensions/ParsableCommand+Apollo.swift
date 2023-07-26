@@ -28,7 +28,7 @@ extension ParsableCommand {
         Apollo version: \(apolloVersion)
         """
 
-      if ignoreVersionMismatch {
+      if inputs.ignoreVersionMismatch {
         print("""
           Warning: \(errorMessage)
           """)

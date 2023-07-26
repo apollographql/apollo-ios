@@ -13,6 +13,8 @@ SUBCOMMANDS:
   init                    Initialize a new configuration with defaults.
   generate                Generate Swift source code based on a code generation configuration.
   fetch-schema            Download a GraphQL schema from the Apollo Registry or GraphQL introspection.
+  generate-operation-manifest
+                          Generate Persisted Queries operation manifest based on a code generation configuration.
 
   See 'apollo-ios-cli help <subcommand>' for detailed help.
 ```
@@ -72,6 +74,21 @@ OPTIONS:
                           together. (default: ./apollo-codegen-config.json)
   -s, --string <string>   Configuration string in JSON format. This option overrides --path.
   -v, --verbose           Increase verbosity to include debug output.
+  --version               Show the version.
+  -h, --help              Show help information.
+```
+## Generate Operation Manifest
+```
+OVERVIEW: Generate Persisted Queries operation manifest based on a code generation configuration.
+
+USAGE: apollo-ios-cli generate-operation-manifest [--path <path>] [--string <string>] [--verbose] [--ignore-version-mismatch]
+
+OPTIONS:
+  -p, --path <path>       Read the configuration from a file at the path. --string overrides this option if used together. (default: ./apollo-codegen-config.json)
+  -s, --string <string>   Configuration string in JSON format. This option overrides --path.
+  -v, --verbose           Increase verbosity to include debug output.
+  --ignore-version-mismatch
+                          Ignore Apollo version mismatch errors. Warning: This may lead to incompatible generated objects.
   --version               Show the version.
   -h, --help              Show help information.
 ```

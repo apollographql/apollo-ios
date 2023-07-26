@@ -18,12 +18,6 @@ public struct Generate: ParsableCommand {
   )
   var fetchSchema: Bool = false
 
-  @Flag(
-    name: .long,
-    help: "Ignore Apollo version mismatch errors. Warning: This may lead to incompatible generated objects."
-  )
-  var ignoreVersionMismatch: Bool = false
-
   // MARK: - Implementation
 
   public init() { }
@@ -41,8 +35,7 @@ public struct Generate: ParsableCommand {
     logger.SetLoggingLevel(verbose: inputs.verbose)
 
     try checkForCLIVersionMismatch(
-      with: inputs,
-      ignoreVersionMismatch: ignoreVersionMismatch
+      with: inputs
     )
 
     switch (inputs.string, inputs.path) {
