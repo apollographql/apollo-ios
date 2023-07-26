@@ -14,6 +14,7 @@ The Codegen CLI has three primary commands:
 - [**Fetch Schema**](#fetch-schema): Fetches your GraphQL schema and writes it to a file. The schema is required in order to run code generation.
   - To learn how to configure schema fetching, see [Downloading a schema](./downloading-schema).
 - [**Generate**](#generate): Runs the code generation engine using the configuration in your `apollo-codegen-configuration.json` file.
+- [**Generate Operation Manifest**](#generate-operation-manifest): Generates the operation manifest for persisted queries using the configuration in your `apollo-codegen-configuration.json` file.
 
 > For detailed usage documentation of these commands, see the [Usage](#usage) section.
 
@@ -155,9 +156,31 @@ Runs the code generation engine to generate Swift source code using the configur
 
 | Option     | Description |
 | ---------- | ----------- |
-| `-p, --path <path>`     | Read the configuration from a file at the path. `--string` overrides this option if used together. (default: `./apollo-codegen-config.json`) |
-| `-s, --string <string>` | Provide the configuration string in JSON format. This option overrides `--path`. |
-| `-v, --verbose `        | Increase verbosity to include debug output. |
-| `-f, --fetch-schema`    | Fetch the GraphQL schema before Swift code generation. This runs the [`fetch-schema`](#fetch-schema) command. |
-| `--version`             | Show the version of the CLI. |
-| `-h, --help`            | Show help information.|
+| `-p, --path <path>`            | Read the configuration from a file at the path. `--string` overrides this option if used together. (default: `./apollo-codegen-config.json`) |
+| `-s, --string <string>`        | Provide the configuration string in JSON format. This option overrides `--path`. |
+| `-v, --verbose `               | Increase verbosity to include debug output. |
+| `-f, --fetch-schema`           | Fetch the GraphQL schema before Swift code generation. This runs the [`fetch-schema`](#fetch-schema) command. |
+| `--ignore-version-mismatch`    | Ignores version mismatches between the `apollo-ios-cli` and the version of the Apollo sdk being used. |
+| `--version`                    | Show the version of the CLI. |
+| `-h, --help`                   | Show help information.|
+
+### Generate Operation Manifest
+
+Generates the operation manifest for persisted queries using the configuration in your `apollo-codegen-configuration.json` file.
+
+> For more information on configuring code generation, see the [configuration documentation](./codegen-configuration).
+
+#### Command:
+
+`apollo-ios-cli generate-operation-manifest [--path <path>] [--string <string>]`
+
+#### Options:
+
+| Option     | Description |
+| ---------- | ----------- |
+| `-p, --path <path>`            | Read the configuration from a file at the path. `--string` overrides this option if used together. (default: `./apollo-codegen-config.json`) |
+| `-s, --string <string>`        | Provide the configuration string in JSON format. This option overrides `--path`. |
+| `-v, --verbose `               | Increase verbosity to include debug output. |
+| `--ignore-version-mismatch`    | Ignores version mismatches between the `apollo-ios-cli` and the version of the Apollo sdk being used. |
+| `--version`                    | Show the version of the CLI. |
+| `-h, --help`                   | Show help information.|

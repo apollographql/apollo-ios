@@ -124,6 +124,37 @@ public class ApolloCodegen {
       )
     }
   }
+  
+  public static func generateOperationManifest(
+    with configuration: ApolloCodegenConfiguration,
+    withRootURL rootURL: URL? = nil,
+    fileManager: ApolloFileManager = .default
+  ) throws {
+    let configContext = ConfigurationContext(
+      config: configuration,
+      rootURL: rootURL
+    )
+    
+    try validate(configContext)
+    
+    let compilationResult = try compileGraphQLResult(
+      configContext,
+      experimentalFeatures: configuration.experimentalFeatures
+    )
+    
+    try validate(configContext, with: compilationResult)
+    
+    let ir = IR(compilationResult: compilationResult)
+    
+    var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
+    
+    for operation in compilationResult.operations {
+      let irOperation = ir.build(operation: operation)
+      operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+    }
+    
+    try operationIDsFileGenerator?.generate(fileManager: fileManager)
+  }
 
   // MARK: Internal
 
