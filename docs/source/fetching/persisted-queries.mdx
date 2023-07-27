@@ -8,17 +8,19 @@ Each query or mutation is identified by the SHA256 hash of its contents that can
 
 ### Support
 
-|               | Persisted Queries | Automatic Persisted Queries |
-| GraphOS       | Yes               | No                          |
-| Apollo Server | Yes, version ??   | Yes, version ??             |
+| | Persisted Queries | Automatic Persisted Queries |
+| - | :---------------: | :-------------------------: |
+| GraphOS | Yes | No |
+| Apollo Server | Yes, version ?? | Yes, version ?? |
 
 ### Feature
 
-|                                                | Persisted Queries | Automatic Persisted Queries |
-| Pre-registered queries                         | Yes               | Yes                         |
-| Automatically persist queries from client      | No                | Yes                         |
-| Allow only safelisted persisted queries        | Yes               | Yes                         |
-| Allow both persisted and non-persisted queries | Yes               | Yes                         |
+| | Persisted Queries | Automatic Persisted Queries |
+| - | :---------------: | :-------------------------: |
+| Pre-registered queries | Yes | Yes |
+| Automatically persist queries from client | No | Yes |
+| Allow only safelisted persisted queries | Yes | Yes |
+| Allow both persisted and non-persisted queries | Yes | Yes |
 
 ## Using Persisted Queries with Apollo iOS
 
@@ -49,6 +51,25 @@ Then in the `options` section of your configuration you will need to set the `op
     ]
 }
 ```
+
+The resulting operation manifest json would like this: 
+
+```json title="operationIdentifiers.json"
+{
+  "format": "apollo-persisted-query-manifest",
+  "version": 1,
+  "operations": [
+    {
+      "id": "e0321f6b438bb42c022f633d38c19549dea9a2d55c908f64c5c6cb8403442fef",
+      "body": "query GetItem { thing { __typename } }",
+      "name": "GetItem",
+      "type": "query"
+    }
+  ]
+}
+```
+
+> **Note:** This example is using the `persistedQueries` version of the operation manifest, the `legacyAPQs` version will look slightly different.
 
 ### 2. Enable persisted queries on your `ApolloClient`
 
