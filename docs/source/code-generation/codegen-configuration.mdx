@@ -403,7 +403,7 @@ The properties of the Operation Manifest configuration object are:
 
 | Property Name | Description |
 | ----- | ----------- |
-| `path` | Local path where the generated operation manifest file should be written. |
+| `path` | Local path where the generated operation manifest file should be written. Paths beginning with `./` will be relative to your projects root directory, all other paths are absolute file paths on your system. |
 | [`version`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestfileoutput/version) | The version format to use when generating the operation manifest. |
 
 <MultiCodeBlock>
