@@ -8,6 +8,7 @@ import {
 } from "../compiler/index"
 import {  
   Field,
+  FragmentSpread,
   InlineFragment
 } from "../compiler/ir"
 import { 
@@ -35,7 +36,7 @@ describe("given schema", () => {
     const documentString: string = `
     query Test($a: Boolean!) {
       allAnimals {
-        ... @defer {
+        ... on Animal @defer {
           species
         }
       }
@@ -58,7 +59,38 @@ describe("given schema", () => {
     });
   });
 
-  describe("query has named fragment with @defer directive", () => {
+  describe("query has inline fragment with @defer directive with arguments", () => {
+    const documentString: string = `
+    query Test($a: Boolean!) {
+      allAnimals {
+        ... on Animal @defer(if: true, label: "species") {
+          species
+        }
+      }
+    }
+    `;
+
+    const document: DocumentNode = parseOperationDocument(
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
+    );
+
+    it("should compile inline fragment with directive and arguments", () => {
+      const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
+      const operation = compilationResult.operations[0];
+      const allAnimals = operation.selectionSet.selections[0] as Field;
+      const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as InlineFragment;
+
+      expect(inlineFragment.directives?.length).toEqual(1);
+
+      expect(inlineFragment.directives?.[0].name).toEqual("defer");
+      
+      expect(inlineFragment.directives?.[0].arguments?.length).toEqual(2);
+      expect(inlineFragment.directives?.[0].arguments?.[0].name).toEqual("if");
+      expect(inlineFragment.directives?.[0].arguments?.[1].name).toEqual("label");
+    });
+  });
+
+  describe("query has fragment spread with @defer directive", () => {
     const documentString: string = `
     query Test($a: Boolean!) {
       allAnimals {
@@ -75,11 +107,11 @@ describe("given schema", () => {
       new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
-    it("should compile named fragment with directive", () => {
+    it("should compile fragment spread with directive", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const operation = compilationResult.operations[0];
       const allAnimals = operation.selectionSet.selections[0] as Field;
-      const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as InlineFragment;
+      const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as FragmentSpread;
 
       expect(inlineFragment.directives?.length).toEqual(1);
 
@@ -87,7 +119,7 @@ describe("given schema", () => {
     });
   });
 
-  describe("query has named fragment with @defer directive with arguments", () => {
+  describe("query has fragment spread with @defer directive with arguments", () => {
     const documentString: string = `
     query Test($a: Boolean!) {
       allAnimals {
@@ -104,11 +136,11 @@ describe("given schema", () => {
       new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
-    it("should compile named fragment with directive and arguments", () => {
+    it("should compile fragment spread with directive and arguments", () => {
       const compilationResult: CompilationResult = compileDocument(schema, document, false, emptyValidationOptions);
       const operation = compilationResult.operations[0];
       const allAnimals = operation.selectionSet.selections[0] as Field;
-      const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as InlineFragment;
+      const inlineFragment = allAnimals?.selectionSet?.selections?.[0] as FragmentSpread;
 
       expect(inlineFragment.directives?.length).toEqual(1);
       
