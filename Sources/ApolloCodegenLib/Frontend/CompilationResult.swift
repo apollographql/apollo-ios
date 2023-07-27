@@ -173,10 +173,6 @@ public class CompilationResult: JavaScriptObject {
 
     lazy var directives: [Directive]? = self["directives"]
 
-    lazy var isDeferred: Bool = {
-      directives?.contains { $0.name == Constants.DeferDirectiveName } ?? false
-    }()
-
     public override var debugDescription: String {
       selectionSet.debugDescription
     }
@@ -200,10 +196,6 @@ public class CompilationResult: JavaScriptObject {
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
-
-    lazy var isDeferred: Bool = {
-      directives?.contains { $0.name == Constants.DeferDirectiveName } ?? false
-    }()
 
     var parentType: GraphQLCompositeType { fragment.type }
 
