@@ -1,0 +1,77 @@
+---
+title: Persisted Queries
+---
+
+Apollo supports features called "Persisted Queries" and "Automatic Persisted Queries" (APQs), to avoid sending the same large query documents over and over, and to allow safelisting of queries.
+
+Each query or mutation is identified by the SHA256 hash of its contents that can be sent to the server in lieu of sending a full query document. For APQs specifically, if the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, Apollo iOS will automatically retry the operation with the full query document without you having to do anything.
+
+### Support
+
+|               | Persisted Queries | Automatic Persisted Queries |
+| GraphOS       | Yes               | No                          |
+| Apollo Server | Yes, version ??   | Yes, version ??             |
+
+### Feature
+
+|                                                | Persisted Queries | Automatic Persisted Queries |
+| Pre-registered queries                         | Yes               | Yes                         |
+| Automatically persist queries from client      | No                | Yes                         |
+| Allow only safelisted persisted queries        | Yes               | Yes                         |
+| Allow both persisted and non-persisted queries | Yes               | Yes                         |
+
+## Using Persisted Queries with Apollo iOS
+
+To enable persisted queries you will need to configure your code generation and `ApolloClient` correctly.
+
+### 1. Configure code generation for Persisted Queries
+
+To use persisted queries, your operations need to have a SHA256 hash identifier included in the generated operation objects. To configure code generation you will need to set the following 2 options in your `ApolloCodegenConfiguration` JSON file:
+
+In the `output` section of your configuration you will need to set the [`operationManifest`](./../code-generation/codegen-configuration#operation-manifest) with a version of either `persistedQueries` or `legacyAPQs`, and a path to output the manifest file.
+
+```json title="apollo-codegen-config.json"
+"output": {
+    "operationManifest" : {
+        "path" : "./generated/operationIdentifiers.json",
+        "version" : "persistedQueries"
+    }
+}
+```
+
+Then in the `options` section of your configuration you will need to set the `operationDocumentFormat` to be either `definition`, `operationId`, or both `definition` and `operationId`. This will determine how to generate the operation documents for your generated operations.
+
+```json title="apollo-codegen-config.json"
+"options": {
+    "operationDocumentFormat" : [
+        "definition",
+        "operationId"
+    ]
+}
+```
+
+### 2. Enable persisted queries on your `ApolloClient`
+
+You must also initialize your `ApolloClient` with a custom `NetworkTransport` that supports persisted queries.
+
+Initialize a `RequestChainNetworkTransport` with `autoPersistQueries` parameter set to `true` and an `interceptorProvider` that includes the `AutomaticPersistedQueryInterceptor` (such as `DefaultInterceptorProvider`).
+
+```swift
+let store = ApolloStore(cache: InMemoryNormalizedCache())
+let interceptorProvider = DefaultInterceptorProvider(store: store)
+let networkTransport = RequestChainNetworkTransport(
+    interceptorProvider: interceptorProvider,
+    endpointURL: URL(string: "http://localhost:4000/graphql")!
+)
+
+let client = ApolloClient(networkTransport: networkTransport, store: store)
+```
+For more information on configuring your `ApolloClient`, `NetworkTransport`, `InterceptorProvider`, and the request chain, see the [Request Pipeline](./../networking/request-pipeline) documentation.
+
+> **Note:** Sending APQs as `Get` requests
+>
+> By default, retries of queries will use `POST`.  In some cases, it may be required or preferred to retry  persisted operation using a `GET` request (for example, when your queries are hitting a CDN that has better performance with `GET`).
+>
+> In order to use `GET` for persisted query retry requests, set the `useGETForPersistedQueryRetry` on your `RequestChainNetworkTransport` to `true`.
+>
+> Most users will want to leave this option as `false`.
