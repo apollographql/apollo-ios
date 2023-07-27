@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-06-01**
+**Last updated: 2023-07-27**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -21,22 +21,23 @@ Please see our [patch releases milestone](https://github.com/apollographql/apoll
 
 As we identify feature sets that we intend to ship, we'll add to and update the subheadings in this section. We intend to keep this section in chronological order.  In order to enable rapid and continuous feature delivery, we'll avoid assigning minor version numbers to these feature groups in the roadmap.
 
-### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
-
-_Approximate Date: 2023-06-30_
-
-The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  This will be released as an experimental feature.
-
 ### [Paginated watchers for GraphQL queries](https://github.com/apollographql/apollo-ios/pull/3007)
 
-_Approximate Date: 2023-07-12_
+_Approximate Date: 2023-08-07_
 
 - Support for Relay-style (cursor-based), offset-based, and arbitrary pagination patterns
 - `@connection` directive support
+- This feature will be considered experimental, meaning that the public API could change in backwards-incompatible ways until it is declared stable in a future release
+
+### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
+
+_Approximate Date: 2023-08-11_
+
+The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  This will be released as an experimental feature.
 
 ### [Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: 2023-07-26_
+_Approximate Date: 2023-09-20_
 
 - Add configuration for disabling merging of fragment fields
 - Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
@@ -44,7 +45,7 @@ _Approximate Date: 2023-07-26_
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: Late August 2023_
+_Approximate Date: Late October 2023_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
