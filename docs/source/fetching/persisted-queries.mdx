@@ -1,36 +1,47 @@
 ---
 title: Persisted Queries
+minVersion: 1.3.1
 ---
 
-Apollo supports features called "Persisted Queries" and "Automatic Persisted Queries" (APQs), to avoid sending the same large query documents over and over, and to allow safelisting of queries.
+Apollo supports two separate but related features called **persisted queries** and **automated persisted queries** (APQs).
+With both features, clients can execute a GraphQL operation by sending an operation's ID instead of the entire string. An operation's ID is the SHA256 hash of the full operation string. Querying by ID can significantly reduce latency and bandwidth usage for very large operation strings.
 
-Each query or mutation is identified by the SHA256 hash of its contents that can be sent to the server in lieu of sending a full query document. For APQs specifically, if the hash can't be found by the server, it sends back an error indicating that it needs the full query. If it receives this specific error, Apollo iOS will automatically retry the operation with the full query document without you having to do anything.
+## Differences between persisted queries and APQ
 
-### Support
+The persisted queries feature requires operations to be preregistered in a **persisted query list** (**PQL**). 
+The allows the PQL to act as a safelist of trusted operations made by your first-party apps. As such, persisted queries is a security feature as much as a performance one.
 
-| | **Persisted Queries** | **Automatic Persisted Queries** |
-| - | :---------------: | :-------------------------: |
-| **GraphOS** | Yes | No |
-| **Apollo Server** | Yes?, version ?? | Yes, version ?? |
+With APQs, if the server can't find the operation ID the client provides, the server returns an error indicating that it needs the full operation string. If the Apollo iOS client receives this error, it automatically retries the operation with the full operation string.
 
-### Feature
+If you _only_ want to improve request latency and bandwidth usage, APQ addresses your use case. If you _also_ want to secure your supergraph with operation safelisting, you should preregister trusted operations in a PQL.
 
-| | **Persisted Queries** | **Automatic Persisted Queries** |
-| - | :---------------: | :-------------------------: |
-| **Pre-registered queries** | Yes | Yes |
-| **Automatically persist queries from client** | No | Yes |
-| **Allow only safelisted persisted queries** | Yes | Yes |
-| **Allow both persisted and non-persisted queries** | Yes | Yes |
+For more details on differences between persisted queries and APQ, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries#differences-from-automatic-persisted).
 
-## Using Persisted Queries with Apollo iOS
 
-To enable persisted queries you will need to configure your code generation and `ApolloClient` correctly.
+### Requirements
 
-### 1. Configure code generation for Persisted Queries
+Both persisted queries and APQ require Apollo iOS `1.3.1` or later.
 
-To use persisted queries, your operations need to have a SHA256 hash identifier included in the generated operation objects. To configure code generation you will need to set the following 2 options in your `ApolloCodegenConfiguration` JSON file:
+Persisted queries is currently in [preview](/resources/product-launch-stages#preview) and has the following additional requirements:
+- [GraphOS Enterprise plan](/graphos/enterprise/)
+- [Apollo Router](/router) (v1.25.0+)
 
-In the `output` section of your configuration you will need to set the [`operationManifest`](./../code-generation/codegen-configuration#operation-manifest) with a version of either `persistedQueries` or `legacyAPQs`, and a path to output the manifest file.
+APQ has the following requirements:
+- [Apollo Server](/apollo-server/) (v?)
+
+## Implementation
+
+Both persisted queries and APQ require you to configure code generation and how your client makes requests. The rest of this article details these configurations.
+
+Persisted queries also requires you to configure your router to enable safelisting. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
+
+### 1. Configure code generation
+
+To use persisted queries, your operations need to have a SHA256 hash identifier included in the generated operation objects. To configure code generation you need to set the following two options in your `ApolloCodegenConfiguration` JSON file:
+
+In the `output` section of your configuration set the [`operationManifest`](./../code-generation/codegen-configuration#operation-manifest) with:
+- a `version` of either `persistedQueries` or `legacyAPQs`
+- a `path` to output the manifest file
 
 ```json title="apollo-codegen-config.json"
 "output": {
@@ -52,7 +63,7 @@ Then in the `options` section of your configuration you will need to set the `op
 }
 ```
 
-The resulting operation manifest json would like this: 
+The resulting operation manifest JSON looks something like this: 
 
 ```json title="operationIdentifiers.json"
 {
@@ -69,11 +80,11 @@ The resulting operation manifest json would like this:
 }
 ```
 
-> **Note:** This example is using the `persistedQueries` version of the operation manifest, the `legacyAPQs` version will look slightly different.
+> **Note:** This example uses the `persistedQueries` version of the operation manifest, the `legacyAPQs` version will look slightly different.
 
-### 2. Enable persisted queries on your `ApolloClient`
+### 2. Enable persisted queries on `ApolloClient`
 
-You must also initialize your `ApolloClient` with a custom `NetworkTransport` that supports persisted queries.
+To query by ID rather than full operation string you need to make some configuration changes. Specifically, you must initialize your `ApolloClient` with a custom `NetworkTransport` that supports persisted queries.
 
 Initialize a `RequestChainNetworkTransport` with `autoPersistQueries` parameter set to `true` and an `interceptorProvider` that includes the `AutomaticPersistedQueryInterceptor` (such as `DefaultInterceptorProvider`).
 
@@ -89,10 +100,10 @@ let client = ApolloClient(networkTransport: networkTransport, store: store)
 ```
 For more information on configuring your `ApolloClient`, `NetworkTransport`, `InterceptorProvider`, and the request chain, see the [Request Pipeline](./../networking/request-pipeline) documentation.
 
-> **Note:** Sending APQs as `Get` requests
->
-> By default, retries of queries will use `POST`.  In some cases, it may be required or preferred to retry  persisted operation using a `GET` request (for example, when your queries are hitting a CDN that has better performance with `GET`).
->
-> In order to use `GET` for persisted query retry requests, set the `useGETForPersistedQueryRetry` on your `RequestChainNetworkTransport` to `true`.
->
-> Most users will want to leave this option as `false`.
+#### Sending APQs as `GET` requests
+
+By default, the Apollo clients sends operation retries as `POST` requests.  In some cases, you may prefer or need to retry  persisted operation using a `GET` request—for example, your queries may make requests to a CDN that has better performance with `GET`s.
+
+To use `GET` for persisted query retry requests, set the `useGETForPersistedQueryRetry` on your `RequestChainNetworkTransport` to `true`.
+
+In most cases, keeping the default option (`false`) suffices.
