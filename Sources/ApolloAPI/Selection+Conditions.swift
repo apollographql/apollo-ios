@@ -51,6 +51,14 @@ public extension Selection {
       self = .value(value)
     }
 
+    @inlinable public static func `if`(_ condition: StringLiteralType) -> Condition {
+      .variable(name: condition, inverted: false)
+    }
+
+    @inlinable public static func `if`(_ condition: Condition) -> Condition {
+      condition
+    }
+
     @inlinable public static prefix func !(condition: Condition) -> Condition {
       switch condition {
       case let .value(value):
