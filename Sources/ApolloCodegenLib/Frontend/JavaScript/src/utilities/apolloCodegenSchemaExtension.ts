@@ -1,4 +1,5 @@
-import { DirectiveDefinitionNode, DocumentNode, Kind, NameNode, StringValueNode, concatAST } from "graphql";
+import { DirectiveDefinitionNode, DocumentNode, Kind, concatAST } from "graphql";
+import { nameNode, stringNode } from "./nodeHelpers";
 
 export const directive_apollo_client_ios_localCacheMutation: DirectiveDefinitionNode = {
   kind: Kind.DIRECTIVE_DEFINITION,
@@ -6,20 +7,6 @@ export const directive_apollo_client_ios_localCacheMutation: DirectiveDefinition
   name: nameNode("apollo_client_ios_localCacheMutation"),
   repeatable: false,
   locations: [nameNode("QUERY"), nameNode("MUTATION"), nameNode("SUBSCRIPTION"), nameNode("FRAGMENT_DEFINITION")]
-}
-
-function nameNode(name :string): NameNode {
-  return {
-    kind: Kind.NAME,
-    value: name
-  }
-}
-
-function stringNode(value :string): StringValueNode {
-  return {
-    kind: Kind.STRING,
-    value: value
-  }
 }
 
 export const apolloCodegenSchemaExtension: DocumentNode = {

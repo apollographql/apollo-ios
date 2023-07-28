@@ -4,6 +4,7 @@ import JavaScriptCore
 public class CompilationResult: JavaScriptObject {
   private enum Constants {
     static let LocalCacheMutationDirectiveName = "apollo_client_ios_localCacheMutation"
+    static let DeferDirectiveName = "defer"
   }
   lazy var rootTypes: RootTypeDefinition = self["rootTypes"]
   
@@ -169,6 +170,8 @@ public class CompilationResult: JavaScriptObject {
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
+
+    lazy var directives: [Directive]? = self["directives"]
 
     public override var debugDescription: String {
       selectionSet.debugDescription

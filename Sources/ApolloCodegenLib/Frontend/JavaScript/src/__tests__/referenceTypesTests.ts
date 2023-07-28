@@ -32,8 +32,7 @@ describe("mutation defined using ReportCarProblemInput", () => {
   `;
 
   const document: DocumentNode = parseOperationDocument(
-    new Source(documentString, "Test Mutation", { line: 1, column: 1 }),
-    false
+    new Source(documentString, "Test Mutation", { line: 1, column: 1 })
   );
 
   describe("given schema from introspection JSON with mutation using input type with enum field", () => {
@@ -102,8 +101,7 @@ describe("query with selections", () => {
   `;
 
   const document: DocumentNode = parseOperationDocument(
-    new Source(documentString, "Test Query", { line: 1, column: 1 }),
-    false
+    new Source(documentString, "Test Query", { line: 1, column: 1 })
   );
 
   describe("given interface on root query", () => {

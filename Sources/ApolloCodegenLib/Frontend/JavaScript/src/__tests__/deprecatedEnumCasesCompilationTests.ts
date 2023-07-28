@@ -45,8 +45,7 @@ describe("given schema", () => {
     `;
 
     const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Query", { line: 1, column: 1 }),
-      false
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
     it("should compile enum values with deprecation reason", () => {
