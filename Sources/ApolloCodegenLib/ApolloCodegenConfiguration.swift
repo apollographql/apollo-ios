@@ -668,20 +668,31 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// cases on the generated Swift enums.
     /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
     public let enumCases: CaseConversionStrategy
+    
+    /// Determines how the names of fields in the GraphQL schema will be converted into
+    /// properties in the generated Swift code.
+    /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
+    public let fieldCasing: CaseConversionStrategy
 
     /// Default property values
     public struct Default {
       public static let enumCases: CaseConversionStrategy = .camelCase
+      public static let fieldCasing: CaseConversionStrategy = .camelCase
     }
 
-    public init(enumCases: CaseConversionStrategy = Default.enumCases) {
+    public init(
+      enumCases: CaseConversionStrategy = Default.enumCases,
+      fieldCasing: CaseConversionStrategy = Default.fieldCasing
+    ) {
       self.enumCases = enumCases
+      self.fieldCasing = fieldCasing
     }
 
     // MARK: Codable
 
     public enum CodingKeys: CodingKey {
       case enumCases
+      case fieldCasing
     }
 
     public init(from decoder: Decoder) throws {
@@ -698,6 +709,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         CaseConversionStrategy.self,
         forKey: .enumCases
       ) ?? Default.enumCases
+      
+      fieldCasing = try values.decodeIfPresent(
+        CaseConversionStrategy.self,
+        forKey: .fieldCasing
+      ) ?? Default.fieldCasing
     }
   }
   

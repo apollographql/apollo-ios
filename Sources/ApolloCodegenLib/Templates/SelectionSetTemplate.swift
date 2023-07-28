@@ -309,7 +309,7 @@ struct SelectionSetTemplate {
     return """
     \(documentation: field.underlyingField.documentation, config: config)
     \(deprecationReason: field.underlyingField.deprecationReason, config: config)
-    \(renderAccessControl())var \(field.responseKey.asFieldPropertyName): \
+          \(renderAccessControl())var \(field.responseKey.renderAsFieldPropertyName(config: config.config)): \
     \(typeName(for: field, forceOptional: field.isConditionallyIncluded(in: scope))) {\
     \(if: isMutable,
       """
@@ -443,7 +443,7 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     let isOptional: Bool = field.type.isNullable || field.isConditionallyIncluded(in: scope)
     return """
-    \(field.responseKey.asFieldPropertyName): \(typeName(for: field, forceOptional: isOptional))\
+    \(field.responseKey.renderAsFieldPropertyName(config: config.config)): \(typeName(for: field, forceOptional: isOptional))\
     \(if: isOptional, " = nil")
     """
   }
@@ -475,7 +475,7 @@ struct SelectionSetTemplate {
     }()
 
     return """
-    "\(field.responseKey)": \(field.responseKey.asFieldPropertyName)\
+    "\(field.responseKey)": \(field.responseKey.renderAsFieldPropertyName(config: config.config))\
     \(if: isEntityField, "._fieldData")
     """
   }
