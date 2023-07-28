@@ -2,6 +2,7 @@ import {
   compileDocument,
   parseOperationDocument,
   loadSchemaFromSources,
+  validateDocument,
 } from "../index"
 import { 
   CompilationResult
@@ -14,7 +15,8 @@ import {
 import { 
   Source,
   GraphQLSchema,
-  DocumentNode
+  DocumentNode,
+  GraphQLError
 } from "graphql";
 import { emptyValidationOptions } from "../__testUtils__/validationHelpers";
 
@@ -149,6 +151,48 @@ describe("given schema", () => {
       expect(inlineFragment.directives?.[0].arguments?.length).toEqual(2);
       expect(inlineFragment.directives?.[0].arguments?.[0].name).toEqual("if");
       expect(inlineFragment.directives?.[0].arguments?.[1].name).toEqual("label");
+    });
+  });
+
+  describe("query has inline fragment with @defer directive and no type condition should throw error", () => {
+    const documentString: string = `
+    query Test {
+      allAnimals {
+        ... @defer {
+          species
+        }
+      }
+    }
+    `;
+
+    const document: DocumentNode = parseOperationDocument(
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
+    );
+
+    it("should compile inline fragment with directive", () => {
+      const validationErrors: readonly GraphQLError[] = validateDocument(schema, document, emptyValidationOptions)
+      expect(validationErrors.length).toEqual(1)
+    });
+  });
+
+  describe("query has inline fragment with @defer directive should not throw error", () => {
+    const documentString: string = `
+    query Test {
+      allAnimals {
+        ... on Animal @defer {
+          species
+        }
+      }
+    }
+    `;
+
+    const document: DocumentNode = parseOperationDocument(
+      new Source(documentString, "Test Query", { line: 1, column: 1 })
+    );
+
+    it("should compile inline fragment with directive", () => {
+      const validationErrors: readonly GraphQLError[] = validateDocument(schema, document, emptyValidationOptions)
+      expect(validationErrors.length).toEqual(0)
     });
   });
 
