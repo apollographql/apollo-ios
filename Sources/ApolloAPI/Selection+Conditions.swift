@@ -32,7 +32,7 @@ public extension Selection {
     }
   }
 
-  enum Condition: ExpressibleByStringLiteral, Hashable {
+  enum Condition: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, Hashable {
     case value(Bool)
     case variable(name: String, inverted: Bool)
 
@@ -45,6 +45,10 @@ public extension Selection {
 
     public init(stringLiteral value: StringLiteralType) {
       self = .variable(name: value, inverted: false)
+    }
+
+    public init(booleanLiteral value: BooleanLiteralType) {
+      self = .value(value)
     }
 
     @inlinable public static prefix func !(condition: Condition) -> Condition {
