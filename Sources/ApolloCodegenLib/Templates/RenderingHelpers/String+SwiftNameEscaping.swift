@@ -2,12 +2,6 @@ import Foundation
 
 
 extension String {
-  /// Renders the string as the property name for a field accessor on a generated `SelectionSet`.
-  /// This escapes the names of properties that would conflict with Swift reserved keywords.
-  var asFieldPropertyName: String {
-    let str = self.isAllUppercased ? self.lowercased() : self.firstLowercased
-    return str.escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
-  }
 
   var asEnumCaseName: String {
     escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
@@ -39,6 +33,43 @@ extension String {
 
   private func escapeIf(in set: Set<String>) -> String {
     set.contains(self) ? "`\(self)`" : self
+  }
+  
+  /// Renders the string as the property name for a field accessor on a generated `SelectionSet`.
+  /// This escapes the names of properties that would conflict with Swift reserved keywords.
+  func renderAsFieldPropertyName(
+    config: ApolloCodegenConfiguration
+  ) -> String {
+    var propertyName = self
+    
+    switch config.options.conversionStrategies.fieldCasing {
+    case .camelCase:
+      propertyName = propertyName.convertToCamelCase()
+      propertyName = propertyName.isAllUppercased ? propertyName.lowercased() : propertyName.firstLowercased
+    case .none:
+      break
+    }
+    
+    return propertyName.escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
+  }
+  
+  /// Convert to `camelCase` from a number of different `snake_case` variants.
+  ///
+  /// All inner `_` characters will be removed, each 'word' will be capitalized, returning a final
+  /// firstLowercased string while preserving original leading and trailing `_` characters.
+  func convertToCamelCase() -> String {
+    guard self.firstIndex(of: "_") != nil else {
+      if self.firstIndex(where: { $0.isLowercase }) != nil {
+        return self.firstLowercased
+      } else {
+        return self.lowercased()
+      }
+    }
+
+    return self.components(separatedBy: "_")
+      .map({ $0.isEmpty ? "_" : $0.capitalized })
+      .joined()
+      .firstLowercased
   }
 }
 
