@@ -4,9 +4,9 @@ public enum Selection {
   /// A single field selection.
   case field(Field)
   /// A fragment spread of a named fragment definition.
-  case fragment(any Fragment.Type, deferred: Bool = false)
+  case fragment(any Fragment.Type, deferred: Condition? = nil)
   /// An inline fragment with a child selection set nested in a parent selection set.
-  case inlineFragment(any InlineFragment.Type, deferred: Bool = false)
+  case inlineFragment(any InlineFragment.Type, deferred: Condition? = nil)
   /// A group of selections that have `@include/@skip` directives.
   case conditional(Conditions, [Selection])
 
