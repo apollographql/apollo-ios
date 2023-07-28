@@ -75,7 +75,7 @@ export function DeferredInlineFragmentNoTypeCondition(context: ValidationContext
           if (directive.name.value == "defer" && node.typeCondition == undefined) {
             context.reportError(
               new GraphQLError(
-                "Apollo does not support deferred inline fragments without a type condition.",
+                "Apollo does not support deferred inline fragments without a type condition. Please add a type condition to this inline fragment.",
                 { nodes: node }
               )
             )
