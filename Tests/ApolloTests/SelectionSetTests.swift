@@ -1629,4 +1629,48 @@ class SelectionSetTests: XCTestCase {
     expect(actual.names?[2]).to(equal("Leia"))
   }
 
+  // MARK: Condition Tests
+
+  func test__condition__givenStringLiteral_initializesVariableCase() {
+    let condition: Selection.Condition = "filter"
+    let expected: Selection.Condition = .variable(name: "filter", inverted: false)
+
+    expect(condition).to(equal(expected))
+  }
+
+  func test__condition__givenInvertedStringLiteral_initializesInvertedVariableCase() {
+    let condition: Selection.Condition = !"filter"
+    let expected: Selection.Condition = .variable(name: "filter", inverted: true)
+
+    expect(condition).to(equal(expected))
+  }
+
+  func test__condition__givenBooleanLiteral_initializesValueCase() {
+    let condition: Selection.Condition = true
+    let expected: Selection.Condition = .value(true)
+
+    expect(condition).to(equal(expected))
+  }
+
+  func test__condition__givenInvertedBooleanLiteral_initializesInvertedValueCase() {
+    let condition: Selection.Condition = !true
+    let expected: Selection.Condition = .value(false)
+
+    expect(condition).to(equal(expected))
+  }
+
+  func test__condition__givenIfConvenienceStringLiteral_initializesVariableCase() {
+    let condition: Selection.Condition = .if("filter")
+    let expected: Selection.Condition = .variable(name: "filter", inverted: false)
+
+    expect(condition).to(equal(expected))
+  }
+
+  func test__condition__givenIfConvenienceInvertedStringLiteral_initializesInvertedVariableCase() {
+    let condition: Selection.Condition = .if(!"filter")
+    let expected: Selection.Condition = .variable(name: "filter", inverted: true)
+
+    expect(condition).to(equal(expected))
+  }
+
 }
