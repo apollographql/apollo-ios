@@ -59,6 +59,7 @@ public protocol GraphQLOperation: AnyObject, Hashable {
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
   static var operationDocument: OperationDocument { get }
+  static var hasDeferredFragments: Bool { get }
 
   var __variables: Variables? { get }
 
@@ -68,6 +69,10 @@ public protocol GraphQLOperation: AnyObject, Hashable {
 public extension GraphQLOperation {
   var __variables: Variables? {
     return nil
+  }
+
+  static var hasDeferredFragments: Bool {
+    false
   }
 
   static var definition: OperationDefinition? {
