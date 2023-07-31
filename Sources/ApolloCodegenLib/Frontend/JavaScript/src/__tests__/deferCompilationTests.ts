@@ -169,7 +169,7 @@ describe("given schema", () => {
       new Source(documentString, "Test Query", { line: 1, column: 1 })
     );
 
-    it("should compile inline fragment with directive", () => {
+    it(" should throw error", () => {
       const validationErrors: readonly GraphQLError[] = validateDocument(schema, document, emptyValidationOptions)
       expect(validationErrors.length).toEqual(1)
     });
