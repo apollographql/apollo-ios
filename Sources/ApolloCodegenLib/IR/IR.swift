@@ -167,10 +167,10 @@ class IR {
         var definitionSource = definition.source.convertedToSingleLine()
         updateHash(with: &definitionSource)
 
-        var newline: String
+        var space: String
         for fragment in referencedFragments {
-          newline = #"\n"#
-          updateHash(with: &newline)
+          space = #" "#
+          updateHash(with: &space)
           var fragmentSource = fragment.definition.source.convertedToSingleLine()
           updateHash(with: &fragmentSource)
         }

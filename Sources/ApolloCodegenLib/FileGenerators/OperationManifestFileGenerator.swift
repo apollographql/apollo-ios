@@ -14,7 +14,7 @@ struct OperationManifestItem {
 
     var source = operation.definition.source.convertedToSingleLine()
     for fragment in operation.referencedFragments {
-      source += #"\n\#(fragment.definition.source.convertedToSingleLine())"#
+      source += #" \#(fragment.definition.source.convertedToSingleLine())"#
     }
     self.source = source
   }
