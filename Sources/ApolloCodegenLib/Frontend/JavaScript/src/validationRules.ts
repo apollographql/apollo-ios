@@ -8,6 +8,7 @@ import {
   ValidationContext,
   VariableDefinitionNode,
   InlineFragmentNode,
+  GraphQLDeferDirective,
 } from "graphql";
 
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
@@ -72,7 +73,7 @@ export function DeferredInlineFragmentNoTypeCondition(context: ValidationContext
     InlineFragment(node: InlineFragmentNode) {
       if (node.directives) {
         for (const directive of node.directives) {
-          if (directive.name.value == "defer" && node.typeCondition == undefined) {
+          if (directive.name.value == GraphQLDeferDirective.name && node.typeCondition == undefined) {
             context.reportError(
               new GraphQLError(
                 "Apollo does not support deferred inline fragments without a type condition. Please add a type condition to this inline fragment.",

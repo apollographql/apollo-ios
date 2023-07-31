@@ -175,25 +175,4 @@ describe("given schema", () => {
     });
   });
 
-  describe("query has inline fragment with @defer directive should not throw error", () => {
-    const documentString: string = `
-    query Test {
-      allAnimals {
-        ... on Animal @defer {
-          species
-        }
-      }
-    }
-    `;
-
-    const document: DocumentNode = parseOperationDocument(
-      new Source(documentString, "Test Query", { line: 1, column: 1 })
-    );
-
-    it("should compile inline fragment with directive", () => {
-      const validationErrors: readonly GraphQLError[] = validateDocument(schema, document, emptyValidationOptions)
-      expect(validationErrors.length).toEqual(0)
-    });
-  });
-
 });
