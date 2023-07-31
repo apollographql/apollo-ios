@@ -63,7 +63,7 @@ Then in the `options` section of your configuration you will need to set the `op
 }
 ```
 
-The resulting operation manifest JSON looks something like this: 
+The resulting operation manifest JSON for `persistedQueries` looks like this: 
 
 ```json title="operationIdentifiers.json"
 {
@@ -80,7 +80,16 @@ The resulting operation manifest JSON looks something like this:
 }
 ```
 
-> **Note:** This example uses the `persistedQueries` version of the operation manifest, the `legacyAPQs` version will look slightly different.
+And the resulting operation manifest JSON for `legacyAPQ` would look like this:
+
+```json title="operationIdentifiers.json"
+{
+  "525cd90917f8945d8d6a68fde991aaf766ff7d7b227ab2cd8dc97b7959c8d0d6" : {
+    "name": "GetItem",
+    "source": "query GetItem { thing { __typename ...Name } } fragment Name on Item { __typename name }"
+  }
+}
+```
 
 ### 2. Enable persisted queries on `ApolloClient`
 
