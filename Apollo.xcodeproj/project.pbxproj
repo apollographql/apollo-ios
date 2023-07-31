@@ -749,7 +749,9 @@
 		E64F7EBC27A11A510059C021 /* GraphQLNamedType+SwiftName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBB27A11A510059C021 /* GraphQLNamedType+SwiftName.swift */; };
 		E64F7EBF27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */; };
 		E64F7EC127A122300059C021 /* ObjectTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64F7EC027A122300059C021 /* ObjectTemplate.swift */; };
+		E656047B2A5F2AAD006692A3 /* MultipartResponseSubscriptionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E656047A2A5F2AAD006692A3 /* MultipartResponseSubscriptionParser.swift */; };
 		E657CDBA26FD01D4005834D6 /* ApolloSchemaInternalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */; };
+		E65989F12A5F7007001EF47C /* MultipartResponseSubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E65989F02A5F7007001EF47C /* MultipartResponseSubscriptionTests.swift */; };
 		E660A4D129CA56A4001EA373 /* MockHTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D029CA56A4001EA373 /* MockHTTPRequest.swift */; };
 		E660A4D329CA5890001EA373 /* MockHTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */; };
 		E660A4D529CAEA0F001EA373 /* MockInterceptorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */; };
@@ -1936,7 +1938,9 @@
 		E64F7EBE27A11B110059C021 /* GraphQLNamedType+SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GraphQLNamedType+SwiftTests.swift"; sourceTree = "<group>"; };
 		E64F7EC027A122300059C021 /* ObjectTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplate.swift; sourceTree = "<group>"; };
 		E64F7EC227A1243A0059C021 /* ObjectTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateTests.swift; sourceTree = "<group>"; };
+		E656047A2A5F2AAD006692A3 /* MultipartResponseSubscriptionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartResponseSubscriptionParser.swift; sourceTree = "<group>"; };
 		E657CDB926FD01D4005834D6 /* ApolloSchemaInternalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApolloSchemaInternalTests.swift; sourceTree = "<group>"; };
+		E65989F02A5F7007001EF47C /* MultipartResponseSubscriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartResponseSubscriptionTests.swift; sourceTree = "<group>"; };
 		E660A4D029CA56A4001EA373 /* MockHTTPRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPRequest.swift; sourceTree = "<group>"; };
 		E660A4D229CA5890001EA373 /* MockHTTPResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPResponse.swift; sourceTree = "<group>"; };
 		E660A4D429CAEA0F001EA373 /* MockInterceptorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockInterceptorProvider.swift; sourceTree = "<group>"; };
@@ -2476,6 +2480,7 @@
 				9B260BF8245A030100562176 /* ResponseCodeInterceptor.swift */,
 				9B260C09245A532500562176 /* JSONResponseParsingInterceptor.swift */,
 				E69F437129BBD958006FF548 /* MultipartResponseParsingInterceptor.swift */,
+				E656047A2A5F2AAD006692A3 /* MultipartResponseSubscriptionParser.swift */,
 				9B9BBAF424DB4F890021C30F /* AutomaticPersistedQueryInterceptor.swift */,
 				9BC742AD24CFB6450029282C /* CacheWriteInterceptor.swift */,
 			);
@@ -3020,6 +3025,7 @@
 				DE46A55726F13AD000357C52 /* ResponseCodeInterceptorTests.swift */,
 				DE46A55426F13A0900357C52 /* JSONResponseParsingInterceptorTests.swift */,
 				E6B2B26B29C2447F004B16F4 /* MultipartResponseParsingInterceptorTests.swift */,
+				E65989F02A5F7007001EF47C /* MultipartResponseSubscriptionTests.swift */,
 			);
 			path = Interceptors;
 			sourceTree = "<group>";
@@ -5526,6 +5532,7 @@
 				9B4F453F244A27B900C2CF7D /* URLSessionClient.swift in Sources */,
 				DE0586332669948500265760 /* InputValue+Evaluation.swift in Sources */,
 				DE0586372669958F00265760 /* GraphQLError.swift in Sources */,
+				E656047B2A5F2AAD006692A3 /* MultipartResponseSubscriptionParser.swift in Sources */,
 				9BC742AC24CFB2FF0029282C /* ApolloErrorInterceptor.swift in Sources */,
 				9FC750631D2A59F600458D91 /* ApolloClient.swift in Sources */,
 				9BA3130E2302BEA5007B7FC5 /* DispatchQueue+Optional.swift in Sources */,
@@ -5579,6 +5586,7 @@
 				DE2FCF4926E94D150057EA67 /* TestMockTests.swift in Sources */,
 				E86D8E05214B32FD0028EFE1 /* JSONTests.swift in Sources */,
 				2EE7FFD0276802E30035DC39 /* CacheKeyConstructionTests.swift in Sources */,
+				E65989F12A5F7007001EF47C /* MultipartResponseSubscriptionTests.swift in Sources */,
 				DED45C2A2615319E0086EF63 /* DefaultInterceptorProviderTests.swift in Sources */,
 				E6EE6F1229C141A600BDE7A5 /* HTTPURLResponseExtensionTests.swift in Sources */,
 				9F21730E2567E6F000566121 /* DataLoaderTests.swift in Sources */,

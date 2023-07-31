@@ -524,7 +524,7 @@ class RequestChainTests: XCTestCase {
         url: TestURL.mockServer.url,
         statusCode: 200,
         httpVersion: nil,
-        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql"]
+        headerFields: ["Content-Type": "multipart/mixed;boundary=graphql;subscriptionSpec=1.0"]
       ),
       data: """
       --graphql
