@@ -154,7 +154,7 @@ describe("given schema", () => {
     });
   });
 
-  describe("query has inline fragment with @defer directive and no type condition should throw error", () => {
+  describe("query has inline fragment with @defer directive and no type condition", () => {
     const documentString: string = `
     query Test {
       allAnimals {
