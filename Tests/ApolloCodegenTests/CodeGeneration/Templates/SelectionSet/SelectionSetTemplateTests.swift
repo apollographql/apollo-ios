@@ -3667,7 +3667,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_atOperationRoot_rendersFieldAccessorWithNameNotIncludingParent() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromParent_atOperationRoot_rendersFieldAccessorWithFullyQualifiedName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3696,7 +3696,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public var name: String { __data["name"] }
-      public var allAnimals: [AllAnimal]? { __data["allAnimals"] }
+      public var allAnimals: [TestOperationQuery.Data.AllAnimal]? { __data["allAnimals"] }
     """
 
     // when
@@ -3767,7 +3767,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
   }
 
-  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_atOperationRoot_rendersFieldAccessorWithNotIncludingSharedParent() throws {
+  func test__render_fieldAccessors__givenEntityFieldMergedFromSiblingTypeCase_atOperationRoot_rendersFieldAccessorWithFullyQualifiedName() throws {
     // given
     schemaSDL = """
     type Query {
@@ -3803,7 +3803,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
     let expected = """
       public var name: String { __data["name"] }
-      public var allAnimals: [AsModeratorQuery.AllAnimal]? { __data["allAnimals"] }
+      public var allAnimals: [TestOperationQuery.Data.AsModeratorQuery.AllAnimal]? { __data["allAnimals"] }
     """
 
     // when
