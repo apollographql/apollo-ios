@@ -692,7 +692,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
               ObjectIdentifier(HeightInMeters.self)
             ]
           ))
@@ -853,7 +852,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
                 ObjectIdentifier(HeightInMeters.self)
               ]
             ))

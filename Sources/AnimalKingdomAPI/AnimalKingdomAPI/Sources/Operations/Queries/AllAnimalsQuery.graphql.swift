@@ -625,8 +625,7 @@ public class AllAnimalsQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
               ObjectIdentifier(PetDetails.self),
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
             ]
           ))
         }
@@ -822,8 +821,7 @@ public class AllAnimalsQuery: GraphQLQuery {
                 ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
                 ObjectIdentifier(PetDetails.self),
                 ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
               ]
             ))
           }
@@ -936,8 +934,7 @@ public class AllAnimalsQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
               ObjectIdentifier(PetDetails.self),
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
             ]
           ))
         }

@@ -732,7 +732,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
         mergedFragmentEntityConditionPathNode = node
       }
       selectionSetNameComponents.append(
-        SelectionSetNameGenerator.ConditionPath.path(for: node)
+        node.value.selectionSetNameComponent
       )
       fulfilledFragments.append(selectionSetNameComponents.joined(separator: "."))
     }
