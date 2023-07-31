@@ -7,6 +7,8 @@ import {
   OperationDefinitionNode,
   ValidationContext,
   VariableDefinitionNode,
+  InlineFragmentNode,
+  GraphQLDeferDirective,
 } from "graphql";
 
 const specifiedRulesToBeRemoved: [ValidationRule] = [NoUnusedFragmentsRule];
@@ -29,6 +31,7 @@ export function defaultValidationRules(options: ValidationOptions): ValidationRu
   return [
     NoAnonymousQueries,
     NoTypenameAlias,
+    DeferredInlineFragmentNoTypeCondition,
     ...(disallowedFieldNamesRule ? [disallowedFieldNamesRule] : []),
     ...(disallowedInputParameterNamesRule ? [disallowedInputParameterNamesRule] : []),
     ...specifiedRules.filter((rule) => !specifiedRulesToBeRemoved.includes(rule)),
@@ -60,6 +63,25 @@ export function NoTypenameAlias(context: ValidationContext) {
             "Apollo needs to be able to insert __typename when needed, so using it as an alias is not supported.",
             { nodes: node })
         );
+      }
+    },
+  };
+}
+
+export function DeferredInlineFragmentNoTypeCondition(context: ValidationContext) {
+  return {
+    InlineFragment(node: InlineFragmentNode) {
+      if (node.directives) {
+        for (const directive of node.directives) {
+          if (directive.name.value == GraphQLDeferDirective.name && node.typeCondition == undefined) {
+            context.reportError(
+              new GraphQLError(
+                "Apollo does not support deferred inline fragments without a type condition. Please add a type condition to this inline fragment.",
+                { nodes: node }
+              )
+            )
+          }
+        }
       }
     },
   };
