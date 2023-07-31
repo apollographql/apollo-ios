@@ -63,6 +63,8 @@ Then in the `options` section of your configuration you will need to set the `op
 }
 ```
 
+With the configuration done you can generate the operation manifest. This can be done in 2 ways, using the standard [`generate`](https://www.apollographql.com/docs/ios/code-generation/codegen-cli#generate) command to run code generation will generate the manifest. There is also a CLI command specifically to generate the operation manifest without running full code generation, [`generate-operation-manifest`](https://www.apollographql.com/docs/ios/code-generation/codegen-cli#generate-operation-manifest).
+
 The resulting operation manifest JSON for `persistedQueries` looks like this: 
 
 ```json title="operationIdentifiers.json"
