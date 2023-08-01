@@ -8,7 +8,7 @@ With both features, clients can execute a GraphQL operation by sending an operat
 ## Differences between persisted queries and APQ
 
 The persisted queries feature requires operations to be preregistered in a **persisted query list** (**PQL**). 
-The allows the PQL to act as a safelist of trusted operations made by your first-party apps. As such, persisted queries is a security feature as much as a performance one.
+This allows the PQL to act as a safelist of trusted operations made by your first-party apps. As such, persisted queries is a security feature as much as a performance one.
 
 With APQs, if the server can't find the operation ID the client provides, the server returns an error indicating that it needs the full operation string. If the Apollo iOS client receives this error, it automatically retries the operation with the full operation string.
 
@@ -19,12 +19,12 @@ For more details on differences between persisted queries and APQ, see the [Grap
 ### Requirements
 
 Persisted queries is currently in [preview](/resources/product-launch-stages#preview) and has the following requirements:
-- Apollo iOS (v1.0.0+)
+- Apollo iOS (v1.3.1+)
 - [Apollo Router](/router) (v1.25.0+)
 - [GraphOS Enterprise plan](/graphos/enterprise/)
 
 You can use APQ with the following versions of Apollo iOS, Apollo Router, and Apollo Server:
-- Apollo iOS (v1.3.1+)
+- Apollo iOS (v1.0.0+)
 - [Apollo Router](/router) (v0.1.0+)
 - [Apollo Server](/apollo-server/) (v1.0.0+)
 
@@ -94,7 +94,7 @@ The resulting operation manifest JSON for `legacyAPQ` looks something like this:
 }
 ```
 
-To automatically update the manifest for each new app release, you can include the [`generate`](./../code-generation/codegen-cli#generate) command in your CI/CD pipeline.
+To automatically update the manifest for each new app release, you can include the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) command in your CI/CD pipeline.
 
 #### Publish manifests to the PQL
 
@@ -130,7 +130,7 @@ As with manifest generation, you can execute this command in your CI/CD pipeline
 
 ### 2. Enable persisted queries on `ApolloClient`
 
-Once you've configured your code generation to include IDs, you can update your client to query by ID rather than the full operation string. This configuration is the same whether you are using APQ or persisted queries:
+Once you've configured your code generation to include operation IDs, you can update your client to query by operation ID rather than the full operation string. This configuration is the same whether you are using APQ or persisted queries:
 
 - Initialize a custom `NetworkTransport` using `RequestChainNetworkTransport` with `autoPersistQueries` parameter set to `true` and an `interceptorProvider` that includes the `AutomaticPersistedQueryInterceptor` (such as `DefaultInterceptorProvider`).
 - Initialize your `ApolloClient` with the custom `NetworkTransport` that supports persisted queries.
@@ -140,7 +140,8 @@ let store = ApolloStore(cache: InMemoryNormalizedCache())
 let interceptorProvider = DefaultInterceptorProvider(store: store)
 let networkTransport = RequestChainNetworkTransport(
     interceptorProvider: interceptorProvider,
-    endpointURL: URL(string: "http://localhost:4000/graphql")!
+    endpointURL: URL(string: "http://localhost:4000/graphql")!,
+    autoPersistQueries: true
 )
 
 let client = ApolloClient(networkTransport: networkTransport, store: store)
