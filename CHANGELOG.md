@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.3.3
+
+### Fixed
+- **Fix two issues with generated models:** See PR ([#3168](https://github.com/apollographql/apollo-ios/pull/3168)). _Thank you to [@iAmericanBoy](https://github.com/iAmericanBoy) for finding these issues and providing a reproduction case._
+- **Fix computation of operation identifiers for persisted queries:** See PR ([#3163](https://github.com/apollographql/apollo-ios/pull/3163)). _Thank you to [@WolframPRO](https://github.com/WolframPRO) for finding these issues._
+
 ## v1.3.2
 
 ### Improved
