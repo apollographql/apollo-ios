@@ -477,6 +477,81 @@ class SelectionSetTemplate_Initializers_Tests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 16, ignoringExtraLines: true))
   }
+
+  func test__render_givenNestedTypeCasesMergedFromSibling_fulfilledFragmentsIncludesAllTypeCasesInScope() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    interface Pet {
+      species: String!
+    }
+
+    interface WarmBlooded {
+      species: String!
+    }
+
+    type Cat implements Animal & Pet & WarmBlooded {
+      species: String!
+      isJellicle: Boolean!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Pet {
+          ... on WarmBlooded {
+            species
+          }
+        }
+        ... on Cat {
+          isJellicle
+        }
+      }
+    }
+    """
+
+    let expected =
+    """
+      public init(
+        isJellicle: Bool,
+        species: String
+      ) {
+        self.init(_dataDict: DataDict(
+          data: [
+            "__typename": TestSchema.Objects.Cat.typename,
+            "isJellicle": isJellicle,
+            "species": species,
+          ],
+          fulfilledFragments: [
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsCat.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.self),
+            ObjectIdentifier(TestOperationQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
+          ]
+        ))
+      }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals_asCat = try XCTUnwrap(
+      operation[field: "query"]?[field: "allAnimals"]?[as: "Cat"]
+    )
+
+    let actual = subject.render(inlineFragment: allAnimals_asCat)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 17, ignoringExtraLines: true))
+  }
   
   // MARK: Selection Tests
   

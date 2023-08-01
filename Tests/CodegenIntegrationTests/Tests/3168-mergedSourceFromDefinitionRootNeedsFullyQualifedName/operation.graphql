@@ -1,0 +1,15 @@
+fragment TestFragment on Event {
+  child {
+    ... on ChildA {
+      innerChild: child {
+        foo
+      }
+    }
+  }
+  ... on EventA {
+    bar
+  }
+  ... on EventB {
+    baz
+  }
+}

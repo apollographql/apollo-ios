@@ -647,6 +647,14 @@ fileprivate extension IR.MergedSelections.MergedSource {
       nodesToSharedRoot += 1
     }
 
+    /// If the shared root is the root of the definition, we should just generate the fully
+    /// qualified name.
+    if sourceTypePathCurrentNode.isHead {
+      return SelectionSetNameGenerator.generatedSelectionSetName(
+        for: self, format: .fullyQualified, pluralizer: pluralizer
+      )
+    }
+
     let sharedRootIndex =
       typeInfo.entity.location.fieldPath!.count - (nodesToSharedRoot + 1)
 
@@ -657,11 +665,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
     ///
     /// Example: The `height` field on `AllAnimals.AsPet` can reference the `AllAnimals.Height`
     /// object as just `Height`.
-    ///
-    /// However, if the shared root is the root of the definition, the component that would be
-    /// removed is the location's `source`. This is not included in the field path and is already
-    /// omitted by this function. In this case, the `sharedRootIndex` is `-1`.
-    let removeFirstComponent = nodesToSharedRoot <= 1 && !(sharedRootIndex < 0)
+    let removeFirstComponent = nodesToSharedRoot <= 1
 
     let fieldPath = typeInfo.entity.location.fieldPath!.node(
       at: max(0, sharedRootIndex)
@@ -728,7 +732,7 @@ fileprivate extension IR.MergedSelections.MergedSource {
         mergedFragmentEntityConditionPathNode = node
       }
       selectionSetNameComponents.append(
-        SelectionSetNameGenerator.ConditionPath.path(for: node)
+        node.value.selectionSetNameComponent
       )
       fulfilledFragments.append(selectionSetNameComponents.joined(separator: "."))
     }
