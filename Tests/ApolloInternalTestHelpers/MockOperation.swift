@@ -5,6 +5,8 @@ open class MockOperation<SelectionSet: RootSelectionSet>: GraphQLOperation {
 
   open class var operationType: GraphQLOperationType { .query }
 
+  open class var hasDeferredFragments: Bool { false }
+
   open class var operationName: String { "MockOperationName" }
 
   open class var operationDocument: OperationDocument {
@@ -38,6 +40,16 @@ open class MockSubscription<SelectionSet: RootSelectionSet>: MockOperation<Selec
 
   public static func mock() -> MockSubscription<MockSelectionSet> where SelectionSet == MockSelectionSet {
     MockSubscription<MockSelectionSet>()
+  }
+}
+
+open class MockDeferredQuery<SelectionSet: RootSelectionSet>: MockOperation<SelectionSet>, GraphQLQuery {
+
+  public override class var operationType: GraphQLOperationType { .query }
+  public override class var hasDeferredFragments: Bool { true }
+
+  public static func mock() -> MockDeferredQuery<MockSelectionSet> where SelectionSet == MockSelectionSet {
+    MockDeferredQuery<MockSelectionSet>()
   }
 }
 
