@@ -169,7 +169,7 @@ class IR {
 
         var newline: String
         for fragment in referencedFragments {
-          newline = #"\n"#
+          newline = "\n"
           updateHash(with: &newline)
           var fragmentSource = fragment.definition.source.convertedToSingleLine()
           updateHash(with: &fragmentSource)
