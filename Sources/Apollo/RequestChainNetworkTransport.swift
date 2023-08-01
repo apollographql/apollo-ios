@@ -83,7 +83,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     cachePolicy: CachePolicy,
     contextIdentifier: UUID? = nil
   ) -> HTTPRequest<Operation> {
-    var request = JSONRequest(
+    let request = JSONRequest(
       operation: operation,
       graphQLEndpoint: self.endpointURL,
       contextIdentifier: contextIdentifier,
