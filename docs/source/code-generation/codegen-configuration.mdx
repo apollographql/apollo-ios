@@ -266,13 +266,13 @@ let configuration = ApolloCodegenConfiguration(
 
 **[`ModuleType.other`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/other)**
 
-This option should be used when you would like to define a schema module using another package management system, such as CocoaPods, or manually creating Xcode targets.
+This value should be used when you would like to define a schema module using another package management system (such as CocoaPods), or you want more control over the generated package than what [`ModuleType.swiftPackageManager`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/schematypesfileoutput/moduletype-swift.enum/swiftpackagemanager) allows, or manually creating your own targets or modules in another way.
 
 `ModuleType.other` indicates to the Code Generation Engine that your schema types will be contained in their own target, rather than embedded in your application target. This affects the `import` statements in your generated operation definition files.
 
-Using this option, you are required to create a target for your schema module using your preferred package manager.
+Using this option, you are required to create a target, or module, for your schema module using your preferred package manager.
 
-> **Note:** The name of the target for your schema module must be the [`schemaNamespace`](#schema-namespace) provided in your configuration, as this will be used in the `import` statements of generated operation files.
+> **Note:** You must specify the name of the target, or module, you created in the [`schemaNamespace`](#schema-namespace) property of your configuration. This will be used for `import` statements as well as to fully qualify the referenced types in generated operation files.
 
 <MultiCodeBlock>
 
