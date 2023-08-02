@@ -309,7 +309,7 @@ struct SelectionSetTemplate {
     return """
     \(documentation: field.underlyingField.documentation, config: config)
     \(deprecationReason: field.underlyingField.deprecationReason, config: config)
-          \(renderAccessControl())var \(field.responseKey.renderAsFieldPropertyName(config: config.config)): \
+    \(renderAccessControl())var \(field.responseKey.renderAsFieldPropertyName(config: config.config)): \
     \(typeName(for: field, forceOptional: field.isConditionallyIncluded(in: scope))) {\
     \(if: isMutable,
       """

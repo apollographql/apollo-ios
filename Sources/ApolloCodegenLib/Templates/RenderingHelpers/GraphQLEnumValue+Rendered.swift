@@ -15,7 +15,8 @@ extension GraphQLEnumValue.Name {
     case (.rawValue, _):
       return value
 
-    case (.swiftEnumCase, .none):
+    case (.swiftEnumCase, .none),
+      (.swiftEnumCase, .default):
       return value.asEnumCaseName
 
     case (.swiftEnumCase, .camelCase):

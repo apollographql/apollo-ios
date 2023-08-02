@@ -704,11 +704,28 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// ``CaseConversionStrategy`` is used to specify the strategy used to convert the casing of
   /// GraphQL schema values into generated Swift code.
   public enum CaseConversionStrategy: String, Codable, Equatable {
-    /// Generates swift code using the exact name provided in the GraphQL schema
-    /// performing no conversion.
+    @available(*, deprecated, message: "`none` casing strategy has been renamed to `default`")
     case none
+    /// Generates swift code using a default casing strategy determined based on the type of code
+    /// being generated.
+    ///
+    /// For enums, this will render as provided in the GraphQL schema and will escape certina reserved keywords.
+    ///
+    /// For fields, this will convert all uppercase names to all lowercase, otherwise it will lower case the first letter. As well
+    /// as escaping reserved keywords.
+    case `default`
     /// Convert to lower camel case from `snake_case`, `UpperCamelCase`, or `UPPERCASE`.
     case camelCase
+    
+    var isDefault: Bool {
+      switch self {
+      case .none,
+           .`default`:
+        return true
+      default:
+        return false
+      }
+    }
   }
 
   /// ``ConversionStrategies`` configures rules for how to convert the names of values from the
@@ -727,7 +744,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Default property values
     public struct Default {
       public static let enumCases: CaseConversionStrategy = .camelCase
-      public static let fieldCasing: CaseConversionStrategy = .camelCase
+      public static let fieldCasing: CaseConversionStrategy = .default
     }
 
     public init(

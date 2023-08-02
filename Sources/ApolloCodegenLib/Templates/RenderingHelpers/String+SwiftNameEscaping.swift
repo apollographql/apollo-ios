@@ -45,11 +45,12 @@ extension String {
     switch config.options.conversionStrategies.fieldCasing {
     case .camelCase:
       propertyName = propertyName.convertToCamelCase()
-      propertyName = propertyName.isAllUppercased ? propertyName.lowercased() : propertyName.firstLowercased
-    case .none:
+    case .none,
+         .`default`:
       break
     }
     
+    propertyName = propertyName.isAllUppercased ? propertyName.lowercased() : propertyName.firstLowercased
     return propertyName.escapeIf(in: SwiftKeywords.FieldAccessorNamesToEscape)
   }
   

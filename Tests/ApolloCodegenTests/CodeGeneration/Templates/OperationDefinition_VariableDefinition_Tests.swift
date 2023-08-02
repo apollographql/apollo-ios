@@ -483,7 +483,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test__renderOperationVariableParameter__givenEnumCaseConversion_none_givenEnumField_withDefaultValue__generatesCorrectParametersWithInitializer() throws {
+  func test__renderOperationVariableParameter__givenEnumCaseConversion_default_givenEnumField_withDefaultValue__generatesCorrectParametersWithInitializer() throws {
     // given
     let tests: [(variable: CompilationResult.VariableDefinition, expected: String)] = [
       (
@@ -506,7 +506,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
-      buildTemplate(options: .init(conversionStrategies: .init(enumCases: .none)))
+      buildTemplate(options: .init(conversionStrategies: .init(enumCases: .default)))
       let actual = template.VariableParameter(test.variable).description
 
       // then

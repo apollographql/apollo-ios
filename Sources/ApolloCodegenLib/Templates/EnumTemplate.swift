@@ -46,7 +46,7 @@ struct EnumTemplate: TemplateRenderer {
   private func caseDefinition(for graphqlEnumValue: GraphQLEnumValue) -> TemplateString {
     """
     case \(graphqlEnumValue.name.rendered(as: .swiftEnumCase, config: config.config))\
-    \(if: config.options.conversionStrategies.enumCases != .none, """
+    \(if: !config.options.conversionStrategies.enumCases.isDefault, """
        = "\(graphqlEnumValue.name.rendered(as: .rawValue, config: config.config))"
       """)
     """
