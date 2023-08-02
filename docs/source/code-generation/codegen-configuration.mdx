@@ -476,7 +476,8 @@ The top-level properties are:
 	"cocoapodsCompatibleImportStatements": false,
 	"warningsOnDeprecatedUsage": "include",
 	"conversionStrategies": {
-		"enumCases": "camelCase"
+		"enumCases": "camelCase",
+		"fieldCasing": "default"
 	},
 	"pruneGeneratedFiles": true
 }
@@ -504,7 +505,8 @@ let configuration = ApolloCodegenConfiguration(
 		cocoapodsCompatibleImportStatements: false,
 		warningsOnDeprecatedUsage: .include,
 		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
-			enumCases: .camelCase
+			enumCases: .camelCase,
+			fieldCasing: .default
 		),
 		pruneGeneratedFiles: true
 	)
