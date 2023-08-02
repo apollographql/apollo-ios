@@ -370,10 +370,21 @@ class IRRootFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
+    let Object_B = try XCTUnwrap(schema[object: "B"])
+
     let bField = subject[field: "bField"]
 
+    let expected = SelectionSetMatcher(
+      parentType: Object_B,
+      directSelections: [
+        .field("A", type: .nonNull(.scalar(Scalar_String))),
+        .field("B", type: .nonNull(.scalar(Scalar_String))),
+      ]
+    )
+
     // then
-    expect(bField?.selectionSet?.selections.direct?.inlineFragments).to(beEmpty())
+    expect(bField?.selectionSet).to(shallowlyMatch(expected))
   }
 
   func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {
