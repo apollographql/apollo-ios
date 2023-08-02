@@ -2,7 +2,7 @@
 title: Persisted Queries
 ---
 
-Apollo supports two separate but related features called **persisted queries** and **automated persisted queries** (APQs).
+Apollo supports two separate but related features called **persisted queries** and **automatic persisted queries** (APQs).
 With both features, clients can execute a GraphQL operation by sending an operation's ID instead of the entire string. An operation's ID is the SHA256 hash of the full operation string. Querying by ID can significantly reduce latency and bandwidth usage for very large operation strings.
 
 ## Differences between persisted queries and APQ
@@ -107,7 +107,7 @@ Ensure your Rover CLI version is `0.17.2` or later. Previous versions of Rover d
 
 </blockquote>
 
-If you want to preregister your manifest as a safelist of trusted operations , you need to publish it to a PQL using the [Rover CLI](/rover/):
+If you want to preregister your manifest as a safelist of trusted operations, you need to publish it to a PQL using the [Rover CLI](/rover/):
 
 ```bash title="Example command"
 rover persisted-queries publish my-graph@my-variant \
