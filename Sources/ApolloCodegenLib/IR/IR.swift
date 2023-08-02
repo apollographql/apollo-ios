@@ -309,13 +309,15 @@ class IR {
     static func == (lhs: IR.NamedFragmentSpread, rhs: IR.NamedFragmentSpread) -> Bool {
       lhs.fragment === rhs.fragment &&
       lhs.typeInfo == rhs.typeInfo &&
-      lhs.inclusionConditions == rhs.inclusionConditions
+      lhs.inclusionConditions == rhs.inclusionConditions &&
+      lhs.isDeferred == rhs.isDeferred
     }
 
     func hash(into hasher: inout Hasher) {
       hasher.combine(ObjectIdentifier(fragment))
       hasher.combine(typeInfo)
       hasher.combine(inclusionConditions)
+      hasher.combine(isDeferred)
     }
 
     var debugDescription: String {
