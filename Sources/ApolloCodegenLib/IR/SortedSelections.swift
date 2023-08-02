@@ -6,15 +6,15 @@ extension IR {
   class DirectSelections: Equatable, CustomDebugStringConvertible {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
+    fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, InlineFragmentSpread> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
 
     init() {}
 
     init(
       fields: [Field] = [],
       conditionalSelectionSets: [SelectionSet] = [],
-      fragments: [FragmentSpread] = []
+      fragments: [NamedFragmentSpread] = []
     ) {
       mergeIn(fields)
       mergeIn(conditionalSelectionSets)
@@ -24,7 +24,7 @@ extension IR {
     init(
       fields: OrderedDictionary<String, Field> = [:],
       conditionalSelectionSets: OrderedDictionary<ScopeCondition, SelectionSet> = [:],
-      fragments: OrderedDictionary<String, FragmentSpread> = [:]
+      fragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
     ) {
       mergeIn(fields.values)
       mergeIn(conditionalSelectionSets.values)
@@ -127,7 +127,7 @@ extension IR {
       }
     }
 
-    func mergeIn(_ fragment: FragmentSpread) {
+    func mergeIn(_ fragment: NamedFragmentSpread) {
       if let existingFragment = fragments[fragment.hashForSelectionSetScope] {
         existingFragment.inclusionConditions =
         (existingFragment.inclusionConditions || fragment.inclusionConditions)
@@ -145,7 +145,7 @@ extension IR {
       conditionalSelectionSets.forEach { mergeIn($0) }
     }
 
-    func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+    func mergeIn<T: Sequence>(_ fragments: T) where T.Element == NamedFragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
@@ -176,7 +176,7 @@ extension IR {
 
       var fields: OrderedDictionary<String, Field> { value.fields }
       var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> { value.inlineFragments }
-      var fragments: OrderedDictionary<String, FragmentSpread> { value.fragments }
+      var fragments: OrderedDictionary<String, NamedFragmentSpread> { value.fragments }
       var isEmpty: Bool { value.isEmpty }
     }
 
@@ -264,7 +264,7 @@ extension IR {
     fileprivate(set) var mergedSources: MergedSources = []
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
     fileprivate(set) var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
 
     init(
       directSelections: DirectSelections.ReadOnly?,
@@ -317,7 +317,7 @@ extension IR {
       )
     }
 
-    private func mergeIn(_ fragment: IR.FragmentSpread) -> Bool {
+    private func mergeIn(_ fragment: IR.NamedFragmentSpread) -> Bool {
       let keyInScope = fragment.hashForSelectionSetScope
       if let directSelections = directSelections,
           directSelections.fragments.keys.contains(keyInScope) {

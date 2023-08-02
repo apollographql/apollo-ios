@@ -57,6 +57,22 @@ class IR {
     }
   }
 
+  #warning("TODO: Document")
+  enum IsDeferred: Hashable, ExpressibleByBooleanLiteral {
+    case `true`
+    case `false`
+    case `if`(IR.InclusionCondition)
+
+    init(booleanLiteral value: BooleanLiteralType) {
+      switch value {
+      case true:
+        self = .true
+      case false:
+        self = .false
+      }
+    }
+  }
+
   /// Represents a concrete entity in an operation or fragment that fields are selected upon.
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
@@ -238,12 +254,28 @@ class IR {
     }
   }
 
-  /// Represents a Fragment that has been "spread into" another SelectionSet using the
+  /// Represents an Inline Fragment that has been "spread into" another SelectionSet using the
+  /// spread operator (`...`).
+  class InlineFragmentSpread: Hashable, CustomDebugStringConvertible {
+    /// The `SelectionSet` representing the inline fragment that has been "spread into" its
+    /// enclosing operation/fragment.
+    let selectionSet: SelectionSet
+
+    /// Indicates the location where the inline fragment has been "spread into" its enclosing
+    /// operation/fragment.
+    var typeInfo: SelectionSet.TypeInfo { selectionSet.typeInfo }
+
+    var inclusionConditions: InclusionConditions? { selectionSet.inclusionConditions }
+
+    let isDeferred: IsDeferred { ... }
+  }
+
+  /// Represents a Named Fragment that has been "spread into" another SelectionSet using the
   /// spread operator (`...`).
   ///
-  /// While a `NamedFragment` can be shared between operations, a `FragmentSpread` represents a
+  /// While a `NamedFragment` can be shared between operations, a `NamedFragmentSpread` represents a
   /// `NamedFragment` included in a specific operation.
-  class FragmentSpread: Hashable, CustomDebugStringConvertible {
+  class NamedFragmentSpread: Hashable, CustomDebugStringConvertible {
 
     /// The `NamedFragment` that this fragment refers to.
     ///
@@ -260,6 +292,8 @@ class IR {
 
     var inclusionConditions: AnyOf<InclusionConditions>?
 
+    let isDeferred: IsDeferred { ... }
+
     var definition: CompilationResult.FragmentDefinition { fragment.definition }
 
     init(
@@ -272,7 +306,7 @@ class IR {
       self.inclusionConditions = inclusionConditions
     }
 
-    static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
+    static func == (lhs: IR.NamedFragmentSpread, rhs: IR.NamedFragmentSpread) -> Bool {
       lhs.fragment === rhs.fragment &&
       lhs.typeInfo == rhs.typeInfo &&
       lhs.inclusionConditions == rhs.inclusionConditions

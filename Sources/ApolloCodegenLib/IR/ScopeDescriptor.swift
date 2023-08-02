@@ -3,13 +3,20 @@ import OrderedCollections
 
 extension IR {
 
+  #warning("TODO: Write tests that two inline fragments with same type and inclusion conditions, but different defer conditions don't merge together.")
   struct ScopeCondition: Hashable, CustomDebugStringConvertible {
     let type: GraphQLCompositeType?
     let conditions: InclusionConditions?
+    let isDeferred: IsDeferred
 
-    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions? = nil) {
+    init(
+      type: GraphQLCompositeType? = nil,
+      conditions: InclusionConditions? = nil,
+      isDeferred: IsDeferred
+    ) {
       self.type = type
       self.conditions = conditions
+      self.isDeferred = isDeferred
     }
 
     var debugDescription: String {
