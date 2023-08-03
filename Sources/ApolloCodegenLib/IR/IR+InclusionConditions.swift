@@ -1,7 +1,7 @@
 import OrderedCollections
 
 extension IR {
-
+  
   /// A condition representing an `@include` or `@skip` directive to determine if a field
   /// or fragment should be included.
   struct InclusionCondition: Hashable, CustomDebugStringConvertible {
@@ -27,7 +27,7 @@ extension IR {
     static func skip(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: true)
     }
-    
+
     func inverted() -> InclusionCondition {
       InclusionCondition(variable, isInverted: !isInverted)
     }

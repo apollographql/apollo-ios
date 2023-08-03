@@ -57,18 +57,26 @@ class IR {
     }
   }
 
-  #warning("TODO: Document")
+  // TODO: Documentation for this to be completed in issue #3141
   enum IsDeferred: Hashable, ExpressibleByBooleanLiteral {
-    case `true`
-    case `false`
-    case `if`(IR.InclusionCondition)
+    case value(Bool)
+    case `if`(_ variable: String)
 
     init(booleanLiteral value: BooleanLiteralType) {
       switch value {
       case true:
-        self = .true
+        self = .value(true)
       case false:
-        self = .false
+        self = .value(false)
+      }
+    }
+
+    var definitionDirectiveDescription: String {
+      switch self {
+      case .value(false): return ""
+      case .value(true): return " @defer"
+      case let .if(variable):
+        return " @defer(if: \(variable))"
       }
     }
   }
@@ -261,13 +269,13 @@ class IR {
     /// enclosing operation/fragment.
     let selectionSet: SelectionSet
 
+    let isDeferred: IsDeferred
+
     /// Indicates the location where the inline fragment has been "spread into" its enclosing
     /// operation/fragment.
     var typeInfo: SelectionSet.TypeInfo { selectionSet.typeInfo }
 
     var inclusionConditions: InclusionConditions? { selectionSet.inclusionConditions }
-
-    let isDeferred: IsDeferred
 
     init(
       selectionSet: SelectionSet,
@@ -283,17 +291,16 @@ class IR {
     }
 
     func hash(into hasher: inout Hasher) {
-      #warning("is this correct?")
-      hasher.combine(selectionSet.hashValue)
+      hasher.combine(selectionSet)
       hasher.combine(isDeferred)
     }
 
-    #warning("Add isDeferred to this")
-    var debugDescription: String {      
+    var debugDescription: String {
       var string = typeInfo.parentType.debugDescription
       if let conditions = typeInfo.inclusionConditions {
         string += " \(conditions.debugDescription)"
       }
+      string += isDeferred.definitionDirectiveDescription
       return string
     }
   }
@@ -349,13 +356,13 @@ class IR {
       hasher.combine(inclusionConditions)
       hasher.combine(isDeferred)
     }
-
-    #warning("Add isDeferred to this")
+    
     var debugDescription: String {
       var description = fragment.debugDescription
       if let inclusionConditions = inclusionConditions {
         description += " \(inclusionConditions.debugDescription)"
       }
+      description += isDeferred.definitionDirectiveDescription
       return description
     }
   }

@@ -1,6 +1,6 @@
 extension IR {
   @dynamicMemberLookup
-  class SelectionSet: Equatable, CustomDebugStringConvertible {
+  class SelectionSet: Hashable, CustomDebugStringConvertible {
     class TypeInfo: Hashable, CustomDebugStringConvertible {
       /// The entity that the `selections` are being selected on.
       ///
@@ -141,9 +141,15 @@ extension IR {
     }
 
     static func ==(lhs: IR.SelectionSet, rhs: IR.SelectionSet) -> Bool {
-      lhs.typeInfo.entity === rhs.typeInfo.entity &&
-      lhs.typeInfo.scopePath == rhs.typeInfo.scopePath &&
-      lhs.selections.direct == rhs.selections.direct
+      lhs.typeInfo === rhs.typeInfo &&
+      lhs.selections.direct === rhs.selections.direct
+    }
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(typeInfo)
+      if let directSelections = selections.direct {
+        hasher.combine(ObjectIdentifier(directSelections))
+      }
     }
 
     subscript<T>(dynamicMember keyPath: KeyPath<TypeInfo, T>) -> T {
