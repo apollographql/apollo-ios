@@ -6,12 +6,12 @@ import ApolloInternalTestHelpers
 
 protocol SelectionShallowMatchable {
   typealias Field = IR.Field
-  typealias TypeCase = IR.SelectionSet
-  typealias Fragment = IR.FragmentSpread
+  typealias InlineFragment = IR.InlineFragmentSpread
+  typealias NamedFragment = IR.NamedFragmentSpread
 
   var fields: OrderedDictionary<String, Field> { get }
-  var inlineFragments: OrderedDictionary<IR.ScopeCondition, TypeCase> { get }
-  var fragments: OrderedDictionary<String, Fragment> { get }
+  var inlineFragments: OrderedDictionary<IR.ScopeCondition, InlineFragment> { get }
+  var namedFragments: OrderedDictionary<String, NamedFragment> { get }
 
   var isEmpty: Bool { get }
 }
@@ -20,7 +20,7 @@ extension IR.DirectSelections: SelectionShallowMatchable { }
 extension IR.DirectSelections.ReadOnly: SelectionShallowMatchable {}
 extension IR.MergedSelections: SelectionShallowMatchable { }
 extension IR.EntityTreeScopeSelections: SelectionShallowMatchable {
-  var inlineFragments: OrderedDictionary<IR.ScopeCondition, TypeCase> { [:] }
+  var inlineFragments: OrderedDictionary<IR.ScopeCondition, InlineFragment> { [:] }
 }
 
 typealias SelectionMatcherTuple = (fields: [ShallowFieldMatcher],
@@ -44,8 +44,8 @@ func shallowlyMatch<T: SelectionShallowMatchable>(
 ) -> Predicate<T> {
   return satisfyAllOf([
     shallowlyMatch(expectedValue.fields).mappingActualTo { $0?.fields.values },
-    shallowlyMatch(expectedValue.typeCases).mappingActualTo { $0?.inlineFragments.values },
-    shallowlyMatch(expectedValue.fragments).mappingActualTo { $0?.fragments.values }
+    shallowlyMatch(expectedValue.typeCases).mappingActualTo { $0?.inlineFragments.values.map(\.selectionSet) },
+    shallowlyMatch(expectedValue.fragments).mappingActualTo { $0?.namedFragments.values }
   ])
 }
 
@@ -468,7 +468,7 @@ public struct ShallowFragmentSpreadMatcher: Equatable, CustomDebugStringConverti
 
 public func shallowlyMatch<T: Collection>(
   _ expectedValue: [ShallowFragmentSpreadMatcher]
-) -> Predicate<T> where T.Element == IR.FragmentSpread {
+) -> Predicate<T> where T.Element == IR.NamedFragmentSpread {
   return Predicate.define { actual in
     return shallowlyMatch(expected: expectedValue, actual: try actual.evaluate())
   }
@@ -476,7 +476,7 @@ public func shallowlyMatch<T: Collection>(
 
 public func shallowlyMatch<T: Collection>(
   _ expectedValue: [CompilationResult.FragmentDefinition]
-) -> Predicate<T> where T.Element == IR.FragmentSpread {
+) -> Predicate<T> where T.Element == IR.NamedFragmentSpread {
   return Predicate.define { actual in
     return shallowlyMatch(expected: expectedValue.map { .mock($0) }, actual: try actual.evaluate())
   }
@@ -485,7 +485,7 @@ public func shallowlyMatch<T: Collection>(
 fileprivate func shallowlyMatch<T: Collection>(
   expected: [ShallowFragmentSpreadMatcher],
   actual: T?
-) -> PredicateResult where T.Element == IR.FragmentSpread {
+) -> PredicateResult where T.Element == IR.NamedFragmentSpread {
   let message: ExpectationMessage = .expectedActualValueTo("have fragments equal to \(expected)")
   guard let actual = actual,
         expected.count == actual.count else {
@@ -506,7 +506,7 @@ fileprivate func shallowlyMatch<T: Collection>(
   return PredicateResult(status: .matches, message: message)
 }
 
-fileprivate func shallowlyMatch(expected: ShallowFragmentSpreadMatcher, actual: IR.FragmentSpread) -> Bool {
+fileprivate func shallowlyMatch(expected: ShallowFragmentSpreadMatcher, actual: IR.NamedFragmentSpread) -> Bool {
   return expected.name == actual.fragment.name &&
   expected.type == actual.fragment.type &&
   expected.inclusionConditions == actual.inclusionConditions

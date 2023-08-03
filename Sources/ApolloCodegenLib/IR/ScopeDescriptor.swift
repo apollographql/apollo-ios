@@ -3,13 +3,22 @@ import OrderedCollections
 
 extension IR {
 
+  // TODO: Write tests that two inline fragments with same type and inclusion conditions,
+  // but different defer conditions don't  merge together.
+  // To be done in issue #3141
   struct ScopeCondition: Hashable, CustomDebugStringConvertible {
     let type: GraphQLCompositeType?
     let conditions: InclusionConditions?
+    let isDeferred: IsDeferred
 
-    init(type: GraphQLCompositeType? = nil, conditions: InclusionConditions? = nil) {
+    init(
+      type: GraphQLCompositeType? = nil,
+      conditions: InclusionConditions? = nil,
+      isDeferred: IsDeferred = false
+    ) {
       self.type = type
       self.conditions = conditions
+      self.isDeferred = isDeferred
     }
 
     var debugDescription: String {
@@ -96,7 +105,10 @@ extension IR {
     ) -> ScopeDescriptor {
       let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
       return ScopeDescriptor(
-        typePath: LinkedList(.init(type: type, conditions: inclusionConditions)),
+        typePath: LinkedList(.init(
+          type: type,
+          conditions: inclusionConditions
+        )),
         type: type,
         matchingTypes: scope,
         matchingConditions: inclusionConditions,

@@ -79,11 +79,11 @@ extension IR.DirectSelections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    inlineFragments[conditions]
+    inlineFragments[conditions]?.selectionSet
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    fragments[fragment]
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
+    namedFragments[fragment]
   }
 }
 
@@ -93,11 +93,11 @@ extension IR.MergedSelections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    inlineFragments[conditions]
+    inlineFragments[conditions]?.selectionSet
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    fragments[fragment]
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
+    namedFragments[fragment]
   }
 }
 
@@ -106,8 +106,8 @@ extension IR.EntityTreeScopeSelections {
     fields[field]
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    fragments[fragment]
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
+    namedFragments[fragment]
   }
 }
 
@@ -121,7 +121,7 @@ extension IR.Field: ScopeConditionalSubscriptAccessing {
     return selectionSet?[conditions]
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
     return selectionSet?[fragment: fragment]
   }
 
@@ -140,7 +140,7 @@ extension IR.SelectionSet: ScopeConditionalSubscriptAccessing {
     selections[conditions]
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
     selections[fragment: fragment]
   }
 }
@@ -151,11 +151,12 @@ extension IR.SelectionSet.Selections: ScopeConditionalSubscriptAccessing {
   }
 
   public subscript(conditions: IR.ScopeCondition) -> IR.SelectionSet? {
-    return direct?.inlineFragments[conditions] ?? merged.inlineFragments[conditions]
+    return direct?.inlineFragments[conditions]?.selectionSet ??
+    merged.inlineFragments[conditions]?.selectionSet
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
-    direct?.fragments[fragment] ?? merged.fragments[fragment]
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
+    direct?.namedFragments[fragment] ?? merged.namedFragments[fragment]
   }
 }
 
@@ -168,7 +169,7 @@ extension IR.Operation: ScopeConditionalSubscriptAccessing {
     rootField[conditions]
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
     rootField[fragment: fragment]
   }
 }
@@ -182,7 +183,7 @@ extension IR.NamedFragment: ScopeConditionalSubscriptAccessing {
     return rootField.selectionSet[conditions]
   }
 
-  public subscript(fragment fragment: String) -> IR.FragmentSpread? {
+  public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
     rootField.selectionSet[fragment: fragment]
   }
 }

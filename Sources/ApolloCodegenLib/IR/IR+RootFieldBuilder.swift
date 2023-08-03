@@ -56,7 +56,7 @@ extension IR {
       return entity
     }
 
-    fileprivate func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: FragmentSpread) {
+    fileprivate func mergeAllSelectionsIntoEntitySelectionTrees(from fragmentSpread: NamedFragmentSpread) {
       for (_, fragmentEntity) in fragmentSpread.fragment.entities {
         let entity = entity(for: fragmentEntity, inFragmentSpreadAtTypePath: fragmentSpread.typeInfo)
         entity.selectionTree.mergeIn(fragmentEntity.selectionTree, from: fragmentSpread, using: self)
@@ -179,7 +179,7 @@ extension IR {
           )
 
         } else {
-          let irTypeCase = buildConditionalSelectionSet(
+          let irTypeCase = buildInlineFragmentSpread(
             from: inlineSelectionSet,
             with: scope,
             inParentTypePath: typeInfo
@@ -200,7 +200,7 @@ extension IR {
         let matchesScope = selectionSetScope.matches(scope)
 
         if matchesScope {
-          let irFragmentSpread = buildFragmentSpread(
+          let irFragmentSpread = buildNamedFragmentSpread(
             fromFragment: fragmentSpread,
             with: scope,
             spreadIntoParentWithTypePath: typeInfo
@@ -208,7 +208,7 @@ extension IR {
           target.mergeIn(irFragmentSpread)
 
         } else {
-          let irTypeCaseEnclosingFragment = buildConditionalSelectionSet(
+          let irTypeCaseEnclosingFragment = buildInlineFragmentSpread(
             from: CompilationResult.SelectionSet(
               parentType: fragmentSpread.parentType,
               selections: [selection]
@@ -221,7 +221,7 @@ extension IR {
 
           if matchesType {
             typeInfo.entity.selectionTree.mergeIn(
-              selections: irTypeCaseEnclosingFragment.selections.direct.unsafelyUnwrapped.readOnlyView,
+              selections: irTypeCaseEnclosingFragment.selectionSet.selections.direct.unsafelyUnwrapped.readOnlyView,
               with: typeInfo
             )
           }
@@ -313,11 +313,11 @@ extension IR {
       return irSelectionSet
     }
 
-    private func buildConditionalSelectionSet(
+    private func buildInlineFragmentSpread(
       from selectionSet: CompilationResult.SelectionSet?,
       with scopeCondition: ScopeCondition,
       inParentTypePath enclosingTypeInfo: SelectionSet.TypeInfo
-    ) -> SelectionSet {
+    ) -> InlineFragmentSpread {
       let typePath = enclosingTypeInfo.scopePath.mutatingLast {
         $0.appending(scopeCondition)
       }
@@ -334,14 +334,18 @@ extension IR {
           from: selectionSet
         )
       }
-      return irSelectionSet
-    }
 
-    private func buildFragmentSpread(
+      return InlineFragmentSpread(
+        selectionSet: irSelectionSet,
+        isDeferred: scopeCondition.isDeferred
+      )
+    }    
+
+    private func buildNamedFragmentSpread(
       fromFragment fragmentSpread: CompilationResult.FragmentSpread,
       with scopeCondition: ScopeCondition,
       spreadIntoParentWithTypePath parentTypeInfo: SelectionSet.TypeInfo
-    ) -> FragmentSpread {
+    ) -> NamedFragmentSpread {
       let fragment = ir.build(fragment: fragmentSpread.fragment)
       referencedFragments.append(fragment)
       referencedFragments.append(contentsOf: fragment.referencedFragments)
@@ -357,14 +361,15 @@ extension IR {
         scopePath: scopePath
       )
 
-      let fragmentSpread = FragmentSpread(
+      let fragmentSpread = NamedFragmentSpread(
         fragment: fragment,
         typeInfo: typeInfo,
-        inclusionConditions: AnyOf(scopeCondition.conditions)
+        inclusionConditions: AnyOf(scopeCondition.conditions),
+        isDeferred: scopeCondition.isDeferred
       )
 
       entityStorage.mergeAllSelectionsIntoEntitySelectionTrees(from: fragmentSpread)
-      
+
       return fragmentSpread
     }
     

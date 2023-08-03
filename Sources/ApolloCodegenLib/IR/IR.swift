@@ -57,6 +57,30 @@ class IR {
     }
   }
 
+  // TODO: Documentation for this to be completed in issue #3141
+  enum IsDeferred: Hashable, ExpressibleByBooleanLiteral {
+    case value(Bool)
+    case `if`(_ variable: String)
+
+    init(booleanLiteral value: BooleanLiteralType) {
+      switch value {
+      case true:
+        self = .value(true)
+      case false:
+        self = .value(false)
+      }
+    }
+
+    var definitionDirectiveDescription: String {
+      switch self {
+      case .value(false): return ""
+      case .value(true): return " @defer"
+      case let .if(variable):
+        return " @defer(if: \(variable))"
+      }
+    }
+  }
+
   /// Represents a concrete entity in an operation or fragment that fields are selected upon.
   ///
   /// Multiple `SelectionSet`s may select fields on the same `Entity`. All `SelectionSet`s that will
@@ -238,12 +262,55 @@ class IR {
     }
   }
 
-  /// Represents a Fragment that has been "spread into" another SelectionSet using the
+  /// Represents an Inline Fragment that has been "spread into" another SelectionSet using the
+  /// spread operator (`...`).
+  class InlineFragmentSpread: Hashable, CustomDebugStringConvertible {
+    /// The `SelectionSet` representing the inline fragment that has been "spread into" its
+    /// enclosing operation/fragment.
+    let selectionSet: SelectionSet
+
+    let isDeferred: IsDeferred
+
+    /// Indicates the location where the inline fragment has been "spread into" its enclosing
+    /// operation/fragment.
+    var typeInfo: SelectionSet.TypeInfo { selectionSet.typeInfo }
+
+    var inclusionConditions: InclusionConditions? { selectionSet.inclusionConditions }
+
+    init(
+      selectionSet: SelectionSet,
+      isDeferred: IsDeferred
+    ) {
+      self.selectionSet = selectionSet
+      self.isDeferred = isDeferred
+    }
+
+    static func == (lhs: IR.InlineFragmentSpread, rhs: IR.InlineFragmentSpread) -> Bool {
+      lhs.selectionSet == rhs.selectionSet &&
+      lhs.isDeferred == rhs.isDeferred
+    }
+
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(selectionSet)
+      hasher.combine(isDeferred)
+    }
+
+    var debugDescription: String {
+      var string = typeInfo.parentType.debugDescription
+      if let conditions = typeInfo.inclusionConditions {
+        string += " \(conditions.debugDescription)"
+      }
+      string += isDeferred.definitionDirectiveDescription
+      return string
+    }
+  }
+
+  /// Represents a Named Fragment that has been "spread into" another SelectionSet using the
   /// spread operator (`...`).
   ///
-  /// While a `NamedFragment` can be shared between operations, a `FragmentSpread` represents a
+  /// While a `NamedFragment` can be shared between operations, a `NamedFragmentSpread` represents a
   /// `NamedFragment` included in a specific operation.
-  class FragmentSpread: Hashable, CustomDebugStringConvertible {
+  class NamedFragmentSpread: Hashable, CustomDebugStringConvertible {
 
     /// The `NamedFragment` that this fragment refers to.
     ///
@@ -260,35 +327,42 @@ class IR {
 
     var inclusionConditions: AnyOf<InclusionConditions>?
 
+    let isDeferred: IsDeferred
+
     var definition: CompilationResult.FragmentDefinition { fragment.definition }
 
     init(
       fragment: NamedFragment,
       typeInfo: SelectionSet.TypeInfo,
-      inclusionConditions: AnyOf<InclusionConditions>?
+      inclusionConditions: AnyOf<InclusionConditions>?,
+      isDeferred: IsDeferred
     ) {
       self.fragment = fragment
       self.typeInfo = typeInfo
       self.inclusionConditions = inclusionConditions
+      self.isDeferred = isDeferred
     }
 
-    static func == (lhs: IR.FragmentSpread, rhs: IR.FragmentSpread) -> Bool {
+    static func == (lhs: IR.NamedFragmentSpread, rhs: IR.NamedFragmentSpread) -> Bool {
       lhs.fragment === rhs.fragment &&
       lhs.typeInfo == rhs.typeInfo &&
-      lhs.inclusionConditions == rhs.inclusionConditions
+      lhs.inclusionConditions == rhs.inclusionConditions &&
+      lhs.isDeferred == rhs.isDeferred
     }
 
     func hash(into hasher: inout Hasher) {
       hasher.combine(ObjectIdentifier(fragment))
       hasher.combine(typeInfo)
       hasher.combine(inclusionConditions)
+      hasher.combine(isDeferred)
     }
-
+    
     var debugDescription: String {
       var description = fragment.debugDescription
       if let inclusionConditions = inclusionConditions {
         description += " \(inclusionConditions.debugDescription)"
       }
+      description += isDeferred.definitionDirectiveDescription
       return description
     }
   }
