@@ -34,7 +34,7 @@ extension IR {
     }
 
     private func mergeIn(selections: DirectSelections.ReadOnly, from source: MergedSelections.MergedSource) {
-      guard (!selections.fields.isEmpty || !selections.fragments.isEmpty) else {
+      guard (!selections.fields.isEmpty || !selections.namedFragments.isEmpty) else {
         return
       }
 
@@ -292,20 +292,20 @@ extension IR {
   class EntityTreeScopeSelections: Equatable {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
+    fileprivate(set) var namedFragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
 
     init() {}
 
     fileprivate init(
       fields: OrderedDictionary<String, Field>,
-      fragments: OrderedDictionary<String, NamedFragmentSpread>
+      namedFragments: OrderedDictionary<String, NamedFragmentSpread>
     ) {
       self.fields = fields
-      self.fragments = fragments
+      self.namedFragments = namedFragments
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && fragments.isEmpty
+      fields.isEmpty && namedFragments.isEmpty
     }
 
     private func mergeIn(_ field: Field) {
@@ -317,7 +317,7 @@ extension IR {
     }
 
     private func mergeIn(_ fragment: NamedFragmentSpread) {
-      fragments[fragment.hashForSelectionSetScope] = fragment
+      namedFragments[fragment.hashForSelectionSetScope] = fragment
     }
 
     private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == NamedFragmentSpread {
@@ -326,17 +326,17 @@ extension IR {
 
     func mergeIn(_ selections: DirectSelections.ReadOnly) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.fragments.values)
+      mergeIn(selections.namedFragments.values)
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.fragments.values)
+      mergeIn(selections.namedFragments.values)
     }
 
     static func == (lhs: IR.EntityTreeScopeSelections, rhs: IR.EntityTreeScopeSelections) -> Bool {
       lhs.fields == rhs.fields &&
-      lhs.fragments == rhs.fragments
+      lhs.namedFragments == rhs.namedFragments
     }
   }
 }
@@ -505,7 +505,7 @@ extension IR.EntitySelectionTree.EntityNode {
         }
       }
 
-      let fragments = selections.fragments.mapValues { oldFragment -> IR.NamedFragmentSpread in
+      let fragments = selections.namedFragments.mapValues { oldFragment -> IR.NamedFragmentSpread in
         let entity = entityStorage.entity(
           for: oldFragment.typeInfo.entity,
           inFragmentSpreadAtTypePath: fragment.typeInfo
@@ -522,7 +522,7 @@ extension IR.EntitySelectionTree.EntityNode {
       }
 
       self.mergeIn(
-        IR.EntityTreeScopeSelections(fields: fields, fragments: fragments),
+        IR.EntityTreeScopeSelections(fields: fields, namedFragments: fragments),
         from: newSource
       )
     }
@@ -582,7 +582,7 @@ extension IR.EntityTreeScopeSelections: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     Fields: \(fields.values.elements)
-    Fragments: \(fragments.values.elements.description)
+    Fragments: \(namedFragments.values.elements.description)
     """
   }
 }

@@ -27,7 +27,7 @@ extension IR.MergedSelections.MergedSource {
   }
 
   public static func mock(
-    _ fragment: IR.FragmentSpread?,
+    _ fragment: IR.NamedFragmentSpread?,
     file: StaticString = #file,
     line: UInt = #line
   ) throws -> Self {
@@ -40,7 +40,7 @@ extension IR.MergedSelections.MergedSource {
 
   public static func mock(
     for field: IR.Field?,
-    from fragment: IR.FragmentSpread?,
+    from fragment: IR.NamedFragmentSpread?,
     file: StaticString = #file,
     line: UInt = #line
   ) throws -> Self {

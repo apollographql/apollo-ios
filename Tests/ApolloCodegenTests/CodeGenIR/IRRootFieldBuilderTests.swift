@@ -127,7 +127,7 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.selections.direct?.fragments.values).to(shallowlyMatch([Fragment_BirdDetails]))
+    expect(child?.selections.direct?.namedFragments.values).to(shallowlyMatch([Fragment_BirdDetails]))
   }
 
   func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {

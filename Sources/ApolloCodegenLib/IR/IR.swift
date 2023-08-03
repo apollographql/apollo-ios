@@ -289,7 +289,13 @@ class IR {
     }
 
     #warning("Add isDeferred to this")
-    var debugDescription: String { selectionSet.debugDescription }
+    var debugDescription: String {      
+      var string = typeInfo.parentType.debugDescription
+      if let conditions = typeInfo.inclusionConditions {
+        string += " \(conditions.debugDescription)"
+      }
+      return string
+    }
   }
 
   /// Represents a Named Fragment that has been "spread into" another SelectionSet using the

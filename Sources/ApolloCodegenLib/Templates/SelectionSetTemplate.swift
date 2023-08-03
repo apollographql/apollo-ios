@@ -205,7 +205,7 @@ struct SelectionSetTemplate {
   ) -> [TemplateString] {
     selections.fields.values.map { FieldSelectionTemplate($0, &deprecatedArguments) } +
     selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0.selectionSet) } +
-    selections.fragments.values.map { FragmentSelectionTemplate($0) }
+    selections.namedFragments.values.map { FragmentSelectionTemplate($0) }
   }
 
   private func renderedConditionalSelectionGroup(
@@ -331,7 +331,7 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.inlineFragments.values, {
       "\($0.map { InlineFragmentAccessorTemplate($0.selectionSet) }, separator: "\n")"
       })
-    \(selections.merged.inlineFragments.values.map { InlineFragmentAccessorTemplate($0) }, separator: "\n")
+    \(selections.merged.inlineFragments.values.map { InlineFragmentAccessorTemplate($0.selectionSet) }, separator: "\n")
     """
   }
 
@@ -534,7 +534,7 @@ struct SelectionSetTemplate {
     \(ifLet: selections.direct?.inlineFragments.values, {
       "\($0.map { render(inlineFragment: $0.selectionSet) }, separator: "\n\n")"
       })
-    \(selections.merged.inlineFragments.values.map { render(inlineFragment: $0) }, separator: "\n\n")
+    \(selections.merged.inlineFragments.values.map { render(inlineFragment: $0.selectionSet) }, separator: "\n\n")
     """    
   }
 
