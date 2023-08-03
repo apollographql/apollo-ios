@@ -83,39 +83,25 @@ public struct GenerateOperationManifest: ParsableCommand {
 
   // MARK: - Validation
 
-  enum ParsingError: Swift.Error {
-    case manifestVersionMissing
-    case outputPathMissing
-
-    var errorDescription: String? {
-      switch self {
-      case .manifestVersionMissing:
-        return """
-            `manifest-version` argument missing. When `output-path` is used, `manifest-version` \
-            must also be present.
-            """
-      case .outputPathMissing:
-        return """
-            No output path for operation manifest found. You must either provide the `output-path` \
-            argument or your codegen configuration must have a value present for the \
-            `output.operationManifest` option.
-            """
-      }
-    }
-  }
-
   func validate(configuration: ApolloCodegenConfiguration) throws {
     try checkForCLIVersionMismatch(with: inputs)
 
     if configuration.output.operationManifest == nil {
       guard outputOptions.outputPath != nil else {
-        throw ParsingError.outputPathMissing
+        throw ValidationError("""
+            `manifest-version` argument missing. When `output-path` is used, `manifest-version` \
+            must also be present.
+            """)
       }
     }
 
     if outputOptions.outputPath != nil {
       guard outputOptions.manifestVersion != nil else {
-        throw ParsingError.manifestVersionMissing
+        throw ValidationError("""
+            No output path for operation manifest found. You must either provide the `output-path` \
+            argument or your codegen configuration must have a value present for the \
+            `output.operationManifest` option.
+            """)
       }
     }
   }
