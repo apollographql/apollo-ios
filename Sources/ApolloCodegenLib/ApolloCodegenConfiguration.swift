@@ -167,7 +167,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Configures the generation of an operation manifest JSON file for use with persisted queries
     /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
     /// Defaults to `nil`.
-    public let operationManifest: OperationManifestFileOutput?
+    public var operationManifest: OperationManifestFileOutput?
 
     /// Default property values
     public struct Default {
@@ -480,11 +480,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// Defaults to `nil`.
   public struct OperationManifestFileOutput: Codable, Equatable {
     /// Local path where the generated operation manifest file should be written.
-    let path: String
+    public let path: String
     /// The version format to use when generating the operation manifest. Defaults to `.persistedQueries`.
-    let version: Version
+    public let version: Version
 
-    public enum Version: String, Codable, Equatable {
+    public enum Version: String, Codable, Equatable, CaseIterable {
       /// Generates an operation manifest for use with persisted queries.
       case persistedQueries
       /// Generates an operation manifest for pre-registering operations with the legacy
@@ -944,7 +944,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
-  public let output: FileOutput
+  public var output: FileOutput
   /// Rules and options to customize the generated code.
   public let options: OutputOptions
   /// Allows users to enable experimental features.
