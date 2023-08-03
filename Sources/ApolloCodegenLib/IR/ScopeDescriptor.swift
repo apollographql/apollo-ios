@@ -12,7 +12,7 @@ extension IR {
     init(
       type: GraphQLCompositeType? = nil,
       conditions: InclusionConditions? = nil,
-      isDeferred: IsDeferred
+      isDeferred: IsDeferred = false
     ) {
       self.type = type
       self.conditions = conditions
@@ -103,7 +103,10 @@ extension IR {
     ) -> ScopeDescriptor {
       let scope = Self.typeScope(addingType: type, to: nil, givenAllTypes: allTypes)
       return ScopeDescriptor(
-        typePath: LinkedList(.init(type: type, conditions: inclusionConditions)),
+        typePath: LinkedList(.init(
+          type: type,
+          conditions: inclusionConditions
+        )),
         type: type,
         matchingTypes: scope,
         matchingConditions: inclusionConditions,

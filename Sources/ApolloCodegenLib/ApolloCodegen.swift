@@ -292,10 +292,10 @@ public class ApolloCodegen {
       )
     }
     
-    var fragments: [IR.NamedFragment] = selectionSet.selections.direct?.fragments.values.map { $0.fragment } ?? []
-    fragments.append(contentsOf: selectionSet.selections.merged.fragments.values.map { $0.fragment })
+    var namedFragments: [IR.NamedFragment] = selectionSet.selections.direct?.namedFragments.values.map { $0.fragment } ?? []
+    namedFragments.append(contentsOf: selectionSet.selections.merged.namedFragments.values.map { $0.fragment })
     
-    try fragments.forEach { fragment in
+    try namedFragments.forEach { fragment in
       if let existingTypeName = combinedTypeNames[fragment.generatedDefinitionName] {
         throw Error.typeNameConflict(
           name: existingTypeName,

@@ -27,12 +27,7 @@ extension IR {
     static func skip(if variable: String) -> InclusionCondition {
       .init(variable, isInverted: true)
     }
-
-    /// Creates an `InclusionCondition` representing a `@defer` directive.
-    static func `defer`(if variable: String) -> InclusionCondition {
-      .init(variable, isInverted: false)
-    }
-
+    
     func inverted() -> InclusionCondition {
       InclusionCondition(variable, isInverted: !isInverted)
     }

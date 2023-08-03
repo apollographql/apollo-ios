@@ -245,8 +245,8 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
-    expect(child?.selections.direct?.fragments.count).to(equal(1))
-    expect(child?.selections.direct?.fragments.values[0].definition).to(equal(Fragment_AnimalDetails))
+    expect(child?.selections.direct?.namedFragments.count).to(equal(1))
+    expect(child?.selections.direct?.namedFragments.values[0].definition).to(equal(Fragment_AnimalDetails))
   }
 
   // MARK: Children Computation - Union Type

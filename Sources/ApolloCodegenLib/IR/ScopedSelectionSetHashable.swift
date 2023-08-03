@@ -25,7 +25,7 @@ extension CompilationResult.FragmentSpread: ScopedSelectionSetHashable {
   }
 }
 
-extension IR.FragmentSpread: ScopedSelectionSetHashable {
+extension IR.NamedFragmentSpread: ScopedSelectionSetHashable {
   var hashForSelectionSetScope: String {
     fragment.definition.name
   }

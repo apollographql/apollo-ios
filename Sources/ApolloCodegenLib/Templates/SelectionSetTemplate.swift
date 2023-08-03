@@ -204,7 +204,7 @@ struct SelectionSetTemplate {
     _ deprecatedArguments: inout [DeprecatedArgument]?
   ) -> [TemplateString] {
     selections.fields.values.map { FieldSelectionTemplate($0, &deprecatedArguments) } +
-    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0) } +
+    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0.selectionSet) } +
     selections.fragments.values.map { FragmentSelectionTemplate($0) }
   }
 
@@ -283,7 +283,7 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func FragmentSelectionTemplate(_ fragment: IR.FragmentSpread) -> TemplateString {
+  private func FragmentSelectionTemplate(_ fragment: IR.NamedFragmentSpread) -> TemplateString {
     """
     .fragment(\(fragment.definition.name.asFragmentName).self)
     """
@@ -355,8 +355,8 @@ struct SelectionSetTemplate {
     _ selections: IR.SelectionSet.Selections,
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
-    guard !(selections.direct?.fragments.isEmpty ?? true) ||
-            !selections.merged.fragments.isEmpty else {
+    guard !(selections.direct?.namedFragments.isEmpty ?? true) ||
+            !selections.merged.namedFragments.isEmpty else {
       return ""
     }
 
@@ -364,18 +364,18 @@ struct SelectionSetTemplate {
     \(renderAccessControl())struct Fragments: FragmentContainer {
       \(DataFieldAndInitializerTemplate())
 
-      \(ifLet: selections.direct?.fragments.values, {
-        "\($0.map { FragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
+      \(ifLet: selections.direct?.namedFragments.values, {
+        "\($0.map { NamedFragmentAccessorTemplate($0, in: scope) }, separator: "\n")"
         })
-      \(selections.merged.fragments.values.map {
-          FragmentAccessorTemplate($0, in: scope)
+      \(selections.merged.namedFragments.values.map {
+          NamedFragmentAccessorTemplate($0, in: scope)
         }, separator: "\n")
     }
     """
   }
 
-  private func FragmentAccessorTemplate(
-    _ fragment: IR.FragmentSpread,
+  private func NamedFragmentAccessorTemplate(
+    _ fragment: IR.NamedFragmentSpread,
     in scope: IR.ScopeDescriptor
   ) -> TemplateString {
     let name = fragment.definition.name
@@ -950,8 +950,8 @@ extension IR.SelectionSet.Selections {
     SelectionsIterator(direct: direct?.fields, merged: merged.fields)
   }
 
-  fileprivate func makeFragmentIterator() -> SelectionsIterator<IR.FragmentSpread> {
-    SelectionsIterator(direct: direct?.fragments, merged: merged.fragments)
+  fileprivate func makeFragmentIterator() -> SelectionsIterator<IR.NamedFragmentSpread> {
+    SelectionsIterator(direct: direct?.namedFragments, merged: merged.namedFragments)
   }
 
   fileprivate struct SelectionsIterator<SelectionType>: IteratorProtocol {

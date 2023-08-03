@@ -292,13 +292,13 @@ extension IR {
   class EntityTreeScopeSelections: Equatable {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
+    fileprivate(set) var fragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
 
     init() {}
 
     fileprivate init(
       fields: OrderedDictionary<String, Field>,
-      fragments: OrderedDictionary<String, FragmentSpread>
+      fragments: OrderedDictionary<String, NamedFragmentSpread>
     ) {
       self.fields = fields
       self.fragments = fragments
@@ -316,11 +316,11 @@ extension IR {
       fields.forEach { mergeIn($0) }
     }
 
-    private func mergeIn(_ fragment: FragmentSpread) {
+    private func mergeIn(_ fragment: NamedFragmentSpread) {
       fragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == NamedFragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
@@ -353,7 +353,7 @@ extension IR.EntitySelectionTree {
   /// programming error and will result in undefined behavior.
   func mergeIn(
     _ otherTree: IR.EntitySelectionTree,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     let otherTreeCount = otherTree.rootTypePath.count
@@ -392,7 +392,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ fragmentTree: IR.EntitySelectionTree,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     with inclusionConditions: AnyOf<IR.InclusionConditions>?,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
@@ -437,7 +437,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.EntityNode,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     switch otherNode.child {
@@ -474,7 +474,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ selections: Selections,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     for (source, selections) in selections {
@@ -505,12 +505,12 @@ extension IR.EntitySelectionTree.EntityNode {
         }
       }
 
-      let fragments = selections.fragments.mapValues { oldFragment -> IR.FragmentSpread in
+      let fragments = selections.fragments.mapValues { oldFragment -> IR.NamedFragmentSpread in
         let entity = entityStorage.entity(
           for: oldFragment.typeInfo.entity,
           inFragmentSpreadAtTypePath: fragment.typeInfo
         )
-        return IR.FragmentSpread(
+        return IR.NamedFragmentSpread(
           fragment: oldFragment.fragment,
           typeInfo: IR.SelectionSet.TypeInfo(
             entity: entity,
