@@ -360,7 +360,8 @@ extension IR {
       let fragmentSpread = FragmentSpread(
         fragment: fragment,
         typeInfo: typeInfo,
-        inclusionConditions: AnyOf(scopeCondition.conditions)
+        inclusionConditions: AnyOf(scopeCondition.conditions),
+        isDeferred: .if(.defer(if: <#T##String#>))
       )
 
       entityStorage.mergeAllSelectionsIntoEntitySelectionTrees(from: fragmentSpread)

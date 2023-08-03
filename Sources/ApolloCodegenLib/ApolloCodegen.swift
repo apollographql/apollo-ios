@@ -306,7 +306,8 @@ public class ApolloCodegen {
     }
     
     // gather nested fragments to loop through and check as well
-    var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.elements ?? []
+    #warning("Does it need to be both values.elements?")
+    var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.elements.map { $0.selectionSet } ?? []
     nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values)
     
     try nestedSelectionSets.forEach { nestedSet in

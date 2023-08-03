@@ -267,7 +267,29 @@ class IR {
 
     var inclusionConditions: InclusionConditions? { selectionSet.inclusionConditions }
 
-    let isDeferred: IsDeferred { ... }
+    let isDeferred: IsDeferred
+
+    init(
+      selectionSet: SelectionSet,
+      isDeferred: IsDeferred
+    ) {
+      self.selectionSet = selectionSet
+      self.isDeferred = isDeferred
+    }
+
+    static func == (lhs: IR.InlineFragmentSpread, rhs: IR.InlineFragmentSpread) -> Bool {
+      lhs.selectionSet == rhs.selectionSet &&
+      lhs.isDeferred == rhs.isDeferred
+    }
+
+    func hash(into hasher: inout Hasher) {
+      #warning("is this correct?")
+      hasher.combine(selectionSet.hashValue)
+      hasher.combine(isDeferred)
+    }
+
+    #warning("Add isDeferred to this")
+    var debugDescription: String { selectionSet.debugDescription }
   }
 
   /// Represents a Named Fragment that has been "spread into" another SelectionSet using the
@@ -292,18 +314,20 @@ class IR {
 
     var inclusionConditions: AnyOf<InclusionConditions>?
 
-    let isDeferred: IsDeferred { ... }
+    let isDeferred: IsDeferred
 
     var definition: CompilationResult.FragmentDefinition { fragment.definition }
 
     init(
       fragment: NamedFragment,
       typeInfo: SelectionSet.TypeInfo,
-      inclusionConditions: AnyOf<InclusionConditions>?
+      inclusionConditions: AnyOf<InclusionConditions>?,
+      isDeferred: IsDeferred
     ) {
       self.fragment = fragment
       self.typeInfo = typeInfo
       self.inclusionConditions = inclusionConditions
+      self.isDeferred = isDeferred
     }
 
     static func == (lhs: IR.NamedFragmentSpread, rhs: IR.NamedFragmentSpread) -> Bool {
@@ -320,6 +344,7 @@ class IR {
       hasher.combine(isDeferred)
     }
 
+    #warning("Add isDeferred to this")
     var debugDescription: String {
       var description = fragment.debugDescription
       if let inclusionConditions = inclusionConditions {

@@ -255,7 +255,8 @@ extension IR {
       fileprivate func scopeConditionNode(for condition: ScopeCondition) -> EntityNode {
         let nodeCondition = ScopeCondition(
           type: condition.type == self.type ? nil : condition.type,
-          conditions: condition.conditions
+          conditions: condition.conditions,
+          isDeferred: condition.isDeferred
         )
 
         func createNode() -> EntityNode {
@@ -407,7 +408,8 @@ extension IR.EntitySelectionTree.EntityNode {
       for conditionGroup in inclusionConditions.elements {
         let scope = IR.ScopeCondition(
           type: rootTypesMatch ? nil : fragmentType,
-          conditions: conditionGroup
+          conditions: conditionGroup,
+          isDeferred: fragment.isDeferred
         )
         let nextNode = rootNodeToStartMerge.scopeConditionNode(for: scope)
 
@@ -421,7 +423,9 @@ extension IR.EntitySelectionTree.EntityNode {
     } else {
       let nextNode = rootTypesMatch ?
       rootNodeToStartMerge :
-      rootNodeToStartMerge.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+      rootNodeToStartMerge.scopeConditionNode(
+        for: IR.ScopeCondition(type: fragmentType, isDeferred: fragment.isDeferred)
+      )
 
       nextNode.mergeIn(
         fragmentTree.rootNode,
@@ -512,7 +516,8 @@ extension IR.EntitySelectionTree.EntityNode {
             entity: entity,
             scopePath: oldFragment.typeInfo.scopePath
           ),
-          inclusionConditions: oldFragment.inclusionConditions
+          inclusionConditions: oldFragment.inclusionConditions,
+          isDeferred: oldFragment.isDeferred
         )
       }
 

@@ -115,15 +115,15 @@ extension IR {
       }
     }
 
-    func mergeIn(_ conditionalSelectionSet: SelectionSet) {
-      let scopeCondition = conditionalSelectionSet.scope.scopePath.last.value
+    func mergeIn(_ fragment: InlineFragmentSpread) {
+      let scopeCondition = fragment.selectionSet.scope.scopePath.last.value
 
-      if let existingTypeCase = inlineFragments[scopeCondition] {
+      if let existingTypeCase = inlineFragments[scopeCondition]?.selectionSet {
         existingTypeCase.selections.direct!
-          .mergeIn(conditionalSelectionSet.selections.direct!)
+          .mergeIn(fragment.selectionSet.selections.direct!)
 
       } else {
-        inlineFragments[scopeCondition] = conditionalSelectionSet
+        inlineFragments[scopeCondition] = fragment
       }
     }
 
@@ -162,7 +162,7 @@ extension IR {
     var debugDescription: String {
       """
       Fields: \(fields.values.elements)
-      InlineFragments: \(inlineFragments.values.elements.map(\.inlineFragmentDebugDescription))
+      InlineFragments: \(inlineFragments.values.elements.map(\.selectionSet.inlineFragmentDebugDescription))
       Fragments: \(fragments.values.elements.map(\.debugDescription))
       """
     }
@@ -175,7 +175,7 @@ extension IR {
       fileprivate let value: DirectSelections
 
       var fields: OrderedDictionary<String, Field> { value.fields }
-      var inlineFragments: OrderedDictionary<ScopeCondition, SelectionSet> { value.inlineFragments }
+      var inlineFragments: OrderedDictionary<ScopeCondition, InlineFragmentSpread> { value.inlineFragments }
       var fragments: OrderedDictionary<String, NamedFragmentSpread> { value.fragments }
       var isEmpty: Bool { value.isEmpty }
     }

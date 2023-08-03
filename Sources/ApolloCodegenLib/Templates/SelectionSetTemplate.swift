@@ -329,7 +329,7 @@ struct SelectionSetTemplate {
   ) -> TemplateString {
     """
     \(ifLet: selections.direct?.inlineFragments.values, {
-        "\($0.map { InlineFragmentAccessorTemplate($0) }, separator: "\n")"
+      "\($0.map { InlineFragmentAccessorTemplate($0.selectionSet) }, separator: "\n")"
       })
     \(selections.merged.inlineFragments.values.map { InlineFragmentAccessorTemplate($0) }, separator: "\n")
     """
@@ -532,7 +532,7 @@ struct SelectionSetTemplate {
   private func ChildTypeCaseSelectionSets(_ selections: IR.SelectionSet.Selections) -> TemplateString {
     """
     \(ifLet: selections.direct?.inlineFragments.values, {
-        "\($0.map { render(inlineFragment: $0) }, separator: "\n\n")"
+      "\($0.map { render(inlineFragment: $0.selectionSet) }, separator: "\n\n")"
       })
     \(selections.merged.inlineFragments.values.map { render(inlineFragment: $0) }, separator: "\n\n")
     """    
