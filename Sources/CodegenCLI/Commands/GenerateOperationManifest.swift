@@ -30,27 +30,17 @@ public struct GenerateOperationManifest: ParsableCommand {
     try checkForCLIVersionMismatch(
       with: inputs
     )
-    
-    switch (inputs.string, inputs.path) {
-    case let (.some(string), _):
-      try generateManifest(
-        data: try string.asData(),
-        codegenProvider: codegenProvider
-      )
-    case let (nil, path):
-      try generateManifest(
-        data: try fileManager.unwrappedContents(atPath: path),
-        codegenProvider: codegenProvider
-      )
-    }
+
+    try generateManifest(
+      configuration: inputs.getCodegenConfiguration(fileManager: fileManager),
+      codegenProvider: codegenProvider
+    )    
   }
   
   private func generateManifest(
-    data: Data,
+    configuration: ApolloCodegenConfiguration,
     codegenProvider: CodegenProvider.Type
   ) throws {
-    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-    
     try codegenProvider.generateOperationManifest(
       with: configuration,
       withRootURL: rootOutputURL(for: inputs),

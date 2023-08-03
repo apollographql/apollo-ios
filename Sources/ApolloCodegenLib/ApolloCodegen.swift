@@ -124,7 +124,7 @@ public class ApolloCodegen {
       )
     }
   }
-  
+
   public static func generateOperationManifest(
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL? = nil,
