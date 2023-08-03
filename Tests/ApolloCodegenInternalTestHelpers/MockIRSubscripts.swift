@@ -107,7 +107,7 @@ extension IR.EntityTreeScopeSelections {
   }
 
   public subscript(fragment fragment: String) -> IR.NamedFragmentSpread? {
-    fragments[fragment]
+    namedFragments[fragment]
   }
 }
 
