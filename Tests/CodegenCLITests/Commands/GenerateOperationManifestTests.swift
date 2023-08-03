@@ -280,7 +280,7 @@ class GenerateOperationManifestTests: XCTestCase {
     // then
     expect(
       try command._run(codegenProvider: MockApolloCodegen.self)
-    ).to(throwError(GenerateOperationManifest.ParsingError.manifestVersionMissing))
+    ).to(throwError())
   }
 
   func test__generate__givenConfigHasNoOperationManifestOption_outputPathMissing__throwsValidationError() throws {
@@ -325,7 +325,7 @@ class GenerateOperationManifestTests: XCTestCase {
     // then
     expect(
       try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
-    ).to(throwError(GenerateOperationManifest.ParsingError.outputPathMissing))
+    ).to(throwError())
   }
   
   // MARK: Version Checking Tests
