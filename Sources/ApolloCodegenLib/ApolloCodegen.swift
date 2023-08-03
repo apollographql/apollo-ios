@@ -292,10 +292,10 @@ public class ApolloCodegen {
       )
     }
     
-    var fragments: [IR.NamedFragment] = selectionSet.selections.direct?.fragments.values.map { $0.fragment } ?? []
-    fragments.append(contentsOf: selectionSet.selections.merged.fragments.values.map { $0.fragment })
+    var namedFragments: [IR.NamedFragment] = selectionSet.selections.direct?.namedFragments.values.map(\.fragment) ?? []
+    namedFragments.append(contentsOf: selectionSet.selections.merged.namedFragments.values.map(\.fragment))
     
-    try fragments.forEach { fragment in
+    try namedFragments.forEach { fragment in
       if let existingTypeName = combinedTypeNames[fragment.generatedDefinitionName] {
         throw Error.typeNameConflict(
           name: existingTypeName,
@@ -305,9 +305,9 @@ public class ApolloCodegen {
       }
     }
     
-    // gather nested fragments to loop through and check as well
-    var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.elements ?? []
-    nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values)
+    // gather nested fragments to loop through and check as well    
+    var nestedSelectionSets: [IR.SelectionSet] = selectionSet.selections.direct?.inlineFragments.values.map(\.selectionSet) ?? []
+    nestedSelectionSets.append(contentsOf: selectionSet.selections.merged.inlineFragments.values.map(\.selectionSet))
     
     try nestedSelectionSets.forEach { nestedSet in
       try validateTypeConflicts(

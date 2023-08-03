@@ -34,7 +34,7 @@ extension IR {
     }
 
     private func mergeIn(selections: DirectSelections.ReadOnly, from source: MergedSelections.MergedSource) {
-      guard (!selections.fields.isEmpty || !selections.fragments.isEmpty) else {
+      guard (!selections.fields.isEmpty || !selections.namedFragments.isEmpty) else {
         return
       }
 
@@ -255,7 +255,8 @@ extension IR {
       fileprivate func scopeConditionNode(for condition: ScopeCondition) -> EntityNode {
         let nodeCondition = ScopeCondition(
           type: condition.type == self.type ? nil : condition.type,
-          conditions: condition.conditions
+          conditions: condition.conditions,
+          isDeferred: condition.isDeferred
         )
 
         func createNode() -> EntityNode {
@@ -291,20 +292,20 @@ extension IR {
   class EntityTreeScopeSelections: Equatable {
 
     fileprivate(set) var fields: OrderedDictionary<String, Field> = [:]
-    fileprivate(set) var fragments: OrderedDictionary<String, FragmentSpread> = [:]
+    fileprivate(set) var namedFragments: OrderedDictionary<String, NamedFragmentSpread> = [:]
 
     init() {}
 
     fileprivate init(
       fields: OrderedDictionary<String, Field>,
-      fragments: OrderedDictionary<String, FragmentSpread>
+      namedFragments: OrderedDictionary<String, NamedFragmentSpread>
     ) {
       self.fields = fields
-      self.fragments = fragments
+      self.namedFragments = namedFragments
     }
 
     var isEmpty: Bool {
-      fields.isEmpty && fragments.isEmpty
+      fields.isEmpty && namedFragments.isEmpty
     }
 
     private func mergeIn(_ field: Field) {
@@ -315,27 +316,27 @@ extension IR {
       fields.forEach { mergeIn($0) }
     }
 
-    private func mergeIn(_ fragment: FragmentSpread) {
-      fragments[fragment.hashForSelectionSetScope] = fragment
+    private func mergeIn(_ fragment: NamedFragmentSpread) {
+      namedFragments[fragment.hashForSelectionSetScope] = fragment
     }
 
-    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == FragmentSpread {
+    private func mergeIn<T: Sequence>(_ fragments: T) where T.Element == NamedFragmentSpread {
       fragments.forEach { mergeIn($0) }
     }
 
     func mergeIn(_ selections: DirectSelections.ReadOnly) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.fragments.values)
+      mergeIn(selections.namedFragments.values)
     }
 
     func mergeIn(_ selections: EntityTreeScopeSelections) {
       mergeIn(selections.fields.values)
-      mergeIn(selections.fragments.values)
+      mergeIn(selections.namedFragments.values)
     }
 
     static func == (lhs: IR.EntityTreeScopeSelections, rhs: IR.EntityTreeScopeSelections) -> Bool {
       lhs.fields == rhs.fields &&
-      lhs.fragments == rhs.fragments
+      lhs.namedFragments == rhs.namedFragments
     }
   }
 }
@@ -352,7 +353,7 @@ extension IR.EntitySelectionTree {
   /// programming error and will result in undefined behavior.
   func mergeIn(
     _ otherTree: IR.EntitySelectionTree,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     let otherTreeCount = otherTree.rootTypePath.count
@@ -391,7 +392,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ fragmentTree: IR.EntitySelectionTree,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     with inclusionConditions: AnyOf<IR.InclusionConditions>?,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
@@ -407,7 +408,8 @@ extension IR.EntitySelectionTree.EntityNode {
       for conditionGroup in inclusionConditions.elements {
         let scope = IR.ScopeCondition(
           type: rootTypesMatch ? nil : fragmentType,
-          conditions: conditionGroup
+          conditions: conditionGroup,
+          isDeferred: fragment.isDeferred
         )
         let nextNode = rootNodeToStartMerge.scopeConditionNode(for: scope)
 
@@ -421,7 +423,9 @@ extension IR.EntitySelectionTree.EntityNode {
     } else {
       let nextNode = rootTypesMatch ?
       rootNodeToStartMerge :
-      rootNodeToStartMerge.scopeConditionNode(for: IR.ScopeCondition(type: fragmentType))
+      rootNodeToStartMerge.scopeConditionNode(
+        for: IR.ScopeCondition(type: fragmentType, isDeferred: fragment.isDeferred)
+      )
 
       nextNode.mergeIn(
         fragmentTree.rootNode,
@@ -433,7 +437,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ otherNode: IR.EntitySelectionTree.EntityNode,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     switch otherNode.child {
@@ -470,7 +474,7 @@ extension IR.EntitySelectionTree.EntityNode {
 
   fileprivate func mergeIn(
     _ selections: Selections,
-    from fragment: IR.FragmentSpread,
+    from fragment: IR.NamedFragmentSpread,
     using entityStorage: IR.RootFieldEntityStorage
   ) {
     for (source, selections) in selections {
@@ -501,23 +505,24 @@ extension IR.EntitySelectionTree.EntityNode {
         }
       }
 
-      let fragments = selections.fragments.mapValues { oldFragment -> IR.FragmentSpread in
+      let fragments = selections.namedFragments.mapValues { oldFragment -> IR.NamedFragmentSpread in
         let entity = entityStorage.entity(
           for: oldFragment.typeInfo.entity,
           inFragmentSpreadAtTypePath: fragment.typeInfo
         )
-        return IR.FragmentSpread(
+        return IR.NamedFragmentSpread(
           fragment: oldFragment.fragment,
           typeInfo: IR.SelectionSet.TypeInfo(
             entity: entity,
             scopePath: oldFragment.typeInfo.scopePath
           ),
-          inclusionConditions: oldFragment.inclusionConditions
+          inclusionConditions: oldFragment.inclusionConditions,
+          isDeferred: oldFragment.isDeferred
         )
       }
 
       self.mergeIn(
-        IR.EntityTreeScopeSelections(fields: fields, fragments: fragments),
+        IR.EntityTreeScopeSelections(fields: fields, namedFragments: fragments),
         from: newSource
       )
     }
@@ -577,7 +582,7 @@ extension IR.EntityTreeScopeSelections: CustomDebugStringConvertible {
   var debugDescription: String {
     """
     Fields: \(fields.values.elements)
-    Fragments: \(fragments.values.elements.description)
+    Fragments: \(namedFragments.values.elements.description)
     """
   }
 }
