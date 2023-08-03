@@ -38,31 +38,18 @@ public struct Generate: ParsableCommand {
       with: inputs
     )
 
-    switch (inputs.string, inputs.path) {
-    case let (.some(string), _):
-      try generate(
-        data: try string.asData(),
-        codegenProvider: codegenProvider,
-        schemaDownloadProvider: schemaDownloadProvider
-      )
-
-    case let (nil, path):
-      let data = try fileManager.unwrappedContents(atPath: path)
-      try generate(
-        data: data,
-        codegenProvider: codegenProvider,
-        schemaDownloadProvider: schemaDownloadProvider
-      )
-    }
+    try generate(
+      configuration: inputs.getCodegenConfiguration(fileManager: fileManager),
+      codegenProvider: codegenProvider,
+      schemaDownloadProvider: schemaDownloadProvider
+    )
   }
 
   private func generate(
-    data: Data,
+    configuration: ApolloCodegenConfiguration,
     codegenProvider: CodegenProvider.Type,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-
     if fetchSchema {
       guard
         let schemaDownloadConfiguration = configuration.schemaDownloadConfiguration
