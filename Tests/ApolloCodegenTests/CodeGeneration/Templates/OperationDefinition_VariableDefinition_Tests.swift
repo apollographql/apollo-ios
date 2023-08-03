@@ -506,7 +506,7 @@ class OperationDefinition_VariableDefinition_Tests: XCTestCase {
 
     for test in tests {
       // when
-      buildTemplate(options: .init(conversionStrategies: .init(enumCases: .default)))
+      buildTemplate(options: .init(conversionStrategies: .init(enumCases: .none)))
       let actual = template.VariableParameter(test.variable).description
 
       // then

@@ -46,8 +46,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(
-            enumCases: .default,
-            fieldCasing: .camelCase
+            enumCases: .none,
+            fieldAccessor: .camelCase
           ),
           pruneGeneratedFiles: false
         ),
@@ -94,8 +94,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           ],
           "cocoapodsCompatibleImportStatements" : true,
           "conversionStrategies" : {
-            "enumCases" : "default",
-            "fieldCasing" : "camelCase"
+            "enumCases" : "none",
+            "fieldAccessor" : "camelCase"
           },
           "deprecatedEnumCases" : "exclude",
           "operationDocumentFormat" : [

@@ -2596,7 +2596,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(conversionStrategies: .init(fieldCasing: .camelCase))
+    try buildSubjectAndOperation(conversionStrategies: .init(fieldAccessor: .camelCase))
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
     )
@@ -2632,7 +2632,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     // when
-    try buildSubjectAndOperation(conversionStrategies: .init(fieldCasing: .camelCase))
+    try buildSubjectAndOperation(conversionStrategies: .init(fieldAccessor: .camelCase))
     let allAnimals = try XCTUnwrap(
       operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
     )

@@ -198,7 +198,7 @@ class EnumTemplateTests: XCTestCase {
         ("Protocol", nil, nil),
       ],
       config: .mock(
-        options: .init(conversionStrategies: .init(enumCases: .default))
+        options: .init(conversionStrategies: .init(enumCases: .none))
       )
     )
 
