@@ -10,32 +10,7 @@ public struct GenerateOperationManifest: ParsableCommand {
     abstract: "Generate Persisted Queries operation manifest based on a code generation configuration."
   )
 
-  struct OutputOptions: ParsableArguments {
-    @Option(
-      name: .shortAndLong,
-      help: """
-      Output the operation manifest to the given path. This overrides the value of the \
-      `output.operationManifest.path` in your configuration.
-      
-      **If the `output.operationManifest` is not included in your configuration, this is required.**
-      """
-    )
-    var outputPath: String?
-    
-    @Option(
-      name: .long,
-      help: """
-      The version for the operation manifest format to generate. This overrides the value of the \
-      `output.operationManifest.path` in your configuration.
-      
-      **If the `output.operationManifest` is not included in your configuration, this is required.**
-      """
-    )
-    var manifestVersion: ApolloCodegenConfiguration.OperationManifestFileOutput.Version?
-  }
-
   @OptionGroup var inputs: InputOptions
-  @OptionGroup var outputOptions: OutputOptions
 
   // MARK: - Implementation
   
@@ -52,17 +27,9 @@ public struct GenerateOperationManifest: ParsableCommand {
   ) throws {
     logger.SetLoggingLevel(verbose: inputs.verbose)
 
-    var configuration = try inputs.getCodegenConfiguration(fileManager: fileManager)
+    let configuration = try inputs.getCodegenConfiguration(fileManager: fileManager)
 
     try validate(configuration: configuration)
-
-    if let outputPath = outputOptions.outputPath,
-       let manifestVersion = outputOptions.manifestVersion {
-      configuration.output.operationManifest = .init(
-        path: outputPath,
-        version: manifestVersion
-      )
-    }
 
     try generateManifest(
       configuration: configuration,
@@ -74,10 +41,10 @@ public struct GenerateOperationManifest: ParsableCommand {
     configuration: ApolloCodegenConfiguration,
     codegenProvider: CodegenProvider.Type
   ) throws {
-    try codegenProvider.generateOperationManifest(
+    try codegenProvider.build(
       with: configuration,
       withRootURL: rootOutputURL(for: inputs),
-      fileManager: .default
+      buildOptions: [.operationManifest]
     )
   }
 
@@ -86,26 +53,18 @@ public struct GenerateOperationManifest: ParsableCommand {
   func validate(configuration: ApolloCodegenConfiguration) throws {
     try checkForCLIVersionMismatch(with: inputs)
 
-    if configuration.output.operationManifest == nil {
-      guard outputOptions.outputPath != nil else {
-        throw ValidationError("""
-            `manifest-version` argument missing. When `output-path` is used, `manifest-version` \
-            must also be present.
-            """)
-      }
+    guard let operationManifestConfiguration = configuration.operationManifestConfiguration else {
+      throw ValidationError("""
+          `operationManifestConfiguration` section must be set in the codegen configuration JSON in order
+          to generate and operation manifest.
+          """)
     }
-
-    if outputOptions.outputPath != nil {
-      guard outputOptions.manifestVersion != nil else {
-        throw ValidationError("""
-            No output path for operation manifest found. You must either provide the `output-path` \
-            argument or your codegen configuration must have a value present for the \
-            `output.operationManifest` option.
-            """)
-      }
+    
+    if operationManifestConfiguration.operationManifest == nil {
+      throw ValidationError("""
+          `operationManifest` option missing from codegen configuration JSON section `operationManifestConfiguration`.
+          """)
     }
   }
   
 }
-
-extension ApolloCodegenConfiguration.OperationManifestFileOutput.Version: ExpressibleByArgument {}

@@ -14,10 +14,14 @@ extension ApolloCodegenConfiguration {
     /// How to generate the operation documents for your generated operations.
     public let operationDocumentFormat: OperationDocumentFormat
     
+    /// If set to `true` will generate the operation manfiest every time code generation is run. Defaults to `false`
+    public let autoGenerate: Bool
+    
     /// Default property values
     public struct Default {
       public static let operationManifest: OperationManifestFileOutput? = nil
       public static let operationDocumentFormat: OperationDocumentFormat = .definition
+      public static let autoGenerate: Bool = false
     }
     
     // MARK: - Initializers
@@ -29,10 +33,12 @@ extension ApolloCodegenConfiguration {
     ///   - operationDocumentFormat: The `OperationDocumentFormat` used to determine how to output operations in the generated code files.
     public init(
       operationManifest: OperationManifestFileOutput? = Default.operationManifest,
-      operationDocumentFormat: OperationDocumentFormat = Default.operationDocumentFormat
+      operationDocumentFormat: OperationDocumentFormat = Default.operationDocumentFormat,
+      autoGenerate: Bool = Default.autoGenerate
     ) {
       self.operationManifest = operationManifest
       self.operationDocumentFormat = operationDocumentFormat
+      self.autoGenerate = autoGenerate
     }
     
     // MARK: - Codable
@@ -40,6 +46,7 @@ extension ApolloCodegenConfiguration {
     enum CodingKeys: CodingKey, CaseIterable {
       case operationManifest
       case operationDocumentFormat
+      case autoGenerate
     }
     
     public init(from decoder: Decoder) throws {
@@ -59,6 +66,11 @@ extension ApolloCodegenConfiguration {
         OperationDocumentFormat.self,
         forKey: .operationDocumentFormat
       )
+      
+      autoGenerate = try values.decode(
+        Bool.self,
+        forKey: .autoGenerate
+      )
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -66,6 +78,7 @@ extension ApolloCodegenConfiguration {
       
       try container.encode(self.operationManifest, forKey: .operationManifest)
       try container.encode(self.operationDocumentFormat, forKey: .operationDocumentFormat)
+      try container.encode(self.autoGenerate, forKey: .autoGenerate)
     }
     
     // MARK: - OperationManifestFileOutput
@@ -80,9 +93,9 @@ extension ApolloCodegenConfiguration {
     /// Defaults to `nil`.
     public struct OperationManifestFileOutput: Codable, Equatable {
       /// Local path where the generated operation manifest file should be written.
-      let path: String
+      public let path: String
       /// The version format to use when generating the operation manifest. Defaults to `.persistedQueries`.
-      let version: Version
+      public let version: Version
 
       public enum Version: String, Codable, Equatable {
         /// Generates an operation manifest for use with persisted queries.

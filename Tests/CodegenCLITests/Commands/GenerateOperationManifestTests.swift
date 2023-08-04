@@ -3,7 +3,6 @@ import Nimble
 import ApolloInternalTestHelpers
 @testable import CodegenCLI
 import ApolloCodegenLib
-@testable import ArgumentParser
 
 class GenerateOperationManifestTests: XCTestCase {
 
@@ -48,7 +47,7 @@ class GenerateOperationManifestTests: XCTestCase {
     }))
 
     var didCallBuild = false
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in
+    MockApolloCodegen.buildHandler = { configuration in
       expect(configuration).to(equal(mockConfiguration))
 
       didCallBuild = true
@@ -77,7 +76,7 @@ class GenerateOperationManifestTests: XCTestCase {
     ]
 
     var didCallBuild = false
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in
+    MockApolloCodegen.buildHandler = { configuration in
       expect(configuration).to(equal(mockConfiguration))
 
       didCallBuild = true
@@ -107,7 +106,7 @@ class GenerateOperationManifestTests: XCTestCase {
     ]
 
     var didCallBuild = false
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in
+    MockApolloCodegen.buildHandler = { configuration in
       expect(configuration).to(equal(mockConfiguration))
 
       didCallBuild = true
@@ -135,7 +134,7 @@ class GenerateOperationManifestTests: XCTestCase {
       "--string=\(jsonString)"
     ]
 
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in }
+    MockApolloCodegen.buildHandler = { configuration in }
     MockApolloSchemaDownloader.fetchHandler = { configuration in }
 
     var level: CodegenLogger.LogLevel?
@@ -169,7 +168,7 @@ class GenerateOperationManifestTests: XCTestCase {
       "--verbose"
     ]
 
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in }
+    MockApolloCodegen.buildHandler = { configuration in }
     MockApolloSchemaDownloader.fetchHandler = { configuration in }
 
     var level: CodegenLogger.LogLevel?
@@ -188,145 +187,6 @@ class GenerateOperationManifestTests: XCTestCase {
     // then
     expect(level).toEventually(equal(.debug))
   }
-
-  func test__generate__givenParameters_outputPathAndManifestVersion_configHasOperationManifestOption__overridesOperationManifestInConfiguration() throws {
-    // given
-    let inputPath = "./config.json"
-    let outputPath = "./operationManifest.json"
-
-    let options = [
-      "--path=\(inputPath)",
-      "--output-path=\(outputPath)",
-      "--manifest-version=persistedQueries"
-    ]
-
-    var didCallGenerate = false
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in
-      let actual = configuration.output.operationManifest
-      expect(actual?.path).to(equal(outputPath))
-      expect(actual?.version).to(equal(.persistedQueries))
-
-      didCallGenerate = true
-    }
-
-    let mockFileManager = MockApolloFileManager(strict: true)
-
-    mockFileManager.mock(closure: .contents({ path in
-      return try! JSONEncoder().encode(ApolloCodegenConfiguration.mock())
-    }))
-
-    // when
-    let command = try parse(options)
-    try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
-
-    // then
-    expect(didCallGenerate).to(beTrue())
-  }
-
-  func test__generate__givenParameters_manifestVersion_legacyAPQs__overridesOperationManifestInConfiguration() throws {
-    // given
-    let inputPath = "./config.json"
-    let outputPath = "./operationManifest.json"
-
-    let options = [
-      "--path=\(inputPath)",
-      "--output-path=\(outputPath)",
-      "--manifest-version=legacyAPQ"
-    ]
-
-    var didCallGenerate = false
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in
-      let actual = configuration.output.operationManifest
-      expect(actual?.path).to(equal(outputPath))
-      expect(actual?.version).to(equal(.legacyAPQ))
-
-      didCallGenerate = true
-    }
-
-    let mockFileManager = MockApolloFileManager(strict: true)
-
-    mockFileManager.mock(closure: .contents({ path in
-      return try! JSONEncoder().encode(ApolloCodegenConfiguration.mock())
-    }))
-
-    // when
-    let command = try parse(options)
-    try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
-
-    // then
-    expect(didCallGenerate).to(beTrue())
-  }
-
-  // MARK: Argument Validation Tests
-
-  func test__generate__givenParameters_outputPath_noManifestVersion_throwsValidationError() throws {
-    // given
-    let mockConfiguration = ApolloCodegenConfiguration.mock()
-
-    let jsonString = String(
-      data: try! JSONEncoder().encode(mockConfiguration),
-      encoding: .utf8
-    )!
-
-
-    let options = [
-      "--output-path=./operationManifest.json",
-      "--string=\(jsonString)"
-    ]
-
-    // when
-    let command = try parse(options)
-
-    // then
-    expect(
-      try command._run(codegenProvider: MockApolloCodegen.self)
-    ).to(throwError())
-  }
-
-  func test__generate__givenConfigHasNoOperationManifestOption_outputPathMissing__throwsValidationError() throws {
-    // given
-    let inputPath = "./config.json"
-
-    let options = [
-      "--path=\(inputPath)"
-    ]
-
-    let mockConfiguration = ApolloCodegenConfiguration(
-      schemaNamespace: "MockSchema",
-      input: .init(
-        schemaPath: "./schema.graphqls"
-      ),
-      output: .init(
-        schemaTypes: .init(path: ".", moduleType: .swiftPackageManager)
-      ),
-      options: .init(
-        operationDocumentFormat: [.definition, .operationId]
-      ),
-      schemaDownloadConfiguration: .init(
-        using: .introspection(endpointURL: URL(string: "http://some.server")!),
-        outputPath: "./schema.graphqls"
-      )
-    )
-
-    let mockFileManager = MockApolloFileManager(strict: true)
-
-    mockFileManager.mock(closure: .contents({ path in
-      let actualPath = URL(fileURLWithPath: path).standardizedFileURL.path
-      let expectedPath = URL(fileURLWithPath: inputPath).standardizedFileURL.path
-
-      expect(actualPath).to(equal(expectedPath))
-
-      return try! JSONEncoder().encode(mockConfiguration)
-    }))
-
-    // when
-    let command = try parse(options)
-
-    // then
-    expect(
-      try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
-    ).to(throwError())
-  }
   
   // MARK: Version Checking Tests
 
@@ -344,7 +204,7 @@ class GenerateOperationManifestTests: XCTestCase {
       "--verbose"
     ]
 
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in }
+    MockApolloCodegen.buildHandler = { configuration in }
     MockApolloSchemaDownloader.fetchHandler = { configuration in }
 
     try self.testIsolatedFileManager().createFile(
@@ -393,7 +253,7 @@ class GenerateOperationManifestTests: XCTestCase {
       "--ignore-version-mismatch"
     ]
 
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in }
+    MockApolloCodegen.buildHandler = { configuration in }
     MockApolloSchemaDownloader.fetchHandler = { configuration in }
 
     try self.testIsolatedFileManager().createFile(
@@ -441,7 +301,7 @@ class GenerateOperationManifestTests: XCTestCase {
       "--verbose"
     ]
 
-    MockApolloCodegen.generateOperationManifestHandler = { configuration in }
+    MockApolloCodegen.buildHandler = { configuration in }
     MockApolloSchemaDownloader.fetchHandler = { configuration in }
 
     // when

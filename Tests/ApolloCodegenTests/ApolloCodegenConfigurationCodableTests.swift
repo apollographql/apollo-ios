@@ -54,7 +54,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         ),
         operationManifestConfiguration: .init(
           operationManifest: .init(path: "/operation/identifiers/path"),
-          operationDocumentFormat: .definition
+          operationDocumentFormat: .definition,
+          autoGenerate: false
         )
       )
     }
@@ -75,6 +76,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           ]
         },
         "operationManifestConfiguration" : {
+          "autoGenerate" : false,
           "operationDocumentFormat" : [
             "definition"
           ],

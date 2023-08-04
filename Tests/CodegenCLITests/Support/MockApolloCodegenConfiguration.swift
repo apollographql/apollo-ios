@@ -9,15 +9,17 @@ extension ApolloCodegenConfiguration {
         schemaPath: "./schema.graphqls"
       ),
       output: .init(
-        schemaTypes: .init(path: ".", moduleType: .swiftPackageManager),
-        operationManifest: .init(path: "./manifest", version: .persistedQueries)
+        schemaTypes: .init(path: ".", moduleType: .swiftPackageManager)
       ),
-      options: .init(
-        operationDocumentFormat: [.definition, .operationId]
-      ),
+      options: .init(),
       schemaDownloadConfiguration: .init(
         using: .introspection(endpointURL: URL(string: "http://some.server")!),
         outputPath: "./schema.graphqls"
+      ),
+      operationManifestConfiguration: .init(
+        operationManifest: .init(path: "./manifest", version: .persistedQueries),
+        operationDocumentFormat: [.definition, .operationId],
+        autoGenerate: false
       )
     )
   }

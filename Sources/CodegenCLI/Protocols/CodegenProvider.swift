@@ -5,13 +5,8 @@ import ApolloCodegenLib
 public protocol CodegenProvider {
   static func build(
     with configuration: ApolloCodegenConfiguration,
-    withRootURL rootURL: URL?
-  ) throws
-  
-  static func generateOperationManifest(
-    with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL?,
-    fileManager: ApolloFileManager
+    buildOptions: ApolloCodegen.CodeGenerationBuildOptions
   ) throws
 }
 
