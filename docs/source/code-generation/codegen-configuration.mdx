@@ -407,6 +407,7 @@ The top-level properties are:
 | [`deprecatedEnumCases`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/deprecatedenumcases) | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`schemaDocumentation`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/schemadocumentation) | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
 | [`selectionSetInitializers`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/selectionsetinitializers) | Generate initializers for your generated selection set models. |
+| [`operationDocumentFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/operationdocumentformat) | How to generate the operation documents for your generated operations. This can be used to generate operation identifiers for use with a server that supports [Persisted Queries or Automatic Persisted Queries](./../fetching/persisted-queries) |
 | [`cocoapodsCompatibleImportStatements`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/cocoapodscompatibleimportstatements) | Generate import statements that are compatible with including `Apollo` via Cocoapods. |
 | [`warningsOnDeprecatedUsage`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/warningsondeprecatedusage) | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`conversionStrategies`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/conversionstrategies) | Rules for how to convert the names of values from the schema in generated code. |
@@ -434,6 +435,7 @@ The top-level properties are:
 			"MyFragment"
 		]
 	},
+    "operationDocumentFormat" : ["definition", "operationId"],
 	"cocoapodsCompatibleImportStatements": false,
 	"warningsOnDeprecatedUsage": "include",
 	"conversionStrategies": {
@@ -635,22 +637,32 @@ Optional settings used to configure the usage of [Persisted Queries or Automatic
 
 | Property Name | Description |
 | ------------- | ----------- |
-| [`operationManifest`](#operation-manifest) | Configures the generation of an operation manifest JSON file for use with [Persisted Queries or Automatic Persisted Queries](./../fetching/persisted-queries) or Automatic Persisted Queries. |
-| [`operationDocumentFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestconfiguration/operationdocumentformat) | How to generate the operation documents for your generated operations. This can be used to generate operation identifiers for use with a server that supports [Persisted Queries or Automatic Persisted Queries](./../fetching/persisted-queries) |
-| [`autoGenerate`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestconfiguration/autogenerate) | Whether or not the operation manifest should be generated every time code generation is run. Defaults to false. |
+| `path` | Local path where the generated operation manifest file should be written. |
+| [`version`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestfileoutput/version) | The version format to use when generating the operation manifest. |
+| [`generateManifestOnCodeGeneration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestconfiguration/autogenerate) | Whether or not the operation manifest should be generated every time code generation is run. Defaults to false. |
+
+<MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
 "operationManifestConfiguration" : {
-  "autoGenerate" : false,
-  "operationDocumentFormat" : [
-    "definition"
-  ],
-  "operationManifest" : {
-    "path" : "/operation/identifiers/path",
-    "version" : "persistedQueries"
-  }
+  "generateManifestOnCodeGeneration" : false,
+  "path" : "/operation/identifiers/path",
+  "version" : "persistedQueries"
 }
 ```
+
+```swift title="Swift Codegen Setup"
+let configuration = ApolloCodegenConfiguration(
+    // Other properties not shown
+    operationManifestConfiguration: .init(
+        path: "./manifest/operationManifest.json",
+        version: .persistedQueries,
+        generateManifestOnCodeGeneration: false
+    )
+)
+```
+
+</MultiCodeBlock>
 
 ### Operation Manifest
 

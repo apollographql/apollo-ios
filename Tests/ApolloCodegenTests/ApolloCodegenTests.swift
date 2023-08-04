@@ -1184,7 +1184,7 @@ class ApolloCodegenTests: XCTestCase {
       options: .init(pruneGeneratedFiles: false)
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beTrue())
@@ -1241,7 +1241,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
@@ -1295,7 +1295,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
@@ -1364,7 +1364,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
@@ -1437,7 +1437,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beFalse())
@@ -1495,13 +1495,13 @@ class ApolloCodegenTests: XCTestCase {
     // then
     
     // running codegen multiple times to validate symlink related file creation/deletion bug
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
     expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
     
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
     expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
     
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
     expect(ApolloFileManager.default.doesFileExist(atPath: fileValidationPath)).to(beTrue())
 
   }
@@ -1586,7 +1586,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
@@ -1694,7 +1694,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
@@ -1796,7 +1796,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testGeneratedFileInRootPath)).to(beTrue())
@@ -1861,7 +1861,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testFile)).to(beFalse())
@@ -1917,7 +1917,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())
@@ -1975,7 +1975,7 @@ class ApolloCodegenTests: XCTestCase {
       )
     )
 
-    try ApolloCodegen.build(with: config, rootURL: directoryURL)
+    try ApolloCodegen.build(with: config, withRootURL: directoryURL)
 
     // then
     expect(ApolloFileManager.default.doesFileExist(atPath: testInTestMocksFolderFile)).to(beFalse())

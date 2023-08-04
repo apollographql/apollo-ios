@@ -204,7 +204,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case schemaTypes
       case operations
       case testMocks
-      case operationManifest
       case operationIdentifiersPath
     }
 
@@ -466,6 +465,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let schemaDocumentation: Composition
     /// Which generated selection sets should include generated initializers.
     public let selectionSetInitializers: SelectionSetInitializers
+    /// How to generate the operation documents for your generated operations.
+    public let operationDocumentFormat: OperationDocumentFormat
     /// Generate import statements that are compatible with including `Apollo` via Cocoapods.
     ///
     /// Cocoapods bundles all files from subspecs into the main target for a pod. This means that
@@ -502,10 +503,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     ///  Defaults to `true`.
     public let pruneGeneratedFiles: Bool
-    
-    /// This var helps maintain backwards compatibility with legacy APQ config with the new
-    /// `OperationManifestConfiguration` and will be fully removed in v2.0
-    fileprivate let apqConfig: APQConfig?
 
     /// Default property values
     public struct Default {
@@ -513,6 +510,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let deprecatedEnumCases: Composition = .include
       public static let schemaDocumentation: Composition = .include
       public static let selectionSetInitializers: SelectionSetInitializers = [.localCacheMutations]
+      public static let operationDocumentFormat: OperationDocumentFormat = .definition
       public static let cocoapodsCompatibleImportStatements: Bool = false
       public static let warningsOnDeprecatedUsage: Composition = .include
       public static let conversionStrategies: ConversionStrategies = .init()
@@ -542,6 +540,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
       schemaDocumentation: Composition = Default.schemaDocumentation,
       selectionSetInitializers: SelectionSetInitializers = Default.selectionSetInitializers,
+      operationDocumentFormat: OperationDocumentFormat = Default.operationDocumentFormat,
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
       conversionStrategies: ConversionStrategies = Default.conversionStrategies,
@@ -551,11 +550,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.selectionSetInitializers = selectionSetInitializers
+      self.operationDocumentFormat = operationDocumentFormat
       self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
       self.conversionStrategies = conversionStrategies
       self.pruneGeneratedFiles = pruneGeneratedFiles
-      self.apqConfig = nil
     }
 
     // MARK: Codable
@@ -598,10 +597,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         forKey: .selectionSetInitializers
       ) ?? Default.selectionSetInitializers
 
-      apqConfig = try values.decodeIfPresent(
+      operationDocumentFormat = try values.decodeIfPresent(
+        OperationDocumentFormat.self,
+        forKey: .operationDocumentFormat
+      ) ??
+      values.decodeIfPresent(
         APQConfig.self,
         forKey: .apqs
-      )
+      )?.operationDocumentFormat ??
+      Default.operationDocumentFormat
 
       cocoapodsCompatibleImportStatements = try values.decodeIfPresent(
         Bool.self,
@@ -631,6 +635,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       try container.encode(self.deprecatedEnumCases, forKey: .deprecatedEnumCases)
       try container.encode(self.schemaDocumentation, forKey: .schemaDocumentation)
       try container.encode(self.selectionSetInitializers, forKey: .selectionSetInitializers)
+      try container.encode(self.operationDocumentFormat, forKey: .operationDocumentFormat)
       try container.encode(self.cocoapodsCompatibleImportStatements, forKey: .cocoapodsCompatibleImportStatements)
       try container.encode(self.warningsOnDeprecatedUsage, forKey: .warningsOnDeprecatedUsage)
       try container.encode(self.conversionStrategies, forKey: .conversionStrategies)
@@ -693,6 +698,62 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         CaseConversionStrategy.self,
         forKey: .enumCases
       ) ?? Default.enumCases
+    }
+  }
+  
+  // MARK: - OperationDocumentFormat
+  
+  public struct OperationDocumentFormat: OptionSet, Codable, Equatable {
+    /// Include the GraphQL source document for the operation in the generated operation models.
+    public static let definition = Self(rawValue: 1)
+    /// Include the computed operation identifier hash for use with persisted queries
+    /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
+    public static let operationId = Self(rawValue: 1 << 1)
+
+    public var rawValue: UInt8
+    public init(rawValue: UInt8) {
+      self.rawValue = rawValue
+    }
+
+    // MARK: Codable
+
+    public enum CodingKeys: String, CodingKey {
+      case definition
+      case operationId
+    }
+
+    public init(from decoder: Decoder) throws {
+      self = OperationDocumentFormat(rawValue: 0)
+
+      var container = try decoder.unkeyedContainer()
+      while !container.isAtEnd {
+        let value = try container.decode(String.self)
+        switch CodingKeys(rawValue: value) {
+        case .definition:
+          self.insert(.definition)
+        case .operationId:
+          self.insert(.operationId)
+        default: continue
+        }
+      }
+      guard self.rawValue != 0 else {
+        throw DecodingError.valueNotFound(
+          OperationDocumentFormat.self,
+          .init(codingPath: [
+            ApolloCodegenConfiguration.CodingKeys.options,
+            OutputOptions.CodingKeys.operationDocumentFormat
+          ], debugDescription: "operationDocumentFormat configuration cannot be empty."))
+      }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+      var container = encoder.unkeyedContainer()
+      if self.contains(.definition) {
+        try container.encode(CodingKeys.definition.rawValue)
+      }
+      if self.contains(.operationId) {
+        try container.encode(CodingKeys.operationId.rawValue)
+      }
     }
   }
   
@@ -948,11 +1009,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     
     var operationManifestConfiguration = try values.decodeIfPresent(OperationManifestConfiguration.self, forKey: .operationManifestConfiguration)
     if operationManifestConfiguration == nil {
-      if let operationIDsPath = fileOutput.operationIDsPath,
-         let apqFormat = options.apqConfig?.operationDocumentFormat {
+      if let operationIDsPath = fileOutput.operationIDsPath {
         operationManifestConfiguration = OperationManifestConfiguration(
-          operationManifest: .init(path: operationIDsPath, version: .legacyAPQ),
-          operationDocumentFormat: apqFormat
+          path: operationIDsPath,
+          version: .legacyAPQ
         )
       }
     }
@@ -1163,7 +1223,7 @@ extension ApolloCodegenConfiguration {
     @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
     case persistedOperationsOnly
 
-    var operationDocumentFormat: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat {
+    var operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat {
       switch self {
       case .disabled:
         return .definition
@@ -1245,7 +1305,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.selectionSetInitializers = selectionSetInitializers
-    self.apqConfig = apqs
+    self.operationDocumentFormat = apqs.operationDocumentFormat
     self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
     self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     self.conversionStrategies = conversionStrategies
@@ -1281,7 +1341,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
     deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
     schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
     selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
-    operationDocumentFormat: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat = ApolloCodegenConfiguration.OperationManifestConfiguration.Default.operationDocumentFormat,
+    operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat = Default.operationDocumentFormat,
     cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
     conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
@@ -1291,29 +1351,29 @@ extension ApolloCodegenConfiguration.OutputOptions {
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.selectionSetInitializers = selectionSetInitializers
+    self.operationDocumentFormat = operationDocumentFormat
     self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
     self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     self.conversionStrategies = conversionStrategies
     self.pruneGeneratedFiles = pruneGeneratedFiles
-    
-    switch operationDocumentFormat {
-    case .definition:
-      apqConfig = .disabled
-    case [.definition, .operationId]:
-      apqConfig = .automaticallyPersist
-    case .operationId:
-      apqConfig = .persistedOperationsOnly
-    default:
-      apqConfig = .disabled
-    }
-    
   }
 
   /// Whether the generated operations should use Automatic Persisted Queries.
   ///
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
-  public var apqs: ApolloCodegenConfiguration.APQConfig { apqConfig ?? .disabled }
+  public var apqs: ApolloCodegenConfiguration.APQConfig {
+      switch self.operationDocumentFormat {
+      case .definition:
+        return .disabled
+      case .operationId:
+        return .persistedOperationsOnly
+      case [.operationId, .definition]:
+        return .automaticallyPersist
+      default:
+        return .disabled
+      }
+    }
   
   /// Formatting of the GraphQL query string literal that is included in each
   /// generated operation object.

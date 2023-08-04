@@ -15,7 +15,7 @@ extension ApolloCodegenConfiguration {
     ),
     options: OutputOptions = .init(schemaDocumentation: .exclude),
     experimentalFeatures: ExperimentalFeatures = .init(),
-    operationManifestConfiguration: OperationManifestConfiguration = .init(operationDocumentFormat: [.definition])
+    operationManifestConfiguration: OperationManifestConfiguration? = nil
   ) -> Self {
     .init(
       schemaNamespace: schemaNamespace,

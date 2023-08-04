@@ -22,9 +22,9 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   private func buildSubject(
     path: String? = nil,
-    version: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationManifestFileOutput.Version = .legacyAPQ
+    version: ApolloCodegenConfiguration.OperationManifestConfiguration.Version = .legacyAPQ
   ) throws {
-    let manifest: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationManifestFileOutput? = {
+    let manifest: ApolloCodegenConfiguration.OperationManifestConfiguration? = {
       guard let path else { return nil }
       return .init(path: path, version: version)
     }()
@@ -34,9 +34,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
         output: .init(
           schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
         ),
-        operationManifestConfiguration: .init(
-          operationManifest: manifest
-        )
+        operationManifestConfiguration: manifest
       ))
     ).xctUnwrapped()
   }
@@ -50,7 +48,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
         schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
       ),
       operationManifestConfiguration: .init(
-        operationManifest: .init(path: "a/file/path")
+        path: "a/file/path"
       )
     )
 
@@ -67,9 +65,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
       output: .init(
         schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
       ),
-      operationManifestConfiguration: .init(
-        operationManifest: nil
-      )
+      operationManifestConfiguration: nil
     )
 
     // when

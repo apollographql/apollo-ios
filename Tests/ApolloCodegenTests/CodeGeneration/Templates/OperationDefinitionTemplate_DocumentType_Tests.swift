@@ -27,15 +27,15 @@ class OperationDefinitionTemplate_DocumentType_Tests: XCTestCase {
   func buildConfig(
     moduleType: ApolloCodegenConfiguration.SchemaTypesFileOutput.ModuleType = .swiftPackageManager,
     operations: ApolloCodegenConfiguration.OperationsFileOutput = .inSchemaModule,
-    operationDocumentFormat: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat = .definition,
+    operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat = .definition,
     cocoapodsCompatibleImportStatements: Bool = false
   ) {
     config = .mock(
       output: .mock(moduleType: moduleType, operations: operations),
       options: .init(
+        operationDocumentFormat: operationDocumentFormat,
         cocoapodsCompatibleImportStatements: cocoapodsCompatibleImportStatements
-      ),
-      operationManifestConfiguration: .init(operationDocumentFormat: operationDocumentFormat)
+      )
     )
   }
 

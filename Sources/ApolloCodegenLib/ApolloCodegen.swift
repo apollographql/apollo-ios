@@ -96,14 +96,14 @@ public class ApolloCodegen {
     withRootURL rootURL: URL? = nil,
     buildOptions: CodeGenerationBuildOptions = [.code]
   ) throws {
-    try build(with: configuration, rootURL: rootURL)
+    try build(with: configuration, rootURL: rootURL, buildOptions: buildOptions)
   }
 
   internal static func build(
     with configuration: ApolloCodegenConfiguration,
     rootURL: URL? = nil,
     fileManager: ApolloFileManager = .default,
-    buildOptions: CodeGenerationBuildOptions = [.code]
+    buildOptions: CodeGenerationBuildOptions
   ) throws {
 
     let configContext = ConfigurationContext(
@@ -126,8 +126,10 @@ public class ApolloCodegen {
       var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
       
       for operation in compilationResult.operations {
-        let irOperation = ir.build(operation: operation)
-        operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        autoreleasepool {
+          let irOperation = ir.build(operation: operation)
+          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        }
       }
       
       try operationIDsFileGenerator?.generate(fileManager: fileManager)
@@ -144,7 +146,8 @@ public class ApolloCodegen {
         compilationResult: compilationResult,
         ir: ir,
         config: configContext,
-        fileManager: fileManager
+        fileManager: fileManager,
+        buildOptions: buildOptions
       )
 
       if configuration.options.pruneGeneratedFiles {
@@ -411,7 +414,8 @@ public class ApolloCodegen {
     compilationResult: CompilationResult,
     ir: IR,
     config: ConfigurationContext,
-    fileManager: ApolloFileManager = .default
+    fileManager: ApolloFileManager = .default,
+    buildOptions: CodeGenerationBuildOptions
   ) throws {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
@@ -431,11 +435,15 @@ public class ApolloCodegen {
         try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
-        operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        if buildOptions.contains(.operationManifest) {
+          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        }
       }
     }
 
-    try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    if buildOptions.contains(.operationManifest) {
+      try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    }
     operationIDsFileGenerator = nil
 
     for graphQLObject in ir.schema.referencedTypes.objects {
