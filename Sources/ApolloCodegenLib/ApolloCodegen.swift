@@ -68,14 +68,14 @@ public class ApolloCodegen {
     }
   }
   
-  public struct CodeGenerationBuildOptions: OptionSet {
+  public struct ItemsToGenerate: OptionSet {
     public var rawValue: Int
     
-    public static let code = CodeGenerationBuildOptions(rawValue: 1 << 0)
-    public static let operationManifest = CodeGenerationBuildOptions(rawValue: 1 << 1)
+    public static let code = ItemsToGenerate(rawValue: 1 << 0)
+    public static let operationManifest = ItemsToGenerate(rawValue: 1 << 1)
     public static let all = [
-      CodeGenerationBuildOptions.code,
-      CodeGenerationBuildOptions.operationManifest
+      ItemsToGenerate.code,
+      ItemsToGenerate.operationManifest
     ]
     
     public init(rawValue: Int) {
@@ -94,16 +94,16 @@ public class ApolloCodegen {
   public static func build(
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL? = nil,
-    buildOptions: CodeGenerationBuildOptions = [.code]
+    itemsToGenerate: ItemsToGenerate = [.code]
   ) throws {
-    try build(with: configuration, rootURL: rootURL, buildOptions: buildOptions)
+    try build(with: configuration, rootURL: rootURL, itemsToGenerate: itemsToGenerate)
   }
 
   internal static func build(
     with configuration: ApolloCodegenConfiguration,
     rootURL: URL? = nil,
     fileManager: ApolloFileManager = .default,
-    buildOptions: CodeGenerationBuildOptions
+    itemsToGenerate: ItemsToGenerate
   ) throws {
 
     let configContext = ConfigurationContext(
@@ -122,7 +122,7 @@ public class ApolloCodegen {
 
     let ir = IR(compilationResult: compilationResult)
     
-    if buildOptions.contains(.operationManifest) {
+    if itemsToGenerate.contains(.operationManifest) {
       var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
       
       for operation in compilationResult.operations {
@@ -135,7 +135,7 @@ public class ApolloCodegen {
       try operationIDsFileGenerator?.generate(fileManager: fileManager)
     }
 
-    if buildOptions.contains(.code) {
+    if itemsToGenerate.contains(.code) {
       var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
       try findExistingGeneratedFilePaths(
         config: configContext,
@@ -147,7 +147,7 @@ public class ApolloCodegen {
         ir: ir,
         config: configContext,
         fileManager: fileManager,
-        buildOptions: buildOptions
+        itemsToGenerate: itemsToGenerate
       )
 
       if configuration.options.pruneGeneratedFiles {
@@ -415,7 +415,7 @@ public class ApolloCodegen {
     ir: IR,
     config: ConfigurationContext,
     fileManager: ApolloFileManager = .default,
-    buildOptions: CodeGenerationBuildOptions
+    itemsToGenerate: ItemsToGenerate
   ) throws {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
@@ -435,13 +435,13 @@ public class ApolloCodegen {
         try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
-        if buildOptions.contains(.operationManifest) {
+        if itemsToGenerate.contains(.operationManifest) {
           operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
         }
       }
     }
 
-    if buildOptions.contains(.operationManifest) {
+    if itemsToGenerate.contains(.operationManifest) {
       try operationIDsFileGenerator?.generate(fileManager: fileManager)
     }
     operationIDsFileGenerator = nil

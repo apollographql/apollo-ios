@@ -671,7 +671,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then
@@ -768,7 +769,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then
@@ -871,7 +873,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then
@@ -935,7 +938,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then
@@ -1037,7 +1041,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then
@@ -1137,7 +1142,8 @@ class ApolloCodegenTests: XCTestCase {
       compilationResult: compilationResult,
       ir: ir,
       config: config,
-      fileManager: fileManager
+      fileManager: fileManager,
+      itemsToGenerate: [.code]
     )
 
     // then

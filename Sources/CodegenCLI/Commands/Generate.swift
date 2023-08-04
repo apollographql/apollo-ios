@@ -66,12 +66,12 @@ public struct Generate: ParsableCommand {
         schemaDownloadProvider: schemaDownloadProvider
       )
     }
-    let buildOptions: ApolloCodegen.CodeGenerationBuildOptions = (configuration.operationManifestConfiguration?.generateManifestOnCodeGeneration ?? false) ? [.code, .operationManifest] : [.code]
+    let itemsToGenerate: ApolloCodegen.ItemsToGenerate = (configuration.operationManifestConfiguration?.generateManifestOnCodeGeneration ?? false) ? [.code, .operationManifest] : [.code]
 
     try codegenProvider.build(
       with: configuration,
       withRootURL: rootOutputURL(for: inputs),
-      buildOptions: buildOptions
+      itemsToGenerate: itemsToGenerate
     )
   }
 
