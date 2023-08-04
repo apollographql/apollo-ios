@@ -204,7 +204,7 @@ struct SelectionSetTemplate {
     _ deprecatedArguments: inout [DeprecatedArgument]?
   ) -> [TemplateString] {
     selections.fields.values.map { FieldSelectionTemplate($0, &deprecatedArguments) } +
-    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0.selectionSet) } +
+    selections.inlineFragments.values.map { InlineFragmentSelectionTemplate($0) } +
     selections.namedFragments.values.map { FragmentSelectionTemplate($0) }
   }
 
@@ -277,15 +277,15 @@ struct SelectionSetTemplate {
     """
   }
 
-  private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.SelectionSet) -> TemplateString {
-    """
-    .inlineFragment(\(inlineFragment.renderedTypeName).self)
+  private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.InlineFragmentSpread) -> TemplateString {
+    return """
+    .inlineFragment(\(inlineFragment.selectionSet.renderedTypeName).self\(inlineFragment.isDeferred.rendered))
     """
   }
 
-  private func FragmentSelectionTemplate(_ fragment: IR.NamedFragmentSpread) -> TemplateString {
+  private func FragmentSelectionTemplate(_ namedFragment: IR.NamedFragmentSpread) -> TemplateString {
     """
-    .fragment(\(fragment.definition.name.asFragmentName).self)
+    .fragment(\(namedFragment.definition.name.asFragmentName).self\(namedFragment.isDeferred.rendered))
     """
   }
 
@@ -980,5 +980,20 @@ extension IR.SelectionSet.Selections {
       return (direct?.isEmpty ?? true) && merged.isEmpty
     }
 
+  }
+}
+
+fileprivate extension IR.IsDeferred {
+  var rendered: String {
+    switch self {
+    case .value(true):
+      return ", deferred: true"
+
+    case .value(false):
+      return ""
+
+    case let .if(variable):
+      return ", if(\"\(variable)\")"
+    }
   }
 }

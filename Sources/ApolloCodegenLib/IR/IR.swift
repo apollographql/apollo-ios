@@ -62,6 +62,16 @@ class IR {
     case value(Bool)
     case `if`(_ variable: String)
 
+    init(compilationResult isDeferred: CompilationResult.IsDeferred) {
+      switch isDeferred {
+      case let .value(value):
+        self = .value(value)
+
+      case let .variable(variable):
+        self = .if(variable)
+      }
+    }
+
     init(booleanLiteral value: BooleanLiteralType) {
       switch value {
       case true:
