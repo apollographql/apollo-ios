@@ -180,6 +180,27 @@ public class CompilationResult: JavaScriptObject {
 
     lazy var directives: [Directive]? = self["directives"]
 
+    lazy var isDeferred: IsDeferred = {
+      guard let directive = directives?.first(where: { $0.name == Constants.DirectiveNames.Defer }) else {
+        return false
+      }
+
+      guard let argument = directive.arguments?.first(where: { $0.name == Constants.ArgumentLabels.If }) else {
+        return true
+      }
+
+      switch (argument.value) {
+      case let .boolean(value):
+        return .value(value)
+
+      case let .variable(variable):
+        return .variable(variable)
+
+      default:
+        preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
+      }
+    }()
+
     public override var debugDescription: String {
       selectionSet.debugDescription
     }
@@ -203,6 +224,27 @@ public class CompilationResult: JavaScriptObject {
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isDeferred: IsDeferred = {
+      guard let directive = directives?.first(where: { $0.name == Constants.DirectiveNames.Defer }) else {
+        return false
+      }
+
+      guard let argument = directive.arguments?.first(where: { $0.name == Constants.ArgumentLabels.If }) else {
+        return true
+      }
+
+      switch (argument.value) {
+      case let .boolean(value):
+        return .value(value)
+
+      case let .variable(variable):
+        return .variable(variable)
+
+      default:
+        preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
+      }
+    }()
 
     var parentType: GraphQLCompositeType { fragment.type }
 
@@ -416,6 +458,19 @@ public class CompilationResult: JavaScriptObject {
 
     static func skip(if variable: String) -> Self {
       .variable(variable, isInverted: true)
+    }
+  }
+
+  public enum IsDeferred: ExpressibleByBooleanLiteral {
+    case value(Bool)
+    case variable(String)
+
+    public init(booleanLiteral value: BooleanLiteralType) {
+      self = .value(value)
+    }
+
+    static func `if`(_ variable: String) -> Self {
+      .variable(variable)
     }
   }
 
