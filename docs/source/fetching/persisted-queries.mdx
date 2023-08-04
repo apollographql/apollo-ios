@@ -28,7 +28,7 @@ You can use APQ with the following versions of Apollo iOS, Apollo Server, and Ap
 - [Apollo Server](/apollo-server/) (v1.0.0+)
 - [Apollo Router](/router) (v0.1.0+)
 
-> You can use _either_ Apollo Server or Apollo Router for APQs.
+> **Note:** You can use _either_ Apollo Server _or_ Apollo Router for APQs. They don't need to be used together.
 
 ## Implementation steps
 
@@ -36,9 +36,9 @@ Both persisted queries and APQs require you to configure code generation and how
 
 We recommend you follow this order while implementing: 
 
-1. Generate and publish operation manifests (for persisted queries only)
-2. Configure generated operation models
-3. Enable persisted queries on `ApolloClient`
+1. **For persisted queries only**: Generate and publish operation manifests
+2. **For both persisted queries and APQs**: Configure generated operation models
+3. **For both persisted queries and APQs**: Enable persisted queries on `ApolloClient`
 
 The rest of this article details these steps.
 
@@ -48,11 +48,12 @@ Persisted queries also requires you to create and link a PQL, and to configure y
 
 > This step is only required for implementing safelisting with persisted queries, it is _not_ for required APQs.
 
-An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can checks incoming requests against. You can generate operation manifests in two ways:
-- via the [`generate`](./../code-generation/codegen-cli#generate) CLI command with `--path` and `--version` arguments
-    - `path` is where to output the manifest file
+An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can check incoming requests against. You can generate operation manifests in two ways:
+- by running the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) CLI command with `--path` and `--version` arguments
+    - `path` is where to write the manifest file
     - `version` is either `persistedQueries` for persisted queries or `legacyAPQs` for APQs
-- by adding the [`output.operationManifest`](./../code-generation/codegen-configuration#operation-manifest) option to your `ApolloCodegenConfiguration` JSON file
+    - the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) command generates the operation manifest without running full code generation
+- by adding the [`output.operationManifest`](./../code-generation/codegen-configuration#operation-manifest) option to your `ApolloCodegenConfiguration` JSON file like so:
 
 ```json title="apollo-codegen-config.json"
 "output": {
@@ -113,7 +114,7 @@ rover persisted-queries publish my-graph@my-variant \
   --manifest ./persisted-query-manifest.json
 ```
 
-- Replace `my-graph@my-variant` with the **graph ref** of _any_ variant your PQL is [linked to](#12-link-the-pql-to-variants). Your platform team can provide this for you.
+- Replace `my-graph@my-variant` with the **graph ref** of _any_ variant your PQL is [linked to](/graphos/operations/persisted-queries#12-link-the-pql-to-variants). Your platform team can provide this for you.
     - Graph refs have the format `graph-id@variant-name`.
 - For the `--manifest` option, provide the path to the manifest you want to publish.
 
