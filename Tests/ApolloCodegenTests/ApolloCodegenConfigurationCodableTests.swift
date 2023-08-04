@@ -35,8 +35,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             moduleType: .embeddedInTarget(name: "SomeTarget", accessModifier: .public)
           ),
           operations: .absolute(path: "/absolute/path", accessModifier: .internal),
-          testMocks: .swiftPackage(targetName: "SchemaTestMocks"),
-          operationManifest: .init(path: "/operation/identifiers/path")
+          testMocks: .swiftPackage(targetName: "SchemaTestMocks")
         ),
         options: .init(
           additionalInflectionRules: [
@@ -44,7 +43,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           ],
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .exclude,
-          operationDocumentFormat: .definition,
           cocoapodsCompatibleImportStatements: true,
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(enumCases: .none),
@@ -53,6 +51,10 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         experimentalFeatures: .init(
           clientControlledNullability: true,
           legacySafelistingCompatibleOperations: true
+        ),
+        operationManifestConfiguration: .init(
+          operationManifest: .init(path: "/operation/identifiers/path"),
+          operationDocumentFormat: .definition
         )
       )
     }
@@ -72,6 +74,15 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "/path/to/schema.graphqls"
           ]
         },
+        "operationManifestConfiguration" : {
+          "operationDocumentFormat" : [
+            "definition"
+          ],
+          "operationManifest" : {
+            "path" : "/operation/identifiers/path",
+            "version" : "persistedQueries"
+          }
+        },
         "options" : {
           "additionalInflectionRules" : [
             {
@@ -86,9 +97,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "enumCases" : "none"
           },
           "deprecatedEnumCases" : "exclude",
-          "operationDocumentFormat" : [
-            "definition"
-          ],
           "pruneGeneratedFiles" : false,
           "schemaDocumentation" : "exclude",
           "selectionSetInitializers" : {
@@ -97,10 +105,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "warningsOnDeprecatedUsage" : "exclude"
         },
         "output" : {
-          "operationManifest" : {
-            "path" : "/operation/identifiers/path",
-            "version" : "persistedQueries"
-          },
           "operations" : {
             "absolute" : {
               "accessModifier" : "internal",
@@ -135,7 +139,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     // when
     let encodedJSON = try testJSONEncoder.encode(subject)
     let actual = encodedJSON.asString
-
+    print(actual)
     // then
     expect(actual).to(equalLineByLine(MockApolloCodegenConfiguration.encodedJSON))
   }
@@ -619,7 +623,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   // MARK: - OperationDocumentFormat Tests
 
-  func encodedValue(_ case: ApolloCodegenConfiguration.OperationDocumentFormat) -> String {
+  func encodedValue(_ case: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat) -> String {
     switch `case` {
     case .definition:
       return """
@@ -648,7 +652,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   func test__encodeOperationDocumentFormat__givenDefinition_shouldReturnStringArray() throws {
     // given
-    let subject = ApolloCodegenConfiguration.OperationDocumentFormat.definition
+    let subject = ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.definition
 
     // when
     let actual = try testJSONEncoder.encode(subject).asString
@@ -659,7 +663,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   func test__encodeOperationDocumentFormat__givenOperationId_shouldReturnStringArray() throws {
     // given
-    let subject = ApolloCodegenConfiguration.OperationDocumentFormat.operationId
+    let subject = ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.operationId
 
     // when
     let actual = try testJSONEncoder.encode(subject).asString
@@ -670,7 +674,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
   func test__encodeOperationDocumentFormat__givenBoth_shouldReturnStringArray() throws {
     // given
-    let subject: ApolloCodegenConfiguration.OperationDocumentFormat = [
+    let subject: ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat = [
       .definition, .operationId
     ]
 
@@ -687,7 +691,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // when
     let actual = try JSONDecoder().decode(
-      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.self,
       from: subject
     )
 
@@ -701,7 +705,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // when
     let actual = try JSONDecoder().decode(
-      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.self,
       from: subject
     )
 
@@ -715,7 +719,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     // when
     let actual = try JSONDecoder().decode(
-      ApolloCodegenConfiguration.OperationDocumentFormat.self,
+      ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.self,
       from: subject
     )
 
@@ -730,7 +734,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     // then
     expect(
       try JSONDecoder().decode(
-        ApolloCodegenConfiguration.OperationDocumentFormat.self,
+        ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.self,
         from: subject
       )
     ).to(throwError())
@@ -743,7 +747,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
     // then
     expect(
       try JSONDecoder().decode(
-        ApolloCodegenConfiguration.OperationDocumentFormat.self,
+        ApolloCodegenConfiguration.OperationManifestConfiguration.OperationDocumentFormat.self,
         from: subject
       )
     ).to(throwError())
