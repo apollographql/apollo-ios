@@ -1969,7 +1969,7 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  // MARK: Selections - Defer
+  // MARK: Selections - Defer (Inline Fragments)
 
   func test__render_selection__givenInlineFragment_withDeferDirective_rendersDeferredInlineFragmentSelectionSet() throws {
     // given
@@ -2014,7 +2014,9 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
-  func test__render_selection__givenFragmentSpread_withDeferDirective_rendersDeferredFragmentSpreadSelectionSet() throws {
+  // MARK: Selections - Defer (Named Fragments)
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_rendersDeferredFragmentSpreadSelectionSet() throws {
     // given
     schemaSDL = """
     type Query {
