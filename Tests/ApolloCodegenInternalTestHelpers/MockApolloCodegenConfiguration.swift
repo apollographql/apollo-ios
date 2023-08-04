@@ -14,14 +14,16 @@ extension ApolloCodegenConfiguration {
       )
     ),
     options: OutputOptions = .init(schemaDocumentation: .exclude),
-    experimentalFeatures: ExperimentalFeatures = .init()
+    experimentalFeatures: ExperimentalFeatures = .init(),
+    operationManifestConfiguration: OperationManifestConfiguration = .init(operationDocumentFormat: [.definition])
   ) -> Self {
     .init(
       schemaNamespace: schemaNamespace,
       input: input,
       output: output,
       options: options,
-      experimentalFeatures: experimentalFeatures
+      experimentalFeatures: experimentalFeatures,
+      operationManifestConfiguration: operationManifestConfiguration
     )
   }
 

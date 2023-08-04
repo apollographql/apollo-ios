@@ -62,12 +62,12 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       accessControlRenderer: @autoclosure () -> String
     ) -> TemplateString {
       let includeFragments = !fragments.isEmpty
-      let includeDefinition = config.options.operationDocumentFormat.contains(.definition)
+      let includeDefinition = config.operationManifestConfiguration?.operationDocumentFormat.contains(.definition) ?? false
 
       return TemplateString("""
       \(accessControlRenderer())\
       static let operationDocument: \(config.ApolloAPITargetName).OperationDocument = .init(
-      \(if: config.options.operationDocumentFormat.contains(.operationId), """
+      \(if: config.operationManifestConfiguration?.operationDocumentFormat.contains(.operationId) ?? false, """
         operationIdentifier: \"\(identifier())\"\(if: includeDefinition, ",")
       """)
       \(if: includeDefinition, """
