@@ -66,8 +66,13 @@ public struct Generate: ParsableCommand {
         schemaDownloadProvider: schemaDownloadProvider
       )
     }
+    let buildOptions: ApolloCodegen.CodeGenerationBuildOptions = (configuration.operationManifestConfiguration?.autoGenerate ?? false) ? [.code, .operationManifest] : [.code]
 
-    try codegenProvider.build(with: configuration, withRootURL: rootOutputURL(for: inputs))
+    try codegenProvider.build(
+      with: configuration,
+      withRootURL: rootOutputURL(for: inputs),
+      buildOptions: buildOptions
+    )
   }
 
   private func fetchSchema(

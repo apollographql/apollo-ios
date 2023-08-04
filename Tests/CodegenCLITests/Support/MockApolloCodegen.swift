@@ -4,11 +4,11 @@ import ApolloCodegenLib
 
 class MockApolloCodegen: CodegenProvider {
   static var buildHandler: ((ApolloCodegenConfiguration) throws -> Void)? = nil
-  static var generateOperationManifestHandler: ((ApolloCodegenConfiguration) throws -> Void)? = nil
 
   static func build(
     with configuration: ApolloCodegenConfiguration,
-    withRootURL rootURL: URL?
+    withRootURL rootURL: URL?,
+    buildOptions: ApolloCodegen.CodeGenerationBuildOptions
   ) throws {
     guard let handler = buildHandler else {
       fatalError("You must set buildHandler before calling \(#function)!")
@@ -21,19 +21,4 @@ class MockApolloCodegen: CodegenProvider {
     try handler(configuration)
   }
   
-  static func generateOperationManifest(
-    with configuration: ApolloCodegenLib.ApolloCodegenConfiguration,
-    withRootURL rootURL: URL?,
-    fileManager: ApolloCodegenLib.ApolloFileManager
-  ) throws {
-    guard let handler = generateOperationManifestHandler else {
-      fatalError("You must set generateOperationManifestHandler before calling \(#function)!")
-    }
-    
-    defer {
-      generateOperationManifestHandler = nil
-    }
-    
-    try handler(configuration)
-  }
 }
