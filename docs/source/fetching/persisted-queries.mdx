@@ -130,8 +130,8 @@ As with manifest generation, you can execute this command in your CI/CD pipeline
 
 ### 2. Configure generated operation models
 
-In the `options` section of your code generation configuration, set the `operationDocumentFormat` array to `definition`, `operationId`, or both `definition` and `operationId`. This determines how to generate the operation documents for your generated operations.
-
+Both persisted queries and APQs require your code generation to include operation IDs. You can configure this in your code generation configuration's [`options`](output-options).
+Specifically, set the `operationDocumentFormat` array to `definition`, `operationId`, or both `definition` and `operationId`.
 - To use APQs, you must include both the `definition` and `operationId`.
 - For persisted queries, you only need the `operationId`.
 
@@ -146,7 +146,7 @@ In the `options` section of your code generation configuration, set the `operati
 
 ### 3. Enable persisted queries on `ApolloClient`
 
-Once you've configured your code generation to include operation IDs, you can update your client to query by operation ID rather than the full operation string. This configuration is the same whether you are using APQ or persisted queries:
+Once you've configured your code generation to include operation IDs, you can update your client to query by operation ID rather than the full operation string. This configuration is the same whether you're using APQ or persisted queries:
 
 - Initialize a custom `NetworkTransport` using `RequestChainNetworkTransport` with `autoPersistQueries` parameter set to `true` and an `interceptorProvider` that includes the `AutomaticPersistedQueryInterceptor` (such as `DefaultInterceptorProvider`).
 - Initialize your `ApolloClient` with the custom `NetworkTransport` that supports persisted queries.
