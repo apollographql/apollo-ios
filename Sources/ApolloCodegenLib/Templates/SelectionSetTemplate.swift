@@ -381,8 +381,10 @@ struct SelectionSetTemplate {
     let name = fragment.definition.name
     let propertyName = name.firstLowercased
     let typeName = name.asFragmentName
-    let isOptional = fragment.inclusionConditions != nil &&
-    !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped)
+
+    let isOptional =
+      (fragment.inclusionConditions != nil && !scope.matches(fragment.inclusionConditions.unsafelyUnwrapped))
+      || fragment.isDeferred == true
 
     return """
     \(renderAccessControl())var \(propertyName): \(typeName)\

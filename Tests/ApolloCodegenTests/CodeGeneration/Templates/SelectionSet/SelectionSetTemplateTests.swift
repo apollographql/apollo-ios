@@ -2013,6 +2013,58 @@ class SelectionSetTemplateTests: XCTestCase {
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
+
+  func test__render_selection__givenFragmentSpread_withDeferDirective_rendersDeferredFragmentSpreadSelectionSet() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: true),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
   // MARK: Merged Sources
 
   func test__render_mergedSources__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersMergedSources() throws {
@@ -4972,6 +5024,50 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+  }
+
+  // MARK: Fragment Accessors - Defer
+
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirective_rendersFragmentAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expected = """
+          public var dogFragment: DogFragment? { _toFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
   }
 
   // MARK: - Nested Selection Sets
