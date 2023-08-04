@@ -49,10 +49,9 @@ Persisted queries also requires you to create and link a PQL, and to configure y
 > This step is only required for implementing safelisting with persisted queries, it is _not_ for required APQs.
 
 An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can check incoming requests against. You can generate operation manifests in two ways:
-- by running the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) CLI command with `--path` and `--version` arguments
+- by running the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) CLI command with `--path` and `--version` arguments
     - `path` is where to write the manifest file
     - `version` is either `persistedQueries` for persisted queries or `legacyAPQs` for APQs
-    - the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) command generates the operation manifest without running full code generation
 - by adding the [`output.operationManifest`](./../code-generation/codegen-configuration#operation-manifest) option to your `ApolloCodegenConfiguration` JSON file like so:
 
 ```json title="apollo-codegen-config.json"
@@ -64,7 +63,7 @@ An operation manifest acts as a safelist of trusted operations the [Apollo Route
 }
 ```
 
-Setting the `output.operationManifest` option causes the operation manifest to be generated every time you run the `generate` command.
+Setting the `output.operationManifest` option causes the operation manifest to be generated every time you run the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) commands.
 
 The resulting operation manifest for `persistedQueries` looks something like this: 
 
