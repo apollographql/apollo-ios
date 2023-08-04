@@ -93,9 +93,11 @@ Use the [`.swiftPackageManager`](./code-generation/codegen-configuration#swift-p
 
 You can also include schema types directly in a target that you created.
 
-To do this, use [`ModuleType.embeddedInTarget(name: String)`](./code-generation/codegen-configuration#embedded-in-target) as the value of the [`output.schemaTypes.moduleType`](./code-generation/codegen-configuration#module-type) property. The generated schema types are then enclosed in a caseless namespace enum to prevent naming conflicts with types you already defined in your target.
+To do this, use [`ModuleType.embeddedInTarget(name: String)`](./code-generation/codegen-configuration#embedded-in-target) as the value of the [`output.schemaTypes.moduleType`](./code-generation/codegen-configuration#module-type) property. The generated schema types are scoped within a caseless enum used as a namespace to prevent conflicts with types you may already have defined in your target.
 
-> This option makes you responsible for **manually** adding generated files to your chosen target. When the code generation engine creates or removes files, you'll need to manually add or remove them from Xcode's project navigator.
+If you require more control over your schema types you can use the [`ModuleType.other`](./code-generation/codegen-configuration#other) value. This gives you full control over the module and your choice of dependency manager.
+
+> These options makes you responsible for **manually** adding generated files to your chosen target or module. When the code generation engine creates or removes files, you'll need to manually add or remove them from the project navigator.
 
 ### Operation model generation
 

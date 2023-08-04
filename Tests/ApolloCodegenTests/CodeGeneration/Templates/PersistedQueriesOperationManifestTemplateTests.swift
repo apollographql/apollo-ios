@@ -38,11 +38,11 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "version": 1,
         "operations": [
           {
-            "id": "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
-            "body": "query TestQuery {\\n  test\\n}",
+            "id": "8ed9fcbb8ef3c853ad0ecdc920eb8216608bd7c3b32258744e9289ec0372eb30",
+            "body": "query TestQuery { test }",
             "name": "TestQuery",
             "type": "query"
-          },
+          }
         ]
       }
       """
@@ -50,7 +50,7 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
     let operations = [operation].map(OperationManifestItem.init)
 
     // when
-    let rendered = try subject.render(operations: operations)
+    let rendered = subject.render(operations: operations)
 
     expect(rendered).to(equalLineByLine(expected))
   }
@@ -95,29 +95,29 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
         "version": 1,
         "operations": [
           {
-            "id": "b02d2d734060114f64b24338486748f4f1f00838e07a293cc4e0f73f98fe3dad",
-            "body": "query TestQuery {\\n  test\\n}",
+            "id": "8ed9fcbb8ef3c853ad0ecdc920eb8216608bd7c3b32258744e9289ec0372eb30",
+            "body": "query TestQuery { test }",
             "name": "TestQuery",
             "type": "query"
           },
           {
-            "id": "50ed8cda22910b3b708bc69402626f9fe4f1bbaeafb40df9084d029fade5bab1",
-            "body": "mutation TestMutation {\\n  update {\\n    result\\n  }\\n}",
+            "id": "551253009bea9350463d15e24660e8a935abc858cd161623234fb9523b0c0717",
+            "body": "mutation TestMutation { update { result } }",
             "name": "TestMutation",
             "type": "mutation"
           },
           {
-            "id": "55f75259c34f0ccc6b131d23545d9fa79885c93ec785176bd9b6d3c4062fcaed",
-            "body": "subscription TestSubscription {\\n  watched\\n}",
+            "id": "9b56a2829263b4d81b4eb9865470a6971c8e40e126e2ff92db51f15d0a4cb7ba",
+            "body": "subscription TestSubscription { watched }",
             "name": "TestSubscription",
             "type": "subscription"
-          },
+          }
         ]
       }
       """
 
     // when
-    let rendered = try subject.render(operations: operations)
+    let rendered = subject.render(operations: operations)
 
     expect(rendered).to(equalLineByLine(expected))
   }
@@ -149,33 +149,31 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
       )
     ].map(OperationManifestItem.init)
 
-    let expected = """
+    let expected = #"""
       {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
-            "id": "c5754cef39f339f0a0d0437b8cc58fddd3c147d791441d5fdaa0f8d4265730ff",
-            "body": "query Friends {\\n  friends {\\n    ...Name\\n  }\\n}\\nfragment Name on Friend {\\n  name\\n}",
+            "id": "efc7785ac9768b2be96e061911b97c9c898df41561dda36d9435e94994910f67",
+            "body": "query Friends { friends { ...Name } }\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
-          },
+          }
         ]
       }
-      """
+      """#
 
     // when
-    let rendered = try subject.render(operations: operations)
+    let rendered = subject.render(operations: operations)
 
     expect(rendered).to(equalLineByLine(expected))
   }
 
-  func test__render__givenOperationsUsingSingleLineString_shouldOutputJSONFormatBodyFormattedAsSingleLineString() throws {
+  func test__render__givenOperations_shouldOutputJSONFormatBodyFormatted() throws {
     // given
     subject = PersistedQueriesOperationManifestTemplate(
-      config: .init(config: .mock(
-        options: .init(queryStringLiteralFormat: .singleLine))
-      )
+      config: .init(config: .mock())
     )
 
     let operations = [
@@ -203,23 +201,23 @@ class PersistedQueriesOperationManifestTemplateTests: XCTestCase {
       )
     ].map(OperationManifestItem.init)
 
-    let expected = """
+    let expected = #"""
       {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
           {
-            "id": "c5754cef39f339f0a0d0437b8cc58fddd3c147d791441d5fdaa0f8d4265730ff",
-            "body": "query Friends { friends { ...Name } } fragment Name on Friend { name }",
+            "id": "efc7785ac9768b2be96e061911b97c9c898df41561dda36d9435e94994910f67",
+            "body": "query Friends { friends { ...Name } }\nfragment Name on Friend { name }",
             "name": "Friends",
             "type": "query"
-          },
+          }
         ]
       }
-      """
+      """#
 
     // when
-    let rendered = try subject.render(operations: operations)
+    let rendered = subject.render(operations: operations)
 
     expect(rendered).to(equalLineByLine(expected))
   }

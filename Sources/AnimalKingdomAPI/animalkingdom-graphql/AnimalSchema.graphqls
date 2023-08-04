@@ -166,6 +166,7 @@ type Crocodile implements Animal {
   predators: [Animal!]!
   skinCovering: SkinCovering
   age: Int!
+  tag(id: String): String
 }
 
 type PetRock implements Pet {

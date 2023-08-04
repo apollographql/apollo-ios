@@ -7,50 +7,7 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsIncludeSkipQuery"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) {
-        allAnimals {
-          __typename
-          height {
-            __typename
-            feet
-            inches
-          }
-          ...HeightInMeters @skip(if: $skipHeightInMeters)
-          ...WarmBloodedDetails @include(if: $getWarmBlooded)
-          species @include(if: $includeSpecies)
-          skinCovering
-          ... on Pet {
-            ...PetDetails
-            ...WarmBloodedDetails
-            ... on Animal {
-              height {
-                __typename
-                relativeSize @include(if: $varA)
-                centimeters @include(if: $varA)
-              }
-            }
-          }
-          ... on Cat @include(if: $getCat) {
-            isJellicle
-          }
-          ... on ClassroomPet {
-            ... on Bird {
-              wingspan
-            }
-          }
-          predators {
-            __typename
-            species @include(if: $includeSpecies)
-            ... on WarmBlooded @include(if: $getWarmBlooded) {
-              species
-              ...WarmBloodedDetails
-              laysEggs @include(if: $getWarmBlooded)
-            }
-          }
-        }
-      }
-      """#,
+      #"query AllAnimalsIncludeSkipQuery($includeSpecies: Boolean!, $skipHeightInMeters: Boolean!, $getCat: Boolean!, $getWarmBlooded: Boolean!, $varA: Boolean!) { allAnimals { __typename height { __typename feet inches } ...HeightInMeters @skip(if: $skipHeightInMeters) ...WarmBloodedDetails @include(if: $getWarmBlooded) species @include(if: $includeSpecies) skinCovering ... on Pet { ...PetDetails ...WarmBloodedDetails ... on Animal { height { __typename relativeSize @include(if: $varA) centimeters @include(if: $varA) } } } ... on Cat @include(if: $getCat) { isJellicle } ... on ClassroomPet { ... on Bird { wingspan } } predators { __typename species @include(if: $includeSpecies) ... on WarmBlooded @include(if: $getWarmBlooded) { species ...WarmBloodedDetails laysEggs @include(if: $getWarmBlooded) } } } }"#,
       fragments: [HeightInMeters.self, WarmBloodedDetails.self, PetDetails.self]
     ))
 
@@ -735,7 +692,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
               ObjectIdentifier(WarmBloodedDetails.self),
               ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
               ObjectIdentifier(HeightInMeters.self)
             ]
           ))
@@ -896,7 +852,6 @@ public class AllAnimalsIncludeSkipQuery: GraphQLQuery {
                 ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.self),
                 ObjectIdentifier(WarmBloodedDetails.self),
                 ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-                ObjectIdentifier(AllAnimalsIncludeSkipQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self),
                 ObjectIdentifier(HeightInMeters.self)
               ]
             ))

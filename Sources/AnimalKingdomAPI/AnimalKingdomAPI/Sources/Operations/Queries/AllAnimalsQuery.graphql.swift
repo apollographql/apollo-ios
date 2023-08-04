@@ -7,57 +7,7 @@ public class AllAnimalsQuery: GraphQLQuery {
   public static let operationName: String = "AllAnimalsQuery"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query AllAnimalsQuery {
-        allAnimals {
-          __typename
-          height {
-            __typename
-            feet
-            inches
-          }
-          ...HeightInMeters
-          ...WarmBloodedDetails
-          species
-          skinCovering
-          ... on Pet {
-            ...PetDetails
-            ...WarmBloodedDetails
-            ... on Animal {
-              height {
-                __typename
-                relativeSize
-                centimeters
-              }
-            }
-          }
-          ... on Cat {
-            isJellicle
-          }
-          ... on ClassroomPet {
-            ... on Bird {
-              wingspan
-            }
-          }
-          ... on Dog {
-            favoriteToy
-            birthdate
-          }
-          predators {
-            __typename
-            species
-            ... on WarmBlooded {
-              predators {
-                __typename
-                species
-              }
-              ...WarmBloodedDetails
-              laysEggs
-            }
-          }
-        }
-      }
-      """#,
+      #"query AllAnimalsQuery { allAnimals { __typename height { __typename feet inches } ...HeightInMeters ...WarmBloodedDetails species skinCovering ... on Pet { ...PetDetails ...WarmBloodedDetails ... on Animal { height { __typename relativeSize centimeters } } } ... on Cat { isJellicle } ... on ClassroomPet { ... on Bird { wingspan } } ... on Dog { favoriteToy birthdate } predators { __typename species ... on WarmBlooded { predators { __typename species } ...WarmBloodedDetails laysEggs } } } }"#,
       fragments: [HeightInMeters.self, WarmBloodedDetails.self, PetDetails.self]
     ))
 
@@ -675,8 +625,7 @@ public class AllAnimalsQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
               ObjectIdentifier(PetDetails.self),
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
             ]
           ))
         }
@@ -872,8 +821,7 @@ public class AllAnimalsQuery: GraphQLQuery {
                 ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
                 ObjectIdentifier(PetDetails.self),
                 ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+                ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
               ]
             ))
           }
@@ -986,8 +934,7 @@ public class AllAnimalsQuery: GraphQLQuery {
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsWarmBlooded.self),
               ObjectIdentifier(PetDetails.self),
               ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self),
-              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.AsWarmBlooded.self)
+              ObjectIdentifier(AllAnimalsQuery.Data.AllAnimal.AsPet.AsWarmBlooded.self)
             ]
           ))
         }

@@ -3771,6 +3771,11 @@
                     "type" : "property"
                   },
                   {
+                    "path" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/graphqlerror",
+                    "title" : "var graphQLError: GraphQLError?",
+                    "type" : "property"
+                  },
+                  {
                     "title" : "Default Implementations",
                     "type" : "groupMarker"
                   },

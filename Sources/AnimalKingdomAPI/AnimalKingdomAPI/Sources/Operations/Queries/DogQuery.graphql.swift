@@ -7,18 +7,7 @@ public class DogQuery: GraphQLQuery {
   public static let operationName: String = "DogQuery"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query DogQuery {
-        allAnimals {
-          __typename
-          id
-          skinCovering
-          ... on Dog {
-            ...DogFragment
-          }
-        }
-      }
-      """#,
+      #"query DogQuery { allAnimals { __typename id skinCovering ... on Dog { ...DogFragment } } }"#,
       fragments: [DogFragment.self]
     ))
 

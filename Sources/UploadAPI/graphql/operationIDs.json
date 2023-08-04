@@ -1,14 +1,24 @@
 {
-  "88858c283bb72f18c0049dc85b140e72a4046f469fa16a8bf4bcf01c11d8a2b7" : {
-    "name" : "UploadMultipleFilesToTheSameParameter",
-    "source" : "mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) {\n  multipleUpload(files: $files) {\n    __typename\n    id\n    path\n    filename\n    mimetype\n  }\n}"
-  },
-  "1ec89997a185c50bacc5f62ad41f27f3070f4a950d72e4a1510a4c64160812d5" : {
-    "name" : "UploadMultipleFilesToDifferentParameters",
-    "source" : "mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) {\n  multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) {\n    __typename\n    id\n    path\n    filename\n    mimetype\n  }\n}"
-  },
-  "c5d5919f77d9ba16a9689b6b0ad4b781cb05dc1dc4812623bf80f7c044c09533" : {
-    "name" : "UploadOneFile",
-    "source" : "mutation UploadOneFile($file: Upload!) {\n  singleUpload(file: $file) {\n    __typename\n    id\n    path\n    filename\n    mimetype\n  }\n}"
-  }
+  "format": "apollo-persisted-query-manifest",
+  "version": 1,
+  "operations": [
+    {
+      "id": "93d5a278f1e14f434bcb6978c5da1ac4aec6a5ad8c81aa396f60edf825cf09fc",
+      "body": "mutation UploadMultipleFilesToTheSameParameter($files: [Upload!]!) { multipleUpload(files: $files) { __typename id path filename mimetype } }",
+      "name": "UploadMultipleFilesToTheSameParameter",
+      "type": "mutation"
+    },
+    {
+      "id": "d9562c30ed2555c852d7e7e49a4f29645a93807991fe6e733059fe87404eb25c",
+      "body": "mutation UploadMultipleFilesToDifferentParameters($singleFile: Upload!, $multipleFiles: [Upload!]!) { multipleParameterUpload(singleFile: $singleFile, multipleFiles: $multipleFiles) { __typename id path filename mimetype } }",
+      "name": "UploadMultipleFilesToDifferentParameters",
+      "type": "mutation"
+    },
+    {
+      "id": "d67bee226e4f3b990d0d860826e93cd0ee158f02564d8fccff941eb04a9e4f07",
+      "body": "mutation UploadOneFile($file: Upload!) { singleUpload(file: $file) { __typename id path filename mimetype } }",
+      "name": "UploadOneFile",
+      "type": "mutation"
+    }
+  ]
 }

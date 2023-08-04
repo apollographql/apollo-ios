@@ -14,6 +14,8 @@
 		54DDB0921EA045870009DD99 /* InMemoryNormalizedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */; };
 		5AC6CA4322AAF7B200B7C94D /* GraphQLHTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */; };
 		5BB2C0232380836100774170 /* VersionNumberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C0222380836100774170 /* VersionNumberTests.swift */; };
+		662EA65E2A701483008A1931 /* GenerateOperationManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662EA65D2A701483008A1931 /* GenerateOperationManifest.swift */; };
+		662EA6602A705BD7008A1931 /* GenerateOperationManifestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662EA65F2A705BD7008A1931 /* GenerateOperationManifestTests.swift */; };
 		66321AE72A126C4400CC35CB /* IR+Formatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66321AE62A126C4400CC35CB /* IR+Formatting.swift */; };
 		66B18E872A15367300525DFB /* URLSessionClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4F4542244A2AD300C2CF7D /* URLSessionClientTests.swift */; };
 		66B18E902A16BF9B00525DFB /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B18E8E2A16BF9B00525DFB /* MockURLProtocol.swift */; };
@@ -772,7 +774,7 @@
 		E687B3DC28B398E600A9551C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3CA28B398E600A9551C /* Constants.swift */; };
 		E687B3DD28B398E600A9551C /* InputOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3CC28B398E600A9551C /* InputOptions.swift */; };
 		E687B3DE28B398E600A9551C /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3CD28B398E600A9551C /* Error.swift */; };
-		E687B3DF28B398E600A9551C /* ParsableCommand+RootOutputURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3CF28B398E600A9551C /* ParsableCommand+RootOutputURL.swift */; };
+		E687B3DF28B398E600A9551C /* ParsableCommand+Apollo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3CF28B398E600A9551C /* ParsableCommand+Apollo.swift */; };
 		E687B3E028B398E600A9551C /* FileManager+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3D028B398E600A9551C /* FileManager+Data.swift */; };
 		E687B3E128B398E600A9551C /* String+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3D128B398E600A9551C /* String+Data.swift */; };
 		E687B3E328B398E600A9551C /* FetchSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = E687B3D428B398E600A9551C /* FetchSchema.swift */; };
@@ -1141,6 +1143,8 @@
 		54DDB0911EA045870009DD99 /* InMemoryNormalizedCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InMemoryNormalizedCache.swift; sourceTree = "<group>"; };
 		5AC6CA4222AAF7B200B7C94D /* GraphQLHTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphQLHTTPMethod.swift; sourceTree = "<group>"; };
 		5BB2C0222380836100774170 /* VersionNumberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionNumberTests.swift; sourceTree = "<group>"; };
+		662EA65D2A701483008A1931 /* GenerateOperationManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateOperationManifest.swift; sourceTree = "<group>"; };
+		662EA65F2A705BD7008A1931 /* GenerateOperationManifestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateOperationManifestTests.swift; sourceTree = "<group>"; };
 		66321AE62A126C4400CC35CB /* IR+Formatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Formatting.swift"; sourceTree = "<group>"; };
 		66B18E8E2A16BF9B00525DFB /* MockURLProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		90690D05224333DA00FC2E54 /* Apollo-Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Apollo-Project-Debug.xcconfig"; sourceTree = "<group>"; };
@@ -1963,7 +1967,7 @@
 		E687B3CA28B398E600A9551C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E687B3CC28B398E600A9551C /* InputOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputOptions.swift; sourceTree = "<group>"; };
 		E687B3CD28B398E600A9551C /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
-		E687B3CF28B398E600A9551C /* ParsableCommand+RootOutputURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParsableCommand+RootOutputURL.swift"; sourceTree = "<group>"; };
+		E687B3CF28B398E600A9551C /* ParsableCommand+Apollo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ParsableCommand+Apollo.swift"; sourceTree = "<group>"; };
 		E687B3D028B398E600A9551C /* FileManager+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Data.swift"; sourceTree = "<group>"; };
 		E687B3D128B398E600A9551C /* String+Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Data.swift"; sourceTree = "<group>"; };
 		E687B3D428B398E600A9551C /* FetchSchema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchSchema.swift; sourceTree = "<group>"; };
@@ -4055,7 +4059,7 @@
 		E687B3CE28B398E600A9551C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E687B3CF28B398E600A9551C /* ParsableCommand+RootOutputURL.swift */,
+				E687B3CF28B398E600A9551C /* ParsableCommand+Apollo.swift */,
 				DE2A20E729032E1F008ADE48 /* VersionChecker.swift */,
 				E687B3D028B398E600A9551C /* FileManager+Data.swift */,
 				E687B3D128B398E600A9551C /* String+Data.swift */,
@@ -4069,6 +4073,7 @@
 				E687B3D428B398E600A9551C /* FetchSchema.swift */,
 				E687B3D528B398E600A9551C /* Initialize.swift */,
 				E687B3D628B398E600A9551C /* Generate.swift */,
+				662EA65D2A701483008A1931 /* GenerateOperationManifest.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -4122,6 +4127,7 @@
 				E6DC0AD228B3AC490064A68F /* GenerateTests.swift */,
 				DE2A20EC29033ABE008ADE48 /* VersionCheckerTests.swift */,
 				E6DC0AD328B3AC490064A68F /* FetchSchemaTests.swift */,
+				662EA65F2A705BD7008A1931 /* GenerateOperationManifestTests.swift */,
 			);
 			path = Commands;
 			sourceTree = "<group>";
@@ -5845,10 +5851,11 @@
 				E687B3E528B398E600A9551C /* Generate.swift in Sources */,
 				E687B3DE28B398E600A9551C /* Error.swift in Sources */,
 				DE2A20E829032E1F008ADE48 /* VersionChecker.swift in Sources */,
-				E687B3DF28B398E600A9551C /* ParsableCommand+RootOutputURL.swift in Sources */,
+				E687B3DF28B398E600A9551C /* ParsableCommand+Apollo.swift in Sources */,
 				E687B3E028B398E600A9551C /* FileManager+Data.swift in Sources */,
 				E687B3E828B398E600A9551C /* SchemaDownloadProvider.swift in Sources */,
 				E64F226D28B8B3FE0011292F /* LogLevelSetter.swift in Sources */,
+				662EA65E2A701483008A1931 /* GenerateOperationManifest.swift in Sources */,
 				E687B3E428B398E600A9551C /* Initialize.swift in Sources */,
 				E687B3E128B398E600A9551C /* String+Data.swift in Sources */,
 				E687B3DD28B398E600A9551C /* InputOptions.swift in Sources */,
@@ -5865,6 +5872,7 @@
 				E64F227128B8BEE10011292F /* MockLogLevelSetter.swift in Sources */,
 				E6DC0ADA28B3AC490064A68F /* MockApolloSchemaDownloader.swift in Sources */,
 				E6DC0AD928B3AC490064A68F /* TestSupport.swift in Sources */,
+				662EA6602A705BD7008A1931 /* GenerateOperationManifestTests.swift in Sources */,
 				E6DC0AD728B3AC490064A68F /* MockApolloCodegen.swift in Sources */,
 				E6DC0ADC28B3AC490064A68F /* InitializeTests.swift in Sources */,
 				E6DC0AD828B3AC490064A68F /* MockApolloCodegenConfiguration.swift in Sources */,

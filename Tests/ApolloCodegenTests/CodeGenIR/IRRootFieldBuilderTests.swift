@@ -127,7 +127,7 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     let child = allAnimals?[as: "Bird"]
     expect(child?.parentType).to(equal(Object_Bird))
-    expect(child?.selections.direct?.fragments.values).to(shallowlyMatch([Fragment_BirdDetails]))
+    expect(child?.selections.direct?.namedFragments.values).to(shallowlyMatch([Fragment_BirdDetails]))
   }
 
   func test__children__isObjectType_initWithNamedFragmentOnLessSpecificMatchingType_hasNoChildTypeCase() throws {
@@ -245,8 +245,8 @@ class IRRootFieldBuilderTests: XCTestCase {
 
     let child = rocks?[as: "Animal"]
     expect(child?.parentType).to(equal(Interface_Animal))
-    expect(child?.selections.direct?.fragments.count).to(equal(1))
-    expect(child?.selections.direct?.fragments.values[0].definition).to(equal(Fragment_AnimalDetails))
+    expect(child?.selections.direct?.namedFragments.count).to(equal(1))
+    expect(child?.selections.direct?.namedFragments.values[0].definition).to(equal(Fragment_AnimalDetails))
   }
 
   // MARK: Children Computation - Union Type
@@ -370,10 +370,21 @@ class IRRootFieldBuilderTests: XCTestCase {
     // when
     try buildSubjectRootField()
 
+    let Scalar_String = try XCTUnwrap(schema[scalar: "String"])
+    let Object_B = try XCTUnwrap(schema[object: "B"])
+
     let bField = subject[field: "bField"]
 
+    let expected = SelectionSetMatcher(
+      parentType: Object_B,
+      directSelections: [
+        .field("A", type: .nonNull(.scalar(Scalar_String))),
+        .field("B", type: .nonNull(.scalar(Scalar_String))),
+      ]
+    )
+
     // then
-    expect(bField?.selectionSet?.selections.direct?.inlineFragments).to(beEmpty())
+    expect(bField?.selectionSet).to(shallowlyMatch(expected))
   }
 
   func test__children__givenInlineFragment_onNonMatchingType_doesNotMergeTypeCaseIn_hasChildTypeCase() throws {

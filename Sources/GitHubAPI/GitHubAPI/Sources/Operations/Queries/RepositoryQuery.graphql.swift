@@ -7,39 +7,7 @@ public class RepositoryQuery: GraphQLQuery {
   public static let operationName: String = "Repository"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"""
-      query Repository {
-        repository(owner: "apollographql", name: "apollo-ios") {
-          __typename
-          issueOrPullRequest(number: 13) {
-            __typename
-            ... on Issue {
-              __typename
-              body
-              ... on UniformResourceLocatable {
-                __typename
-                url
-              }
-              author {
-                __typename
-                avatarUrl
-              }
-            }
-            ... on Reactable {
-              __typename
-              viewerCanReact
-              ... on Comment {
-                __typename
-                author {
-                  __typename
-                  login
-                }
-              }
-            }
-          }
-        }
-      }
-      """#
+      #"query Repository { repository(owner: "apollographql", name: "apollo-ios") { __typename issueOrPullRequest(number: 13) { __typename ... on Issue { __typename body ... on UniformResourceLocatable { __typename url } author { __typename avatarUrl } } ... on Reactable { __typename viewerCanReact ... on Comment { __typename author { __typename login } } } } } }"#
     ))
 
   public init() {}

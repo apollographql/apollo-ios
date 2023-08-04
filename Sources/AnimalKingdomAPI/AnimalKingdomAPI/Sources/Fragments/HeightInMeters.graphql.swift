@@ -4,15 +4,9 @@
 @_exported import ApolloAPI
 
 public struct HeightInMeters: AnimalKingdomAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment HeightInMeters on Animal {
-      __typename
-      height {
-        __typename
-        meters
-      }
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    #"fragment HeightInMeters on Animal { __typename height { __typename meters } }"#
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

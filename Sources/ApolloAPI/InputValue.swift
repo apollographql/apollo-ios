@@ -1,5 +1,3 @@
-import Foundation
-
 /// Represents an input value to an argument on a ``Selection/Field``'s ``Selection/Field/arguments``.
 ///
 /// # See Also

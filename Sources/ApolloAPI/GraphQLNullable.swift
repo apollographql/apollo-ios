@@ -1,5 +1,3 @@
-import Foundation
-
 /// Indicates the presence of a value, supporting both `nil` and `null` values.
 ///
 /// ``GraphQLNullable`` is generally only used for setting input values on generated ``GraphQLOperation`` objects.

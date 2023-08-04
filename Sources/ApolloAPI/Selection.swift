@@ -1,5 +1,3 @@
-import Foundation
-
 public enum Selection {
   /// A single field selection.
   case field(Field)

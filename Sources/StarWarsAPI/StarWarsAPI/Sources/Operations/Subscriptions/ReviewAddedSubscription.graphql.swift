@@ -6,18 +6,9 @@
 public class ReviewAddedSubscription: GraphQLSubscription {
   public static let operationName: String = "ReviewAdded"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "38644c5e7cf4fd506b91d2e7010cabf84e63dfcd33cf1deb443b4b32b55e2cbe",
+    operationIdentifier: "2a05903b49a3b665eeb8f7a24240623aff77f1555e006f11bca604540c7cdba8",
     definition: .init(
-      #"""
-      subscription ReviewAdded($episode: Episode) {
-        reviewAdded(episode: $episode) {
-          __typename
-          episode
-          stars
-          commentary
-        }
-      }
-      """#
+      #"subscription ReviewAdded($episode: Episode) { reviewAdded(episode: $episode) { __typename episode stars commentary } }"#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>

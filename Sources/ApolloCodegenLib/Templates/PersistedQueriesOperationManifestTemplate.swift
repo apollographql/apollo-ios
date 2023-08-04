@@ -6,22 +6,22 @@ struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {
   let config: ApolloCodegen.ConfigurationContext
   let encoder = JSONEncoder()
 
-  func render(operations: [OperationManifestItem]) throws -> String {
-    try template(operations).description
+  func render(operations: [OperationManifestItem]) -> String {
+    template(operations).description
   }
 
-  private func template(_ operations: [OperationManifestItem]) throws -> TemplateString {
-    return try TemplateString(
+  private func template(_ operations: [OperationManifestItem]) -> TemplateString {
+    return TemplateString(
       """
       {
         "format": "apollo-persisted-query-manifest",
         "version": 1,
         "operations": [
-          \(forEachIn: operations, terminator: ",", { operation in
+          \(forEachIn: operations, { operation in
             return """
             {
               "id": "\(operation.identifier)",
-              "body": \(try operationSource(for: operation)),
+              "body": "\(operation.source)",
               "name": "\(operation.name)",
               "type": "\(operation.type.rawValue)"
             }
@@ -31,15 +31,6 @@ struct PersistedQueriesOperationManifestTemplate: OperationManifestTemplate {
       }
       """
     )
-  }
-
-  private func operationSource(for operation: OperationManifestItem) throws -> String {
-    switch config.options.queryStringLiteralFormat {
-    case .multiline:
-      return TemplateString("\(json: try encoder.encode(operation.source))").description
-    case .singleLine:
-      return "\"\(operation.source.convertedToSingleLine())\""
-    }
   }
 
 }

@@ -4,15 +4,9 @@
 @_exported import ApolloAPI
 
 public struct FriendsNames: StarWarsAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment FriendsNames on Character {
-      __typename
-      friends {
-        __typename
-        name
-      }
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    #"fragment FriendsNames on Character { __typename friends { __typename name } }"#
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

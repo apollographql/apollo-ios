@@ -1,5 +1,3 @@
-import Foundation
-
 public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 

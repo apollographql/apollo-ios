@@ -6,23 +6,9 @@
 public class HeroTypeDependentAliasedFieldQuery: GraphQLQuery {
   public static let operationName: String = "HeroTypeDependentAliasedField"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "eac5a52f9020fc2e9b5dc5facfd6a6295683b8d57ea62ee84254069fcd5e504c",
+    operationIdentifier: "5b1ed6a84e96a4e48a3cad675ebb46020bce176f47361d097d8a0a824b7b8452",
     definition: .init(
-      #"""
-      query HeroTypeDependentAliasedField($episode: Episode) {
-        hero(episode: $episode) {
-          __typename
-          ... on Human {
-            __typename
-            property: homePlanet
-          }
-          ... on Droid {
-            __typename
-            property: primaryFunction
-          }
-        }
-      }
-      """#
+      #"query HeroTypeDependentAliasedField($episode: Episode) { hero(episode: $episode) { __typename ... on Human { __typename property: homePlanet } ... on Droid { __typename property: primaryFunction } } }"#
     ))
 
   public var episode: GraphQLNullable<GraphQLEnum<Episode>>

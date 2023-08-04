@@ -1,4 +1,4 @@
-import Foundation
+import Dispatch
 
 extension DispatchQueue {
 

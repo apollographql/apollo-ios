@@ -4,12 +4,9 @@
 @_exported import ApolloAPI
 
 public struct HumanHeightWithVariable: StarWarsAPI.SelectionSet, Fragment {
-  public static var fragmentDefinition: StaticString { """
-    fragment HumanHeightWithVariable on Human {
-      __typename
-      height(unit: $heightUnit)
-    }
-    """ }
+  public static var fragmentDefinition: StaticString {
+    #"fragment HumanHeightWithVariable on Human { __typename height(unit: $heightUnit) }"#
+  }
 
   public let __data: DataDict
   public init(_dataDict: DataDict) { __data = _dataDict }

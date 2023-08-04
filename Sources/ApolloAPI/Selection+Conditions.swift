@@ -1,5 +1,3 @@
-import Foundation
-
 public extension Selection {
   /// The conditions representing a group of `@include/@skip` directives.
   ///

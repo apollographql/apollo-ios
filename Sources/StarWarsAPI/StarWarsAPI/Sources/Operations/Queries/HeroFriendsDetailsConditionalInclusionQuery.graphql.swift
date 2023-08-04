@@ -6,23 +6,9 @@
 public class HeroFriendsDetailsConditionalInclusionQuery: GraphQLQuery {
   public static let operationName: String = "HeroFriendsDetailsConditionalInclusion"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
-    operationIdentifier: "8cada231691ff2f5a0a07c54b7332114588f11b947795da345c5b054211fbcfd",
+    operationIdentifier: "ca1b86ff4a0f8212bdac70fbb59c9bb8023d0a30ca0225b24831bb3e807b22a0",
     definition: .init(
-      #"""
-      query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) {
-        hero {
-          __typename
-          friends @include(if: $includeFriendsDetails) {
-            __typename
-            name
-            ... on Droid {
-              __typename
-              primaryFunction
-            }
-          }
-        }
-      }
-      """#
+      #"query HeroFriendsDetailsConditionalInclusion($includeFriendsDetails: Boolean!) { hero { __typename friends @include(if: $includeFriendsDetails) { __typename name ... on Droid { __typename primaryFunction } } } }"#
     ))
 
   public var includeFriendsDetails: Bool

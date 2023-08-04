@@ -42,7 +42,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           additionalInflectionRules: [
             .pluralization(singularRegex: "animal", replacementRegex: "animals")
           ],
-          queryStringLiteralFormat: .singleLine,
           deprecatedEnumCases: .exclude,
           schemaDocumentation: .exclude,
           operationDocumentFormat: .definition,
@@ -91,7 +90,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "definition"
           ],
           "pruneGeneratedFiles" : false,
-          "queryStringLiteralFormat" : "singleLine",
           "schemaDocumentation" : "exclude",
           "selectionSetInitializers" : {
             "localCacheMutations" : true
@@ -301,69 +299,6 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
 
     expect(try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: encodedConfig))
       .toNot(throwError())
-  }
-
-  // MARK: - QueryStringLiteralFormat Tests
-
-  func encodedValue(_ case: ApolloCodegenConfiguration.QueryStringLiteralFormat) -> String {
-    switch `case` {
-    case .singleLine: return "\"singleLine\""
-    case .multiline: return "\"multiline\""
-    }
-  }
-
-  func test__encodeQueryStringLiteralFormat__givenSingleLine_shouldReturnString() throws {
-    // given
-    let subject = ApolloCodegenConfiguration.QueryStringLiteralFormat.singleLine
-
-    // when
-    let actual = try testJSONEncoder.encode(subject).asString
-
-    // then
-    expect(actual).to(equal(encodedValue(.singleLine)))
-  }
-
-  func test__encodeQueryStringLiteralFormat__givenMultiline_shouldReturnString() throws {
-    // given
-    let subject = ApolloCodegenConfiguration.QueryStringLiteralFormat.multiline
-
-    // when
-    let actual = try testJSONEncoder.encode(subject).asString
-
-    // then
-    expect(actual).to(equal(encodedValue(.multiline)))
-  }
-
-  func test__decodeQueryStringLiteralFormat__givenSingleLine_shouldReturnEnum() throws {
-    // given
-    let subject = encodedValue(.singleLine).asData
-
-    // when
-    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.QueryStringLiteralFormat.self, from: subject)
-
-    // then
-    expect(actual).to(equal(.singleLine))
-  }
-
-  func test__decodeQueryStringLiteralFormat__givenMultiline_shouldReturnEnum() throws {
-    // given
-    let subject = encodedValue(.multiline).asData
-
-    // when
-    let actual = try JSONDecoder().decode(ApolloCodegenConfiguration.QueryStringLiteralFormat.self, from: subject)
-
-    // then
-    expect(actual).to(equal(.multiline))
-  }
-
-  func test__decodeQueryStringLiteralFormat__givenUnknown_shouldThrow() throws {
-    // given
-    let subject = "\"unknown\"".asData
-
-    // then
-    expect(
-      try JSONDecoder().decode(ApolloCodegenConfiguration.QueryStringLiteralFormat.self, from: subject)
-    ).to(throwError())
   }
 
   // MARK: - Composition Tests
@@ -922,5 +857,197 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
         accessModifier: .public
       ))
     )
+  }
+
+  func test__decodeApolloCodegenConfiguration__withInvalidFileOutput() throws {
+    // given
+    let subject = """
+    {
+      "schemaName": "MySchema",
+      "input": {
+        "operationSearchPaths": ["/search/path/**/*.graphql"],
+        "schemaSearchPaths": ["/path/to/schema.graphqls"]
+      },
+      "output": {
+        "testMocks": {
+          "none": {}
+        },
+        "schemaTypes": {
+          "path": "./MySchema",
+          "moduleType": {
+            "swiftPackageManager": {}
+          }
+        },
+        "operations": {
+          "inSchemaModule": {}
+        },
+        "options": {
+          "selectionSetInitializers" : {
+            "operations": true,
+            "namedFragments": true,
+            "localCacheMutations" : true
+          },
+          "queryStringLiteralFormat": "multiline",
+          "schemaDocumentation": "include",
+          "apqs": "disabled",
+          "warningsOnDeprecatedUsage": "include"
+        }
+      }
+    }
+    """.asData
+
+    func decodeConfiguration(subject: Data) throws -> ApolloCodegenConfiguration {
+      try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+    }
+    XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
+      guard case let DecodingError.typeMismatch(type, context) = error else { return fail("Incorrect error type") }
+      XCTAssertEqual("\(type)", String(describing: ApolloCodegenConfiguration.FileOutput.self))
+      XCTAssertEqual(context.debugDescription, "Unrecognized key found: options")
+    }
+  }
+
+  func test__decodeApolloCodegenConfiguration__withInvalidOptions() throws {
+    // given
+    let subject = """
+    {
+      "schemaName": "MySchema",
+      "input": {
+        "operationSearchPaths": ["/search/path/**/*.graphql"],
+        "schemaSearchPaths": ["/path/to/schema.graphqls"]
+      },
+      "output": {
+        "testMocks": {
+          "none": {}
+        },
+        "schemaTypes": {
+          "path": "./MySchema",
+          "moduleType": {
+            "swiftPackageManager": {}
+          }
+        },
+        "operations": {
+          "inSchemaModule": {}
+        }
+      },
+      "options": {
+        "secret_feature": "flappy_bird",
+        "selectionSetInitializers" : {
+          "operations": true,
+          "namedFragments": true,
+          "localCacheMutations" : true
+        },
+        "queryStringLiteralFormat": "multiline",
+        "schemaDocumentation": "include",
+        "apqs": "disabled",
+        "warningsOnDeprecatedUsage": "include"
+      }
+    }
+    """.asData
+
+    func decodeConfiguration(subject: Data) throws -> ApolloCodegenConfiguration {
+      try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+    }
+    XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
+      guard case let DecodingError.typeMismatch(type, context) = error else { return fail("Incorrect error type") }
+      XCTAssertEqual("\(type)", String(describing: ApolloCodegenConfiguration.OutputOptions.self))
+      XCTAssertEqual(context.debugDescription, "Unrecognized key found: secret_feature")
+    }
+  }
+
+  func test__decodeApolloCodegenConfiguration__withInvalidBaseConfiguration() throws {
+    // given
+    let subject = """
+    {
+      "contact_info": "42 Wallaby Way, Sydney",
+      "schemaName": "MySchema",
+      "input": {
+        "operationSearchPaths": ["/search/path/**/*.graphql"],
+        "schemaSearchPaths": ["/path/to/schema.graphqls"]
+      },
+      "output": {
+        "testMocks": {
+          "none": {}
+        },
+        "schemaTypes": {
+          "path": "./MySchema",
+          "moduleType": {
+            "swiftPackageManager": {}
+          }
+        },
+        "operations": {
+          "inSchemaModule": {}
+        }
+      },
+      "options": {
+        "selectionSetInitializers" : {
+          "operations": true,
+          "namedFragments": true,
+          "localCacheMutations" : true
+        },
+        "queryStringLiteralFormat": "multiline",
+        "schemaDocumentation": "include",
+        "apqs": "disabled",
+        "warningsOnDeprecatedUsage": "include"
+      }
+    }
+    """.asData
+
+    func decodeConfiguration(subject: Data) throws -> ApolloCodegenConfiguration {
+      try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+    }
+    XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
+      guard case let DecodingError.typeMismatch(type, context) = error else { return fail("Incorrect error type") }
+      XCTAssertEqual("\(type)", String(describing: ApolloCodegenConfiguration.self))
+      XCTAssertEqual(context.debugDescription, "Unrecognized key found: contact_info")
+    }
+  }
+
+  func test__decodeApolloCodegenConfiguration__withInvalidBaseConfiguration_multipleErrors() throws {
+    // given
+    let subject = """
+    {
+      "contact_info": "42 Wallaby Way, Sydney",
+      "motto": "Just keep swimming",
+      "schemaName": "MySchema",
+      "input": {
+        "operationSearchPaths": ["/search/path/**/*.graphql"],
+        "schemaSearchPaths": ["/path/to/schema.graphqls"]
+      },
+      "output": {
+        "testMocks": {
+          "none": {}
+        },
+        "schemaTypes": {
+          "path": "./MySchema",
+          "moduleType": {
+            "swiftPackageManager": {}
+          }
+        },
+        "operations": {
+          "inSchemaModule": {}
+        }
+      },
+      "options": {
+        "selectionSetInitializers" : {
+          "operations": true,
+          "namedFragments": true,
+          "localCacheMutations" : true
+        },
+        "queryStringLiteralFormat": "multiline",
+        "schemaDocumentation": "include",
+        "apqs": "disabled",
+        "warningsOnDeprecatedUsage": "include"
+      }
+    }
+    """.asData
+
+    func decodeConfiguration(subject: Data) throws -> ApolloCodegenConfiguration {
+      try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: subject)
+    }
+    XCTAssertThrowsError(try decodeConfiguration(subject: subject)) { error in
+      guard case let DecodingError.typeMismatch(type, context) = error else { return fail("Incorrect error type") }
+      XCTAssertEqual("\(type)", String(describing: ApolloCodegenConfiguration.self))
+      XCTAssertEqual(context.debugDescription, "Unrecognized keys found: contact_info, motto")
+    }
   }
 }

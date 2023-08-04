@@ -72,7 +72,7 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
       """)
       \(if: includeDefinition, """
         definition: .init(
-          \(operation.source.formatted(for: config.options.queryStringLiteralFormat))\(if: includeFragments, ",")
+          \(operation.source.formattedSource())\(if: includeFragments, ",")
           \(if: includeFragments,
                             "fragments: [\(fragments.map { "\($0.name.asFragmentName).self" }, separator: ", ")]")
         ))
@@ -98,17 +98,7 @@ fileprivate extension CompilationResult.OperationType {
 }
 
 fileprivate extension String {
-  func formatted(for format: ApolloCodegenConfiguration.QueryStringLiteralFormat) -> Self {
-    switch format {
-    case .multiline:
-      return """
-        #""\"
-        \(self)
-        ""\"#
-        """
-
-    case .singleLine:
-      return "#\"\(convertedToSingleLine())\"#"
-    }
+  func formattedSource() -> Self {
+    return "#\"\(convertedToSingleLine())\"#"
   }
 }

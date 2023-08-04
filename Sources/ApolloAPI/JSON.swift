@@ -1,5 +1,3 @@
-import Foundation
-
 /// Represents a value in a ``JSONObject``
 ///
 /// Making ``JSONValue`` an `AnyHashable` enables comparing ``JSONObject``s

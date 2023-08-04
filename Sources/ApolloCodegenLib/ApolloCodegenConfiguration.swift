@@ -202,7 +202,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case schemaTypes
       case operations
       case testMocks
@@ -214,7 +214,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// specified defaults when not present.
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
-
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
       schemaTypes = try values.decode(
         SchemaTypesFileOutput.self,
         forKey: .schemaTypes
@@ -509,9 +509,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public struct OutputOptions: Codable, Equatable {
     /// Any non-default rules for pluralization or singularization you wish to include.
     public let additionalInflectionRules: [InflectionRule]
-    /// Formatting of the GraphQL query string literal that is included in each
-    /// generated operation object.
-    public let queryStringLiteralFormat: QueryStringLiteralFormat
     /// How deprecated enum cases from the schema should be handled.
     public let deprecatedEnumCases: Composition
     /// Whether schema documentation is added to the generated files.
@@ -560,7 +557,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Default property values
     public struct Default {
       public static let additionalInflectionRules: [InflectionRule] = []
-      public static let queryStringLiteralFormat: QueryStringLiteralFormat = .multiline
       public static let deprecatedEnumCases: Composition = .include
       public static let schemaDocumentation: Composition = .include
       public static let selectionSetInitializers: SelectionSetInitializers = [.localCacheMutations]
@@ -576,8 +572,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// - Parameters:
     ///   - additionalInflectionRules: Any non-default rules for pluralization or singularization
     ///   you wish to include.
-    ///   - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
-    ///   included in each generated operation object.
     ///   - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
     ///   - schemaDocumentation: Whether schema documentation is added to the generated files.
     ///   - selectionSetInitializers: Which generated selection sets should include
@@ -593,7 +587,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
     public init(
       additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
-      queryStringLiteralFormat: QueryStringLiteralFormat = Default.queryStringLiteralFormat,
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
       schemaDocumentation: Composition = Default.schemaDocumentation,
       selectionSetInitializers: SelectionSetInitializers = Default.selectionSetInitializers,
@@ -604,7 +597,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
     ) {
       self.additionalInflectionRules = additionalInflectionRules
-      self.queryStringLiteralFormat = queryStringLiteralFormat
       self.deprecatedEnumCases = deprecatedEnumCases
       self.schemaDocumentation = schemaDocumentation
       self.selectionSetInitializers = selectionSetInitializers
@@ -617,7 +609,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: CodingKey, CaseIterable {
       case additionalInflectionRules
       case queryStringLiteralFormat
       case deprecatedEnumCases
@@ -633,16 +625,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+      try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
       additionalInflectionRules = try values.decodeIfPresent(
         [InflectionRule].self,
         forKey: .additionalInflectionRules
       ) ?? Default.additionalInflectionRules
-
-      queryStringLiteralFormat = try values.decodeIfPresent(
-        QueryStringLiteralFormat.self,
-        forKey: .queryStringLiteralFormat
-      ) ?? Default.queryStringLiteralFormat
 
       deprecatedEnumCases = try values.decodeIfPresent(
         Composition.self,
@@ -694,7 +682,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       var container = encoder.container(keyedBy: CodingKeys.self)
 
       try container.encode(self.additionalInflectionRules, forKey: .additionalInflectionRules)
-      try container.encode(self.queryStringLiteralFormat, forKey: .queryStringLiteralFormat)
       try container.encode(self.deprecatedEnumCases, forKey: .deprecatedEnumCases)
       try container.encode(self.schemaDocumentation, forKey: .schemaDocumentation)
       try container.encode(self.selectionSetInitializers, forKey: .selectionSetInitializers)
@@ -704,14 +691,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       try container.encode(self.conversionStrategies, forKey: .conversionStrategies)
       try container.encode(self.pruneGeneratedFiles, forKey: .pruneGeneratedFiles)
     }
-  }
-
-  /// Specify the formatting of the GraphQL query string literal.
-  public enum QueryStringLiteralFormat: String, Codable, Equatable {
-    /// The query string will be copied into the operation object with all line break formatting removed.
-    case singleLine
-    /// The query string will be copied with original formatting into the operation object.
-    case multiline
   }
 
   /// Composition is used as a substitute for a boolean where context is better placed in the value
@@ -757,6 +736,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     public init(from decoder: Decoder) throws {
       let values = try decoder.container(keyedBy: CodingKeys.self)
+      guard values.allKeys.first != nil else {
+        throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
+          codingPath: values.codingPath,
+          debugDescription: "Invalid number of keys found, expected one.",
+          underlyingError: nil
+        ))
+      }
 
       enumCases = try values.decodeIfPresent(
         CaseConversionStrategy.self,
@@ -934,7 +920,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
     // MARK: Codable
 
-    public enum CodingKeys: CodingKey {
+    public enum CodingKeys: CodingKey, CaseIterable {
       case clientControlledNullability
       case legacySafelistingCompatibleOperations
     }
@@ -1011,7 +997,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case schemaName
     case schemaNamespace
     case input
@@ -1037,6 +1023,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
 
     func getSchemaNamespaceValue() throws -> String {
       if let value = try values.decodeIfPresent(String.self, forKey: .schemaNamespace) {
@@ -1155,7 +1142,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   // MARK: Codable
 
-  enum CodingKeys: CodingKey {
+  enum CodingKeys: CodingKey, CaseIterable {
     case operations
     case namedFragments
     case localCacheMutations
@@ -1164,6 +1151,7 @@ extension ApolloCodegenConfiguration.SelectionSetInitializers {
 
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
+    try throwIfContainsUnexpectedKey(container: values, type: Self.self, decoder: decoder)
     var options: Options = []
 
     func decode(option: @autoclosure () -> Options, forKey key: CodingKeys) throws {
@@ -1334,7 +1322,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
   )
   public init(
     additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
-    queryStringLiteralFormat: ApolloCodegenConfiguration.QueryStringLiteralFormat = Default.queryStringLiteralFormat,
+    queryStringLiteralFormat: QueryStringLiteralFormat = .singleLine,
     deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
     schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
     selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
@@ -1345,11 +1333,56 @@ extension ApolloCodegenConfiguration.OutputOptions {
     pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
   ) {
     self.additionalInflectionRules = additionalInflectionRules
-    self.queryStringLiteralFormat = queryStringLiteralFormat
     self.deprecatedEnumCases = deprecatedEnumCases
     self.schemaDocumentation = schemaDocumentation
     self.selectionSetInitializers = selectionSetInitializers
     self.operationDocumentFormat = apqs.operationDocumentFormat
+    self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
+    self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
+    self.conversionStrategies = conversionStrategies
+    self.pruneGeneratedFiles = pruneGeneratedFiles
+  }
+  
+  /// Deprecated initializer.
+  ///
+  /// - Parameters:
+  ///   - additionalInflectionRules: Any non-default rules for pluralization or singularization
+  ///   you wish to include.
+  ///   - queryStringLiteralFormat: Formatting of the GraphQL query string literal that is
+  ///   included in each generated operation object.
+  ///   - deprecatedEnumCases: How deprecated enum cases from the schema should be handled.
+  ///   - schemaDocumentation: Whether schema documentation is added to the generated files.
+  ///   - selectionSetInitializers: Which generated selection sets should include
+  ///     generated initializers.
+  ///   - operationDocumentFormat: How to generate the operation documents for your generated operations.
+  ///   - cocoapodsCompatibleImportStatements: Generate import statements that are compatible with
+  ///     including `Apollo` via Cocoapods.
+  ///   - warningsOnDeprecatedUsage: Annotate generated Swift code with the Swift `available`
+  ///     attribute and `deprecated` argument for parts of the GraphQL schema annotated with the
+  ///     built-in `@deprecated` directive.
+  ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
+  ///     generated code.
+  ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+  @available(*, deprecated,
+              renamed: "init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+  )
+  public init(
+    additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
+    queryStringLiteralFormat: QueryStringLiteralFormat,
+    deprecatedEnumCases: ApolloCodegenConfiguration.Composition = Default.deprecatedEnumCases,
+    schemaDocumentation: ApolloCodegenConfiguration.Composition = Default.schemaDocumentation,
+    selectionSetInitializers: ApolloCodegenConfiguration.SelectionSetInitializers = Default.selectionSetInitializers,
+    operationDocumentFormat: ApolloCodegenConfiguration.OperationDocumentFormat = Default.operationDocumentFormat,
+    cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
+    warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
+    conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
+    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
+  ) {
+    self.additionalInflectionRules = additionalInflectionRules
+    self.deprecatedEnumCases = deprecatedEnumCases
+    self.schemaDocumentation = schemaDocumentation
+    self.selectionSetInitializers = selectionSetInitializers
+    self.operationDocumentFormat = operationDocumentFormat
     self.cocoapodsCompatibleImportStatements = cocoapodsCompatibleImportStatements
     self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     self.conversionStrategies = conversionStrategies
@@ -1371,5 +1404,56 @@ extension ApolloCodegenConfiguration.OutputOptions {
     default:
       return .disabled
     }
+  }
+  
+  /// Formatting of the GraphQL query string literal that is included in each
+  /// generated operation object.
+  @available(*, deprecated, message: "Query strings are now always in single line format.")
+  public var queryStringLiteralFormat: QueryStringLiteralFormat {
+    return .singleLine
+  }
+  
+  /// Specify the formatting of the GraphQL query string literal.
+  public enum QueryStringLiteralFormat: String, Codable, Equatable {
+    /// The query string will be copied into the operation object with all line break formatting removed.
+    @available(*, deprecated, message: "Query strings are now always in single line format.")
+    case singleLine
+    /// The query string will be copied with original formatting into the operation object.
+    @available(*, deprecated, message: "Query strings are now always in single line format.")
+    case multiline
+  }
+}
+
+private struct AnyCodingKey: CodingKey {
+  var stringValue: String
+
+  init?(stringValue: String) {
+    self.stringValue = stringValue
+  }
+
+  var intValue: Int?
+
+  init?(intValue: Int) {
+    self.intValue = intValue
+    self.stringValue = "\(intValue)"
+  }
+}
+
+private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
+  container: KeyedDecodingContainer<C>,
+  type: T.Type,
+  decoder: Decoder
+) throws {
+  // Map all keys from the input object
+  let allKeys = Set(try decoder.container(keyedBy: AnyCodingKey.self).allKeys.map(\.stringValue))
+  // Map all valid keys from the given `CodingKey` enum
+  let validKeys = Set(C.allCases.map(\.stringValue))
+  guard allKeys.isSubset(of: validKeys) else {
+    let invalidKeys = allKeys.subtracting(validKeys).sorted()
+    throw DecodingError.typeMismatch(type, DecodingError.Context.init(
+      codingPath: container.codingPath,
+      debugDescription: "Unrecognized \(invalidKeys.count > 1 ? "keys" : "key") found: \(invalidKeys.joined(separator: ", "))",
+      underlyingError: nil
+    ))
   }
 }
