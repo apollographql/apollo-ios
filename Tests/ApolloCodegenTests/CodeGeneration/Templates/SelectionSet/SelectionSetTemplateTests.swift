@@ -2657,6 +2657,67 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expectedTypeCaseConditionalSelections, atLine: 41, ignoringExtraLines: true))
   }
 
+  func test__render_selection__givenNamedFragment_withDeferDirective_onTypeCase_andIncludeDirective_onNamedFragment_renders_inlineFragmentQuerySelection_andConditionalInlineFragmentSelection_andDeferredTypeCaseConditionSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @defer {
+          ... DogFragment @include(if: $filter)
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self, deferred: true),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .include(if: "filter", .inlineFragment(IfFilter.self)),
+        ] }
+    """
+
+    let expectedTypeCaseConditionalSelections = """
+          public static var __selections: [ApolloAPI.Selection] { [
+            .fragment(DogFragment.self),
+          ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseConditionalSelections, atLine: 41, ignoringExtraLines: true))
+  }
+
   // MARK: Merged Sources
 
   func test__render_mergedSources__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersMergedSources() throws {
