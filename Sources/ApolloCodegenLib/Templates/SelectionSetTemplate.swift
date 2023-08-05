@@ -278,7 +278,7 @@ struct SelectionSetTemplate {
   }
 
   private func InlineFragmentSelectionTemplate(_ inlineFragment: IR.InlineFragmentSpread) -> TemplateString {
-    return """
+    """
     .inlineFragment(\(inlineFragment.selectionSet.renderedTypeName).self\(inlineFragment.isDeferred.rendered))
     """
   }

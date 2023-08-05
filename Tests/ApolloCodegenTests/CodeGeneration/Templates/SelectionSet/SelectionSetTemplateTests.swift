@@ -2031,7 +2031,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... on Dog @defer(if: $filter) {
           species
@@ -2160,7 +2160,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... on Dog @skip(if: $filter) @defer {
           species
@@ -2203,7 +2203,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean, $other: Boolean) {
       allAnimals {
         ... on Dog @include(if: $filter) @defer(if: $other) {
           species
@@ -2216,6 +2216,57 @@ class SelectionSetTemplateTests: XCTestCase {
       public static var __selections: [ApolloAPI.Selection] { [
         .field("__typename", String.self),
         .include(if: "filter", .inlineFragment(AsDogIfFilter.self, deferred: .if("other"))),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenInlineFragment_withSameTypeAndInclusionConditions_differentDeferConditions_shouldNotMergeSelectionsTogether() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      genus: String!
+      species: String!
+    }
+
+    type Dog implements Animal {
+      genus: String!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer {
+          genus
+        }
+        ... on Dog @include(if: $filter) @defer(if: $other) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: "filter", [
+          .inlineFragment(AsDogIfFilter.self, deferred: true),
+          .inlineFragment(AsDogIfFilter.self, deferred: .if("other")),
+        ]),
       ] }
     """
 
@@ -2300,7 +2351,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... DogFragment @defer(if: $filter)
       }
@@ -2352,7 +2403,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... DogFragment @defer(if: false)
       }
@@ -2404,7 +2455,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... DogFragment @include(if: $filter) @defer
       }
@@ -2457,7 +2508,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean) {
       allAnimals {
         ... DogFragment @skip(if: $filter) @defer
       }
@@ -2509,7 +2560,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean, $other: Boolean) {
       allAnimals {
         ... DogFragment @include(if: $filter) @defer(if: $other)
       }
@@ -2561,7 +2612,7 @@ class SelectionSetTemplateTests: XCTestCase {
     """
 
     document = """
-    query TestOperation {
+    query TestOperation($filter: Boolean, $other: Boolean) {
       allAnimals {
         ... DogFragment @skip(if: $filter) @defer(if: $other)
       }

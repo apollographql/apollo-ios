@@ -3,9 +3,6 @@ import OrderedCollections
 
 extension IR {
 
-  // TODO: Write tests that two inline fragments with same type and inclusion conditions,
-  // but different defer conditions don't  merge together.
-  // To be done in issue #3141
   struct ScopeCondition: Hashable, CustomDebugStringConvertible {
     let type: GraphQLCompositeType?
     let conditions: InclusionConditions?
