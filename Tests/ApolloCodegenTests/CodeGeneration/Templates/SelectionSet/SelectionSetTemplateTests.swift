@@ -5662,6 +5662,90 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
   }
 
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirectiveWithIfArgument_rendersFragmentAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @defer(if: $filter)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expected = """
+          public var dogFragment: DogFragment? { _toFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+  }
+
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirectiveFalse_rendersFragmentAccessorAsNonOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer(if: false)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expected = """
+          public var dogFragment: DogFragment { _toFragment() }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 31, ignoringExtraLines: true))
+  }
+
   // MARK: - Nested Selection Sets
 
   func test__render_nestedSelectionSets__givenDirectEntityFieldAsList_rendersNestedSelectionSet() throws {
