@@ -995,7 +995,7 @@ fileprivate extension IR.IsDeferred {
       return ""
 
     case let .if(variable):
-      return ", if(\"\(variable)\")"
+      return ", deferred: .if(\"\(variable)\")"
     }
   }
 }
