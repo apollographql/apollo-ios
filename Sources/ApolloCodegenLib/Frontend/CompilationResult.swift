@@ -2,6 +2,7 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
+  /// String constants used to match JavaScriptObject instances.
   private enum Constants {
     enum DirectiveNames {
       static let LocalCacheMutation = "apollo_client_ios_localCacheMutation"

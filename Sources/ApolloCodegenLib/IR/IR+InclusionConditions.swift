@@ -54,6 +54,7 @@ extension IR {
       self.conditions = [condition]
     }
 
+    /// A failable initializer to convert from an array of `CompilationResult.InclusionCondition`.
     init?(_ conditions: [CompilationResult.InclusionCondition]?) {
       guard let conditions, !conditions.isEmpty else { return nil }
 

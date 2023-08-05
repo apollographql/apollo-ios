@@ -57,7 +57,8 @@ class IR {
     }
   }
 
-  // TODO: Documentation for this to be completed in issue #3141
+  /// Represents the `@defer` directive on an inline or named fragment spread. Can be expressed as
+  /// a Boolean literal or a conditional with a variable.
   enum IsDeferred: Hashable, ExpressibleByBooleanLiteral {
     case value(Bool)
     case `if`(_ variable: String)
