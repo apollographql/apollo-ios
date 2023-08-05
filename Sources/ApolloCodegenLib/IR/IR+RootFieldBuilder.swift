@@ -240,7 +240,11 @@ extension IR {
       for namedFragment: CompilationResult.FragmentSpread,
       in parentTypePath: SelectionSet.TypeInfo
     ) -> ScopeCondition? {
-      let scopedIsDeferred = (parentTypePath.parentType == namedFragment.parentType) ? namedFragment.isDeferred : false
+      let matchedParentTypes = (parentTypePath.parentType == namedFragment.parentType)
+      let matchedInclusionConditions = (parentTypePath.inclusionConditions == InclusionConditions(namedFragment.inclusionConditions))
+
+      let scopedIsDeferred = matchedParentTypes && matchedInclusionConditions
+      ? namedFragment.isDeferred : false
 
       return scopeCondition(for: namedFragment, in: parentTypePath, isDeferred: scopedIsDeferred)
     }
