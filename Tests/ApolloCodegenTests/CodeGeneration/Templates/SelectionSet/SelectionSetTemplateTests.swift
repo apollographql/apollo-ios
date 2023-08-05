@@ -1971,7 +1971,7 @@ class SelectionSetTemplateTests: XCTestCase {
 
   // MARK: Selections - Defer (Inline Fragments)
 
-  func test__render_selection__givenInlineFragment_withDeferDirective_rendersDeferredInlineFragmentSelectionSet() throws {
+  func test__render_selection__givenInlineFragment_withDeferDirective_rendersDeferredInlineFragmentSelection() throws {
     // given
     schemaSDL = """
     type Query {
@@ -2014,9 +2014,224 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgument_rendersDeferredInlineFragmentSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @defer(if: $filter) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self, deferred: .if("filter")),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgumentFalse_rendersInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @defer(if: false) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIncludeDirective_rendersConditionalSelection_withDeferredInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: "filter", .inlineFragment(AsDogIfFilter.self, deferred: true)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andSkipDirective_rendersConditionalSelection_withDeferredInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @skip(if: $filter) @defer {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: !"filter", .inlineFragment(AsDogIfNotFilter.self, deferred: true)),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgument_andConditionalDirective_rendersConditionalSelection_withDeferredInlineFragmentSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer(if: $other) {
+          species
+        }
+      }
+    }
+    """
+
+    let expected = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: "filter", .inlineFragment(AsDogIfFilter.self, deferred: .if("other"))),
+      ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
+  }
+
   // MARK: Selections - Defer (Named Fragments)
 
-  func test__render_selection__givenNamedFragment_withDeferDirective_rendersDeferredFragmentSpreadSelectionSet() throws {
+  func test__render_selection__givenNamedFragment_withDeferDirective_renders_inlineFragmentQuerySelection_andDeferredNamedFragmentTypeCaseSelection() throws {
     // given
     schemaSDL = """
     type Query {
@@ -2067,6 +2282,381 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
     expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
   }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_renders_inlineFragmentQuerySelection_andDeferredNamedFragmentTypeCaseSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer(if: $filter)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: .if("filter")),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgumentFalse_renders_inlineFragmentQuerySelection_andNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer(if: false)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIncludeDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @include(if: $filter) @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: "filter", .inlineFragment(AsDogIfFilter.self)),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: true),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andSkipDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @skip(if: $filter) @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: !"filter", .inlineFragment(AsDogIfNotFilter.self)),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: true),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_andIncludeDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentWithVariableTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @include(if: $filter) @defer(if: $other)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: "filter", .inlineFragment(AsDogIfFilter.self)),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: .if("other")),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_andSkipDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentWithVariableTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @skip(if: $filter) @defer(if: $other)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .include(if: !"filter", .inlineFragment(AsDogIfNotFilter.self)),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .fragment(DogFragment.self, deferred: .if("other")),
+        ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIncludeDirective_withinTypeCase_renders_inlineFragmentQuerySelection_andConditionalInlineFragmentSelection_andDeferredTypeCaseConditionSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog {
+          ... DogFragment @include(if: $filter) @defer
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    let expectedQuerySelections = """
+      public static var __selections: [ApolloAPI.Selection] { [
+        .field("__typename", String.self),
+        .inlineFragment(AsDog.self),
+      ] }
+    """
+
+    let expectedTypeCaseSelections = """
+        public static var __selections: [ApolloAPI.Selection] { [
+          .include(if: "filter", .inlineFragment(IfFilter.self)),
+        ] }
+    """
+
+    let expectedTypeCaseConditionalSelections = """
+          public static var __selections: [ApolloAPI.Selection] { [
+            .fragment(DogFragment.self, deferred: true),
+          ] }
+    """
+
+    // when
+    try buildSubjectAndOperation()
+
+    let allAnimals = try XCTUnwrap(operation[field: "query"]?[field: "allAnimals"] as? IR.EntityField)
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expectedQuerySelections, atLine: 7, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseSelections, atLine: 21, ignoringExtraLines: true))
+    expect(actual).to(equalLineByLine(expectedTypeCaseConditionalSelections, atLine: 41, ignoringExtraLines: true))
+  }
+
   // MARK: Merged Sources
 
   func test__render_mergedSources__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersMergedSources() throws {
