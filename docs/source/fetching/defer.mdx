@@ -1,0 +1,58 @@
+---
+title: Using the @defer directive in Apollo iOS
+description: 'Fetch slower schema fields asynchronously'
+---
+
+> ⚠️ **The `@defer` directive is currently [experimental](https://www.apollographql.com/docs/resources/release-stages/#experimental-features) in Apollo iOS and is available for use in the `TBD` release.** If you have feedback on the feature, please let us know via [GitHub issues](https://github.com/apollographql/apollo-ios/issues/new?assignees=&labels=bug%2Cneeds+investigation&projects=&template=bug_report.yaml).
+
+Beginning with version `TBD`, Apollo iOS provides experimental support of [the `@defer` directive](https://github.com/graphql/graphql-wg/blob/main/rfcs/DeferStream.md), which enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than the others.
+
+For example, let's say we're building a social media application that can quickly fetch a user's basic profile information, but retrieving that user's friends takes longer. If we include _all_ of those fields in a single query, we want to be able to display the profile information as soon as it's available, instead of waiting for the friend fields to resolve.
+
+To achieve this, we can apply the `@defer` directive to an in-line fragment that contains all slow-resolving fields related to friend data:
+
+```graphql
+query PersonQuery($personId: ID!) {
+  person(id: $personId) {
+    # Basic fields (fast)
+    id
+    firstName
+    lastName
+
+    # highlight-start
+    # Friend fields (slower)
+    ... on User @defer {
+      friends {
+        id
+      }
+    }
+    # highlight-end
+  }
+}
+```
+
+In the generated code for this query, the `onUser` field for the fragment will be optional. That is because when the initial payload is received from the server, the fields of the fragment are not yet present. A `Person` will be returned with only the basic fields filled in.
+
+When the fields of the fragment are available, a new `Person` will be returned, this time with the `onUser` field present and filled with the fields of the fragment.
+
+```swift
+client.fetch(query: ExampleQuery()) { result in
+  switch (result) {
+  case let .success(data):
+    if let item = data.data?.person.asUser {
+      print("Query Success! Received all fields")
+    } else {
+      print("Query Success! Received basic fields")
+    }
+  case let .failure(error):
+    print("Query Failure! \(error)")
+  }
+}
+```
+
+Will print something like this:
+
+```
+Query Success! Received basic fields
+Query Success! Received all fields
+```

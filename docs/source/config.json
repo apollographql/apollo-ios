@@ -78,7 +78,8 @@
         "Error Handling":  "/fetching/error-handling",
         "Type Conditions": "/fetching/type-conditions",
         "Custom Scalars": "/custom-scalars",
-        "Automatic Persisted Queries": "/fetching/apqs"
+        "Automatic Persisted Queries": "/fetching/apqs",
+        "@defer support (experimental)": "/fetching/defer"
       },
       true
     ],
