@@ -46,7 +46,7 @@ Persisted queries also requires you to create and link a PQL, and to configure y
 
 ### 1. Generate operation manifests
 
-> This step is only required for implementing safelisting with persisted queries, it is _not_ for required APQs.
+> This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
 An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can check incoming requests against. You can generate operation manifests in two ways:
 - by running the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) CLI command with `--path` and `--version` arguments
