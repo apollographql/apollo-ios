@@ -906,7 +906,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public let experimentalFeatures: ExperimentalFeatures
   /// Schema download configuration.
   public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
-  /// `OperationManifestConfiguration` for persisted queries or legacy APQs
+  /// Configuration for generating an operation manifest for use with persisted queries.
   public let operationManifestConfiguration: OperationManifestConfiguration?
 
   public struct Default {
