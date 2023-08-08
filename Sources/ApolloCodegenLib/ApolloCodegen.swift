@@ -73,9 +73,9 @@ public class ApolloCodegen {
     
     public static let code = ItemsToGenerate(rawValue: 1 << 0)
     public static let operationManifest = ItemsToGenerate(rawValue: 1 << 1)
-    public static let all = [
-      ItemsToGenerate.code,
-      ItemsToGenerate.operationManifest
+    public static let all: ItemsToGenerate = [
+      .code,
+      .operationManifest
     ]
     
     public init(rawValue: Int) {
