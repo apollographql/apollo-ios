@@ -3,7 +3,7 @@ import JavaScriptCore
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
   /// String constants used to match JavaScriptObject instances.
-  private enum Constants {
+  fileprivate enum Constants {
     enum DirectiveNames {
       static let LocalCacheMutation = "apollo_client_ios_localCacheMutation"
       static let Defer = "defer"
@@ -174,33 +174,14 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
-  public class InlineFragment: JavaScriptObject, Hashable {
+  public class InlineFragment: JavaScriptObject, Hashable, Deferrable {
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
 
-    lazy var isDeferred: IsDeferred = {
-      guard let directive = directives?.first(where: { $0.name == Constants.DirectiveNames.Defer }) else {
-        return false
-      }
-
-      guard let argument = directive.arguments?.first(where: { $0.name == Constants.ArgumentLabels.If }) else {
-        return true
-      }
-
-      switch (argument.value) {
-      case let .boolean(value):
-        return .value(value)
-
-      case let .variable(variable):
-        return .variable(variable)
-
-      default:
-        preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
-      }
-    }()
+    lazy var isDeferred: IsDeferred = getIsDeferred()
 
     public override var debugDescription: String {
       selectionSet.debugDescription
@@ -219,33 +200,14 @@ public class CompilationResult: JavaScriptObject {
 
   /// Represents an individual selection that includes a named fragment in a selection set.
   /// (ie. `...FragmentName`)
-  public class FragmentSpread: JavaScriptObject, Hashable {
+  public class FragmentSpread: JavaScriptObject, Hashable, Deferrable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
 
-    lazy var isDeferred: IsDeferred = {
-      guard let directive = directives?.first(where: { $0.name == Constants.DirectiveNames.Defer }) else {
-        return false
-      }
-
-      guard let argument = directive.arguments?.first(where: { $0.name == Constants.ArgumentLabels.If }) else {
-        return true
-      }
-
-      switch (argument.value) {
-      case let .boolean(value):
-        return .value(value)
-
-      case let .variable(variable):
-        return .variable(variable)
-
-      default:
-        preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
-      }
-    }()
+    lazy var isDeferred: IsDeferred = getIsDeferred()
 
     var parentType: GraphQLCompositeType { fragment.type }
 
@@ -475,4 +437,35 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
+}
+
+fileprivate protocol Deferrable {
+  var directives: [CompilationResult.Directive]? { get }
+}
+
+fileprivate extension Deferrable where Self: JavaScriptObject {
+  func getIsDeferred() -> CompilationResult.IsDeferred {
+    guard let directive = directives?.first(
+      where: { $0.name == CompilationResult.Constants.DirectiveNames.Defer }
+    ) else {
+      return false
+    }
+
+    guard let argument = directive.arguments?.first(
+      where: { $0.name == CompilationResult.Constants.ArgumentLabels.If }
+    ) else {
+      return true
+    }
+
+    switch (argument.value) {
+    case let .boolean(value):
+      return .value(value)
+
+    case let .variable(variable):
+      return .variable(variable)
+
+    default:
+      preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
+    }
+  }
 }
