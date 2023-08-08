@@ -1012,7 +1012,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       if let operationIDsPath = fileOutput.operationIDsPath {
         operationManifestConfiguration = OperationManifestConfiguration(
           path: operationIDsPath,
-          version: .legacyAPQ
+          version: .legacy
         )
       }
     }

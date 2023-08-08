@@ -22,7 +22,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   private func buildSubject(
     path: String? = nil,
-    version: ApolloCodegenConfiguration.OperationManifestConfiguration.Version = .legacyAPQ
+    version: ApolloCodegenConfiguration.OperationManifestConfiguration.Version = .legacy
   ) throws {
     let manifest: ApolloCodegenConfiguration.OperationManifestConfiguration? = {
       guard let path else { return nil }
@@ -275,7 +275,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   func test__template__givenOperationManifestVersion_apqLegacy__isLegacyAPQTemplate() throws {
     // given
-    try buildSubject(path: "a/path", version: .legacyAPQ)
+    try buildSubject(path: "a/path", version: .legacy)
 
     // when
     let actual = subject.template

@@ -17,7 +17,7 @@ extension ApolloCodegenConfiguration {
       /// Generates an operation manifest for pre-registering operations with the legacy
       /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
       /// functionality of Apollo Server/Router.
-      case legacyAPQ
+      case legacy
     }
     
     /// If set to `true` will generate the operation manfiest every time code generation is run. Defaults to `false`

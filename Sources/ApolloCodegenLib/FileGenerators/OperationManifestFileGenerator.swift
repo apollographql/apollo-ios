@@ -83,7 +83,7 @@ struct OperationManifestFileGenerator {
     switch config.operationManifestConfiguration.unsafelyUnwrapped.version {
     case .persistedQueries:
       return PersistedQueriesOperationManifestTemplate(config: config)
-    case .legacyAPQ:
+    case .legacy:
       return LegacyAPQOperationManifestTemplate()
     }
   }
