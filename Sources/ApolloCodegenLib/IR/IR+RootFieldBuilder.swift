@@ -233,7 +233,11 @@ extension IR {
       for inlineFragment: CompilationResult.InlineFragment,
       in parentTypePath: SelectionSet.TypeInfo
     ) -> ScopeCondition? {
-      scopeCondition(for: inlineFragment, in: parentTypePath, isDeferred: inlineFragment.isDeferred)
+      scopeCondition(
+        for: inlineFragment,
+        in: parentTypePath,
+        isDeferred: IsDeferred(compilationResult: inlineFragment.isDeferred)
+      )
     }
 
     private func scopeCondition(
@@ -249,13 +253,17 @@ extension IR {
       let scopedIsDeferred = matchedParentTypes && matchedInclusionConditions
       ? namedFragment.isDeferred : false
 
-      return scopeCondition(for: namedFragment, in: parentTypePath, isDeferred: scopedIsDeferred)
+      return scopeCondition(
+        for: namedFragment,
+        in: parentTypePath,
+        isDeferred: IR.IsDeferred(compilationResult: scopedIsDeferred)
+      )
     }
 
     private func scopeCondition(
       for conditionalSelectionSet: ConditionallyIncludable,
       in parentTypePath: SelectionSet.TypeInfo,
-      isDeferred: CompilationResult.IsDeferred
+      isDeferred: IR.IsDeferred
     ) -> ScopeCondition? {
       let inclusionResult = inclusionResult(for: conditionalSelectionSet.inclusionConditions)
       guard inclusionResult != .skipped else {
@@ -268,7 +276,7 @@ extension IR {
       return ScopeCondition(
         type: type,
         conditions: inclusionResult.conditions,
-        isDeferred: IsDeferred(compilationResult: isDeferred)
+        isDeferred: isDeferred
       )
     }
 
