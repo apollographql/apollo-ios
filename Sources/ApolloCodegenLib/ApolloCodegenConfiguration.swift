@@ -1247,7 +1247,7 @@ extension ApolloCodegenConfiguration.FileOutput {
   ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
   ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file
   ///  for use with APQ registration. Defaults to `nil`.
-  @available(*, deprecated, renamed: "init(schemaTypes:operations:testMocks:operationManifest:)")
+  @available(*, deprecated, renamed: "init(schemaTypes:operations:testMocks:)")
   public init(
     schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput,
     operations: ApolloCodegenConfiguration.OperationsFileOutput = Default.operations,

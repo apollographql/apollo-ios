@@ -14,12 +14,12 @@ extension ApolloCodegenConfiguration {
     public enum Version: String, Codable, Equatable {
       /// Generates an operation manifest for use with persisted queries.
       case persistedQueries
-      /// Generates an operation manifest for in the legacy format used prior to the
+      /// Generates an operation manifest in the legacy safelisting format used prior to the
       /// [Persisted Queries](https://www.apollographql.com/docs/ios/fetching/persisted-queries) feature.
       case legacy
     }
     
-    /// If set to `true` will generate the operation manfiest every time code generation is run. Defaults to `false`
+    /// If set to `true` will generate the operation manifest every time code generation is run. Defaults to `false`
     public let generateManifestOnCodeGeneration: Bool
     
     /// Default property values
@@ -33,8 +33,9 @@ extension ApolloCodegenConfiguration {
     /// Designated initializer
     ///
     /// - Parameters:
-    ///   - operationManifes: The `OperationManifestFileOutput` used to determine where and how to output the operation manifest JSON
-    ///   - operationDocumentFormat: The `OperationDocumentFormat` used to determine how to output operations in the generated code files.
+    ///   - path: Local path where the generated operation manifest file should be written.
+    ///   - version: The version format to use when generating the operation manifest. Defaults to `.persistedQueries`.
+    ///   - generateManifestOnCodeGeneration: Whether or nor the operation manifest should be generated whenever code generation is run. Defaults to `false`.
     public init(
       path: String,
       version: Version = Default.version,
