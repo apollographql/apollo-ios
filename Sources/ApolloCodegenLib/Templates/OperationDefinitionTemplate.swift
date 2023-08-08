@@ -24,6 +24,8 @@ struct OperationDefinitionTemplate: OperationTemplateRenderer {
         accessControlRenderer: { accessControlModifier(for: .member) }()
       ))
 
+      \(section: DeferredProperties(definition))
+
       \(section: VariableProperties(operation.definition.variables))
 
       \(Initializer(operation.definition.variables))

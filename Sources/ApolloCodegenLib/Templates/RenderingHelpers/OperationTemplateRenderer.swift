@@ -50,4 +50,40 @@ extension OperationTemplateRenderer {
       """
   }
 
+  func DeferredProperties(
+    _ definition: IR.Definition
+  ) -> TemplateString {
+    func isDeferred(_ selectionSet: IR.SelectionSet) -> Bool {
+      guard !selectionSet.scope.isDeferred else { return true }
+
+      if let fields = selectionSet.selections.direct?.fields {
+        for field in fields.values {
+          if let entityField = field as? IR.EntityField {
+            guard !isDeferred(entityField.selectionSet) else { return true }
+          }
+        }
+      }
+
+      if let inlineFragments = selectionSet.selections.direct?.inlineFragments {
+        for fragment in inlineFragments.values {
+          guard !isDeferred(fragment.selectionSet) else { return true }
+        }
+      }
+
+      if let namedFragments = selectionSet.selections.direct?.namedFragments {
+        for fragment in namedFragments.values {
+          return (fragment.isDeferred != false)
+        }
+      }
+
+      return false
+    }
+
+    return """
+    \(if: isDeferred(definition.rootField.selectionSet), """
+    public static let hasDeferredFragments: Bool = true
+    """)
+    """
+  }
+
 }

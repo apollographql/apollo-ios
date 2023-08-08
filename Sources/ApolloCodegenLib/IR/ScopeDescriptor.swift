@@ -221,6 +221,10 @@ extension IR {
       return true
     }
 
+    var isDeferred: Bool {
+      scopePath.contains { $0.isDeferred != false }
+    }
+
     static func == (lhs: ScopeDescriptor, rhs: ScopeDescriptor) -> Bool {
       lhs.scopePath == rhs.scopePath &&
       lhs.matchingTypes == rhs.matchingTypes
