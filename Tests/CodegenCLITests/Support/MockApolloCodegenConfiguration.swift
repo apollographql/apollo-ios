@@ -14,11 +14,11 @@ extension ApolloCodegenConfiguration {
       options: .init(
         operationDocumentFormat: [.definition, .operationId]
       ),
-      schemaDownloadConfiguration: .init(
+      schemaDownload: .init(
         using: .introspection(endpointURL: URL(string: "http://some.server")!),
         outputPath: "./schema.graphqls"
       ),
-      operationManifestConfiguration: .init(
+      operationManifest: .init(
         path: "./manifest",
         version: .persistedQueries,
         generateManifestOnCodeGeneration: false

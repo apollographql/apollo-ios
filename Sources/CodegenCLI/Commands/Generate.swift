@@ -52,21 +52,21 @@ public struct Generate: ParsableCommand {
   ) throws {
     if fetchSchema {
       guard
-        let schemaDownloadConfiguration = configuration.schemaDownloadConfiguration
+        let schemaDownload = configuration.schemaDownload
       else {
         throw Error(errorDescription: """
-          Missing schema download configuration. Hint: check the `schemaDownloadConfiguration` \
+          Missing schema download configuration. Hint: check the `schemaDownload` \
           property of your configuration.
           """
         )
       }
 
       try fetchSchema(
-        configuration: schemaDownloadConfiguration,
+        configuration: schemaDownload,
         schemaDownloadProvider: schemaDownloadProvider
       )
     }
-    let itemsToGenerate: ApolloCodegen.ItemsToGenerate = (configuration.operationManifestConfiguration?.generateManifestOnCodeGeneration ?? false) ? [.code, .operationManifest] : [.code]
+    let itemsToGenerate: ApolloCodegen.ItemsToGenerate = (configuration.operationManifest?.generateManifestOnCodeGeneration ?? false) ? [.code, .operationManifest] : [.code]
 
     try codegenProvider.build(
       with: configuration,

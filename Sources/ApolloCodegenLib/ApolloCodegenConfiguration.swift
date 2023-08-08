@@ -905,15 +905,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// available.
   public let experimentalFeatures: ExperimentalFeatures
   /// Schema download configuration.
-  public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
+  public let schemaDownload: ApolloSchemaDownloadConfiguration?
   /// Configuration for generating an operation manifest for use with persisted queries.
-  public let operationManifestConfiguration: OperationManifestConfiguration?
+  public let operationManifest: OperationManifestConfiguration?
 
   public struct Default {
     public static let options: OutputOptions = OutputOptions()
     public static let experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
-    public static let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
-    public static let operationManifestConfiguration: OperationManifestConfiguration? = nil
+    public static let schemaDownload: ApolloSchemaDownloadConfiguration? = nil
+    public static let operationManifest: OperationManifestConfiguration? = nil
   }
 
   // MARK: - Helper Properties
@@ -936,16 +936,16 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration,
-    operationManifestConfiguration: OperationManifestConfiguration? = Default.operationManifestConfiguration
+    schemaDownload: ApolloSchemaDownloadConfiguration? = Default.schemaDownload,
+    operationManifest: OperationManifestConfiguration? = Default.operationManifest
   ) {
     self.schemaNamespace = schemaNamespace
     self.input = input
     self.output = output
     self.options = options
     self.experimentalFeatures = experimentalFeatures
-    self.schemaDownloadConfiguration = schemaDownloadConfiguration
-    self.operationManifestConfiguration = operationManifestConfiguration
+    self.schemaDownload = schemaDownload
+    self.operationManifest = operationManifest
     self.ApolloAPITargetName = options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
   }
 
@@ -959,7 +959,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case options
     case experimentalFeatures
     case schemaDownloadConfiguration
-    case operationManifestConfiguration
+    case schemaDownload
+    case operationManifest
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -971,12 +972,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     try container.encode(self.options, forKey: .options)
     try container.encode(experimentalFeatures, forKey: .experimentalFeatures)
 
-    if let schemaDownloadConfiguration {
-      try container.encode(schemaDownloadConfiguration, forKey: .schemaDownloadConfiguration)
+    if let schemaDownload {
+      try container.encode(schemaDownload, forKey: .schemaDownload)
     }
     
-    if let operationManifestConfiguration {
-      try container.encode(operationManifestConfiguration, forKey: .operationManifestConfiguration)
+    if let operationManifest {
+      try container.encode(operationManifest, forKey: .operationManifest)
     }
   }
 
@@ -1007,14 +1008,19 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       forKey: .options
     ) ?? Default.options
     
-    var operationManifestConfiguration = try values.decodeIfPresent(OperationManifestConfiguration.self, forKey: .operationManifestConfiguration)
-    if operationManifestConfiguration == nil {
+    var operationManifest = try values.decodeIfPresent(OperationManifestConfiguration.self, forKey: .operationManifest)
+    if operationManifest == nil {
       if let operationIDsPath = fileOutput.operationIDsPath {
-        operationManifestConfiguration = OperationManifestConfiguration(
+        operationManifest = OperationManifestConfiguration(
           path: operationIDsPath,
           version: .legacy
         )
       }
+    }
+    
+    var schemaDownload = try values.decodeIfPresent(ApolloSchemaDownloadConfiguration.self, forKey: .schemaDownload)
+    if schemaDownload == nil {
+      schemaDownload = try values.decodeIfPresent(ApolloSchemaDownloadConfiguration.self, forKey: .schemaDownloadConfiguration)
     }
 
     self.init(
@@ -1026,11 +1032,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         ExperimentalFeatures.self,
         forKey: .experimentalFeatures
       ) ?? Default.experimentalFeatures,
-      schemaDownloadConfiguration: try values.decodeIfPresent(
-        ApolloSchemaDownloadConfiguration.self,
-        forKey: .schemaDownloadConfiguration
-      ) ?? Default.schemaDownloadConfiguration,
-      operationManifestConfiguration: operationManifestConfiguration ?? Default.operationManifestConfiguration
+      schemaDownload: schemaDownload ?? Default.schemaDownload,
+      operationManifest: operationManifest ?? Default.operationManifest
     )
   }
 }
@@ -1169,7 +1172,7 @@ extension ApolloCodegenConfiguration {
   @available(*, deprecated, renamed: "schemaNamespace")
   public var schemaName: String { schemaNamespace }
 
-  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)`
   /// instead.
   ///
   /// - Parameters:
@@ -1178,14 +1181,14 @@ extension ApolloCodegenConfiguration {
   ///  - output: The paths and files output by code generation.
   ///  - options: Rules and options to customize the generated code.
   ///  - experimentalFeatures: Allows users to enable experimental features.
-  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
+  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)")
   public init(
     schemaName: String,
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownload
   ) {
     self.init(
       schemaNamespace: schemaName,
@@ -1193,7 +1196,7 @@ extension ApolloCodegenConfiguration {
       output: output,
       options: options,
       experimentalFeatures: experimentalFeatures,
-      schemaDownloadConfiguration: schemaDownloadConfiguration)
+      schemaDownload: schemaDownloadConfiguration)
   }
 
   /// Enum to enable using

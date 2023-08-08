@@ -38,16 +38,16 @@ public struct FetchSchema: ParsableCommand {
     configuration codegenConfiguration: ApolloCodegenConfiguration,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    guard let schemaDownloadConfiguration = codegenConfiguration.schemaDownloadConfiguration else {
+    guard let schemaDownload = codegenConfiguration.schemaDownload else {
       throw Error(errorDescription: """
-        Missing schema download configuration. Hint: check the `schemaDownloadConfiguration` \
+        Missing schema download configuration. Hint: check the `schemaDownload` \
         property of your configuration.
         """
       )
     }
 
     try schemaDownloadProvider.fetch(
-      configuration: schemaDownloadConfiguration,
+      configuration: schemaDownload,
       withRootURL: rootOutputURL(for: inputs)
     )
   }

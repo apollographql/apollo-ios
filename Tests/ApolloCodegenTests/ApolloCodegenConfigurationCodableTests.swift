@@ -52,7 +52,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           clientControlledNullability: true,
           legacySafelistingCompatibleOperations: true
         ),
-        operationManifestConfiguration: .init(
+        operationManifest: .init(
           path: "/operation/identifiers/path",
           version: .persistedQueries,
           generateManifestOnCodeGeneration: false
@@ -75,7 +75,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "/path/to/schema.graphqls"
           ]
         },
-        "operationManifestConfiguration" : {
+        "operationManifest" : {
           "generateManifestOnCodeGeneration" : false,
           "path" : "/operation/identifiers/path",
           "version" : "persistedQueries"

@@ -144,7 +144,7 @@ class GenerateTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }
@@ -185,7 +185,7 @@ class GenerateTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }
@@ -234,7 +234,7 @@ class GenerateTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }

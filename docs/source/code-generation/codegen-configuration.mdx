@@ -21,7 +21,8 @@ There are a number of base configuration properties, each representing a specifi
 | [`output`](#file-output) | Location and structure of the generated files and modules. |
 | [`options`](#output-options) | Rules and options to customize the generated code. |
 | [`experimentalFeatures`](#experimental-features) | Used to enable experimental features.<br/>*Note: These features could change at any time and are not guaranteed to always be available.* |
-| [`schemaDownloadConfiguration`](#schema-download-configuration) | Configuration to fetch a GraphQL schema before generation. |
+| [`schemaDownload`](#schema-download-configuration) | Configuration to fetch a GraphQL schema before generation. |
+| [`operationManifest`](#operation-manifest-configuration) | Configuration to generate operation manifests for persisted queries |
 
 ## Schema namespace
 
@@ -542,7 +543,7 @@ The properties you will need to configure are:
 <MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
-"schemaDownloadConfiguration": {
+"schemaDownload": {
 	"downloadMethod": {
 		"apolloRegistry": {
 			"_0": {
@@ -564,7 +565,7 @@ The properties you will need to configure are:
 ```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
   // Other properties not shown
-  schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration(
+  schemaDownload: ApolloSchemaDownloadConfiguration(
     using: .apolloRegistry(.init(
       apiKey: "your-api-key",
       graphID: "your-graphid",
@@ -598,7 +599,7 @@ The properties you will need to configure are:
 <MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
-"schemaDownloadConfiguration": {
+"schemaDownload": {
 	"downloadMethod": {
 		"introspection": {
 			"endpointURL": "https://server.com",
@@ -618,7 +619,7 @@ The properties you will need to configure are:
 ```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
 	// Other properties not shown
-	schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration(
+	schemaDownload: ApolloSchemaDownloadConfiguration(
 		using: .introspection(
 			endpointURL: URL(string: "https://server.com")!),
 		timeout: 60.0,
@@ -639,12 +640,12 @@ Optional settings used to configure the usage of [Persisted Queries or Automatic
 | ------------- | ----------- |
 | `path` | Local path where the generated operation manifest file should be written. |
 | [`version`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestfileoutput/version) | The version format to use when generating the operation manifest. |
-| [`generateManifestOnCodeGeneration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestconfiguration/autogenerate) | Whether or not the operation manifest should be generated every time code generation is run. Defaults to false. |
+| [`generateManifestOnCodeGeneration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestconfiguration/generateManifestOnCodeGeneration) | Whether or not the operation manifest should be generated every time code generation is run. Defaults to false. |
 
 <MultiCodeBlock>
 
 ```json title="CLI Configuration JSON"
-"operationManifestConfiguration" : {
+"operationManifest" : {
   "generateManifestOnCodeGeneration" : false,
   "path" : "/operation/identifiers/path",
   "version" : "persistedQueries"
@@ -654,7 +655,7 @@ Optional settings used to configure the usage of [Persisted Queries or Automatic
 ```swift title="Swift Codegen Setup"
 let configuration = ApolloCodegenConfiguration(
     // Other properties not shown
-    operationManifestConfiguration: .init(
+    operationManifest: .init(
         path: "./manifest/operationManifest.json",
         version: .persistedQueries,
         generateManifestOnCodeGeneration: false

@@ -34,7 +34,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
         output: .init(
           schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
         ),
-        operationManifestConfiguration: manifest
+        operationManifest: manifest
       ))
     ).xctUnwrapped()
   }
@@ -47,7 +47,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
       output: .init(
         schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
       ),
-      operationManifestConfiguration: .init(
+      operationManifest: .init(
         path: "a/file/path"
       )
     )
@@ -65,7 +65,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
       output: .init(
         schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
       ),
-      operationManifestConfiguration: nil
+      operationManifest: nil
     )
 
     // when

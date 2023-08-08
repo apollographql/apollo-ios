@@ -48,7 +48,7 @@ class FetchSchemaTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }
@@ -80,7 +80,7 @@ class FetchSchemaTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }
@@ -110,7 +110,7 @@ class FetchSchemaTests: XCTestCase {
 
     var didCallFetch = false
     MockApolloSchemaDownloader.fetchHandler = { configuration in
-      expect(configuration).to(equal(mockConfiguration.schemaDownloadConfiguration))
+      expect(configuration).to(equal(mockConfiguration.schemaDownload))
 
       didCallFetch = true
     }

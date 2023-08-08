@@ -53,9 +53,9 @@ public struct GenerateOperationManifest: ParsableCommand {
   func validate(configuration: ApolloCodegenConfiguration) throws {
     try checkForCLIVersionMismatch(with: inputs)
 
-    guard configuration.operationManifestConfiguration != nil else {
+    guard configuration.operationManifest != nil else {
       throw ValidationError("""
-          `operationManifestConfiguration` section must be set in the codegen configuration JSON in order
+          `operationManifest` section must be set in the codegen configuration JSON in order
           to generate and operation manifest.
           """)
     }
