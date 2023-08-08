@@ -54,21 +54,6 @@ extension IR {
       self.conditions = [condition]
     }
 
-    /// A failable initializer to convert from an array of `CompilationResult.InclusionCondition`.
-    init?(_ conditions: [CompilationResult.InclusionCondition]?) {
-      guard let conditions, !conditions.isEmpty else { return nil }
-
-      self.conditions = []
-      self.conditions.append(contentsOf: conditions.map({ condition in
-        switch condition {
-        case let .variable(variable, inverted):
-          return InclusionCondition(variable, isInverted: inverted)
-        default:
-          preconditionFailure("Cannot convert condition without variable, got \(condition)!")
-        }
-      }))
-    }
-
     static func allOf<T: Sequence>(
       _ conditions: T
     ) -> Result where T.Element == InclusionCondition {

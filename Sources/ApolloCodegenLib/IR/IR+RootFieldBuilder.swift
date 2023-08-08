@@ -241,7 +241,10 @@ extension IR {
       in parentTypePath: SelectionSet.TypeInfo
     ) -> ScopeCondition? {
       let matchedParentTypes = (parentTypePath.parentType == namedFragment.parentType)
-      let matchedInclusionConditions = (parentTypePath.inclusionConditions == InclusionConditions(namedFragment.inclusionConditions))
+      let matchedInclusionConditions = IR.InclusionConditions.isMatched(
+        parentTypePath.inclusionConditions,
+        namedFragment.inclusionConditions
+      )
 
       let scopedIsDeferred = matchedParentTypes && matchedInclusionConditions
       ? namedFragment.isDeferred : false
@@ -412,3 +415,50 @@ extension CompilationResult.InlineFragment: ConditionallyIncludable {
   var parentType: GraphQLCompositeType { selectionSet.parentType }
 }
 extension CompilationResult.FragmentSpread: ConditionallyIncludable {}
+
+fileprivate extension IR.InclusionConditions {
+  static func isMatched(
+    _ irConditions: IR.InclusionConditions?,
+    _ compiledConditions: [CompilationResult.InclusionCondition]?
+  ) -> Bool {
+    guard
+      let compiledConditions, !compiledConditions.isEmpty,
+      let convertedConditions = IR.InclusionConditions.convert(from: compiledConditions)
+    else {
+      return irConditions == nil
+
+    }
+
+    return irConditions == convertedConditions
+  }
+
+  private static func convert(from conditions: [CompilationResult.InclusionCondition]) -> Self? {
+    var conditions = conditions
+
+    guard let irCondition = IR.InclusionCondition(conditions.removeFirst()) else {
+      return nil
+    }
+
+    var irConditions = IR.InclusionConditions(irCondition)
+
+    while conditions.first != nil {
+      guard let irCondition = IR.InclusionCondition(conditions.removeFirst()) else {
+        return nil
+      }
+
+      irConditions.append(irCondition)
+    }
+
+    return irConditions
+  }
+}
+
+fileprivate extension IR.InclusionCondition {
+  init?(_ condition: CompilationResult.InclusionCondition) {
+    guard case let .variable(variable, inverted) = condition else {
+      return nil
+    }
+
+    self = .init(variable, isInverted: inverted)
+  }
+}
