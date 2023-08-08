@@ -165,8 +165,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// The local path structure for the test mock operation object files.
     public let testMocks: TestMockFileOutput
     
-    /// This var helps maintain backwards compatibility with legacy APQ config with the new
-    /// `OperationManifestConfiguration` and will be fully removed in v2.0
+    /// This var helps maintain backwards compatibility with legacy operation manifest generation
+    /// with the new `OperationManifestConfiguration` and will be fully removed in v2.0
     fileprivate let operationIDsPath: String?
 
     /// Default property values
@@ -906,7 +906,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   public let experimentalFeatures: ExperimentalFeatures
   /// Schema download configuration.
   public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
-  /// `OperationManifestConfiguration` for persisted queries or legacy APQs
+  /// `OperationManifestConfiguration` for persisted queries
   public let operationManifestConfiguration: OperationManifestConfiguration?
 
   public struct Default {
