@@ -697,7 +697,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     
     /// Determines how the names of fields in the GraphQL schema will be converted into
     /// properties in the generated Swift code.
-    /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
+    /// Defaults to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
     public let fieldAccessor: FieldAccessor
 
     /// Default property values
