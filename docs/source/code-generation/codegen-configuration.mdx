@@ -436,7 +436,7 @@ The top-level properties are:
 			"MyFragment"
 		]
 	},
-    "operationDocumentFormat" : ["definition", "operationId"],
+	"operationDocumentFormat" : ["definition", "operationId"],
 	"cocoapodsCompatibleImportStatements": false,
 	"warningsOnDeprecatedUsage": "include",
 	"conversionStrategies": {
@@ -659,42 +659,6 @@ let configuration = ApolloCodegenConfiguration(
         path: "./manifest/operationManifest.json",
         version: .persistedQueries,
         generateManifestOnCodeGeneration: false
-    )
-)
-```
-
-</MultiCodeBlock>
-
-### Operation Manifest
-
-Providing a value for this property will generate a JSON document with all your operations and their computed identifier hashes. This document can be used to pre-register the identifiers for your operations with a server that supports [persisted queries or Automatic Persisted Queries](./../fetching/apqs).
-
-The properties of the Operation Manifest configuration object are:
-
-| Property Name | Description |
-| ----- | ----------- |
-| `path` | Local path where the generated operation manifest file should be written. |
-| [`version`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/operationmanifestfileoutput/version) | The version format to use when generating the operation manifest. |
-
-<MultiCodeBlock>
-
-```json title="CLI Configuration JSON"
-"output": {
-    "operationManifest" : {
-        "path" : "./generated/operationIdentifiers.json",
-        "version" : "persistedQueries"
-    }
-}
-```
-
-```swift title="Swift Codegen Setup"
-let configuration = ApolloCodegenConfiguration(
-    // Other properties not shown
-    output: ApolloCodegenConfiguration.FileOutput(
-        operationManifest: .init(
-            path: "./generated/operationIdentifiers.json",
-            version: .persistedQueries
-        )
     )
 )
 ```
