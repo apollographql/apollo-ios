@@ -713,6 +713,7 @@
 		DEF330352A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF330342A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift */; };
 		DEF330372A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF330362A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift */; };
 		DEFBBC86273470F70088AABC /* IR+Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFBBC85273470F70088AABC /* IR+Field.swift */; };
+		DEFD17732A8436720032B66C /* Deferred.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFD17722A8436720032B66C /* Deferred.swift */; };
 		DEFE0FC52748822900FFA440 /* IR+EntitySelectionTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */; };
 		DEFE694E280F6CBE001CF4E8 /* IR+FieldCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE694D280F6CBE001CF4E8 /* IR+FieldCollector.swift */; };
 		DEFE695128134028001CF4E8 /* IRFieldCollectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEFE694F28133E9B001CF4E8 /* IRFieldCollectorTests.swift */; };
@@ -1901,6 +1902,7 @@
 		DEF330342A4B6DEE0081883D /* PersistedQueriesOperationManifestTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedQueriesOperationManifestTemplate.swift; sourceTree = "<group>"; };
 		DEF330362A4B6EAA0081883D /* PersistedQueriesOperationManifestTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistedQueriesOperationManifestTemplateTests.swift; sourceTree = "<group>"; };
 		DEFBBC85273470F70088AABC /* IR+Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+Field.swift"; sourceTree = "<group>"; };
+		DEFD17722A8436720032B66C /* Deferred.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deferred.swift; sourceTree = "<group>"; };
 		DEFE0FC42748822900FFA440 /* IR+EntitySelectionTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+EntitySelectionTree.swift"; sourceTree = "<group>"; };
 		DEFE694D280F6CBE001CF4E8 /* IR+FieldCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IR+FieldCollector.swift"; sourceTree = "<group>"; };
 		DEFE694F28133E9B001CF4E8 /* IRFieldCollectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IRFieldCollectorTests.swift; sourceTree = "<group>"; };
@@ -2876,6 +2878,7 @@
 				DE3C7B12260A6FC900D2F4FF /* FragmentProtocols.swift */,
 				DE3C7B14260A6FCA00D2F4FF /* GraphQLEnum.swift */,
 				DE3C7B10260A6FC900D2F4FF /* SelectionSet.swift */,
+				DEFD17722A8436720032B66C /* Deferred.swift */,
 				DEA6A83326F298660091AF8A /* ParentType.swift */,
 				DE03FDDA2784D0B2007425BD /* DataDict.swift */,
 				DE2FCF1C26E806710057EA67 /* SchemaConfiguration.swift */,
@@ -5700,6 +5703,7 @@
 			files = (
 				DE058609266978A100265760 /* Selection.swift in Sources */,
 				DE64C1F7284033BA00F64B9D /* LocalCacheMutation.swift in Sources */,
+				DEFD17732A8436720032B66C /* Deferred.swift in Sources */,
 				DE05860B266978A100265760 /* SelectionSet.swift in Sources */,
 				DE80003428B5608E00C827BD /* SchemaMetadata.swift in Sources */,
 				DE9C04AC26EAAE4400EC35E7 /* JSON.swift in Sources */,
