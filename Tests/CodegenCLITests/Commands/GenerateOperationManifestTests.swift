@@ -3,7 +3,6 @@ import Nimble
 import ApolloInternalTestHelpers
 @testable import CodegenCLI
 import ApolloCodegenLib
-import ArgumentParser
 
 class GenerateOperationManifestTests: XCTestCase {
 

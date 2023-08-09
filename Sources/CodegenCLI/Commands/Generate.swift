@@ -38,49 +38,47 @@ public struct Generate: ParsableCommand {
       with: inputs
     )
 
-    switch (inputs.string, inputs.path) {
-    case let (.some(string), _):
-      try generate(
-        data: try string.asData(),
-        codegenProvider: codegenProvider,
-        schemaDownloadProvider: schemaDownloadProvider
-      )
-
-    case let (nil, path):
-      let data = try fileManager.unwrappedContents(atPath: path)
-      try generate(
-        data: data,
-        codegenProvider: codegenProvider,
-        schemaDownloadProvider: schemaDownloadProvider
-      )
-    }
+    try generate(
+      configuration: inputs.getCodegenConfiguration(fileManager: fileManager),
+      codegenProvider: codegenProvider,
+      schemaDownloadProvider: schemaDownloadProvider
+    )
   }
 
   private func generate(
-    data: Data,
+    configuration: ApolloCodegenConfiguration,
     codegenProvider: CodegenProvider.Type,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-
     if fetchSchema {
       guard
-        let schemaDownloadConfiguration = configuration.schemaDownloadConfiguration
+        let schemaDownload = configuration.schemaDownload
       else {
         throw Error(errorDescription: """
-          Missing schema download configuration. Hint: check the `schemaDownloadConfiguration` \
+          Missing schema download configuration. Hint: check the `schemaDownload` \
           property of your configuration.
           """
         )
       }
 
       try fetchSchema(
-        configuration: schemaDownloadConfiguration,
+        configuration: schemaDownload,
         schemaDownloadProvider: schemaDownloadProvider
       )
     }
+    
+    var itemsToGenerate: ApolloCodegen.ItemsToGenerate = .code
+        
+    if let operationManifest = configuration.operationManifest,
+        operationManifest.generateManifestOnCodeGeneration {
+      itemsToGenerate.insert(.operationManifest)
+    }
 
-    try codegenProvider.build(with: configuration, withRootURL: rootOutputURL(for: inputs))
+    try codegenProvider.build(
+      with: configuration,
+      withRootURL: rootOutputURL(for: inputs),
+      itemsToGenerate: itemsToGenerate
+    )
   }
 
   private func fetchSchema(

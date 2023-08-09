@@ -67,6 +67,22 @@ public class ApolloCodegen {
       }
     }
   }
+  
+  public struct ItemsToGenerate: OptionSet {
+    public var rawValue: Int
+    
+    public static let code = ItemsToGenerate(rawValue: 1 << 0)
+    public static let operationManifest = ItemsToGenerate(rawValue: 1 << 1)
+    public static let all: ItemsToGenerate = [
+      .code,
+      .operationManifest
+    ]
+    
+    public init(rawValue: Int) {
+      self.rawValue = rawValue
+    }
+    
+  }
 
   /// Executes the code generation engine with a specified configuration.
   ///
@@ -77,15 +93,17 @@ public class ApolloCodegen {
   ///     If `nil`, the current working directory of the executing process will be used.
   public static func build(
     with configuration: ApolloCodegenConfiguration,
-    withRootURL rootURL: URL? = nil
+    withRootURL rootURL: URL? = nil,
+    itemsToGenerate: ItemsToGenerate = [.code]
   ) throws {
-    try build(with: configuration, rootURL: rootURL)
+    try build(with: configuration, rootURL: rootURL, itemsToGenerate: itemsToGenerate)
   }
 
   internal static func build(
     with configuration: ApolloCodegenConfiguration,
     rootURL: URL? = nil,
-    fileManager: ApolloFileManager = .default
+    fileManager: ApolloFileManager = .default,
+    itemsToGenerate: ItemsToGenerate
   ) throws {
 
     let configContext = ConfigurationContext(
@@ -103,57 +121,42 @@ public class ApolloCodegen {
     try validate(configContext, with: compilationResult)
 
     let ir = IR(compilationResult: compilationResult)
+    
+    if itemsToGenerate == .operationManifest {
+      var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
+      
+      for operation in compilationResult.operations {
+        autoreleasepool {
+          let irOperation = ir.build(operation: operation)
+          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        }
+      }
+      
+      try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    }
 
-    var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
-    try findExistingGeneratedFilePaths(
-      config: configContext,
-      fileManager: fileManager
-    ) : []
+    if itemsToGenerate.contains(.code) {
+      var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
+      try findExistingGeneratedFilePaths(
+        config: configContext,
+        fileManager: fileManager
+      ) : []
 
-    try generateFiles(
-      compilationResult: compilationResult,
-      ir: ir,
-      config: configContext,
-      fileManager: fileManager
-    )
-
-    if configuration.options.pruneGeneratedFiles {
-      try deleteExtraneousGeneratedFiles(
-        from: &existingGeneratedFilePaths,
-        afterCodeGenerationUsing: fileManager
+      try generateFiles(
+        compilationResult: compilationResult,
+        ir: ir,
+        config: configContext,
+        fileManager: fileManager,
+        itemsToGenerate: itemsToGenerate
       )
+
+      if configuration.options.pruneGeneratedFiles {
+        try deleteExtraneousGeneratedFiles(
+          from: &existingGeneratedFilePaths,
+          afterCodeGenerationUsing: fileManager
+        )
+      }
     }
-  }
-  
-  public static func generateOperationManifest(
-    with configuration: ApolloCodegenConfiguration,
-    withRootURL rootURL: URL? = nil,
-    fileManager: ApolloFileManager = .default
-  ) throws {
-    let configContext = ConfigurationContext(
-      config: configuration,
-      rootURL: rootURL
-    )
-    
-    try validate(configContext)
-    
-    let compilationResult = try compileGraphQLResult(
-      configContext,
-      experimentalFeatures: configuration.experimentalFeatures
-    )
-    
-    try validate(configContext, with: compilationResult)
-    
-    let ir = IR(compilationResult: compilationResult)
-    
-    var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
-    
-    for operation in compilationResult.operations {
-      let irOperation = ir.build(operation: operation)
-      operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
-    }
-    
-    try operationIDsFileGenerator?.generate(fileManager: fileManager)
   }
 
   // MARK: Internal
@@ -411,7 +414,8 @@ public class ApolloCodegen {
     compilationResult: CompilationResult,
     ir: IR,
     config: ConfigurationContext,
-    fileManager: ApolloFileManager = .default
+    fileManager: ApolloFileManager = .default,
+    itemsToGenerate: ItemsToGenerate
   ) throws {
     for fragment in compilationResult.fragments {
       try autoreleasepool {
@@ -431,11 +435,15 @@ public class ApolloCodegen {
         try OperationFileGenerator(irOperation: irOperation, config: config)
           .generate(forConfig: config, fileManager: fileManager)
 
-        operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        if itemsToGenerate.contains(.operationManifest) {
+          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        }
       }
     }
 
-    try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    if itemsToGenerate.contains(.operationManifest) {
+      try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    }
     operationIDsFileGenerator = nil
 
     for graphQLObject in ir.schema.referencedTypes.objects {

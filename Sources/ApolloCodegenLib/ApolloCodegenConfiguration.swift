@@ -164,16 +164,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public let operations: OperationsFileOutput
     /// The local path structure for the test mock operation object files.
     public let testMocks: TestMockFileOutput
-    /// Configures the generation of an operation manifest JSON file for use with persisted queries
-    /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
-    /// Defaults to `nil`.
-    public let operationManifest: OperationManifestFileOutput?
+    
+    /// This var helps maintain backwards compatibility with legacy operation manifest generation
+    /// with the new `OperationManifestConfiguration` and will be fully removed in v2.0
+    fileprivate let operationIDsPath: String?
 
     /// Default property values
     public struct Default {
       public static let operations: OperationsFileOutput = .inSchemaModule
       public static let testMocks: TestMockFileOutput = .none
-      public static let operationManifest: OperationManifestFileOutput? = nil
     }
 
     /// Designated initializer.
@@ -191,13 +190,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     public init(
       schemaTypes: SchemaTypesFileOutput,
       operations: OperationsFileOutput = Default.operations,
-      testMocks: TestMockFileOutput = Default.testMocks,
-      operationManifest: OperationManifestFileOutput? = Default.operationManifest
+      testMocks: TestMockFileOutput = Default.testMocks
     ) {
       self.schemaTypes = schemaTypes
       self.operations = operations
       self.testMocks = testMocks
-      self.operationManifest = operationManifest
+      self.operationIDsPath = nil
     }
 
     // MARK: Codable
@@ -206,7 +204,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case schemaTypes
       case operations
       case testMocks
-      case operationManifest
       case operationIdentifiersPath
     }
 
@@ -228,21 +225,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         forKey: .testMocks
       )
 
-      if let operationManifest = try values.decodeIfPresent(
-        OperationManifestFileOutput.self,
-        forKey: .operationManifest
-      ) {
-        self.operationManifest = operationManifest
-
-      } else if let operationIdsPath = try values.decodeIfPresent(
+      operationIDsPath = try values.decodeIfPresent(
         String.self,
         forKey: .operationIdentifiersPath
-      ){
-        self.operationManifest = .init(path: operationIdsPath, version: .legacyAPQ)
-
-      } else {
-        self.operationManifest = nil
-      }
+      )
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -251,7 +237,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       try container.encode(self.schemaTypes, forKey: .schemaTypes)
       try container.encode(self.operations, forKey: .operations)
       try container.encode(self.testMocks, forKey: .testMocks)
-      try container.encode(self.operationManifest, forKey: .operationManifest)
     }
   }
 
@@ -468,41 +453,6 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         self = .swiftPackage(targetName: targetName)
       }
     }
-  }
-
-  /// Configures the generation of an operation manifest JSON file for use with persisted queries
-  /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
-  ///
-  /// The operation manifest is a JSON file that maps all generated GraphQL operations to an
-  /// operation identifier. This manifest can be used to register operations with a server utilizing
-  /// persisted queries
-  /// or [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
-  /// Defaults to `nil`.
-  public struct OperationManifestFileOutput: Codable, Equatable {
-    /// Local path where the generated operation manifest file should be written.
-    let path: String
-    /// The version format to use when generating the operation manifest. Defaults to `.persistedQueries`.
-    let version: Version
-
-    public enum Version: String, Codable, Equatable {
-      /// Generates an operation manifest for use with persisted queries.
-      case persistedQueries
-      /// Generates an operation manifest for pre-registering operations with the legacy
-      /// [Automatic Persisted Queries (APQs)](https://www.apollographql.com/docs/apollo-server/performance/apq).
-      /// functionality of Apollo Server/Router.
-      case legacyAPQ
-    }
-
-    /// Designated Initializer
-    /// - Parameters:
-    ///   - path: Local path where the generated operation manifest file should be written.
-    ///   - version: The version format to use when generating the operation manifest.
-    ///   Defaults to `.persistedQueries`.
-    public init(path: String, version: Version = .persistedQueries) {
-      self.path = path
-      self.version = version
-    }
-
   }
 
   // MARK: - Other Types
@@ -750,7 +700,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       ) ?? Default.enumCases
     }
   }
-
+  
+  // MARK: - OperationDocumentFormat
+  
   public struct OperationDocumentFormat: OptionSet, Codable, Equatable {
     /// Include the GraphQL source document for the operation in the generated operation models.
     public static let definition = Self(rawValue: 1)
@@ -944,7 +896,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// The input files required for code generation.
   public let input: FileInput
   /// The paths and files output by code generation.
-  public let output: FileOutput
+  public var output: FileOutput
   /// Rules and options to customize the generated code.
   public let options: OutputOptions
   /// Allows users to enable experimental features.
@@ -953,12 +905,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
   /// available.
   public let experimentalFeatures: ExperimentalFeatures
   /// Schema download configuration.
-  public let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration?
+  public let schemaDownload: ApolloSchemaDownloadConfiguration?
+  /// Configuration for generating an operation manifest for use with persisted queries.
+  public let operationManifest: OperationManifestConfiguration?
 
   public struct Default {
     public static let options: OutputOptions = OutputOptions()
     public static let experimentalFeatures: ExperimentalFeatures = ExperimentalFeatures()
-    public static let schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = nil
+    public static let schemaDownload: ApolloSchemaDownloadConfiguration? = nil
+    public static let operationManifest: OperationManifestConfiguration? = nil
   }
 
   // MARK: - Helper Properties
@@ -981,14 +936,16 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+    schemaDownload: ApolloSchemaDownloadConfiguration? = Default.schemaDownload,
+    operationManifest: OperationManifestConfiguration? = Default.operationManifest
   ) {
     self.schemaNamespace = schemaNamespace
     self.input = input
     self.output = output
     self.options = options
     self.experimentalFeatures = experimentalFeatures
-    self.schemaDownloadConfiguration = schemaDownloadConfiguration
+    self.schemaDownload = schemaDownload
+    self.operationManifest = operationManifest
     self.ApolloAPITargetName = options.cocoapodsCompatibleImportStatements ? "Apollo" : "ApolloAPI"
   }
 
@@ -1002,6 +959,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case options
     case experimentalFeatures
     case schemaDownloadConfiguration
+    case schemaDownload
+    case operationManifest
   }
 
   public func encode(to encoder: Encoder) throws {
@@ -1013,8 +972,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     try container.encode(self.options, forKey: .options)
     try container.encode(experimentalFeatures, forKey: .experimentalFeatures)
 
-    if let schemaDownloadConfiguration {
-      try container.encode(schemaDownloadConfiguration, forKey: .schemaDownloadConfiguration)
+    if let schemaDownload {
+      try container.encode(schemaDownload, forKey: .schemaDownload)
+    }
+    
+    if let operationManifest {
+      try container.encode(operationManifest, forKey: .operationManifest)
     }
   }
 
@@ -1038,23 +1001,39 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         )
       )
     }
+    
+    let fileOutput = try values.decode(FileOutput.self, forKey: .output)
+    let options = try values.decodeIfPresent(
+      OutputOptions.self,
+      forKey: .options
+    ) ?? Default.options
+    
+    var operationManifest = try values.decodeIfPresent(OperationManifestConfiguration.self, forKey: .operationManifest)
+    if operationManifest == nil {
+      if let operationIDsPath = fileOutput.operationIDsPath {
+        operationManifest = OperationManifestConfiguration(
+          path: operationIDsPath,
+          version: .legacy
+        )
+      }
+    }
+    
+    var schemaDownload = try values.decodeIfPresent(ApolloSchemaDownloadConfiguration.self, forKey: .schemaDownload)
+    if schemaDownload == nil {
+      schemaDownload = try values.decodeIfPresent(ApolloSchemaDownloadConfiguration.self, forKey: .schemaDownloadConfiguration)
+    }
 
     self.init(
       schemaNamespace: try getSchemaNamespaceValue(),
       input: try values.decode(FileInput.self, forKey: .input),
-      output: try values.decode(FileOutput.self, forKey: .output),
-      options: try values.decodeIfPresent(
-        OutputOptions.self,
-        forKey: .options
-      ) ?? Default.options,
+      output: fileOutput,
+      options: options,
       experimentalFeatures: try values.decodeIfPresent(
         ExperimentalFeatures.self,
         forKey: .experimentalFeatures
       ) ?? Default.experimentalFeatures,
-      schemaDownloadConfiguration: try values.decodeIfPresent(
-        ApolloSchemaDownloadConfiguration.self,
-        forKey: .schemaDownloadConfiguration
-      ) ?? Default.schemaDownloadConfiguration
+      schemaDownload: schemaDownload ?? Default.schemaDownload,
+      operationManifest: operationManifest ?? Default.operationManifest
     )
   }
 }
@@ -1193,7 +1172,7 @@ extension ApolloCodegenConfiguration {
   @available(*, deprecated, renamed: "schemaNamespace")
   public var schemaName: String { schemaNamespace }
 
-  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)`
+  /// Deprecated initializer - use `init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)`
   /// instead.
   ///
   /// - Parameters:
@@ -1202,14 +1181,14 @@ extension ApolloCodegenConfiguration {
   ///  - output: The paths and files output by code generation.
   ///  - options: Rules and options to customize the generated code.
   ///  - experimentalFeatures: Allows users to enable experimental features.
-  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)")
+  @available(*, deprecated, renamed: "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)")
   public init(
     schemaName: String,
     input: FileInput,
     output: FileOutput,
     options: OutputOptions = Default.options,
     experimentalFeatures: ExperimentalFeatures = Default.experimentalFeatures,
-    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownloadConfiguration
+    schemaDownloadConfiguration: ApolloSchemaDownloadConfiguration? = Default.schemaDownload
   ) {
     self.init(
       schemaNamespace: schemaName,
@@ -1217,7 +1196,7 @@ extension ApolloCodegenConfiguration {
       output: output,
       options: options,
       experimentalFeatures: experimentalFeatures,
-      schemaDownloadConfiguration: schemaDownloadConfiguration)
+      schemaDownload: schemaDownloadConfiguration)
   }
 
   /// Enum to enable using
@@ -1271,7 +1250,7 @@ extension ApolloCodegenConfiguration.FileOutput {
   ///  If `.none`, test mocks will not be generated. Defaults to `.none`.
   ///  - operationIdentifiersPath: An absolute location to an operation id JSON map file
   ///  for use with APQ registration. Defaults to `nil`.
-  @available(*, deprecated, renamed: "init(schemaTypes:operations:testMocks:operationManifest:)")
+  @available(*, deprecated, renamed: "init(schemaTypes:operations:testMocks:)")
   public init(
     schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput,
     operations: ApolloCodegenConfiguration.OperationsFileOutput = Default.operations,
@@ -1281,16 +1260,12 @@ extension ApolloCodegenConfiguration.FileOutput {
     self.schemaTypes = schemaTypes
     self.operations = operations
     self.testMocks = testMocks
-    if let operationIdentifiersPath {
-      self.operationManifest = .init(path: operationIdentifiersPath, version: .legacyAPQ)
-    } else {
-      self.operationManifest = nil
-    }
+    self.operationIDsPath = operationIdentifiersPath
   }
 
   /// An absolute location to an operation id JSON map file.
-  @available(*, deprecated, renamed: "operationManifest.path")
-  public var operationIdentifiersPath: String? { operationManifest?.path }
+  @available(*, deprecated, message: "Moved to ApolloCodegenConfiguration.OperationManifestConfiguration.OperationManifest.path")
+  public var operationIdentifiersPath: String? { operationIDsPath }
 }
 
 extension ApolloCodegenConfiguration.OutputOptions {
@@ -1391,17 +1366,17 @@ extension ApolloCodegenConfiguration.OutputOptions {
   /// See `APQConfig` for more information on Automatic Persisted Queries.
   @available(*, deprecated, message: "Use OperationDocumentFormat instead.")
   public var apqs: ApolloCodegenConfiguration.APQConfig {
-    switch self.operationDocumentFormat {
-    case .definition:
-      return .disabled
-    case .operationId:
-      return .persistedOperationsOnly
-    case [.operationId, .definition]:
-      return .automaticallyPersist
-    default:
-      return .disabled
+      switch self.operationDocumentFormat {
+      case .definition:
+        return .disabled
+      case .operationId:
+        return .persistedOperationsOnly
+      case [.operationId, .definition]:
+        return .automaticallyPersist
+      default:
+        return .disabled
+      }
     }
-  }
   
   /// Formatting of the GraphQL query string literal that is included in each
   /// generated operation object.
@@ -1436,7 +1411,7 @@ private struct AnyCodingKey: CodingKey {
   }
 }
 
-private func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
+func throwIfContainsUnexpectedKey<T, C: CodingKey & CaseIterable>(
   container: KeyedDecodingContainer<C>,
   type: T.Type,
   decoder: Decoder

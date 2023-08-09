@@ -22,9 +22,9 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   private func buildSubject(
     path: String? = nil,
-    version: ApolloCodegenConfiguration.OperationManifestFileOutput.Version = .legacyAPQ
+    version: ApolloCodegenConfiguration.OperationManifestConfiguration.Version = .legacy
   ) throws {
-    let manifest: ApolloCodegenConfiguration.OperationManifestFileOutput? = {
+    let manifest: ApolloCodegenConfiguration.OperationManifestConfiguration? = {
       guard let path else { return nil }
       return .init(path: path, version: version)
     }()
@@ -32,9 +32,9 @@ class OperationManifestFileGeneratorTests: XCTestCase {
     subject = try OperationManifestFileGenerator(
       config: ApolloCodegen.ConfigurationContext(config: ApolloCodegenConfiguration.mock(
         output: .init(
-          schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
-          operationManifest: manifest
-        )
+          schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
+        ),
+        operationManifest: manifest
       ))
     ).xctUnwrapped()
   }
@@ -43,10 +43,14 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   func test__initializer__givenPath_shouldReturnInstance() {
     // given
-    let config = ApolloCodegenConfiguration.mock(output: .init(
-      schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
-      operationManifest: .init(path: "a/file/path")
-    ))
+    let config = ApolloCodegenConfiguration.mock(
+      output: .init(
+        schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
+      ),
+      operationManifest: .init(
+        path: "a/file/path"
+      )
+    )
 
     // when
     let instance = OperationManifestFileGenerator(config: .init(config: config))
@@ -57,10 +61,12 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   func test__initializer__givenNilPath_shouldReturnNil() {
     // given
-    let config = ApolloCodegenConfiguration.mock(output: .init(
-      schemaTypes: .init(path: "", moduleType: .swiftPackageManager),
+    let config = ApolloCodegenConfiguration.mock(
+      output: .init(
+        schemaTypes: .init(path: "", moduleType: .swiftPackageManager)
+      ),
       operationManifest: nil
-    ))
+    )
 
     // when
     let instance = OperationManifestFileGenerator(config: .init(config: config))
@@ -267,9 +273,9 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   // MARK: - Template Type Selection Tests
 
-  func test__template__givenOperationManifestVersion_apqLegacy__isLegacyAPQTemplate() throws {
+  func test__template__givenOperationManifestVersion_legacy__isLegacyTemplate() throws {
     // given
-    try buildSubject(path: "a/path", version: .legacyAPQ)
+    try buildSubject(path: "a/path", version: .legacy)
 
     // when
     let actual = subject.template

@@ -28,32 +28,26 @@ public struct FetchSchema: ParsableCommand {
   ) throws {
     logger.SetLoggingLevel(verbose: inputs.verbose)
 
-    switch (inputs.string, inputs.path) {
-    case let (.some(string), _):
-      try fetchSchema(data: try string.asData(), schemaDownloadProvider: schemaDownloadProvider)
-
-    case let (nil, path):
-      let data = try fileManager.unwrappedContents(atPath: path)
-      try fetchSchema(data: data, schemaDownloadProvider: schemaDownloadProvider)
-    }
+    try fetchSchema(
+      configuration: inputs.getCodegenConfiguration(fileManager: fileManager),
+      schemaDownloadProvider: schemaDownloadProvider
+    )    
   }
 
   private func fetchSchema(
-    data: Data,
+    configuration codegenConfiguration: ApolloCodegenConfiguration,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    let codegenConfiguration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-
-    guard let schemaDownloadConfiguration = codegenConfiguration.schemaDownloadConfiguration else {
+    guard let schemaDownload = codegenConfiguration.schemaDownload else {
       throw Error(errorDescription: """
-        Missing schema download configuration. Hint: check the `schemaDownloadConfiguration` \
+        Missing schema download configuration. Hint: check the `schemaDownload` \
         property of your configuration.
         """
       )
     }
 
     try schemaDownloadProvider.fetch(
-      configuration: schemaDownloadConfiguration,
+      configuration: schemaDownload,
       withRootURL: rootOutputURL(for: inputs)
     )
   }

@@ -69,7 +69,6 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     )
 
     // then
-    expect(output.operationManifest).to(beNil())
     expect(output.operations).to(equal(.inSchemaModule))
   }
 
@@ -85,6 +84,5 @@ class ApolloCodegenConfigurationTests: XCTestCase {
     expect(config.options.additionalInflectionRules).to(beEmpty())
     expect(config.options.deprecatedEnumCases).to(equal(.include))
     expect(config.options.schemaDocumentation).to(equal(.include))
-    expect(config.options.operationDocumentFormat).to(equal([.definition]))
   }
 }

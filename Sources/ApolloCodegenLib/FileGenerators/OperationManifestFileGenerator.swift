@@ -37,7 +37,7 @@ struct OperationManifestFileGenerator {
   /// Parameters:
   ///  - config: A configuration object specifying output behavior.
   init?(config: ApolloCodegen.ConfigurationContext) {
-    guard config.output.operationManifest != nil else {
+    guard config.operationManifest != nil else {
       return nil
     }
 
@@ -57,7 +57,7 @@ struct OperationManifestFileGenerator {
   func generate(fileManager: ApolloFileManager = .default) throws {
     let rendered: String = try template.render(operations: operationManifest)
 
-    var manifestPath = config.output.operationManifest.unsafelyUnwrapped.path
+    var manifestPath = config.operationManifest.unsafelyUnwrapped.path
     let relativePrefix = "./"
       
     // if path begins with './' the path should be relative to the config.rootURL
@@ -80,10 +80,10 @@ struct OperationManifestFileGenerator {
   }
 
   var template: any OperationManifestTemplate {
-    switch config.output.operationManifest.unsafelyUnwrapped.version {
+    switch config.operationManifest.unsafelyUnwrapped.version {
     case .persistedQueries:
       return PersistedQueriesOperationManifestTemplate(config: config)
-    case .legacyAPQ:
+    case .legacy:
       return LegacyAPQOperationManifestTemplate()
     }
   }

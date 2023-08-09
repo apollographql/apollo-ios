@@ -9,9 +9,9 @@ public struct GenerateOperationManifest: ParsableCommand {
   public static var configuration = CommandConfiguration(
     abstract: "Generate Persisted Queries operation manifest based on a code generation configuration."
   )
-  
+
   @OptionGroup var inputs: InputOptions
-  
+
   // MARK: - Implementation
   
   public init() { }
@@ -26,36 +26,39 @@ public struct GenerateOperationManifest: ParsableCommand {
     logger: LogLevelSetter.Type = CodegenLogger.self
   ) throws {
     logger.SetLoggingLevel(verbose: inputs.verbose)
-    
-    try checkForCLIVersionMismatch(
-      with: inputs
+
+    let configuration = try inputs.getCodegenConfiguration(fileManager: fileManager)
+
+    try validate(configuration: configuration)
+
+    try generateManifest(
+      configuration: configuration,
+      codegenProvider: codegenProvider
     )
-    
-    switch (inputs.string, inputs.path) {
-    case let (.some(string), _):
-      try generateManifest(
-        data: try string.asData(),
-        codegenProvider: codegenProvider
-      )
-    case let (nil, path):
-      try generateManifest(
-        data: try fileManager.unwrappedContents(atPath: path),
-        codegenProvider: codegenProvider
-      )
-    }
   }
   
   private func generateManifest(
-    data: Data,
+    configuration: ApolloCodegenConfiguration,
     codegenProvider: CodegenProvider.Type
   ) throws {
-    let configuration = try JSONDecoder().decode(ApolloCodegenConfiguration.self, from: data)
-    
-    try codegenProvider.generateOperationManifest(
+    try codegenProvider.build(
       with: configuration,
       withRootURL: rootOutputURL(for: inputs),
-      fileManager: .default
+      itemsToGenerate: [.operationManifest]
     )
+  }
+
+  // MARK: - Validation
+
+  func validate(configuration: ApolloCodegenConfiguration) throws {
+    try checkForCLIVersionMismatch(with: inputs)
+
+    guard configuration.operationManifest != nil else {
+      throw ValidationError("""
+          `operationManifest` section must be set in the codegen configuration JSON in order
+          to generate an operation manifest.
+          """)
+    }
   }
   
 }
