@@ -49,24 +49,19 @@ Persisted queries also requires you to create and link a PQL, and to configure y
 
 > This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
-An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can check incoming requests against. You can generate operation manifests in two ways:
-- by running the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) CLI command with `--path` and `--version` arguments
-    - `path` is where to write the manifest file
-    - `version` is either `persistedQueries` for persisted queries or `legacyAPQs` for APQs
-- by adding the [`output.operationManifest`](./../code-generation/codegen-configuration#operation-manifest) option to your `ApolloCodegenConfiguration` JSON file like so:
+An operation manifest acts as a safelist of trusted operations the [Apollo Router](/router/) can check incoming requests against. You can generate operation manifests by adding the [`operationManifest`](./../code-generation/codegen-configuration#operation-manifest-configuration) option to your `ApolloCodegenConfiguration` JSON file like so:
 
 ```json title="apollo-codegen-config.json"
-"output": {
-    "operationManifest" : {
-        "path" : "./generated/operationIdentifiers.json",
-        "version" : "persistedQueries"
-    }
+"operationManifest" : {
+  "generateManifestOnCodeGeneration" : false,
+  "path" : "/operation/identifiers/path",
+  "version" : "persistedQueries"
 }
 ```
 
-Setting the `output.operationManifest` option causes the operation manifest to be generated every time you run the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) commands.
+Once these options are configured you can run the [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) in order to generate your operation manifest. If you have the `generateManifestOnCodeGeneration` flag set to `true` your operation manifest will also generate everytime you run the [`generate`](./../code-generation/codegen-cli#generate) command.
 
-The resulting operation manifest for `persistedQueries` looks something like this: 
+The resulting operation manifest for `persistedQueries` looks like this: 
 
 ```json title="operationIdentifiers.json"
 {
@@ -80,17 +75,6 @@ The resulting operation manifest for `persistedQueries` looks something like thi
       "type": "query"
     }
   ]
-}
-```
-
-The resulting operation manifest JSON for `legacyAPQ` looks something like this: 
-
-```json title="operationIdentifiers.json"
-{
-  "525cd90917f8945d8d6a68fde991aaf766ff7d7b227ab2cd8dc97b7959c8d0d6" : {
-    "name": "GetItem",
-    "source": "query GetItem { thing { __typename ...Name } } fragment Name on Item { __typename name }"
-  }
 }
 ```
 
