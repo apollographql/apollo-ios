@@ -56,7 +56,7 @@ public struct GenerateOperationManifest: ParsableCommand {
     guard configuration.operationManifest != nil else {
       throw ValidationError("""
           `operationManifest` section must be set in the codegen configuration JSON in order
-          to generate and operation manifest.
+          to generate an operation manifest.
           """)
     }
   }
