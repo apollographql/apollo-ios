@@ -4,6 +4,7 @@ public protocol Deferrable: SelectionSet { }
 public struct Deferred<Fragment: Deferrable> {
   public enum State {
     case pending
+    case notExecuted
     case fulfilled(Fragment)
   }
 
@@ -12,10 +13,15 @@ public struct Deferred<Fragment: Deferrable> {
   }
 
   public var state: State {
-    guard __data._fulfilledFragments.contains(ObjectIdentifier(Fragment.self)) else {
-      return .pending
+    let fragment = ObjectIdentifier(Fragment.self)
+    if __data._fulfilledFragments.contains(fragment) {
+      return .fulfilled(Fragment.init(_dataDict: __data))
     }
-    return .fulfilled(Fragment.init(_dataDict: __data))
+    else if __data._deferredFragments.contains(fragment) {
+      return .pending
+    } else {
+      return .notExecuted
+    }
   }
 
   private let __data: DataDict
