@@ -42,7 +42,7 @@ extension String {
   ) -> String {
     var propertyName = self
     
-    switch config.options.conversionStrategies.fieldAccessor {
+    switch config.options.conversionStrategies.fieldAccessors {
     case .camelCase:
       propertyName = propertyName.convertToCamelCase()
     case .idiomatic:

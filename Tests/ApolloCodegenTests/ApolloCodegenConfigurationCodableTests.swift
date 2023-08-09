@@ -47,7 +47,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           warningsOnDeprecatedUsage: .exclude,
           conversionStrategies:.init(
             enumCases: .none,
-            fieldAccessor: .camelCase
+            fieldAccessors: .camelCase
           ),
           pruneGeneratedFiles: false
         ),
