@@ -789,7 +789,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       guard values.allKeys.first != nil else {
         throw DecodingError.typeMismatch(Self.self, DecodingError.Context.init(
           codingPath: values.codingPath,
-          debugDescription: "Invalid number of keys found, expected one.",
+          debugDescription: "Invalid value found.",
           underlyingError: nil
         ))
       }
