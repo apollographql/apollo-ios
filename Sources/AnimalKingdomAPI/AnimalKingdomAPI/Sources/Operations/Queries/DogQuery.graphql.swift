@@ -75,6 +75,16 @@ public class DogQuery: GraphQLQuery {
         ))
       }
 
+      public struct Fragments: FragmentContainer {
+        public let __data: DataDict
+        public init(_dataDict: DataDict) {
+          __data = _dataDict
+          _root = Deferred(_dataDict: _dataDict)
+        }
+
+        @Deferred public var root: AsDog.Root?
+      }
+
       /// AllAnimal.AsDog
       ///
       /// Parent Type: `Dog`
@@ -85,38 +95,61 @@ public class DogQuery: GraphQLQuery {
         public typealias RootEntityType = DogQuery.Data.AllAnimal
         public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Dog }
         public static var __selections: [ApolloAPI.Selection] { [
-          .fragment(DogFragment.self),
+          .deferred(if: "a", Root.self, label: "root")
         ] }
 
         public var id: AnimalKingdomAPI.ID { __data["id"] }
         public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
-        public var species: String { __data["species"] }
+
 
         public struct Fragments: FragmentContainer {
           public let __data: DataDict
-          public init(_dataDict: DataDict) { __data = _dataDict }
+          public init(_dataDict: DataDict) {
+            __data = _dataDict
+            _root = Deferred(_dataDict: _dataDict)
+          }
 
-          public var dogFragment: DogFragment { _toFragment() }
+          @Deferred public var root: Root?
         }
 
-        public init(
-          id: AnimalKingdomAPI.ID,
-          skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
-          species: String
-        ) {
-          self.init(_dataDict: DataDict(
-            data: [
-              "__typename": AnimalKingdomAPI.Objects.Dog.typename,
-              "id": id,
-              "skinCovering": skinCovering,
-              "species": species,
-            ],
-            fulfilledFragments: [
-              ObjectIdentifier(DogQuery.Data.AllAnimal.self),
-              ObjectIdentifier(DogQuery.Data.AllAnimal.AsDog.self),
-              ObjectIdentifier(DogFragment.self)
-            ]
-          ))
+        public struct Root: AnimalKingdomAPI.InlineFragment, ApolloAPI.Deferrable {
+
+          public let __data: DataDict
+          public init(_dataDict: DataDict) { __data = _dataDict }
+
+          public typealias RootEntityType = DogQuery.Data.AllAnimal
+          public static var __parentType: ApolloAPI.ParentType { AnimalKingdomAPI.Objects.Dog }
+
+          public var id: AnimalKingdomAPI.ID { __data["id"] }
+          public var skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? { __data["skinCovering"] }
+          public var species: String { __data["species"] }
+
+          public struct Fragments: FragmentContainer {
+            public let __data: DataDict
+            public init(_dataDict: DataDict) { __data = _dataDict }
+
+            public var dogFragment: DogFragment { _toFragment() }
+          }
+
+          public init(
+            id: AnimalKingdomAPI.ID,
+            skinCovering: GraphQLEnum<AnimalKingdomAPI.SkinCovering>? = nil,
+            species: String
+          ) {
+            self.init(_dataDict: DataDict(
+              data: [
+                "__typename": AnimalKingdomAPI.Objects.Dog.typename,
+                "id": id,
+                "skinCovering": skinCovering,
+                "species": species,
+              ],
+              fulfilledFragments: [
+                ObjectIdentifier(DogQuery.Data.AllAnimal.self),
+                ObjectIdentifier(DogQuery.Data.AllAnimal.AsDog.self),
+                ObjectIdentifier(DogFragment.self)
+              ]
+            ))
+          }
         }
       }
     }
