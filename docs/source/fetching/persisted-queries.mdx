@@ -37,13 +37,13 @@ Both persisted queries and APQs require you to configure code generation and how
 
 We recommend you follow this order while implementing: 
 
-1. **For persisted queries only**: Generate and publish operation manifests
+1. **For persisted queries only**: Generate and publish an operation manifest
 2. **For both persisted queries and APQs**: Configure generated operation models
 3. **For both persisted queries and APQs**: Enable persisted queries on `ApolloClient`
 
 The rest of this article details these steps.
 
-Persisted queries also requires you to create and link a PQL, and to configure your router. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
+This document only describes the steps that need to be taken by the client to send persisted query requests and create a manifest of the client's operations. Persisted queries also require you to create and link a PQL, and to configure your router to receive persisted query requests. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
 
 ### 1. Generate operation manifests
 
