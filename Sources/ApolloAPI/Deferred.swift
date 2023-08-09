@@ -1,5 +1,7 @@
+public protocol Deferrable: SelectionSet { }
+
 @propertyWrapper
-public struct Deferred<Fragment: SelectionSet> {
+public struct Deferred<Fragment: Deferrable> {
   public enum State {
     case pending
     case fulfilled(Fragment)
