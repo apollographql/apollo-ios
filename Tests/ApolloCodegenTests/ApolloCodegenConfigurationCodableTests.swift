@@ -95,7 +95,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
           "cocoapodsCompatibleImportStatements" : true,
           "conversionStrategies" : {
             "enumCases" : "none",
-            "fieldAccessor" : "camelCase"
+            "fieldAccessors" : "camelCase"
           },
           "deprecatedEnumCases" : "exclude",
           "operationDocumentFormat" : [

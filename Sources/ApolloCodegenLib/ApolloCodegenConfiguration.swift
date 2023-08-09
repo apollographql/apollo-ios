@@ -651,24 +651,13 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     case exclude
   }
 
-  /// ``CaseConversionStrategy`` is used to specify the strategy used to convert the casing of
-  /// GraphQL schema values into generated Swift code.
-  @available(*, deprecated, message: "Use EnumCaseConversionStrategy instead.")
-    public enum CaseConversionStrategy: String, Codable, Equatable {
-      /// Generates swift code using the exact name provided in the GraphQL schema
-      /// performing no conversion.
-      case none
-      /// Convert to lower camel case from `snake_case`, `UpperCamelCase`, or `UPPERCASE`.
-      case camelCase
-  }
-
   /// ``ConversionStrategies`` configures rules for how to convert the names of values from the
   /// schema in generated code.
   public struct ConversionStrategies: Codable, Equatable {
 
     /// ``ApolloCodegenConfiguration/ConversionStrategies/EnumCase`` is used to specify the strategy
     /// used to convert the casing of enum cases in a GraphQL schema into generated Swift code.
-    public enum EnumCase: String, Codable, Equatable {
+    public enum EnumCases: String, Codable, Equatable {
       /// Generates swift code using the exact name provided in the GraphQL schema
       /// performing no conversion.
       case none
@@ -676,10 +665,10 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case camelCase
     }
 
-    /// ``ApolloCodegenConfiguration/ConversionStrategies/FieldAccessor`` is used to specify the
+    /// ``ApolloCodegenConfiguration/ConversionStrategies/FieldAccessors`` is used to specify the
     /// strategy used to convert the casing of fields on GraphQL selection sets into field accessors
     /// on the response models in generated Swift code.
-    public enum FieldAccessor: String, Codable, Equatable {
+    public enum FieldAccessors: String, Codable, Equatable {
       /// This conversion strategy will:
       /// - Lowercase the first letter of all fields.
       /// - Convert field names that are all `UPPERCASE` to all `lowercase`.
@@ -693,45 +682,32 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// Determines how the names of enum cases in the GraphQL schema will be converted into
     /// cases on the generated Swift enums.
     /// Defaultss to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
-    public let enumCases: EnumCase
+    public let enumCases: EnumCases
     
     /// Determines how the names of fields in the GraphQL schema will be converted into
     /// properties in the generated Swift code.
     /// Defaults to ``ApolloCodegenConfiguration/CaseConversionStrategy/camelCase``
-    public let fieldAccessor: FieldAccessor
+    public let fieldAccessors: FieldAccessors
 
     /// Default property values
     public struct Default {
-      public static let enumCases: EnumCase = .camelCase
-      public static let fieldAccessor: FieldAccessor = .idiomatic
-    }
-
-    @available(*, deprecated, renamed: "init(enumCases:fieldAccessor:)")
-    public init(
-      enumCases: CaseConversionStrategy
-    ) {
-      switch enumCases {
-      case .none:
-        self.enumCases = .none
-      case .camelCase:
-        self.enumCases = .camelCase
-      }
-      self.fieldAccessor = Default.fieldAccessor
+      public static let enumCases: EnumCases = .camelCase
+      public static let fieldAccessors: FieldAccessors = .idiomatic
     }
       
     public init(
-      enumCases: EnumCase = Default.enumCases,
-      fieldAccessor: FieldAccessor = Default.fieldAccessor
+      enumCases: EnumCases = Default.enumCases,
+      fieldAccessors: FieldAccessors = Default.fieldAccessors
     ) {
       self.enumCases = enumCases
-      self.fieldAccessor = fieldAccessor
+      self.fieldAccessors = fieldAccessors
     }
 
     // MARK: Codable
 
     public enum CodingKeys: CodingKey {
       case enumCases
-      case fieldAccessor
+      case fieldAccessors
     }
 
     public init(from decoder: Decoder) throws {
@@ -756,15 +732,15 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         }
       } else {
         enumCases = try values.decodeIfPresent(
-          EnumCase.self,
+          EnumCases.self,
           forKey: .enumCases
         ) ?? Default.enumCases
       }
       
-      fieldAccessor = try values.decodeIfPresent(
-        FieldAccessor.self,
-        forKey: .fieldAccessor
-      ) ?? Default.fieldAccessor
+      fieldAccessors = try values.decodeIfPresent(
+        FieldAccessors.self,
+        forKey: .fieldAccessors
+      ) ?? Default.fieldAccessors
     }
   }
   
@@ -1461,6 +1437,34 @@ extension ApolloCodegenConfiguration.OutputOptions {
     @available(*, deprecated, message: "Query strings are now always in single line format.")
     case multiline
   }
+}
+
+extension ApolloCodegenConfiguration.ConversionStrategies {
+  
+  @available(*, deprecated, renamed: "init(enumCases:fieldAccessors:)")
+  public init(
+    enumCases: CaseConversionStrategy
+  ) {
+    switch enumCases {
+    case .none:
+      self.enumCases = .none
+    case .camelCase:
+      self.enumCases = .camelCase
+    }
+    self.fieldAccessors = Default.fieldAccessors
+  }
+  
+  /// ``CaseConversionStrategy`` is used to specify the strategy used to convert the casing of
+  /// GraphQL schema values into generated Swift code.
+  @available(*, deprecated, message: "Use EnumCaseConversionStrategy instead.")
+    public enum CaseConversionStrategy: String, Codable, Equatable {
+      /// Generates swift code using the exact name provided in the GraphQL schema
+      /// performing no conversion.
+      case none
+      /// Convert to lower camel case from `snake_case`, `UpperCamelCase`, or `UPPERCASE`.
+      case camelCase
+  }
+  
 }
 
 private struct AnyCodingKey: CodingKey {
