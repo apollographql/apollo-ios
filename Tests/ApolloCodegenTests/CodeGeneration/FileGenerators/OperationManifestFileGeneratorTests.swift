@@ -273,7 +273,7 @@ class OperationManifestFileGeneratorTests: XCTestCase {
 
   // MARK: - Template Type Selection Tests
 
-  func test__template__givenOperationManifestVersion_apqLegacy__isLegacyAPQTemplate() throws {
+  func test__template__givenOperationManifestVersion_legacy__isLegacyTemplate() throws {
     // given
     try buildSubject(path: "a/path", version: .legacy)
 
