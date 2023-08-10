@@ -176,7 +176,7 @@ class EnumTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected))
   }
 
-  func test_render_givenOption_caseConversionStrategy_none_generatesSwiftEnumValues_respectingSchemaValueCasing() throws {
+  func test_render_givenOption_caseConversionStrategy_default_generatesSwiftEnumValues_respectingSchemaValueCasing() throws {
     // given
     buildSubject(
       name: "casedEnum",

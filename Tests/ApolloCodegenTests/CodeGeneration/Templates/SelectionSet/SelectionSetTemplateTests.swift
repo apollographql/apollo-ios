@@ -32,6 +32,7 @@ class SelectionSetTemplateTests: XCTestCase {
     inflectionRules: [ApolloCodegenLib.InflectionRule] = [],
     schemaDocumentation: ApolloCodegenConfiguration.Composition = .exclude,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = .exclude,
+    conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = .init(),
     cocoapodsImportStatements: Bool = false
   ) throws {
     ir = try .mock(schema: schemaSDL, document: document)
@@ -44,7 +45,8 @@ class SelectionSetTemplateTests: XCTestCase {
         additionalInflectionRules: inflectionRules,
         schemaDocumentation: schemaDocumentation,
         cocoapodsCompatibleImportStatements: cocoapodsImportStatements,
-        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage
+        warningsOnDeprecatedUsage: warningsOnDeprecatedUsage,
+        conversionStrategies: conversionStrategies
       )
     ))
     let mockTemplateRenderer = MockTemplateRenderer(
@@ -2564,6 +2566,78 @@ class SelectionSetTemplateTests: XCTestCase {
     )
 
     let actual = subject.render(inlineFragment: dog)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_fieldAccessors__givenFieldWithSnakeCaseName_rendersFieldAccessorAsCamelCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      AllAnimals: [Animal!]
+    }
+
+    type Animal {
+      field_name: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      AllAnimals {
+        field_name
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { __data["field_name"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(conversionStrategies: .init(fieldAccessors: .camelCase))
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
+
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))
+  }
+  
+  func test__render_fieldAccessors__givenFieldWithSnakeCaseUppercaseName_rendersFieldAccessorAsCamelCase() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      AllAnimals: [Animal!]
+    }
+
+    type Animal {
+      FIELD_NAME: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      AllAnimals {
+        FIELD_NAME
+      }
+    }
+    """
+
+    let expected = """
+      public var fieldName: String { __data["FIELD_NAME"] }
+    """
+
+    // when
+    try buildSubjectAndOperation(conversionStrategies: .init(fieldAccessors: .camelCase))
+    let allAnimals = try XCTUnwrap(
+      operation[field: "query"]?[field: "AllAnimals"] as? IR.EntityField
+    )
+
+    let actual = subject.render(field: allAnimals)
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 12, ignoringExtraLines: true))

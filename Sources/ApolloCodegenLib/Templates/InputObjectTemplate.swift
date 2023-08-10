@@ -92,7 +92,7 @@ struct InputObjectTemplate: TemplateRenderer {
   ) -> TemplateString {
     TemplateString("""
     \(fields.map({
-      "\($1.name.asFieldPropertyName): \($1.renderInputValueType(includeDefault: true, config: config.config))"
+      "\($1.name.renderAsFieldPropertyName(config: config.config)): \($1.renderInputValueType(includeDefault: true, config: config.config))"
     }), separator: ",\n")
     """)
   }
@@ -101,7 +101,7 @@ struct InputObjectTemplate: TemplateRenderer {
     _ fields: GraphQLInputFieldDictionary
   ) -> TemplateString {
     TemplateString("""
-    \(fields.map({ "\"\($1.name)\": \($1.name.asFieldPropertyName)" }), separator: ",\n")
+    \(fields.map({ "\"\($1.name)\": \($1.name.renderAsFieldPropertyName(config: config.config))" }), separator: ",\n")
     """)
   }
 
@@ -110,7 +110,7 @@ struct InputObjectTemplate: TemplateRenderer {
     \(documentation: field.documentation, config: config)
     \(deprecationReason: field.deprecationReason, config: config)
     \(accessControlModifier(for: .member))\
-    var \(field.name.asFieldPropertyName): \(field.renderInputValueType(config: config.config)) {
+    var \(field.name.renderAsFieldPropertyName(config: config.config)): \(field.renderInputValueType(config: config.config)) {
       get { __data["\(field.name)"] }
       set { __data["\(field.name)"] = newValue }
     }
