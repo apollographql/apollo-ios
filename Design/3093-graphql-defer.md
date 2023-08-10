@@ -30,9 +30,106 @@ Adding support for `@defer` brings new meaning of the word 'deferred' to the cod
 
 ## Generated models
 
-Generated models will definitely be affected by `@defer` statements in the operation. Ideally there is easy-to-read annotation indicating something is deferred by simply reading the generated model code but more importantly it must be easy when using the generated models in code to detect whether something is deferred or not.
+Generated models will need to adapt with the introduction of `@defer` statements in operations. Ideally there is easy-to-read annotation indicating something is deferred by simply reading the generated model code but more importantly it must be easy when using the generated models in code to detect whether something is able to be deferred and it's current state when receiving a response.
 
 **Preferred solution (see the end of this document for discarded solutions)**
+
+These are the key changes:
+
+**All deferred fragments including inline fragments are treated as isolated fragments**
+
+This is necessary because they are delivered separately in the incremental response, therefore they cannot be merged together. This means that inline fragments, even on the same typecase with matching arguments, will be treated as separate fragments in the same way that named fragments are. They will be placed into the `Fragments` container along with an accessor.
+
+This is still undecided but we may require that _all_ deferred fragments be named with the `label` argument. This provides us with a naming paradigm and aids us in identifying the fulfilled fragments in the incremental responses. At a minimum any fragments on the same typecase will need to be uniquely identifable with at least one having an associated label.
+
+**Deferred fragment accessors are stored properties**
+
+This is different to data fields which are computed properties that use a subscript on the underlying data dictionary to return the value. This is also made possible by the underlying data dictionary having copy-on-write semantics. By making deferred fragment accessors stored properties we are then able to use a property wrapper. The property wrapper is an easy-to-read annotation on the accessor to aid in identifying a deferred fragment from other named fragments in the fragment container.
+
+**`@Deferred` property wrapper**
+
+Aside from being a conveinent annotation the property wrapper also unlocks both deferred value and state. The wrapped value is used to access the returned value and the projected value is used to determine the state of the fragment in the response, i.e.: pending, fulfilled or a not-executed.
+
+The not-executed case is used to indicate when a merged deferred fragment could never be fulfilled, such as when the response type is different from the deferred fragment typecase.
+
+Here is a snippet of a generated model to illustrate the above three points:
+```
+public struct Fragments: FragmentContainer {
+  public let __data: DataDict
+  public init(_dataDict: DataDict) {
+    __data = _dataDict
+    _root = Deferred(_dataDict: _dataDict)
+  }
+
+  @Deferred public var deferredFragmentFoo: DeferredFragmentFoo?
+}
+
+public struct DeferredFragmentFoo: AnimalKingdomAPI.InlineFragment, ApolloAPI.Deferrable {
+}
+```
+
+Below is the expected property wrapper:
+```
+public protocol Deferrable: SelectionSet { }
+
+@propertyWrapper
+public struct Deferred<Fragment: Deferrable> {
+  public enum State { // the naming of these cases is not final
+    case pending
+    case notExecuted
+    case fulfilled(Fragment)
+  }
+
+  public init(_dataDict: DataDict) {
+    __data = _dataDict
+  }
+
+  public var state: State {
+    let fragment = ObjectIdentifier(Fragment.self)
+    if __data._fulfilledFragments.contains(fragment) {
+      return .fulfilled(Fragment.init(_dataDict: __data))
+    }
+    else if __data._deferredFragments.contains(fragment) {
+      return .pending
+    } else {
+      return .notExecuted
+    }
+  }
+
+  private let __data: DataDict
+  public var projectedValue: State { state }
+  public var wrappedValue: Fragment? {
+    guard case let .fulfilled(value) = state else {
+      return nil
+    }
+    return value
+  }
+}
+```
+
+`DataDict`, the underlying data dictionary to data fields will now need to keep track of deferred fragments in a new property, as it does for fulfilled fragments:
+```
+public struct DataDict: Hashable {
+  // initializer and other properties not shown
+
+  @inlinable public var _deferredFragments: Set<ObjectIdentifier> {
+    _storage.deferredFragments
+  }
+
+  // functions not shown
+}
+```
+
+**A new `deferred(if:type:label:)` case in `Selection`**
+
+This is necessary for the field selection collector to be able to handle both inline and named fragments the same, which is different from the separate case logic that exists for them today.
+
+Here is a snippet of a generated model to illustrate the selection:
+```
+public static var __selections: [ApolloAPI.Selection] { [
+  .deferred(if: "a", DeferredFragmentFoo.self, label: "deferredFragmentFoo")
+] }
+```
 
 ## Networking 
 
