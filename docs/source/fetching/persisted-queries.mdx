@@ -3,26 +3,30 @@ title: Persisted Queries
 description: Secure your graph while minimizing request latency
 ---
 
-Apollo supports two separate but related features called **persisted queries** and **automatic persisted queries** (APQs).
-With both features, clients can execute a GraphQL operation by sending an operation's ID instead of the entire operation string. An operation's ID is the SHA256 hash of the full string. Querying by ID can significantly reduce latency and bandwidth usage for very large operation strings.
+<ClientPQIntro />
 
 ## Differences between persisted queries and APQ
 
-The persisted queries feature requires operations to be preregistered in a **persisted query list** (**PQL**). 
-This allows the PQL to act as a safelist of trusted operations made by your first-party apps. As such, persisted queries is a security feature as much as a performance one.
+<ClientPQDifferences />
 
-With APQs, if the server can't find the operation ID the client provides, the server returns an error indicating that it needs the full operation string. If the Apollo iOS client receives this error, it automatically retries the operation with the full operation string.
+## Implementation steps
 
-If you _only_ want to improve request latency and bandwidth usage, APQ addresses your use case. If you _also_ want to secure your supergraph with operation safelisting, you should preregister trusted operations in a PQL.
+Both persisted queries and APQs require you to configure code generation and how your client makes requests. If you intend to use persisted queries for safelisting, you also need to generate an operations manifest.
 
-For more details on differences between persisted queries and APQ, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries#differences-from-automatic-persisted).
+We recommend you follow this order while implementing:
+
+| Implementation Step | Required for PQs? | Required for APQs? |
+| -----| ------------------ | ----------------- |
+| 1. Configure generated operation models| ✅ | ✅ |
+| 2. Generate an operation manifest |✅ | -- |
+| 3. Publish the operations manifest |✅ | -- |
+| 3. Enable persisted queries on the client when it makes requests | ✅ | ✅ |
+
+The rest of this article details these steps.
+
+Persisted queries also require you to create and link a PQL, and to configure your router to receive persisted query requests. This document only describes the steps that need to be taken by the client to create a manifest of the client's operations and send persisted query requests. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
 
 ### Requirements
-
-Persisted queries is currently in [preview](/resources/product-launch-stages#preview) and has the following requirements:
-- Apollo iOS (v1.3.1+)
-- [Apollo Router](/router) (v1.25.0+)
-- [GraphOS Enterprise plan](/graphos/enterprise/)
 
 You can use APQ with the following versions of Apollo iOS, Apollo Server, and Apollo Router:
 - Apollo iOS (v1.0.0+)
@@ -31,21 +35,28 @@ You can use APQ with the following versions of Apollo iOS, Apollo Server, and Ap
 
 > **Note:** You can use _either_ Apollo Server _or_ Apollo Router for APQs. They don't need to be used together.
 
-## Implementation steps
+Persisted queries is currently in [preview](/resources/product-launch-stages#preview) and has the following requirements:
+- Apollo iOS (v1.3.1+)
+- [Apollo Router](/router) (v1.25.0+)
+- [GraphOS Enterprise plan](/graphos/enterprise/)
 
-Both persisted queries and APQs require you to configure code generation and how your client makes requests. If you intend to use persisted queries for safelisting, you also need to generate an operations manifest.
+### 1. Configure generated operation models
 
-We recommend you follow this order while implementing: 
+Both persisted queries and APQs require your code generation to include operation IDs. You can configure this in your code generation configuration's [`options`](output-options).
+Specifically, set the `operationDocumentFormat` array to `definition`, `operationId`, or both `definition` and `operationId`.
+- To use APQs, you must include both the `definition` and `operationId`.
+- For persisted queries, you only need the `operationId`.
 
-1. **For persisted queries only**: Generate and publish an operation manifest
-2. **For both persisted queries and APQs**: Configure generated operation models
-3. **For both persisted queries and APQs**: Enable persisted queries on `ApolloClient`
+```json title="apollo-codegen-config.json"
+"options": {
+    "operationDocumentFormat" : [
+        "definition",
+        "operationId"
+    ]
+}
+```
 
-The rest of this article details these steps.
-
-This document only describes the steps that need to be taken by the client to send persisted query requests and create a manifest of the client's operations. Persisted queries also require you to create and link a PQL, and to configure your router to receive persisted query requests. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
-
-### 1. Generate operation manifests
+### 2. Generate the operation manifest
 
 > This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
@@ -80,55 +91,13 @@ The resulting operation manifest for `persistedQueries` looks like this:
 
 To automatically update the manifest for each new app release, you can include the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) command in your CI/CD pipeline.
 
-#### Publish manifests to the PQL
+#### 3. Publish operation manifests
 
-<blockquote>
+> This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
-**This step is only required for persisted queries, not APQ.**
+<PublishPQMs />
 
-Ensure your Rover CLI version is `0.17.2` or later. Previous versions of Rover don't support publishing operations to a PQL.
-[Download the latest version.](/rover/getting-started/)
-
-</blockquote>
-
-If you want to preregister your manifest as a safelist of trusted operations, you need to publish it to a PQL using the [Rover CLI](/rover/):
-
-```bash title="Example command"
-rover persisted-queries publish my-graph@my-variant \
-  --manifest ./persisted-query-manifest.json
-```
-
-- Replace `my-graph@my-variant` with the **graph ref** of _any_ variant your PQL is [linked to](/graphos/operations/persisted-queries#12-link-the-pql-to-variants). Your platform team can provide this for you.
-    - Graph refs have the format `graph-id@variant-name`.
-- For the `--manifest` option, provide the path to the manifest you want to publish.
-
-**The above command does the following:**
-
-1. It publishes all operations in the provided manifest file to the PQL linked to the specified variant.
-    - Publishing a manifest to a PQL is additive. Any _existing_ entries in the PQL remain.
-    - If you publish an operation with the same `id` but different details from an existing entry in the PQL, the entire publish command fails with an error.
-
-2. It updates any _other_ variants that the PQL is applied to so that routers associated with those variants can fetch their updated PQL.
-
-As with manifest generation, you can execute this command in your CI/CD pipeline to publish new operations as part of your app release process.
-
-### 2. Configure generated operation models
-
-Both persisted queries and APQs require your code generation to include operation IDs. You can configure this in your code generation configuration's [`options`](output-options).
-Specifically, set the `operationDocumentFormat` array to `definition`, `operationId`, or both `definition` and `operationId`.
-- To use APQs, you must include both the `definition` and `operationId`.
-- For persisted queries, you only need the `operationId`.
-
-```json title="apollo-codegen-config.json"
-"options": {
-    "operationDocumentFormat" : [
-        "definition",
-        "operationId"
-    ]
-}
-```
-
-### 3. Enable persisted queries on `ApolloClient`
+### 4. Enable persisted queries on `ApolloClient`
 
 Once you've configured your code generation to include operation IDs, you can update your client to query by operation ID rather than the full operation string. This configuration is the same whether you're using APQ or persisted queries:
 
