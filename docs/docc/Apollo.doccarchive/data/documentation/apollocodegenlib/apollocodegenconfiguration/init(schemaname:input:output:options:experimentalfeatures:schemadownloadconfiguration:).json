@@ -5,7 +5,7 @@
       "type" : "text"
     },
     {
-      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)",
       "type" : "codeVoice"
     },
     {
@@ -358,7 +358,7 @@
             },
             {
               "kind" : "text",
-              "text" : "? = Default.schemaDownloadConfiguration)"
+              "text" : "? = Default.schemaDownload)"
             }
           ]
         }
@@ -654,7 +654,7 @@
       "type" : "text"
     },
     {
-      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)",
       "type" : "codeVoice"
     },
     {

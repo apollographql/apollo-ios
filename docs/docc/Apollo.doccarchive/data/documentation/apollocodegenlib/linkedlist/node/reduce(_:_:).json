@@ -119,7 +119,10 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloCodegenLib"
+        "name" : "ApolloCodegenLib",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "role" : "symbol",

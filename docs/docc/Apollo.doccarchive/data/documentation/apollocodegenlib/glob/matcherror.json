@@ -113,7 +113,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription-4u6rf"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription"
       ],
       "title" : "Instance Properties"
     },
@@ -337,7 +337,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/glob\/matcherror\/cannotenumerate(path:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError/errorDescription-4u6rf": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError/errorDescription": {
   "abstract" : [
 
   ],
@@ -368,12 +368,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription-4u6rf",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/glob\/matcherror\/errordescription-4u6rf"
+  "url" : "\/documentation\/apollocodegenlib\/glob\/matcherror\/errordescription"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError/invalidExclude(path:)": {
   "abstract" : [

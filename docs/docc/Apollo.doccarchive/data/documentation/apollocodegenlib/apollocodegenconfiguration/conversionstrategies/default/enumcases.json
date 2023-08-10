@@ -15,7 +15,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV7DefaultV9enumCasesAC04CaseE8StrategyOvpZ",
+    "externalID" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV7DefaultV9enumCasesAE04EnumI0OvpZ",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -52,8 +52,17 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV22CaseConversionStrategyO",
-        "text" : "CaseConversionStrategy"
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+        "text" : "ConversionStrategies"
+      },
+      {
+        "kind" : "text",
+        "text" : "."
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV9EnumCasesO",
+        "text" : "EnumCases"
       }
     ],
     "modules" : [
@@ -112,10 +121,20 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV22CaseConversionStrategyO",
-              "text" : "CaseConversionStrategy"
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+              "text" : "ConversionStrategies"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies\/EnumCases-swift.enum",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV9EnumCasesO",
+              "text" : "EnumCases"
             }
           ]
         }
@@ -192,53 +211,6 @@
   "title" : "ApolloCodegenConfiguration",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/CaseConversionStrategy": {
-  "abstract" : [
-    {
-      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " is used to specify the strategy used to convert the casing of",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "GraphQL schema values into generated Swift code.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CaseConversionStrategy"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CaseConversionStrategy"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.CaseConversionStrategy",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/caseconversionstrategy"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/ConversionStrategies": {
   "abstract" : [
@@ -361,8 +333,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV22CaseConversionStrategyO",
-      "text" : "CaseConversionStrategy"
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV",
+      "text" : "ConversionStrategies"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV20ConversionStrategiesV9EnumCasesO",
+      "text" : "EnumCases"
     }
   ],
   "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies\/Default\/enumCases",
@@ -371,6 +352,52 @@
   "title" : "enumCases",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/conversionstrategies\/default\/enumcases"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/ConversionStrategies/EnumCases-swift.enum": {
+  "abstract" : [
+    {
+      "code" : "ApolloCodegenConfiguration\/ConversionStrategies\/EnumCase",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is used to specify the strategy",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "used to convert the casing of enum cases in a GraphQL schema into generated Swift code.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "EnumCases"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies\/EnumCases-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "EnumCases"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegenConfiguration.ConversionStrategies.EnumCases",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/conversionstrategies\/enumcases-swift.enum"
 }
 }
 }

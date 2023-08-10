@@ -33,7 +33,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription-8fh7r",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/failureReason",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/helpAnchor",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/recoverySuggestion"
@@ -99,44 +98,6 @@
   "title" : "ApolloURLError",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollourlerror"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloURLError/errorDescription-8fh7r": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription-8fh7r",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollourlerror\/errordescription-8fh7r"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloURLError/failureReason": {
   "abstract" : [

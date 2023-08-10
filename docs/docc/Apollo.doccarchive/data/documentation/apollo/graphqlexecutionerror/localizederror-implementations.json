@@ -33,7 +33,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-3s67q",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/recoverySuggestion"
@@ -90,44 +89,6 @@
   "title" : "GraphQLExecutionError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror"
-},
-"doc://Apollo/documentation/Apollo/GraphQLExecutionError/errorDescription-3s67q": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-3s67q",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-3s67q"
 },
 "doc://Apollo/documentation/Apollo/GraphQLExecutionError/failureReason": {
   "abstract" : [

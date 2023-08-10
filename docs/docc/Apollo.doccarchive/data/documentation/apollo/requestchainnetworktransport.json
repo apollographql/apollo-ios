@@ -132,8 +132,8 @@
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
@@ -408,7 +408,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/autopersistqueries"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName-eycz": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName": {
   "abstract" : [
 
   ],
@@ -435,14 +435,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-eycz"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion-7dkl1": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion": {
   "abstract" : [
 
   ],
@@ -469,12 +469,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-7dkl1"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion"
 },
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructRequest(for:cachePolicy:contextIdentifier:)": {
   "abstract" : [

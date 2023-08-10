@@ -40,15 +40,13 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count-2oxpr",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count-4ljn",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/endIndex",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/first",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/indices",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty-3rms3",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty-5fyx",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/startIndex",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/underestimatedCount-7qpx9"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/underestimatedCount"
       ],
       "title" : "Instance Properties"
     },
@@ -92,10 +90,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-57g4w",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-7fwtu",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-929la",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-b2pa"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)"
       ],
       "title" : "Subscripts"
     }
@@ -275,7 +270,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/contains(_:)-4py5l"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/count-2oxpr": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/count": {
   "abstract" : [
 
   ],
@@ -302,46 +297,12 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count-2oxpr",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "count",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/count-2oxpr"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/count-4ljn": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "count"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/count-4ljn",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "count",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/count-4ljn"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/count"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/distance(from:to:)": {
   "abstract" : [
@@ -1636,7 +1597,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/indices"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/isEmpty-3rms3": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/isEmpty": {
   "abstract" : [
 
   ],
@@ -1663,46 +1624,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty-3rms3",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isEmpty",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/isempty-3rms3"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/isEmpty-5fyx": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isEmpty"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/isEmpty-5fyx",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isEmpty",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/isempty-5fyx"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/isempty"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/makeIterator()": {
   "abstract" : [
@@ -2774,193 +2701,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/startindex"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/subscript(_:)-57g4w": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "SubSequence",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "Slice<Self>",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5SliceV",
-      "text" : "Slice"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-57g4w",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/subscript(_:)-57g4w"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/subscript(_:)-7fwtu": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s15UnboundedRange_O",
-      "text" : "UnboundedRange_"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ()) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "SubSequence"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-7fwtu",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/subscript(_:)-7fwtu"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/subscript(_:)-929la": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "R"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "R"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "SubSequence"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-929la",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/subscript(_:)-929la"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/subscript(_:)-b2pa": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/subscript(_:)": {
   "abstract" : [
 
   ],
@@ -2987,12 +2728,12 @@
       "text" : "T"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)-b2pa",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/subscript(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/subscript(_:)-b2pa"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/subscript(_:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/suffix(_:)": {
   "abstract" : [
@@ -3288,7 +3029,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/trimmingprefix(while:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/underestimatedCount-7qpx9": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/underestimatedCount": {
   "abstract" : [
 
   ],
@@ -3315,12 +3056,12 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/underestimatedCount-7qpx9",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/underestimatedCount",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "underestimatedCount",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/underestimatedcount-7qpx9"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/underestimatedcount"
 }
 }
 }

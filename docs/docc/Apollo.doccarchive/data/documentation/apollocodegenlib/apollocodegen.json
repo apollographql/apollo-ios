@@ -89,8 +89,13 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:)",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/generateOperationManifest(with:withRootURL:fileManager:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/ItemsToGenerate"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:itemsToGenerate:)"
       ],
       "title" : "Type Methods"
     },
@@ -197,7 +202,38 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/build(with:withRootURL:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ItemsToGenerate"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/ItemsToGenerate",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ItemsToGenerate"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ApolloCodegen.ItemsToGenerate",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/itemstogenerate"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/build(with:withRootURL:itemsToGenerate:)": {
   "abstract" : [
     {
       "text" : "Executes the code generation engine with a specified configuration.",
@@ -261,86 +297,11 @@
     },
     {
       "kind" : "text",
-      "text" : "?) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "build(with:withRootURL:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/build(with:withrooturl:)"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/generateOperationManifest(with:withRootURL:fileManager:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "static"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "generateOperationManifest"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "with"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
-      "text" : "ApolloCodegenConfiguration"
-    },
-    {
-      "kind" : "text",
-      "text" : ", "
-    },
-    {
-      "kind" : "externalParam",
-      "text" : "withRootURL"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation3URLV",
-      "text" : "URL"
-    },
-    {
-      "kind" : "text",
       "text" : "?, "
     },
     {
       "kind" : "externalParam",
-      "text" : "fileManager"
+      "text" : "itemsToGenerate"
     },
     {
       "kind" : "text",
@@ -348,8 +309,17 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:16ApolloCodegenLib0A11FileManagerC",
-      "text" : "ApolloFileManager"
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB0C",
+      "text" : "ApolloCodegen"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB0C15ItemsToGenerateV",
+      "text" : "ItemsToGenerate"
     },
     {
       "kind" : "text",
@@ -360,12 +330,12 @@
       "text" : "throws"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/generateOperationManifest(with:withRootURL:fileManager:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/build(with:withRootURL:itemsToGenerate:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "generateOperationManifest(with:withRootURL:fileManager:)",
+  "title" : "build(with:withRootURL:itemsToGenerate:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/generateoperationmanifest(with:withrooturl:filemanager:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/build(with:withrooturl:itemstogenerate:)"
 }
 }
 }
