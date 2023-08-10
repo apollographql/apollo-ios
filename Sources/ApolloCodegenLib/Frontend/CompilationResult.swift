@@ -2,10 +2,18 @@ import JavaScriptCore
 
 /// The output of the frontend compiler.
 public class CompilationResult: JavaScriptObject {
-  private enum Constants {
-    static let LocalCacheMutationDirectiveName = "apollo_client_ios_localCacheMutation"
-    static let DeferDirectiveName = "defer"
+  /// String constants used to match JavaScriptObject instances.
+  fileprivate enum Constants {
+    enum DirectiveNames {
+      static let LocalCacheMutation = "apollo_client_ios_localCacheMutation"
+      static let Defer = "defer"
+    }
+
+    enum ArgumentLabels {
+      static let `If` = "if"
+    }
   }
+
   lazy var rootTypes: RootTypeDefinition = self["rootTypes"]
   
   lazy var referencedTypes: [GraphQLNamedType] = self["referencedTypes"]
@@ -54,7 +62,7 @@ public class CompilationResult: JavaScriptObject {
     }
 
     lazy var isLocalCacheMutation: Bool = {
-      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
+      directives?.contains { $0.name == Constants.DirectiveNames.LocalCacheMutation } ?? false
     }()
 
     lazy var nameWithSuffix: String = {
@@ -117,7 +125,7 @@ public class CompilationResult: JavaScriptObject {
     lazy var directives: [Directive]? = self["directives"]
 
     lazy var isLocalCacheMutation: Bool = {
-      directives?.contains { $0.name == Constants.LocalCacheMutationDirectiveName } ?? false
+      directives?.contains { $0.name == Constants.DirectiveNames.LocalCacheMutation } ?? false
     }()
 
     public override var debugDescription: String {
@@ -166,12 +174,14 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
-  public class InlineFragment: JavaScriptObject, Hashable {
+  public class InlineFragment: JavaScriptObject, Hashable, Deferrable {
     lazy var selectionSet: SelectionSet = self["selectionSet"]
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isDeferred: IsDeferred = getIsDeferred()
 
     public override var debugDescription: String {
       selectionSet.debugDescription
@@ -190,12 +200,14 @@ public class CompilationResult: JavaScriptObject {
 
   /// Represents an individual selection that includes a named fragment in a selection set.
   /// (ie. `...FragmentName`)
-  public class FragmentSpread: JavaScriptObject, Hashable {
+  public class FragmentSpread: JavaScriptObject, Hashable, Deferrable {
     lazy var fragment: FragmentDefinition = self["fragment"]
 
     lazy var inclusionConditions: [InclusionCondition]? = self["inclusionConditions"]
 
     lazy var directives: [Directive]? = self["directives"]
+
+    lazy var isDeferred: IsDeferred = getIsDeferred()
 
     var parentType: GraphQLCompositeType { fragment.type }
 
@@ -394,7 +406,7 @@ public class CompilationResult: JavaScriptObject {
           self = .skipped
           return
         default:
-          preconditionFailure("Unrecognized value for include condition. Got \(value)")          
+          preconditionFailure("Unrecognized value for include condition. Got \(value)")
         }
       }
 
@@ -412,4 +424,48 @@ public class CompilationResult: JavaScriptObject {
     }
   }
 
+  public enum IsDeferred: ExpressibleByBooleanLiteral {
+    case value(Bool)
+    case variable(String)
+
+    public init(booleanLiteral value: BooleanLiteralType) {
+      self = .value(value)
+    }
+
+    static func `if`(_ variable: String) -> Self {
+      .variable(variable)
+    }
+  }
+
+}
+
+fileprivate protocol Deferrable {
+  var directives: [CompilationResult.Directive]? { get }
+}
+
+fileprivate extension Deferrable where Self: JavaScriptObject {
+  func getIsDeferred() -> CompilationResult.IsDeferred {
+    guard let directive = directives?.first(
+      where: { $0.name == CompilationResult.Constants.DirectiveNames.Defer }
+    ) else {
+      return false
+    }
+
+    guard let argument = directive.arguments?.first(
+      where: { $0.name == CompilationResult.Constants.ArgumentLabels.If }
+    ) else {
+      return true
+    }
+
+    switch (argument.value) {
+    case let .boolean(value):
+      return .value(value)
+
+    case let .variable(variable):
+      return .variable(variable)
+
+    default:
+      preconditionFailure("Incompatible argument value. Expected Boolean or Variable, got \(argument.value).")
+    }
+  }
 }
