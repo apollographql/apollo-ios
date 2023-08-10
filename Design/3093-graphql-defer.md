@@ -44,23 +44,21 @@ This should not be sent with all requests though so operations will need to be i
 
 ```swift
 // Sample code for RequestChainNetworkTransport
-public func send<Operation: GraphQLOperation>(
-  operation: Operation,
-  cachePolicy: CachePolicy = .default,
-  contextIdentifier: UUID? = nil,
-  callbackQueue: DispatchQueue = .main,
-  completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
-) -> Cancellable {
-  // request chain and request are built
+open func constructRequest<Operation: GraphQLOperation>(
+  for operation: Operation,
+  cachePolicy: CachePolicy,
+  contextIdentifier: UUID? = nil
+) -> HTTPRequest<Operation> {
+  let request = ... // build request
 
   if Operation.hasDeferredFragments {
     request.addHeader(
       name: "Accept",
-      value: "multipart/mixed;deferSpec=20220824,application/json"
+      value: "multipart/mixed;boundary=\"graphql\";deferSpec=20220824,application/json"
     )
   }
 
-  // request chain kickoff
+  return request
 }
 
 // Sample of new property on GraphQLOperation
@@ -84,9 +82,9 @@ These would be registered with the `MultipartResponseParsingInterceptor` each wi
 ```swift
 // Sample code in MultipartResponseParsingInterceptor
 public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
-  private static let multipartParsers: [String: MultipartResponseSpecificationParser.Type] = [
-    SubscriptionResponseParser.protocolSpec: SubscriptionResponseParser.self,
-    DeferResponseParser.protocolSpec: DeferResponseParser.self
+  private static let responseParsers: [String: MultipartResponseSpecificationParser.Type] = [
+    MultipartResponseSubscriptionParser.protocolSpec: MultipartResponseSubscriptionParser.self,
+    MultipartResponseDeferParser.protocolSpec: MultipartResponseDeferParser.self,
   ]
 
   public func interceptAsync<Operation>(
@@ -100,7 +98,8 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     guard
       let multipartBoundary = response.httpResponse.multipartBoundary,
       let protocolSpec = response.httpResponse.multipartProtocolSpec,
-      let protocolParser = Self.multipartParsers[protocolSpec]
+      let protocolParser = Self.responseParsers[protocolSpec],
+      let dataString = String(data: response.rawData, encoding: .utf8)
     else {
       // call request chain error handler
 
@@ -115,12 +114,11 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       // call request chain error handler
     }
 
-    protocolParser.parse(
-      data: response.rawData,
-      boundary: multipartBoundary,
-      dataHandler: dataHandler,
-      errorHandler: errorHandler
-    )
+    for chunk in dataString.components(separatedBy: "--\(boundary)") {
+      if chunk.isEmpty || chunk.isBoundaryMarker { continue }
+
+      parser.parse(chunk: chunk, dataHandler: dataHandler, errorHandler: errorHandler)
+    }
   }
 }
 
@@ -129,36 +127,33 @@ protocol MultipartResponseSpecificationParser {
   static var protocolSpec: String { get }
 
   static func parse(
-    data: Data,
-    boundary: String,
+    chunk: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: (() -> Void)
+    errorHandler: ((Error) -> Void)
   )
 }
 
 // Sample implementations of multipart specification parsers
 
-struct SubscriptionResponseParser: MultipartResponseSpecificationParser {
+struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser {
   static let protocolSpec: String = "subscriptionSpec=1.0"
 
   static func parse(
-    data: Data,
-    boundary: String,
+    chunk: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: (() -> Void)
+    errorHandler: ((Error) -> Void)
   ) {
     // parsing code currently in MultipartResponseParsingInterceptor
   }
 }
 
-struct DeferResponseParser: MultipartResponseSpecificationParser {
+struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
   static let protocolSpec: String = "deferSpec=20220824"
 
   static func parse(
-    data: Data,
-    boundary: String,
+    chunk: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: (() -> Void)
+    errorHandler: ((Error) -> Void)
   ) {
     // new code to parse the defer specification
   }
@@ -175,7 +170,8 @@ The data being retained and combined will be passed through the GraphQL executor
 
 `GraphQLResult` should be modified to provide query completion blocks with a high-level abstraction of whether the request has been fulfilled or is still in progress. This prevents clients from having to dig into the deferred fragments to identify the state of the overall request.
 
-**Solution**
+**Preferred solution (see the end of this document for discarded solutions)**
+
 Introduce a new property on the `GraphQLResult` type that can be used to express the state of the request.
 
 ```swift
@@ -207,6 +203,8 @@ client.fetch(query: ExampleQuery()) { result in
 ## GraphQL execution
 
 The executor currently executes on an entire operation selection set. It will need to be adapted to be able to execute on a partial response when deferred fragments have not been received. Each response will be passed to the GraphQL executor.
+
+There is an oustanding question about whether the Apollo Router has implemented early execution of deferred fragments, potentially returning them in the initial response. If it does then that could have an outsided impact on the changes to the executor. This problem does appear to have been addressed in GraphQL spec edits after `2022-08-24`.
 
 ## Caching
 
