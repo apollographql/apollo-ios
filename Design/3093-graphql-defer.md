@@ -53,7 +53,7 @@ Aside from being a conveinent annotation the property wrapper also unlocks both 
 The not-executed case is used to indicate when a merged deferred fragment could never be fulfilled, such as when the response type is different from the deferred fragment typecase.
 
 Here is a snippet of a generated model to illustrate the above three points:
-```
+```swift
 public struct Fragments: FragmentContainer {
   public let __data: DataDict
   public init(_dataDict: DataDict) {
@@ -69,7 +69,7 @@ public struct DeferredFragmentFoo: AnimalKingdomAPI.InlineFragment, ApolloAPI.De
 ```
 
 Below is the expected property wrapper:
-```
+```swift
 public protocol Deferrable: SelectionSet { }
 
 @propertyWrapper
@@ -108,7 +108,7 @@ public struct Deferred<Fragment: Deferrable> {
 ```
 
 `DataDict`, the underlying data dictionary to data fields will now need to keep track of deferred fragments in a new property, as it does for fulfilled fragments:
-```
+```swift
 public struct DataDict: Hashable {
   // initializer and other properties not shown
 
@@ -125,7 +125,7 @@ public struct DataDict: Hashable {
 This is necessary for the field selection collector to be able to handle both inline and named fragments the same, which is different from the separate case logic that exists for them today.
 
 Here is a snippet of a generated model to illustrate the selection:
-```
+```swift
 public static var __selections: [ApolloAPI.Selection] { [
   .deferred(if: "a", DeferredFragmentFoo.self, label: "deferredFragmentFoo")
 ] }
