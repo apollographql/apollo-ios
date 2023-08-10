@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-07-27**
+**Last updated: 2023-08-10**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -23,7 +23,7 @@ As we identify feature sets that we intend to ship, we'll add to and update the 
 
 ### [Paginated watchers for GraphQL queries](https://github.com/apollographql/apollo-ios/pull/3007)
 
-_Approximate Date: 2023-08-07_
+_Approximate Date: TBD - PR from an external contributor is in review_
 
 - Support for Relay-style (cursor-based), offset-based, and arbitrary pagination patterns
 - `@connection` directive support
@@ -31,7 +31,7 @@ _Approximate Date: 2023-08-07_
 
 ### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
 
-_Approximate Date: 2023-08-11_
+_Approximate Date: 2023-09-19_
 
 The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  This will be released as an experimental feature.
 
