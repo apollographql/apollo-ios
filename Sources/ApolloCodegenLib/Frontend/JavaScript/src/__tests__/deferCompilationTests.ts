@@ -175,4 +175,16 @@ describe("given schema", () => {
     });
   });
 
+  describe("query has defer directive with missing label argument", () => {
+    it("should throw error", () => {
+      fail('Test not written yet, to be done in #3187');
+    });
+  });
+
+  describe("query has multiple defer directive with one missing label argument", () => {
+    it("should throw error", () => {
+      fail('Test not written yet, to be done in #3187');
+    });
+  });
+
 });
