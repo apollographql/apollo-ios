@@ -76,6 +76,38 @@
         }
       ],
       "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "https:\/\/facebook.github.io\/graphql\/#sec-Response-Format",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "relationshipsSections" : [
@@ -610,6 +642,18 @@
   "identifier" : "doc:\/\/Apollo\/s8SendableP",
   "title" : "Swift.Sendable",
   "type" : "unresolvable"
+},
+"https://facebook.github.io/graphql/#sec-Response-Format": {
+  "identifier" : "https:\/\/facebook.github.io\/graphql\/#sec-Response-Format",
+  "title" : "The Response Format section in the GraphQL specification",
+  "titleInlineContent" : [
+    {
+      "text" : "The Response Format section in the GraphQL specification",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/facebook.github.io\/graphql\/#sec-Response-Format"
 }
 }
 }

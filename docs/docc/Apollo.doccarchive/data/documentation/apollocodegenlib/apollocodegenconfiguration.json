@@ -107,7 +107,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileInput",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/FileOutput",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationDocumentFormat",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestFileOutput",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestConfiguration",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OutputOptions",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SchemaTypesFileOutput",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/SelectionSetInitializers"
@@ -118,7 +118,7 @@
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(from:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(schemaName:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)"
       ],
       "title" : "Initializers"
     },
@@ -126,9 +126,10 @@
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/experimentalFeatures-swift.property",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/input",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/operationManifest",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/options",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/output",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaDownloadConfiguration",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaDownload",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaName",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaNamespace"
       ],
@@ -144,7 +145,6 @@
       "identifiers" : [
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/APQConfig",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/AccessModifier",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/Composition",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationsFileOutput",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/TestMockFileOutput"
@@ -320,53 +320,6 @@
   "title" : "ApolloCodegenConfiguration.AccessModifier",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/accessmodifier"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/CaseConversionStrategy": {
-  "abstract" : [
-    {
-      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : " is used to specify the strategy used to convert the casing of",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "GraphQL schema values into generated Swift code.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "enum"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "CaseConversionStrategy"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/CaseConversionStrategy",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "CaseConversionStrategy"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.CaseConversionStrategy",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/caseconversionstrategy"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/Composition": {
   "abstract" : [
@@ -649,29 +602,9 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationdocumentformat"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationManifestFileOutput": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationManifestConfiguration": {
   "abstract" : [
-    {
-      "text" : "Configures the generation of an operation manifest JSON file for use with persisted queries",
-      "type" : "text"
-    },
-    {
-      "text" : " ",
-      "type" : "text"
-    },
-    {
-      "text" : "or ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "https:\/\/www.apollographql.com\/docs\/apollo-server\/performance\/apq",
-      "isActive" : true,
-      "type" : "reference"
-    },
-    {
-      "text" : ".",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -684,21 +617,21 @@
     },
     {
       "kind" : "identifier",
-      "text" : "OperationManifestFileOutput"
+      "text" : "OperationManifestConfiguration"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestFileOutput",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/OperationManifestConfiguration",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
       "kind" : "identifier",
-      "text" : "OperationManifestFileOutput"
+      "text" : "OperationManifestConfiguration"
     }
   ],
   "role" : "symbol",
-  "title" : "ApolloCodegenConfiguration.OperationManifestFileOutput",
+  "title" : "ApolloCodegenConfiguration.OperationManifestConfiguration",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationmanifestfileoutput"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationmanifestconfiguration"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/OperationsFileOutput": {
   "abstract" : [
@@ -1029,7 +962,7 @@
       "type" : "text"
     },
     {
-      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+      "code" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)",
       "type" : "codeVoice"
     },
     {
@@ -1197,7 +1130,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/init(schemaname:input:output:options:experimentalfeatures:schemadownloadconfiguration:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)": {
   "abstract" : [
     {
       "text" : "Designated initializer.",
@@ -1336,7 +1269,7 @@
     },
     {
       "kind" : "externalParam",
-      "text" : "schemaDownloadConfiguration"
+      "text" : "schemaDownload"
     },
     {
       "kind" : "text",
@@ -1349,15 +1282,41 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "operationManifest"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+      "text" : "ApolloCodegenConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV017OperationManifestD0V",
+      "text" : "OperationManifestConfiguration"
+    },
+    {
+      "kind" : "text",
       "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownloadConfiguration:)",
+  "title" : "init(schemaNamespace:input:output:options:experimentalFeatures:schemaDownload:operationManifest:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/init(schemanamespace:input:output:options:experimentalfeatures:schemadownloadconfiguration:)"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/init(schemanamespace:input:output:options:experimentalfeatures:schemadownload:operationmanifest:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/input": {
   "abstract" : [
@@ -1404,6 +1363,56 @@
   "title" : "input",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/input"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/operationManifest": {
+  "abstract" : [
+    {
+      "text" : "Configuration for generating an operation manifest for use with persisted queries.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "operationManifest"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV",
+      "text" : "ApolloCodegenConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:16ApolloCodegenLib0aB13ConfigurationV017OperationManifestD0V",
+      "text" : "OperationManifestConfiguration"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/operationManifest",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "operationManifest",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/operationmanifest"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/options": {
   "abstract" : [
@@ -1461,7 +1470,7 @@
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "let"
+      "text" : "var"
     },
     {
       "kind" : "text",
@@ -1497,7 +1506,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/output"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/schemaDownloadConfiguration": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/schemaDownload": {
   "abstract" : [
     {
       "text" : "Schema download configuration.",
@@ -1515,7 +1524,7 @@
     },
     {
       "kind" : "identifier",
-      "text" : "schemaDownloadConfiguration"
+      "text" : "schemaDownload"
     },
     {
       "kind" : "text",
@@ -1531,12 +1540,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaDownloadConfiguration",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/schemaDownload",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "schemaDownloadConfiguration",
+  "title" : "schemaDownload",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schemadownloadconfiguration"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegenconfiguration\/schemadownload"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/schemaName": {
   "abstract" : [

@@ -110,7 +110,7 @@
     {
       "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/error",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-2e2i1",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/kind",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/payload"
       ],
@@ -321,7 +321,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror\/error"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/errorDescription-2e2i1": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/errorDescription": {
   "abstract" : [
 
   ],
@@ -352,12 +352,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-2e2i1",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websocketerror\/errordescription-2e2i1"
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/errordescription"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/kind": {
   "abstract" : [

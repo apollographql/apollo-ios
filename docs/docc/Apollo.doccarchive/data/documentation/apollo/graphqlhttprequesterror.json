@@ -110,7 +110,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription"
       ],
       "title" : "Instance Properties"
     },
@@ -234,7 +234,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-2j9a2": {
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/errorDescription": {
   "abstract" : [
 
   ],
@@ -265,12 +265,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-2j9a2",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription-2j9a2"
+  "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription"
 },
 "doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/serializedBodyMessageError": {
   "abstract" : [

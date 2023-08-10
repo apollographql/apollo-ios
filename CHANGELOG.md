@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.4.0
+
+### New
+
+- **Added the ability to set a casing strategy for field names in code generation ([#2738](https://github.com/apollographql/apollo-ios/issues/2738)):** See PR ([#3171](https://github.com/apollographql/apollo-ios/pull/3171)). _Thank you to [@Spatel91111](https://github.com/Spatel91111) for the feature request._
+
+### Improvement
+
+- **Updated the way persisted queries are configured for code and manifest generation:** See PR ([#3175](https://github.com/apollographql/apollo-ios/pull/3175))
+- **Updated docs for `other` schema module type to provide more clarity ([#3164](https://github.com/apollographql/apollo-ios/issues/3164)):** See PR ([#3170](https://github.com/apollographql/apollo-ios/pull/3170)) _Thank you to [@Mordil](https://github.com/Mordil) for suggesting this update._
+
 ## v1.3.3
 
 ### Fixed

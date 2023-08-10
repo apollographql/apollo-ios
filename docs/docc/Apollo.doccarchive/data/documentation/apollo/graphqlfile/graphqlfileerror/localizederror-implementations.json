@@ -34,7 +34,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/recoverySuggestion"
@@ -122,44 +121,6 @@
   "title" : "GraphQLFile.GraphQLFileError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror"
-},
-"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/errorDescription-655nn": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-655nn",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription-655nn"
 },
 "doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/failureReason": {
   "abstract" : [
