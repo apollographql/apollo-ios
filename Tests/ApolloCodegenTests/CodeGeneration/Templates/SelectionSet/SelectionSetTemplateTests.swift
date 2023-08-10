@@ -1969,6 +1969,608 @@ class SelectionSetTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, atLine: 7, ignoringExtraLines: true))
   }
 
+  // MARK: Selections - Defer (Inline Fragments)
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_rendersDeferredInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @defer {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgument_rendersDeferredInlineFragmentSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @defer(if: $filter) {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgumentFalse_rendersInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... on Dog @defer(if: false) {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIncludeDirective_rendersConditionalSelection_withDeferredInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andSkipDirective_rendersConditionalSelection_withDeferredInlineFragmentSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @skip(if: $filter) @defer {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withDeferDirective_andIfArgument_andConditionalDirective_rendersConditionalSelection_withDeferredInlineFragmentSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer(if: $other) {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withSameTypeAndInclusionConditions_differentDeferConditions_shouldNotMergeSelectionsTogether() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      genus: String!
+      species: String!
+    }
+
+    type Dog implements Animal {
+      genus: String!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... on Dog @include(if: $filter) @defer {
+          genus
+        }
+        ... on Dog @include(if: $filter) @defer(if: $other) {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragment_withSameDeferConditions_shouldNotMergeSelectionsTogether() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      genus: String!
+      species: String!
+    }
+
+    type Dog implements Animal {
+      genus: String!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... on Dog @defer {
+          genus
+        }
+        ... on Dog @defer {
+          species
+        }
+      }
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  // MARK: Selections - Defer (Named Fragments)
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_renders_inlineFragmentQuerySelection_andDeferredNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_renders_inlineFragmentQuerySelection_andDeferredNamedFragmentTypeCaseSelectionWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @defer(if: $filter)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgumentFalse_renders_inlineFragmentQuerySelection_andNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @defer(if: false)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIncludeDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @include(if: $filter) @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andSkipDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @skip(if: $filter) @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_andIncludeDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentWithVariableTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... DogFragment @include(if: $filter) @defer(if: $other)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIfArgument_andSkipDirective_renders_conditionalSelectionWithInlineFragment_andDeferredNamedFragmentWithVariableTypeCaseSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean, $other: Boolean) {
+      allAnimals {
+        ... DogFragment @skip(if: $filter) @defer(if: $other)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_andIncludeDirective_withinTypeCase_renders_inlineFragmentQuerySelection_andConditionalInlineFragmentSelection_andDeferredTypeCaseConditionSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog {
+          ... DogFragment @include(if: $filter) @defer
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenNamedFragment_withDeferDirective_onTypeCase_andIncludeDirective_onNamedFragment_renders_inlineFragmentQuerySelection_andConditionalInlineFragmentSelection_andDeferredTypeCaseConditionSelection() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @defer {
+          ... DogFragment @include(if: $filter)
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragmentAndNamedFragment_bothWithDeferDirective_renders_() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      genus: String!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @defer {
+          genus
+        }
+        ... DogFragment @defer
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_selection__givenInlineFragmentAndNamedFragment_bothWithDeferDirective_renders_() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      genus: String!
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... on Dog @defer {
+          genus
+        }
+        ... DogFragment @defer
+        }
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
   // MARK: Merged Sources
 
   func test__render_mergedSources__givenMergedTypeCasesFromSingleMergedTypeCaseSource_rendersMergedSources() throws {
@@ -4928,6 +5530,101 @@ class SelectionSetTemplateTests: XCTestCase {
 
     // then
     expect(actual).to(equalLineByLine(expected, atLine: 14, ignoringExtraLines: true))
+  }
+
+  // MARK: Fragment Accessors - Defer
+
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirective_rendersFragmentAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirectiveWithIfArgument_rendersFragmentAccessorAsOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation($filter: Boolean) {
+      allAnimals {
+        ... DogFragment @defer(if: $filter)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
+  }
+
+  func test__render_fragmentAccessor__givenFragmentSpread_withDeferDirectiveFalse_rendersFragmentAccessorAsNonOptional() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
+
+    interface Animal {
+      species: String!
+    }
+
+    type Dog implements Animal {
+      species: String!
+    }
+    """
+
+    document = """
+    query TestOperation {
+      allAnimals {
+        ... DogFragment @defer(if: false)
+      }
+    }
+
+    fragment DogFragment on Dog {
+      species
+    }
+    """
+
+    fail("Defer test case - to be implemented in #3141")
   }
 
   // MARK: - Nested Selection Sets
