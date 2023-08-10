@@ -26,7 +26,7 @@ The rest of this article details these steps.
 
 Persisted queries also require you to create and link a PQL, and to configure your router to receive persisted query requests. This document only describes the steps that need to be taken by the client to create a manifest of the client's operations and send persisted query requests. For more information on the other configuration aspects of persisted queries, see the [GraphOS persisted queries documentation](/graphos/operations/persisted-queries).
 
-### Requirements
+### 0. Requirements
 
 You can use APQ with the following versions of Apollo iOS, Apollo Server, and Apollo Router:
 - Apollo iOS (v1.0.0+)
@@ -56,7 +56,7 @@ Specifically, set the `operationDocumentFormat` array to `definition`, `operatio
 }
 ```
 
-### 2. Generate the operation manifest
+### 2. Generate operation manifest
 
 > This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
@@ -91,7 +91,7 @@ The resulting operation manifest for `persistedQueries` looks like this:
 
 To automatically update the manifest for each new app release, you can include the [`generate`](./../code-generation/codegen-cli#generate) or [`generate-operation-manifest`](./../code-generation/codegen-cli#generate-operation-manifest) command in your CI/CD pipeline.
 
-### 3. Publish operation manifests
+### 3. Publish operation manifest
 
 > This step is only required for implementing safelisting with persisted queries. It is _not_ required for APQs.
 
