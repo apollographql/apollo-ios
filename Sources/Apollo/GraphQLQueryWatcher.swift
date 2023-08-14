@@ -14,6 +14,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private let callbackQueue: DispatchQueue
 
   private let contextIdentifier = UUID()
+  private let context: RequestContext?
 
   private class WeakFetchTaskContainer {
     weak var cancellable: Cancellable?
@@ -38,12 +39,14 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   ///   - resultHandler: The result handler to call with changes.
   public init(client: ApolloClientProtocol,
               query: Query,
+              context: RequestContext?,
               callbackQueue: DispatchQueue = .main,
               resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client
     self.query = query
     self.resultHandler = resultHandler
     self.callbackQueue = callbackQueue
+    self.context = context
 
     client.store.subscribe(self)
   }
@@ -58,7 +61,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
       // Cancel anything already in flight before starting a new fetch
       $0.cancellable?.cancel()
       $0.cachePolicy = cachePolicy
-      $0.cancellable = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, queue: callbackQueue) { [weak self] result in
+      $0.cancellable = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, context: self.context, queue: callbackQueue) { [weak self] result in
         guard let self = self else { return }
 
         switch result {

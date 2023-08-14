@@ -33,6 +33,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
+    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     guard self.hitCount <= self.maxRetries else {
       let error = RetryError.hitMaxRetryCount(
@@ -44,6 +45,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
         error,
         request: request,
         response: response,
+        context: context,
         completion: completion
       )
       
@@ -54,6 +56,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
     chain.proceedAsync(
       request: request,
       response: response,
+      context: context,
       interceptor: self,
       completion: completion
     )

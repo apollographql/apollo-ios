@@ -20,6 +20,7 @@ public protocol NetworkTransport: AnyObject {
   func send<Operation: GraphQLOperation>(operation: Operation,
                                          cachePolicy: CachePolicy,
                                          contextIdentifier: UUID?,
+                                         context: RequestContext?,
                                          callbackQueue: DispatchQueue,
                                          completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable
 
@@ -105,6 +106,7 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
+    context: RequestContext?,
     callbackQueue: DispatchQueue,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,Error>) -> Void) -> Cancellable
 }

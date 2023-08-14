@@ -31,6 +31,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
+    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
@@ -38,6 +39,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       chain.proceedAsync(
         request: request,
         response: response,
+        context: context,
         interceptor: self,
         completion: completion
       )
@@ -51,6 +53,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
         CacheWriteError.noResponseToParse,
         request: request,
         response: response,
+        context: context,
         completion: completion
       )
         return
@@ -70,6 +73,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       chain.proceedAsync(
         request: request,
         response: createdResponse,
+        context: context,
         interceptor: self,
         completion: completion
       )
@@ -79,6 +83,7 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
         error,
         request: request,
         response: response,
+        context: context,
         completion: completion
       )
     }

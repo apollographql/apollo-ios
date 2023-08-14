@@ -33,6 +33,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
+    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
       guard let jsonRequest = request as? JSONRequest,
@@ -41,6 +42,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         chain.proceedAsync(
           request: request,
           response: response,
+          context: context,
           interceptor: self,
           completion: completion
         )
@@ -53,6 +55,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
           APQError.noParsedResponse,
           request: request,
           response: response,
+          context: context,
           completion: completion
         )
         return
@@ -63,6 +66,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         chain.proceedAsync(
           request: request,
           response: response,
+          context: context,
           interceptor: self,
           completion: completion
         )
@@ -75,6 +79,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
         chain.proceedAsync(
           request: request,
           response: response,
+          context: context,
           interceptor: self,
           completion: completion
         )
@@ -87,6 +92,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
           APQError.persistedQueryRetryFailed(operationName: Operation.operationName),
           request: jsonRequest,
           response: response,
+          context: context,
           completion: completion
         )
 
@@ -98,6 +104,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
           APQError.persistedQueryNotFoundForPersistedOnlyQuery(operationName: Operation.operationName),
           request: jsonRequest,
           response: response,
+          context: context,
           completion: completion
         )
 
@@ -106,6 +113,6 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
 
       // We need to retry this query with the full body.
       jsonRequest.isPersistedQueryRetry = true
-      chain.retry(request: jsonRequest, completion: completion)
+      chain.retry(request: jsonRequest, context: context, completion: completion)
     }
 }

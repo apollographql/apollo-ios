@@ -104,6 +104,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy = .default,
     contextIdentifier: UUID? = nil,
+    context: RequestContext?,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
@@ -119,7 +120,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
       )
     }
     
-    chain.kickoff(request: request, completion: completionHandler)
+    chain.kickoff(request: request, context: context, completion: completionHandler)
     return chain
   }
 
@@ -164,12 +165,13 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
+    context: RequestContext?,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let request = self.constructUploadRequest(for: operation, with: files)
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
-    chain.kickoff(request: request, completion: completionHandler)
+    chain.kickoff(request: request, context: context, completion: completionHandler)
     return chain
   }
 }
