@@ -8,7 +8,8 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   }
 
   public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
-    return keys.reduce(into: [:]) { result, key in
+      print("**Records** - \(records)")
+      return keys.reduce(into: [:]) { result, key in
       result[key] = records[key]
     }
   }
