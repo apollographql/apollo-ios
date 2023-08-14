@@ -213,7 +213,6 @@ public class ApolloStore {
       withKey key: CacheKey,
       variables: GraphQLOperation.Variables? = nil
     ) throws -> SelectionSet {
-        print("**Read Object 1**")
       return try self.readObject(
         ofType: type,
         withKey: key,
@@ -228,9 +227,7 @@ public class ApolloStore {
       variables: GraphQLOperation.Variables? = nil,
       accumulator: Accumulator
     ) throws -> Accumulator.FinalResult {
-        print("**Read Object 2**")
       let object = try loadObject(forKey: key).get()
-        print("**Read Object 3**")
       return try executor.execute(
         selectionSet: type,
         on: object,
@@ -241,8 +238,7 @@ public class ApolloStore {
     }
     
     final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<Record> {
-        print("**Load Object** - \(self.loader)")
-      return self.loader[key].map { record in
+      self.loader[key].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
         return record
       }

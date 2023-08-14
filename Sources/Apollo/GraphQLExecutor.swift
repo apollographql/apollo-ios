@@ -84,7 +84,6 @@ class FieldExecutionInfo {
   }
 
   fileprivate func computeCacheKeyAndPath() throws {
-      print("**Compute Cache Key** - \(parentInfo.cachePath)")
     cachePath = try parentInfo.cachePath.appending(cacheKeyForField())
   }
   
