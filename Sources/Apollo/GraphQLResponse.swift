@@ -28,6 +28,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
     )
 
     let executionResult = try execute(with: accumulator)
+      print("**Execution Result** - \(executionResult)")
     let result = makeResult(data: executionResult?.0, dependentKeys: executionResult?.2)
     return (result, executionResult?.1)
   }
