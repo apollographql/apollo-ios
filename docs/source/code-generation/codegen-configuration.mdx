@@ -441,7 +441,7 @@ The top-level properties are:
 	"warningsOnDeprecatedUsage": "include",
 	"conversionStrategies": {
 		"enumCases": "camelCase",
-		"fieldCasing": "default"
+		"fieldAccessors": "default"
 	},
 	"pruneGeneratedFiles": true
 }
@@ -470,7 +470,7 @@ let configuration = ApolloCodegenConfiguration(
 		warningsOnDeprecatedUsage: .include,
 		conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies(
 			enumCases: .camelCase,
-			fieldCasing: .default
+			fieldAccessors: .default
 		),
 		pruneGeneratedFiles: true
 	)
