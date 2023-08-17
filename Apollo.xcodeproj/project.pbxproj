@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		073D39F52A8AD1AF001BD34A /* RequestContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073D39F42A8AD1AF001BD34A /* RequestContext.swift */; };
 		19E9F6AC26D58A9A003AB80E /* OperationMessageIdCreatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */; };
 		19E9F6B526D6BF25003AB80E /* OperationMessageIdCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19E9F6A826D5867E003AB80E /* OperationMessageIdCreator.swift */; };
 		2EE7FFD0276802E30035DC39 /* CacheKeyConstructionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE7FFCF276802E30035DC39 /* CacheKeyConstructionTests.swift */; };
@@ -1134,6 +1135,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		073D39F42A8AD1AF001BD34A /* RequestContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestContext.swift; sourceTree = "<group>"; };
 		19E9F6A826D5867E003AB80E /* OperationMessageIdCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMessageIdCreator.swift; sourceTree = "<group>"; };
 		19E9F6AA26D58A92003AB80E /* OperationMessageIdCreatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationMessageIdCreatorTests.swift; sourceTree = "<group>"; };
 		2EE7FFCF276802E30035DC39 /* CacheKeyConstructionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheKeyConstructionTests.swift; sourceTree = "<group>"; };
@@ -2360,6 +2362,7 @@
 				9B260BF4245A028D00562176 /* HTTPResponse.swift */,
 				E69F436B29B81182006FF548 /* InterceptorRequestChain.swift */,
 				9B260BF2245A026F00562176 /* RequestChain.swift */,
+				073D39F42A8AD1AF001BD34A /* RequestContext.swift */,
 				9B260C03245A090600562176 /* RequestChainNetworkTransport.swift */,
 			);
 			name = RequestChain;
@@ -5502,6 +5505,7 @@
 				9F55347B1DE1DB2100E54264 /* ApolloStore.swift in Sources */,
 				9BDE43D122C6655300FD7C7F /* Cancellable.swift in Sources */,
 				9F69FFA91D42855900E000B1 /* NetworkTransport.swift in Sources */,
+				073D39F52A8AD1AF001BD34A /* RequestContext.swift in Sources */,
 				9F8E0BD325668552000D9FA5 /* DataLoader.swift in Sources */,
 				9FCDFD291E33D0CE007519DC /* GraphQLQueryWatcher.swift in Sources */,
 				DE56DC232683B2020090D6E4 /* DefaultInterceptorProvider.swift in Sources */,

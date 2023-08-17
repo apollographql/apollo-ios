@@ -2,8 +2,6 @@
 import ApolloAPI
 #endif
 
-public protocol RequestContext {}
-
 public protocol RequestChain: Cancellable {
   func kickoff<Operation>(
     request: HTTPRequest<Operation>,
