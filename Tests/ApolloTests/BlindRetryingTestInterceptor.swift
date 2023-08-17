@@ -13,9 +13,11 @@ class BlindRetryingTestInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
+    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     self.hitCount += 1
     chain.retry(request: request,
+                context: context,
                 completion: completion)
   }
   

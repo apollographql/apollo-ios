@@ -80,6 +80,7 @@ class RequestChainTests: XCTestCase {
           chain: RequestChain,
           request: HTTPRequest<Operation>,
           response: HTTPResponse<Operation>?,
+          context: RequestContext?,
           completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
         self.error = error
@@ -152,6 +153,7 @@ class RequestChainTests: XCTestCase {
           chain: RequestChain,
           request: HTTPRequest<Operation>,
           response: HTTPResponse<Operation>?,
+          context: RequestContext?,
           completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
         self.error = error
@@ -188,7 +190,7 @@ class RequestChainTests: XCTestCase {
     )
 
     let expectation = self.expectation(description: "Hero name query complete")
-    _ = transport.upload(operation: MockQuery.mock(), files: [file]) { result in
+    _ = transport.upload(operation: MockQuery.mock(), files: [file], context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -231,6 +233,7 @@ class RequestChainTests: XCTestCase {
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
+        context: RequestContext?,
         completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
         self.error = error
@@ -310,6 +313,7 @@ class RequestChainTests: XCTestCase {
       chain: RequestChain,
       request: HTTPRequest<Operation>,
       response: HTTPResponse<Operation>?,
+      context: RequestContext?,
       completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
     ) -> Void) {
       callback(try! request.toURLRequest())
@@ -443,12 +447,14 @@ class RequestChainTests: XCTestCase {
       chain: RequestChain,
       request: HTTPRequest<Operation>,
       response: HTTPResponse<Operation>?,
+      context: RequestContext?,
       completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>
     ) -> Void) {
       DispatchQueue.main.asyncAfter(wallDeadline: DispatchWallTime.now() + seconds) {
         chain.proceedAsync(
           request: request,
           response: response,
+          context: context,
           interceptor: self,
           completion: completion
         )
@@ -496,7 +502,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -576,7 +582,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -741,7 +747,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -793,7 +799,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -864,7 +870,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -924,7 +930,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain?.kickoff(request: request) { result in
+    requestChain?.kickoff(request: request, context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -940,7 +946,7 @@ class RequestChainTests: XCTestCase {
           ]
         ])
 
-        requestChain?.retry(request: request) { result in
+      requestChain?.retry(request: request, context: nil) { result in
           defer {
             expectation.fulfill()
           }
@@ -976,11 +982,12 @@ class RequestChainTests: XCTestCase {
       chain: Apollo.RequestChain,
       request: Apollo.HTTPRequest<Operation>,
       response: Apollo.HTTPResponse<Operation>?,
+      context: RequestContext?,
       completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
     ) {
       expectation.fulfill()
 
-      chain.proceedAsync(request: request, response: response, completion: completion)
+      chain.proceedAsync(request: request, response: response, context: context, completion: completion)
     }
   }
 
@@ -993,6 +1000,7 @@ class RequestChainTests: XCTestCase {
       chain: Apollo.RequestChain,
       request: Apollo.HTTPRequest<Operation>,
       response: Apollo.HTTPResponse<Operation>?,
+      context: RequestContext?,
       completion: @escaping (Result<Apollo.GraphQLResult<Operation.Data>, Error>) -> Void
     ) {
       expectation.fulfill()
@@ -1000,6 +1008,7 @@ class RequestChainTests: XCTestCase {
       chain.proceedAsync(
         request: request,
         response: response,
+        context: context,
         interceptor: self,
         completion: completion
       )
@@ -1028,7 +1037,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain.kickoff(request: request) { result in }
+    requestChain.kickoff(request: request, context: nil) { result in }
 
     // then
     wait(for: expectations, timeout: 1, enforceOrder: true)
@@ -1055,7 +1064,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain.kickoff(request: request) { result in }
+    requestChain.kickoff(request: request, context: nil) { result in }
 
     // then
     wait(for: expectations, timeout: 1, enforceOrder: true)
@@ -1093,7 +1102,7 @@ class RequestChainTests: XCTestCase {
     )
 
     // when
-    requestChain.kickoff(request: request) { result in }
+    requestChain.kickoff(request: request, context: nil) { result in }
 
     // then
     wait(for: expectations, timeout: 1, enforceOrder: true)

@@ -56,7 +56,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let resultObserver = makeResultObserver(for: watchedQuery)
     
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
@@ -139,7 +139,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let resultObserver = makeResultObserver(for: watchedQuery)
     
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
@@ -228,7 +228,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let resultObserver = makeResultObserver(for: watchedQuery)
     
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
     runActivity("Initial fetch from server") { _ in
@@ -319,6 +319,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
@@ -437,6 +438,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
@@ -579,6 +581,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
@@ -724,6 +727,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
     
@@ -883,6 +887,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
@@ -1072,7 +1077,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let resultObserver = makeResultObserver(for: watchedQuery)
 
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Write data to cache") { _ in
@@ -1175,7 +1180,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let resultObserver = makeResultObserver(for: watchedQuery)
 
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
@@ -1279,6 +1284,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let watcher = GraphQLQueryWatcher(client: client,
                                       query: watchedQuery,
+                                      context: nil,
                                       resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
@@ -1434,7 +1440,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let resultObserver = makeResultObserver(for: watchedQuery)
 
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
@@ -1567,7 +1573,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
 
     let resultObserver = makeResultObserver(for: watchedQuery)
 
-    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, resultHandler: resultObserver.handler)
+    let watcher = GraphQLQueryWatcher(client: client, query: watchedQuery, context: nil, resultHandler: resultObserver.handler)
     addTeardownBlock { watcher.cancel() }
 
     runActivity("Initial fetch from server") { _ in
@@ -1719,6 +1725,7 @@ class WatchQueryTests: XCTestCase, CacheDependentTesting {
     var watcher: GraphQLQueryWatcher<MockQuery<HeroAndFriendsNameWithIDsSelectionSet>>? =
       GraphQLQueryWatcher(client: client,
                           query: watchedQuery,
+                          context: nil,
                           resultHandler: resultObserver.handler)
 
     weak var weakWatcher = watcher

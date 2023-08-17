@@ -55,6 +55,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
         chain: RequestChain,
         request: HTTPRequest<Operation>,
         response: HTTPResponse<Operation>?,
+        context: RequestContext?,
         completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
         
         self.handledError = error
@@ -62,7 +63,7 @@ class CacheDependentInterceptorTests: XCTestCase, CacheDependentTesting {
         switch error {
         case ResponseCodeInterceptor.ResponseCodeError.invalidResponseCode:
           request.cachePolicy = .returnCacheDataDontFetch
-          chain.retry(request: request, completion: completion)
+          chain.retry(request: request, context: context, completion: completion)
         default:
           completion(.failure(error))
         }

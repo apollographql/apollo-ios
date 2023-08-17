@@ -50,7 +50,7 @@ private class MockGraphQLServerInterceptor: ApolloInterceptor {
     self.server = server
   }
   
-  public func interceptAsync<Operation>(chain: RequestChain, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) where Operation: GraphQLOperation {
+  public func interceptAsync<Operation>(chain: RequestChain, request: HTTPRequest<Operation>, response: HTTPResponse<Operation>?, context: RequestContext?, completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) where Operation: GraphQLOperation {
     server.serve(request: request) { result in
       let httpResponse = HTTPURLResponse(url: TestURL.mockServer.url,
                                          statusCode: 200,
@@ -62,6 +62,7 @@ private class MockGraphQLServerInterceptor: ApolloInterceptor {
         chain.handleErrorAsync(error,
                                request: request,
                                response: response,
+                               context: context,
                                completion: completion)
       case .success(let body):
         let data = try! JSONSerializationFormat.serialize(value: body)
@@ -70,6 +71,7 @@ private class MockGraphQLServerInterceptor: ApolloInterceptor {
                                                parsedResponse: nil)
         chain.proceedAsync(request: request,
                            response: response,
+                           context: context,
                            interceptor: self,
                            completion: completion)
       }
@@ -89,6 +91,7 @@ public class MockWebSocketTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy,
     contextIdentifier: UUID?,
+    context: RequestContext?,
     callbackQueue: DispatchQueue,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) -> Cancellable where Operation : GraphQLOperation {
