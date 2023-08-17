@@ -56,6 +56,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///
   /// - Parameters:
   ///   - request: The request to send.
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to call when the request has completed.
   public func kickoff<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
@@ -89,6 +90,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   /// - Parameters:
   ///   - request: The in-progress request object
   ///   - response: [optional] The in-progress response object, if received yet
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to call when data has been processed and should be
   ///   returned to the UI.
   public func proceedAsync<Operation: GraphQLOperation>(
@@ -113,6 +115,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   /// - Parameters:
   ///   - request: The in-progress request object
   ///   - response: [optional] The in-progress response object, if received yet
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - interceptor: The interceptor that has completed processing and is ready to pass control
   ///   on to the next interceptor in the chain.
   ///   - completion: The completion closure to call when data has been processed and should be
@@ -214,6 +217,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///
   /// - Parameters:
   ///   - request: The request to retry
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to call when the request has completed.
   public func retry<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
@@ -236,6 +240,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - error: The error to handle
   ///   - request: The request, as far as it has been constructed.
   ///   - response: The response, as far as it has been constructed.
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to call when work is complete.
   public func handleErrorAsync<Operation: GraphQLOperation>(
     _ error: Error,
@@ -275,6 +280,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   /// - Parameters:
   ///   - request: The request, as far as it has been constructed.
   ///   - value: The value to be returned
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to call when work is complete.
   public func returnValueAsync<Operation: GraphQLOperation>(
     for request: HTTPRequest<Operation>,

@@ -12,6 +12,7 @@ public protocol ApolloErrorInterceptor {
   ///   - chain: The chain the error was received on
   ///   - request: The request, as far as it was constructed
   ///   - response: [optional] The response, if one was received
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion closure to fire when the operation has completed. Note that if you call `retry` on the chain, you will not want to call the completion block in this method.
   func handleErrorAsync<Operation: GraphQLOperation>(
       error: Error,

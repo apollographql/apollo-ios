@@ -35,6 +35,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   /// - Parameters:
   ///   - client: The client protocol to pass in.
   ///   - query: The query to watch.
+  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
   ///   - resultHandler: The result handler to call with changes.
   public init(client: ApolloClientProtocol,
