@@ -404,7 +404,6 @@ The top-level properties are:
 | Property Name | Description |
 | ------------- | ----------- |
 | [`additionalInflectionRules`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/additionalinflectionrules) | Any non-default rules for pluralization or singularization of type names. |
-| [`queryStringLiteralFormat`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/querystringliteralformat) | Formatting of the GraphQL query string literal that is included in each generated operation object. |
 | [`deprecatedEnumCases`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/deprecatedenumcases) | Annotate generated Swift enums with the Swift `@available` attribute for GraphQL enum cases annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`schemaDocumentation`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/schemadocumentation) | Include or exclude [schema documentation](https://spec.graphql.org/draft/#sec-Descriptions) in the generated files. |
 | [`selectionSetInitializers`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/selectionsetinitializers) | Generate initializers for your generated selection set models. |
@@ -424,7 +423,6 @@ The top-level properties are:
 			"singularRegex": "animal"
 		}
 	}],
-	"queryStringLiteralFormat": "multiline",
 	"deprecatedEnumCases": "include",
 	"schemaDocumentation": "include",
 	"selectionSetInitializers" : {
@@ -457,7 +455,6 @@ let configuration = ApolloCodegenConfiguration(
 				replacementRegex: "animals"
 			)
 		],
-		queryStringLiteralFormat: .multiline,
 		deprecatedEnumCases: .include,
 		schemaDocumentation: .include,
 		selectionSetInitializers: [
@@ -666,3 +663,92 @@ let configuration = ApolloCodegenConfiguration(
 ```
 
 </MultiCodeBlock>
+
+## Full Codegen Configuration Example
+
+Below is an example that illustrates an `apollo-codegen-config.json` where every available option is configured in some way to show its usage and formatting:
+
+```json title="apollo-codegen-config.json"
+{
+  "schemaNamespace" : "MySchema",
+  "schemaDownload": {
+    "downloadMethod": {
+        "introspection": {
+            "endpointURL": "https://server.com",
+            "httpMethod": {
+                "POST": {}
+            },
+            "includeDeprecatedInputValues": false,
+            "outputFormat": "SDL"
+        }
+    },
+    "downloadTimeout": 60,
+    "headers": [],
+    "outputPath": "./graphql/"
+  },
+  "experimentalFeatures" : {
+    "clientControlledNullability" : true,
+    "legacySafelistingCompatibleOperations" : true
+  },
+  "operationManifest" : {
+    "generateManifestOnCodeGeneration" : false,
+    "path" : "/operation/identifiers/path",
+    "version" : "persistedQueries"
+  },
+  "input" : {
+    "operationSearchPaths" : [
+      "/search/path/**/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "/path/to/schema.graphqls"
+    ]
+  },
+  "output" : {
+    "operations" : {
+      "absolute" : {
+        "accessModifier" : "internal",
+        "path" : "/absolute/path"
+      }
+    },
+    "schemaTypes" : {
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "accessModifier" : "public",
+          "name" : "SomeTarget"
+        }
+      },
+      "path" : "/output/path"
+    },
+    "testMocks" : {
+      "swiftPackage" : {
+        "targetName" : "SchemaTestMocks"
+      }
+    }
+  },
+  "options" : {
+    "additionalInflectionRules" : [
+      {
+        "pluralization" : {
+          "replacementRegex" : "animals",
+          "singularRegex" : "animal"
+        }
+      }
+    ],
+    "cocoapodsCompatibleImportStatements" : true,
+    "conversionStrategies" : {
+      "enumCases" : "none",
+      "fieldAccessors" : "camelCase"
+    },
+    "deprecatedEnumCases" : "exclude",
+    "operationDocumentFormat" : [
+      "definition"
+    ],
+    "pruneGeneratedFiles" : false,
+    "schemaDocumentation" : "exclude",
+    "selectionSetInitializers" : {
+      "localCacheMutations" : true
+    },
+    "warningsOnDeprecatedUsage" : "exclude"
+  }
+}
+```
