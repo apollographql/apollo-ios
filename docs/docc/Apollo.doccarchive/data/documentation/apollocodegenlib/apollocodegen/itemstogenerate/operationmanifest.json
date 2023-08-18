@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "Only generate the operation manifest used for persisted queries and automatic persisted queries.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -200,10 +194,7 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
   "abstract" : [
-    {
-      "text" : "OptionSet used to configure what items should be generated during code generation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {
@@ -234,10 +225,7 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate/operationManifest": {
   "abstract" : [
-    {
-      "text" : "Only generate the operation manifest used for persisted queries and automatic persisted queries.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

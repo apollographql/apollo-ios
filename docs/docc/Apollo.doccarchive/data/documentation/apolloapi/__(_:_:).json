@@ -13,8 +13,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI"
       ]
     ]
   },

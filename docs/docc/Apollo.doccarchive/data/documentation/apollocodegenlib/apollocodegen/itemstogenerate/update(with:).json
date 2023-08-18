@@ -123,7 +123,10 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloCodegenLib"
+        "name" : "ApolloCodegenLib",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "role" : "symbol",
@@ -300,10 +303,7 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
   "abstract" : [
-    {
-      "text" : "OptionSet used to configure what items should be generated during code generation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

@@ -313,36 +313,6 @@
             }
           ],
           "name" : "rootURL"
-        },
-        {
-          "content" : [
-            {
-              "inlineContent" : [
-                {
-                  "text" : "Uses the ",
-                  "type" : "text"
-                },
-                {
-                  "code" : "ItemsToGenerate",
-                  "type" : "codeVoice"
-                },
-                {
-                  "text" : " option set to determine what items should be generated during codegen.",
-                  "type" : "text"
-                },
-                {
-                  "text" : " ",
-                  "type" : "text"
-                },
-                {
-                  "text" : "By default this will use [.code] which maintains how codegen functioned prior to these options being added.",
-                  "type" : "text"
-                }
-              ],
-              "type" : "paragraph"
-            }
-          ],
-          "name" : "itemsToGenerate"
         }
       ]
     }
@@ -419,10 +389,7 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
   "abstract" : [
-    {
-      "text" : "OptionSet used to configure what items should be generated during code generation.",
-      "type" : "text"
-    }
+
   ],
   "fragments" : [
     {

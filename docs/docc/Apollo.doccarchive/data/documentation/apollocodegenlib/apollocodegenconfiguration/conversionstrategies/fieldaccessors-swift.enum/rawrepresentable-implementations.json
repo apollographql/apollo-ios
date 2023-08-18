@@ -167,8 +167,9 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/ConversionStrategies/FieldAccessors-swift.enum": {
   "abstract" : [
     {
-      "code" : "ApolloCodegenConfiguration\/ConversionStrategies\/FieldAccessors",
-      "type" : "codeVoice"
+      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies\/FieldAccessors-swift.enum",
+      "isActive" : true,
+      "type" : "reference"
     },
     {
       "text" : " is used to specify the",

@@ -161,7 +161,13 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Dictionary",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -741,6 +747,111 @@
   "title" : "ScalarType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/scalartype"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/Bool": {
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
+  "title" : "Bool",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/Dictionary": {
+  "abstract" : [
+
+  ],
+  "conformance" : {
+    "availabilityPrefix" : [
+      {
+        "text" : "Available when",
+        "type" : "text"
+      }
+    ],
+    "conformancePrefix" : [
+      {
+        "text" : "Conforms when",
+        "type" : "text"
+      }
+    ],
+    "constraints" : [
+      {
+        "code" : "Key",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "String",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " and ",
+        "type" : "text"
+      },
+      {
+        "code" : "Value",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : " is ",
+        "type" : "text"
+      },
+      {
+        "code" : "AnyHashable",
+        "type" : "codeVoice"
+      },
+      {
+        "text" : ".",
+        "type" : "text"
+      }
+    ]
+  },
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:SD",
+      "text" : "Dictionary"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Dictionary",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Dictionary"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Dictionary",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/swift\/dictionary"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/Double": {
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
+  "title" : "Double",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/Float": {
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
+  "title" : "Float",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/Int": {
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
+  "title" : "Int",
+  "type" : "unresolvable"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/Swift/String": {
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String",
+  "title" : "String",
+  "type" : "unresolvable"
 }
 }
 }

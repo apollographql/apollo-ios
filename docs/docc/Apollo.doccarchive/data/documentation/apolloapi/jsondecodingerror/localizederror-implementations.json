@@ -33,7 +33,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription-hijs",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/failureReason",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/helpAnchor",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/recoverySuggestion"
@@ -148,44 +147,6 @@
   "title" : "JSONDecodingError",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/errorDescription-hijs": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription-hijs",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsondecodingerror\/errordescription-hijs"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/failureReason": {
   "abstract" : [
