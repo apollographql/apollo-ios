@@ -31,14 +31,14 @@ Once you've installed the `ApolloCodegenLib` dependency in your project, you can
 
 - [Installing `ApolloCodegenLib`](#installing-apollocodegenlib)
 - [Usage](#usage)
-  - [Running code generation](#running-code-generation)
-  - [Downloading a schema](#downloading-a-schema)
+	- [Running code generation](#running-code-generation)
+	- [Downloading a schema](#downloading-a-schema)
 
 ### Running code generation
 
-To configure and run code generation using `ApolloCodegenLib`, create an [`ApolloCodegenConfiguration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration), then pass it to `ApolloCodegen.build(with configuration:withRootURL:)` function.
+To configure and run code generation using `ApolloCodegenLib`, create an [`ApolloCodegenConfiguration`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration), then pass it to `ApolloCodegen.build(with configuration:withRootURL:itemsToGenerate:)` function.
 
-By default, the Code Generation Engine will resolve all file paths in your `ApolloCodegenConfiguration` relative to the current working directory. The `rootURL` parameter can be used to provide a local file path URL of the root of the project that you want to run code generation on. This will resolve file paths in your configuration relative to the provided `rootURL`.
+By default, the Code Generation Engine will resolve all file paths in your `ApolloCodegenConfiguration` relative to the current working directory. The `rootURL` parameter can be used to provide a local file path URL of the root of the project that you want to run code generation on. This will resolve file paths in your configuration relative to the provided `rootURL`. The [`itemsToGenerate`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegen/itemsToGenerate) parameter allows you to customize what items will be generated. If you don't provide options this will default to `[.code]` which will just generate code files in the same way code generation worked prior to this option set being added in version 1.4.0. 
 
 ```swift
 import ApolloCodegenLib
