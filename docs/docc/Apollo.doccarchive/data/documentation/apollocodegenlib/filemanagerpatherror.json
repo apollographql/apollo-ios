@@ -104,7 +104,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8"
       ],
       "title" : "Instance Properties"
     },
@@ -266,7 +266,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/cannotcreatefile(at:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-1nql8": {
   "abstract" : [
 
   ],
@@ -293,12 +293,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-1nql8",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/errordescription"
+  "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/errordescription-1nql8"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/notADirectory(path:)": {
   "abstract" : [

@@ -117,7 +117,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/errorDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/errorDescription-aa0j"
       ],
       "title" : "Instance Properties"
     },
@@ -303,7 +303,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/cannotloadschema"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/errorDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/errorDescription-aa0j": {
   "abstract" : [
 
   ],
@@ -334,12 +334,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/errorDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegen\/Error\/errorDescription-aa0j",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/errordescription"
+  "url" : "\/documentation\/apollocodegenlib\/apollocodegen\/error\/errordescription-aa0j"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/Error/graphQLSourceValidationFailure(atLines:)": {
   "abstract" : [

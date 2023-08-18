@@ -148,14 +148,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Array",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Optional",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -616,108 +609,6 @@
   "title" : "ScalarType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/scalartype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Array": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Array",
-  "title" : "Array",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Bool": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
-  "title" : "Bool",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Double": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
-  "title" : "Double",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Float": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
-  "title" : "Float",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Int": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
-  "title" : "Int",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Optional": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Wrapped",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "AnyScalarType",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " and ",
-        "type" : "text"
-      },
-      {
-        "code" : "Hashable",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "extension"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "preciseIdentifier" : "s:Sq",
-      "text" : "Optional"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Optional",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Optional"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Optional",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/swift\/optional"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/String": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String",
-  "title" : "String",
-  "type" : "unresolvable"
 },
 "http://spec.graphql.org/October2021/#sec-Scalars": {
   "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Scalars",

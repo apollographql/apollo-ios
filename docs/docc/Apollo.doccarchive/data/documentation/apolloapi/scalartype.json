@@ -234,18 +234,6 @@
       "kind" : "relationships",
       "title" : "Inherits From",
       "type" : "inheritsFrom"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -667,31 +655,6 @@
   "title" : "ScalarType",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/scalartype"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Bool": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Bool",
-  "title" : "Bool",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Double": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Double",
-  "title" : "Double",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Float": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Float",
-  "title" : "Float",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Int": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Int",
-  "title" : "Int",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/String": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/String",
-  "title" : "String",
-  "type" : "unresolvable"
 },
 "http://spec.graphql.org/October2021/#sec-Scalars": {
   "identifier" : "http:\/\/spec.graphql.org\/October2021\/#sec-Scalars",

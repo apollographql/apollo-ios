@@ -33,6 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-77dya",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/failureReason",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/helpAnchor",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/recoverySuggestion"
@@ -130,6 +131,44 @@
   "title" : "WebSocketError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websocketerror"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/errorDescription-77dya": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketError\/errorDescription-77dya",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websocketerror\/errordescription-77dya"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketError/failureReason": {
   "abstract" : [

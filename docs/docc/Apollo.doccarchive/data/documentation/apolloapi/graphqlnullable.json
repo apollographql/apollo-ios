@@ -676,6 +676,12 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-3syxd",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable\/init(_:)-7pg3j"
       ],
@@ -1549,6 +1555,97 @@
   "title" : "InputObject",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/inputobject"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Nil Coalescing Operator overload for ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
+      "isActive" : true,
+      "type" : "reference"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "??"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
+      "text" : "GraphQLNullable"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
+      "text" : "GraphQLNullable"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "??(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/__(_:_:)"
 },
 "doc://ApolloAPI/s23ExpressibleByNilLiteralP": {
   "identifier" : "doc:\/\/ApolloAPI\/s23ExpressibleByNilLiteralP",

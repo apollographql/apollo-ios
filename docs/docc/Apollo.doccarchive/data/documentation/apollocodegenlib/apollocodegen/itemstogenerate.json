@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "OptionSet used to configure what items should be generated during code generation.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -200,7 +206,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
   "abstract" : [
-
+    {
+      "text" : "OptionSet used to configure what items should be generated during code generation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -264,7 +273,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate/all": {
   "abstract" : [
-
+    {
+      "text" : "Generate all available items during code generation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -315,7 +327,18 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate/code": {
   "abstract" : [
-
+    {
+      "text" : "Only generate your code (Operations, Fragments, Enums, etc), this option maintains the codegen functionality",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "from before this option set was created.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -404,7 +427,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate/operationManifest": {
   "abstract" : [
-
+    {
+      "text" : "Only generate the operation manifest used for persisted queries and automatic persisted queries.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

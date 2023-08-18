@@ -137,12 +137,6 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/InflectionRule"
       ],
       "title" : "Enumerations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation"
-      ],
-      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -565,17 +559,6 @@
   "title" : "FileManagerPathError",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "Foundation",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/foundation"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob": {
   "abstract" : [

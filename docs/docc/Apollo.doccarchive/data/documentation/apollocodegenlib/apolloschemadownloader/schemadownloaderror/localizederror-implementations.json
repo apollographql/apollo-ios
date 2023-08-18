@@ -34,6 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-8dw0d",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/failureReason",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/helpAnchor",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/recoverySuggestion"
@@ -133,6 +134,44 @@
   "title" : "ApolloSchemaDownloader.SchemaDownloadError",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription-8dw0d": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-8dw0d",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/errordescription-8dw0d"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/failureReason": {
   "abstract" : [

@@ -1,4 +1,10 @@
 {
+  "abstract" : [
+    {
+      "text" : "Generate all available items during code generation.",
+      "type" : "text"
+    }
+  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -194,7 +200,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate": {
   "abstract" : [
-
+    {
+      "text" : "OptionSet used to configure what items should be generated during code generation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {
@@ -225,7 +234,10 @@
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegen/ItemsToGenerate/all": {
   "abstract" : [
-
+    {
+      "text" : "Generate all available items during code generation.",
+      "type" : "text"
+    }
   ],
   "fragments" : [
     {

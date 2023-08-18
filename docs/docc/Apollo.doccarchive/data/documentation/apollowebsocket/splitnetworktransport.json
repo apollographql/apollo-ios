@@ -122,8 +122,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0"
       ],
       "title" : "Instance Properties"
     },
@@ -267,7 +267,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/uploadingnetworktransport-implementations"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-8o4nu": {
   "abstract" : [
 
   ],
@@ -294,14 +294,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-8o4nu",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientname"
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientname-8o4nu"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-4o8f0": {
   "abstract" : [
 
   ],
@@ -328,12 +328,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-4o8f0",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientversion"
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientversion-4o8f0"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/init(uploadingNetworkTransport:webSocketNetworkTransport:)": {
   "abstract" : [

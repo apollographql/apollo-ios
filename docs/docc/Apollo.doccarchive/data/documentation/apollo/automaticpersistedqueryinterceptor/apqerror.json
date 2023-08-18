@@ -105,7 +105,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription-1xiwl"
       ],
       "title" : "Instance Properties"
     },
@@ -252,7 +252,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/errorDescription": {
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/errorDescription-1xiwl": {
   "abstract" : [
 
   ],
@@ -283,12 +283,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription-1xiwl",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription"
+  "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription-1xiwl"
 },
 "doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/noParsedResponse": {
   "abstract" : [

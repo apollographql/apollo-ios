@@ -84,10 +84,7 @@
     ],
     "modules" : [
       {
-        "name" : "Apollo",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "Apollo"
       }
     ],
     "role" : "symbol",

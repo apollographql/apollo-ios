@@ -33,6 +33,14 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
       ],
@@ -185,6 +193,74 @@
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/addapolloclientheaders(to:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName-2sr62": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientName",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname-2sr62"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion-5nzf9"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientName": {
   "abstract" : [

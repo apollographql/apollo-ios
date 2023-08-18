@@ -141,13 +141,6 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError"
       ],
       "title" : "Enumerations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloAPI",
-        "doc:\/\/Apollo\/documentation\/Apollo\/Swift"
-      ],
-      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -177,17 +170,6 @@
   "title" : "Apollo",
   "type" : "topic",
   "url" : "\/documentation\/apollo"
-},
-"doc://Apollo/documentation/Apollo/ApolloAPI": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloAPI",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "ApolloAPI",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloapi"
 },
 "doc://Apollo/documentation/Apollo/ApolloClient": {
   "abstract" : [
@@ -1853,17 +1835,6 @@
   "title" : "ResponsePath",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsepath"
-},
-"doc://Apollo/documentation/Apollo/Swift": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Swift",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "Swift",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/swift"
 },
 "doc://Apollo/documentation/Apollo/TaskData": {
   "abstract" : [

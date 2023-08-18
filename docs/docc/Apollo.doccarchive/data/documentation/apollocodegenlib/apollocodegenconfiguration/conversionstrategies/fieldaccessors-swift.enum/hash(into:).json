@@ -125,10 +125,7 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloCodegenLib",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "ApolloCodegenLib"
       }
     ],
     "role" : "symbol",
@@ -322,9 +319,8 @@
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloCodegenConfiguration/ConversionStrategies/FieldAccessors-swift.enum": {
   "abstract" : [
     {
-      "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloCodegenConfiguration\/ConversionStrategies\/FieldAccessors-swift.enum",
-      "isActive" : true,
-      "type" : "reference"
+      "code" : "ApolloCodegenConfiguration\/ConversionStrategies\/FieldAccessors",
+      "type" : "codeVoice"
     },
     {
       "text" : " is used to specify the",

@@ -102,7 +102,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/graphQLError"
       ],
       "title" : "Instance Properties"
@@ -236,7 +236,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription": {
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-6mkgn": {
   "abstract" : [
 
   ],
@@ -267,12 +267,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-6mkgn",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription"
+  "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-6mkgn"
 },
 "doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/graphQLError": {
   "abstract" : [

@@ -104,7 +104,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription-ws8y"
       ],
       "title" : "Instance Properties"
     },
@@ -275,7 +275,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/errorDescription": {
+"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/errorDescription-ws8y": {
   "abstract" : [
 
   ],
@@ -306,12 +306,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription-ws8y",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription"
+  "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription-ws8y"
 },
 "doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/noUploadTransport": {
   "abstract" : [
