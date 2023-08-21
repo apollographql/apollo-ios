@@ -68,11 +68,18 @@ public class ApolloCodegen {
     }
   }
   
+  /// OptionSet used to configure what items should be generated during code generation.
   public struct ItemsToGenerate: OptionSet {
     public var rawValue: Int
     
+    /// Only generate your code (Operations, Fragments, Enums, etc), this option maintains the codegen functionality
+    /// from before this option set was created.
     public static let code = ItemsToGenerate(rawValue: 1 << 0)
+    
+    /// Only generate the operation manifest used for persisted queries and automatic persisted queries.
     public static let operationManifest = ItemsToGenerate(rawValue: 1 << 1)
+    
+    /// Generate all available items during code generation.
     public static let all: ItemsToGenerate = [
       .code,
       .operationManifest
@@ -91,6 +98,8 @@ public class ApolloCodegen {
   ///     during code generation.
   ///   - rootURL: The root `URL` to resolve relative `URL`s in the configuration's paths against.
   ///     If `nil`, the current working directory of the executing process will be used.
+  ///   - itemsToGenerate: Uses the `ItemsToGenerate` option set to determine what items should be generated during codegen.
+  ///     By default this will use [.code] which maintains how codegen functioned prior to these options being added.
   public static func build(
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL? = nil,
