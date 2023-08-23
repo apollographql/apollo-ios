@@ -1,3 +1,7 @@
+# git pull origin main
+# git checkout main
+# git merge Wdtwsm777-patch-1-777
+# git push -u origin main
 <p align="center">
   <img src="https://user-images.githubusercontent.com/146856/124335690-fc7ecd80-db4f-11eb-93fa-dcf4469bb07b.png" alt="Apollo GraphQL"/>
 </p>
