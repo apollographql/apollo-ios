@@ -1,4 +1,7 @@
+#if !COCOAPODS
+@testable import ApolloAPI
 @testable import Apollo
+#endif
 import Foundation
 
 /// An accumulator that converts data from a `Mock` to the correct values to create a `SelectionSet`.

@@ -1,5 +1,3 @@
-import Foundation
-
 public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 
@@ -8,7 +6,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
   }
 
   public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
-    keys.reduce(into: [:]) { result, key in
+    return keys.reduce(into: [:]) { result, key in
       result[key] = records[key]
     }
   }

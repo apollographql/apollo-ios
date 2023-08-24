@@ -228,6 +228,7 @@ public class ApolloStore {
       accumulator: Accumulator
     ) throws -> Accumulator.FinalResult {
       let object = try loadObject(forKey: key).get()
+
       return try executor.execute(
         selectionSet: type,
         on: object,

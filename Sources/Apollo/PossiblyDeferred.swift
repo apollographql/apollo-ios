@@ -1,5 +1,3 @@
-import Foundation
-
 /// Lazily evaluates an array of possibly deferred values.
 /// - Parameters:
 ///   - elements: An array of possibly deferred values

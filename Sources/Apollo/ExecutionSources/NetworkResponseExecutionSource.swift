@@ -1,15 +1,11 @@
-import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
 
 /// A `GraphQLExecutionSource` configured to execute upon the JSON data from the network response
 /// for a GraphQL operation.
-struct NetworkResponseExecutionSource:
-  GraphQLExecutionSource,
-  CacheKeyComputingExecutionSource
-{
-  typealias RawData = JSONObject
+struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
+  typealias RawObjectData = JSONObject
   typealias FieldCollector = DefaultFieldSelectionCollector
 
   func resolveField(
