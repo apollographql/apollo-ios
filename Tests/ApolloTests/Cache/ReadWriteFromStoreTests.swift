@@ -1619,7 +1619,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let query = MockQuery<GivenSelectionSet>()
       let resultData = try transaction.read(query: query)
 
-      expect(resultData.hero.__data._data["name"]).to(equal(NSNull()))
+      expect(resultData.hero.__data._data["name"]).to(equal(AnyHashable(Optional<AnyHashable>.none)))
       expect(resultData.hero.name).to(beNil())
 
     }, completion: { result in

@@ -57,9 +57,9 @@ public struct DataDict: Hashable {
 //        _data[key] as! T
 //#else
       let value = _data[key]?.base
-      if value is NSNull {
-        return (Optional<T>.none) as! T
-      }
+//      if value is NSNull {
+//        return (Optional<T>.none) as! T
+//      }
         return value as! T
 //#endif
     }

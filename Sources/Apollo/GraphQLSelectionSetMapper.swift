@@ -2,6 +2,8 @@
 import ApolloAPI
 #endif
 
+let Null = AnyHashable(Optional<AnyHashable>.none)
+
 /// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
 final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
@@ -48,7 +50,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   }
 
   func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
-    return NSNull()
+    return stripNullValues ? nil : Null
   }
 
   func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
