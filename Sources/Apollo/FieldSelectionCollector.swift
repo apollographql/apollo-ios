@@ -77,14 +77,16 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                             info: info)
         }
 
-      case let .fragment(fragment):
+      // TODO: _ is fine for now but will need to be handled in #3145
+      case let .fragment(fragment, _):
         groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
                           into: &groupedFields,
                           for: object,
                           info: info)
 
-      case let .inlineFragment(typeCase):
+      // TODO: _ is fine for now but will need to be handled in #3145
+      case let .inlineFragment(typeCase, _):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
           groupedFields.addFulfilledFragment(typeCase)
@@ -146,7 +148,8 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           info: info,
                           asConditionalFields: true)
 
-      case let .fragment(fragment):
+      // TODO: _ is fine for now but will need to be handled in #3145
+      case let .fragment(fragment, _):
         if groupedFields.fulfilledFragments.contains(type: fragment) {
           try collectFields(from: fragment.__selections,
                             into: &groupedFields,
@@ -155,7 +158,8 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                             asConditionalFields: false)
         }
 
-      case let .inlineFragment(typeCase):
+      // TODO: _ is fine for now but will need to be handled in #3145
+      case let .inlineFragment(typeCase, _):
         if groupedFields.fulfilledFragments.contains(type: typeCase) {
           try collectFields(from: typeCase.__selections,
                             into: &groupedFields,

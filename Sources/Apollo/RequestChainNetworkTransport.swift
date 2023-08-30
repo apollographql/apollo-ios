@@ -69,7 +69,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
   }
   
-  /// Constructs a default (ie, non-multipart) GraphQL request.
+  /// Constructs a GraphQL request for the given operation.
   ///
   /// Override this method if you need to use a custom subclass of `HTTPRequest`.
   ///
@@ -81,18 +81,37 @@ open class RequestChainNetworkTransport: NetworkTransport {
   open func constructRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     cachePolicy: CachePolicy,
-    contextIdentifier: UUID? = nil) -> HTTPRequest<Operation> {
-    JSONRequest(operation: operation,
-                graphQLEndpoint: self.endpointURL,
-                contextIdentifier: contextIdentifier,
-                clientName: self.clientName,
-                clientVersion: self.clientVersion,
-                additionalHeaders: self.additionalHeaders,
-                cachePolicy: cachePolicy,
-                autoPersistQueries: self.autoPersistQueries,
-                useGETForQueries: self.useGETForQueries,
-                useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-                requestBodyCreator: self.requestBodyCreator)
+    contextIdentifier: UUID? = nil
+  ) -> HTTPRequest<Operation> {
+    let request = JSONRequest(
+      operation: operation,
+      graphQLEndpoint: self.endpointURL,
+      contextIdentifier: contextIdentifier,
+      clientName: self.clientName,
+      clientVersion: self.clientVersion,
+      additionalHeaders: self.additionalHeaders,
+      cachePolicy: cachePolicy,
+      autoPersistQueries: self.autoPersistQueries,
+      useGETForQueries: self.useGETForQueries,
+      useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
+      requestBodyCreator: self.requestBodyCreator
+    )
+
+    if Operation.operationType == .subscription {
+      request.addHeader(
+        name: "Accept",
+        value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseSubscriptionParser.protocolSpec),application/json"
+      )
+    }
+
+    if Operation.hasDeferredFragments {
+      request.addHeader(
+        name: "Accept",
+        value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseDeferParser.protocolSpec),application/json"
+      )
+    }
+
+    return request
   }
   
   // MARK: - NetworkTransport Conformance
@@ -108,16 +127,10 @@ open class RequestChainNetworkTransport: NetworkTransport {
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
-    let request = self.constructRequest(for: operation,
-                                        cachePolicy: cachePolicy,
-                                        contextIdentifier: contextIdentifier)
-
-    if Operation.operationType == .subscription {
-      request.addHeader(
-        name: "Accept",
-        value: "multipart/mixed;boundary=\"graphql\";subscriptionSpec=1.0,application/json"
-      )
-    }
+    let request = self.constructRequest(
+      for: operation,
+      cachePolicy: cachePolicy,
+      contextIdentifier: contextIdentifier)
     
     chain.kickoff(request: request, completion: completionHandler)
     return chain

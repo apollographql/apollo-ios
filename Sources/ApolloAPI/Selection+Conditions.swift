@@ -30,25 +30,40 @@ public extension Selection {
     }
   }
 
-  struct Condition: ExpressibleByStringLiteral, Hashable {
-    public let variableName: String
-    public let inverted: Bool
+  enum Condition: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, Hashable {
+    case value(Bool)
+    case variable(name: String, inverted: Bool)
 
     public init(
       variableName: String,
       inverted: Bool
     ) {
-      self.variableName = variableName
-      self.inverted = inverted;
+      self = .variable(name: variableName, inverted: inverted)
     }
 
     public init(stringLiteral value: StringLiteralType) {
-      self.variableName = value
-      self.inverted = false
+      self = .variable(name: value, inverted: false)
     }
 
-    @inlinable public static prefix func !(value: Condition) -> Condition {
-      .init(variableName: value.variableName, inverted: !value.inverted)
+    public init(booleanLiteral value: BooleanLiteralType) {
+      self = .value(value)
+    }
+
+    @inlinable public static func `if`(_ condition: StringLiteralType) -> Condition {
+      .variable(name: condition, inverted: false)
+    }
+
+    @inlinable public static func `if`(_ condition: Condition) -> Condition {
+      condition
+    }
+
+    @inlinable public static prefix func !(condition: Condition) -> Condition {
+      switch condition {
+      case let .value(value):
+        return .value(!value)
+      case let .variable(name, inverted):
+        return .init(variableName: name, inverted: !inverted)
+      }
     }
 
     @inlinable public static func &&(_ lhs: Condition, rhs: Condition) -> [Condition] {
@@ -101,19 +116,24 @@ fileprivate extension Array where Element == Selection.Condition {
 // MARK: Conditions - Individual
 fileprivate extension Selection.Condition {
   func evaluate(with variables: GraphQLOperation.Variables?) -> Bool {
-    switch variables?[variableName] {
-    case let boolValue as Bool:
-      return inverted ? !boolValue : boolValue
+    switch self {
+    case let .value(value):
+      return value
+    case let .variable(variableName, inverted):
+      switch variables?[variableName] {
+      case let boolValue as Bool:
+        return inverted ? !boolValue : boolValue
 
-    case let nullable as GraphQLNullable<Bool>:
-      let evaluated = nullable.unwrapped ?? false
-      return inverted ? !evaluated : evaluated
+      case let nullable as GraphQLNullable<Bool>:
+        let evaluated = nullable.unwrapped ?? false
+        return inverted ? !evaluated : evaluated
 
-    case .none:
-      return false
+      case .none:
+        return false
 
-    case let .some(wrapped):
-      fatalError("Expected Bool for \(variableName), got \(wrapped)")
+      case let .some(wrapped):
+        fatalError("Expected Bool for \(variableName), got \(wrapped)")
+      }
     }
   }
 }

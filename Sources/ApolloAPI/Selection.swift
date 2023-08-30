@@ -2,9 +2,9 @@ public enum Selection {
   /// A single field selection.
   case field(Field)
   /// A fragment spread of a named fragment definition.
-  case fragment(any Fragment.Type)
+  case fragment(any Fragment.Type, deferred: Condition? = nil)
   /// An inline fragment with a child selection set nested in a parent selection set.
-  case inlineFragment(any InlineFragment.Type)
+  case inlineFragment(any InlineFragment.Type, deferred: Condition? = nil)
   /// A group of selections that have `@include/@skip` directives.
   case conditional(Conditions, [Selection])
 
@@ -129,14 +129,13 @@ extension Selection: Hashable {
     switch (lhs, rhs) {
     case let (.field(lhs), .field(rhs)):
       return lhs == rhs
-    case let (.fragment(lhs), .fragment(rhs)):
-      return lhs == rhs
-    case let (.inlineFragment(lhs), .inlineFragment(rhs)):
-      return lhs == rhs
+    case let (.fragment(lhsFragment, lhsDeferred), .fragment(rhsFragment, rhsDeferred)):
+      return lhsFragment == rhsFragment && lhsDeferred == rhsDeferred
+    case let (.inlineFragment(lhsFragment, lhsDeferred), .inlineFragment(rhsFragment, rhsDeferred)):
+      return lhsFragment == rhsFragment && lhsDeferred == rhsDeferred
     case let (.conditional(lhsConditions, lhsSelections),
               .conditional(rhsConditions, rhsSelections)):
-      return lhsConditions == rhsConditions &&
-      lhsSelections == rhsSelections
+      return lhsConditions == rhsConditions && lhsSelections == rhsSelections
     default: return false
     }
   }
