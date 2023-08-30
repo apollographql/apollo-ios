@@ -48,7 +48,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   }
 
   func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
-    return stripNullValues ? nil : Optional<AnyHashable>.none
+    return NSNull()
   }
 
   func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
@@ -72,6 +72,9 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
 
   func accept(fieldEntry: AnyHashable?, info: FieldExecutionInfo) -> (key: String, value: AnyHashable)? {
     guard let fieldEntry = fieldEntry else { return nil }
+//    if fieldEntry is NSNull {
+//      return (info.responseKeyForField, AnyHashable(Optional<AnyHashable>.none))
+//    }
     return (info.responseKeyForField, fieldEntry)
   }
  

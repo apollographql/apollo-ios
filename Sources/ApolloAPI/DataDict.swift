@@ -1,3 +1,5 @@
+import Foundation
+
 /// A structure that wraps the underlying data for a ``SelectionSet``.
 public struct DataDict: Hashable {
   @usableFromInline var _storage: _Storage
@@ -51,11 +53,15 @@ public struct DataDict: Hashable {
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
     get {
-#if swift(>=5.4)
-        _data[key] as! T
-#else
-        _data[key]?.base as! T
-#endif
+//#if swift(>=5.4)
+//        _data[key] as! T
+//#else
+      let value = _data[key]?.base
+      if value is NSNull {
+        return (Optional<T>.none) as! T
+      }
+        return value as! T
+//#endif
     }
     set {
       _data[key] = newValue

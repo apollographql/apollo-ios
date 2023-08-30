@@ -217,7 +217,7 @@ public class ApolloStore {
         ofType: type,
         withKey: key,
         variables: variables,
-        accumulator: GraphQLSelectionSetMapper<SelectionSet>()
+        accumulator: GraphQLSelectionSetMapper<SelectionSet>(stripNullValues: false)
       )
     }
 

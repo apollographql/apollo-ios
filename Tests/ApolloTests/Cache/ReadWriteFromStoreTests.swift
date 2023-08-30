@@ -1558,7 +1558,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
     self.wait(for: [writeCompletedExpectation], timeout: Self.defaultWaitTimeout)
   }
 
-  func test_writeDataForCacheMutation_givenNilValueForOptionalField_writesFieldWithNullValue() throws {
+  func test_writeDataForCacheMutation_givenNullValueForOptionalField_writesFieldWithNullValue() throws {
     // given
     struct GivenSelectionSet: MockMutableRootSelectionSet {
       public var __data: DataDict = .empty()
@@ -1619,6 +1619,7 @@ class ReadWriteFromStoreTests: XCTestCase, CacheDependentTesting, StoreLoading {
       let query = MockQuery<GivenSelectionSet>()
       let resultData = try transaction.read(query: query)
 
+      expect(resultData.hero.__data._data["name"]).to(equal(NSNull()))
       expect(resultData.hero.name).to(beNil())
 
     }, completion: { result in
@@ -2769,7 +2770,7 @@ fileprivate func expectJSONMissingValueError<T>(
   file: FileString = #file, line: UInt = #line
 ) {
   guard case let .failure(readError) = result else {
-    fail("Expected JSON Missing Value Error: \(result)",
+    fail("Expected JSON Missing Value Error, got:\n \(result)",
          file: file, line: line)
     return
   }
@@ -2781,7 +2782,7 @@ fileprivate func expectJSONMissingValueError<T>(
       // This is correct.
       break
     default:
-      fail("Expected JSON Missing Value Error: \(result)",
+      fail("Expected JSON Missing Value Error, got:\n \(result)",
            file: file, line: line)
     }
   } else {
