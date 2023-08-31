@@ -44,7 +44,9 @@ This is still undecided but we may require that _all_ deferred fragments be name
 
 **Deferred fragment accessors are stored properties**
 
-This is different to data fields which are computed properties that use a subscript on the underlying data dictionary to return the value. This is also made possible by the underlying data dictionary having copy-on-write semantics. By making deferred fragment accessors stored properties we are then able to use a property wrapper. The property wrapper is an easy-to-read annotation on the accessor to aid in identifying a deferred fragment from other named fragments in the fragment container.
+This is different to data fields which are computed properties that use a subscript on the underlying data dictionary to return the value. We decided to do this so that we can use a property wrapper, which are not available for computed properties. The property wrapper is an easy-to-read annotation on the accessor to aid in identifying a deferred fragment from other named fragments in the fragment container.
+
+It's worth noting though that the fragment accessors are not true stored properties but rather a pseudo stored-property because the property wrapper is still initialized with a data dictionary that holds the data. This is also made possible by the underlying data dictionary having copy-on-write semantics.
 
 **`@Deferred` property wrapper**
 
@@ -130,6 +132,16 @@ public static var __selections: [ApolloAPI.Selection] { [
   .deferred(if: "a", DeferredFragmentFoo.self, label: "deferredFragmentFoo")
 ] }
 ```
+
+**Field merging**
+
+Field merging is a feature in Apollo iOS where fields from fragments that have the same `__parentType` as the enclosing `SelectionSet` are automatically merged into the enclosing `SelectionSet`. This makes it easier to consume fragment fields instead of having to access the fragment first.
+
+Deferred fragment fields will **not** be merged into the enclosing selection set. Merging in the fields of a deferred fragment would require the field types to become optional or use another wrapper-type solution where the field value and state can be represented. We decided it would be better to treat deferred fragments as an isolated selection set with clearer sementics on the collective state and values.
+
+**Selection set initializers**
+
+In the preview release of `@defer`, operations with deferred fragments will **not** be able to have generated selection set initializers. This is due to the complexities of field merging which is dependent on work being done by other members of the team. Once we can support this the fields will be optional properties on the initializer and fragment fulfillment will be determined at access time, in a lightweight version of the GraphQL executor, to determine if all deferred fragment field values were provided.   
 
 ## Networking 
 
