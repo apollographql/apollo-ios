@@ -412,6 +412,7 @@ The top-level properties are:
 | [`warningsOnDeprecatedUsage`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/warningsondeprecatedusage) | Annotate generated Swift code with the Swift `@available` attribute and `@deprecated` argument for parts of the GraphQL schema annotated with the built-in [`@deprecated` directive](https://spec.graphql.org/draft/#sec--deprecated). |
 | [`conversionStrategies`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/conversionstrategies) | Rules for how to convert the names of values from the schema in generated code. |
 | [`pruneGeneratedFiles`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/prunegeneratedfiles) | Whether unused generated files will be automatically deleted. |
+| [`markOperationDefinitionsAsFinal`](https://www.apollographql.com/docs/ios/docc/documentation/apollocodegenlib/apollocodegenconfiguration/outputoptions/markOperationDefinitionsAsFinal) | Whether generated GraphQL operation and local cache mutation class types will be marked as `final`. |
 
 <MultiCodeBlock>
 
@@ -441,7 +442,8 @@ The top-level properties are:
 		"enumCases": "camelCase",
 		"fieldAccessors": "default"
 	},
-	"pruneGeneratedFiles": true
+	"pruneGeneratedFiles": true,
+	"markOperationDefinitionsAsFinal": true
 }
 ```
 
@@ -469,7 +471,8 @@ let configuration = ApolloCodegenConfiguration(
 			enumCases: .camelCase,
 			fieldAccessors: .default
 		),
-		pruneGeneratedFiles: true
+		pruneGeneratedFiles: true,
+		markOperationDefinitionsAsFinal: true
 	)
 )
 ```

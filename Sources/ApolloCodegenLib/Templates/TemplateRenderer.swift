@@ -163,6 +163,8 @@ enum AccessControlScope {
 }
 
 extension TemplateRenderer {
+  var classDefinitionKeywords: String { config.options.markOperationDefinitionsAsFinal ? "final class" : "class" }
+
   func accessControlModifier(for scope: AccessControlScope) -> String {
     switch target {
     case .moduleFile, .schemaFile: return schemaAccessControlModifier(scope: scope)

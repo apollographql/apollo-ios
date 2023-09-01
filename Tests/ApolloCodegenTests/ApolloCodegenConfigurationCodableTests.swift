@@ -49,7 +49,8 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             enumCases: .none,
             fieldAccessors: .camelCase
           ),
-          pruneGeneratedFiles: false
+          pruneGeneratedFiles: false,
+          markOperationDefinitionsAsFinal: true
         ),
         experimentalFeatures: .init(
           clientControlledNullability: true,
@@ -98,6 +99,7 @@ class ApolloCodegenConfigurationCodableTests: XCTestCase {
             "fieldAccessors" : "camelCase"
           },
           "deprecatedEnumCases" : "exclude",
+          "markOperationDefinitionsAsFinal" : true,
           "operationDocumentFormat" : [
             "definition"
           ],
