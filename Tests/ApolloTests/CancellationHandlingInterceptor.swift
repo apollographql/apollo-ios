@@ -19,7 +19,6 @@ class CancellationHandlingInterceptor: ApolloInterceptor, Cancellable {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     guard !self.hasBeenCancelled else {
@@ -30,7 +29,6 @@ class CancellationHandlingInterceptor: ApolloInterceptor, Cancellable {
       chain.proceedAsync(
         request: request,
         response: response,
-        context: context,
         interceptor: self,
         completion: completion
       )

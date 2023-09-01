@@ -51,7 +51,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
   ) where Operation : GraphQLOperation {
 
@@ -60,7 +59,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
         MultipartResponseParsingError.noResponseToParse,
         request: request,
         response: response,
-        context: context,
         completion: completion
       )
       return
@@ -70,7 +68,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       chain.proceedAsync(
         request: request,
         response: response,
-        context: context,
         interceptor: self,
         completion: completion
       )
@@ -85,7 +82,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
         MultipartResponseParsingError.cannotParseResponseData,
         request: request,
         response: response,
-        context: context,
         completion: completion
       )
       return
@@ -106,7 +102,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               MultipartResponseParsingError.unsupportedContentType(type: type),
               request: request,
               response: response,
-              context: context,
               completion: completion
             )
             return
@@ -120,7 +115,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               MultipartResponseParsingError.irrecoverableError(message: message),
               request: request,
               response: response,
-              context: context,
               completion: completion
             )
 
@@ -133,7 +127,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               MultipartResponseParsingError.cannotParsePayloadData,
               request: request,
               response: response,
-              context: context,
               completion: completion
             )
             return
@@ -152,7 +145,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
               MultipartResponseParsingError.cannotParsePayloadData,
               request: request,
               response: response,
-              context: context,
               completion: completion
             )
             return
@@ -166,7 +158,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
           chain.proceedAsync(
             request: request,
             response: response,
-            context: context,
             interceptor: self,
             completion: completion
           )
@@ -176,7 +167,6 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
             MultipartResponseParsingError.cannotParseChunkData,
             request: request,
             response: response,
-            context: context,
             completion: completion
           )
         }

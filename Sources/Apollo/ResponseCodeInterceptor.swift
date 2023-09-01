@@ -53,7 +53,6 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     
     
@@ -67,7 +66,6 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
         error,
         request: request,
         response: response,
-        context: context,
         completion: completion
       )
       return
@@ -76,7 +74,6 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
       chain.proceedAsync(
         request: request,
         response: response,
-        context: context,
         interceptor: self,
         completion: completion
       )

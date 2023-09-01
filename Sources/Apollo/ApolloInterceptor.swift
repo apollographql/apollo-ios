@@ -18,12 +18,10 @@ public protocol ApolloInterceptor {
   ///   - chain: The chain the interceptor is a part of.
   ///   - request: The request, as far as it has been constructed
   ///   - response: [optional] The response, if received
-  ///   - context: [optional] A context that is being passed through the request chain.
   ///   - completion: The completion block to fire when data needs to be returned to the UI.
   func interceptAsync<Operation: GraphQLOperation>(
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void)
 }

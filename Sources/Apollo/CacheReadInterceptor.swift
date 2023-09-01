@@ -21,7 +21,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
     chain: RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    context: RequestContext?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
 
       switch Operation.operationType {
@@ -31,7 +30,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
         chain.proceedAsync(
           request: request,
           response: response,
-          context: context,
           interceptor: self,
           completion: completion
         )
@@ -44,7 +42,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
           chain.proceedAsync(
             request: request,
             response: response,
-            context: context,
             interceptor: self,
             completion: completion
           )
@@ -59,7 +56,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               chain.returnValueAsync(
                 for: request,
                 value: graphQLResult,
-                context: context,
                 completion: completion
               )
             }
@@ -68,7 +64,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
             chain.proceedAsync(
               request: request,
               response: response,
-              context: context,
               interceptor: self,
               completion: completion
             )
@@ -81,7 +76,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               chain.proceedAsync(
                 request: request,
                 response: response,
-                context: context,
                 interceptor: self,
                 completion: completion
               )
@@ -91,7 +85,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               chain.returnValueAsync(
                 for: request,
                 value: graphQLResult,
-                context: context,
                 completion: completion
               )
             }
@@ -105,7 +98,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
                 error,
                 request: request,
                 response: response,
-                context: context,
                 completion: completion
               )
 
@@ -113,7 +105,6 @@ public struct CacheReadInterceptor: ApolloInterceptor {
               chain.returnValueAsync(
                 for: request,
                 value: result,
-                context: context,
                 completion: completion
               )
             }

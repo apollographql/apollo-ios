@@ -37,6 +37,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request
   ///   - cachePolicy: The `CachePolicy` to use for this request.
+  ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
   ///   - autoPersistQueries: `true` if Auto-Persisted Queries should be used. Defaults to `false`.
   ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
@@ -49,6 +50,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     clientVersion: String,
     additionalHeaders: [String: String] = [:],
     cachePolicy: CachePolicy = .default,
+    context: RequestContext? = nil,
     autoPersistQueries: Bool = false,
     useGETForQueries: Bool = false,
     useGETForPersistedQueryRetry: Bool = false,
@@ -67,7 +69,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       clientName: clientName,
       clientVersion: clientVersion,
       additionalHeaders: additionalHeaders,
-      cachePolicy: cachePolicy
+      cachePolicy: cachePolicy,
+      context: context
     )
   }
 
