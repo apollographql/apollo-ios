@@ -108,7 +108,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription-3qwve"
       ],
       "title" : "Instance Properties"
     },
@@ -333,7 +333,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/cannotparseresponsedata"
 },
-"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/MultipartResponseParsingError/errorDescription": {
+"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/MultipartResponseParsingError/errorDescription-3qwve": {
   "abstract" : [
 
   ],
@@ -364,12 +364,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription-3qwve",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription"
+  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-3qwve"
 },
 "doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/MultipartResponseParsingError/irrecoverableError(message:)": {
   "abstract" : [

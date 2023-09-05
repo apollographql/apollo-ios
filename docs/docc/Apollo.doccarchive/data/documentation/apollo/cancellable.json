@@ -96,8 +96,7 @@
         "doc:\/\/Apollo\/documentation\/Apollo\/EmptyCancellable",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher",
         "doc:\/\/Apollo\/documentation\/Apollo\/InterceptorRequestChain",
-        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor",
-        "doc:\/\/Apollo\/documentation\/Apollo\/Foundation\/URLSessionTask"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkFetchInterceptor"
       ],
       "kind" : "relationships",
       "title" : "Conforming Types",
@@ -256,11 +255,6 @@
   "title" : "EmptyCancellable",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/emptycancellable"
-},
-"doc://Apollo/documentation/Apollo/Foundation/URLSessionTask": {
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Foundation\/URLSessionTask",
-  "title" : "URLSessionTask",
-  "type" : "unresolvable"
 },
 "doc://Apollo/documentation/Apollo/GraphQLQueryWatcher": {
   "abstract" : [

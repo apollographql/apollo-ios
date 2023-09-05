@@ -81,15 +81,6 @@
       "kind" : "relationships",
       "title" : "Inherited By",
       "type" : "inheritedBy"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Array",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Optional"
-      ],
-      "kind" : "relationships",
-      "title" : "Conforming Types",
-      "type" : "conformingTypes"
     }
   ],
   "schemaVersion" : {
@@ -285,75 +276,6 @@
   "title" : "SelectionSetEntityValue",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Array": {
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Array",
-  "title" : "Array",
-  "type" : "unresolvable"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/Swift/Optional": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "Wrapped",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " conforms to ",
-        "type" : "text"
-      },
-      {
-        "code" : "SelectionSetEntityValue",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "extension"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "preciseIdentifier" : "s:Sq",
-      "text" : "Optional"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift\/Optional",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "Optional"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "Optional",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/swift\/optional"
 }
 }
 }

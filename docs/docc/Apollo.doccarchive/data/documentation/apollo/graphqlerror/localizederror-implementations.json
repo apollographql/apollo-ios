@@ -33,7 +33,8 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4aose",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/recoverySuggestion"
@@ -91,7 +92,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlerror"
 },
-"doc://Apollo/documentation/Apollo/GraphQLError/errorDescription": {
+"doc://Apollo/documentation/Apollo/GraphQLError/errorDescription-4aose": {
   "abstract" : [
 
   ],
@@ -122,12 +123,50 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4aose",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlerror\/errordescription"
+  "url" : "\/documentation\/apollo\/graphqlerror\/errordescription-4aose"
+},
+"doc://Apollo/documentation/Apollo/GraphQLError/errorDescription-4rxtd": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLError\/errorDescription-4rxtd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlerror\/errordescription-4rxtd"
 },
 "doc://Apollo/documentation/Apollo/GraphQLError/failureReason": {
   "abstract" : [

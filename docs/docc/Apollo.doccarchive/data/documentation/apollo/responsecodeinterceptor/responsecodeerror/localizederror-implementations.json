@@ -34,6 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/recoverySuggestion"
@@ -121,6 +122,44 @@
   "title" : "ResponseCodeInterceptor.ResponseCodeError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror"
+},
+"doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/errorDescription-391dx": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ResponseCodeInterceptor\/ResponseCodeError\/errorDescription-391dx",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-391dx"
 },
 "doc://Apollo/documentation/Apollo/ResponseCodeInterceptor/ResponseCodeError/failureReason": {
   "abstract" : [

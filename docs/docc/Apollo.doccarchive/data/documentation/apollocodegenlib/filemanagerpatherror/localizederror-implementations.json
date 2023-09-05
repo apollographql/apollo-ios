@@ -33,6 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/failureReason",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/helpAnchor",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/recoverySuggestion"
@@ -98,6 +99,44 @@
   "title" : "FileManagerPathError",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/errorDescription-2hujv": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/FileManagerPathError\/errorDescription-2hujv",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/filemanagerpatherror\/errordescription-2hujv"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/FileManagerPathError/failureReason": {
   "abstract" : [

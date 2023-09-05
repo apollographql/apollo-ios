@@ -132,8 +132,8 @@
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/additionalHeaders",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/autoPersistQueries",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/endpointURL",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/requestBodyCreator",
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/useGETForPersistedQueryRetry",
@@ -143,9 +143,9 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:context:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:context:manualBoundary:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
@@ -408,7 +408,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/autopersistqueries"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName-eycz": {
   "abstract" : [
 
   ],
@@ -435,14 +435,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-eycz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-eycz"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion-7dkl1": {
   "abstract" : [
 
   ],
@@ -469,14 +469,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-7dkl1",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-7dkl1"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructRequest(for:cachePolicy:contextIdentifier:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructRequest(for:cachePolicy:contextIdentifier:context:)": {
   "abstract" : [
     {
       "text" : "Constructs a default (ie, non-multipart) GraphQL request.",
@@ -556,6 +556,23 @@
     },
     {
       "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
       "text" : "?) -> "
     },
     {
@@ -576,14 +593,14 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructRequest(for:cachePolicy:contextIdentifier:context:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "constructRequest(for:cachePolicy:contextIdentifier:)",
+  "title" : "constructRequest(for:cachePolicy:contextIdentifier:context:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructrequest(for:cachepolicy:contextidentifier:)"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructrequest(for:cachepolicy:contextidentifier:context:)"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:manualBoundary:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/constructUploadRequest(for:with:context:manualBoundary:)": {
   "abstract" : [
     {
       "text" : "Constructs an uploading (ie, multipart) GraphQL request",
@@ -650,6 +667,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "manualBoundary"
     },
     {
@@ -683,12 +717,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:manualBoundary:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/constructUploadRequest(for:with:context:manualBoundary:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "constructUploadRequest(for:with:manualBoundary:)",
+  "title" : "constructUploadRequest(for:with:context:manualBoundary:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructuploadrequest(for:with:manualboundary:)"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/constructuploadrequest(for:with:context:manualboundary:)"
 },
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/endpointURL": {
   "abstract" : [
@@ -932,7 +966,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/requestbodycreator"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -1006,6 +1040,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation4UUIDV",
       "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
     },
     {
       "kind" : "text",
@@ -1094,12 +1145,12 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "title" : "send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/send(operation:cachepolicy:contextidentifier:context:callbackqueue:completionhandler:)"
 },
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/useGETForPersistedQueryRetry": {
   "abstract" : [

@@ -110,7 +110,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk"
       ],
       "title" : "Instance Properties"
     },
@@ -590,7 +590,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/downloadedregistryjsonfilenotfound(underlying:)"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/errorDescription-20ywk": {
   "abstract" : [
 
   ],
@@ -621,12 +621,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloSchemaDownloader\/SchemaDownloadError\/errorDescription-20ywk",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/errordescription"
+  "url" : "\/documentation\/apollocodegenlib\/apolloschemadownloader\/schemadownloaderror\/errordescription-20ywk"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloSchemaDownloader/SchemaDownloadError/unexpectedRegistryJSONType": {
   "abstract" : [

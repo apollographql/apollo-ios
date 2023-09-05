@@ -61,8 +61,7 @@
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/elementsEqual(_:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/elementsEqual(_:by:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/enumerated()",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)-3us4b",
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)-3xg8v",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/first(where:)",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/flatMap(_:)-6esnr",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/flatMap(_:)-8lwav",
@@ -1109,85 +1108,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/enumerated()"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/filter(_:)-3us4b": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "filter"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:10Foundation9PredicateV",
-      "text" : "Predicate"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) "
-    },
-    {
-      "kind" : "keyword",
-      "text" : "throws"
-    },
-    {
-      "kind" : "text",
-      "text" : " -> ["
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Element"
-    },
-    {
-      "kind" : "text",
-      "text" : "]"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)-3us4b",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "filter(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/filter(_:)-3us4b"
-},
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/filter(_:)-3xg8v": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/filter(_:)": {
   "abstract" : [
 
   ],
@@ -1266,12 +1187,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)-3xg8v",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/LinkedList\/Node\/filter(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/filter(_:)-3xg8v"
+  "url" : "\/documentation\/apollocodegenlib\/linkedlist\/node\/filter(_:)"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/LinkedList/Node/first(where:)": {
   "abstract" : [

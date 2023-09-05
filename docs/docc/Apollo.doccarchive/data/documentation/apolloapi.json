@@ -180,13 +180,6 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)"
-      ],
-      "title" : "Operators"
-    },
-    {
-      "identifiers" : [
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/DocumentType",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
@@ -196,12 +189,6 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Selection"
       ],
       "title" : "Enumerations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift"
-      ],
-      "title" : "Extended Modules"
     }
   ],
   "variants" : [
@@ -269,77 +256,6 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/!=(_:_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "!="
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
-      "text" : "GraphQLEnum"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">?, "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "!=(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/!=(_:_:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/AnyHashableConvertible": {
   "abstract" : [
@@ -2412,17 +2328,6 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/selectionsetentityvalue"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/Swift": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/Swift",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "Swift",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/swift"
-},
 "doc://ApolloAPI/documentation/ApolloAPI/Union": {
   "abstract" : [
     {
@@ -2464,97 +2369,6 @@
   "title" : "Union",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/union"
-},
-"doc://ApolloAPI/documentation/ApolloAPI/__(_:_:)": {
-  "abstract" : [
-    {
-      "text" : "Nil Coalescing Operator overload for ",
-      "type" : "text"
-    },
-    {
-      "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLNullable",
-      "isActive" : true,
-      "type" : "reference"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "??"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : "?, "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
-      "text" : "GraphQLNullable"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:9ApolloAPI15GraphQLNullableO",
-      "text" : "GraphQLNullable"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "T"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/__(_:_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "??(_:_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/__(_:_:)"
 }
 }
 }

@@ -33,8 +33,16 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
@@ -185,6 +193,74 @@
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/addapolloclientheaders(to:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName-2sr62": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-2sr62",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientName",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname-2sr62"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-5nzf9": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-5nzf9",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion-5nzf9"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/defaultClientName": {
   "abstract" : [
@@ -354,7 +430,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/headerfieldnameapolloclientversion"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -428,6 +504,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation4UUIDV",
       "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
     },
     {
       "kind" : "text",
@@ -516,12 +609,12 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "title" : "send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websockettransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/send(operation:cachepolicy:contextidentifier:context:callbackqueue:completionhandler:)"
 }
 }
 }

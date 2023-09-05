@@ -34,6 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/recoverySuggestion"
@@ -129,6 +130,44 @@
   "title" : "URLSessionClient.URLSessionClientError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror"
+},
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-4oqmn": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-4oqmn",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-4oqmn"
 },
 "doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/failureReason": {
   "abstract" : [

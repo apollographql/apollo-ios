@@ -95,7 +95,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription-8rftb"
       ],
       "title" : "Instance Properties"
     },
@@ -215,7 +215,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror\/localizederror-implementations"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificateError/errorDescription": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificateError/errorDescription-8rftb": {
   "abstract" : [
 
   ],
@@ -246,12 +246,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription-8rftb",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror\/errordescription"
+  "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror\/errordescription-8rftb"
 },
 "doc://ApolloWebSocket/s5ErrorP": {
   "identifier" : "doc:\/\/ApolloWebSocket\/s5ErrorP",

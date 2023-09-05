@@ -85,10 +85,7 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloWebSocket",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "ApolloWebSocket"
       }
     ],
     "role" : "symbol",

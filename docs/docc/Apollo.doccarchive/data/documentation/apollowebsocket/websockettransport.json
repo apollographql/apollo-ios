@@ -112,8 +112,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/delegate",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/enableSOCKSProxy"
       ],
@@ -326,7 +326,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/websockettransport\/websocketclientdelegate-implementations"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientName-7plo0": {
   "abstract" : [
 
   ],
@@ -353,14 +353,14 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientName-7plo0",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientName",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname"
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientname-7plo0"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/clientVersion-919yz": {
   "abstract" : [
 
   ],
@@ -387,12 +387,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/WebSocketTransport\/clientVersion-919yz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "clientVersion",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion"
+  "url" : "\/documentation\/apollowebsocket\/websockettransport\/clientversion-919yz"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/WebSocketTransport/closeConnection()": {
   "abstract" : [

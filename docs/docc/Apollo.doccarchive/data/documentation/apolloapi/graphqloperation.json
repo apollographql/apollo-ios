@@ -130,7 +130,7 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationDocument",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationIdentifier",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationName",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType-14lsi"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType"
       ],
       "title" : "Type Properties"
     },
@@ -590,7 +590,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/graphqloperation\/operationname"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationType-14lsi": {
+"doc://ApolloAPI/documentation/ApolloAPI/GraphQLOperation/operationType": {
   "abstract" : [
 
   ],
@@ -626,13 +626,13 @@
       "text" : "GraphQLOperationType"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType-14lsi",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLOperation\/operationType",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "operationType",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/graphqloperation\/operationtype-14lsi"
+  "url" : "\/documentation\/apolloapi\/graphqloperation\/operationtype"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/GraphQLQuery": {
   "abstract" : [

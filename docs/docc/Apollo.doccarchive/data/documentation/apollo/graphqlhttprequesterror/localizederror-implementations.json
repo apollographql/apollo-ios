@@ -33,6 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-9ka1s",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/recoverySuggestion"
@@ -89,6 +90,44 @@
   "title" : "GraphQLHTTPRequestError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlhttprequesterror"
+},
+"doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/errorDescription-9ka1s": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLHTTPRequestError\/errorDescription-9ka1s",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription-9ka1s"
 },
 "doc://Apollo/documentation/Apollo/GraphQLHTTPRequestError/failureReason": {
   "abstract" : [
