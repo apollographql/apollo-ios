@@ -97,14 +97,7 @@ public enum Target: CaseIterable {
         moduleType: moduleType
       ),
       operations: .inSchemaModule,
-      testMocks: includeTestMocks ? .swiftPackage() : .none,
-      operationManifest: includeOperationIdentifiers ?
-        .init(
-          path: try graphQLFolder(fromTargetRoot: targetRootURL)
-            .childFileURL(fileName: "operationIDs.json")
-            .path
-        )
-      : nil
+      testMocks: includeTestMocks ? .swiftPackage() : .none
     )
   }
 
