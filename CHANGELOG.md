@@ -9,7 +9,7 @@
   
 ### Fixed
 
-- **Null values are no longer stripped from the underlying data used by generated `SelectionSet` models ([apollo-ios-dev/#25](https://github.com/apollographql/apollo-ios-dev/pull/25))
+- **Null values are no longer stripped from the underlying data used by generated `SelectionSet` models ([apollo-ios-dev/#25](https://github.com/apollographql/apollo-ios-dev/pull/25)):**
   - When these models were manually inserted into the cache, the null fields, which were stripped, were not written to the cache. This caused unintended cache misses when fetching those values back out of the cache.
   - This fixes [#3092](https://github.com/apollographql/apollo-ios/issues/3092). _Thank you to [@
 aleksanderlorenc-lw](https://github.com/aleksanderlorenc-lw) for raising this issue._ 
