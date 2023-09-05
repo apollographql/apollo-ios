@@ -81,6 +81,25 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
   }
 
+  func test__generate_givenQuery_configIncludesMarkOperationDefinitionsAsFinal_generatesFinalQueryDefinitions() throws {
+    // given
+    let expected =
+    """
+    final class TestOperationQuery: GraphQLQuery {
+      static let operationName: String = "TestOperation"
+    """
+
+    config = .mock(options: .init(markOperationDefinitionsAsFinal: true))
+
+    // when
+    try buildSubjectAndOperation()
+
+    let actual = renderSubject()
+
+    // then
+    expect(actual).to(equalLineByLine(expected, ignoringExtraLines: true))
+  }
+
   func test__generate__givenQueryWithNameEndingInQuery_generatesQueryOperationWithoutDoubledTypeSuffix() throws {
     // given
     document = """
@@ -301,9 +320,9 @@ class OperationDefinitionTemplateTests: XCTestCase {
 
   // MARK: - Selection Set Initializers
 
-    func test__generate_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {
-      // given
-      schemaSDL = """
+  func test__generate_givenOperationSelectionSet_configIncludesOperations_rendersInitializer() throws {
+    // given
+    schemaSDL = """
       type Query {
         allAnimals: [Animal!]
       }
@@ -313,7 +332,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      document = """
+    document = """
       query TestOperation {
         allAnimals {
           species
@@ -321,7 +340,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      let expected =
+    let expected =
       """
             init(
               species: String
@@ -338,20 +357,20 @@ class OperationDefinitionTemplateTests: XCTestCase {
             }
       """
 
-      config = .mock(options: .init(selectionSetInitializers: [.operations]))
+    config = .mock(options: .init(selectionSetInitializers: [.operations]))
 
-      // when
-      try buildSubjectAndOperation()
+    // when
+    try buildSubjectAndOperation()
 
-      let actual = renderSubject()
+    let actual = renderSubject()
 
-      // then
-      expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
-    }
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
+  }
 
-    func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
-      // given
-      schemaSDL = """
+  func test__generate_givenOperationSelectionSet_configIncludesSpecificOperation_rendersInitializer() throws {
+    // given
+    schemaSDL = """
       type Query {
         allAnimals: [Animal!]
       }
@@ -361,7 +380,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      document = """
+    document = """
       query TestOperation {
         allAnimals {
           species
@@ -369,7 +388,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      let expected =
+    let expected =
       """
             init(
               species: String
@@ -386,22 +405,22 @@ class OperationDefinitionTemplateTests: XCTestCase {
             }
       """
 
-      config = .mock(options: .init(selectionSetInitializers: [
-        .operation(named: "TestOperation")
-      ]))
+    config = .mock(options: .init(selectionSetInitializers: [
+      .operation(named: "TestOperation")
+    ]))
 
-      // when
-      try buildSubjectAndOperation()
+    // when
+    try buildSubjectAndOperation()
 
-      let actual = renderSubject()
+    let actual = renderSubject()
 
-      // then
-      expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
-    }
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 50, ignoringExtraLines: true))
+  }
 
-    func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
-      // given
-      schemaSDL = """
+  func test__render_givenOperationSelectionSet_configDoesNotIncludeOperations_doesNotRenderInitializer() throws {
+    // given
+    schemaSDL = """
       type Query {
         allAnimals: [Animal!]
       }
@@ -411,7 +430,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      document = """
+    document = """
       query TestOperation {
         allAnimals {
           species
@@ -419,20 +438,20 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      config = .mock(options: .init(selectionSetInitializers: [.namedFragments]))
+    config = .mock(options: .init(selectionSetInitializers: [.namedFragments]))
 
-      // when
-      try buildSubjectAndOperation()
+    // when
+    try buildSubjectAndOperation()
 
-      let actual = renderSubject()
+    let actual = renderSubject()
 
-      // then
-      expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
-    }
+    // then
+    expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
+  }
 
-    func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
-      // given
-      schemaSDL = """
+  func test__render_givenOperationSelectionSet_configIncludeSpecificOperationWithOtherName_doesNotRenderInitializer() throws {
+    // given
+    schemaSDL = """
       type Query {
         allAnimals: [Animal!]
       }
@@ -442,7 +461,7 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      document = """
+    document = """
       query TestOperation {
         allAnimals {
           species
@@ -450,61 +469,60 @@ class OperationDefinitionTemplateTests: XCTestCase {
       }
       """
 
-      config = .mock(options: .init(selectionSetInitializers: [
-        .operation(named: "OtherOperation")
-      ]))
+    config = .mock(options: .init(selectionSetInitializers: [
+      .operation(named: "OtherOperation")
+    ]))
 
-      // when
-      try buildSubjectAndOperation()
+    // when
+    try buildSubjectAndOperation()
 
-      let actual = renderSubject()
+    let actual = renderSubject()
 
-      // then
-      expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
-    }
-
+    // then
+    expect(actual).to(equalLineByLine("    }", atLine: 35, ignoringExtraLines: true))
+  }
 
   // MARK: - Variables
 
-   func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
-     // given
-     schemaSDL = """
-     type Query {
-       allAnimals: [Animal!]
-     }
+  func test__generate__givenQueryWithScalarVariable_generatesQueryOperationWithVariable() throws {
+    // given
+    schemaSDL = """
+    type Query {
+      allAnimals: [Animal!]
+    }
 
-     type Animal {
-       species: String!
-     }
-     """
+    type Animal {
+      species: String!
+    }
+    """
 
-     document = """
-     query TestOperation($variable: String!) {
-       allAnimals {
-         species
-       }
-     }
-     """
+    document = """
+    query TestOperation($variable: String!) {
+      allAnimals {
+        species
+      }
+    }
+    """
 
-     let expected =
-     """
-       public var variable: String
+    let expected =
+    """
+      public var variable: String
 
-       public init(variable: String) {
-         self.variable = variable
-       }
+      public init(variable: String) {
+        self.variable = variable
+      }
 
-       public var __variables: Variables? { ["variable": variable] }
-     """
+      public var __variables: Variables? { ["variable": variable] }
+    """
 
-     // when
-     try buildSubjectAndOperation()
+    // when
+    try buildSubjectAndOperation()
 
-     let actual = renderSubject()
+    let actual = renderSubject()
 
-     // then
-     expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
-   }
+    // then
+    expect(actual).to(equalLineByLine(expected, atLine: 8, ignoringExtraLines: true))
+  }
 
   func test__generate__givenQueryWithMutlipleScalarVariables_generatesQueryOperationWithVariables() throws {
     // given
@@ -977,5 +995,4 @@ class OperationDefinitionTemplateTests: XCTestCase {
     expect(actual).to(equalLineByLine(expectedOne, atLine: 8, ignoringExtraLines: true))
     expect(actual).to(equalLineByLine(expectedTwo, atLine: 10, ignoringExtraLines: true))
   }
-  
 }

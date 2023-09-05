@@ -503,6 +503,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     ///  Defaults to `true`.
     public let pruneGeneratedFiles: Bool
+    /// Whether generated GraphQL operation and local cache mutation class types will be marked as `final`.
+    public let markOperationDefinitionsAsFinal: Bool
 
     /// Default property values
     public struct Default {
@@ -515,6 +517,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       public static let warningsOnDeprecatedUsage: Composition = .include
       public static let conversionStrategies: ConversionStrategies = .init()
       public static let pruneGeneratedFiles: Bool = true
+      public static let markOperationDefinitionsAsFinal: Bool = false
     }
 
     /// Designated initializer.
@@ -535,6 +538,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
     ///     generated code.
     ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+    ///   - markOperationDefinitionsAsFinal: Whether generated GraphQL operation and local cache mutation class types will be marked as `final`.
     public init(
       additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
       deprecatedEnumCases: Composition = Default.deprecatedEnumCases,
@@ -544,7 +548,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
       warningsOnDeprecatedUsage: Composition = Default.warningsOnDeprecatedUsage,
       conversionStrategies: ConversionStrategies = Default.conversionStrategies,
-      pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
+      pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles,
+      markOperationDefinitionsAsFinal: Bool = Default.markOperationDefinitionsAsFinal
     ) {
       self.additionalInflectionRules = additionalInflectionRules
       self.deprecatedEnumCases = deprecatedEnumCases
@@ -555,6 +560,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
       self.conversionStrategies = conversionStrategies
       self.pruneGeneratedFiles = pruneGeneratedFiles
+      self.markOperationDefinitionsAsFinal = markOperationDefinitionsAsFinal
     }
 
     // MARK: Codable
@@ -571,6 +577,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       case warningsOnDeprecatedUsage
       case conversionStrategies
       case pruneGeneratedFiles
+      case markOperationDefinitionsAsFinal
     }
 
     public init(from decoder: Decoder) throws {
@@ -626,6 +633,11 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
         Bool.self,
         forKey: .pruneGeneratedFiles
       ) ?? Default.pruneGeneratedFiles
+
+      markOperationDefinitionsAsFinal = try values.decodeIfPresent(
+        Bool.self,
+        forKey: .markOperationDefinitionsAsFinal
+      ) ?? Default.markOperationDefinitionsAsFinal
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -640,6 +652,7 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
       try container.encode(self.warningsOnDeprecatedUsage, forKey: .warningsOnDeprecatedUsage)
       try container.encode(self.conversionStrategies, forKey: .conversionStrategies)
       try container.encode(self.pruneGeneratedFiles, forKey: .pruneGeneratedFiles)
+      try container.encode(self.markOperationDefinitionsAsFinal, forKey: .markOperationDefinitionsAsFinal)
     }
   }
 
@@ -1332,8 +1345,9 @@ extension ApolloCodegenConfiguration.OutputOptions {
   ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
   ///     generated code.
   ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+  ///   - markOperationDefinitionsAsFinal: Whether generated GraphQL operation and local cache mutation class types will be marked as `final`.
   @available(*, deprecated,
-              renamed: "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+              renamed: "init(additionalInflectionRules:queryStringLiteralFormat:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:markOperationDefinitionsAsFinal:)"
   )
   public init(
     additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
@@ -1345,7 +1359,8 @@ extension ApolloCodegenConfiguration.OutputOptions {
     cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
     conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
-    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
+    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles,
+    markOperationDefinitionsAsFinal: Bool = Default.markOperationDefinitionsAsFinal
   ) {
     self.additionalInflectionRules = additionalInflectionRules
     self.deprecatedEnumCases = deprecatedEnumCases
@@ -1356,6 +1371,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
     self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     self.conversionStrategies = conversionStrategies
     self.pruneGeneratedFiles = pruneGeneratedFiles
+    self.markOperationDefinitionsAsFinal = markOperationDefinitionsAsFinal
   }
   
   /// Deprecated initializer.
@@ -1378,8 +1394,9 @@ extension ApolloCodegenConfiguration.OutputOptions {
   ///   - conversionStrategies: Rules for how to convert the names of values from the schema in
   ///     generated code.
   ///   - pruneGeneratedFiles: Whether unused generated files will be automatically deleted.
+  ///   - markOperationDefinitionsAsFinal: Whether generated GraphQL operation and local cache mutation class types will be marked as `final`.
   @available(*, deprecated,
-              renamed: "init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:)"
+              renamed: "init(additionalInflectionRules:deprecatedEnumCases:schemaDocumentation:selectionSetInitializers:operationDocumentFormat:cocoapodsCompatibleImportStatements:warningsOnDeprecatedUsage:conversionStrategies:pruneGeneratedFiles:markOperationDefinitionsAsFinal:)"
   )
   public init(
     additionalInflectionRules: [InflectionRule] = Default.additionalInflectionRules,
@@ -1391,7 +1408,8 @@ extension ApolloCodegenConfiguration.OutputOptions {
     cocoapodsCompatibleImportStatements: Bool = Default.cocoapodsCompatibleImportStatements,
     warningsOnDeprecatedUsage: ApolloCodegenConfiguration.Composition = Default.warningsOnDeprecatedUsage,
     conversionStrategies: ApolloCodegenConfiguration.ConversionStrategies = Default.conversionStrategies,
-    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles
+    pruneGeneratedFiles: Bool = Default.pruneGeneratedFiles,
+    markOperationDefinitionsAsFinal: Bool = Default.markOperationDefinitionsAsFinal
   ) {
     self.additionalInflectionRules = additionalInflectionRules
     self.deprecatedEnumCases = deprecatedEnumCases
@@ -1402,6 +1420,7 @@ extension ApolloCodegenConfiguration.OutputOptions {
     self.warningsOnDeprecatedUsage = warningsOnDeprecatedUsage
     self.conversionStrategies = conversionStrategies
     self.pruneGeneratedFiles = pruneGeneratedFiles
+    self.markOperationDefinitionsAsFinal = markOperationDefinitionsAsFinal
   }
 
   /// Whether the generated operations should use Automatic Persisted Queries.
