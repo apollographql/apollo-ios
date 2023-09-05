@@ -1,6 +1,6 @@
 #### Diff
 <!-- _Change this to show the diff since the last version._ -->
-[main...{$VERSION_BRANCH}](https://github.com/apollographql/apollo-ios/compare/main...{$VERSION_BRANCH}). 
+[See diff since last version](https://github.com/apollographql/apollo-ios/compare/${PREVIOUS_VERSION_TAG}...{$VERSION_BRANCH}). 
 
 #### Relevant changes:
 <!-- _List the highlight PRs_ -->
