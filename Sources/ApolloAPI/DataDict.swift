@@ -126,9 +126,7 @@ public struct DataDict: Hashable {
   }
 }
 
-
-
-// MARK: Value Conversion Helpers
+// MARK: - Value Conversion Helpers
 
 public protocol SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
