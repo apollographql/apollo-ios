@@ -188,7 +188,7 @@ class RequestChainTests: XCTestCase {
     )
 
     let expectation = self.expectation(description: "Hero name query complete")
-    _ = transport.upload(operation: MockQuery.mock(), files: [file]) { result in
+    _ = transport.upload(operation: MockQuery.mock(), files: [file], context: nil) { result in
       defer {
         expectation.fulfill()
       }
@@ -940,7 +940,7 @@ class RequestChainTests: XCTestCase {
           ]
         ])
 
-        requestChain?.retry(request: request) { result in
+      requestChain?.retry(request: request) { result in
           defer {
             expectation.fulfill()
           }

@@ -77,11 +77,14 @@ open class RequestChainNetworkTransport: NetworkTransport {
   ///   - operation: The operation to create the request for
   ///   - cachePolicy: The `CachePolicy` to use when creating the request
   ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   /// - Returns: The constructed request.
   open func constructRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     cachePolicy: CachePolicy,
-    contextIdentifier: UUID? = nil) -> HTTPRequest<Operation> {
+    contextIdentifier: UUID? = nil,
+    context: RequestContext? = nil
+  ) -> HTTPRequest<Operation> {
     JSONRequest(operation: operation,
                 graphQLEndpoint: self.endpointURL,
                 contextIdentifier: contextIdentifier,
@@ -89,6 +92,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
                 clientVersion: self.clientVersion,
                 additionalHeaders: self.additionalHeaders,
                 cachePolicy: cachePolicy,
+                context: context,
                 autoPersistQueries: self.autoPersistQueries,
                 useGETForQueries: self.useGETForQueries,
                 useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
@@ -104,13 +108,15 @@ open class RequestChainNetworkTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy = .default,
     contextIdentifier: UUID? = nil,
+    context: RequestContext? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
     let request = self.constructRequest(for: operation,
                                         cachePolicy: cachePolicy,
-                                        contextIdentifier: contextIdentifier)
+                                        contextIdentifier: contextIdentifier,
+                                        context: context)
 
     if Operation.operationType == .subscription {
       request.addHeader(
@@ -144,11 +150,13 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   /// - Parameters:
   ///   - operation: The operation to create a request for
   ///   - files: The files you wish to upload
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - manualBoundary: [optional] A manually set boundary for your upload request. Defaults to nil. 
   /// - Returns: The created request.
   public func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     with files: [GraphQLFile],
+    context: RequestContext? = nil,
     manualBoundary: String? = nil) -> HTTPRequest<Operation> {
     
     UploadRequest(graphQLEndpoint: self.endpointURL,
@@ -164,10 +172,11 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
+    context: RequestContext?,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
-    let request = self.constructUploadRequest(for: operation, with: files)
+    let request = self.constructUploadRequest(for: operation, with: files, context: context)
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
     chain.kickoff(request: request, completion: completionHandler)
     return chain

@@ -15,8 +15,7 @@ class BlindRetryingTestInterceptor: ApolloInterceptor {
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
     self.hitCount += 1
-    chain.retry(request: request,
-                completion: completion)
+    chain.retry(request: request, completion: completion)
   }
   
   // Purposely not adhering to `Cancellable` here to make sure non `Cancellable` interceptors don't have this called.

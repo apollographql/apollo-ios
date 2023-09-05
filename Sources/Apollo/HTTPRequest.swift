@@ -20,6 +20,9 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
   
   /// [optional] A unique identifier for this request, to help with deduping cache hits for watchers.
   public let contextIdentifier: UUID?
+
+  /// [optional] A context that is being passed through the request chain.
+  public let context: RequestContext?
   
   /// Designated Initializer
   ///
@@ -32,6 +35,7 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
   ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - additionalHeaders: Any additional headers you wish to add by default to this request.
   ///   - cachePolicy: The `CachePolicy` to use for this request. Defaults to the `.default` policy
+  ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
   public init(graphQLEndpoint: URL,
               operation: Operation,
               contextIdentifier: UUID? = nil,
@@ -39,12 +43,14 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
               clientName: String,
               clientVersion: String,
               additionalHeaders: [String: String],
-              cachePolicy: CachePolicy = .default) {
+              cachePolicy: CachePolicy = .default,
+              context: RequestContext? = nil) {
     self.graphQLEndpoint = graphQLEndpoint
     self.operation = operation
     self.contextIdentifier = contextIdentifier
     self.additionalHeaders = additionalHeaders
     self.cachePolicy = cachePolicy
+    self.context = context
     
     self.addHeader(name: "Content-Type", value: contentType)
     // Note: in addition to this being a generally useful header to send, Apollo
