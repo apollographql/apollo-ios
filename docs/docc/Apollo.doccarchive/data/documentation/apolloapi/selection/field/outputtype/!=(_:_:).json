@@ -85,10 +85,7 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloAPI",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "ApolloAPI"
       }
     ],
     "role" : "symbol",

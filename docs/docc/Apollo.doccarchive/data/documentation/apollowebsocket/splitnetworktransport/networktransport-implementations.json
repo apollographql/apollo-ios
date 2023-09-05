@@ -33,8 +33,16 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
@@ -201,6 +209,74 @@
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/addapolloclientheaders(to:)"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientName-9k3zt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientName-9k3zt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientName",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientname-9k3zt"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/clientVersion-6kuvd": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "clientVersion"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/clientVersion-6kuvd",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "clientVersion",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/clientversion-6kuvd"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/defaultClientName": {
   "abstract" : [
@@ -370,7 +446,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/headerfieldnameapolloclientversion"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -444,6 +520,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation4UUIDV",
       "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
     },
     {
       "kind" : "text",
@@ -532,12 +625,12 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "title" : "send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/send(operation:cachepolicy:contextidentifier:context:callbackqueue:completionhandler:)"
 }
 }
 }

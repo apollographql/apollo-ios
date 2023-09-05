@@ -103,7 +103,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-1nwmf"
       ],
       "title" : "Instance Properties"
     },
@@ -307,7 +307,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/couldnotgetfilesize(fileurl:)"
 },
-"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/errorDescription": {
+"doc://Apollo/documentation/Apollo/GraphQLFile/GraphQLFileError/errorDescription-1nwmf": {
   "abstract" : [
 
   ],
@@ -338,12 +338,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLFile\/GraphQLFileError\/errorDescription-1nwmf",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription"
+  "url" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription-1nwmf"
 },
 "doc://Apollo/s5ErrorP": {
   "identifier" : "doc:\/\/Apollo\/s5ErrorP",

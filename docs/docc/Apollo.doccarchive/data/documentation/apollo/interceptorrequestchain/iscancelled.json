@@ -78,7 +78,7 @@
             },
             {
               "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/Atomic",
-              "kind" : "attribute",
+              "kind" : "typeIdentifier",
               "preciseIdentifier" : "s:6Apollo6AtomicC",
               "text" : "Atomic"
             },

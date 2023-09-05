@@ -34,6 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription-970yf",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/recoverySuggestion"
@@ -118,6 +119,44 @@
   "title" : "AutomaticPersistedQueryInterceptor.APQError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror"
+},
+"doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/errorDescription-970yf": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/AutomaticPersistedQueryInterceptor\/APQError\/errorDescription-970yf",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription-970yf"
 },
 "doc://Apollo/documentation/Apollo/AutomaticPersistedQueryInterceptor/APQError/failureReason": {
   "abstract" : [

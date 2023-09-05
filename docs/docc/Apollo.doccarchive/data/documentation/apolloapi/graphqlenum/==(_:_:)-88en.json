@@ -225,7 +225,7 @@
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/==(_:_:)",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/!=(_:_:)-4co00",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/!=(_:_:)-9dudu",
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/!=(_:_:)-9dudu",
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
         "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/GraphQLEnum\/~=(_:_:)"
       ],
       "title" : "Operators"
@@ -296,6 +296,77 @@
   "title" : "ApolloAPI",
   "type" : "topic",
   "url" : "\/documentation\/apolloapi"
+},
+"doc://ApolloAPI/documentation/ApolloAPI/!=(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "!="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:9ApolloAPI11GraphQLEnumO",
+      "text" : "GraphQLEnum"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ">?, "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "T"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/!=(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "!=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apolloapi\/!=(_:_:)"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/==(_:_:)": {
   "abstract" : [

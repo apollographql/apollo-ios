@@ -33,7 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -137,7 +137,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/splitnetworktransport"
 },
-"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SplitNetworkTransport/upload(operation:files:context:callbackQueue:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -198,6 +198,23 @@
     {
       "kind" : "text",
       "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -282,12 +299,12 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SplitNetworkTransport\/upload(operation:files:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "upload(operation:files:callbackQueue:completionHandler:)",
+  "title" : "upload(operation:files:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/upload(operation:files:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollowebsocket\/splitnetworktransport\/upload(operation:files:context:callbackqueue:completionhandler:)"
 }
 }
 }

@@ -33,6 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription-6m1f6",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/failureReason",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/helpAnchor",
         "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/recoverySuggestion"
@@ -119,6 +120,44 @@
   "title" : "SSLClientCertificateError",
   "type" : "topic",
   "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror"
+},
+"doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificateError/errorDescription-6m1f6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloWebSocket\/documentation\/ApolloWebSocket\/SSLClientCertificateError\/errorDescription-6m1f6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollowebsocket\/sslclientcertificateerror\/errordescription-6m1f6"
 },
 "doc://ApolloWebSocket/documentation/ApolloWebSocket/SSLClientCertificateError/failureReason": {
   "abstract" : [

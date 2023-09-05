@@ -34,11 +34,11 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/clearCache(callbackQueue:completion:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/upload(operation:files:queue:resultHandler:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/fetch(query:cachePolicy:contextIdentifier:context:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:context:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:context:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/upload(operation:files:context:queue:resultHandler:)",
+        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:context:callbackQueue:resultHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -199,7 +199,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/clearcache(callbackqueue:completion:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/fetch(query:cachePolicy:contextIdentifier:context:queue:resultHandler:)": {
   "abstract" : [
 
   ],
@@ -280,6 +280,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "queue"
     },
     {
@@ -334,14 +351,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/fetch(query:cachePolicy:contextIdentifier:context:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "fetch(query:cachePolicy:contextIdentifier:queue:resultHandler:)",
+  "title" : "fetch(query:cachePolicy:contextIdentifier:context:queue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/fetch(query:cachepolicy:contextidentifier:queue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/apolloclient\/fetch(query:cachepolicy:contextidentifier:context:queue:resulthandler:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/perform(mutation:publishResultToStore:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/perform(mutation:publishResultToStore:context:queue:resultHandler:)": {
   "abstract" : [
 
   ],
@@ -405,6 +422,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "queue"
     },
     {
@@ -459,14 +493,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/perform(mutation:publishResultToStore:context:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "perform(mutation:publishResultToStore:queue:resultHandler:)",
+  "title" : "perform(mutation:publishResultToStore:context:queue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/perform(mutation:publishresulttostore:queue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/apolloclient\/perform(mutation:publishresulttostore:context:queue:resulthandler:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/subscribe(subscription:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/subscribe(subscription:context:queue:resultHandler:)": {
   "abstract" : [
 
   ],
@@ -510,6 +544,23 @@
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -567,14 +618,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/subscribe(subscription:context:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "subscribe(subscription:queue:resultHandler:)",
+  "title" : "subscribe(subscription:context:queue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/subscribe(subscription:queue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/apolloclient\/subscribe(subscription:context:queue:resulthandler:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/upload(operation:files:queue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/upload(operation:files:context:queue:resultHandler:)": {
   "abstract" : [
 
   ],
@@ -638,6 +689,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "queue"
     },
     {
@@ -692,14 +760,14 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/upload(operation:files:queue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/upload(operation:files:context:queue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "upload(operation:files:queue:resultHandler:)",
+  "title" : "upload(operation:files:context:queue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/upload(operation:files:queue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/apolloclient\/upload(operation:files:context:queue:resulthandler:)"
 },
-"doc://Apollo/documentation/Apollo/ApolloClient/watch(query:cachePolicy:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/ApolloClient/watch(query:cachePolicy:context:callbackQueue:resultHandler:)": {
   "abstract" : [
 
   ],
@@ -760,6 +828,23 @@
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -829,12 +914,12 @@
       "text" : ">"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/watch(query:cachePolicy:context:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "watch(query:cachePolicy:callbackQueue:resultHandler:)",
+  "title" : "watch(query:cachePolicy:context:callbackQueue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:callbackqueue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/apolloclient\/watch(query:cachepolicy:context:callbackqueue:resulthandler:)"
 }
 }
 }

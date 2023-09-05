@@ -149,7 +149,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:context:)"
       ],
       "title" : "Initializers"
     },
@@ -157,6 +157,7 @@
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/additionalHeaders",
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/cachePolicy",
+        "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/context",
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/contextIdentifier",
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/graphQLEndpoint",
         "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/operation"
@@ -513,6 +514,47 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest\/cachepolicy"
 },
+"doc://Apollo/documentation/Apollo/HTTPRequest/context": {
+  "abstract" : [
+    {
+      "text" : "[optional] A context that is being passed through the request chain.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/context",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "context",
+  "type" : "topic",
+  "url" : "\/documentation\/apollo\/httprequest\/context"
+},
 "doc://Apollo/documentation/Apollo/HTTPRequest/contextIdentifier": {
   "abstract" : [
     {
@@ -645,7 +687,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/httprequest\/hash(into:)"
 },
-"doc://Apollo/documentation/Apollo/HTTPRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)": {
+"doc://Apollo/documentation/Apollo/HTTPRequest/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:context:)": {
   "abstract" : [
     {
       "text" : "Designated Initializer",
@@ -803,15 +845,32 @@
     },
     {
       "kind" : "text",
-      "text" : ")"
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/HTTPRequest\/init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:context:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:)",
+  "title" : "init(graphQLEndpoint:operation:contextIdentifier:contentType:clientName:clientVersion:additionalHeaders:cachePolicy:context:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/httprequest\/init(graphqlendpoint:operation:contextidentifier:contenttype:clientname:clientversion:additionalheaders:cachepolicy:)"
+  "url" : "\/documentation\/apollo\/httprequest\/init(graphqlendpoint:operation:contextidentifier:contenttype:clientname:clientversion:additionalheaders:cachepolicy:context:)"
 },
 "doc://Apollo/documentation/Apollo/HTTPRequest/operation": {
   "abstract" : [

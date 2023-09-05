@@ -103,7 +103,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription"
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription-4q5c3"
       ],
       "title" : "Instance Properties"
     },
@@ -224,7 +224,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/apollourlerror\/localizederror-implementations"
 },
-"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloURLError/errorDescription": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloURLError/errorDescription-4q5c3": {
   "abstract" : [
 
   ],
@@ -255,12 +255,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription",
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/ApolloURLError\/errorDescription-4q5c3",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollocodegenlib\/apollourlerror\/errordescription"
+  "url" : "\/documentation\/apollocodegenlib\/apollourlerror\/errordescription-4q5c3"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/ApolloURLError/fileNameIsEmpty": {
   "abstract" : [

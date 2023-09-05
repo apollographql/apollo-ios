@@ -184,7 +184,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:context:callbackQueue:resultHandler:)"
       ],
       "title" : "Initializers"
     },
@@ -338,7 +338,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlquerywatcher\/cancel()"
 },
-"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/init(client:query:callbackQueue:resultHandler:)": {
+"doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/init(client:query:context:callbackQueue:resultHandler:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -386,6 +386,23 @@
     {
       "kind" : "text",
       "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -438,12 +455,12 @@
       "text" : ">)"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:callbackQueue:resultHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLQueryWatcher\/init(client:query:context:callbackQueue:resultHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(client:query:callbackQueue:resultHandler:)",
+  "title" : "init(client:query:context:callbackQueue:resultHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlquerywatcher\/init(client:query:callbackqueue:resulthandler:)"
+  "url" : "\/documentation\/apollo\/graphqlquerywatcher\/init(client:query:context:callbackqueue:resulthandler:)"
 },
 "doc://Apollo/documentation/Apollo/GraphQLQueryWatcher/query": {
   "abstract" : [

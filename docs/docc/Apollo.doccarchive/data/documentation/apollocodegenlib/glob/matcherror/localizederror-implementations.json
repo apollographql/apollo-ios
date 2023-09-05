@@ -34,6 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription-96mfy",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/failureReason",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/helpAnchor",
         "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/recoverySuggestion"
@@ -136,6 +137,44 @@
   "title" : "Glob.MatchError",
   "type" : "topic",
   "url" : "\/documentation\/apollocodegenlib\/glob\/matcherror"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError/errorDescription-96mfy": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "errorDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Glob\/MatchError\/errorDescription-96mfy",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "errorDescription",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/glob\/matcherror\/errordescription-96mfy"
 },
 "doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Glob/MatchError/failureReason": {
   "abstract" : [

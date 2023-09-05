@@ -148,7 +148,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:context:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)"
       ],
       "title" : "Initializers"
     },
@@ -480,7 +480,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/jsonrequest\/hash(into:)"
 },
-"doc://Apollo/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)": {
+"doc://Apollo/documentation/Apollo/JSONRequest/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:context:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)": {
   "abstract" : [
     {
       "text" : "Designated initializer",
@@ -625,6 +625,23 @@
     },
     {
       "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
       "text" : "autoPersistQueries"
     },
     {
@@ -692,12 +709,12 @@
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/JSONRequest\/init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:context:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
+  "title" : "init(operation:graphQLEndpoint:contextIdentifier:clientName:clientVersion:additionalHeaders:cachePolicy:context:autoPersistQueries:useGETForQueries:useGETForPersistedQueryRetry:requestBodyCreator:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/jsonrequest\/init(operation:graphqlendpoint:contextidentifier:clientname:clientversion:additionalheaders:cachepolicy:autopersistqueries:usegetforqueries:usegetforpersistedqueryretry:requestbodycreator:)"
+  "url" : "\/documentation\/apollo\/jsonrequest\/init(operation:graphqlendpoint:contextidentifier:clientname:clientversion:additionalheaders:cachepolicy:context:autopersistqueries:usegetforqueries:usegetforpersistedqueryretry:requestbodycreator:)"
 },
 "doc://Apollo/documentation/Apollo/JSONRequest/isPersistedQueryRetry": {
   "abstract" : [

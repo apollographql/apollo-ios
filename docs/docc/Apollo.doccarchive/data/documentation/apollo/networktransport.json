@@ -119,7 +119,7 @@
     {
       "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/addApolloClientHeaders(to:)",
-        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     },
@@ -534,7 +534,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/networktransport\/headerfieldnameapolloclientversion"
 },
-"doc://Apollo/documentation/Apollo/NetworkTransport/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/NetworkTransport/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)": {
   "abstract" : [
     {
       "text" : "Send a GraphQL operation to a server and return a response.",
@@ -611,6 +611,23 @@
       "kind" : "typeIdentifier",
       "preciseIdentifier" : "s:10Foundation4UUIDV",
       "text" : "UUID"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
     },
     {
       "kind" : "text",
@@ -699,13 +716,13 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/NetworkTransport\/send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
-  "title" : "send(operation:cachePolicy:contextIdentifier:callbackQueue:completionHandler:)",
+  "title" : "send(operation:cachePolicy:contextIdentifier:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/networktransport\/send(operation:cachepolicy:contextidentifier:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollo\/networktransport\/send(operation:cachepolicy:contextidentifier:context:callbackqueue:completionhandler:)"
 },
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport": {
   "abstract" : [

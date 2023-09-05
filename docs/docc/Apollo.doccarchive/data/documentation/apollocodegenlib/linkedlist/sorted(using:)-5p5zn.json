@@ -90,10 +90,7 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloCodegenLib",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "ApolloCodegenLib"
       }
     ],
     "platforms" : [

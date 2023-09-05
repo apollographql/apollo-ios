@@ -196,7 +196,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription"
+        "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription-3z2tz"
       ],
       "title" : "Instance Properties"
     },
@@ -552,7 +552,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apolloapi\/jsondecodingerror\/couldnotconvert(value:to:)"
 },
-"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/errorDescription": {
+"doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/errorDescription-3z2tz": {
   "abstract" : [
 
   ],
@@ -583,12 +583,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription",
+  "identifier" : "doc:\/\/ApolloAPI\/documentation\/ApolloAPI\/JSONDecodingError\/errorDescription-3z2tz",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apolloapi\/jsondecodingerror\/errordescription"
+  "url" : "\/documentation\/apolloapi\/jsondecodingerror\/errordescription-3z2tz"
 },
 "doc://ApolloAPI/documentation/ApolloAPI/JSONDecodingError/hash(into:)": {
   "abstract" : [

@@ -102,7 +102,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription"
+        "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-8ajg9"
       ],
       "title" : "Instance Properties"
     },
@@ -239,7 +239,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/errorDescription": {
+"doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/errorDescription-8ajg9": {
   "abstract" : [
 
   ],
@@ -270,12 +270,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MaxRetryInterceptor\/RetryError\/errorDescription-8ajg9",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription"
+  "url" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription-8ajg9"
 },
 "doc://Apollo/documentation/Apollo/MaxRetryInterceptor/RetryError/hitMaxRetryCount(count:operationName:)": {
   "abstract" : [

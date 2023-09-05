@@ -137,10 +137,7 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloCodegenLib",
-        "relatedModules" : [
-          "Swift"
-        ]
+        "name" : "ApolloCodegenLib"
       }
     ],
     "role" : "symbol",

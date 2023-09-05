@@ -33,7 +33,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)"
+        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:context:callbackQueue:completionHandler:)"
       ],
       "title" : "Instance Methods"
     }
@@ -112,7 +112,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport"
 },
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/upload(operation:files:callbackQueue:completionHandler:)": {
+"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/upload(operation:files:context:callbackQueue:completionHandler:)": {
   "abstract" : [
 
   ],
@@ -173,6 +173,23 @@
     {
       "kind" : "text",
       "text" : "], "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "context"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:6Apollo14RequestContextP",
+      "text" : "RequestContext"
+    },
+    {
+      "kind" : "text",
+      "text" : "?, "
     },
     {
       "kind" : "externalParam",
@@ -257,12 +274,12 @@
       "text" : "Cancellable"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:callbackQueue:completionHandler:)",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/upload(operation:files:context:callbackQueue:completionHandler:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "upload(operation:files:callbackQueue:completionHandler:)",
+  "title" : "upload(operation:files:context:callbackQueue:completionHandler:)",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/upload(operation:files:callbackqueue:completionhandler:)"
+  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/upload(operation:files:context:callbackqueue:completionhandler:)"
 }
 }
 }
