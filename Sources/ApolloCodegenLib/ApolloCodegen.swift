@@ -131,7 +131,7 @@ public class ApolloCodegen {
 
     let ir = IR(compilationResult: compilationResult)
     
-    if itemsToGenerate == .operationManifest {
+    if itemsToGenerate.contains(.operationManifest) {
       var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
       
       for operation in compilationResult.operations {
