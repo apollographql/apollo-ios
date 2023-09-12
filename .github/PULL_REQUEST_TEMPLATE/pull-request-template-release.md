@@ -1,8 +1,9 @@
 #### Diff
-[1.0.2...main](https://github.com/apollographql/apollo-ios/compare/1.0.2...main). _Change this to show the diff since the last version._
+<!-- _Change this to show the diff since the last version._ -->
+[See diff since last version](https://github.com/apollographql/apollo-ios/compare/${PREVIOUS_VERSION_TAG}...{$VERSION_BRANCH}). 
 
 #### Relevant changes:
-* _List the highlight PRs_
+<!-- _List the highlight PRs_ -->
 
 #### Things to do in this PR
 - [ ] Update the version constants using the `set-version.sh` script.
@@ -12,5 +13,5 @@
 #### Things to do as part of releasing
 - [ ] Add tag of format `major.minor.patch` to GitHub.
 - [ ] Create a release on GitHub with the new tag, using the latest [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) contents.
-- [ ] Attach CLI binary to the GitHub release. _Use the `make build-cli-universal` command so that both Intel and ARM architectures are supported. You will still need to manually archive the built binary using the command `tar -czf apollo-ios-cli.tar.gz apollo-ios-cli`._
+- [ ] Attach CLI binary to the GitHub release. _Use the `make archive-cli-for-release` command which builds both Intel and ARM architectures, and creates the tar archive for you._
 - [ ] Run `pod trunk push Apollo.podspec` to publish to CocoaPods. _You will need write permissions for this, please contact one of the [maintainers](https://github.com/apollographql/apollo-ios/blob/main/README.md#maintainers) if you need access to do this._

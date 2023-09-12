@@ -572,7 +572,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     let data = stream.read()
     guard let d = data else { return }
     var process = false
-    if inputQueue.count == 0 {
+    if inputQueue.isEmpty {
       process = true
     }
     inputQueue.append(d)

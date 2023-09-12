@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-08-10**
+**Last updated: 2023-09-07**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -37,10 +37,9 @@ The `@defer` directive enables your queries to receive data for specific fields 
 
 ### [Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: 2023-09-20_
+_Approximate Date: 2023-10-06_
 
 - Add configuration for disabling merging of fragment fields
-- Recognize when multiple selection set types will end up being identical and use a shared model object with typealiases to reduce generated code
 - Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
