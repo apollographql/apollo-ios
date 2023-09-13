@@ -94,6 +94,28 @@ public class ApolloCodegen {
     
   }
 
+  /// This is exposed for external use cases that need to read an operation manifest file and decode it.
+  public struct OperationManifestV1: Equatable, Codable {
+    public struct Item: Equatable, Codable {
+      public let body: String
+      public let id: String
+      public let name: String
+      public let type: CompilationResult.OperationType
+    }
+    public let format: String // "apollo-persisted-query-manifest"
+    public let version: Int // 1
+    public let operations: [Item]
+
+    public init(contentsOf: URL) throws {
+      do {
+        let jsonData = try Data(contentsOf: contentsOf)
+        self = try JSONDecoder().decode(OperationManifestV1.self, from: jsonData)
+      } catch {
+        throw Error.failureToLoadInputOperationManifest(path: contentsOf.path, error: error as NSError)
+      }
+    }
+  }
+
   /// Executes the code generation engine with a specified configuration.
   ///
   /// - Parameters:
@@ -136,10 +158,12 @@ public class ApolloCodegen {
 
     if let filePath = configContext.input.operationManifestFilePath {
       let fileURL = URL(fileURLWithPath: filePath, relativeTo: rootURL)
-      do {
-        ir.inputOperationIdentifiers = try OperationManifestV1.inputOperationIdentifiers(from: fileURL)
-      } catch {
-        throw Error.failureToLoadInputOperationManifest(path: fileURL.path, error: error as NSError)
+      let operationManifest = try OperationManifestV1(contentsOf: fileURL)
+      ir.inputOperationIdentifiers = operationManifest.operations.reduce(
+        into: [CompilationResult.OperationType: [String: String]]()
+      ) { dict, item in
+        if dict[item.type] == nil { dict[item.type] = [:] }
+        dict[item.type]?[item.name] = item.id
       }
     }
 
@@ -181,30 +205,6 @@ public class ApolloCodegen {
   }
 
   // MARK: Internal
-
-  struct OperationManifestV1: Equatable, Codable {
-    struct Item: Equatable, Codable {
-      let body: String
-      let id: String
-      let name: String
-      let type: CompilationResult.OperationType
-    }
-    let format: String // "apollo-persisted-query-manifest"
-    let version: Int // 1
-    let operations: [Item]
-
-    static func inputOperationIdentifiers(from contentsOf: URL) throws -> [CompilationResult.OperationType: [String: String]] {
-      let jsonData = try Data(contentsOf: contentsOf)
-      let operationManifest = try JSONDecoder().decode(OperationManifestV1.self, from: jsonData)
-      var dict = [CompilationResult.OperationType: [String: String]]()
-      return operationManifest.operations.reduce(into: dict) { dict, item in
-        if dict[item.type] == nil {
-          dict[item.type] = [:]
-        }
-        dict[item.type]?[item.name] = item.id
-      }
-    }
-  }
 
   @dynamicMemberLookup
   class ConfigurationContext {
