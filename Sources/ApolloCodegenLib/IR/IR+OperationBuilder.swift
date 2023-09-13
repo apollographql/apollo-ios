@@ -20,11 +20,19 @@ extension IR {
       inIR: self
     )
 
-    return IR.Operation(
+    let ir = IR.Operation(
       definition: operationDefinition,
       rootField: result.rootField,
       referencedFragments: result.referencedFragments
     )
+    if let operationNamesToIdentifiers {
+      // TODO: Should this throw if there is no operationIdentifier for the operation?
+      // TODO: Is operationDefinition.name enough of an index across operation types?
+      if let operationIdentifier = operationNamesToIdentifiers[operationDefinition.name] {
+        ir.operationIdentifier = operationIdentifier
+      }
+    }
+    return ir
   }
 
 }

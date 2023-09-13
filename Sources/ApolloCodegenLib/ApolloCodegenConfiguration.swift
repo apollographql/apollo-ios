@@ -56,6 +56,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///  - `!` excludes any match only if the pattern starts with a `!` character, eg: `!file.graphql`
     public let operationSearchPaths: [String]
 
+    /// A single file path to an input operation manifest file to be used as the source of truth of an generated operation's  `operationId` .
+    public let operationManifestFilePath: String?
+
     /// Designated initializer.
     ///
     /// - Parameters:
@@ -86,6 +89,9 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///
     ///     Defaults to `["**/*.graphql"]`.
     ///
+    ///   - operationManifestFilePath: A single file path to an input operation manifest file to be used as
+    ///   the source of truth of an generated operation's  `operationId` .
+    ///
     ///  You can use absolute or relative paths in path matching patterns. Relative paths will be
     ///  based off the current working directory from `FileManager`.
     ///
@@ -100,10 +106,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// number of additional SDL schema extension files.
     public init(
       schemaSearchPaths: [String] = ["**/*.graphqls"],
-      operationSearchPaths: [String] = ["**/*.graphql"]
+      operationSearchPaths: [String] = ["**/*.graphql"],
+      operationManifestFilePath: String? = nil
     ) {
       self.schemaSearchPaths = schemaSearchPaths
       self.operationSearchPaths = operationSearchPaths
+      self.operationManifestFilePath = operationManifestFilePath
     }
 
     /// Convenience initializer.
@@ -132,6 +140,8 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     ///     - [Fragment Definitions](https://spec.graphql.org/draft/#sec-Language.Fragments)
     ///
     ///     Defaults to `["**/*.graphql"]`.
+    ///   - operationManifestFilePath: A single file path to an input operation manifest file to be used as
+    ///   the source of truth of an generated operation's  `operationId` .
     ///
     ///  You can use absolute or relative paths in path matching patterns. Relative paths will be
     ///  based off the current working directory from `FileManager`.
@@ -147,10 +157,12 @@ public struct ApolloCodegenConfiguration: Codable, Equatable {
     /// number of additional SDL schema extension files.
     public init(
       schemaPath: String,
-      operationSearchPaths: [String] = ["**/*.graphql"]
+      operationSearchPaths: [String] = ["**/*.graphql"],
+      operationManifestFilePath: String? = nil
     ) {
       self.schemaSearchPaths = [schemaPath]
       self.operationSearchPaths = operationSearchPaths
+      self.operationManifestFilePath = operationManifestFilePath
     }
   }
 

@@ -79,7 +79,7 @@ public class CompilationResult: JavaScriptObject {
     }()
   }
   
-  public enum OperationType: String, Equatable, JavaScriptValueDecodable {
+  public enum OperationType: String, Equatable, Codable, JavaScriptValueDecodable {
     case query
     case mutation
     case subscription

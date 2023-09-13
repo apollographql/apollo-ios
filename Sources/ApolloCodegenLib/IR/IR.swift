@@ -11,6 +11,8 @@ class IR {
 
   var builtFragments: [String: NamedFragment] = [:]
 
+  var operationNamesToIdentifiers: [String: String]?
+
   init(compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
     self.schema = Schema(

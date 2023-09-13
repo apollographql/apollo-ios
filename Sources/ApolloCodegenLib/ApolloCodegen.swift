@@ -22,6 +22,7 @@ public class ApolloCodegen {
     case invalidSchemaName(_ name: String, message: String)
     case targetNameConflict(name: String)
     case typeNameConflict(name: String, conflictingName: String, containingObject: String)
+    case failureToLoadInputOperationManifest(path: String, error: NSError?)
 
     public var errorDescription: String? {
       switch self {
@@ -64,6 +65,8 @@ public class ApolloCodegen {
         Recommend using a field alias for one of these fields to resolve this conflict. \
         For more info see: https://www.apollographql.com/docs/ios/troubleshooting/codegen-troubleshooting#typenameconflict
         """
+      case let .failureToLoadInputOperationManifest(path, error):
+        return "Could not load the input operation manifest file at path '\(path)', with error: '\(String(describing: error))'"
       }
     }
   }
@@ -130,7 +133,16 @@ public class ApolloCodegen {
     try validate(configContext, with: compilationResult)
 
     let ir = IR(compilationResult: compilationResult)
-    
+
+    if let filePath = configContext.input.operationManifestFilePath {
+      let fileURL = URL(fileURLWithPath: filePath, relativeTo: rootURL)
+      do {
+        ir.operationNamesToIdentifiers = try OperationManifestV1.operationNamesToIdentifiers(from: fileURL)
+      } catch {
+        throw Error.failureToLoadInputOperationManifest(path: fileURL.path, error: error as NSError)
+      }
+    }
+
     if itemsToGenerate.contains(.operationManifest) {
       var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
       
@@ -169,6 +181,26 @@ public class ApolloCodegen {
   }
 
   // MARK: Internal
+
+  struct OperationManifestV1: Equatable, Codable {
+    struct Item: Equatable, Codable {
+      let body: String
+      let id: String
+      let name: String
+      let type: CompilationResult.OperationType
+    }
+    let format: String // "apollo-persisted-query-manifest"
+    let version: Int // 1
+    let operations: [Item]
+
+    static func operationNamesToIdentifiers(from contentsOf: URL) throws -> [String: String] {
+      let jsonData = try Data(contentsOf: contentsOf)
+      var operationManifest = try JSONDecoder().decode(OperationManifestV1.self, from: jsonData)
+      return operationManifest.operations.reduce(into: [String: String]()) { dict, item in
+        dict[item.name] = item.id
+      }
+    }
+  }
 
   @dynamicMemberLookup
   class ConfigurationContext {
