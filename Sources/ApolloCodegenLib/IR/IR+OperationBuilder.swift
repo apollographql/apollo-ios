@@ -25,10 +25,9 @@ extension IR {
       rootField: result.rootField,
       referencedFragments: result.referencedFragments
     )
-    if let operationNamesToIdentifiers {
-      // TODO: Should this throw if there is no operationIdentifier for the operation?
-      // TODO: Is operationDefinition.name enough of an index across operation types?
-      if let operationIdentifier = operationNamesToIdentifiers[operationDefinition.name] {
+    // TODO: Should this throw if inputOperationIdentifiers is set, but there is no operationIdentifier for the operation?
+    if let inputOperationIdentifiers = inputOperationIdentifiers?[operationDefinition.operationType] {
+      if let operationIdentifier = inputOperationIdentifiers[operationDefinition.name] {
         ir.operationIdentifier = operationIdentifier
       }
     }

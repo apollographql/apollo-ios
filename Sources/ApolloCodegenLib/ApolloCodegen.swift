@@ -137,7 +137,7 @@ public class ApolloCodegen {
     if let filePath = configContext.input.operationManifestFilePath {
       let fileURL = URL(fileURLWithPath: filePath, relativeTo: rootURL)
       do {
-        ir.operationNamesToIdentifiers = try OperationManifestV1.operationNamesToIdentifiers(from: fileURL)
+        ir.inputOperationIdentifiers = try OperationManifestV1.inputOperationIdentifiers(from: fileURL)
       } catch {
         throw Error.failureToLoadInputOperationManifest(path: fileURL.path, error: error as NSError)
       }
@@ -193,11 +193,15 @@ public class ApolloCodegen {
     let version: Int // 1
     let operations: [Item]
 
-    static func operationNamesToIdentifiers(from contentsOf: URL) throws -> [String: String] {
+    static func inputOperationIdentifiers(from contentsOf: URL) throws -> [CompilationResult.OperationType: [String: String]] {
       let jsonData = try Data(contentsOf: contentsOf)
-      var operationManifest = try JSONDecoder().decode(OperationManifestV1.self, from: jsonData)
-      return operationManifest.operations.reduce(into: [String: String]()) { dict, item in
-        dict[item.name] = item.id
+      let operationManifest = try JSONDecoder().decode(OperationManifestV1.self, from: jsonData)
+      var dict = [CompilationResult.OperationType: [String: String]]()
+      return operationManifest.operations.reduce(into: dict) { dict, item in
+        if dict[item.type] == nil {
+          dict[item.type] = [:]
+        }
+        dict[item.type]?[item.name] = item.id
       }
     }
   }

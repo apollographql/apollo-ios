@@ -11,7 +11,7 @@ class IR {
 
   var builtFragments: [String: NamedFragment] = [:]
 
-  var operationNamesToIdentifiers: [String: String]?
+  var inputOperationIdentifiers: [CompilationResult.OperationType: [String: String]]?
 
   init(compilationResult: CompilationResult) {
     self.compilationResult = compilationResult
