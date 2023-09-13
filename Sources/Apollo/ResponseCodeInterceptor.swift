@@ -8,7 +8,7 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
 
   public var id: String = UUID().uuidString
   
-  public enum ResponseCodeError: Error, LocalizedError {
+  public enum ResponseCodeError: LocalizedError {
     case invalidResponseCode(response: HTTPURLResponse?, rawData: Data?)
     
     public var errorDescription: String? {

@@ -6,7 +6,7 @@ import ApolloAPI
 /// An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
 public struct JSONResponseParsingInterceptor: ApolloInterceptor {
   
-  public enum JSONResponseParsingError: Error, LocalizedError {
+  public enum JSONResponseParsingError: LocalizedError {
     case noResponseToParse
     case couldNotParseToJSON(data: Data)
     

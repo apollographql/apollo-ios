@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ApolloURLError: Error, LocalizedError {
+public enum ApolloURLError: LocalizedError {
   case fileNameIsEmpty
   
   public var errorDescription: String? {

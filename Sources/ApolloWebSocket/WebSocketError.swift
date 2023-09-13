@@ -4,7 +4,7 @@ import ApolloAPI
 import Foundation
 
 /// A structure for capturing problems and any associated errors from a `WebSocketTransport`.
-public struct WebSocketError: Error, LocalizedError {
+public struct WebSocketError: LocalizedError {
   public enum ErrorKind {
     case errorResponse
     case networkError

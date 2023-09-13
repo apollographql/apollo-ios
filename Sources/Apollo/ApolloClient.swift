@@ -34,7 +34,7 @@ public class ApolloClient {
 
   public let store: ApolloStore
 
-  public enum ApolloClientError: Error, LocalizedError, Hashable {
+  public enum ApolloClientError: LocalizedError, Hashable {
     case noUploadTransport
 
     public var errorDescription: String? {

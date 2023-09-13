@@ -4,7 +4,7 @@ import Foundation
 ///
 /// This error should be thrown when a ``JSONDecodable`` initialization fails.
 /// `GraphQLExecutor` and `ApolloStore` may also throw this error when decoding a `JSON` fails.
-public enum JSONDecodingError: Error, LocalizedError, Hashable {
+public enum JSONDecodingError: LocalizedError, Hashable {
   /// A value that is expected to be present is missing from the ``JSONObject``.
   case missingValue
   /// A value that is non-null has a `null`value.

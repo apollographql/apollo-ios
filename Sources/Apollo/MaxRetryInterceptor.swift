@@ -11,7 +11,7 @@ public class MaxRetryInterceptor: ApolloInterceptor {
 
   public var id: String = UUID().uuidString
   
-  public enum RetryError: Error, LocalizedError {
+  public enum RetryError: LocalizedError {
     case hitMaxRetryCount(count: Int, operationName: String)
     
     public var errorDescription: String? {

@@ -35,7 +35,7 @@ extension URLSession: NetworkSession {
 class URLDownloader {
   let session: NetworkSession
   
-  enum DownloadError: Error, LocalizedError {
+  enum DownloadError: LocalizedError {
     case badResponse(code: Int, response: String?)
     case emptyDataReceived
     case noDataReceived

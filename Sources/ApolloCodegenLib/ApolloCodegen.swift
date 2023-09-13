@@ -10,7 +10,7 @@ public class ApolloCodegen {
   // MARK: Public
 
   /// Errors that can occur during code generation.
-  public enum Error: Swift.Error, LocalizedError {
+  public enum Error: LocalizedError {
     /// An error occured during validation of the GraphQL schema or operations.
     case graphQLSourceValidationFailure(atLines: [String])
     case testMocksInvalidSwiftPackageConfiguration

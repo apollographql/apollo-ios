@@ -9,7 +9,7 @@ public struct GraphQLFile: Hashable {
   public let fileURL: URL?
   public let contentLength: UInt64
   
-  public enum GraphQLFileError: Error, LocalizedError {
+  public enum GraphQLFileError: LocalizedError {
     case couldNotCreateInputStream
     case couldNotGetFileSize(fileURL: URL)
     

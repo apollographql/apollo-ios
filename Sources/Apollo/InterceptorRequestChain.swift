@@ -6,7 +6,7 @@ import ApolloAPI
 /// A chain that allows a single network request to be created and executed.
 final public class InterceptorRequestChain: Cancellable, RequestChain {
 
-  public enum ChainError: Error, LocalizedError {
+  public enum ChainError: LocalizedError {
     case invalidIndex(chain: RequestChain, index: Int)
     case noInterceptors
     case unknownInterceptor(id: String)

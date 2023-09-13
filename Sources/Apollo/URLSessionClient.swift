@@ -10,7 +10,7 @@ import Foundation
 /// when for background sessions.
 open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
   
-  public enum URLSessionClientError: Error, LocalizedError {
+  public enum URLSessionClientError: LocalizedError {
     case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForRequestNotFound(request: URLRequest?)

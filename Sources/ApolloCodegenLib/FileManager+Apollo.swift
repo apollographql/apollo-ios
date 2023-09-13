@@ -113,7 +113,7 @@ public class ApolloFileManager {
 
 // MARK: - FileManagerPathError
 
-public enum FileManagerPathError: Swift.Error, LocalizedError, Equatable {
+public enum FileManagerPathError: LocalizedError, Equatable {
   case notAFile(path: String)
   case notADirectory(path: String)
   case cannotCreateFile(at: String)

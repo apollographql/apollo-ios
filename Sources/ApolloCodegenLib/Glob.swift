@@ -29,7 +29,7 @@ public struct Glob {
   private let flags = GLOB_ERR | GLOB_MARK | GLOB_NOSORT | GLOB_TILDE | GLOB_BRACE
 
   /// An error object that indicates why pattern matching failed.
-  public enum MatchError: Error, LocalizedError, Equatable {
+  public enum MatchError: LocalizedError, Equatable {
     case noSpace // GLOB_NOSPACE
     case aborted // GLOB_ABORTED
     case cannotEnumerate(path: String)

@@ -1,7 +1,7 @@
 import Foundation
 
 /// An error which has occurred during the serialization of a request.
-public enum GraphQLHTTPRequestError: Error, LocalizedError, Hashable {
+public enum GraphQLHTTPRequestError: LocalizedError, Hashable {
   case serializedBodyMessageError
   case serializedQueryParamsMessageError
 

@@ -6,7 +6,7 @@ import ApolloAPI
 /// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheWriteInterceptor: ApolloInterceptor {
   
-  public enum CacheWriteError: Error, LocalizedError {
+  public enum CacheWriteError: LocalizedError {
     case noResponseToParse
     
     public var errorDescription: String? {

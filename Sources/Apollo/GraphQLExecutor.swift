@@ -150,7 +150,7 @@ class FieldExecutionInfo {
 }
 
 /// An error which has occurred during GraphQL execution.
-public struct GraphQLExecutionError: Error, LocalizedError {
+public struct GraphQLExecutionError: LocalizedError {
   let path: ResponsePath
 
   public var pathString: String { path.description }
