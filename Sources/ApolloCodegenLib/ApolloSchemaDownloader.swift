@@ -46,7 +46,7 @@ public struct ApolloSchemaDownloader {
   ///   - configuration: The `ApolloSchemaDownloadConfiguration` used to download the schema.
   ///   - rootURL: The root `URL` to resolve relative `URL`s in the configuration's paths against.
   ///     If `nil`, the current working directory of the executing process will be used.
-  ///   - session: The network session to use for the download
+  ///   - session: The network session to use for the download. If `nil` the `URLSession.Shared` will be used by default.
   /// - Returns: Output from a successful fetch or throws an error.
   /// - Throws: Any error which occurs during the fetch.
   public static func fetch(
