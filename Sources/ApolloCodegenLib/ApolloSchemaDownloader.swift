@@ -46,11 +46,13 @@ public struct ApolloSchemaDownloader {
   ///   - configuration: The `ApolloSchemaDownloadConfiguration` used to download the schema.
   ///   - rootURL: The root `URL` to resolve relative `URL`s in the configuration's paths against.
   ///     If `nil`, the current working directory of the executing process will be used.
+  ///   - session: The network session to use for the download
   /// - Returns: Output from a successful fetch or throws an error.
   /// - Throws: Any error which occurs during the fetch.
   public static func fetch(
     configuration: ApolloSchemaDownloadConfiguration,
-    withRootURL rootURL: URL? = nil
+    withRootURL rootURL: URL? = nil,
+    session: NetworkSession? = nil
   ) throws {
     try ApolloFileManager.default.createContainingDirectoryIfNeeded(
       forPath: configuration.outputPath
@@ -63,14 +65,16 @@ public struct ApolloSchemaDownloader {
         httpMethod: httpMethod,
         includeDeprecatedInputValues: includeDeprecatedInputValues,
         configuration: configuration,
-        withRootURL: rootURL
+        withRootURL: rootURL,
+        session: session
       )
 
     case .apolloRegistry(let settings):
       try self.downloadFrom(
         registry: settings,
         configuration: configuration,
-        withRootURL: rootURL
+        withRootURL: rootURL,
+        session: session
       )
     }
   }
@@ -136,7 +140,8 @@ public struct ApolloSchemaDownloader {
   static func downloadFrom(
     registry: ApolloSchemaDownloadConfiguration.DownloadMethod.ApolloRegistrySettings,
     configuration: ApolloSchemaDownloadConfiguration,
-    withRootURL rootURL: URL?
+    withRootURL rootURL: URL?,
+    session: NetworkSession? = nil
   ) throws {
     CodegenLogger.log("Downloading schema from registry", logLevel: .debug)
 
@@ -145,7 +150,7 @@ public struct ApolloSchemaDownloader {
       .parentFolderURL()
       .appendingPathComponent("registry_response.json")
 
-    try URLDownloader().downloadSynchronously(
+    try URLDownloader(session: session).downloadSynchronously(
       urlRequest,
       to: jsonOutputURL,
       timeout: configuration.downloadTimeout
@@ -339,7 +344,8 @@ public struct ApolloSchemaDownloader {
     httpMethod: ApolloSchemaDownloadConfiguration.DownloadMethod.HTTPMethod,
     includeDeprecatedInputValues: Bool,
     configuration: ApolloSchemaDownloadConfiguration,
-    withRootURL: URL?
+    withRootURL: URL?,
+    session: NetworkSession? = nil
   ) throws {
 
     CodegenLogger.log("Downloading schema via introspection from \(endpoint)", logLevel: .debug)
@@ -361,8 +367,7 @@ public struct ApolloSchemaDownloader {
       }
     }()
 
-    
-    try URLDownloader().downloadSynchronously(
+    try URLDownloader(session: session).downloadSynchronously(
       urlRequest,
       to: jsonOutputURL,
       timeout: configuration.downloadTimeout

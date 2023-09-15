@@ -1,7 +1,7 @@
 import Foundation
 
 /// A protocol to abstract the underlying network provider.
-protocol NetworkSession {
+public protocol NetworkSession {
 
   /// Load data via the abstracted network provider
   ///
@@ -18,7 +18,7 @@ protocol NetworkSession {
 }
 
 extension URLSession: NetworkSession {
-  func loadData(
+  public func loadData(
     with urlRequest: URLRequest,
     completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void
   ) -> URLSessionDataTask? {
@@ -63,8 +63,8 @@ class URLDownloader {
   /// - Parameters:
   ///   - session: The NetworkSession conforming instance used for downloads, defaults to the
   ///   shared URLSession singleton object.
-  init(session: NetworkSession = URLSession.shared) {
-    self.session = session
+  init(session: NetworkSession? = nil) {
+    self.session = session ?? URLSession.shared
   }
   
   /// Downloads the contents of a given URL synchronously to the given output URL
