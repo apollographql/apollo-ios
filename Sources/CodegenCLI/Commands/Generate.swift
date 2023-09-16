@@ -85,6 +85,6 @@ public struct Generate: ParsableCommand {
     configuration: ApolloSchemaDownloadConfiguration,
     schemaDownloadProvider: SchemaDownloadProvider.Type
   ) throws {
-    try schemaDownloadProvider.fetch(configuration: configuration, withRootURL: rootOutputURL(for: inputs))
+    try schemaDownloadProvider.fetch(configuration: configuration, withRootURL: rootOutputURL(for: inputs), session: nil)
   }
 }

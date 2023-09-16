@@ -48,7 +48,8 @@ public struct FetchSchema: ParsableCommand {
 
     try schemaDownloadProvider.fetch(
       configuration: schemaDownload,
-      withRootURL: rootOutputURL(for: inputs)
+      withRootURL: rootOutputURL(for: inputs),
+      session: nil
     )
   }
 }
