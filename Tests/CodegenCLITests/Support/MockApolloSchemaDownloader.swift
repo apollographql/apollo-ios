@@ -7,7 +7,8 @@ class MockApolloSchemaDownloader: SchemaDownloadProvider {
 
   static func fetch(
     configuration: ApolloSchemaDownloadConfiguration,
-    withRootURL rootURL: URL?
+    withRootURL rootURL: URL?,
+    session: NetworkSession?
   ) throws {
     guard let handler = fetchHandler else {
       fatalError("You must set fetchHandler before calling \(#function)!")
