@@ -105,7 +105,48 @@ public class ApolloCodegen {
     withRootURL rootURL: URL? = nil,
     itemsToGenerate: ItemsToGenerate = [.code]
   ) throws {
-    try build(with: configuration, rootURL: rootURL, itemsToGenerate: itemsToGenerate)
+    if #available(macOS 10.15, *) {
+      let semaphore = DispatchSemaphore(value: 0)
+      var errorToThrow: Swift.Error?
+      let finish: (Swift.Error?) -> Void = { error in
+        semaphore.signal()
+        errorToThrow = error
+      }
+
+      Task.detached {
+        do {
+          try await build(with: configuration, rootURL: rootURL, itemsToGenerate: itemsToGenerate)
+          finish(nil)
+        } catch {
+          finish(error)
+        }
+      }
+
+      semaphore.wait()
+
+      if let errorToThrow {
+        throw errorToThrow
+      } // else, success!
+    } else {
+      fatalError("Code Generation must be run on macOS 10.15+.")
+    }
+  }
+
+  /// Executes the code generation engine with a specified configuration.
+  ///
+  /// - Parameters:
+  ///   - configuration: A configuration object that specifies inputs, outputs and behaviours used
+  ///     during code generation.
+  ///   - rootURL: The root `URL` to resolve relative `URL`s in the configuration's paths against.
+  ///     If `nil`, the current working directory of the executing process will be used.
+  ///   - itemsToGenerate: Uses the `ItemsToGenerate` option set to determine what items should be generated during codegen.
+  ///     By default this will use [.code] which maintains how codegen functioned prior to these options being added.
+  public static func build(
+    with configuration: ApolloCodegenConfiguration,
+    withRootURL rootURL: URL? = nil,
+    itemsToGenerate: ItemsToGenerate = [.code]
+  ) async throws {
+    try await build(with: configuration, rootURL: rootURL, itemsToGenerate: itemsToGenerate)
   }
 
   internal static func build(
@@ -113,7 +154,7 @@ public class ApolloCodegen {
     rootURL: URL? = nil,
     fileManager: ApolloFileManager = .default,
     itemsToGenerate: ItemsToGenerate
-  ) throws {
+  ) async throws {
 
     let configContext = ConfigurationContext(
       config: configuration,
