@@ -131,36 +131,28 @@ public class ApolloCodegen {
 
     let ir = IR(compilationResult: compilationResult)
 
-    if itemsToGenerate.contains(.code) {
-      var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
-      try findExistingGeneratedFilePaths(
+    var existingGeneratedFilePaths: Set<String>?
+
+    if itemsToGenerate.contains(.code) && configuration.options.pruneGeneratedFiles {
+      existingGeneratedFilePaths = try findExistingGeneratedFilePaths(
         config: configContext,
         fileManager: fileManager
-      ) : []
-
-      try generateFiles(
-        compilationResult: compilationResult,
-        ir: ir,
-        config: configContext,
-        fileManager: fileManager,
-        itemsToGenerate: itemsToGenerate
       )
+    }
 
-      if configuration.options.pruneGeneratedFiles {
-        try deleteExtraneousGeneratedFiles(
-          from: &existingGeneratedFilePaths,
-          afterCodeGenerationUsing: fileManager
-        )
-      }
-    } else if itemsToGenerate.contains(.operationManifest) {
-      var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
-      for operation in compilationResult.operations {
-        autoreleasepool {
-          let irOperation = ir.build(operation: operation)
-          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
-        }
-      }
-      try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    try generateFiles(
+      compilationResult: compilationResult,
+      ir: ir,
+      config: configContext,
+      fileManager: fileManager,
+      itemsToGenerate: itemsToGenerate
+    )
+
+    if var existingGeneratedFilePaths {
+      try deleteExtraneousGeneratedFiles(
+        from: &existingGeneratedFilePaths,
+        afterCodeGenerationUsing: fileManager
+      )
     }
   }
 
@@ -422,12 +414,15 @@ public class ApolloCodegen {
     fileManager: ApolloFileManager = .default,
     itemsToGenerate: ItemsToGenerate
   ) throws {
-    for fragment in compilationResult.fragments {
-      try autoreleasepool {
-        let irFragment = ir.build(fragment: fragment)
-        try validateTypeConflicts(for: irFragment.rootField.selectionSet, with: config, in: irFragment.definition.name)
-        try FragmentFileGenerator(irFragment: irFragment, config: config)
-          .generate(forConfig: config, fileManager: fileManager)
+
+    if itemsToGenerate.contains(.code) {
+      for fragment in compilationResult.fragments {
+        try autoreleasepool {
+          let irFragment = ir.build(fragment: fragment)
+          try validateTypeConflicts(for: irFragment.rootField.selectionSet, with: config, in: irFragment.definition.name)
+          try FragmentFileGenerator(irFragment: irFragment, config: config)
+            .generate(forConfig: config, fileManager: fileManager)
+        }
       }
     }
 
@@ -439,9 +434,12 @@ public class ApolloCodegen {
     for operation in compilationResult.operations {
       try autoreleasepool {
         let irOperation = ir.build(operation: operation)
-        try validateTypeConflicts(for: irOperation.rootField.selectionSet, with: config, in: irOperation.definition.name)
-        try OperationFileGenerator(irOperation: irOperation, config: config)
-          .generate(forConfig: config, fileManager: fileManager)
+
+        if itemsToGenerate.contains(.code) {
+          try validateTypeConflicts(for: irOperation.rootField.selectionSet, with: config, in: irOperation.definition.name)
+          try OperationFileGenerator(irOperation: irOperation, config: config)
+            .generate(forConfig: config, fileManager: fileManager)
+        }
 
         if itemsToGenerate.contains(.operationManifest) {
           operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
@@ -451,6 +449,11 @@ public class ApolloCodegen {
 
     if itemsToGenerate.contains(.operationManifest) {
       try operationIDsFileGenerator?.generate(fileManager: fileManager)
+    }
+
+    // Everythhing else after this is applicable to only .code
+    guard itemsToGenerate.contains(.code) else {
+      return
     }
 
     for graphQLObject in ir.schema.referencedTypes.objects {
