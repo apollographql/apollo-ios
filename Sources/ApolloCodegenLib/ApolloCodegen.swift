@@ -141,6 +141,7 @@ public class ApolloCodegen {
   ///     If `nil`, the current working directory of the executing process will be used.
   ///   - itemsToGenerate: Uses the `ItemsToGenerate` option set to determine what items should be generated during codegen.
   ///     By default this will use [.code] which maintains how codegen functioned prior to these options being added.
+  @available(macOS 10.15, *)
   public static func build(
     with configuration: ApolloCodegenConfiguration,
     withRootURL rootURL: URL? = nil,
