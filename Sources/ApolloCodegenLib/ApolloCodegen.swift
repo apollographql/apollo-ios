@@ -130,19 +130,6 @@ public class ApolloCodegen {
     try validate(configContext, with: compilationResult)
 
     let ir = IR(compilationResult: compilationResult)
-    
-    if itemsToGenerate.contains(.operationManifest) {
-      var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
-      
-      for operation in compilationResult.operations {
-        autoreleasepool {
-          let irOperation = ir.build(operation: operation)
-          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
-        }
-      }
-      
-      try operationIDsFileGenerator?.generate(fileManager: fileManager)
-    }
 
     if itemsToGenerate.contains(.code) {
       var existingGeneratedFilePaths = configuration.options.pruneGeneratedFiles ?
@@ -165,6 +152,15 @@ public class ApolloCodegen {
           afterCodeGenerationUsing: fileManager
         )
       }
+    } else if itemsToGenerate.contains(.operationManifest) {
+      var operationIDsFileGenerator = OperationManifestFileGenerator(config: configContext)
+      for operation in compilationResult.operations {
+        autoreleasepool {
+          let irOperation = ir.build(operation: operation)
+          operationIDsFileGenerator?.collectOperationIdentifier(irOperation)
+        }
+      }
+      try operationIDsFileGenerator?.generate(fileManager: fileManager)
     }
   }
 
@@ -435,7 +431,10 @@ public class ApolloCodegen {
       }
     }
 
-    var operationIDsFileGenerator = OperationManifestFileGenerator(config: config)
+    var operationIDsFileGenerator: OperationManifestFileGenerator?
+    if itemsToGenerate.contains(.operationManifest) {
+      operationIDsFileGenerator = OperationManifestFileGenerator(config: config)
+    }
 
     for operation in compilationResult.operations {
       try autoreleasepool {
@@ -453,7 +452,6 @@ public class ApolloCodegen {
     if itemsToGenerate.contains(.operationManifest) {
       try operationIDsFileGenerator?.generate(fileManager: fileManager)
     }
-    operationIDsFileGenerator = nil
 
     for graphQLObject in ir.schema.referencedTypes.objects {
       try autoreleasepool {
