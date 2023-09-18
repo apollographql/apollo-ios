@@ -163,7 +163,8 @@ class AutomaticPersistedQueriesTests: XCTestCase {
     }
     
     if let variables = url.queryItemDictionary?["variables"] {
-      let expectation = expect(file: file, line: line, variables)
+      /// See comment on ``Nimble.FileString`` on why the ``"\(file)"``
+      let expectation = expect(file: "\(file)", line: line, variables)
       switch query.episode {
       case let .some(episode):
         expectation.to(equal("{\"episode\":\"\(episode.rawValue)\"}"))

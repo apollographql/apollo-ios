@@ -26,7 +26,7 @@ class GenerateOperationManifestTests: XCTestCase {
   
   // MARK: - Generate Tests
 
-  func test__generate__givenParameters_pathCustom_shouldBuildWithFileData() throws {
+  func test__generate__givenParameters_pathCustom_shouldBuildWithFileData() async throws {
     // given
     let inputPath = "./config.json"
 
@@ -56,13 +56,13 @@ class GenerateOperationManifestTests: XCTestCase {
     // when
     let command = try parse(options)
 
-    try command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
+    try await command._run(fileManager: mockFileManager.base, codegenProvider: MockApolloCodegen.self)
 
     // then
     expect(didCallBuild).to(beTrue())
   }
   
-  func test__generate__givenParameters_stringCustom_shouldBuildWithStringData() throws {
+  func test__generate__givenParameters_stringCustom_shouldBuildWithStringData() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -85,13 +85,13 @@ class GenerateOperationManifestTests: XCTestCase {
     // when
     let command = try parse(options)
 
-    try command._run(codegenProvider: MockApolloCodegen.self)
+    try await command._run(codegenProvider: MockApolloCodegen.self)
 
     // then
     expect(didCallBuild).to(beTrue())
   }
   
-  func test__generate__givenParameters_bothPathAndString_shouldBuildWithStringData() throws {
+  func test__generate__givenParameters_bothPathAndString_shouldBuildWithStringData() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -115,13 +115,13 @@ class GenerateOperationManifestTests: XCTestCase {
     // when
     let command = try parse(options)
 
-    try command._run(codegenProvider: MockApolloCodegen.self)
+    try await command._run(codegenProvider: MockApolloCodegen.self)
 
     // then
     expect(didCallBuild).to(beTrue())
   }
   
-  func test__generate__givenDefaultParameter_verbose_shouldSetLogLevelWarning() throws {
+  func test__generate__givenDefaultParameter_verbose_shouldSetLogLevelWarning() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -145,16 +145,16 @@ class GenerateOperationManifestTests: XCTestCase {
     // when
     let command = try parse(options)
 
-    try command._run(
+    try await command._run(
       codegenProvider: MockApolloCodegen.self,
       logger: CodegenLogger.mock
     )
 
     // then
-    expect(level).toEventually(equal(.warning))
+    await expect(level).toEventually(equal(.warning))
   }
   
-  func test__generate__givenParameter_verbose_shouldSetLogLevelDebug() throws {
+  func test__generate__givenParameter_verbose_shouldSetLogLevelDebug() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -179,18 +179,18 @@ class GenerateOperationManifestTests: XCTestCase {
     // when
     let command = try parse(options)
 
-    try command._run(
+    try await command._run(
       codegenProvider: MockApolloCodegen.self,
       logger: CodegenLogger.mock
     )
 
     // then
-    expect(level).toEventually(equal(.debug))
+    await expect(level).toEventually(equal(.debug))
   }
   
   // MARK: Version Checking Tests
 
-  func test__generate__givenCLIVersionMismatch_shouldThrowVersionMismatchError() throws {
+  func test__generate__givenCLIVersionMismatch_shouldThrowVersionMismatchError() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -231,14 +231,14 @@ class GenerateOperationManifestTests: XCTestCase {
     let command = try parse(options)
 
     // then
-    expect(
-      try command._run(
+    await expect {
+      try await command._run(
         codegenProvider: MockApolloCodegen.self
       )
-    ).to(throwError())
+    }.to(throwError())
   }
   
-  func test__generate__givenCLIVersionMismatch_withIgnoreVersionMismatchArgument_shouldNotThrowVersionMismatchError() throws {
+  func test__generate__givenCLIVersionMismatch_withIgnoreVersionMismatchArgument_shouldNotThrowVersionMismatchError() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -280,14 +280,14 @@ class GenerateOperationManifestTests: XCTestCase {
     let command = try parse(options)
 
     // then
-    expect(
-      try command._run(
+    await expect {
+      try await command._run(
         codegenProvider: MockApolloCodegen.self
       )
-    ).toNot(throwError())
+    }.toNot(throwError())
   }
   
-  func test__generate__givenNoPackageResolvedFile__shouldNotThrowVersionMismatchError() throws {
+  func test__generate__givenNoPackageResolvedFile__shouldNotThrowVersionMismatchError() async throws {
     // given
     let mockConfiguration = ApolloCodegenConfiguration.mock()
 
@@ -308,11 +308,11 @@ class GenerateOperationManifestTests: XCTestCase {
     let command = try parse(options)
 
     // then
-    expect(
-      try command._run(
+    await expect {
+      try await command._run(
         codegenProvider: MockApolloCodegen.self
       )
-    ).toNot(throwError())
+    }.toNot(throwError())
   }
   
 }
