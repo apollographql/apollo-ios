@@ -94,6 +94,6 @@ extension GraphQLResponse: Hashable where Data: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(body)
     hasher.combine(rootKey)
-    hasher.combine(variables?._jsonEncodableValue?._jsonValue)
+    hasher.combine(variables?._jsonEncodableObject._jsonValue)
   }
 }
