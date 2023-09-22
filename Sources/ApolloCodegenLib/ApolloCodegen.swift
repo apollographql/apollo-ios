@@ -430,7 +430,7 @@ public class ApolloCodegen {
           .generate(forConfig: config, fileManager: fileManager)
       }
     }
-
+// TEST CHANGE
     var operationIDsFileGenerator: OperationManifestFileGenerator?
     if itemsToGenerate.contains(.operationManifest) {
       operationIDsFileGenerator = OperationManifestFileGenerator(config: config)
