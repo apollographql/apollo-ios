@@ -71,6 +71,8 @@ public extension GraphQLOperation {
     return nil
   }
 
+  /// `True` if any selection set, or nested selection set, within the operation contains any
+  /// fragment marked with the `@defer` directive.
   static var hasDeferredFragments: Bool {
     false
   }
