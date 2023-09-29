@@ -1,0 +1,319 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Foundation",
+    "externalID" : "s:e:s:10Foundation3URLV16ApolloCodegenLibE011isDirectoryB0Sbvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "extension"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "preciseIdentifier" : "s:10Foundation3URLV",
+        "text" : "URL"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "ApolloCodegenLib",
+        "relatedModules" : [
+          "Foundation"
+        ]
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "URL"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Extended Structure",
+    "symbolKind" : "extension",
+    "title" : "URL"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "extension"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:10Foundation3URLV",
+              "text" : "URL"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/childFileURL(fileName:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/childFolderURL(folderName:)",
+        "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/parentFolderURL()"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/apollocodegenlib\/foundation\/url"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib": {
+  "abstract" : [
+    {
+      "text" : "A robust code generation engine for GraphQL operations.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "ApolloCodegenLib",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Foundation",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/foundation"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation/URL": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "extension"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "URL"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "URL",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/foundation\/url"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation/URL/childFileURL(fileName:)": {
+  "abstract" : [
+    {
+      "text" : "Adds the filename to the caller to get the full URL of a file",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "childFileURL"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "fileName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/childFileURL(fileName:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "childFileURL(fileName:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/foundation\/url\/childfileurl(filename:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation/URL/childFolderURL(folderName:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "childFolderURL"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "folderName"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/childFolderURL(folderName:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "childFolderURL(folderName:)",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/foundation\/url\/childfolderurl(foldername:)"
+},
+"doc://ApolloCodegenLib/documentation/ApolloCodegenLib/Foundation/URL/parentFolderURL()": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parentFolderURL"
+    },
+    {
+      "kind" : "text",
+      "text" : "() -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    }
+  ],
+  "identifier" : "doc:\/\/ApolloCodegenLib\/documentation\/ApolloCodegenLib\/Foundation\/URL\/parentFolderURL()",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parentFolderURL()",
+  "type" : "topic",
+  "url" : "\/documentation\/apollocodegenlib\/foundation\/url\/parentfolderurl()"
+}
+}
+}

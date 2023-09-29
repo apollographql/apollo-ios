@@ -52,7 +52,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription-ws8y",
+                    "path" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -97,11 +97,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription-45kmv",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/failurereason",
@@ -927,7 +922,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/errordescription-3qusm",
+                    "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -956,11 +951,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/errordescription-6hc58",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/interceptorrequestchain\/chainerror\/failurereason",
@@ -1145,7 +1135,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription-8ajg9",
+                    "path" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -1174,11 +1164,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/errordescription-10ouu",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/maxretryinterceptor\/retryerror\/failurereason",
@@ -1370,12 +1355,12 @@
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-eycz",
+                "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname",
                 "title" : "var clientName: String",
                 "type" : "property"
               },
               {
-                "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-7dkl1",
+                "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion",
                 "title" : "var clientVersion: String",
                 "type" : "property"
               },
@@ -1424,20 +1409,6 @@
               },
               {
                 "children" : [
-                  {
-                    "title" : "Instance Properties",
-                    "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-4ciz",
-                    "title" : "var clientName: String",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-4ozh0",
-                    "title" : "var clientVersion: String",
-                    "type" : "property"
-                  },
                   {
                     "title" : "Instance Methods",
                     "type" : "groupMarker"
@@ -1706,7 +1677,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-2rch3",
+                    "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -1735,11 +1706,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-4oqmn",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/failurereason",
@@ -2309,7 +2275,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription-1xiwl",
+                    "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -2354,11 +2320,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/errordescription-970yf",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/automaticpersistedqueryinterceptor\/apqerror\/failurereason",
@@ -2478,7 +2439,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/errordescription-9dqak",
+                    "path" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -2523,11 +2484,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/errordescription-3ht8r",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/cachewriteinterceptor\/cachewriteerror\/failurereason",
@@ -2732,12 +2688,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/graphqlerror\/errordescription-4aose",
-                    "title" : "var errorDescription: String?",
-                    "type" : "property"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/graphqlerror\/errordescription-4rxtd",
+                    "path" : "\/documentation\/apollo\/graphqlerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -2773,7 +2724,7 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-f0my",
+                "path" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription",
                 "title" : "var errorDescription: String?",
                 "type" : "property"
               },
@@ -2812,11 +2763,6 @@
                   {
                     "title" : "Instance Properties",
                     "type" : "groupMarker"
-                  },
-                  {
-                    "path" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-3s67q",
-                    "title" : "var errorDescription: String?",
-                    "type" : "property"
                   },
                   {
                     "path" : "\/documentation\/apollo\/graphqlexecutionerror\/failurereason",
@@ -2936,7 +2882,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription-1nwmf",
+                    "path" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -2965,11 +2911,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/errordescription-655nn",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/graphqlfile\/graphqlfileerror\/failurereason",
@@ -3251,7 +3192,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror\/errordescription-3lpex",
+                    "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -3280,11 +3221,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror\/errordescription-2tmz8",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/jsonresponseparsinginterceptor\/jsonresponseparsingerror\/failurereason",
@@ -3390,7 +3326,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-3qwve",
+                    "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -3435,11 +3371,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-54of6",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/failurereason",
@@ -3776,7 +3707,7 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-6mkgn",
+                    "path" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription",
                     "title" : "var errorDescription: String?",
                     "type" : "property"
                   },
@@ -3810,11 +3741,6 @@
                       {
                         "title" : "Instance Properties",
                         "type" : "groupMarker"
-                      },
-                      {
-                        "path" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/errordescription-391dx",
-                        "title" : "var errorDescription: String?",
-                        "type" : "property"
                       },
                       {
                         "path" : "\/documentation\/apollo\/responsecodeinterceptor\/responsecodeerror\/failurereason",
@@ -4108,7 +4034,7 @@
                 "type" : "groupMarker"
               },
               {
-                "path" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription-2j9a2",
+                "path" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription",
                 "title" : "var errorDescription: String?",
                 "type" : "property"
               },
@@ -4155,11 +4081,6 @@
                     "type" : "groupMarker"
                   },
                   {
-                    "path" : "\/documentation\/apollo\/graphqlhttprequesterror\/errordescription-9ka1s",
-                    "title" : "var errorDescription: String?",
-                    "type" : "property"
-                  },
-                  {
                     "path" : "\/documentation\/apollo\/graphqlhttprequesterror\/failurereason",
                     "title" : "var failureReason: String?",
                     "type" : "property"
@@ -4183,6 +4104,95 @@
             "path" : "\/documentation\/apollo\/graphqlhttprequesterror",
             "title" : "GraphQLHTTPRequestError",
             "type" : "enum"
+          },
+          {
+            "title" : "Extended Modules",
+            "type" : "groupMarker"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Extended Protocols",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Initializers",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/apolloapi\/rootselectionset\/init(data:variables:)",
+                    "title" : "init(data: JSONObject, variables: [String : GraphQLOperationVariableValue]?) throws",
+                    "type" : "init"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/apolloapi\/rootselectionset",
+                "title" : "RootSelectionSet",
+                "type" : "extension"
+              },
+              {
+                "title" : "Extended Types",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Extended Structures",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "children" : [
+                      {
+                        "title" : "Instance Methods",
+                        "type" : "groupMarker"
+                      },
+                      {
+                        "path" : "\/documentation\/apollo\/apolloapi\/selection\/field\/cachekey(with:)",
+                        "title" : "func cacheKey(with: [String : GraphQLOperationVariableValue]?) throws -> String",
+                        "type" : "method"
+                      }
+                    ],
+                    "path" : "\/documentation\/apollo\/apolloapi\/selection\/field",
+                    "title" : "Selection.Field",
+                    "type" : "extension"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/apolloapi\/selection",
+                "title" : "Selection",
+                "type" : "extension"
+              }
+            ],
+            "path" : "\/documentation\/apollo\/apolloapi",
+            "title" : "ApolloAPI",
+            "type" : "extension"
+          },
+          {
+            "children" : [
+              {
+                "title" : "Extended Structures",
+                "type" : "groupMarker"
+              },
+              {
+                "children" : [
+                  {
+                    "title" : "Operators",
+                    "type" : "groupMarker"
+                  },
+                  {
+                    "path" : "\/documentation\/apollo\/swift\/dictionary\/+=(_:_:)",
+                    "title" : "static func += (inout Dictionary<Key, Value>, Dictionary<Key, Value>)",
+                    "type" : "op"
+                  }
+                ],
+                "path" : "\/documentation\/apollo\/swift\/dictionary",
+                "title" : "Dictionary",
+                "type" : "extension"
+              }
+            ],
+            "path" : "\/documentation\/apollo\/swift",
+            "title" : "Swift",
+            "type" : "extension"
           }
         ],
         "path" : "\/documentation\/apollo",

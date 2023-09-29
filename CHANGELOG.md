@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.5.1
+
+### Improvement
+
+- **Added `OutputOptions` property to codegen for marking generated classes as `final` ([#3189](https://github.com/apollographql/apollo-ios/pull/3189)):** _Thank you to [@Mordil](https://github.com/Mordil) for the contribution._
+
+### Fixed
+
+- **Codegen `itemsToGenerate` option for `.all` not generating an operation manifest ([#3215](https://github.com/apollographql/apollo-ios/pull/3215)):** _Thank you to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for finding and fixing the issue._
+- **Codegen operation manifest inadvertantly being generated twice ([#3225](https://github.com/apollographql/apollo-ios/pull/3225)):** _Thank you to [@jimisaacs](https://github.com/jimisaacs) for finding and fixing the issue._
+
 ## v1.5.0
 
 ### New

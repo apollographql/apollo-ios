@@ -101,7 +101,7 @@
   "topicSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
+        "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/pathString",
         "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/underlying"
       ],
@@ -205,7 +205,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/graphqlexecutionerror\/localizederror-implementations"
 },
-"doc://Apollo/documentation/Apollo/GraphQLExecutionError/errorDescription-f0my": {
+"doc://Apollo/documentation/Apollo/GraphQLExecutionError/errorDescription": {
   "abstract" : [
     {
       "text" : "A description of the error which includes the path where the error occurred.",
@@ -239,12 +239,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription-f0my",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/GraphQLExecutionError\/errorDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription-f0my"
+  "url" : "\/documentation\/apollo\/graphqlexecutionerror\/errordescription"
 },
 "doc://Apollo/documentation/Apollo/GraphQLExecutionError/pathString": {
   "abstract" : [
