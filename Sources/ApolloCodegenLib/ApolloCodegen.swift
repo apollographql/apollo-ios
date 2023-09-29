@@ -5,6 +5,7 @@ import OrderedCollections
 #if os(macOS)
 
 /// A class to facilitate running code generation
+@available(*, deprecated, message: "Starting with the 1.6.0 release, the code generation library will be its own SPM package which you will need to add as a dependency. For more details see here: https://github.com/apollographql/apollo-ios/issues/3240")
 public class ApolloCodegen {
 
   // MARK: Public
