@@ -108,7 +108,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3"
+        "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription"
       ],
       "title" : "Instance Properties"
     },
@@ -320,7 +320,7 @@
   "type" : "topic",
   "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/dataforrequestnotfound(request:)"
 },
-"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription-2rch3": {
+"doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/errorDescription": {
   "abstract" : [
 
   ],
@@ -351,12 +351,12 @@
       "text" : "?"
     }
   ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription-2rch3",
+  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/URLSessionClient\/URLSessionClientError\/errorDescription",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "errorDescription",
   "type" : "topic",
-  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription-2rch3"
+  "url" : "\/documentation\/apollo\/urlsessionclient\/urlsessionclienterror\/errordescription"
 },
 "doc://Apollo/documentation/Apollo/URLSessionClient/URLSessionClientError/missingMultipartBoundary": {
   "abstract" : [

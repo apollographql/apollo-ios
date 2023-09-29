@@ -70,7 +70,7 @@
               "text" : "@"
             },
             {
-              "kind" : "typeIdentifier",
+              "kind" : "attribute",
               "preciseIdentifier" : "s:6Apollo6AtomicC",
               "text" : "Atomic"
             },

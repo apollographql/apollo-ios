@@ -63,7 +63,10 @@
     ],
     "modules" : [
       {
-        "name" : "ApolloWebSocket"
+        "name" : "ApolloWebSocket",
+        "relatedModules" : [
+          "Apollo"
+        ]
       }
     ],
     "role" : "symbol",

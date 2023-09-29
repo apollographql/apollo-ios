@@ -33,14 +33,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-4ciz",
-        "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-4ozh0"
-      ],
-      "title" : "Instance Properties"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
         "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/addApolloClientHeaders(to:)"
       ],
       "title" : "Instance Methods"
@@ -194,74 +186,6 @@
   "title" : "addApolloClientHeaders(to:)",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/requestchainnetworktransport\/addapolloclientheaders(to:)"
-},
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientName-4ciz": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "clientName"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientName-4ciz",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "clientName",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientname-4ciz"
-},
-"doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/clientVersion-4ozh0": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "clientVersion"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/RequestChainNetworkTransport\/clientVersion-4ozh0",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "clientVersion",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/requestchainnetworktransport\/clientversion-4ozh0"
 },
 "doc://Apollo/documentation/Apollo/RequestChainNetworkTransport/defaultClientName": {
   "abstract" : [

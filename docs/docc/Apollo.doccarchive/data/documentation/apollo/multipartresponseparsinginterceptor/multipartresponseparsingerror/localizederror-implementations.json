@@ -34,7 +34,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription-54of6",
         "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/recoverySuggestion"
@@ -122,44 +121,6 @@
   "title" : "MultipartResponseParsingInterceptor.MultipartResponseParsingError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror"
-},
-"doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/MultipartResponseParsingError/errorDescription-54of6": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/MultipartResponseParsingInterceptor\/MultipartResponseParsingError\/errorDescription-54of6",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/multipartresponseparsinginterceptor\/multipartresponseparsingerror\/errordescription-54of6"
 },
 "doc://Apollo/documentation/Apollo/MultipartResponseParsingInterceptor/MultipartResponseParsingError/failureReason": {
   "abstract" : [

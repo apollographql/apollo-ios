@@ -34,7 +34,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription-45kmv",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/failureReason",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/helpAnchor",
         "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/recoverySuggestion"
@@ -138,44 +137,6 @@
   "title" : "ApolloClient.ApolloClientError",
   "type" : "topic",
   "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror"
-},
-"doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/errorDescription-45kmv": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "errorDescription"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    },
-    {
-      "kind" : "text",
-      "text" : "?"
-    }
-  ],
-  "identifier" : "doc:\/\/Apollo\/documentation\/Apollo\/ApolloClient\/ApolloClientError\/errorDescription-45kmv",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "errorDescription",
-  "type" : "topic",
-  "url" : "\/documentation\/apollo\/apolloclient\/apolloclienterror\/errordescription-45kmv"
 },
 "doc://Apollo/documentation/Apollo/ApolloClient/ApolloClientError/failureReason": {
   "abstract" : [
