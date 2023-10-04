@@ -80,11 +80,13 @@ extension ApolloClient: ApolloClientProtocol {
   @discardableResult public func fetch<Query: GraphQLQuery>(query: Query,
                                                             cachePolicy: CachePolicy = .default,
                                                             contextIdentifier: UUID? = nil,
+                                                            context: RequestContext? = nil,
                                                             queue: DispatchQueue = .main,
                                                             resultHandler: GraphQLResultHandler<Query.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
                                       contextIdentifier: contextIdentifier,
+                                      context: context,
                                       callbackQueue: queue) { result in
       resultHandler?(result)
     }
@@ -92,10 +94,12 @@ extension ApolloClient: ApolloClientProtocol {
 
   public func watch<Query: GraphQLQuery>(query: Query,
                                          cachePolicy: CachePolicy = .default,
+                                         context: RequestContext? = nil,
                                          callbackQueue: DispatchQueue = .main,
                                          resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query> {
     let watcher = GraphQLQueryWatcher(client: self,
                                       query: query,
+                                      context: context,
                                       callbackQueue: callbackQueue,
                                       resultHandler: resultHandler)
     watcher.fetch(cachePolicy: cachePolicy)
@@ -105,12 +109,14 @@ extension ApolloClient: ApolloClientProtocol {
   @discardableResult
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                                  publishResultToStore: Bool = true,
+                                                 context: RequestContext? = nil,
                                                  queue: DispatchQueue = .main,
                                                  resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(
       operation: mutation,
       cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
       contextIdentifier: nil,
+      context: context,
       callbackQueue: queue,
       completionHandler: { result in
         resultHandler?(result)
@@ -121,6 +127,7 @@ extension ApolloClient: ApolloClientProtocol {
   @discardableResult
   public func upload<Operation: GraphQLOperation>(operation: Operation,
                                                   files: [GraphQLFile],
+                                                  context: RequestContext? = nil,
                                                   queue: DispatchQueue = .main,
                                                   resultHandler: GraphQLResultHandler<Operation.Data>? = nil) -> Cancellable {
     guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
@@ -133,17 +140,20 @@ extension ApolloClient: ApolloClientProtocol {
 
     return uploadingTransport.upload(operation: operation,
                                      files: files,
+                                     context: context,
                                      callbackQueue: queue) { result in
       resultHandler?(result)
     }
   }
   
   public func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
+                                                           context: RequestContext? = nil,
                                                            queue: DispatchQueue = .main,
                                                            resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable {
     return self.networkTransport.send(operation: subscription,
                                       cachePolicy: .default,
                                       contextIdentifier: nil,
+                                      context: context,
                                       callbackQueue: queue,
                                       completionHandler: resultHandler)
   }
