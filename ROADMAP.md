@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-09-07**
+**Last updated: 2023-10-05**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -31,20 +31,22 @@ _Approximate Date: TBD - PR from an external contributor is in review_
 
 ### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
 
-_Approximate Date: October 2023_
+_Approximate Date: 2023-10-31_ 👻
 
 The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS will release support for this directive in a `1.x` minor version.  This will be released as an experimental feature.
 
-### [Improve fragment merging and code generation performance](https://github.com/apollographql/apollo-ios/milestone/67)
+### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: 2023-10-06_
+_Approximate Date: to be released incrementally, beginning in October 2023 with 1.7.0_
 
-- Add configuration for disabling merging of fragment fields
-- Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
+- This effort encompasses several smaller features:
+    - Make codegen support Swift concurrency (`async`/`await`)
+    - Add configuration for disabling merging of fragment fields
+    - Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: Late October 2023_
+_Approximate Date: December 2023_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for

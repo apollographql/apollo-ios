@@ -1,7 +1,8 @@
 #!/bin/bash
 
-source "$(dirname "$0")/version-constants.sh"
+directory=$(dirname "$0")
+source "$directory/version-constants.sh"
 
-prefix="$VERSION_CONFIG_VAR = "
-version_config=$(cat $VERSION_CONFIG_FILE)
-echo "${version_config:${#prefix}}"
+constantsFile=$(cat $directory/../$APOLLO_CONSTANTS_FILE)
+currentVersion=$(echo $constantsFile | sed 's/^.*ApolloVersion: String = "\([^"]*\).*/\1/')
+echo $currentVersion

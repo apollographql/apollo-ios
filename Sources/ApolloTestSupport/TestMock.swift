@@ -1,7 +1,7 @@
 #if !COCOAPODS
 @_exported @testable import ApolloAPI
-@testable import Apollo
 #endif
+@testable import Apollo
 import Foundation
 
 @dynamicMemberLookup
@@ -97,7 +97,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
   public var _selectionSetMockData: JSONObject {
     _data.mapValues {
-      if let mock = $0 as? AnyMock {
+      if let mock = $0.base as? AnyMock {
         return mock._selectionSetMockData
       }
       if let mockArray = $0 as? Array<Any> {
@@ -188,20 +188,27 @@ fileprivate extension Array {
   }
 
   func _unsafelyConvertToSelectionSetData() -> [AnyHashable?] {
-    map { element in
-      switch element {
-      case let element as AnyMock:
-        return element._selectionSetMockData
+    map(_unsafelyConvertToSelectionSetData(element:))
+  }
 
-      case let innerArray as Array<Any>:
-        return innerArray._unsafelyConvertToSelectionSetData()
+  private func _unsafelyConvertToSelectionSetData(element: Any) -> AnyHashable? {
+    switch element {
+    case let element as AnyMock:
+      return element._selectionSetMockData
 
-      case let element as AnyHashable:
+    case let innerArray as Array<Any>:
+      return innerArray._unsafelyConvertToSelectionSetData()
+
+    case let element as AnyHashable:
+      if DataDict._AnyHashableCanBeCoerced {
         return element
 
-      default:
-        return nil
+      } else {
+        return _unsafelyConvertToSelectionSetData(element: element.base)
       }
+
+    default:
+      return nil
     }
   }
 }

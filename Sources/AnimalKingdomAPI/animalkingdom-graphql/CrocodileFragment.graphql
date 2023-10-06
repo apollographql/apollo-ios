@@ -1,5 +1,0 @@
-fragment CrocodileFragment on Crocodile {
-    species
-    age
-    tag(id: "albino")
-}

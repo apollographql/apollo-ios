@@ -1,6 +1,0 @@
-#include "../Shared/Workspace-Universal-Framework.xcconfig"
-#include "../Shared/Workspace-Test-Deployment-Targets.xcconfig"
-
-APPLICATION_EXTENSION_API_ONLY = NO
-FRAMEWORK_SEARCH_PATHS = $(DEVELOPER_FRAMEWORKS_DIR) $(PLATFORM_DIR)/Developer/Library/Frameworks
-OTHER_LDFLAGS = -weak_framework XCTest
