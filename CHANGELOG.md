@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.6.0
+
+The Apollo iOS ecosystem is changing in the 1.6.0 release in order to provide a better development experience for users. For most users nothing will change, while some users will see a minor difference. The biggest change is that the `ApolloCodegenLib` is now in a separate repo/package that will need to be included as its own dependency from [apollo-ios-codegen](https://github.com/apollographql/apollo-ios-codegen) if you are doing your code generation through Swift. If you are using the codegen CLI then no changes are necessary.
+
+For a detailed breakdown of the changes please see this [GitHub Issue](https://github.com/apollographql/apollo-ios/issues/3240).
+
+### Fixed
+
+- **Fixed crashes in iOS 14.4 and below ([#61](https://github.com/apollographql/apollo-ios-dev/pull/61)):** _Thank you to [matijakregarGH](https://github.com/matijakregarGH) for reporting the issue._
+
 ## v1.5.2
 
 The purpose of this release is to provide a deprecation message to users of `ApolloCodegenLib` who are scripting their code generation in advance of an upcoming change to our libraries and repo structure. Beginning with the upcoming 1.6.0 release the code generation libraries will be their own SPM package in their own repo which will require you to add a new dependency to you project in order for your code generation scripting to compile. More information can be found in our [announcement](https://github.com/apollographql/apollo-ios/issues/3240) of this change.
