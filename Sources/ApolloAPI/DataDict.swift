@@ -151,13 +151,13 @@ extension DataDict {
   /// In iOS versions 14.4 and lower, `AnyHashable` coercion does not work. On these platforms,
   /// we need to do some additional unwrapping and casting of the values to avoid crashes and other
   /// run time bugs.
-  public static var _AnyHashableCanBeCoerced: Bool {
+  public static let _AnyHashableCanBeCoerced: Bool = {
     if #available(iOS 14.5, *) {
       return true
     } else {
       return false
     }
-  }
+  }()
 
 }
 
@@ -195,7 +195,7 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
       case .none:
         self = .none
       case .some(let hashable):
-      if DataDict._AnyHashableCanBeCoerced && hashable == DataDict._NullValue {
+      if !DataDict._AnyHashableCanBeCoerced && hashable == DataDict._NullValue {
         self = .none
       } else if let optional = hashable.base as? Optional<AnyHashable>, optional == nil {
         self = .none
