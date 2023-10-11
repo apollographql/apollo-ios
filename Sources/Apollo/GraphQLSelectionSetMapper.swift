@@ -45,7 +45,7 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   }
 
   func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
-    return DataDict.NullValue
+    return DataDict._NullValue
   }
 
   func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
@@ -85,12 +85,4 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
   func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
     return T.init(_dataDict: rootValue)
   }
-}
-
-// MARK: - Null Value Definition
-extension DataDict {
-  /// A common value used to represent a null value in a `DataDict`.
-  ///
-  /// This value can be cast to `NSNull` and will bridge automatically.
-  static let NullValue = AnyHashable(Optional<AnyHashable>.none)
 }

@@ -24,11 +24,13 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server and when data should be loaded from the local cache.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
                                   contextIdentifier: UUID?,
+                                  context: RequestContext?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> Cancellable
 
@@ -37,11 +39,13 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Parameters:
   ///   - query: The query to fetch.
   ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the local cache.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - callbackQueue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy,
+                                  context: RequestContext?,
                                   callbackQueue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 
@@ -50,11 +54,13 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Parameters:
   ///   - mutation: The mutation to perform.
   ///   - publishResultToStore: If `true`, this will publish the result returned from the operation to the cache store. Default is `true`.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                           publishResultToStore: Bool,
+                                          context: RequestContext?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
 
@@ -63,11 +69,13 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Parameters:
   ///   - operation: The operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - completionHandler: The completion handler to execute when the request completes or errors. Note that an error will be returned If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   /// - Returns: An object that can be used to cancel an in progress request.
   func upload<Operation: GraphQLOperation>(operation: Operation,
                                            files: [GraphQLFile],
+                                           context: RequestContext?,
                                            queue: DispatchQueue,
                                            resultHandler: GraphQLResultHandler<Operation.Data>?) -> Cancellable
 
@@ -75,11 +83,13 @@ public protocol ApolloClientProtocol: AnyObject {
   ///
   /// - Parameters:
   ///   - subscription: The subscription to subscribe to.
+  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - fetchHTTPMethod: The HTTP Method to be used.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress subscription.
   func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
+                                                    context: RequestContext?,
                                                     queue: DispatchQueue,
                                                     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> Cancellable
 }

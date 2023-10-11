@@ -47,18 +47,21 @@ extension SplitNetworkTransport: NetworkTransport {
   public func send<Operation: GraphQLOperation>(operation: Operation,
                                                 cachePolicy: CachePolicy,
                                                 contextIdentifier: UUID? = nil,
+                                                context: RequestContext? = nil,
                                                 callbackQueue: DispatchQueue = .main,
                                                 completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     if Operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
                                             contextIdentifier: contextIdentifier,
+                                            context: context,
                                             callbackQueue: callbackQueue,
                                             completionHandler: completionHandler)
     } else {
       return uploadingNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
                                             contextIdentifier: contextIdentifier,
+                                            context: context,
                                             callbackQueue: callbackQueue,
                                             completionHandler: completionHandler)
     }
@@ -72,10 +75,12 @@ extension SplitNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
+    context: RequestContext?,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     return uploadingNetworkTransport.upload(operation: operation,
                                             files: files,
+                                            context: context,
                                             callbackQueue: callbackQueue,
                                             completionHandler: completionHandler)
   }
