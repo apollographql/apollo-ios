@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.6.1
+
+### Fixed
+
+- **Fix bug with AnyHashable coercion ([#68](https://github.com/apollographql/apollo-ios-dev/pull/68)):** This is an additional fix for the crashes on iOS 14.4.1.
+
 ## v1.6.0
 
 The Apollo iOS ecosystem is changing in the 1.6.0 release in order to provide a better development experience for users. For most users nothing will change, while some users will see a minor difference. The biggest change is that the `ApolloCodegenLib` is now in a separate repo/package that will need to be included as its own dependency from [apollo-ios-codegen](https://github.com/apollographql/apollo-ios-codegen) if you are doing your code generation through Swift. If you are using the codegen CLI then no changes are necessary.
