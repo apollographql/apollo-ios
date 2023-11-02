@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.7.0
+
+**`ApolloCodegenLib` Now Uses Swift Concurrency**
+To improve the performance of the code generation, the `ApolloCodegenLib` now uses `async/await`. Code generation is now parallelized and should complete much faster for users with a large number of GraphQL files.
+This means that the entry point function, `ApolloCodegen.build(with configuration:)` is now an `async` function. For users using the `ApolloCodegenLib` directly, you will need to make your call sites into this function use `async/await`. In most cases, this requires minimal code changes. Please see the [1.7.0 migration guide](https://www.apollographql.com/docs/ios/migrations/1.7) for information on how to upgrade.
+
+See PR [#57](https://github.com/apollographql/apollo-ios-dev/pull/57).
+
+### Fixed
+
+- **Fixed a bug with ApolloAPI.Object clashing with custom objects name Object ([#94](https://github.com/apollographql/apollo-ios-dev/pull/94)):** _Thank you to [215eight](https://github.com/215eight) for reporting the issue._
+
 ## v1.6.1
 
 ### Fixed
