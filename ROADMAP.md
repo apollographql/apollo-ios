@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-10-25**
+**Last updated: 2023-11-02**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -28,6 +28,7 @@ _Approximate Date: TBD - PR from an external contributor is in review_
 - Support for Relay-style (cursor-based), offset-based, and arbitrary pagination patterns
 - `@connection` directive support
 - This feature will be considered experimental, meaning that the public API could change in backwards-incompatible ways until it is declared stable in a future release
+- This package will be versioned independently from Apollo iOS, beginning with `0.1.0`
 
 ### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
 
@@ -39,16 +40,16 @@ We plan to release `@defer` support in a feature branch first, then will move it
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
-_Approximate Date: to be released incrementally, beginning in October 2023 with 1.7.0_
+_Approximate Date: to be released incrementally_
 
 - This effort encompasses several smaller features:
-    - Make codegen support Swift concurrency (`async`/`await`)
+    - ✅ Make codegen support Swift concurrency (`async`/`await`): available in v1.7.0
     - Add configuration for disabling merging of fragment fields
     - Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: December 2023_
+_Approximate Date: February 2024_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
