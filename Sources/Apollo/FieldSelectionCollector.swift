@@ -77,6 +77,8 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                             info: info)
         }
 
+      case .deferred(_, _, _):
+        assertionFailure("Defer execution must be implemented (#3145).")
       case let .fragment(fragment):
         groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
@@ -84,6 +86,7 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                           for: object,
                           info: info)
 
+      // TODO: _ is fine for now but will need to be handled in #3145
       case let .inlineFragment(typeCase):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
@@ -145,7 +148,8 @@ struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
                           for: object,
                           info: info,
                           asConditionalFields: true)
-
+      case .deferred(_, _, _):
+        assertionFailure("Defer execution must be implemented (#3145).")
       case let .fragment(fragment):
         if groupedFields.fulfilledFragments.contains(type: fragment) {
           try collectFields(from: fragment.__selections,

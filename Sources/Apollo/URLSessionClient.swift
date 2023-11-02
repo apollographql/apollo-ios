@@ -271,7 +271,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     taskData.append(additionalData: data)
 
     if let httpResponse = dataTask.response as? HTTPURLResponse, httpResponse.isMultipart {
-      guard let boundaryString = httpResponse.multipartBoundary else {
+      let multipartHeaderComponents = httpResponse.multipartHeaderComponents
+      guard let boundaryString = multipartHeaderComponents.boundary else {
         taskData.completionBlock(.failure(URLSessionClientError.missingMultipartBoundary))
         return
       }

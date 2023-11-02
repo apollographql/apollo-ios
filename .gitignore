@@ -21,6 +21,9 @@ xcuserdata/
 *.xcscmblueprint
 .DS_Store
 
+## Visual Studio Code
+.vscode/launch.json
+
 ## Obj-C/Swift specific
 *.hmap
 *.ipa

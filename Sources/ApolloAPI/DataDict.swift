@@ -44,11 +44,21 @@ public struct DataDict: Hashable {
     _storage.fulfilledFragments
   }
 
+  @inlinable public var _deferredFragments: Set<ObjectIdentifier> {
+    _storage.deferredFragments
+  }
+
+  #warning("TODO, remove deferredFragments default value when we set these up in executor")
   public init(
     data: [String: AnyHashable],
-    fulfilledFragments: Set<ObjectIdentifier>
+    fulfilledFragments: Set<ObjectIdentifier>,
+    deferredFragments: Set<ObjectIdentifier> = []
   ) {
-    self._storage = .init(data: data, fulfilledFragments: fulfilledFragments)
+    self._storage = .init(
+      data: data,
+      fulfilledFragments: fulfilledFragments,
+      deferredFragments: deferredFragments
+    )
   }
 
   @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
@@ -73,7 +83,7 @@ public struct DataDict: Hashable {
       yield &value
     }
   }
-  
+
   @inlinable public subscript<T: SelectionSetEntityValue>(_ key: String) -> T {
     get { T.init(_fieldData: _data[key]) }
     set {
@@ -108,27 +118,36 @@ public struct DataDict: Hashable {
   @usableFromInline class _Storage: Hashable {
     @usableFromInline var data: [String: AnyHashable]
     @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
+    @usableFromInline let deferredFragments: Set<ObjectIdentifier>
 
     init(
       data: [String: AnyHashable],
-      fulfilledFragments: Set<ObjectIdentifier>
+      fulfilledFragments: Set<ObjectIdentifier>,
+      deferredFragments: Set<ObjectIdentifier>
     ) {
       self.data = data
       self.fulfilledFragments = fulfilledFragments
+      self.deferredFragments = deferredFragments
     }
 
     @usableFromInline static func ==(lhs: DataDict._Storage, rhs: DataDict._Storage) -> Bool {
       lhs.data == rhs.data &&
-      lhs.fulfilledFragments == rhs.fulfilledFragments
+      lhs.fulfilledFragments == rhs.fulfilledFragments &&
+      lhs.deferredFragments == rhs.deferredFragments
     }
 
     @usableFromInline func hash(into hasher: inout Hasher) {
       hasher.combine(data)
       hasher.combine(fulfilledFragments)
+      hasher.combine(deferredFragments)
     }
 
     @usableFromInline func copy() -> _Storage {
-      _Storage(data: self.data, fulfilledFragments: self.fulfilledFragments)
+      _Storage(
+        data: self.data,
+        fulfilledFragments: self.fulfilledFragments,
+        deferredFragments: self.deferredFragments
+      )
     }
   }
 }
