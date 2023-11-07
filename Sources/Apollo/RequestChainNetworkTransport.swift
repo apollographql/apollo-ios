@@ -105,9 +105,8 @@ open class RequestChainNetworkTransport: NetworkTransport {
         name: "Accept",
         value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseSubscriptionParser.protocolSpec),application/json"
       )
-    }
 
-    if Operation.hasDeferredFragments {
+    } else {
       request.addHeader(
         name: "Accept",
         value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseDeferParser.protocolSpec),application/json"
