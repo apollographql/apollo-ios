@@ -9,6 +9,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   public enum ParsingError: Error, LocalizedError, Equatable {
     case noResponseToParse
     case cannotParseResponse
+    case cannotParseResponseData
 
     public var errorDescription: String? {
       switch self {
@@ -16,12 +17,15 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
         return "There is no response to parse. Check the order of your interceptors."
       case .cannotParseResponse:
         return "The response data could not be parsed."
+      case .cannotParseResponseData:
+        return "The response data could not be parsed."
       }
     }
   }
 
   private static let responseParsers: [String: MultipartResponseSpecificationParser.Type] = [
-    MultipartResponseSubscriptionParser.protocolSpec: MultipartResponseSubscriptionParser.self
+    MultipartResponseSubscriptionParser.protocolSpec: MultipartResponseSubscriptionParser.self,
+    MultipartResponseDeferParser.protocolSpec: MultipartResponseDeferParser.self,
   ]
 
   public var id: String = UUID().uuidString
@@ -71,36 +75,47 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       return
     }
 
-    let dataHandler: ((Data) -> Void) = { data in
-      let response = HTTPResponse<Operation>(
-        response: response.httpResponse,
-        rawData: data,
-        parsedResponse: nil
-      )
-
-      chain.proceedAsync(
-        request: request,
-        response: response,
-        interceptor: self,
-        completion: completion
-      )
-    }
-
-    let errorHandler: ((Error) -> Void) = { parserError in
+    guard let dataString = String(data: response.rawData, encoding: .utf8) else {
       chain.handleErrorAsync(
-        parserError,
+        ParsingError.cannotParseResponseData,
         request: request,
         response: response,
         completion: completion
       )
+      return
     }
 
-    parser.parse(
-      data: response.rawData,
-      boundary: boundary,
-      dataHandler: dataHandler,
-      errorHandler: errorHandler
-    )
+    for chunk in dataString.components(separatedBy: "--\(boundary)") {
+      if chunk.isEmpty || chunk.isBoundaryMarker { continue }
+
+      switch parser.parse(chunk) {
+      case let .success(data):
+        // Some chunks can be successfully parsed but do not require to be passed on to the next
+        // interceptor, such as an HTTP subscription heartbeat message.
+        if let data {
+          let response = HTTPResponse<Operation>(
+            response: response.httpResponse,
+            rawData: data,
+            parsedResponse: nil
+          )
+
+          chain.proceedAsync(
+            request: request,
+            response: response,
+            interceptor: self,
+            completion: completion
+          )
+        }
+
+      case let .failure(parserError):
+        chain.handleErrorAsync(
+          parserError,
+          request: request,
+          response: response,
+          completion: completion
+        )
+      }
+    }
   }
 }
 
@@ -111,11 +126,20 @@ protocol MultipartResponseSpecificationParser {
   /// in an HTTP response.
   static var protocolSpec: String { get }
 
-  /// Function that will be called to process the response data.
-  static func parse(
-    data: Data,
-    boundary: String,
-    dataHandler: ((Data) -> Void),
-    errorHandler: ((Error) -> Void)
-  )
+  /// Called to process each chunk in a multipart response.
+  ///
+  /// The return value is a `Result` type that indicates whether the chunk was successfully parsed
+  /// or not. It is possible to return `.success` with a `nil` data value. This should only happen
+  /// when the chunk was successfully parsed but there is no action to take on the message, such as
+  /// a heartbeat message. Successful results with a `nil` data value will not be returned to the
+  /// user.
+  static func parse(_ chunk: String) -> Result<Data?, Error>
+}
+
+extension MultipartResponseSpecificationParser {
+  static var dataLineSeparator: StaticString { "\r\n\r\n" }
+}
+
+fileprivate extension String {
+  var isBoundaryMarker: Bool { self == "--" }
 }
