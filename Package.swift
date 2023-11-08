@@ -1,4 +1,4 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -64,6 +64,7 @@ let package = Package(
           description: "Installs the Apollo iOS Command line interface."),
         permissions: [
           .writeToPackageDirectory(reason: "Creates a symbolic link to the CLI executable in your project directory."),
+          .allowNetworkConnections(scope: .all(ports: []), reason: "Downloads the Apollo iOS CLI executable from the GitHub Release.")
         ]),
       dependencies: [],
       path: "Plugins/InstallCLI"

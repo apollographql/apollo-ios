@@ -5,24 +5,42 @@ import PackagePlugin
 struct InstallCLIPluginCommand: CommandPlugin {
 
   func performCommand(context: PackagePlugin.PluginContext, arguments: [String]) async throws {
-    var apolloDirectoryPath: Path? = nil
+    var apolloVersion: String? = nil
     let dependencies = context.package.dependencies
-    dependencies.forEach { dep in
+    try dependencies.forEach { dep in
       if dep.package.displayName == "Apollo" {
-          apolloDirectoryPath = dep.package.directory
+//          debugPrint("Apollo package directory - \(dep.package.directory)")
+//          debugPrint("Apollo package id - \(dep.package.id)")
+//          debugPrint("Apollo package origin - \(dep.package.origin)")
+//          debugPrint("Apollo package toolsVersion - \(dep.package.toolsVersion)")
+          let process = Process()
+          let path = try context.tool(named: "sh").path
+          process.executableURL = URL(fileURLWithPath: path.string)
+          process.arguments = ["\(dep.package.directory)/scripts/get-version.sh"]
+          let outputPipe = Pipe()
+          process.standardOutput = outputPipe
+          try process.run()
+          process.waitUntilExit()
+          
+          let data = outputPipe.fileHandleForReading.readDataToEndOfFile()
+          if let version = String(data: data, encoding: .utf8) {
+              apolloVersion = version.trimmingCharacters(in: .whitespacesAndNewlines)
+          }
       }
     }
-
-    guard let apolloPath = apolloDirectoryPath else {
-      fatalError("No Apollo dependency directory path")
-    }
+    
+    debugPrint("Apollo Version - \(apolloVersion)")
       
-    let process = Process()
-    let tarPath = try context.tool(named: "tar").path
-    process.executableURL = URL(fileURLWithPath: tarPath.string)
-    process.arguments = ["-xvf", "\(apolloPath)/CLI/apollo-ios-cli.tar.gz"]
-    try process.run()
-    process.waitUntilExit()
+//    guard let apolloPath = apolloDirectoryPath else {
+//      fatalError("No Apollo dependency directory path")
+//    }
+      
+//    let process = Process()
+//    let tarPath = try context.tool(named: "tar").path
+//    process.executableURL = URL(fileURLWithPath: tarPath.string)
+//    process.arguments = ["-xvf", "\(apolloPath)/CLI/apollo-ios-cli.tar.gz"]
+//    try process.run()
+//    process.waitUntilExit()
   }
 
   func createSymbolicLink(from: PackagePlugin.Path, to: PackagePlugin.Path) throws {
