@@ -12,7 +12,7 @@ then
 fi
 
 echo "Directory - $directory"
-APOLLO_VERSION=$(sh $directory/get-version.sh)
+APOLLO_VERSION=$(sh "$directory/get-version.sh")
 echo "Apollo Version - $APOLLO_VERSION"
 DOWNLOAD_URL="https://www.github.com/apollographql/apollo-ios/releases/download/$APOLLO_VERSION/apollo-ios-cli.tar.gz"
 echo "Download URL - $DOWNLOAD_URL"
