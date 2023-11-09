@@ -11,9 +11,10 @@ then
   exit 1
 fi
 
+echo "Directory - $directory"
 APOLLO_VERSION=$($directory/get-version.sh)
 DOWNLOAD_URL="https://www.github.com/apollographql/apollo-ios/releases/download/$APOLLO_VERSION/apollo-ios-cli.tar.gz"
-echo $DOWNLOAD_URL
+echo "Download URL - $DOWNLOAD_URL"
 FILE_PATH="$projectDir/apollo-ios-cli.tar.gz"
 curl -L "$DOWNLOAD_URL" -s -o "$FILE_PATH"
 tar -xvf "$FILE_PATH"
