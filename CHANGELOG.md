@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.7.1
+
+### Fixed
+
+- **Fixed inconsistent ordering of fragments in generated operation definitions  ([#130](https://github.com/apollographql/apollo-ios-dev/pull/130)):** In order to make the ordering of fragments consistent, they are not alphabetized. This is a change to the data that gets sent over the wire when making a network request for an operation with fragments. **[Persisted Queries](https://www.apollographql.com/docs/ios/fetching/persisted-queries) users should re-register their queries when upgrading to this version.** _Thank you to [@scottasoutherland](https://github.com/scottasoutherland) for reporting the issue._
+
+### Improvement
+
+- **Add initializer for `SelectionSet` that takes a `[String: Any]` JSON object ([#102](https://github.com/apollographql/apollo-ios-dev/pull/102)):** _Thank you to [@Cookiezby](https://github.com/Cookiezby) for the contribution._
+ 
+
 ## v1.7.0
 
 **`ApolloCodegenLib` Now Uses Swift Concurrency**
