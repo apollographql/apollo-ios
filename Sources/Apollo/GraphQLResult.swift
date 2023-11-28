@@ -63,7 +63,7 @@ extension GraphQLResult {
   
   private func convert(value: Any) -> Any {
       var val: Any = value
-      if let value = value as? ApolloAPI.DataDict {
+      if let value = value as? DataDict {
           val = value._data
       } else if let value = value as? CustomScalarType {
           val = value._jsonValue
