@@ -10,7 +10,7 @@ public protocol ApolloInterceptor {
   /// Each operation request has it's own interceptor request chain so the interceptors do not
   /// need to be uniquely identifiable between each and every request, only unique between the
   /// list of interceptors in a single request.
-  var id: String { get set }
+  var id: String { get }
   
   /// Called when this interceptor should do its work.
   ///
