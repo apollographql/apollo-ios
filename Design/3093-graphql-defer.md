@@ -66,7 +66,7 @@ public struct Fragments: FragmentContainer {
   @Deferred public var deferredFragmentFoo: DeferredFragmentFoo?
 }
 
-public struct DeferredFragmentFoo: AnimalKingdomAPI.InlineFragment, ApolloAPI.Deferrable {
+public struct DeferredFragmentFoo: AnimalKingdomAPI.InlineFragment {
 }
 ```
 
