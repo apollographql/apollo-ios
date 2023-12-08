@@ -53,13 +53,26 @@ public struct OperationDefinition {
   }
 }
 
+/// A unique identifier used as a key to map a deferred selection set type to an incremental
+/// response label and path.
+public struct DeferredFragmentIdentifier: Hashable {
+  let label: String
+  let path: [String]
+
+  public init(label: String, path: [String]) {
+    self.label = label
+    self.path = path
+  }
+}
+
 public protocol GraphQLOperation: AnyObject, Hashable {
   typealias Variables = [String: GraphQLOperationVariableValue]
 
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
   static var operationDocument: OperationDocument { get }
-  static var hasDeferredFragments: Bool { get }
+
+  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? { get }
 
   var __variables: Variables? { get }
 
@@ -71,10 +84,12 @@ public extension GraphQLOperation {
     return nil
   }
 
-  /// `True` if any selection set, or nested selection set, within the operation contains any
-  /// fragment marked with the `@defer` directive.
-  static var hasDeferredFragments: Bool {
-    false
+  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? {
+    return nil
+  }
+
+  static func deferredSelectionSetType(withLabel: String, atPath: [String]) -> (any SelectionSet.Type)? {
+    preconditionFailure("Not implemented!")
   }
 
   static var definition: OperationDefinition? {

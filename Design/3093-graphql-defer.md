@@ -147,36 +147,9 @@ In the preview release of `@defer`, operations with deferred fragments will **no
 
 ### Request header
 
-If an operation can support an incremental delivery response it must add an `Accept` header to the HTTP request specifying the protocol version that can be parsed. An [example](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/Apollo/RequestChainNetworkTransport.swift#L115) is HTTP subscription requests that include the `subscriptionSpec=1.0` specification. `@defer` would introduce another operation feature that would request an incremental delivery response.
+If an operation can support an incremental delivery response it must add an `Accept` header to the HTTP request specifying the protocol version that can be parsed in the response. An [example](https://github.com/apollographql/apollo-ios/blob/spike/defer/Sources/Apollo/RequestChainNetworkTransport.swift#L115) is HTTP subscription requests that include the `subscriptionSpec=1.0` specification. `@defer` introduces another incremental delivery response protocol. The defer response specification supported at the time of development is `deferSpec=20220824`.
 
-This should not be sent with all requests though so operations will need to be identifiable as having deferred fragments to signal inclusion of the request header.
-
-```swift
-// Sample code for RequestChainNetworkTransport
-open func constructRequest<Operation: GraphQLOperation>(
-  for operation: Operation,
-  cachePolicy: CachePolicy,
-  contextIdentifier: UUID? = nil
-) -> HTTPRequest<Operation> {
-  let request = ... // build request
-
-  if Operation.hasDeferredFragments {
-    request.addHeader(
-      name: "Accept",
-      value: "multipart/mixed;boundary=\"graphql\";deferSpec=20220824,application/json"
-    )
-  }
-
-  return request
-}
-
-// Sample of new property on GraphQLOperation
-public protocol GraphQLOperation: AnyObject, Hashable {
-  // other properties not shown
-
-  static var hasDeferredFragments: Bool { get } // computed for each operation during codegen
-}
-```
+All operations will have an `Accept` header specifying the supported incremental delivery response protocol; Subscription operations will have the `subscriptionSpec` protocol, Query and Mutation operations will have the `deferSpec` protocol in the `Accept` header.
 
 ### Response parsing
 
