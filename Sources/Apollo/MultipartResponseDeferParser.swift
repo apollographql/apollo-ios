@@ -64,12 +64,15 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
         }
 
       case let .json(object):
-        if let hasNext = object.hasNext {
-          preconditionFailure("This will be done in #3147")
-        }
-
+        #warning("should there be any processing of hasNext?")
         if let incremental = object.incremental {
-          preconditionFailure("This will be done in #3147")
+          guard
+            let serialized: Data = try? JSONSerializationFormat.serialize(value: incremental)
+          else {
+            return .failure(ParsingError.cannotParsePayloadData)
+          }
+
+          return .success(serialized)
 
         } else {
           guard
