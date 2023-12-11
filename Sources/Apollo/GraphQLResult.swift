@@ -22,16 +22,24 @@ public struct GraphQLResult<Data: RootSelectionSet> {
 
   let dependentKeys: Set<CacheKey>?
 
-  public init(data: Data?,
-              extensions: [String: AnyHashable]?,
-              errors: [GraphQLError]?,
-              source: Source,
-              dependentKeys: Set<CacheKey>?) {
+  public init(
+    data: Data?,
+    extensions: [String: AnyHashable]?,
+    errors: [GraphQLError]?,
+    source: Source,
+    dependentKeys: Set<CacheKey>?
+  ) {
     self.data = data
     self.extensions = extensions
     self.errors = errors
     self.source = source
     self.dependentKeys = dependentKeys
+  }
+
+  func mergingIn(
+    _ incrementalResult: IncrementalGraphQLResult
+  ) -> GraphQLResult<Data> {
+    preconditionFailure("Not yet implemented!")
   }
 }
 
@@ -49,7 +57,7 @@ extension GraphQLResult: Equatable where Data: Equatable {
 extension GraphQLResult: Hashable where Data: Hashable {}
 
 extension GraphQLResult {
-  
+
   /// Converts a ``GraphQLResult`` into a basic JSON dictionary for use.
   ///
   /// - Returns: A `[String: Any]` JSON dictionary representing the ``GraphQLResult``.
@@ -60,10 +68,10 @@ extension GraphQLResult {
     if let extensions { dict["extensions"] = extensions }
     return dict
   }
-  
+
   private func convert(value: Any) -> Any {
       var val: Any = value
-      if let value = value as? DataDict {
+      if let value = value as? ApolloAPI.DataDict {
           val = value._data
       } else if let value = value as? CustomScalarType {
           val = value._jsonValue
