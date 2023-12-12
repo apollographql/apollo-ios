@@ -2,18 +2,19 @@
 import ApolloAPI
 #endif
 
-/// Represents a GraphQL response received from a server.
+/// Represents a complete GraphQL response received from a server.
 public final class GraphQLResponse<Data: RootSelectionSet> {
+  private let base: AnyGraphQLResponse
 
-  public let body: JSONObject
-
-  private let rootKey: CacheReference
-  private let variables: GraphQLOperation.Variables?
-
-  public init<Operation: GraphQLOperation>(operation: Operation, body: JSONObject) where Operation.Data == Data {
-    self.body = body
-    rootKey = CacheReference.rootCacheReference(for: Operation.operationType)
-    variables = operation.__variables
+  public init<Operation: GraphQLOperation>(
+    operation: Operation,
+    body: JSONObject
+  ) where Operation.Data == Data {
+    self.base = AnyGraphQLResponse(
+      body: body,
+      rootKey: CacheReference.rootCacheReference(for: Operation.operationType),
+      variables: operation.__variables
+    )
   }
 
   /// Parses a response into a `GraphQLResult` and a `RecordSet`.
@@ -26,45 +27,13 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
       ResultNormalizerFactory.networkResponseDataNormalizer(),
       GraphQLDependencyTracker()
     )
-
-    let executionResult = try execute(with: accumulator)
+    let executionResult = try base.execute(
+      selectionSet: Data.self,
+      with: accumulator
+    )
     let result = makeResult(data: executionResult?.0, dependentKeys: executionResult?.2)
+
     return (result, executionResult?.1)
-  }
-
-  private func execute<Accumulator: GraphQLResultAccumulator>(
-    with accumulator: Accumulator
-  ) throws -> Accumulator.FinalResult? {
-    guard let dataEntry = body["data"] as? JSONObject else {
-      return nil
-    }
-
-    let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
-
-    return try executor.execute(selectionSet: Data.self,
-                                on: dataEntry,
-                                withRootCacheReference: rootKey,
-                                variables: variables,
-                                accumulator: accumulator)
-  }
-
-  private func makeResult(data: Data?, dependentKeys: Set<CacheKey>?) -> GraphQLResult<Data> {
-    let errors = self.parseErrors()
-    let extensions = body["extensions"] as? JSONObject
-
-    return GraphQLResult(data: data,
-                         extensions: extensions,
-                         errors: errors,
-                         source: .server,
-                         dependentKeys: dependentKeys)
-  }
-
-  private func parseErrors() -> [GraphQLError]? {
-    guard let errorsEntry = self.body["errors"] as? [JSONObject] else {
-      return nil
-    }
-
-    return errorsEntry.map(GraphQLError.init)
   }
 
   /// Parses a response into a `GraphQLResult` for use without the cache. This parsing does not
@@ -73,8 +42,25 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   /// This is faster than `parseResult()` and should be used when cache the response is not needed.
   public func parseResultFast() throws -> GraphQLResult<Data>  {
     let accumulator = GraphQLSelectionSetMapper<Data>()
-    let data = try execute(with: accumulator)
-    return makeResult(data: data, dependentKeys: nil)    
+    let data = try base.execute(
+      selectionSet: Data.self,
+      with: accumulator
+    )
+
+    return makeResult(data: data, dependentKeys: nil)
+  }
+
+  private func makeResult(data: Data?, dependentKeys: Set<CacheKey>?) -> GraphQLResult<Data> {
+    let errors = base.parseErrors()
+    let extensions = base.parseExtensions()
+
+    return GraphQLResult(
+      data: data,
+      extensions: extensions,
+      errors: errors,
+      source: .server,
+      dependentKeys: dependentKeys
+    )
   }
 }
 
@@ -82,18 +68,14 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
 
 extension GraphQLResponse: Equatable where Data: Equatable {
   public static func == (lhs: GraphQLResponse<Data>, rhs: GraphQLResponse<Data>) -> Bool {
-    lhs.body == rhs.body &&
-    lhs.rootKey == rhs.rootKey &&
-    lhs.variables?._jsonEncodableObject._jsonValue == rhs.variables?._jsonEncodableObject._jsonValue
+    lhs.base == rhs.base
   }
 }
 
 // MARK: - Hashable Conformance
 
-extension GraphQLResponse: Hashable where Data: Hashable {
+extension GraphQLResponse: Hashable {
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(body)
-    hasher.combine(rootKey)
-    hasher.combine(variables?._jsonEncodableObject._jsonValue)
+    hasher.combine(base)
   }
 }
