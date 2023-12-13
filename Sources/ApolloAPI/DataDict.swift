@@ -48,7 +48,6 @@ public struct DataDict: Hashable {
     _storage.deferredFragments
   }
 
-  #warning("TODO, remove deferredFragments default value when we set these up in executor")
   public init(
     data: [String: AnyHashable],
     fulfilledFragments: Set<ObjectIdentifier>,
