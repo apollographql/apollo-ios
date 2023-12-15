@@ -78,7 +78,12 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
         }
 
       case .deferred(_, _, _):
-        assertionFailure("Defer execution must be implemented (#3145).")
+        // In Apollo's implementation (Router + Server) of deferSpec=20220824 ALL defer directives
+        // will be honoured and sent as separate incremental responses. This means deferred
+        // selections never need to be collected because they are parsed with the incremental data,
+        // at which time they are no longer deferred.
+        continue
+
       case let .fragment(fragment):
         groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
@@ -86,7 +91,6 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                           for: object,
                           info: info)
 
-      // TODO: _ is fine for now but will need to be handled in #3145
       case let .inlineFragment(typeCase):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
