@@ -1,26 +1,44 @@
 #if !COCOAPODS
 import ApolloAPI
 #endif
+import Foundation
 
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data: RootSelectionSet> {
-
-  /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
-  public let data: Data?
-  /// A list of errors, or `nil` if the operation completed without encountering any errors.
-  public let errors: [GraphQLError]?
-  /// A dictionary which services can use however they see fit to provide additional information to clients.
-  public let extensions: [String: AnyHashable]?
 
   /// Represents source of data
   public enum Source: Hashable {
     case cache
     case server
   }
+
+  public enum Error: Swift.Error, LocalizedError {
+    case missingPartialData
+
+    public var errorDescription: String? {
+      switch self {
+      case .missingPartialData:
+        return "Cannot find partial data for incremental merge."
+      }
+    }
+  }
+
+  /// Private storage of public properties that can be mutated tp merge an incremental result
+  private var _data: Data?
+  private var _errors: [GraphQLError]?
+  private var _extensions: [String: AnyHashable]?
+  private var _dependentKeys: Set<CacheKey>?
+
+  /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
+  public var data: Data? { _data }
+  /// A list of errors, or `nil` if the operation completed without encountering any errors.
+  public var errors: [GraphQLError]? { _errors }
+  /// A dictionary which services can use however they see fit to provide additional information to clients.
+  public var extensions: [String: AnyHashable]? { _extensions }
   /// Source of data
   public let source: Source
 
-  let dependentKeys: Set<CacheKey>?
+  var dependentKeys: Set<CacheKey>? { _dependentKeys }
 
   public init(
     data: Data?,
@@ -29,17 +47,49 @@ public struct GraphQLResult<Data: RootSelectionSet> {
     source: Source,
     dependentKeys: Set<CacheKey>?
   ) {
-    self.data = data
-    self.extensions = extensions
-    self.errors = errors
+    self._data = data
+    self._extensions = extensions
+    self._errors = errors
     self.source = source
-    self.dependentKeys = dependentKeys
+    self._dependentKeys = dependentKeys
   }
 
-  func mergingIn(
+  mutating func merging(
     _ incrementalResult: IncrementalGraphQLResult
-  ) -> GraphQLResult<Data> {
-    preconditionFailure("Not yet implemented!")
+  ) throws -> GraphQLResult<Data> {
+    guard let data = self.data else {
+      throw Error.missingPartialData
+    }
+
+    if let incrementalData = incrementalResult.data?.__data {
+      try data.__data.merging(dataDict: incrementalData, at: incrementalResult.path)
+    }
+
+    if let incrementalErrors = incrementalResult.errors {
+      if self._errors == nil {
+        self._errors = []
+      }
+
+      self._errors?.append(contentsOf: incrementalErrors)
+    }
+
+    if let incrementalExtensions = incrementalResult.extensions {
+      if self._extensions == nil {
+        self._extensions = [:]
+      }
+
+      self._extensions?.merge(incrementalExtensions) { _, new in new }
+    }
+
+    if let incrementalDependentKeys = incrementalResult.dependentKeys {
+      if self._dependentKeys == nil {
+        self._dependentKeys = []
+      }
+
+      self._dependentKeys?.formUnion(incrementalDependentKeys)
+    }
+
+    return self
   }
 }
 
@@ -82,5 +132,35 @@ extension GraphQLResult {
           return arr.map(convert)
       }
       return val
+  }
+}
+
+fileprivate extension DataDict {
+  enum Error: Swift.Error, LocalizedError {
+    case invalidPartialDataType(String)
+    case cannotOverwriteData(AnyHashable, AnyHashable)
+
+    public var errorDescription: String? {
+      switch self {
+      case let .invalidPartialDataType(got):
+        return "Invalid data type for merge - \(got)"
+
+      case let .cannotOverwriteData(current, new):
+        return "Incremental merging cannot overwrite existing data \(current) with \(new)"
+      }
+    }
+  }
+
+  func merging(dataDict: DataDict, at path: [PathComponent]) throws {
+    guard
+      let partialValue = self[path],
+      var partialDataDict = partialValue as? DataDict
+    else {
+      throw Error.invalidPartialDataType(String(describing: type(of: value)))
+    }
+
+    try partialDataDict._data.merge(dataDict._data) { current, new in
+      throw Error.cannotOverwriteData(current, new)
+    }
   }
 }

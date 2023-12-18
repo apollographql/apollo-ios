@@ -91,7 +91,7 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
             body: item
           )
           let incrementalResult = try incrementalResponse.parseIncrementalResult()
-          currentResult = currentResult.mergingIn(incrementalResult)
+          currentResult = try currentResult.merging(incrementalResult)
         }
 
         parsedResult = currentResult
