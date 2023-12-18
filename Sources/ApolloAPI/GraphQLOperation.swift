@@ -88,8 +88,13 @@ public extension GraphQLOperation {
     return nil
   }
 
-  static func deferredSelectionSetType(withLabel: String, atPath: [String]) -> (any SelectionSet.Type)? {
-    preconditionFailure("Not implemented!")
+  static func deferredSelectionSetType(
+    withLabel label: String,
+    atPath path: [JSONValue]
+  ) -> (any SelectionSet.Type)? {
+    let fieldNamesPath: [String] = path.compactMap({ $0 as? String })
+
+    return deferredFragments?[DeferredFragmentIdentifier(label: label, path: fieldNamesPath)]
   }
 
   static var definition: OperationDefinition? {

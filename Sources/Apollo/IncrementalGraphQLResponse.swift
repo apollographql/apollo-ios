@@ -7,11 +7,15 @@ import ApolloAPI
 final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
   public enum ResponseError: Error, LocalizedError {
     case missingPath
+    case cannotParseIncrementalData
 
     public var errorDescription: String? {
       switch self {
       case .missingPath:
         return "Incremental responses must have a 'path' key."
+
+      case .cannotParseIncrementalData:
+        return "Cannot parse the incremental data."
       }
     }
   }
@@ -36,11 +40,10 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
   func parseIncrementalResult() throws -> IncrementalGraphQLResult {
     guard 
       let label = base.body["label"] as? String,
-      let path = base.body["path"] as? [String],
-      let selectionSetType = Operation.deferredSelectionSetType(withLabel: label, atPath: path),
-      let path = base.body["path"] as? [JSONValue]
+      let path = base.body["path"] as? [JSONValue],
+      let selectionSetType = Operation.deferredSelectionSetType(withLabel: label, atPath: path)
     else {
-      fatalError("Add thrown error")
+      throw ResponseError.cannotParseIncrementalData
     }
     
     let accumulator = zip(
