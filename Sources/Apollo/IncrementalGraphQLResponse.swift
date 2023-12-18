@@ -27,8 +27,7 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
       throw ResponseError.missingPath
     }
 
-    let rootKey = CacheReference.rootCacheReference(for: Operation.operationType) // + path
-    #warning("TODO: rootKey must add path to complete the root cache reference key")
+    let rootKey = try CacheReference.rootCacheReference(for: Operation.operationType, path: path)
 
     self.base = AnyGraphQLResponse(
       body: body,
@@ -73,5 +72,19 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
       errors: base.parseErrors(),
       dependentKeys: executionResult?.2
     )
+  }
+}
+
+fileprivate extension CacheReference {
+  static func rootCacheReference(
+    for operationType: GraphQLOperationType,
+    path: [JSONValue]
+  ) throws -> CacheReference {
+    var keys: [String] = [rootCacheReference(for: operationType).key]
+    for component in path {
+      keys.append(try String(_jsonValue: component))
+    }
+
+    return CacheReference(keys.joined(separator: "."))
   }
 }
