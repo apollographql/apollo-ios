@@ -6,9 +6,11 @@ import ApolloAPI
 struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier> = []
+  fileprivate(set) var deferredFragments: Set<ObjectIdentifier> = []
 
   init(info: ObjectExecutionInfo) {
     self.fulfilledFragments = info.fulfilledFragments
+    self.deferredFragments = info.deferredFragments
   }
 
   var count: Int { fieldInfoList.count }
@@ -25,6 +27,10 @@ struct FieldSelectionGrouping: Sequence {
 
   mutating func addFulfilledFragment<T: SelectionSet>(_ type: T.Type) {
     fulfilledFragments.insert(ObjectIdentifier(type))
+  }
+
+  mutating func addDeferredFragment<T: SelectionSet>(_ type: T.Type) {
+    deferredFragments.insert(ObjectIdentifier(type))
   }
 
   func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
@@ -77,12 +83,15 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                             info: info)
         }
 
-      case .deferred(_, _, _):
+      case let .deferred(_, typeCase, _):
         // In Apollo's implementation (Router + Server) of deferSpec=20220824 ALL defer directives
         // will be honoured and sent as separate incremental responses. This means deferred
-        // selections never need to be collected because they are parsed with the incremental data,
-        // at which time they are no longer deferred.
-        continue
+        // selection fields never need to be collected because they are parsed with the incremental
+        // data, at which time they are no longer deferred.
+        //
+        // The deferred fragment identifiers still need to be collected becuase that is how the
+        // user determines the state of the deferred fragment via the @Deferred property wrapper.
+        groupedFields.addDeferredFragment(typeCase)
 
       case let .fragment(fragment):
         groupedFields.addFulfilledFragment(fragment)

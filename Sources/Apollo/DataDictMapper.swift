@@ -79,7 +79,8 @@ class DataDictMapper: GraphQLResultAccumulator {
   ) throws -> DataDict {
     return DataDict(
       data: .init(fieldEntries, uniquingKeysWith: { (_, last) in last }),
-      fulfilledFragments: info.fulfilledFragments
+      fulfilledFragments: info.fulfilledFragments,
+      deferredFragments: info.deferredFragments
     )
   }
 

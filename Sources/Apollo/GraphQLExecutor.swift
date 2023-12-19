@@ -10,6 +10,7 @@ class ObjectExecutionInfo {
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier>
+  fileprivate(set) var deferredFragments: Set<ObjectIdentifier> = []
 
   fileprivate init(
     rootType: any SelectionSet.Type,
@@ -263,6 +264,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     do {
       let groupedFields = try groupFields(selections, on: object, info: info)
       info.fulfilledFragments = groupedFields.fulfilledFragments
+      info.deferredFragments = groupedFields.deferredFragments
 
       var fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = []
       fieldEntries.reserveCapacity(groupedFields.count)
