@@ -153,18 +153,18 @@ fileprivate extension DataDict {
 
   func merging(dataDict: DataDict, at path: [PathComponent]) throws {
     guard
-      let partialValue = self[path],
-      var partialDataDict = partialValue as? DataDict
+      let value = self[path],
+      var valueDataDict = value as? DataDict
     else {
       throw Error.invalidPartialDataType(String(describing: type(of: value)))
     }
 
-    try partialDataDict._data.merge(dataDict._data) { current, new in
+    try valueDataDict._data.merge(dataDict._data) { current, new in
       throw Error.cannotOverwriteData(current, new)
     }
 
-    partialDataDict._fulfilledFragments.formUnion(dataDict._fulfilledFragments)
-    partialDataDict._deferredFragments.subtract(dataDict._fulfilledFragments)
-    partialDataDict._deferredFragments.formUnion(dataDict._deferredFragments)
+    valueDataDict._fulfilledFragments.formUnion(dataDict._fulfilledFragments)
+    valueDataDict._deferredFragments.subtract(dataDict._fulfilledFragments)
+    valueDataDict._deferredFragments.formUnion(dataDict._deferredFragments)
   }
 }
