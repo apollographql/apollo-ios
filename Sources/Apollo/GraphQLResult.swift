@@ -162,5 +162,9 @@ fileprivate extension DataDict {
     try partialDataDict._data.merge(dataDict._data) { current, new in
       throw Error.cannotOverwriteData(current, new)
     }
+
+    partialDataDict._fulfilledFragments.formUnion(dataDict._fulfilledFragments)
+    partialDataDict._deferredFragments.subtract(dataDict._fulfilledFragments)
+    partialDataDict._deferredFragments.formUnion(dataDict._deferredFragments)
   }
 }
