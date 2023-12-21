@@ -40,7 +40,7 @@ public struct GraphQLResult<Data: RootSelectionSet> {
   func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResult<Data> {
     var mergedData = self.data
     if let incrementalDataDict = incrementalResult.data?.__data {
-      if var currentDataDict = mergedData?.__data {
+      if let currentDataDict = mergedData?.__data {
         mergedData = Data(
           _dataDict: try currentDataDict.merging(incrementalDataDict, at: incrementalResult.path)
         )
