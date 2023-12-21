@@ -41,7 +41,7 @@ public struct DataDict: Hashable {
   ///
   /// Each `ObjectIdentifier` in the set corresponds to a specific `SelectionSet` type.
   @inlinable public var _fulfilledFragments: Set<ObjectIdentifier> {
-    get { _storage.fulfilledFragments }
+    _storage.fulfilledFragments
   }
 
   /// The set of fragments that have not yet been fulfilled and will be delivered in a future
@@ -49,7 +49,7 @@ public struct DataDict: Hashable {
   ///
   /// Each `ObjectIdentifier` in the set corresponds to a specific `SelectionSet` type.
   @inlinable public var _deferredFragments: Set<ObjectIdentifier> {
-    get { _storage.deferredFragments }
+    _storage.deferredFragments
   }
 
   public init(
@@ -120,8 +120,8 @@ public struct DataDict: Hashable {
   // MARK: - DataDict._Storage
   @usableFromInline class _Storage: Hashable {
     @usableFromInline var data: [String: AnyHashable]
-    @usableFromInline var fulfilledFragments: Set<ObjectIdentifier>
-    @usableFromInline var deferredFragments: Set<ObjectIdentifier>
+    @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
+    @usableFromInline let deferredFragments: Set<ObjectIdentifier>
 
     init(
       data: [String: AnyHashable],
