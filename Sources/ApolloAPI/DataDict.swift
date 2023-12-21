@@ -42,14 +42,6 @@ public struct DataDict: Hashable {
   /// Each `ObjectIdentifier` in the set corresponds to a specific `SelectionSet` type.
   @inlinable public var _fulfilledFragments: Set<ObjectIdentifier> {
     get { _storage.fulfilledFragments }
-    _modify {
-      if !isKnownUniquelyReferenced(&_storage) {
-        _storage = _storage.copy()
-      }
-      var fulfilledFragments = _storage.fulfilledFragments
-      defer { _storage.fulfilledFragments = fulfilledFragments }
-      yield &fulfilledFragments
-    }
   }
 
   /// The set of fragments that have not yet been fulfilled and will be delivered in a future
@@ -58,14 +50,6 @@ public struct DataDict: Hashable {
   /// Each `ObjectIdentifier` in the set corresponds to a specific `SelectionSet` type.
   @inlinable public var _deferredFragments: Set<ObjectIdentifier> {
     get { _storage.deferredFragments }
-    _modify {
-      if !isKnownUniquelyReferenced(&_storage) {
-        _storage = _storage.copy()
-      }
-      var deferredFragments = _storage.deferredFragments
-      defer { _storage.deferredFragments = deferredFragments }
-      yield &deferredFragments
-    }
   }
 
   public init(

@@ -2,32 +2,57 @@
 import ApolloAPI
 #endif
 
+/// Enables subscript syntax to be used where the subscript is an array of `PathComponent` values
+/// typically returned in a GraphQL response.
 protocol SubscriptableByPathComponent {
-  subscript(path: [PathComponent]) -> AnyHashable? { get }
+  subscript(path: [PathComponent]) -> AnyHashable? { get set }
   func value(at path: PathComponent) -> AnyHashable?
+  mutating func set(value: AnyHashable?, at path: PathComponent)
 }
 
 extension SubscriptableByPathComponent {
   subscript(path: [PathComponent]) -> AnyHashable? {
     get {
       switch path.headAndTail() {
-      case nil: return nil
+      case nil:
+        return nil
 
       case let (head, remaining)? where remaining.isEmpty:
         return value(at: head)
 
       case let (head, remaining)?:
-        guard let value = value(at: head) else { return nil }
-
-        switch value {
+        switch value(at: head) {
         case let dict as DataDict:
           return dict[remaining]
 
-        case let array as [AnyHashable]:
+        case let array as [AnyHashable?]:
           return array[remaining]
 
         default:
           return nil
+        }
+      }
+    }
+    set {
+      switch path.headAndTail() {
+      case nil:
+        return
+
+      case let (head, remaining)? where remaining.isEmpty:
+        set(value: newValue, at: head)
+
+      case let (head, remaining)?:
+        switch value(at: head) {
+        case var dict as DataDict:
+          dict[remaining] = newValue
+          set(value: dict, at: head)
+
+        case var array as [AnyHashable?]:
+          array[remaining] = newValue
+          set(value: array, at: head)
+
+        default:
+          return
         }
       }
     }
@@ -41,30 +66,51 @@ extension DataDict: SubscriptableByPathComponent {
       return self._data[field]
 
     case .index:
-      #warning("Should this be a preconditionFailure?")
-      // This is invalid for DataDict since it cannot return an array element directly from _data.
-      // It would need to be a field lookup first and then the indexed element on the value.
+      // TODO: Should this throw, be a preconditionFailure, or just swallow the error?
       return nil
+    }
+  }
+
+  mutating func set(value: AnyHashable?, at path: PathComponent) {
+    switch path {
+    case let .field(field):
+      self._data[field] = value
+
+    case .index:
+      // TODO: Should this throw, be a preconditionFailure, or just swallow the error?
+      return
     }
   }
 }
 
-extension Array: SubscriptableByPathComponent where Element == AnyHashable {
+extension Array: SubscriptableByPathComponent where Element == AnyHashable? {
   func value(at path: PathComponent) -> AnyHashable? {
     switch path {
     case .field:
-      #warning("Should this be a preconditionFailure?")
-      // This is invalid for an Array since it is not indexed by String.
+      // TODO: Should this throw, be a preconditionFailure, or just swallow the error?
       return nil
 
     case let .index(index):
       return self[index]
     }
   }
+
+  mutating func set(value: AnyHashable?, at path: PathComponent) {
+    switch path {
+    case .field:
+      // TODO: Should this throw, be a preconditionFailure, or just swallow the error?
+      return
+
+    case let .index(index):
+      self[index] = value
+    }
+  }
 }
 
-fileprivate extension Array where Element == PathComponent {
-  func headAndTail() -> (head: PathComponent, tail: [PathComponent])? {
+/// Splits the first `PathComponent` element returning the first element and an array of all
+/// remaining elements.
+extension Array where Element == PathComponent {
+  fileprivate func headAndTail() -> (head: PathComponent, tail: [PathComponent])? {
     guard !isEmpty else { return nil }
 
     var tail = self

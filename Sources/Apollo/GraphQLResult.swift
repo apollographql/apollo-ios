@@ -12,33 +12,16 @@ public struct GraphQLResult<Data: RootSelectionSet> {
     case server
   }
 
-  public enum Error: Swift.Error, LocalizedError {
-    case missingPartialData
-
-    public var errorDescription: String? {
-      switch self {
-      case .missingPartialData:
-        return "Cannot find partial data for incremental merge."
-      }
-    }
-  }
-
-  /// Private storage of public properties that can be mutated tp merge an incremental result
-  private var _data: Data?
-  private var _errors: [GraphQLError]?
-  private var _extensions: [String: AnyHashable]?
-  private var _dependentKeys: Set<CacheKey>?
-
   /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
-  public var data: Data? { _data }
+  public let data: Data?
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
-  public var errors: [GraphQLError]? { _errors }
+  public let errors: [GraphQLError]?
   /// A dictionary which services can use however they see fit to provide additional information to clients.
-  public var extensions: [String: AnyHashable]? { _extensions }
+  public let extensions: [String: AnyHashable]?
   /// Source of data
   public let source: Source
 
-  var dependentKeys: Set<CacheKey>? { _dependentKeys }
+  let dependentKeys: Set<CacheKey>?
 
   public init(
     data: Data?,
@@ -47,49 +30,60 @@ public struct GraphQLResult<Data: RootSelectionSet> {
     source: Source,
     dependentKeys: Set<CacheKey>?
   ) {
-    self._data = data
-    self._extensions = extensions
-    self._errors = errors
+    self.data = data
+    self.extensions = extensions
+    self.errors = errors
     self.source = source
-    self._dependentKeys = dependentKeys
+    self.dependentKeys = dependentKeys
   }
 
-  mutating func merging(
-    _ incrementalResult: IncrementalGraphQLResult
-  ) throws -> GraphQLResult<Data> {
-    guard let data = self.data else {
-      throw Error.missingPartialData
+  func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResult<Data> {
+    var mergedData = self.data
+    if let incrementalDataDict = incrementalResult.data?.__data {
+      if var currentDataDict = mergedData?.__data {
+        mergedData = Data(
+          _dataDict: try currentDataDict.merging(incrementalDataDict, at: incrementalResult.path)
+        )
+
+      } else {
+        mergedData = Data(_dataDict: incrementalDataDict)
+      }
     }
 
-    if let incrementalData = incrementalResult.data?.__data {
-      try data.__data.merging(dataDict: incrementalData, at: incrementalResult.path)
-    }
-
+    var mergedErrors = self.errors
     if let incrementalErrors = incrementalResult.errors {
-      if self._errors == nil {
-        self._errors = []
-      }
+      if let currentErrors = mergedErrors {
+        mergedErrors = currentErrors + incrementalErrors
 
-      self._errors?.append(contentsOf: incrementalErrors)
+      } else {
+        mergedErrors = incrementalErrors
+      }
     }
 
+    var mergedExtensions = self.extensions
     if let incrementalExtensions = incrementalResult.extensions {
-      if self._extensions == nil {
-        self._extensions = [:]
-      }
+      if let currentExtensions = mergedExtensions {
+        mergedExtensions = currentExtensions.merging(incrementalExtensions) { _, new in new }
 
-      self._extensions?.merge(incrementalExtensions) { _, new in new }
+      } else {
+        mergedExtensions = incrementalExtensions
+      }
     }
 
+    var mergedDependentKeys = self.dependentKeys
     if let incrementalDependentKeys = incrementalResult.dependentKeys {
-      if self._dependentKeys == nil {
-        self._dependentKeys = []
+      if let currentDependentKeys = mergedDependentKeys {
+        mergedDependentKeys = currentDependentKeys.union(incrementalDependentKeys)
       }
-
-      self._dependentKeys?.formUnion(incrementalDependentKeys)
     }
 
-    return self
+    return GraphQLResult(
+      data: mergedData,
+      extensions: mergedExtensions,
+      errors: mergedErrors,
+      source: source,
+      dependentKeys: mergedDependentKeys
+    )
   }
 }
 
@@ -137,12 +131,12 @@ extension GraphQLResult {
 
 fileprivate extension DataDict {
   enum Error: Swift.Error, LocalizedError {
-    case invalidPartialDataType(String)
+    case invalidPathDataType(String)
     case cannotOverwriteData(AnyHashable, AnyHashable)
 
     public var errorDescription: String? {
       switch self {
-      case let .invalidPartialDataType(got):
+      case let .invalidPathDataType(got):
         return "Invalid data type for merge - \(got)"
 
       case let .cannotOverwriteData(current, new):
@@ -151,20 +145,31 @@ fileprivate extension DataDict {
     }
   }
 
-  func merging(dataDict: DataDict, at path: [PathComponent]) throws {
-    guard
-      let value = self[path],
-      var valueDataDict = value as? DataDict
-    else {
-      throw Error.invalidPartialDataType(String(describing: type(of: value)))
+  func merging(_ newDataDict: DataDict, at path: [PathComponent]) throws -> DataDict {
+    guard let pathDataDict = (self[path] as? DataDict) else {
+      throw Error.invalidPathDataType(String(describing: type(of: value)))
     }
 
-    try valueDataDict._data.merge(dataDict._data) { current, new in
+    let mergedData = try pathDataDict._data.merging(newDataDict._data) { current, new in
       throw Error.cannotOverwriteData(current, new)
     }
 
-    valueDataDict._fulfilledFragments.formUnion(dataDict._fulfilledFragments)
-    valueDataDict._deferredFragments.subtract(dataDict._fulfilledFragments)
-    valueDataDict._deferredFragments.formUnion(dataDict._deferredFragments)
+    let mergedFulfilledFragments = pathDataDict._fulfilledFragments
+      .union(newDataDict._fulfilledFragments)
+
+    let mergedDeferredFragments = pathDataDict._deferredFragments
+      .subtracting(newDataDict._fulfilledFragments)
+      .union(newDataDict._deferredFragments)
+
+    let mergedDataDict = DataDict(
+      data: mergedData,
+      fulfilledFragments: mergedFulfilledFragments,
+      deferredFragments: mergedDeferredFragments
+    )
+
+    var result = self
+    result[path] = mergedDataDict
+
+    return result
   }
 }
