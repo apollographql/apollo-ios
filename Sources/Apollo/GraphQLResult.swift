@@ -1,7 +1,7 @@
+import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
-import Foundation
 
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data: RootSelectionSet> {
