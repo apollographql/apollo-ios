@@ -44,6 +44,10 @@ public struct DataDict: Hashable {
     _storage.fulfilledFragments
   }
 
+  /// The set of fragments that have not yet been fulfilled and will be delivered in a future
+  /// response.
+  ///
+  /// Each `ObjectIdentifier` in the set corresponds to a specific `SelectionSet` type.
   @inlinable public var _deferredFragments: Set<ObjectIdentifier> {
     _storage.deferredFragments
   }

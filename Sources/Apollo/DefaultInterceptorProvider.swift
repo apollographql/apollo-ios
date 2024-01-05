@@ -38,10 +38,19 @@ open class DefaultInterceptorProvider: InterceptorProvider {
         NetworkFetchInterceptor(client: self.client),
         ResponseCodeInterceptor(),
         MultipartResponseParsingInterceptor(),
-        JSONResponseParsingInterceptor(),
+        jsonParsingInterceptor(for: operation),
         AutomaticPersistedQueryInterceptor(),
         CacheWriteInterceptor(store: self.store),
     ]
+  }
+
+  private func jsonParsingInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> any ApolloInterceptor {
+    if (Operation.deferredFragments?.isEmpty ?? true) {
+      return JSONResponseParsingInterceptor()
+
+    } else {
+      return IncrementalJSONResponseParsingInterceptor()
+    }
   }
 
   open func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {

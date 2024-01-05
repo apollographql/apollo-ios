@@ -2,46 +2,29 @@
 import ApolloAPI
 #endif
 
-/// An accumulator that converts executed data to the correct values to create a `SelectionSet`.
+/// An accumulator that maps executed data to create a `SelectionSet`.
 final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
-  let requiresCacheKeyComputation: Bool = false
+  let dataDictMapper: DataDictMapper
 
-  let handleMissingValues: HandleMissingValues
-
-  enum HandleMissingValues {
-    case disallow
-    case allowForOptionalFields
-    /// Using this option will result in an unsafe `SelectionSet` that will crash
-    /// when a required field that has missing data is accessed.
-    case allowForAllFields
+  var requiresCacheKeyComputation: Bool {
+    dataDictMapper.requiresCacheKeyComputation
   }
 
-  init(
-    handleMissingValues: HandleMissingValues = .disallow
-  ) {
-    self.handleMissingValues = handleMissingValues
+  var handleMissingValues: DataDictMapper.HandleMissingValues {
+    dataDictMapper.handleMissingValues
+  }
+
+  init(handleMissingValues: DataDictMapper.HandleMissingValues = .disallow) {
+    self.dataDictMapper = DataDictMapper(handleMissingValues: handleMissingValues)
   }
 
   func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
-    switch info.field.type.namedType {
-    case let .scalar(decodable as any JSONDecodable.Type):
-      // This will convert a JSON value to the expected value type.
-      return try decodable.init(_jsonValue: scalar)._asAnyHashable
-    default:
-      preconditionFailure()
-    }
+    try dataDictMapper.accept(scalar: scalar, info: info)
   }
 
   func accept(customScalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
-    switch info.field.type.namedType {
-    case let .customScalar(decodable as any JSONDecodable.Type):
-      // This will convert a JSON value to the expected value type,
-      // which could be a custom scalar or an enum.
-      return try decodable.init(_jsonValue: customScalar)._asAnyHashable
-    default:
-      preconditionFailure()
-    }
+    try dataDictMapper.accept(customScalar: customScalar, info: info)
   }
 
   func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
@@ -71,14 +54,15 @@ final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator
     guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
- 
+
   func accept(
     fieldEntries: [(key: String, value: AnyHashable)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
     return DataDict(
       data: .init(fieldEntries, uniquingKeysWith: { (_, last) in last }),
-      fulfilledFragments: info.fulfilledFragments
+      fulfilledFragments: info.fulfilledFragments,
+      deferredFragments: info.deferredFragments
     )
   }
 

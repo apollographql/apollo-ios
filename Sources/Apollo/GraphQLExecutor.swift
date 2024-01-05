@@ -4,17 +4,18 @@ import ApolloAPI
 #endif
 
 class ObjectExecutionInfo {
-  let rootType: any RootSelectionSet.Type
+  let rootType: any SelectionSet.Type
   let variables: GraphQLOperation.Variables?
-  let schema: SchemaMetadata.Type
+  let schema: any SchemaMetadata.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier>
+  fileprivate(set) var deferredFragments: Set<ObjectIdentifier> = []
 
   fileprivate init(
-    rootType: any RootSelectionSet.Type,
+    rootType: any SelectionSet.Type,
     variables: GraphQLOperation.Variables?,
-    schema: SchemaMetadata.Type,
+    schema: any SchemaMetadata.Type,
     responsePath: ResponsePath,
     cachePath: ResponsePath
   ) {
@@ -27,9 +28,9 @@ class ObjectExecutionInfo {
   }
 
   fileprivate init(
-    rootType: any RootSelectionSet.Type,
+    rootType: any SelectionSet.Type,
     variables: GraphQLOperation.Variables?,
-    schema: SchemaMetadata.Type,
+    schema: any SchemaMetadata.Type,
     withRootCacheReference root: CacheReference? = nil
   ) {
     self.rootType = rootType
@@ -164,9 +165,14 @@ public struct GraphQLExecutionError: Error, LocalizedError {
   }
 }
 
-/// A GraphQL executor is responsible for executing a selection set and generating a result. It is initialized with a resolver closure that gets called repeatedly to resolve field values.
+/// A GraphQL executor is responsible for executing a selection set and generating a result. It is 
+/// initialized with a resolver closure that gets called repeatedly to resolve field values.
 ///
-/// An executor is used both to parse a response received from the server, and to read from the normalized cache. It can also be configured with an accumulator that receives events during execution, and these execution events are used by `GraphQLResultNormalizer` to normalize a response into a flat set of records and by `GraphQLDependencyTracker` keep track of dependent keys.
+/// An executor is used both to parse a response received from the server, and to read from the 
+/// normalized cache. It can also be configured with an accumulator that receives events during
+/// execution, and these execution events are used by `GraphQLResultNormalizer` to normalize a
+/// response into a flat set of records and by `GraphQLDependencyTracker` keep track of dependent
+/// keys.
 ///
 /// The methods in this class closely follow the
 /// [execution algorithm described in the GraphQL specification]
@@ -191,10 +197,51 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
   ) throws -> Accumulator.FinalResult {
-    let info = ObjectExecutionInfo(
-      rootType: SelectionSet.self,
+    return try execute(
+      selectionSet: selectionSet,
+      on: data,
       variables: variables,
+      withRootCacheReference: root,
       schema: SelectionSet.Schema.self,
+      accumulator: accumulator
+    )
+  }
+
+  func execute<
+    Accumulator: GraphQLResultAccumulator,
+    Operation: GraphQLOperation
+  >(
+    selectionSet: any SelectionSet.Type,
+    in operation: Operation.Type,
+    on data: Source.RawObjectData,
+    withRootCacheReference root: CacheReference? = nil,
+    variables: GraphQLOperation.Variables? = nil,
+    accumulator: Accumulator
+  ) throws -> Accumulator.FinalResult {
+    return try execute(
+      selectionSet: selectionSet,
+      on: data,
+      variables: variables,
+      withRootCacheReference: root,
+      schema: Operation.Data.Schema.self,
+      accumulator: accumulator
+    )
+  }
+
+  private func execute<
+    Accumulator: GraphQLResultAccumulator
+  >(
+    selectionSet: any SelectionSet.Type,
+    on data: Source.RawObjectData,
+    variables: GraphQLOperation.Variables? = nil,
+    withRootCacheReference root: CacheReference? = nil,
+    schema: SchemaMetadata.Type,
+    accumulator: Accumulator
+  ) throws -> Accumulator.FinalResult {
+    let info = ObjectExecutionInfo(
+      rootType: selectionSet,
+      variables: variables,
+      schema: schema,
       withRootCacheReference: root
     )
 
@@ -217,6 +264,7 @@ final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     do {
       let groupedFields = try groupFields(selections, on: object, info: info)
       info.fulfilledFragments = groupedFields.fulfilledFragments
+      info.deferredFragments = groupedFields.deferredFragments
 
       var fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = []
       fieldEntries.reserveCapacity(groupedFields.count)
