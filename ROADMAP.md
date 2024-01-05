@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2023-12-14**
+**Last updated: 2024-01-04**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -48,7 +48,7 @@ _Approximate Date: to be released incrementally_
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: February 2024_
+_Approximate Date: March 2024_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
