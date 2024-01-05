@@ -151,7 +151,12 @@ fileprivate extension DataDict {
     }
 
     let mergedData = try pathDataDict._data.merging(newDataDict._data) { current, new in
-      throw Error.cannotOverwriteData(current, new)
+      #warning("This is a hack fix for __typename being returned with fragments, need a proper solution!")
+      if current != new {
+        throw Error.cannotOverwriteData(current, new)
+      }
+
+      return current
     }
 
     let mergedFulfilledFragments = pathDataDict._fulfilledFragments
