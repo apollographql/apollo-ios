@@ -53,6 +53,36 @@ _Approximate Date: March 2024_
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
 
+### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
+
+_Approximate Date: TBD_
+
+- Support generating models that expose only the minimal necessary data for operation execution (networking and caching).
+  - This would remove the generated response models, exposing response data as a simple `JSONObject` (ie. [String: AnyHashable]).
+- This feature is useful for projects that want to use their own custom data models or have binary size constraints.
+
+### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
+
+_Approximate Date: TBD_
+
+- Allow client-side users to override the names of schema types in the generated models.
+- This will allow user's to improve the quality and expressiveness of client side APIs when schema type names are not appropriate for client usage.
+- This also allows workarounds for issues when names of schema types conflict with Swift types.
+
+### [Mutable generated reponse models](https://github.com/apollographql/apollo-ios/issues/3246)
+
+_Approximate Date: TBD_
+
+- Provide a mechanism for making generated reponse models mutable.
+- This will allow mutability on an opt-in basis per selection set or definition.
+
+### Custom import statements on generated models
+
+_Approximate Date: TBD_
+
+- This improves multi-module support by allowing shared fragments located in one module to be imported by definitions that reference them but are located in another module.
+  - Currently, fragments shared across modules must be located in the schema module.
+
 ### Declarative caching
 
 _Approximate Date: TBD_
