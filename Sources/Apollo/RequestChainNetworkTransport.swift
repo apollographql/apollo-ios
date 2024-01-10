@@ -109,7 +109,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     } else {
       request.addHeader(
         name: "Accept",
-        value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseDeferParser.protocolSpec),application/json"
+        value: "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/json"
       )
     }
 
