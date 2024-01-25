@@ -9,6 +9,7 @@ jobs:
     permissions:
       issues: write
     runs-on: ubuntu-latest
+    if: github.repository == 'apollographql/apollo-ios'
     steps:
       - run: gh issue comment "$NUMBER" --body "$BODY"
         env:
