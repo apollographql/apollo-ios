@@ -30,23 +30,35 @@ let package = Package(
       name: "Apollo",
       dependencies: [
         "ApolloAPI"
+      ],
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
       ]
     ),
     .target(
       name: "ApolloAPI",
-      dependencies: []
+      dependencies: [],
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
+      ]
     ),
     .target(
       name: "ApolloSQLite",
       dependencies: [
         "Apollo",
         .product(name: "SQLite", package: "SQLite.swift"),
+      ],
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
       ]
     ),
     .target(
       name: "ApolloWebSocket",
       dependencies: [
         "Apollo"
+      ],
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
       ]
     ),
     .target(
