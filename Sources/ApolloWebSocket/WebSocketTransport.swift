@@ -528,11 +528,10 @@ extension WebSocketTransport: WebSocketClientDelegate {
   public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
     self.$socketConnectionState.mutate { $0 = .disconnected }
     if let error = error {
-      debugPrint("websocket is disconnected: \(error)")
       handleDisconnection(with: error)
+
     } else {
       self.$error.mutate { $0 = nil }
-      debugPrint("websocket is disconnected")
       self.handleDisconnection()
     }
   }
