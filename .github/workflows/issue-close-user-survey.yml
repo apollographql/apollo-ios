@@ -11,10 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'apollographql/apollo-ios'
     steps:
-      - run: gh issue comment "$NUMBER" --body "$BODY"
+      - run:
+          if [ "$AUTHOR" == "MEMBER" ] && [ "$COMMENTS" == 0 ]; then
+            echo "Issue opened by member with no comments, skipping user survey."
+          else
+            gh issue comment "$NUMBER" --body "$BODY"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
+          COMMENTS: ${{ github.event.issue.comments }}
+          AUTHOR: ${{ github.event.issue.author_association }}
           BODY: >
             Do you have any feedback for the maintainers? Please tell us by taking a [one-minute survey](https://docs.google.com/forms/d/e/1FAIpQLSczNDXfJne3ZUOXjk9Ursm9JYvhTh1_nFTDfdq3XBAFWCzplQ/viewform?usp=pp_url&entry.1170701325=Apollo+iOS&entry.204965213=GitHub+Issue). Your responses will help us understand Apollo iOS usage and allow us to serve you better.
