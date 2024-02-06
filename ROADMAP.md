@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-01-18**
+**Last updated: 2024-02-06**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -20,13 +20,6 @@ Please see our [patch releases milestone](https://github.com/apollographql/apoll
 ## Upcoming 1.x features
 
 As we identify feature sets that we intend to ship, we'll add to and update the subheadings in this section. We intend to keep this section in chronological order.  In order to enable rapid and continuous feature delivery, we'll avoid assigning minor version numbers to these feature groups in the roadmap.
-
-### Custom import statements on generated models
-
-_Approximate Date: 2024-01-31_
-
-- This improves multi-module support by allowing shared fragments located in one module to be imported by definitions that reference them but are located in another module.
-  - Currently, fragments shared across modules must be located in the schema module.
  
 ### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
 
@@ -34,6 +27,14 @@ _Now available for preview in the `preview-defer.1` branch_
 _Approximate Date: 2024-03-01 (experimental)_
 
 The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS has released a preview version of this feature in the `preview-defer.1` branch.  This will be released as an experimental feature in an upcoming `1.x` minor version.
+
+### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
+
+_Approximate Date: 2024-03-01_
+
+- Allow client-side users to override the names of schema types in the generated models.
+- This will allow user's to improve the quality and expressiveness of client side APIs when schema type names are not appropriate for client usage.
+- This also allows workarounds for issues when names of schema types conflict with Swift types.
 
 ### [Paginated watchers for GraphQL queries](https://github.com/apollographql/apollo-ios/pull/3007)
 
@@ -59,6 +60,13 @@ _Approximate Date: 2024-04-30_
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
 
+### [Mutable generated reponse models](https://github.com/apollographql/apollo-ios/issues/3246)
+
+_Approximate Date: TBD_
+
+- Provide a mechanism for making generated reponse models mutable.
+- This will allow mutability on an opt-in basis per selection set or definition.
+
 ### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
 
 _Approximate Date: TBD_
@@ -66,21 +74,6 @@ _Approximate Date: TBD_
 - Support generating models that expose only the minimal necessary data for operation execution (networking and caching).
   - This would remove the generated response models, exposing response data as a simple `JSONObject` (ie. [String: AnyHashable]).
 - This feature is useful for projects that want to use their own custom data models or have binary size constraints.
-
-### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
-
-_Approximate Date: TBD_
-
-- Allow client-side users to override the names of schema types in the generated models.
-- This will allow user's to improve the quality and expressiveness of client side APIs when schema type names are not appropriate for client usage.
-- This also allows workarounds for issues when names of schema types conflict with Swift types.
-
-### [Mutable generated reponse models](https://github.com/apollographql/apollo-ios/issues/3246)
-
-_Approximate Date: TBD_
-
-- Provide a mechanism for making generated reponse models mutable.
-- This will allow mutability on an opt-in basis per selection set or definition.
 
 ### Declarative caching
 
