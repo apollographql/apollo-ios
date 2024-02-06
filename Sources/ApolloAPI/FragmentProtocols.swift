@@ -9,6 +9,14 @@ public protocol Fragment: SelectionSet, Deferrable {
   static var fragmentDefinition: StaticString { get }
 }
 
+/// Extension providing default implementation for the ``Fragment`` protocol.
+extension Fragment {
+  // Default implementation for the `fragmentDefinition` variable
+  public static var fragmentDefinition: StaticString {
+    return ""
+  }
+}
+
 /// A protocol representing a container for the fragments on a generated ``SelectionSet``.
 ///
 /// A generated ``FragmentContainer`` includes generated properties for converting the

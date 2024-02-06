@@ -1,5 +1,31 @@
 # Change Log
 
+## v1.9.0
+
+### Improvement
+
+- **New import directive for operations:** GraphQL operations now support a directive to control custom module import statements in the generated file. Any operation that includes the directive `@import(module:)`, on the defintion line, with a supplied `String` as the module name will have that module used in a Swift `import` statement at the top of the operation file and any referenced fragments. _Thank you to [@hemel](https://github.com/hemel) for the contribution ([#236](https://github.com/apollographql/apollo-ios-dev/pull/236) / [#245](https://github.com/apollographql/apollo-ios-dev/pull/245))._
+
+### Fixed
+
+- **The `fragmentDefinition` remains in all generated fragments when `operationDocumentFormat` does not include `.definition` ([#3282](https://github.com/apollographql/apollo-ios/issues/3282)):** Code generation will now only generate definitions in fragment files if the `operationDocumentFormat` config contains the `.definition` value ([#218](https://github.com/apollographql/apollo-ios-dev/pull/218)). _Thank you to [@jimisaacs](https://github.com/jimisaacs) for raising the issue._
+- **Custom scalar file header comment ([#3323](https://github.com/apollographql/apollo-ios/issues/3323)):** The header comment for generated custom scalar files was incorrectly changed to state that the output "should not be edited" but the file content could still be edited and would not be overwritten. The header comment has been changed back to state that the contents will be preserved during subsequent codegen executions. _Thank you to [@matsudamper](https://github.com/matsudamper) for raising the issue and the contribution to fix it ([#243](https://github.com/apollographql/apollo-ios-dev/pull/243))._
+
+### Changed
+
+- **WebSocket disconnection errors are no longer printed to stdout ([#3325](https://github.com/apollographql/apollo-ios/issues/3325)):** See PR ([#253](https://github.com/apollographql/apollo-ios-dev/pull/253)) _Thank you to [@sgade](https://github.com/sgade) for raising the issue._
+
+## v1.8.0
+
+### Fixed
+- **Duplicate `@defer` directive error ([#235](https://github.com/apollographql/apollo-ios-dev/pull/235)):** When executing codegen against Apollo Router and a schema that supports the `@defer` directive it would fail with an error stating the directive is duplicated.
+
+### Improvement
+
+- **Added `InputObject`` casing strategy ([#137](https://github.com/apollographql/apollo-ios-dev/pull/137)):** We've added a new casing strategy option for InputObjects which mimics the behaviour of the enum case conversion strategy. _Thank you to [@alexifrim](https://github.com/alexifrim) for raising this in issue [#3257](https://github.com/apollographql/apollo-ios/issues/3257)._
+- **Added `GraphQLResult` conversion extension ([#139](https://github.com/apollographql/apollo-ios-dev/pull/139)):** `GraphQLResult` response data can now be easily converted into a JSON dictionary. This is useful for taking server response data and serializing it into a JSON dictionary which can then be used in a test suite.
+- **Codegen performance improvements ([#152](https://github.com/apollographql/apollo-ios-dev/pull/152)):** There has been a bunch of refactoring work to prepare for future codegen features but we've also managed to squeeze out some performance improvements.
+
 ## v1.7.1
 
 ### Fixed
