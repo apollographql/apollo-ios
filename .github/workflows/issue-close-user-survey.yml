@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'apollographql/apollo-ios'
     steps:
-      - run:
-          if [ "$AUTHOR" == "MEMBER" ] && [ "$COMMENTS" == 0 ]; then
+      - run: |
+          if [ "$AUTHOR" == "MEMBER" ] && (( $COMMENTS == 0 )); then
             echo "Issue opened by member with no comments, skipping user survey."
           else
             gh issue comment "$NUMBER" --body "$BODY"
