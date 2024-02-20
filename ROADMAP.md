@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-02-06**
+**Last updated: 2024-02-20**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -20,13 +20,6 @@ Please see our [patch releases milestone](https://github.com/apollographql/apoll
 ## Upcoming 1.x features
 
 As we identify feature sets that we intend to ship, we'll add to and update the subheadings in this section. We intend to keep this section in chronological order.  In order to enable rapid and continuous feature delivery, we'll avoid assigning minor version numbers to these feature groups in the roadmap.
- 
-### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
-
-_Now available for preview in the `preview-defer.1` branch_
-_Approximate Date: 2024-03-01 (experimental)_
-
-The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS has released a preview version of this feature in the `preview-defer.1` branch.  This will be released as an experimental feature in an upcoming `1.x` minor version.
 
 ### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
 
@@ -43,6 +36,13 @@ _Approximate Date: 2024-03-07_
 - Support for Relay-style (cursor-based), offset-based, and arbitrary pagination patterns
 - This feature will be considered experimental, meaning that the public API could change in backwards-incompatible ways until it is declared stable in a future release
 - This package will be versioned independently from Apollo iOS, beginning with `0.1.0`
+
+### [`@defer` support](https://github.com/apollographql/apollo-ios/issues/2395)
+
+_Now available for preview in the `preview-defer.1` branch_
+_Approximate Date: 2024-03-13 (experimental)_
+
+The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS has released a preview version of this feature in the `preview-defer.1` branch.  This will be released as an experimental feature in an upcoming `1.x` minor version.
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
 
