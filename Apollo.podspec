@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   cli_binary_name = 'apollo-ios-cli'
   s.preserve_paths = [cli_binary_name]
   s.prepare_command = <<-CMD    
-    make unpack-cli
+    sh scripts/download-cli.sh ""
   CMD
 
   s.subspec 'Core' do |ss|
