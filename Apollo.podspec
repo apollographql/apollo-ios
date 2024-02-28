@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   # s.preserve_paths = [cli_binary_name]
   s.prepare_command = <<-CMD
     echo "Running prepare_command"
-    sh scripts/download-cli.sh "$PWD/../.."
+    sh scripts/download-cli.sh "$PWD"
   CMD
 
   s.subspec 'Core' do |ss|
