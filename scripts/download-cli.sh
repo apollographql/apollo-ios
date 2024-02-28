@@ -17,6 +17,6 @@ DOWNLOAD_URL="https://www.github.com/apollographql/apollo-ios/releases/download/
 echo "Download URL - $DOWNLOAD_URL"
 FILE_PATH="$projectDir/apollo-ios-cli.tar.gz"
 echo "File path - $FILE_PATH"
-curl -L "$DOWNLOAD_URL" -v -o "$FILE_PATH"
+curl -L "$DOWNLOAD_URL" -o "$FILE_PATH"
 #tar -xvf "$FILE_PATH"
 #rm -f "$FILE_PATH"
