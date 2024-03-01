@@ -2,6 +2,7 @@
 
 # This script is intended for use only with the "InstallCLI" SPM plugin provided by Apollo iOS
 
+set -euo pipefall
 directory=$(dirname "$0")
 projectDir="$1"
 
