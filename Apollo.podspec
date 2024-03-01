@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '5.0'
 
-  cli_binary_name = 'apollo-ios-cli.tar.gz'
+  cli_binary_name = 'apollo-ios-cli'
   s.preserve_paths = [cli_binary_name]
   s.prepare_command = <<-CMD
     echo "Running prepare_command"
