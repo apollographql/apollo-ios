@@ -109,13 +109,14 @@ extension ApolloClient: ApolloClientProtocol {
   @discardableResult
   public func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                                  publishResultToStore: Bool = true,
+                                                 contextIdentifier: UUID? = nil,
                                                  context: RequestContext? = nil,
                                                  queue: DispatchQueue = .main,
                                                  resultHandler: GraphQLResultHandler<Mutation.Data>? = nil) -> Cancellable {
     return self.networkTransport.send(
       operation: mutation,
       cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
-      contextIdentifier: nil,
+      contextIdentifier: contextIdentifier,
       context: context,
       callbackQueue: queue,
       completionHandler: { result in

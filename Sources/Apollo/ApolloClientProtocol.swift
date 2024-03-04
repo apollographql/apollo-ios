@@ -54,12 +54,14 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Parameters:
   ///   - mutation: The mutation to perform.
   ///   - publishResultToStore: If `true`, this will publish the result returned from the operation to the cache store. Default is `true`.
+  ///   - contextIdentifier: [optional] A unique identifier for this request, to help with deduping cache hits for watchers. Should default to `nil`.
   ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - queue: A dispatch queue on which the result handler will be called. Should default to the main queue.
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                           publishResultToStore: Bool,
+                                          contextIdentifier: UUID?,
                                           context: RequestContext?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> Cancellable
