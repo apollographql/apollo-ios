@@ -144,7 +144,19 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     
     return task
   }
-  
+
+  @discardableResult
+  open func sendRequest(_ request: URLRequest,
+                        rawTaskCompletionHandler: RawCompletion? = nil,
+                        completion: @escaping Completion) -> URLSessionTask {
+    sendRequest(
+      request,
+      taskDescription: nil,
+      rawTaskCompletionHandler: nil,
+      completion: completion
+    )
+  }
+
   /// Cancels a given task and clears out its underlying data.
   ///
   /// NOTE: You will not receive any kind of "This was cancelled" error when this is called.
