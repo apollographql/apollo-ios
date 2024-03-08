@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.9.2
+
+### Fixed
+
+- **Backwards Compatibility issues in 1.9.1:** 1.9.1 introduced a minor breaking change for some users who were creating a custom implementaiton of `ApolloClientProtocol`. Sorry about that! This patch release fixed the compatiblity. See PR [#290](https://github.com/apollographql/apollo-ios-dev/pull/290). _Thanks to [@michaelloo](https://github.com/michaelloo) for raising the issue._
+
+### Improvement
+
+- **Session and task descriptions parameters added to `URLSessionClient` ([#286](https://github.com/apollographql/apollo-ios-dev/pull/286)):** The `URLSessionClient` now allows you to set a `sessionDescription` on the session and `taskDescription` on each task. These are helpful when debugging, especially when analyzing HTTP traffic with Instruments. _Thanks to [@hishma](https://github.com/hishma) for the contribution._
+
 ## v1.9.1
 
 ### Fixed
