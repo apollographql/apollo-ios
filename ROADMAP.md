@@ -82,6 +82,13 @@ _Approximate Date: TBD_
 - Similar to Apollo Kotlin [declarative caching](https://www.apollographql.com/docs/kotlin/caching/declarative-ids) via the `@typePolicy` directive
 - Provide ability to configure cache keys using directives on schema types as an alternative to programmatic cache key configuration
 
+### Swift 6 compatibility
+
+_Approximate Date: TBD_
+
+- [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
+- [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
+
 ## [2.0](https://github.com/apollographql/apollo-ios/milestone/60)
 
 _Approximate Date: TBD_
