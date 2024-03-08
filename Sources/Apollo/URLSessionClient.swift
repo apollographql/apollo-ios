@@ -61,12 +61,17 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   /// - Parameters:
   ///   - sessionConfiguration: The `URLSessionConfiguration` to use to set up the URL session.
   ///   - callbackQueue: [optional] The `OperationQueue` to tell the URL session to call back to this class on, which will in turn call back to your class. Defaults to `.main`.
+  ///   - sessionDescription: [optional] A human-readable string that you can use for debugging purposes.
   public init(sessionConfiguration: URLSessionConfiguration = .default,
-              callbackQueue: OperationQueue? = .main) {
+              callbackQueue: OperationQueue? = .main,
+              sessionDescription: String? = nil) {
     super.init()
-    self.session = URLSession(configuration: sessionConfiguration,
-                              delegate: self,
-                              delegateQueue: callbackQueue)
+      
+    let session = URLSession(configuration: sessionConfiguration, 
+                             delegate: self,
+                             delegateQueue: callbackQueue)
+    session.sessionDescription = sessionDescription
+    self.session = session
   }
   
   /// Cleans up and invalidates everything related to this session client.
@@ -112,12 +117,14 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   ///
   /// - Parameters:
   ///   - request: The request to perform.
+  ///   - taskDescription: [optional] A description to add to the `URLSessionTask` for debugging purposes.
   ///   - rawTaskCompletionHandler: [optional] A completion handler to call once the raw task is done, so if an Error requires access to the headers, the user can still access these.
   ///   - completion: A completion handler to call when the task has either completed successfully or failed.
   ///
   /// - Returns: The created URLSession task, already resumed, because nobody ever remembers to call `resume()`.
   @discardableResult
   open func sendRequest(_ request: URLRequest,
+                        taskDescription: String? = nil,
                         rawTaskCompletionHandler: RawCompletion? = nil,
                         completion: @escaping Completion) -> URLSessionTask {
     guard self.hasNotBeenInvalidated else {
@@ -126,6 +133,8 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     }
     
     let task = self.session.dataTask(with: request)
+    task.taskDescription = taskDescription
+      
     let taskData = TaskData(rawCompletion: rawTaskCompletionHandler,
                             completionBlock: completion)
     
