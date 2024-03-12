@@ -40,7 +40,7 @@ public struct SSLSettings {
 
 //WebSocket implementation
 
-public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate, SOCKSProxyable {
+open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate, SOCKSProxyable {
 
   public enum OpCode : UInt8 {
     case continueFrame = 0x0
@@ -228,9 +228,14 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   /// - Parameters:
   ///   - request: A URL request object that provides request-specific information such as the URL.
   ///   - protocol: Protocol to use for communication over the web socket.
-  public init(request: URLRequest, protocol: WSProtocol) {
+  public init(request: URLRequest, protocol: WSProtocol, enableSocksProxy: Bool = false) {
     self.request = request
     self.stream = FoundationStream()
+    
+    if let stream = self.stream as? FoundationStream {
+      stream.enableSOCKSProxy = enableSocksProxy
+    }
+    
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
       guard let url = request.url else {return}
       var origin = url.absoluteString
@@ -355,7 +360,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     dequeueWrite(string.data(using: String.Encoding.utf8)!, code: .textFrame, writeCompletion: completion)
   }
 
-  public func write(string: String) {
+  open func write(string: String) {
     self.write(string: string, completion: nil)
   }
 
