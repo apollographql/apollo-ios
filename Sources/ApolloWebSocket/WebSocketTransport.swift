@@ -45,7 +45,7 @@ public class WebSocketTransport {
   @Atomic var socketConnectionState: SocketConnectionState = .disconnected
 
   /// Indicates if the websocket connection has been acknowledged by the server.
-  private var timeoutTimer = Atomic<Timer?>(nil)
+  private var timeoutTimer = Atomic<Timer?>(wrappedValue: nil)
   private var ackTimeout: TimeInterval? {
     didSet {
       resetTimeoutTimer()
