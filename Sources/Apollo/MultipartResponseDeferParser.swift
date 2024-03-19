@@ -64,23 +64,15 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
         }
 
       case let .json(object):
-        if let hasNext = object.hasNext {
-          preconditionFailure("This will be done in #3147")
+        guard object.isPartialResponse || object.isIncrementalResponse else {
+          return .failure(ParsingError.cannotParsePayloadData)
         }
 
-        if let incremental = object.incremental {
-          preconditionFailure("This will be done in #3147")
-
-        } else {
-          guard
-            let _ = object.data,
-            let serialized: Data = try? JSONSerializationFormat.serialize(value: object)
-          else {
-            return .failure(ParsingError.cannotParsePayloadData)
-          }
-
-          return .success(serialized)
+        guard let serialized: Data = try? JSONSerializationFormat.serialize(value: object) else {
+          return .failure(ParsingError.cannotParsePayloadData)
         }
+
+        return .success(serialized)
 
       case .unknown:
         return .failure(ParsingError.cannotParseChunkData)
@@ -92,23 +84,11 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
 }
 
 fileprivate extension JSONObject {
-  var label: String? {
-    self["label"] as? String
+  var isPartialResponse: Bool {
+    self.keys.contains("data") && self.keys.contains("hasNext")
   }
 
-  var path: [String]? {
-    self["path"] as? [String]
-  }
-
-  var hasNext: Bool? {
-    self["hasNext"] as? Bool
-  }
-
-  var data: JSONObject? {
-    self["data"] as? JSONObject
-  }
-
-  var incremental: [JSONObject]? {
-    self["incremental"] as? [JSONObject]
+  var isIncrementalResponse: Bool {
+    self.keys.contains("incremental") && self.keys.contains("hasNext")
   }
 }

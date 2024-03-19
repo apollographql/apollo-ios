@@ -6,9 +6,11 @@ import ApolloAPI
 struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier> = []
+  fileprivate(set) var deferredFragments: Set<ObjectIdentifier> = []
 
   init(info: ObjectExecutionInfo) {
     self.fulfilledFragments = info.fulfilledFragments
+    self.deferredFragments = info.deferredFragments
   }
 
   var count: Int { fieldInfoList.count }
@@ -24,7 +26,21 @@ struct FieldSelectionGrouping: Sequence {
   }
 
   mutating func addFulfilledFragment<T: SelectionSet>(_ type: T.Type) {
+    precondition(
+      !deferredFragments.contains(type: type),
+      "Cannot fulfill \(type.self) fragment, it's already deferred!"
+    )
+
     fulfilledFragments.insert(ObjectIdentifier(type))
+  }
+
+  mutating func addDeferredFragment<T: SelectionSet>(_ type: T.Type) {
+    precondition(
+      !fulfilledFragments.contains(type: type),
+      "Cannot defer \(type.self) fragment, it's already fulfilled!"
+    )
+
+    deferredFragments.insert(ObjectIdentifier(type))
   }
 
   func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
@@ -77,8 +93,16 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                             info: info)
         }
 
-      case .deferred(_, _, _):
-        assertionFailure("Defer execution must be implemented (#3145).")
+      case let .deferred(_, typeCase, _):
+        // In Apollo's implementation (Router + Server) of deferSpec=20220824 ALL defer directives
+        // will be honoured and sent as separate incremental responses. This means deferred
+        // selection fields never need to be collected because they are parsed with the incremental
+        // data, at which time they are no longer deferred.
+        //
+        // The deferred fragment identifiers still need to be collected becuase that is how the
+        // user determines the state of the deferred fragment via the @Deferred property wrapper.
+        groupedFields.addDeferredFragment(typeCase)
+
       case let .fragment(fragment):
         groupedFields.addFulfilledFragment(fragment)
         try collectFields(from: fragment.__selections,
@@ -86,7 +110,6 @@ struct DefaultFieldSelectionCollector: FieldSelectionCollector {
                           for: object,
                           info: info)
 
-      // TODO: _ is fine for now but will need to be handled in #3145
       case let .inlineFragment(typeCase):
         if let runtimeType = info.runtimeObjectType(for: object),
            typeCase.__parentType.canBeConverted(from: runtimeType) {
