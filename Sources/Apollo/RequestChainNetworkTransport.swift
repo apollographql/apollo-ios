@@ -177,6 +177,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
                   additionalHeaders: self.additionalHeaders,
                   files: files,
                   manualBoundary: manualBoundary,
+                  context: context,
                   requestBodyCreator: self.requestBodyCreator)
   }
   

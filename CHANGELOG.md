@@ -1,5 +1,26 @@
 # Change Log
 
+## v1.9.2
+
+### Fixed
+
+- **Backwards Compatibility issues in 1.9.1:** 1.9.1 introduced a minor breaking change for some users who were creating a custom implementaiton of `ApolloClientProtocol`. Sorry about that! This patch release fixed the compatiblity. See PR [#290](https://github.com/apollographql/apollo-ios-dev/pull/290). _Thanks to [@michaelloo](https://github.com/michaelloo) for raising the issue._
+
+### Improvement
+
+- **Session and task descriptions parameters added to `URLSessionClient` ([#286](https://github.com/apollographql/apollo-ios-dev/pull/286)):** The `URLSessionClient` now allows you to set a `sessionDescription` on the session and `taskDescription` on each task. These are helpful when debugging, especially when analyzing HTTP traffic with Instruments. _Thanks to [@hishma](https://github.com/hishma) for the contribution._
+
+## v1.9.1
+
+### Fixed
+
+- **`SelectionSet` generated initializers don't compile with `self` parameter ([#3330](https://github.com/apollographql/apollo-ios/issues/3330)):** Selection set initializers now use a local property name when the external property name is a Swift reserved word; see PR [#257](https://github.com/apollographql/apollo-ios-dev/pull/257). _Thanks to [@grantjbutler](https://github.com/grantjbutler) for raising the issue._
+- **asXXXXXXX property on a union never returning `nil` if selection set empty ([#3326](https://github.com/apollographql/apollo-ios/issues/3326)):** - The codegen logic to determine whether a selection set is composite or not has been improved to handle the case when `__typename` was the only field in the selection set; see PR [#261](https://github.com/apollographql/apollo-ios-dev/pull/261). _Thanks to [@vincentisambart](https://github.com/vincentisambart) for raising the issue._
+
+### Improvement
+
+- **Feature/ContextIdentifier for the mutate queries ([#281](https://github.com/apollographql/apollo-ios-dev/pull/281)):** Mutation operations can now be given a context identifier to be used later in the request. _Thanks to [@VladimirK-ah](https://github.com/VladimirK-ah) for the contribution._
+
 ## v1.9.0
 
 ### Improvement
