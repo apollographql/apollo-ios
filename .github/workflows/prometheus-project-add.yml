@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Add to project
-      uses: actions/add-to-project@v0.6.1
+      uses: actions/add-to-project@v1.0.0
       with:
         project-url: https://github.com/orgs/apollographql/projects/21
         github-token: ${{ secrets.PROMETHEUS_PROJECT_ACCESS_SECRET }}
