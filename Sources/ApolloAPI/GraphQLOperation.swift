@@ -16,7 +16,7 @@ public enum GraphQLOperationType: Hashable {
 /// ``GraphQLOperation``. You can configure the the code generation engine to include the
 /// ``OperationDefinition``, ``operationIdentifier``, or both using the `OperationDocumentFormat`
 /// options in your `ApolloCodegenConfiguration`.
-public struct OperationDocument {
+public struct OperationDocument: Sendable {
   public let operationIdentifier: String?
   public let definition: OperationDefinition?
 
@@ -35,7 +35,7 @@ public struct OperationDocument {
 /// This data represents the `Definition` for a `Document` as defined in the GraphQL Spec.
 /// In the case of the Apollo client, the definition will always be an `ExecutableDefinition`.
 /// - See: [GraphQLSpec - Document](https://spec.graphql.org/draft/#Document)
-public struct OperationDefinition {
+public struct OperationDefinition: Sendable {
   let operationDefinition: String
   let fragments: [any Fragment.Type]?
 

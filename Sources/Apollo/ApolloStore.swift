@@ -5,7 +5,9 @@ import ApolloAPI
 
 public typealias DidChangeKeysFunc = (Set<CacheKey>, UUID?) -> Void
 
-protocol ApolloStoreSubscriber: AnyObject {
+/// The `ApolloStoreSubscriber` provides a means to observe changes to items in the ApolloStore.
+/// This protocol is available for advanced use cases only. Most users will prefer using `ApolloClient.watch(query:)`.
+public protocol ApolloStoreSubscriber: AnyObject {
   
   /// A callback that can be received by subscribers when keys are changed within the database
   ///
@@ -23,7 +25,7 @@ public class ApolloStore {
   private let cache: NormalizedCache
   private let queue: DispatchQueue
 
-  private var subscribers: [ApolloStoreSubscriber] = []
+  internal var subscribers: [ApolloStoreSubscriber] = []
 
   /// Designated initializer
   /// - Parameters:
@@ -83,13 +85,23 @@ public class ApolloStore {
     }
   }
 
-  func subscribe(_ subscriber: ApolloStoreSubscriber) {
+  /// Subscribes to notifications of ApolloStore content changes
+  ///
+  /// - Parameters:
+  ///    - subscriber: A subscriber to receive content change notificatons. To avoid a retain cycle,
+  ///                  ensure you call `unsubscribe` on this subscriber before it goes out of scope.
+  public func subscribe(_ subscriber: ApolloStoreSubscriber) {
     queue.async(flags: .barrier) {
       self.subscribers.append(subscriber)
     }
   }
 
-  func unsubscribe(_ subscriber: ApolloStoreSubscriber) {
+  /// Unsubscribes from notifications of ApolloStore content changes
+  ///
+  /// - Parameters:
+  ///    - subscriber: A subscribe that has previously been added via `subscribe`. To avoid retain cycles,
+  ///                  call `unsubscribe` on all active subscribers before they go out of scope.
+  public func unsubscribe(_ subscriber: ApolloStoreSubscriber) {
     queue.async(flags: .barrier) {
       self.subscribers = self.subscribers.filter({ $0 !== subscriber })
     }
