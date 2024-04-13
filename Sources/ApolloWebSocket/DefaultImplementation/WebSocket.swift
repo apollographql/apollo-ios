@@ -228,13 +228,9 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   /// - Parameters:
   ///   - request: A URL request object that provides request-specific information such as the URL.
   ///   - protocol: Protocol to use for communication over the web socket.
-  public init(request: URLRequest, protocol: WSProtocol, enableSocksProxy: Bool = false) {
+  public init(request: URLRequest, protocol: WSProtocol) {
     self.request = request
     self.stream = FoundationStream()
-    
-    if let stream = self.stream as? FoundationStream {
-      stream.enableSOCKSProxy = enableSocksProxy
-    }
     
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
       guard let url = request.url else {return}
