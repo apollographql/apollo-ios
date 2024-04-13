@@ -3,7 +3,7 @@
 /// Each `type` defined in the GraphQL schema will have an instance of ``Object`` generated.
 /// # See Also
 /// [GraphQLSpec - Objects](https://spec.graphql.org/draft/#sec-Objects)
-public struct Object: Hashable {
+public struct Object: Hashable, Sendable {
 
   /// Designated Initializer
   ///
@@ -33,15 +33,5 @@ public struct Object: Hashable {
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public func implements(_ interface: Interface) -> Bool {
     implementedInterfaces.contains(where: { $0 == interface })
-  }
-
-  public static func == (lhs: Object, rhs: Object) -> Bool {
-    return lhs.typename == rhs.typename &&
-    lhs.implementedInterfaces == rhs.implementedInterfaces
-  }
-
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(typename)
-    hasher.combine(implementedInterfaces)
   }
 }

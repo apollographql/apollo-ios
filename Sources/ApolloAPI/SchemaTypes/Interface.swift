@@ -4,7 +4,7 @@
 ///
 /// # See Also
 /// [GraphQLSpec - Interfaces](https://spec.graphql.org/draft/#sec-Interfaces)
-public struct Interface: Hashable {
+public struct Interface: Hashable, Sendable {
   /// The name of the ``Interface`` in the GraphQL schema.
   public let name: String
 

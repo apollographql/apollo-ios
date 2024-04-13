@@ -1,5 +1,18 @@
 # Change Log
 
+## v1.9.3
+
+### Fixed
+
+- **Fix injecting of context for UploadRequest:** Any request context passed into an upload request was not being added to the HTTP request and would not be available to the interceptor chain. See PR ([#302](https://github.com/apollographql/apollo-ios-dev/pull/302)). _Thanks to [@RobertDresler](https://github.com/RobertDresler) for the contribution._
+- **Added support for SPM Package.resolved format version 3 ([#3355](https://github.com/apollographql/apollo-ios/issues/3355)):** When using Xcode 15.3 the codegen CLI would fail the `generate` command with an error stating the Package.resolve file version is unsupported. Version 3 is now accepted as a valid file format for the codegen version checker. See PR ([#304](https://github.com/apollographql/apollo-ios-dev/pull/304)).
+- **PrivacyInfo.xcprivacy file is invalid for Apollo and ApolloApi ([#3359](https://github.com/apollographql/apollo-ios/issues/3359)):** We received reports that when submitting to the App Store the submission would fail with an error stating that the privacy manifests were invalid. We identified the error and updated the privacy files. See PR ([#309](https://github.com/apollographql/apollo-ios-dev/pull/309)). _Thanks to [@azilbershtein](https://github.com/azilbershtein) for raising the issue._
+
+### Improvement
+
+- **Provide a direct means to observe changes in ApolloStore:** `ApolloStore` now exposes it's subscriber mechanism publicly. This means you can now observe and receive notifications about changes to the store. See PR ([#300](https://github.com/apollographql/apollo-ios-dev/pull/300)). _Thanks to [@jamesonwilliams](https://github.com/jamesonwilliams) for the contribution._
+- **Remove redundant iteration in EntitySelectionTree merging algorithm:** The conditions for merging selections were revisited and we identified, and removed, a redundant iteration. This is a significant performance improvement as it removes an entire additional iteration through all the conditional scopes in the tree. See PR ([#308](https://github.com/apollographql/apollo-ios-dev/pull/308)).
+
 ## v1.9.2
 
 ### Fixed
