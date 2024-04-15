@@ -1,7 +1,7 @@
 #if !COCOAPODS
 @_exported @testable import ApolloAPI
 #endif
-@testable import Apollo
+@testable import ApolloPGATOUR
 import Foundation
 
 @dynamicMemberLookup
