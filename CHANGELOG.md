@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.10.0
+
+### New
+
+- **Added support for visionOS ([#3320](https://github.com/apollographql/apollo-ios/issues/3320)):** All the dependecies that Apollo iOS requires have been updated to add support for visionOS, so we can now add official support for visionOS too. See PR [#333](https://github.com/apollographql/apollo-ios-dev/pull/333).
+
+### Improvement
+
+- **Add Sendable conformance to some basic SchemaTypes:** This adds `Sendable` conformance to the some of the generated schema types. This does not mean that all of the generated code is safe to use yet with complete concurrency checking of Swift 5.10 but it gets us closer to that goal. See PR [#322](https://github.com/apollographql/apollo-ios-dev/pull/322). _Thanks to [@bdbergeron](https://github.com/bdbergeron) for the contributon._
+
 ## v1.9.3
 
 ### Fixed
