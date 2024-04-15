@@ -12,9 +12,9 @@ let package = Package(
     .watchOS(.v5)
   ],
   products: [
-    .library(name: "Apollo-PGATOUR", targets: ["Apollo"]),
+    .library(name: "Apollo-PGATOUR", targets: ["Apollo-PGATOUR"]),
     .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
-    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo"]),
+    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo-PGATOUR"]),
     .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
