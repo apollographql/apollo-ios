@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Apollo-PGATOUR",
+  name: "ApolloPGATOUR",
   platforms: [
     .iOS(.v12),
     .macOS(.v10_14),
@@ -12,9 +12,9 @@ let package = Package(
     .watchOS(.v5)
   ],
   products: [
-    .library(name: "Apollo-PGATOUR", targets: ["Apollo-PGATOUR"]),
+    .library(name: "ApolloPGATOUR", targets: ["ApolloPGATOUR"]),
     .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
-    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo-PGATOUR"]),
+    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["ApolloPGATOUR"]),
     .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
@@ -27,7 +27,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "Apollo-PGATOUR",
+      name: "ApolloPGATOUR",
       dependencies: [
         "ApolloAPI"
       ],
@@ -45,7 +45,7 @@ let package = Package(
     .target(
       name: "ApolloSQLite",
       dependencies: [
-        "Apollo-PGATOUR",
+        "ApolloPGATOUR",
         .product(name: "SQLite", package: "SQLite.swift"),
       ],
       resources: [
@@ -55,7 +55,7 @@ let package = Package(
     .target(
       name: "ApolloWebSocket",
       dependencies: [
-        "Apollo-PGATOUR"
+        "ApolloPGATOUR"
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
@@ -64,7 +64,7 @@ let package = Package(
     .target(
       name: "ApolloTestSupport",
       dependencies: [
-        "Apollo-PGATOUR",
+        "ApolloPGATOUR",
         "ApolloAPI"
       ]
     ),
