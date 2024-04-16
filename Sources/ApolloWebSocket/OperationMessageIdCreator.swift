@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloUtils
+import ApolloPGATOUR
 #endif
 
 public protocol OperationMessageIdCreator {
@@ -11,19 +11,19 @@ public protocol OperationMessageIdCreator {
 
 /// The default implementation of `OperationMessageIdCreator` that uses a sequential numbering scheme.
 public struct ApolloSequencedOperationMessageIdCreator: OperationMessageIdCreator {
-  private var sequenceNumberCounter = Atomic<Int>(0)
+  @Atomic private var sequenceNumberCounter: Int = 0
 
   /// Designated initializer.
   ///
   /// - Parameter startAt: The number from which the sequenced numbering scheme should start.
   public init(startAt sequenceNumber: Int = 1) {
-    sequenceNumberCounter = Atomic<Int>(sequenceNumber)
+    _sequenceNumberCounter = Atomic<Int>(wrappedValue: sequenceNumber)
   }
 
   /// Returns the number in the current sequence. Will be incremented when calling this method.
   public func requestId() -> String {
-    let id = sequenceNumberCounter.value
-    _ = sequenceNumberCounter.increment()
+    let id = sequenceNumberCounter
+    _ = $sequenceNumberCounter.increment()
 
     return "\(id)"
   }

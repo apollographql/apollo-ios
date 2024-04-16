@@ -1,0 +1,18 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: [ "feature" ]
+body:
+  - type: textarea
+    attributes:
+      label: Use case
+      description: A clear and concise description of what the problem is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the solution you'd like
+      description: |
+        A clear and concise description of what you want to happen.
+        If you already have an idea of the API you would like, do not hesitate to add it to the issue.
+    validations:
+      required: false

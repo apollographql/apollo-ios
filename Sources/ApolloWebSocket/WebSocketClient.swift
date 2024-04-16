@@ -23,7 +23,7 @@ public protocol WebSocketClient: AnyObject {
   func connect()
 
   /// Disconnects from the websocket server.
-  func disconnect()
+  func disconnect(forceTimeout: TimeInterval?)
 
   /// Writes ping data to the websocket.
   func write(ping: Data, completion: (() -> Void)?)

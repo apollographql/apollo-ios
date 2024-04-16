@@ -1,6 +1,8 @@
 ## Build generated
 build/
 DerivedData/
+apollo-ios-cli
+!apollo-ios-cli/
 
 ## Various settings
 *.pbxuser
@@ -18,6 +20,9 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 .DS_Store
+
+## Visual Studio Code
+.vscode/launch.json
 
 ## Obj-C/Swift specific
 *.hmap
@@ -41,7 +46,7 @@ playground.xcworkspace
 # you should judge for yourself, the pros and cons are mentioned at:
 # https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
 #
-# Pods/
+**/Pods/
 
 # Carthage
 #
@@ -64,3 +69,20 @@ SwiftScripts/.build-**
 
 # Local Netlify folder
 .netlify
+
+# Generated js files we don't need committed
+Sources/ApolloCodegenLib/Frontend/dist/
+
+# Local generated packages we don't need in the main project
+Sources/AnimalKingdomAPI/Generated/Package.swift
+Sources/AnimalKingdomAPI/Generated/Package.resolved
+Tests/TestCodeGenConfigurations/**/AnimalKingdomAPI/
+Tests/TestCodeGenConfigurations/**/AnimalKingdomAPITestMocks
+Tests/TestCodeGenConfigurations/**/Package.resolved
+Tests/TestCodeGenConfigurations/**/Podfile.lock
+Tests/TestCodeGenConfigurations/**/TestMocks
+Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageOne/**/*.graphql.swift
+Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sources/PackageTwo
+!Tests/TestCodeGenConfigurations/**/SchemaConfiguration.swift
+!Tests/TestCodeGenConfigurations/Other-CustomTarget/AnimalKingdomAPI/AnimalKingdomAPI.h
+!Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sources/PackageTwo/PackageTwo.swift

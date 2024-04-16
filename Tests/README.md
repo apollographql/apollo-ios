@@ -1,0 +1,1 @@
+All tests for the Apollo iOS code are located in the [Apollo iOS Dev](https://github.com/apollographql/apollo-ios-dev/tree/main/Tests) repo.

@@ -1,2 +1,1 @@
-VERSION_CONFIG_VAR="CURRENT_PROJECT_VERSION"
-VERSION_CONFIG_FILE="Configuration/Shared/Project-Version.xcconfig"
+APOLLO_CONSTANTS_FILE="Sources/Apollo/Constants.swift"

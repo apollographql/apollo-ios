@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import Apollo
+import ApolloPGATOUR
 #endif
 import SQLite
 

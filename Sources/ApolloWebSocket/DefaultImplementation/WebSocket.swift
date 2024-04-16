@@ -40,7 +40,7 @@ public struct SSLSettings {
 
 //WebSocket implementation
 
-open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate {
+open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStreamDelegate, SOCKSProxyable {
 
   public enum OpCode : UInt8 {
     case continueFrame = 0x0
@@ -85,13 +85,14 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
     }
   }
 
-  struct Constants {
+  @_spi(Testable)
+  public struct Constants {
     static let headerWSUpgradeName     = "Upgrade"
     static let headerWSUpgradeValue    = "websocket"
     static let headerWSHostName        = "Host"
     static let headerWSConnectionName  = "Connection"
     static let headerWSConnectionValue = "Upgrade"
-    static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
+    public static let headerWSProtocolName    = "Sec-WebSocket-Protocol"
     static let headerWSVersionName     = "Sec-WebSocket-Version"
     static let headerWSVersionValue    = "13"
     static let headerWSExtensionName   = "Sec-WebSocket-Extensions"
@@ -166,6 +167,29 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
 
   public var respondToPingWithPong: Bool = true
 
+  /// Determines whether a SOCKS proxy is enabled on the underlying request.
+  /// Mostly useful for debugging with tools like Charles Proxy.
+  /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
+  public var enableSOCKSProxy: Bool {
+    get {
+      guard let stream = stream as? SOCKSProxyable else {
+        // If it's not proxyable, then the proxy can't be enabled
+        return false
+      }
+
+      return stream.enableSOCKSProxy
+    }
+
+    set {
+      guard var stream = stream as? SOCKSProxyable else {
+        // If it's not proxyable, there's nothing to do here.
+        return
+      }
+
+      stream.enableSOCKSProxy = newValue
+    }
+  }
+
   // MARK: - Private
 
   private struct CompressionState {
@@ -204,13 +228,9 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   /// - Parameters:
   ///   - request: A URL request object that provides request-specific information such as the URL.
   ///   - protocol: Protocol to use for communication over the web socket.
-  public init(request: URLRequest, protocol: WSProtocol, enableSocksProxy: Bool = false) {
+  public init(request: URLRequest, protocol: WSProtocol) {
     self.request = request
     self.stream = FoundationStream()
-    
-    if let stream = self.stream as? FoundationStream {
-      stream.enableSOCKSProxy = enableSocksProxy
-    }
     
     if request.value(forHTTPHeaderField: Constants.headerOriginName) == nil {
       guard let url = request.url else {return}
@@ -266,14 +286,22 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
   }
 
   /**
-   Disconnect from the server. I send a Close control frame to the server, then expect the server to respond with a Close control frame and close the socket from its end. I notify my delegate once the socket has been closed.
+   Disconnect from the server. Send a Close control frame to the server, then expect the server to
+   respond with a Close control frame and close the socket from its end. Notify the delegate once
+   the socket has been closed.
 
-   If you supply a non-nil `forceTimeout`, I wait at most that long (in seconds) for the server to close the socket. After the timeout expires, I close the socket and notify my delegate.
+   If `forceTimeout` > 0, wait at most that long (in seconds) for the server to close the socket.
+   After the timeout expires, close the socket (without sending a Close control frame) and notify
+   the delegate.
 
-   If you supply a zero (or negative) `forceTimeout`, I immediately close the socket (without sending a Close control frame) and notify my delegate.
+   If `forceTimeout` <= 0, immediately close the socket (without sending a Close control frame)
+   and notify the delegate.
+
+   If `forceTimeout` is `nil`, send the Close control frame to the server.
 
    - Parameter forceTimeout: Maximum time to wait for the server to close the socket.
-   - Parameter closeCode: The code to send on disconnect. The default is the normal close code for cleanly disconnecting a webSocket.
+   - Parameter closeCode: The code to send on disconnect. The default is the normal close code for
+   cleanly disconnecting a webSocket.
    */
   func disconnect(
     forceTimeout: TimeInterval? = nil,
@@ -295,8 +323,24 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
     }
   }
 
-  public func disconnect() {
-    self.disconnect(forceTimeout: nil, closeCode: CloseCode.normal.rawValue)
+  /**
+   Disconnect from the server. Send a Close control frame to the server, then expect the server to
+   respond with a Close control frame and close the socket from its end. Notify the delegate once
+   the socket has been closed.
+
+   If `forceTimeout` > 0, wait at most that long (in seconds) for the server to close the socket.
+   After the timeout expires, close the socket (without sending a Close control frame) and notify
+   the delegate.
+
+   If `forceTimeout` <= 0, immediately close the socket (without sending a Close control frame)
+   and notify the delegate.
+
+   If `forceTimeout` is `nil`, send the Close control frame to the server.
+
+   - Parameter forceTimeout: Maximum time to wait for the server to close the socket.
+   */
+  public func disconnect(forceTimeout: TimeInterval?) {
+    self.disconnect(forceTimeout: forceTimeout, closeCode: CloseCode.normal.rawValue)
   }
 
   /**
@@ -529,7 +573,7 @@ open class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSocketStream
     let data = stream.read()
     guard let d = data else { return }
     var process = false
-    if inputQueue.count == 0 {
+    if inputQueue.isEmpty {
       process = true
     }
     inputQueue.append(d)

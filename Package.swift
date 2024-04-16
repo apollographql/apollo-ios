@@ -1,10 +1,10 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
-  name: "Apollo",
+  name: "ApolloPGATOUR",
   platforms: [
     .iOS(.v12),
     .macOS(.v10_14),
@@ -12,87 +12,74 @@ let package = Package(
     .watchOS(.v5)
   ],
   products: [
-    .library(
-      name: "Apollo",
-      targets: ["Apollo"]),
-    .library(
-      name: "ApolloAPI",
-      targets: ["ApolloAPI"]),
-    .library(
-      name: "ApolloUtils",
-      targets: ["ApolloUtils"]),
-    .library(
-      name: "Apollo-Dynamic",
-      type: .dynamic,
-      targets: ["Apollo"]),
-    .library(
-      name: "ApolloCodegenLib",
-      targets: ["ApolloCodegenLib"]),
-    .library(
-      name: "ApolloSQLite",
-      targets: ["ApolloSQLite"]),
-    .library(
-      name: "ApolloWebSocket",
-      targets: ["ApolloWebSocket"]),
+    .library(name: "ApolloPGATOUR", targets: ["ApolloPGATOUR"]),
+    .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
+    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["ApolloPGATOUR"]),
+    .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
+    .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
+    .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
+    .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMinor(from: "0.13.1"))
+      .upToNextMajor(from: "0.13.1")),
   ],
   targets: [
     .target(
-      name: "Apollo",
+      name: "ApolloPGATOUR",
       dependencies: [
-        "ApolloAPI",
-        "ApolloUtils"
+        "ApolloAPI"
       ],
-      exclude: [
-        "Info.plist"
-      ]),
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
+      ]
+    ),
     .target(
       name: "ApolloAPI",
       dependencies: [],
-      exclude: [
-        "Info.plist",
-        "CodegenV1"
-      ]),
-    .target(
-      name: "ApolloUtils",
-      dependencies: [],
-      exclude: [
-        "Info.plist"
-      ]),
-    .target(
-      name: "ApolloCodegenLib",
-      dependencies: [
-        "ApolloUtils",
-      ],
-      exclude: [
-        "Info.plist",
-        "Frontend/JavaScript",
-      ],
       resources: [
-        .copy("Frontend/dist/ApolloCodegenFrontend.bundle.js"),
-        .copy("Frontend/dist/ApolloCodegenFrontend.bundle.js.map")
-      ]),
+        .copy("Resources/PrivacyInfo.xcprivacy")
+      ]
+    ),
     .target(
       name: "ApolloSQLite",
       dependencies: [
-        "Apollo",
+        "ApolloPGATOUR",
         .product(name: "SQLite", package: "SQLite.swift"),
       ],
-      exclude: [
-        "Info.plist"
-      ]),
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
+      ]
+    ),
     .target(
       name: "ApolloWebSocket",
       dependencies: [
-        "Apollo",
-        "ApolloUtils"
+        "ApolloPGATOUR"
       ],
-      exclude: [
-        "Info.plist"
-      ])
+      resources: [
+        .copy("Resources/PrivacyInfo.xcprivacy")
+      ]
+    ),
+    .target(
+      name: "ApolloTestSupport",
+      dependencies: [
+        "ApolloPGATOUR",
+        "ApolloAPI"
+      ]
+    ),
+    .plugin(
+      name: "Install CLI",
+      capability: .command(
+        intent: .custom(
+          verb: "apollo-cli-install",
+          description: "Installs the Apollo iOS Command line interface."),
+        permissions: [
+          .writeToPackageDirectory(reason: "Downloads and unzips the CLI executable into your project directory."),
+          .allowNetworkConnections(scope: .all(ports: []), reason: "Downloads the Apollo iOS CLI executable from the GitHub Release.")
+        ]),
+      dependencies: [],
+      path: "Plugins/InstallCLI"
+    )
   ]
 )

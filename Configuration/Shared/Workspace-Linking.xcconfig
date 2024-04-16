@@ -1,5 +1,0 @@
-// Dynamic linking uses different default copy paths. Reset LD_RUNPATH_SEARCH_PATHS for each SDK.
-LD_RUNPATH_SEARCH_PATHS[sdk=macosx*] = '@executable_path/../Frameworks' '@loader_path/../Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=iphone*] = '@executable_path/Frameworks' '@loader_path/Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=watch*] = '@executable_path/Frameworks' '@loader_path/Frameworks'
-LD_RUNPATH_SEARCH_PATHS[sdk=appletv*] = '@executable_path/Frameworks' '@loader_path/Frameworks'

@@ -1,6 +1,6 @@
 #if !COCOAPODS
-import Apollo
-import ApolloUtils
+import ApolloPGATOUR
+import ApolloAPI
 #endif
 import Foundation
 
@@ -26,14 +26,11 @@ public extension WebSocketTransportDelegate {
 public class WebSocketTransport {
   public weak var delegate: WebSocketTransportDelegate?
 
-  let connectOnInit: Bool
-  let reconnect: Atomic<Bool>
   let websocket: WebSocketClient
   let store: ApolloStore?
-  let error: Atomic<Error?> = Atomic(nil)
+  private(set) var config: Configuration
+  @Atomic var error: Error?
   let serializationFormat = JSONSerializationFormat.self
-  private let requestBodyCreator: RequestBodyCreator
-  private let operationMessageIdCreator: OperationMessageIdCreator
 
   /// non-private for testing - you should not use this directly
   enum SocketConnectionState {
@@ -45,10 +42,10 @@ public class WebSocketTransport {
       self == .connected
     }
   }
-  var socketConnectionState = Atomic<SocketConnectionState>(.disconnected)
+  @Atomic var socketConnectionState: SocketConnectionState = .disconnected
 
   /// Indicates if the websocket connection has been acknowledged by the server.
-  private var timeoutTimer = Atomic<Timer?>(nil)
+  private var timeoutTimer = Atomic<Timer?>(wrappedValue: nil)
   private var ackTimeout: TimeInterval? {
     didSet {
       resetTimeoutTimer()
@@ -59,28 +56,103 @@ public class WebSocketTransport {
   }
 
   private var queue: [Int: String] = [:]
-  private var connectingPayload: GraphQLMap?
 
   private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
   let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
-  private let sendOperationIdentifiers: Bool
-  private let reconnectionInterval: TimeInterval
-  private let allowSendingDuplicates: Bool
   fileprivate var reconnected = false
+
+  var reconnect: Bool {
+    get { config.reconnect }
+    set { config.$reconnect.mutate { $0 = newValue } }
+  }
 
   /// - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientName: String {
-    didSet {
+    get { config.clientName }
+    set {
+      config.clientName = newValue
       self.addApolloClientHeaders(to: &self.websocket.request)
     }
   }
 
   /// - NOTE: Setting this won't override immediately if the socket is still connected, only on reconnection.
   public var clientVersion: String {
-    didSet {
+    get { config.clientVersion }
+    set {
+      config.clientVersion = newValue
       self.addApolloClientHeaders(to: &self.websocket.request)
+    }
+  }
+
+  public struct Configuration {
+    /// The client name to use for this client. Defaults to `Self.defaultClientName`
+    public fileprivate(set) var clientName: String
+    /// The client version to use for this client. Defaults to `Self.defaultClientVersion`.
+    public fileprivate(set) var clientVersion: String
+    /// Whether to auto reconnect when websocket looses connection. Defaults to true.
+    @Atomic public var reconnect: Bool
+    /// How long to wait before attempting to reconnect. Defaults to half a second.
+    public let reconnectionInterval: TimeInterval
+    /// Allow sending duplicate messages. Important when reconnected. Defaults to true.
+    public let allowSendingDuplicates: Bool
+    ///  Whether the websocket connects immediately on creation.
+    ///  If false, remember to call `resumeWebSocketConnection()` to connect.
+    ///  Defaults to true.
+    public let connectOnInit: Bool
+    /// [optional]The payload to send on connection. Defaults to an empty `JSONEncodableDictionary`.
+    public fileprivate(set) var connectingPayload: JSONEncodableDictionary?
+    /// The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
+    public let requestBodyCreator: RequestBodyCreator
+    /// The `OperationMessageIdCreator` used to generate a unique message identifier per request.
+    /// Defaults to `ApolloSequencedOperationMessageIdCreator`.
+    public let operationMessageIdCreator: OperationMessageIdCreator
+
+    /// The designated initializer
+    public init(
+      clientName: String = WebSocketTransport.defaultClientName,
+      clientVersion: String = WebSocketTransport.defaultClientVersion,
+      reconnect: Bool = true,
+      reconnectionInterval: TimeInterval = 0.5,
+      allowSendingDuplicates: Bool = true,
+      connectOnInit: Bool = true,
+      connectingPayload: JSONEncodableDictionary? = [:],
+      requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+      operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()
+    ) {
+      self.clientName = clientName
+      self.clientVersion = clientVersion
+      self._reconnect = Atomic(wrappedValue: reconnect)
+      self.reconnectionInterval = reconnectionInterval
+      self.allowSendingDuplicates = allowSendingDuplicates
+      self.connectOnInit = connectOnInit
+      self.connectingPayload = connectingPayload
+      self.requestBodyCreator = requestBodyCreator
+      self.operationMessageIdCreator = operationMessageIdCreator
+    }
+  }
+
+  /// Determines whether a SOCKS proxy is enabled on the underlying request.
+  /// Mostly useful for debugging with tools like Charles Proxy.
+  /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
+  public var enableSOCKSProxy: Bool {
+    get {
+      guard let websocket = websocket as? SOCKSProxyable else {
+        // If it's not proxyable, then the proxy can't be enabled
+        return false
+      }
+
+      return websocket.enableSOCKSProxy
+    }
+
+    set {
+      guard var websocket = websocket as? SOCKSProxyable else {
+        // If it's not proxyable, there's nothing to do here.
+        return
+      }
+
+      websocket.enableSOCKSProxy = newValue
     }
   }
 
@@ -88,52 +160,29 @@ public class WebSocketTransport {
   ///
   /// - Parameters:
   ///   - websocket: The websocket client to use for creating a websocket connection.
-  ///   - store: [optional] The `ApolloStore` used as a local cache. Defaults to `nil`.
-  ///   - clientName: The client name to use for this client. Defaults to `Self.defaultClientName`
-  ///   - clientVersion: The client version to use for this client. Defaults to `Self.defaultClientVersion`.
-  ///   - sendOperationIdentifiers: Whether or not to send operation identifiers with operations. Defaults to false.
-  ///   - reconnect: Whether to auto reconnect when websocket looses connection. Defaults to true.
-  ///   - reconnectionInterval: How long to wait before attempting to reconnect. Defaults to half a second.
-  ///   - allowSendingDuplicates: Allow sending duplicate messages. Important when reconnected. Defaults to true.
-  ///   - connectOnInit: Whether the websocket connects immediately on creation. If false, remember to call `resumeWebSocketConnection()` to connect. Defaults to true.
-  ///   - connectingPayload: [optional] The payload to send on connection. Defaults to an empty `GraphQLMap`.
-  ///   - requestBodyCreator: The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-  ///   - operationMessageIdCreator: The `OperationMessageIdCreator` used to generate a unique message identifier per request. Defaults to `ApolloSequencedOperationMessageIdCreator`.
-  public init(websocket: WebSocketClient,
-              store: ApolloStore? = nil,
-              clientName: String = WebSocketTransport.defaultClientName,
-              clientVersion: String = WebSocketTransport.defaultClientVersion,
-              sendOperationIdentifiers: Bool = false,
-              reconnect: Bool = true,
-              reconnectionInterval: TimeInterval = 0.5,
-              allowSendingDuplicates: Bool = true,
-              connectOnInit: Bool = true,
-              connectingPayload: GraphQLMap? = [:],
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-              operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()) {
+  ///   - store: [optional] The `ApolloStore` used as a local cache.
+  ///   - config: A `WebSocketTransport.Configuration` object with options for configuring the
+  ///             web socket connection. Defaults to a configuration with default values.
+  public init(
+    websocket: WebSocketClient,
+    store: ApolloStore? = nil,
+    config: Configuration = Configuration()
+  ) {
     self.websocket = websocket
     self.store = store
-    self.connectingPayload = connectingPayload
-    self.sendOperationIdentifiers = sendOperationIdentifiers
-    self.reconnect = Atomic(reconnect)
-    self.reconnectionInterval = reconnectionInterval
-    self.allowSendingDuplicates = allowSendingDuplicates
-    self.requestBodyCreator = requestBodyCreator
-    self.operationMessageIdCreator = operationMessageIdCreator
-    self.clientName = clientName
-    self.clientVersion = clientVersion
-    self.connectOnInit = connectOnInit
+    self.config = config
+
     self.addApolloClientHeaders(to: &self.websocket.request)
-    
+
     self.websocket.delegate = self
-    if connectOnInit {
+    if config.connectOnInit {
       self.websocket.connect()
     }
     self.websocket.callbackQueue = processingQueue
   }
 
   public func isConnected() -> Bool {
-    return self.socketConnectionState.value.isConnected
+    return self.socketConnectionState.isConnected
   }
 
   public func ping(data: Data, completionHandler: (() -> Void)? = nil) {
@@ -269,14 +318,15 @@ public class WebSocketTransport {
     processingQueue.async {
       self.ackTimeout = nil
 
-      if let str = OperationMessage(payload: self.connectingPayload, type: .connectionInit).rawMessage {
+      if let str = OperationMessage(payload: self.config.connectingPayload,
+                                    type: .connectionInit).rawMessage {
         self.write(str, force:true)
       }
     }
   }
 
   public func closeConnection() {
-    self.reconnect.mutate { $0 = false }
+    self.reconnect = false
 
     let str = OperationMessage(type: .connectionTerminate).rawMessage
     processingQueue.async {
@@ -292,7 +342,7 @@ public class WebSocketTransport {
   private func write(_ str: String,
                      force forced: Bool = false,
                      id: Int? = nil) {
-    if self.socketConnectionState.value.isConnected && (acked || forced) {
+    if self.socketConnectionState.isConnected && (acked || forced) {
       websocket.write(string: str)
     } else {
       // using sequence number to make sure that the queue is processed correctly
@@ -308,16 +358,15 @@ public class WebSocketTransport {
   }
 
   deinit {
-    websocket.disconnect()
+    websocket.disconnect(forceTimeout: nil)
     self.websocket.delegate = nil
   }
 
   func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
-    let body = requestBodyCreator.requestBody(for: operation,
-                                              sendOperationIdentifiers: self.sendOperationIdentifiers,
+    let body = config.requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
-    let identifier = operationMessageIdCreator.requestId()
+    let identifier = config.operationMessageIdCreator.requestId()
 
     let messageType: OperationMessage.Types
     switch websocket.request.wsProtocol {
@@ -334,7 +383,7 @@ public class WebSocketTransport {
       self.write(message)
 
       self.subscribers[identifier] = resultHandler
-      if operation.operationType == .subscription {
+      if Operation.operationType == .subscription {
         self.subscriptions[identifier] = message
       }
     }
@@ -370,8 +419,8 @@ public class WebSocketTransport {
     }
   }
 
-  public func updateConnectingPayload(_ payload: GraphQLMap, reconnectIfConnected: Bool = true) {
-    self.connectingPayload = payload
+  public func updateConnectingPayload(_ payload: JSONEncodableDictionary, reconnectIfConnected: Bool = true) {
+    self.config.connectingPayload = payload
 
     if reconnectIfConnected && isConnected() {
       self.reconnectWebSocket()
@@ -379,29 +428,30 @@ public class WebSocketTransport {
   }
 
   private func reconnectWebSocket() {
-    let oldReconnectValue = reconnect.value
-    self.reconnect.mutate { $0 = false }
+    let oldReconnectValue = reconnect
+    self.reconnect = false
 
-    self.websocket.disconnect()
+    self.websocket.disconnect(forceTimeout: 0)
     self.websocket.connect()
 
-    self.reconnect.mutate { $0 = oldReconnectValue }
+    self.reconnect = oldReconnectValue
   }
   
   /// Disconnects the websocket while setting the auto-reconnect value to false,
   /// allowing purposeful disconnects that do not dump existing subscriptions.
   /// NOTE: You will receive an error on the subscription (should be a `WebSocket.WSError` with code 1000) when the socket disconnects.
+  /// ALSO NOTE: In case pauseWebSocketConnection is called when app is backgrounded, app might get suspended within 5 seconds. In case disconnect did not complete within that time, websocket won't resume properly. That is why forceTimeout is set to 2 seconds.
   /// ALSO NOTE: To reconnect after calling this, you will need to call `resumeWebSocketConnection`.
   public func pauseWebSocketConnection() {
-    self.reconnect.mutate { $0 = false }
-    self.websocket.disconnect()
+    self.reconnect = false
+    self.websocket.disconnect(forceTimeout: 2.0)
   }
   
   /// Reconnects a paused web socket.
   ///
   /// - Parameter autoReconnect: `true` if you want the websocket to automatically reconnect if the connection drops. Defaults to true.
   public func resumeWebSocketConnection(autoReconnect: Bool = true) {
-    self.reconnect.mutate { $0 = autoReconnect }
+    self.reconnect = autoReconnect
     self.websocket.connect()
   }
 }
@@ -427,6 +477,7 @@ extension WebSocketTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy,
     contextIdentifier: UUID? = nil,
+    context: RequestContext? = nil,
     callbackQueue: DispatchQueue = .main,
     completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
     
@@ -436,7 +487,7 @@ extension WebSocketTransport: NetworkTransport {
       }
     }
     
-    if let error = self.error.value {
+    if let error = self.error {
       callCompletion(with: .failure(error))
       return EmptyCancellable()
     }
@@ -448,7 +499,7 @@ extension WebSocketTransport: NetworkTransport {
           let response = GraphQLResponse(operation: operation, body: jsonBody)
 
           if let store = store {
-            let (graphQLResult, parsedRecords) = try response.parseResult(cacheKeyForObject: store.cacheKeyForObject)
+            let (graphQLResult, parsedRecords) = try response.parseResult()
             guard let records = parsedRecords else {
               callCompletion(with: .success(graphQLResult))
               return
@@ -490,15 +541,15 @@ extension WebSocketTransport: WebSocketClientDelegate {
   }
 
   public func handleConnection() {
-    self.error.mutate { $0 = nil }
-    self.socketConnectionState.mutate { $0 = .connected }
+    self.$error.mutate { $0 = nil }
+    self.$socketConnectionState.mutate { $0 = .connected }
     initServer()
     if self.reconnected {
       self.delegate?.webSocketTransportDidReconnect(self)
       // re-send the subscriptions whenever we are re-connected
       // for the first connect, any subscriptions are already in queue
       for (_, msg) in self.subscriptions {
-        if self.allowSendingDuplicates {
+        if self.config.allowSendingDuplicates {
           write(msg)
         } else {
           // search duplicate message from the queue
@@ -514,26 +565,25 @@ extension WebSocketTransport: WebSocketClientDelegate {
   }
 
   public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
-    self.socketConnectionState.mutate { $0 = .disconnected }
+    self.$socketConnectionState.mutate { $0 = .disconnected }
     if let error = error {
-      debugPrint("websocket is disconnected: \(error)")
       handleDisconnection(with: error)
+
     } else {
-      self.error.mutate { $0 = nil }
-      debugPrint("websocket is disconnected")
+      self.$error.mutate { $0 = nil }
       self.handleDisconnection()
     }
   }
 
   private func handleDisconnection(with error: Error) {
     // Set state to `.failed`, and grab its previous value.
-    let previousState: SocketConnectionState = self.socketConnectionState.mutate { socketConnectionState in
+    let previousState: SocketConnectionState = self.$socketConnectionState.mutate { socketConnectionState in
       let previousState = socketConnectionState
       socketConnectionState = .failed
       return previousState
     }
     // report any error to all subscribers
-    self.error.mutate { $0 = WebSocketError(payload: nil,
+    self.$error.mutate { $0 = WebSocketError(payload: nil,
                                             error: error,
                                             kind: .networkError) }
     self.notifyErrorAllHandlers(error)
@@ -551,20 +601,20 @@ extension WebSocketTransport: WebSocketClientDelegate {
   }
 
   private func handleDisconnection()  {
-    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error.value)
+    self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
     self.ackTimeout = nil // need new connect and ack before sending
 
     self.attemptReconnectionIfDesired()
   }
 
   private func attemptReconnectionIfDesired() {
-    guard self.reconnect.value else {
+    guard self.reconnect else {
       return
     }
 
-    DispatchQueue.main.asyncAfter(deadline: .now() + reconnectionInterval) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + config.reconnectionInterval) { [weak self] in
       guard let self = self else { return }
-      self.socketConnectionState.mutate { socketConnectionState in
+      self.$socketConnectionState.mutate { socketConnectionState in
         switch socketConnectionState {
         case .disconnected, .connected:
           break

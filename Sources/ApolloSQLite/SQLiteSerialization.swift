@@ -1,12 +1,12 @@
 import Foundation
-import SQLite
 #if !COCOAPODS
-import Apollo
+import ApolloPGATOUR
+import ApolloAPI
 #endif
 
 private let serializedReferenceKey = "$reference"
 
-final class SQLiteSerialization {
+enum SQLiteSerialization {
   static func serialize(fields: Record.Fields) throws -> Data {
     let jsonObject = try fields.compactMapValues(serialize(fieldValue:))
     return try JSONSerialization.data(withJSONObject: jsonObject, options: [])
@@ -41,7 +41,7 @@ final class SQLiteSerialization {
       guard let reference = dictionary[serializedReferenceKey] as? String else {
         return fieldJSONValue
       }
-      return CacheReference(key: reference)
+      return CacheReference(reference)
     case let array as [JSONValue]:
       return try array.map { try deserialize(fieldJSONValue: $0) }
     default:

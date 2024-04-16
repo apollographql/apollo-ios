@@ -1,0 +1,42 @@
+name: Bug report
+description: Create a bug report
+labels: [ "bug", "needs investigation" ]
+body:
+  - type: textarea
+    attributes:
+      label: Summary
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Version
+      description: Make sure the bug is still happening on the latest version. Make sure you've read [`CHANGELOG.md`](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md) to check that a new version hasn't already addressed your problem.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce the behavior
+      description: |
+        Add context about the problem here. How it happened and how to reproduce it:
+        - If your project is open source, a link to the project is greatly appreciated.
+        - If not, please share as much information as possible to help to understand the problem: schema, queries, sample code, etc...
+        - Add things that you already tried.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Logs
+      description: |
+        Paste logs and full stacktrace here.
+        You can also attach files by dragging them into the area.
+      placeholder: This will be automatically formatted into code, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: Links, references, more context, or anything that will give us more information about the issue you are encountering!
+    validations:
+      required: false
