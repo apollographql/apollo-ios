@@ -28,7 +28,7 @@ The `@defer` directive enables your queries to receive data for specific fields 
 The feature is being rolled out on the `preview-defer.n` tags (currently `preview-defer.2`:
 * ✅ Code generation
 * ✅ Partial incremental execution
-* 🔨 Partial and incremental caching (_approx. 2024-04-29_)
+* 🔨 Partial and incremental caching (_approx. 2024-05-07_)
 * 🔲 Selection Set Initializers (_next_)
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
