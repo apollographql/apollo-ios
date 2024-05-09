@@ -76,7 +76,7 @@ public final class ApolloStore {
   public func publish(records: RecordSet, identifier: UUID? = nil, callbackQueue: DispatchQueue = .main, completion: ((Result<Void, Error>) -> Void)? = nil) {
     queue.async(flags: .barrier) {
       do {
-        let changedKeys = try self.cache.merge(records: records)
+        let changedKeys = try self.cache.merge(records: records, identifier: identifier)
         self.didChangeKeys(changedKeys, identifier: identifier)
         DispatchQueue.apollo.returnResultAsyncIfNeeded(on: callbackQueue,
                                                        action: completion,
@@ -154,7 +154,7 @@ public final class ApolloStore {
   /// - Parameters:
   ///   - query: The query to load results for
   ///   - resultHandler: The completion handler to execute on success or error
-  public func load<Operation: GraphQLOperation>(query: Operation, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
+    public func load<Operation: GraphQLOperation>(query: Operation, identifer: UUID? = nil, callbackQueue: DispatchQueue? = nil, resultHandler: @escaping GraphQLResultHandler<Operation.Data>) {
     withinReadTransaction({ transaction in
       let mapper = GraphQLSelectionSetMapper<Operation.Data>()
       let dependencyTracker = GraphQLDependencyTracker()
@@ -162,6 +162,7 @@ public final class ApolloStore {
       let (data, dependentKeys) = try transaction.execute(selections: Operation.Data.selections,
                                                           onObjectWithKey: rootCacheKey(for: query),
                                                           variables: query.variables,
+                                                          identifer: identifer,
                                                           accumulator: zip(mapper, dependencyTracker))
       
       return GraphQLResult(data: data,
@@ -199,13 +200,17 @@ public final class ApolloStore {
                          accumulator: mapper)
     }
 
-    fileprivate func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], onObjectWithKey key: CacheKey, variables: GraphQLMap?, accumulator: Accumulator) throws -> Accumulator.FinalResult {
-      let object = try loadObject(forKey: key).get()
-      
+    fileprivate func execute<Accumulator: GraphQLResultAccumulator>(selections: [GraphQLSelection], 
+                                                                    onObjectWithKey key: CacheKey,
+                                                                    variables: GraphQLMap?,
+                                                                    identifer: UUID? = nil,
+                                                                    accumulator: Accumulator) throws -> Accumulator.FinalResult {
+      let object = try loadObject(forKey: key, identifer: identifer).get()
+
       let executor = GraphQLExecutor { object, info in
         return object[info.cacheKeyForField]
       } resolveReference: { reference in
-        self.loadObject(forKey: reference.key)
+        self.loadObject(forKey: reference.key, identifer: identifer)
       }
       
       executor.cacheKeyForObject = self.cacheKeyForObject
@@ -217,8 +222,8 @@ public final class ApolloStore {
                                   accumulator: accumulator)
     }
     
-    private final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<JSONObject> {
-      self.loader[key].map { record in
+    private final func loadObject(forKey key: CacheKey, identifer: UUID? = nil) -> PossiblyDeferred<JSONObject> {
+      self.loader[key, identifer].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
         return record.fields
       }
@@ -308,8 +313,8 @@ public final class ApolloStore {
                                          withKey: key,
                                          variables: variables,
                                          accumulator: normalizer)
-      let changedKeys = try self.cache.merge(records: records)
-      
+      let changedKeys = try self.cache.merge(records: records, identifier: nil)
+
       // Remove cached records, so subsequent reads
       // within the same transaction will reload the updated value.
       loader.removeAll()

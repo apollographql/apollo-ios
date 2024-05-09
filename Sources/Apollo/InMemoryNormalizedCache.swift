@@ -1,5 +1,6 @@
 import Foundation
 
+// Add max size and auto eviction policy
 public final class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 
@@ -7,7 +8,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     self.records = records
   }
 
-  public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
+  public func loadRecords(forKeys keys: Set<CacheKey>, identifier: UUID? = nil) throws -> [CacheKey: Record] {
     return keys.reduce(into: [:]) { result, key in
       result[key] = records[key]
     }
@@ -17,7 +18,7 @@ public final class InMemoryNormalizedCache: NormalizedCache {
     records.removeRecord(for: key)
   }
   
-  public func merge(records newRecords: RecordSet) throws -> Set<CacheKey> {
+  public func merge(records newRecords: RecordSet, identifier: UUID? = nil) throws -> Set<CacheKey> {
     return records.merge(records: newRecords)
   }
 

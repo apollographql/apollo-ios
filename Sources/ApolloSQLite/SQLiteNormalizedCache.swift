@@ -93,7 +93,7 @@ public final class SQLiteNormalizedCache {
 // MARK: - NormalizedCache conformance
 
 extension SQLiteNormalizedCache: NormalizedCache {
-  public func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record] {
+  public func loadRecords(forKeys keys: Set<CacheKey>, identifier: UUID? = nil) throws -> [CacheKey: Record] {
     return [CacheKey: Record](uniqueKeysWithValues:
                                 try selectRecords(for: keys)
                                 .map { record in
@@ -101,7 +101,7 @@ extension SQLiteNormalizedCache: NormalizedCache {
                                 })
   }
   
-  public func merge(records: RecordSet) throws -> Set<CacheKey> {
+  public func merge(records: RecordSet, identifier: UUID? = nil) throws -> Set<CacheKey> {
     return try mergeRecords(records: records)
   }
   

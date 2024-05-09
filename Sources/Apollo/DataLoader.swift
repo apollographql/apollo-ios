@@ -1,7 +1,7 @@
 import Foundation
 
 final class DataLoader<Key: Hashable, Value> {
-  public typealias BatchLoad = (Set<Key>) throws -> [Key: Value]
+  public typealias BatchLoad = (Set<Key>, UUID?) throws -> [Key: Value]
   private var batchLoad: BatchLoad
 
   private var cache: [Key: Result<Value?, Error>] = [:]
@@ -11,25 +11,25 @@ final class DataLoader<Key: Hashable, Value> {
     self.batchLoad = batchLoad
   }
 
-  subscript(key: Key) -> PossiblyDeferred<Value?> {
+  subscript(key: Key, identifier: UUID? = nil) -> PossiblyDeferred<Value?> {
     if let cachedResult = cache[key] {
       return .immediate(cachedResult)
     }
     
     pendingLoads.insert(key)
 
-    return .deferred { try self.load(key) }
+    return .deferred { try self.load(key, identifier) }
   }
   
-  private func load(_ key: Key) throws -> Value? {
+  private func load(_ key: Key, _ identifier: UUID?) throws -> Value? {
     if let cachedResult = cache[key] {
       return try cachedResult.get()
     }
     
     assert(pendingLoads.contains(key))
     
-    let values = try batchLoad(pendingLoads)
-    
+    let values = try batchLoad(pendingLoads, identifier)
+
     for key in pendingLoads {
       cache[key] = .success(values[key])
     }
