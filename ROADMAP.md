@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-04-30**
+**Last updated: 2024-05-14**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -25,10 +25,10 @@ As we identify feature sets that we intend to ship, we'll add to and update the 
 
 The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  Apollo iOS has released a preview version of this feature in the `preview-defer.1` branch.  This will be released as an experimental feature in an upcoming `1.x` minor version.
 
-The feature is being rolled out on the `preview-defer.n` tags (currently `preview-defer.2`:
+The feature is being rolled out on the `preview-defer.n` tags (currently `preview-defer.2`):
 * ✅ Code generation
 * ✅ Partial incremental execution
-* 🔨 Partial and incremental caching (_approx. 2024-05-07_)
+* 🔨 Partial and incremental caching (_approx. 2024-05-29_)
 * 🔲 Selection Set Initializers (_next_)
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
@@ -40,13 +40,6 @@ _Approximate Date: to be released incrementally_
     - (in progress) [Add configuration for disabling merging of fragment fields](https://github.com/apollographql/apollo-ios/issues/2560)
     - (in progress) Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
-### Swift 6 compatibility
-
-_Approximate Date: 2024-05-17_
-
-- [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
-- [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
-
 ### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
 
 _Approximate Date: 2024-05-29_
@@ -55,13 +48,19 @@ _Approximate Date: 2024-05-29_
 - This will allow user's to improve the quality and expressiveness of client side APIs when schema type names are not appropriate for client usage.
 - This also allows workarounds for issues when names of schema types conflict with Swift types.
 
+### Swift 6 compatibility
+
+_Approximate Date: 2024-06-07_
+
+- [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
+- [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
+
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
-_Approximate Date: 2024-05-31_
+_Approximate Date: TBD_
 
 - Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
 - Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
-
 
 ### [Mutable generated reponse models](https://github.com/apollographql/apollo-ios/issues/3246)
 
