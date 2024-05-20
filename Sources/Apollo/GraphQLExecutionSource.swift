@@ -8,7 +8,8 @@ import ApolloAPI
 /// Based on the source of execution data, the way we handle portions of the execution pipeline will
 /// be different. Each implementation of this protocol provides the necessary implementations for
 /// executing upon data from a specific source.
-protocol GraphQLExecutionSource {
+@_spi(Execution)
+public protocol GraphQLExecutionSource {
   /// The type that represents each object in data from the source.
   associatedtype RawObjectData
 
@@ -43,7 +44,8 @@ protocol GraphQLExecutionSource {
 
 /// A type of `GraphQLExecutionSource` that uses the user defined cache key computation
 /// defined in the ``SchemaConfiguration``.
-protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
+@_spi(Execution)
+public protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
   /// A function that should return an `ObjectData` wrapper that performs and custom
   /// transformations required to transform the raw object data from the source into a consistent
   /// format to be exposed to the user's ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function.
@@ -51,7 +53,7 @@ protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
 }
 
 extension CacheKeyComputingExecutionSource {
-  func computeCacheKey(for object: RawObjectData, in schema: SchemaMetadata.Type) -> CacheKey? {
+  @_spi(Execution) public func computeCacheKey(for object: RawObjectData, in schema: SchemaMetadata.Type) -> CacheKey? {
     let dataWrapper = opaqueObjectDataWrapper(for: object)
     return schema.cacheKey(for: dataWrapper)
   }

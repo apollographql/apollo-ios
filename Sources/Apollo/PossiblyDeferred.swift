@@ -42,7 +42,8 @@ extension Sequence {
 
 /// A possibly deferred value that represents either an immediate success or failure value, or a deferred
 /// value that is evaluated lazily when needed by invoking a throwing closure.
-enum PossiblyDeferred<Value> {
+@_spi(Execution)
+public enum PossiblyDeferred<Value> {
   /// An immediate success or failure value, represented as a `Result` instance.
   case immediate(Result<Value, Error>)
   

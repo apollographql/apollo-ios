@@ -3,7 +3,8 @@ import Foundation
 import ApolloAPI
 #endif
 
-struct FieldSelectionGrouping: Sequence {
+@_spi(Execution)
+public struct FieldSelectionGrouping: Sequence {
   private var fieldInfoList: [String: FieldExecutionInfo] = [:]
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier> = []
 
@@ -27,7 +28,7 @@ struct FieldSelectionGrouping: Sequence {
     fulfilledFragments.insert(ObjectIdentifier(type))
   }
 
-  func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
+  public func makeIterator() -> Dictionary<String, FieldExecutionInfo>.Iterator {
     fieldInfoList.makeIterator()
   }
 }
@@ -38,7 +39,8 @@ struct FieldSelectionGrouping: Sequence {
 /// A `FieldSelectionController` is responsible for determining which selections should be executed
 /// and which fragments are being fulfilled during execution. It does this by adding them to the
 /// provided `FieldSelectionGrouping`.
-protocol FieldSelectionCollector<ObjectData> {
+@_spi(Execution)
+public protocol FieldSelectionCollector<ObjectData> {
 
   associatedtype ObjectData
 
@@ -57,8 +59,9 @@ protocol FieldSelectionCollector<ObjectData> {
 
 }
 
-struct DefaultFieldSelectionCollector: FieldSelectionCollector {
-  static func collectFields(
+@_spi(Execution)
+public struct DefaultFieldSelectionCollector: FieldSelectionCollector {
+  static public  func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
     for object: JSONObject,
