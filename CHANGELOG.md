@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.12.1
+
+### Fixed
+- **Rebuilt the CLI binary:** The CLI binary included in the `1.12.0` package was built with inconsistent SDK versions resulting in the linker signing not working correctly.
+
 ## v1.12.0
 
 ### New
