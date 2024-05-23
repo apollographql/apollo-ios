@@ -1,5 +1,10 @@
 # Change Log
 
+## v1.12.2
+
+### Fixed
+- **Rebuilt the CLI binary with the correct version number:** The CLI binary included in the `1.12.1` package was built with an incorrect version number causing a version mismatch when attempting to execute code generation.
+
 ## v1.12.1
 
 ### Fixed
