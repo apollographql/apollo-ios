@@ -152,7 +152,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     sendRequest(
       request,
       taskDescription: nil,
-      rawTaskCompletionHandler: nil,
+      rawTaskCompletionHandler: rawTaskCompletionHandler,
       completion: completion
     )
   }

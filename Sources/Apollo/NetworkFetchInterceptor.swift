@@ -36,7 +36,8 @@ public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
       return
     }
     
-    let task = self.client.sendRequest(urlRequest) { [weak self] result in
+    let taskDescription = "\(Operation.operationType) \(Operation.operationName)"
+    let task = self.client.sendRequest(urlRequest, taskDescription: taskDescription) { [weak self] result in
       guard let self = self else {
         return
       }
