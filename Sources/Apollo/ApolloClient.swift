@@ -25,12 +25,12 @@ public enum CachePolicy: Hashable {
 ///
 /// - Parameters:
 ///   - result: The result of a performed operation. Will have a `GraphQLResult` with any parsed data and any GraphQL errors on `success`, and an `Error` on `failure`.
-public typealias GraphQLResultHandler<Data: RootSelectionSet> = (Result<GraphQLResult<Data>, Error>) -> Void
+public typealias GraphQLResultHandler<Data: RootSelectionSet> = (Result<GraphQLResult<Data>, any Error>) -> Void
 
 /// The `ApolloClient` class implements the core API for Apollo by conforming to `ApolloClientProtocol`.
 public class ApolloClient {
 
-  let networkTransport: NetworkTransport
+  let networkTransport: any NetworkTransport
 
   public let store: ApolloStore
 
@@ -50,7 +50,7 @@ public class ApolloClient {
   /// - Parameters:
   ///   - networkTransport: A network transport used to send operations to a server.
   ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes a store, you should make sure the same store is passed here so that it can be cleared properly.
-  public init(networkTransport: NetworkTransport, store: ApolloStore) {
+  public init(networkTransport: any NetworkTransport, store: ApolloStore) {
     self.networkTransport = networkTransport
     self.store = store
   }
@@ -73,7 +73,7 @@ public class ApolloClient {
 extension ApolloClient: ApolloClientProtocol {
 
   public func clearCache(callbackQueue: DispatchQueue = .main,
-                         completion: ((Result<Void, Error>) -> Void)? = nil) {
+                         completion: ((Result<Void, any Error>) -> Void)? = nil) {
     self.store.clearCache(callbackQueue: callbackQueue, completion: completion)
   }
   
@@ -81,10 +81,10 @@ extension ApolloClient: ApolloClientProtocol {
     query: Query,
     cachePolicy: CachePolicy = .default,
     contextIdentifier: UUID? = nil,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Query.Data>? = nil
-  ) -> Cancellable {
+  ) -> (any Cancellable) {
     return self.networkTransport.send(operation: query,
                                       cachePolicy: cachePolicy,
                                       contextIdentifier: contextIdentifier,
@@ -109,7 +109,7 @@ extension ApolloClient: ApolloClientProtocol {
     query: Query,
     cachePolicy: CachePolicy = .default,
     refetchOnFailedUpdates: Bool = true,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Query.Data>
   ) -> GraphQLQueryWatcher<Query> {
@@ -128,10 +128,10 @@ extension ApolloClient: ApolloClientProtocol {
     mutation: Mutation,
     publishResultToStore: Bool = true,
     contextIdentifier: UUID? = nil,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Mutation.Data>? = nil
-  ) -> Cancellable {
+  ) -> (any Cancellable) {
     return self.networkTransport.send(
       operation: mutation,
       cachePolicy: publishResultToStore ? .default : .fetchIgnoringCacheCompletely,
@@ -148,11 +148,11 @@ extension ApolloClient: ApolloClientProtocol {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Operation.Data>? = nil
-  ) -> Cancellable {
-    guard let uploadingTransport = self.networkTransport as? UploadingNetworkTransport else {
+  ) -> (any Cancellable) {
+    guard let uploadingTransport = self.networkTransport as? (any UploadingNetworkTransport) else {
       assertionFailure("Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`.")
       queue.async {
         resultHandler?(.failure(ApolloClientError.noUploadTransport))
@@ -170,10 +170,10 @@ extension ApolloClient: ApolloClientProtocol {
 
   public func subscribe<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>
-  ) -> Cancellable {
+  ) -> any Cancellable {
     return self.networkTransport.send(operation: subscription,
                                       cachePolicy: .default,
                                       contextIdentifier: nil,
@@ -192,7 +192,7 @@ extension ApolloClient {
   public func watch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy = .default,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Query.Data>
   ) -> GraphQLQueryWatcher<Query> {

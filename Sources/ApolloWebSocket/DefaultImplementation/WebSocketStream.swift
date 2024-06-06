@@ -12,7 +12,7 @@ import Foundation
 
 protocol WebSocketStreamDelegate: AnyObject {
   func newBytesInStream()
-  func streamDidError(error: Error?)
+  func streamDidError(error: (any Error)?)
 }
 
 public protocol SOCKSProxyable {
@@ -24,13 +24,13 @@ public protocol SOCKSProxyable {
 // This protocol is to allow custom implemention of the underlining stream.
 // This way custom socket libraries (e.g. linux) can be used
 protocol WebSocketStream {
-  var delegate: WebSocketStreamDelegate? { get set }
+  var delegate: (any WebSocketStreamDelegate)? { get set }
 
   func connect(url: URL,
                port: Int,
                timeout: TimeInterval,
                ssl: SSLSettings,
-               completion: @escaping ((Error?) -> Void))
+               completion: @escaping (((any Error)?) -> Void))
 
   func write(data: Data) -> Int
   func read() -> Data?
@@ -46,12 +46,12 @@ class FoundationStream : NSObject, WebSocketStream, StreamDelegate, SOCKSProxyab
   private let workQueue = DispatchQueue(label: "com.apollographql.websocket", attributes: [])
   private var inputStream: InputStream?
   private var outputStream: OutputStream?
-  weak var delegate: WebSocketStreamDelegate?
+  weak var delegate: (any WebSocketStreamDelegate)?
   let BUFFER_MAX = 4096
 
   var enableSOCKSProxy = false
 
-  func connect(url: URL, port: Int, timeout: TimeInterval, ssl: SSLSettings, completion: @escaping ((Error?) -> Void)) {
+  func connect(url: URL, port: Int, timeout: TimeInterval, ssl: SSLSettings, completion: @escaping (((any Error)?) -> Void)) {
     var readStream: Unmanaged<CFReadStream>?
     var writeStream: Unmanaged<CFWriteStream>?
     let h = url.host! as NSString

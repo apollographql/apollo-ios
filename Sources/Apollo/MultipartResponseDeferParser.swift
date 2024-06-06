@@ -10,7 +10,7 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
     data: Data,
     boundary: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: ((Error) -> Void)
+    errorHandler: ((any Error) -> Void)
   ) {
     // TODO: Will be implemented in #3146
   }

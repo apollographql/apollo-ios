@@ -6,7 +6,7 @@ import ApolloAPI
 /// A request class allowing for a multipart-upload request.
 open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
-  public let requestBodyCreator: RequestBodyCreator
+  public let requestBodyCreator: any RequestBodyCreator
   public let files: [GraphQLFile]
   public let manualBoundary: String?
   
@@ -31,8 +31,8 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
               additionalHeaders: [String: String] = [:],
               files: [GraphQLFile],
               manualBoundary: String? = nil,
-              context: RequestContext? = nil,
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()) {
+              context: (any RequestContext)? = nil,
+              requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator()) {
     self.requestBodyCreator = requestBodyCreator
     self.files = files
     self.manualBoundary = manualBoundary
@@ -79,7 +79,7 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
     for fieldName in fieldsForFiles {
       if let value = variables[fieldName],
-         let arrayValue = value as? [JSONEncodable] {
+         let arrayValue = value as? [any JSONEncodable] {
         let arrayOfNils: [NSNull?] = arrayValue.map { _ in NSNull() }
         variables.updateValue(arrayOfNils, forKey: fieldName)
       } else {

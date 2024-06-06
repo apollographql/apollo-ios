@@ -6,7 +6,7 @@ import ApolloAPI
 /// A request which sends JSON related to a GraphQL operation.
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
-  public let requestBodyCreator: RequestBodyCreator
+  public let requestBodyCreator: any RequestBodyCreator
   
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
@@ -50,11 +50,11 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     clientVersion: String,
     additionalHeaders: [String: String] = [:],
     cachePolicy: CachePolicy = .default,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     autoPersistQueries: Bool = false,
     useGETForQueries: Bool = false,
     useGETForPersistedQueryRetry: Bool = false,
-    requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()
+    requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator()
   ) {
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries

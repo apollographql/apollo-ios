@@ -15,8 +15,8 @@ extension DispatchQueue {
   }
 
   static func returnResultAsyncIfNeeded<T>(on callbackQueue: DispatchQueue?,
-                                           action: ((Result<T, Swift.Error>) -> Void)?,
-                                           result: Result<T, Swift.Error>) {
+                                           action: ((Result<T, any Swift.Error>) -> Void)?,
+                                           result: Result<T, any Swift.Error>) {
     if let action = action {
       self.performAsyncIfNeeded(on: callbackQueue) {
         action(result)

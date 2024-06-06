@@ -45,7 +45,7 @@ extension Sequence {
 @_spi(Execution)
 public enum PossiblyDeferred<Value> {
   /// An immediate success or failure value, represented as a `Result` instance.
-  case immediate(Result<Value, Error>)
+  case immediate(Result<Value, any Error>)
   
   /// A deferred value that will be lazily evaluated by invoking the associated throwing closure.
   case deferred(() throws -> Value)
@@ -135,7 +135,7 @@ public enum PossiblyDeferred<Value> {
   ///   instance.
   /// - Returns: A `PossiblyDeferred` instance with the result of evaluating `transform`
   ///   as the new failure value if this instance represents a failure.
-  func mapError(_ transform: @escaping (Error) -> Error) -> PossiblyDeferred<Value> {
+  func mapError(_ transform: @escaping (any Error) -> any Error) -> PossiblyDeferred<Value> {
     switch self {
     case .immediate(let result):
       return .immediate(result.mapError(transform))

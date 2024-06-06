@@ -18,10 +18,10 @@ public struct CacheReadInterceptor: ApolloInterceptor {
   }
   
   public func interceptAsync<Operation: GraphQLOperation>(
-    chain: RequestChain,
+    chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
 
       switch Operation.operationType {
       case .mutation,
@@ -115,8 +115,8 @@ public struct CacheReadInterceptor: ApolloInterceptor {
   
   private func fetchFromCache<Operation: GraphQLOperation>(
     for request: HTTPRequest<Operation>,
-    chain: RequestChain,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
+    chain: any RequestChain,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
 
       self.store.load(request.operation) { loadResult in
         guard !chain.isCancelled else {

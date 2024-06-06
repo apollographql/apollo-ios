@@ -54,7 +54,7 @@ public struct OperationDefinition: Sendable {
 }
 
 public protocol GraphQLOperation: AnyObject, Hashable {
-  typealias Variables = [String: GraphQLOperationVariableValue]
+  typealias Variables = [String: any GraphQLOperationVariableValue]
 
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
@@ -119,7 +119,7 @@ extension Array: GraphQLOperationVariableValue
 where Element: GraphQLOperationVariableValue & Hashable {}
 
 extension Dictionary: GraphQLOperationVariableValue
-where Key == String, Value == GraphQLOperationVariableValue {
+where Key == String, Value == any GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { _jsonEncodableObject }
   @inlinable public var _jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0._jsonEncodableValue }

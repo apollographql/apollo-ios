@@ -59,7 +59,7 @@ public protocol SelectionSet: Hashable {
   /// The GraphQL type for the `SelectionSet`.
   ///
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
-  static var __parentType: ParentType { get }
+  static var __parentType: any ParentType { get }
 
   /// The data of the underlying GraphQL object represented by the generated selection set.
   var __data: DataDict { get }

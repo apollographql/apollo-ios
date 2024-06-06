@@ -7,7 +7,7 @@ import ApolloAPI
 ///
 /// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result in a memory leak.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
-  weak var client: ApolloClientProtocol?
+  weak var client: (any ApolloClientProtocol)?
   public let query: Query
 
   /// Determines if the watcher should perform a network fetch when it's watched objects have
@@ -21,13 +21,13 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private let callbackQueue: DispatchQueue
 
   private let contextIdentifier = UUID()
-  private let context: RequestContext?
+  private let context: (any RequestContext)?
 
   private class WeakFetchTaskContainer {
-    weak var cancellable: Cancellable?
+    weak var cancellable: (any Cancellable)?
     var cachePolicy: CachePolicy?
 
-    fileprivate init(_ cancellable: Cancellable?, _ cachePolicy: CachePolicy?) {
+    fileprivate init(_ cancellable: (any Cancellable)?, _ cachePolicy: CachePolicy?) {
       self.cancellable = cancellable
       self.cachePolicy = cachePolicy
     }
@@ -47,10 +47,10 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
   ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
   ///   - resultHandler: The result handler to call with changes.
-  public init(client: ApolloClientProtocol,
+  public init(client: any ApolloClientProtocol,
               query: Query,
               refetchOnFailedUpdates: Bool = true,
-              context: RequestContext? = nil,
+              context: (any RequestContext)? = nil,
               callbackQueue: DispatchQueue = .main,
               resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
     self.client = client

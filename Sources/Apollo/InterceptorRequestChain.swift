@@ -7,7 +7,7 @@ import ApolloAPI
 final public class InterceptorRequestChain: Cancellable, RequestChain {
 
   public enum ChainError: Error, LocalizedError {
-    case invalidIndex(chain: RequestChain, index: Int)
+    case invalidIndex(chain: any RequestChain, index: Int)
     case noInterceptors
     case unknownInterceptor(id: String)
 
@@ -31,7 +31,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
 
   @Atomic public var isCancelled: Bool = false
   /// Something which allows additional error handling to occur when some kind of error has happened.
-  public var additionalErrorHandler: ApolloErrorInterceptor?
+  public var additionalErrorHandler: (any ApolloErrorInterceptor)?
 
   /// Creates a chain with the given interceptor array.
   ///
@@ -59,7 +59,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - completion: The completion closure to call when the request has completed.
   public func kickoff<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     assert(self.currentIndex == 0, "The interceptor index should be zero when calling this method")
 
@@ -91,7 +91,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   public func proceedAsync<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     let nextIndex = self.currentIndex + 1
 
@@ -116,7 +116,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     interceptor: any ApolloInterceptor,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     guard let currentIndex = interceptorIndexes[interceptor.id] else {
       self.handleErrorAsync(
@@ -142,7 +142,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
     interceptorIndex: Int,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     guard !self.isCancelled else {
       // Do not proceed, this chain has been cancelled.
@@ -192,7 +192,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
 
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {
-      if let cancellableInterceptor = interceptor as? Cancellable {
+      if let cancellableInterceptor = interceptor as? (any Cancellable) {
         cancellableInterceptor.cancel()
       }
     }
@@ -205,7 +205,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - completion: The completion closure to call when the request has completed.
   public func retry<Operation: GraphQLOperation>(
     request: HTTPRequest<Operation>,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     guard !self.isCancelled else {
       // Don't retry something that's been cancelled.
@@ -225,10 +225,10 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   ///   - response: The response, as far as it has been constructed.
   ///   - completion: The completion closure to call when work is complete.
   public func handleErrorAsync<Operation: GraphQLOperation>(
-    _ error: Error,
+    _ error: any Error,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     guard !self.isCancelled else {
       return
@@ -264,7 +264,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   public func returnValueAsync<Operation: GraphQLOperation>(
     for request: HTTPRequest<Operation>,
     value: GraphQLResult<Operation.Data>,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
     guard !self.isCancelled else {
       return

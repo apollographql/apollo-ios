@@ -34,14 +34,16 @@ let package = Package(
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
-      ]
+      ],
+      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
       name: "ApolloAPI",
       dependencies: [],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
-      ]
+      ],
+      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
       name: "ApolloSQLite",
@@ -51,7 +53,8 @@ let package = Package(
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
-      ]
+      ],
+      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
       name: "ApolloWebSocket",
@@ -60,14 +63,16 @@ let package = Package(
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
-      ]
+      ],
+      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
       name: "ApolloTestSupport",
       dependencies: [
         "Apollo",
         "ApolloAPI"
-      ]
+      ],
+      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .plugin(
       name: "Install CLI",

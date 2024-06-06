@@ -15,14 +15,14 @@ public protocol InterceptorProvider {
   /// Provides an additional error interceptor for any additional handling of errors
   /// before returning to the UI, such as logging.
   /// - Parameter operation: The operation to provide an additional error interceptor for
-  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor?
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> (any ApolloErrorInterceptor)?
 }
 
 /// MARK: - Default Implementation
 
 public extension InterceptorProvider {
   
-  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> ApolloErrorInterceptor? {
+  func additionalErrorInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> (any ApolloErrorInterceptor)? {
     return nil
   }
 }

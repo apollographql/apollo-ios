@@ -132,13 +132,13 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
 
   /// Responds to callback about new messages coming in over the WebSocket
   /// and also connection/disconnect messages.
-  public weak var delegate: WebSocketClientDelegate?
+  public weak var delegate: (any WebSocketClientDelegate)?
 
   // Where the callback is executed. It defaults to the main UI thread queue.
   public var callbackQueue = DispatchQueue.main
 
   public var onConnect: (() -> Void)?
-  public var onDisconnect: ((Error?) -> Void)?
+  public var onDisconnect: (((any Error)?) -> Void)?
   public var onText: ((String) -> Void)?
   public var onData: ((Data) -> Void)?
   public var onPong: ((Data?) -> Void)?
@@ -152,7 +152,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   public var enableCompression = true
   #if os(Linux)
   #else
-  public var security: SSLTrustValidator?
+  public var security: (any SSLTrustValidator)?
   public var enabledSSLCipherSuites: [SSLCipherSuite]?
   #endif
 
@@ -172,7 +172,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
   public var enableSOCKSProxy: Bool {
     get {
-      guard let stream = stream as? SOCKSProxyable else {
+      guard let stream = stream as? (any SOCKSProxyable) else {
         // If it's not proxyable, then the proxy can't be enabled
         return false
       }
@@ -181,7 +181,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     }
 
     set {
-      guard var stream = stream as? SOCKSProxyable else {
+      guard var stream = stream as? (any SOCKSProxyable) else {
         // If it's not proxyable, there's nothing to do here.
         return
       }
@@ -203,7 +203,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     var compressor:Compressor? = nil
   }
 
-  private var stream: WebSocketStream
+  private var stream: any WebSocketStream
   private var connected = false
   private var isConnecting = false
   private let mutex = NSLock()
@@ -534,14 +534,14 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
     processInputStream()
   }
 
-  public func streamDidError(error: Error?) {
+  public func streamDidError(error: (any Error)?) {
     disconnectStream(error)
   }
 
   /**
    Disconnect the stream object and notifies the delegate.
    */
-  private func disconnectStream(_ error: Error?, runDelegate: Bool = true) {
+  private func disconnectStream(_ error: (any Error)?, runDelegate: Bool = true) {
     if error == nil {
       writeQueue.waitUntilAllOperationsAreFinished()
     } else {
@@ -1105,7 +1105,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   /**
    Used to preform the disconnect delegate
    */
-  private func doDisconnect(_ error: Error?) {
+  private func doDisconnect(_ error: (any Error)?) {
     guard !didDisconnect else { return }
     didDisconnect = true
     isConnecting = false

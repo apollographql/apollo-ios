@@ -22,10 +22,10 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource, CacheKeyComputi
   struct DataTransformer: _ObjectData_Transformer {
     func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
-      case let scalar as ScalarType:
+      case let scalar as any ScalarType:
         return scalar
-      case let customScalar as CustomScalarType:
-        return customScalar._jsonValue as? ScalarType
+      case let customScalar as any CustomScalarType:
+        return customScalar._jsonValue as? (any ScalarType)
       default: return nil
       }
     }

@@ -7,7 +7,7 @@ import ApolloAPI
 public class ObjectExecutionInfo {
   let rootType: any RootSelectionSet.Type
   let variables: GraphQLOperation.Variables?
-  let schema: SchemaMetadata.Type
+  let schema: any SchemaMetadata.Type
   private(set) var responsePath: ResponsePath = []
   private(set) var cachePath: ResponsePath = []
   fileprivate(set) var fulfilledFragments: Set<ObjectIdentifier>
@@ -15,7 +15,7 @@ public class ObjectExecutionInfo {
   fileprivate init(
     rootType: any RootSelectionSet.Type,
     variables: GraphQLOperation.Variables?,
-    schema: SchemaMetadata.Type,
+    schema: (any SchemaMetadata.Type),
     responsePath: ResponsePath,
     cachePath: ResponsePath
   ) {
@@ -30,7 +30,7 @@ public class ObjectExecutionInfo {
   fileprivate init(
     rootType: any RootSelectionSet.Type,
     variables: GraphQLOperation.Variables?,
-    schema: SchemaMetadata.Type,
+    schema: (any SchemaMetadata.Type),
     withRootCacheReference root: CacheReference? = nil
   ) {
     self.rootType = rootType
@@ -158,7 +158,7 @@ public struct GraphQLExecutionError: Error, LocalizedError {
   public var pathString: String { path.description }
 
   /// The error that occurred during parsing.
-  public let underlying: Error
+  public let underlying: any Error
 
   /// A description of the error which includes the path where the error occurred.
   public var errorDescription: String? {

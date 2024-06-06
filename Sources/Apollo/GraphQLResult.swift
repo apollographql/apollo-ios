@@ -65,7 +65,7 @@ extension GraphQLResult {
       var val: Any = value
       if let value = value as? DataDict {
           val = value._data
-      } else if let value = value as? CustomScalarType {
+      } else if let value = value as? (any CustomScalarType) {
           val = value._jsonValue
       }
       if let dict = val as? [String: Any] {

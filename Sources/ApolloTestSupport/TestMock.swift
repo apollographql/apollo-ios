@@ -97,7 +97,7 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
 
   public var _selectionSetMockData: JSONObject {
     _data.mapValues {
-      if let mock = $0.base as? AnyMock {
+      if let mock = $0.base as? (any AnyMock) {
         return mock._selectionSetMockData
       }
       if let mockArray = $0 as? Array<Any> {
@@ -156,11 +156,11 @@ public protocol MockFieldValue {
 }
 
 extension Interface: MockFieldValue {
-  public typealias MockValueCollectionType = Array<AnyMock>
+  public typealias MockValueCollectionType = Array<any AnyMock>
 }
 
 extension Union: MockFieldValue {
-  public typealias MockValueCollectionType = Array<AnyMock>
+  public typealias MockValueCollectionType = Array<any AnyMock>
 }
 
 extension Optional: MockFieldValue where Wrapped: MockFieldValue {
@@ -193,7 +193,7 @@ fileprivate extension Array {
 
   private func _unsafelyConvertToSelectionSetData(element: Any) -> AnyHashable? {
     switch element {
-    case let element as AnyMock:
+    case let element as any AnyMock:
       return element._selectionSetMockData
 
     case let innerArray as Array<Any>:

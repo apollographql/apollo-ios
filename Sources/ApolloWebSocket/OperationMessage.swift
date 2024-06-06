@@ -115,12 +115,12 @@ struct ParseHandler {
   let type: String?
   let id: String?
   let payload: JSONObject?
-  let error: Error?
+  let error: (any Error)?
 
   init(_ type: String?,
        _ id: String?,
        _ payload: JSONObject?,
-       _ error: Error?) {
+       _ error: (any Error)?) {
     self.type = type
     self.id = id
     self.payload = payload

@@ -60,7 +60,7 @@ public enum Selection {
   @inlinable static public func field(
     _ name: String,
     alias: String? = nil,
-    _ type: OutputTypeConvertible.Type,
+    _ type: any OutputTypeConvertible.Type,
     arguments: [String: InputValue]? = nil
   ) -> Selection {
     .field(.init(name, alias: alias, type: type._asOutputType, arguments: arguments))

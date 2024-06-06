@@ -44,7 +44,7 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
     data: Data,
     boundary: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: ((Error) -> Void)
+    errorHandler: ((any Error) -> Void)
   ) {
     guard let dataString = String(data: data, encoding: .utf8) else {
       errorHandler(ParsingError.cannotParseResponseData)

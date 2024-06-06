@@ -20,7 +20,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
     }
   }
 
-  private static let responseParsers: [String: MultipartResponseSpecificationParser.Type] = [
+  private static let responseParsers: [String: any MultipartResponseSpecificationParser.Type] = [
     MultipartResponseSubscriptionParser.protocolSpec: MultipartResponseSubscriptionParser.self
   ]
 
@@ -29,10 +29,10 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   public init() { }
 
   public func interceptAsync<Operation>(
-    chain: RequestChain,
+    chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) where Operation : GraphQLOperation {
 
     guard let response else {
@@ -86,7 +86,7 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       )
     }
 
-    let errorHandler: ((Error) -> Void) = { parserError in
+    let errorHandler: ((any Error) -> Void) = { parserError in
       chain.handleErrorAsync(
         parserError,
         request: request,
@@ -116,6 +116,6 @@ protocol MultipartResponseSpecificationParser {
     data: Data,
     boundary: String,
     dataHandler: ((Data) -> Void),
-    errorHandler: ((Error) -> Void)
+    errorHandler: ((any Error) -> Void)
   )
 }

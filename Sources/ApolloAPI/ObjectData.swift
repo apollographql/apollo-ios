@@ -8,11 +8,11 @@ public protocol _ObjectData_Transformer {
 /// sources, using a `_transformer` to ensure the raw data from different sources (which may be in
 /// different formats) can be consumed with a consistent API.
 public struct ObjectData {
-  public let _transformer: _ObjectData_Transformer
+  public let _transformer: any _ObjectData_Transformer
   public let _rawData: [String: AnyHashable]
 
   public init(
-    _transformer: _ObjectData_Transformer,
+    _transformer: any _ObjectData_Transformer,
     _rawData: [String: AnyHashable]
   ) {
     self._transformer = _transformer
@@ -55,11 +55,11 @@ public struct ObjectData {
 /// This type wraps data from different sources, using a `_transformer` to ensure the raw data from
 /// different sources (which may be in different formats) can be consumed with a consistent API.
 public struct ListData {
-  public let _transformer: _ObjectData_Transformer
+  public let _transformer: any _ObjectData_Transformer
   public let _rawData: [AnyHashable]
 
   public init(
-    _transformer: _ObjectData_Transformer,
+    _transformer: any _ObjectData_Transformer,
     _rawData: [AnyHashable]
   ) {
     self._transformer = _transformer
