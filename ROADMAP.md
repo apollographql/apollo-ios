@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-05-31**
+**Last updated: 2024-06-13**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -28,7 +28,7 @@ The `@defer` directive enables your queries to receive data for specific fields 
 The feature is being rolled out on the `preview-defer.n` tags (currently `preview-defer.2`):
 * ✅ Code generation
 * ✅ Partial incremental execution
-* 🔨 Partial and incremental caching (_approx. 2024-06-10_)
+* 🔨 Partial and incremental caching (_approx. 2024-06-28_)
 * 🔲 Selection Set Initializers (_next_)
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
@@ -40,20 +40,12 @@ _Approximate Date: to be released incrementally_
     - (in progress) [Add configuration for disabling merging of fragment fields](https://github.com/apollographql/apollo-ios/issues/2560)
     - (in progress) Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
-### [Configuration to rename generated models for schema types](https://github.com/apollographql/apollo-ios/issues/3283)
-
-_Approximate Date: 2024-06-10_
-
-- Allow client-side users to override the names of schema types in the generated models.
-- This will allow user's to improve the quality and expressiveness of client side APIs when schema type names are not appropriate for client usage.
-- This also allows workarounds for issues when names of schema types conflict with Swift types.
-
 ### Swift 6 compatibility
 
 _Approximate Date: 2024-06-10_
 
+- ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
 - [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
-- [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
