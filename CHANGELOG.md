@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.13.0
+
+### New
+- **Added `ExistentialAny` requirement ([#379](https://github.com/apollographql/apollo-ios-dev/pull/379)):** This adds the `-enable-upcoming-feature ExistentialAny` to all targets to ensure compatibility with the upcoming Swift feature.
+- **Schema type renaming ([#388](https://github.com/apollographql/apollo-ios-dev/pull/388)):** This adds the feature to allow customizing the names of schema types in Swift generated code.
+- **JSONConverter helper ([#380](https://github.com/apollographql/apollo-ios-dev/pull/380)):** This adds a new helper class for handling JSON conversion of data including the ability to convert `SelectionSet` instances to JSON.
+
+### Fixed
+- **ApolloSQLite build error with Xcode 16 ([#386](https://github.com/apollographql/apollo-ios-dev/pull/386)):** This fixes a naming conflict with Foundation in iOS 18 and the SQLite library. _Thanks to [@rastersize](https://github.com/rastersize) for the contributon._
+
 ## v1.12.2
 
 ### Fixed
