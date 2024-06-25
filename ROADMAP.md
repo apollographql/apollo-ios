@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-06-13**
+**Last updated: 2024-06-25**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -28,7 +28,7 @@ The `@defer` directive enables your queries to receive data for specific fields 
 The feature is being rolled out on the `preview-defer.n` tags (currently `preview-defer.2`):
 * ✅ Code generation
 * ✅ Partial incremental execution
-* 🔨 Partial and incremental caching (_approx. 2024-06-28_)
+* ✅ Partial and incremental caching
 * 🔲 Selection Set Initializers (_next_)
 
 ### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
@@ -42,10 +42,10 @@ _Approximate Date: to be released incrementally_
 
 ### Swift 6 compatibility
 
-_Approximate Date: 2024-06-10_
+_Approximate Date: TBD_ Scope of work is actively under investigation.
 
 - ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
-- [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
+- (in progress) [`Sendable` types](https://github.com/apollographql/apollo-ios/issues/3291)
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
