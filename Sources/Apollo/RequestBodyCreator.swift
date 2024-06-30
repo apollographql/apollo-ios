@@ -27,9 +27,12 @@ extension RequestBodyCreator {
                                                        sendQueryDocument: Bool,
                                                        autoPersistQuery: Bool) -> GraphQLMap {
     var body: GraphQLMap = [
-      "variables": operation.variables,
       "operationName": operation.operationName,
     ]
+
+    if let variables = operation.variables?.compactMapValues({ $0 }) {
+      body["variables"] = variables
+    }
 
     if sendOperationIdentifiers {
       guard let operationIdentifier = operation.operationIdentifier else {
