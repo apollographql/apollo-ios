@@ -37,4 +37,19 @@ class RequestBodyCreatorTests: XCTestCase {
 
     XCTAssertEqual(query.queryDocument, req["test_query"] as? String)
   }
+
+  func testRequestBodyOmitsVariablesFieldWhenValuesAreNil() {
+    let query = HeroNameQuery(episode: nil)
+    let req = self.create(with: apolloRequestBodyCreator, for: query)
+
+    XCTAssertFalse(req.keys.contains(where: { $0 == "variables" }))
+  }
+
+  func testRequestBodyIncludesVariablesFieldWhenItContainsNonNilValues() {
+    let episode = Episode.empire
+    let query = HeroNameQuery(episode: episode)
+    let req = self.create(with: apolloRequestBodyCreator, for: query)
+
+    XCTAssertEqual(req["variables"], ["episode": episode.rawValue])
+  }
 }
