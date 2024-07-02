@@ -46,7 +46,7 @@ public protocol CompositeInlineFragment: CompositeSelectionSet, InlineFragment {
 }
 
 // MARK: - SelectionSet
-public protocol SelectionSet: Hashable {
+public protocol SelectionSet: Hashable, CustomDebugStringConvertible {
   associatedtype Schema: SchemaMetadata
 
   /// A type representing all of the fragments the `SelectionSet` can be converted to.
@@ -116,6 +116,10 @@ extension SelectionSet {
 
   @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
     return lhs.__data == rhs.__data
+  }
+  
+  public var debugDescription: String {
+    return "\(self.__data._data as AnyObject)"
   }
 }
 
