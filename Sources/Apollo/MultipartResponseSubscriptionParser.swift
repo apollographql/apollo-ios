@@ -5,16 +5,15 @@ import ApolloAPI
 
 struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser {
   public enum ParsingError: Swift.Error, LocalizedError, Equatable {
-    case cannotParseResponseData
     case unsupportedContentType(type: String)
     case cannotParseChunkData
     case irrecoverableError(message: String?)
     case cannotParsePayloadData
+    case cannotParseErrorData
 
     public var errorDescription: String? {
       switch self {
-      case .cannotParseResponseData:
-        return "The response data could not be parsed."
+
       case let .unsupportedContentType(type):
         return "Unsupported content type: application/json is required but got \(type)."
       case .cannotParseChunkData:
@@ -23,107 +22,107 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
         return "An irrecoverable error occured: \(message ?? "unknown")."
       case .cannotParsePayloadData:
         return "The payload data could not be parsed."
+      case .cannotParseErrorData:
+        return "The error data could not be parsed."
       }
     }
   }
 
-  private enum ChunkedDataLine {
+  private enum DataLine {
     case heartbeat
     case contentHeader(type: String)
     case json(object: JSONObject)
     case unknown
+
+    init(_ value: String) {
+      self = Self.parse(value)
+    }
+
+    private static func parse(_ dataLine: String) -> DataLine {
+      var contentTypeHeader: StaticString { "content-type:" }
+      var heartbeat: StaticString { "{}" }
+
+      if dataLine == heartbeat.description {
+        return .heartbeat
+      }
+
+      if dataLine.lowercased().starts(with: contentTypeHeader.description) {
+        let contentType = (dataLine
+          .components(separatedBy: ":").last ?? dataLine
+        ).trimmingCharacters(in: .whitespaces)
+
+        return .contentHeader(type: contentType)
+      }
+
+      if
+        let data = dataLine.data(using: .utf8),
+        let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
+      {
+        return .json(object: jsonObject)
+      }
+
+      return .unknown
+    }
   }
 
   static let protocolSpec: String = "subscriptionSpec=1.0"
 
-  private static let dataLineSeparator: StaticString = "\r\n\r\n"
-  private static let contentTypeHeader: StaticString = "content-type:"
-  private static let heartbeat: StaticString = "{}"
+  static func parse(_ chunk: String) -> Result<Data?, any Error> {
+    for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
+      switch DataLine(dataLine.trimmingCharacters(in: .newlines)) {
+      case .heartbeat:
+        // Periodically sent by the router - noop
+        break
 
-  static func parse(
-    data: Data,
-    boundary: String,
-    dataHandler: ((Data) -> Void),
-    errorHandler: ((any Error) -> Void)
-  ) {
-    guard let dataString = String(data: data, encoding: .utf8) else {
-      errorHandler(ParsingError.cannotParseResponseData)
-      return
-    }
+      case let .contentHeader(type):
+        guard type == "application/json" else {
+          return .failure(ParsingError.unsupportedContentType(type: type))
+        }
 
-    for chunk in dataString.components(separatedBy: "--\(boundary)") {
-      if chunk.isEmpty || chunk.isBoundaryPrefix { continue }
-
-      for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
-        switch (parse(dataLine: dataLine.trimmingCharacters(in: .newlines))) {
-        case .heartbeat:
-          // Periodically sent by the router - noop
-          continue
-
-        case let .contentHeader(type):
-          guard type == "application/json" else {
-            errorHandler(ParsingError.unsupportedContentType(type: type))
-            return
-          }
-
-        case let .json(object):
-          if let errors = object["errors"] as? [JSONObject] {
+      case let .json(object):
+        if let errors = object.errors, !(errors is NSNull) {
+          guard
+            let errors = errors as? [JSONObject],
             let message = errors.first?["message"] as? String
-
-            errorHandler(ParsingError.irrecoverableError(message: message))
-            return
+          else {
+            return .failure(ParsingError.cannotParseErrorData)
           }
 
-          guard let payload = object["payload"] else {
-            errorHandler(ParsingError.cannotParsePayloadData)
-            return
-          }
+          return .failure(ParsingError.irrecoverableError(message: message))
+        }
 
-          if payload is NSNull {
-            // `payload` can be null such as in the case of a transport error
-            continue
-          }
-
+        if let payload = object.payload, !(payload is NSNull) {
           guard
             let payload = payload as? JSONObject,
             let data: Data = try? JSONSerializationFormat.serialize(value: payload)
           else {
-            errorHandler(ParsingError.cannotParsePayloadData)
-            return
+            return .failure(ParsingError.cannotParsePayloadData)
           }
 
-          dataHandler(data)
-
-        case .unknown:
-          errorHandler(ParsingError.cannotParseChunkData)
+          return .success(data)
         }
+
+        // 'errors' is optional because valid payloads don't have transport errors.
+        // `errors` can be null because it's taken to be the same as optional.
+        // `payload` is optional because the heartbeat message does not contain a payload field.
+        // `payload` can be null such as in the case of a transport error or future use (TBD).
+        return .success(nil)
+
+      case .unknown:
+        return .failure(ParsingError.cannotParseChunkData)
       }
     }
-  }
 
-  /// Parses the data line of a multipart response chunk
-  private static func parse(dataLine: String) -> ChunkedDataLine {
-    if dataLine == Self.heartbeat.description {
-      return .heartbeat
-    }
-
-    if dataLine.starts(with: Self.contentTypeHeader.description) {
-      return .contentHeader(type: (dataLine.components(separatedBy: ":").last ?? dataLine)
-        .trimmingCharacters(in: .whitespaces)
-      )
-    }
-
-    if
-      let data = dataLine.data(using: .utf8),
-      let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
-    {
-      return .json(object: jsonObject)
-    }
-
-    return .unknown
+    return .success(nil)
   }
 }
 
-fileprivate extension String {
-  var isBoundaryPrefix: Bool { self == "--" }
+fileprivate extension JSONObject {
+  var errors: JSONValue? {
+    self["errors"]
+  }
+
+  var payload: JSONValue? {
+    self["payload"]
+  }
 }

@@ -4,7 +4,7 @@ public protocol Deferrable: SelectionSet { }
 /// fulfilled value as well as the fulfilled state through the projected value.
 @propertyWrapper
 public struct Deferred<Fragment: Deferrable> {
-  public enum State {
+  public enum State: Equatable {
     /// The deferred selection set has not been received yet.
     case pending
     /// The deferred value can never be fulfilled, such as in the case of a type case mismatch.

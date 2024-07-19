@@ -5,14 +5,19 @@ import ApolloAPI
 
 /// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheWriteInterceptor: ApolloInterceptor {
-  
+
   public enum CacheWriteError: Error, LocalizedError {
+    @available(*, deprecated, message: "Will be removed in a future version.")
     case noResponseToParse
-    
+
+    case missingCacheRecords
+
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
         return "The Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
+      case .missingCacheRecords:
+        return "The Cache Write Interceptor cannot find any cache records. Double-check the order of your interceptors."
       }
     }
   }
@@ -43,44 +48,31 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       )
       return
     }
-    
+
     guard
       let createdResponse = response,
-      let legacyResponse = createdResponse.legacyResponse else {
+      let cacheRecords = createdResponse.cacheRecords
+    else {
       chain.handleErrorAsync(
-        CacheWriteError.noResponseToParse,
+        CacheWriteError.missingCacheRecords,
         request: request,
         response: response,
         completion: completion
       )
-        return
+      return
     }
-    
-    do {
-      let (_, records) = try legacyResponse.parseResult()
-      
-      guard !chain.isCancelled else {
-        return
-      }
-      
-      if let records = records {
-        self.store.publish(records: records, identifier: request.contextIdentifier)
-      }
-      
-      chain.proceedAsync(
-        request: request,
-        response: createdResponse,
-        interceptor: self,
-        completion: completion
-      )
 
-    } catch {
-      chain.handleErrorAsync(
-        error,
-        request: request,
-        response: response,
-        completion: completion
-      )
+    guard !chain.isCancelled else {
+      return
     }
+
+    self.store.publish(records: cacheRecords, identifier: request.contextIdentifier)
+
+    chain.proceedAsync(
+      request: request,
+      response: createdResponse,
+      interceptor: self,
+      completion: completion
+    )
   }
 }

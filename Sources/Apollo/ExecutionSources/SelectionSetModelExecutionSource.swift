@@ -8,6 +8,8 @@ struct SelectionSetModelExecutionSource: GraphQLExecutionSource, CacheKeyComputi
   typealias RawObjectData = DataDict
   typealias FieldCollector = CustomCacheDataWritingFieldSelectionCollector
 
+  var shouldAttemptDeferredFragmentExecution: Bool { false }
+
   func resolveField(
     with info: FieldExecutionInfo,
     on object: DataDict

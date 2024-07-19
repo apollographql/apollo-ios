@@ -57,11 +57,11 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
       }
 
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-      createdResponse.legacyResponse = graphQLResponse
-
-
-      let result = try parseResult(from: graphQLResponse, cachePolicy: request.cachePolicy)
+      let (result, cacheRecords) = try graphQLResponse.parseResult(withCachePolicy: request.cachePolicy)
+      
       createdResponse.parsedResponse = result
+      createdResponse.cacheRecords = cacheRecords
+      
       chain.proceedAsync(
         request: request,
         response: createdResponse,
@@ -76,20 +76,6 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
         response: createdResponse,
         completion: completion
       )
-    }
-  }
-
-  private func parseResult<Data>(
-    from response: GraphQLResponse<Data>,
-    cachePolicy: CachePolicy
-  ) throws -> GraphQLResult<Data> {
-    switch cachePolicy {
-    case .fetchIgnoringCacheCompletely:
-      // There is no cache, so we don't need to get any info on dependencies. Use fast parsing.
-      return try response.parseResultFast()
-    default:
-      let (parsedResult, _) = try response.parseResult()
-      return parsedResult
     }
   }
 

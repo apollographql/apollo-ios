@@ -9,6 +9,14 @@ public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyCo
   public typealias RawObjectData = JSONObject
   public typealias FieldCollector = DefaultFieldSelectionCollector
 
+  /// Used to determine whether deferred selections within a selection set should be executed at the same
+  /// time as the other selections.
+  ///
+  /// When executing on a network response, deferred selections are not executed at the same time as the
+  /// other selections because they are sent from the server as independent responses, are parsed
+  /// sequentially, and the results are returned separately.
+  public var shouldAttemptDeferredFragmentExecution: Bool { false }
+
   public init() {}
 
   public func resolveField(

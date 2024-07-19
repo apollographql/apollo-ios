@@ -25,7 +25,7 @@ public protocol RootSelectionSet: SelectionSet, SelectionSetEntityValue, OutputT
 /// from the fragment's parent `RootSelectionSet` that will be selected. This includes fields from
 /// the parent selection set, as well as any other child selections sets that are compatible with
 /// the `InlineFragment`'s `__parentType` and the operation's inclusion condition.
-public protocol InlineFragment: SelectionSet {
+public protocol InlineFragment: SelectionSet, Deferrable {
   associatedtype RootEntityType: RootSelectionSet
 }
 
