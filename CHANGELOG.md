@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.14.0
+
+### New
+- **Experimental support for the `@defer` directive:** You can now use the `@defer` directive in your operations and code generation will generate models that support asynchronously receiving the deferred selection sets. There is a helpful property wrapper with a projected value to determine the state of the deferred selection set, and support for cache reads and writes. This feature is enabled by default but is considered [experimental](https://www.apollographql.com/docs/resources/product-launch-stages/#experimental-features). Please refer to the [documentation](https://www.apollographql.com/docs/ios/fetching/defer/) for further details.
+- **Add `debugDescription` to `SelectionSet` ([#3374](https://github.com/apollographql/apollo-ios/issues/3374)):** This adds the ability to easily print code generated models to the Xcode debugger console. See PR [#412](https://github.com/apollographql/apollo-ios-dev/pull/412). _Thanks to [@raymondk-nf](https://github.com/raymondk-nf) for raising the issue._
+- **Xcode 16 editor config files ([#3404](https://github.com/apollographql/apollo-ios/issues/3404)):** Xcode 16 introduced support for `.editorconfig` files that represent settings like spaces vs. tabs, how many spaces per tab, etc. We've added a `.editorconfig` file with the projects preferred settings, so that the editor will use them automatically. See PR [#419](https://github.com/apollographql/apollo-ios-dev/pull/419). _Thanks to [@TizianoCoroneo](https://github.com/TizianoCoroneo) for raising the issue._
+
+### Fixed
+- **Local cache mutation build error in Swift 6 ([#3398](https://github.com/apollographql/apollo-ios/issues/3398)):** Mutating a property of a fragment annotated with the `@apollo_client_ios_localCacheMutation` directive caused a compile time error in Xcode 16 with Swift 6. See PR [#417](https://github.com/apollographql/apollo-ios-dev/pull/417). _Thanks to [@martin-muller](https://github.com/martin-muller) for raising the issue._
+
 ## v1.13.0
 
 ### New
