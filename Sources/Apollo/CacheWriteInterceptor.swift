@@ -7,17 +7,12 @@ import ApolloAPI
 public struct CacheWriteInterceptor: ApolloInterceptor {
 
   public enum CacheWriteError: Error, LocalizedError {
-    @available(*, deprecated, message: "Will be removed in a future version.")
     case noResponseToParse
-
-    case missingCacheRecords
 
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
         return "The Cache Write Interceptor was called before a response was received to be parsed. Double-check the order of your interceptors."
-      case .missingCacheRecords:
-        return "The Cache Write Interceptor cannot find any cache records. Double-check the order of your interceptors."
       }
     }
   }
@@ -37,7 +32,11 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
-    
+
+    guard !chain.isCancelled else {
+      return
+    }
+
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
       // If we're ignoring the cache completely, we're not writing to it.
       chain.proceedAsync(
@@ -49,12 +48,9 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       return
     }
 
-    guard
-      let createdResponse = response,
-      let cacheRecords = createdResponse.cacheRecords
-    else {
+    guard let createdResponse = response else {
       chain.handleErrorAsync(
-        CacheWriteError.missingCacheRecords,
+        CacheWriteError.noResponseToParse,
         request: request,
         response: response,
         completion: completion
@@ -62,11 +58,9 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       return
     }
 
-    guard !chain.isCancelled else {
-      return
+    if let cacheRecords = createdResponse.cacheRecords {
+      self.store.publish(records: cacheRecords, identifier: request.contextIdentifier)
     }
-
-    self.store.publish(records: cacheRecords, identifier: request.contextIdentifier)
 
     chain.proceedAsync(
       request: request,
