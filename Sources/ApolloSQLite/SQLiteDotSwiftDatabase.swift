@@ -10,7 +10,7 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
   private let records: Table
   private let keyColumn: SQLite.Expression<CacheKey>
   private let recordColumn: SQLite.Expression<String>
-  
+
   public init(fileURL: URL) throws {
     self.records = Table(Self.tableName)
     self.keyColumn = Expression<CacheKey>(Self.keyColumnName)
@@ -65,5 +65,12 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
     if shouldVacuumOnClear {
       try self.db.prepare("VACUUM;").run()
     }
+  }
+
+  /// Sets the journal mode for the current database.
+  ///
+  /// - Parameter mode: The journal mode controls how the journal file is stored and processed.
+  public func setJournalMode(mode: JournalMode) throws {
+    try self.db.run("PRAGMA journal_mode = \(mode.rawValue)")
   }
 }
