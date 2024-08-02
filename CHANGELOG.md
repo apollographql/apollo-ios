@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.14.1
+
+### New
+- **Ability to set the journal mode on sqlite cache databases ([#3399](https://github.com/apollographql/apollo-ios/issues/3399)):** There is now a function to set the journal mode of the connected sqlite database and control how the journal file is stored and processed. See PR [#443](https://github.com/apollographql/apollo-ios-dev/pull/443). _Thanks to [@pixelmatrix](https://github.com/pixelmatrix) for the feature request._
+
+### Fixed
+- **Fix crash when `GraphQLError` is “too many validation errors”" ([#438](https://github.com/apollographql/apollo-ios-dev/pull/438)):** When a GraphQLError from the JS parsing step is a “Too many validation errors” error, there is no `source` in the error object. Codegen will now check for it to avoid this edge case crash.
+- **Cache write interceptor should gracefully handle missing cache records ([#439](https://github.com/apollographql/apollo-ios-dev/pull/439)):** The work to support the `@defer` directive introduced a bug where the cache write interceptor would throw if no cache records were returned during response parsing. This is incorrect as there are no cache records in the case of an `errors` only GraphQL response.
+- **Avoid using `fatalError` on `JSONEncodable` ([#128](https://github.com/apollographql/apollo-ios-dev/pull/128)):** The fatal error logic in `JSONEncodable` was replaced with a type constraint `where` clause. _Thank you to [@arnauddorgans](https://github.com/arnauddorgans) for the contribution._
+- **Introspection-based schema download creates duplicate `@defer` directive definition ([#3417](https://github.com/apollographql/apollo-ios/issues/3417)):** The codegen engine can now correctly detect pre-existing `@defer` directive definitions in introspection sources and prevent the duplicate definition. See PR [#440](https://github.com/apollographql/apollo-ios-dev/pull/440). _Thanks to [@loganblevins](https://github.com/loganblevins) for reporting the issue._
+
 ## v1.14.0
 
 ### New
