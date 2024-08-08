@@ -57,8 +57,9 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
       }
 
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
+      createdResponse._legacyResponse = graphQLResponse
+
       let (result, cacheRecords) = try graphQLResponse.parseResult(withCachePolicy: request.cachePolicy)
-      
       createdResponse.parsedResponse = result
       createdResponse.cacheRecords = cacheRecords
       
