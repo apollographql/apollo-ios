@@ -203,7 +203,11 @@ public class ApolloStore {
   public class ReadTransaction {
     fileprivate let cache: any NormalizedCache
 
-    fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader(self.cache.loadRecords)
+    fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader { [weak self] batchLoad in
+        guard let self else { return [:] }
+        return try cache.loadRecords(forKeys: batchLoad)
+    }
+      
     fileprivate lazy var executor = GraphQLExecutor(
       executionSource: CacheDataExecutionSource(transaction: self)
     ) 
