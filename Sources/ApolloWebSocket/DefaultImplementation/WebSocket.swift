@@ -897,7 +897,8 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
 
       if receivedOpcode == .connectionClose {
         var closeReason = "connection closed by server"
-        if let customCloseReason = String(data: data, encoding: .utf8) {
+        if let customCloseReason = String(data: data, encoding: .utf8),
+           customCloseReason.apollo.isNotEmpty {
           closeReason = customCloseReason
         } else {
           closeCode = CloseCode.protocolError.rawValue
