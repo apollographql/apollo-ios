@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-07-30**
+**Last updated: 2024-08-13**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -37,7 +37,7 @@ _Approximate Date: to be released incrementally_
 
 - This effort encompasses several smaller features:
     - ✅ Make codegen support Swift concurrency (`async`/`await`): available in v1.7.0
-    - (in progress) [Add configuration for disabling merging of fragment fields](https://github.com/apollographql/apollo-ios/issues/2560)
+    - ✅ [Add configuration for disabling merging of fragment fields](https://github.com/apollographql/apollo-ios/issues/2560)
     - (in progress) Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
 ### [2.0 Release] - Swift 6 compatibility
