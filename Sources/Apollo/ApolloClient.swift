@@ -187,6 +187,7 @@ extension ApolloClient: ApolloClientProtocol {
 
 extension ApolloClient {
 
+  @_disfavoredOverload
   @available(*, deprecated,
               renamed: "watch(query:cachePolicy:refetchOnFailedUpdates:context:callbackQueue:resultHandler:)")
   public func watch<Query: GraphQLQuery>(
