@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.15.1
+
+### Fixed
+- **Fix decoding of deprecated `selectionSetInitializer` option `localCacheMutations` ([#467](https://github.com/apollographql/apollo-ios-dev/pull/467)):** This option was deprecated in `1.15.0`, and the removal of the code to parse the option resulted in a validation error when the deprecated option was present in the JSON code generation config file. This is now fixed so that the option is ignored but does not cause code generation to fail.  
+- **Disfavour deprecated watch function ([#469](https://github.com/apollographql/apollo-ios-dev/pull/469)):** A deprecated version of the `watch` function matched the overload of the current version if certain parameters were omitted. This caused an incorrect deprecation warning in this situation. We've fixed this by adding `@_disfavoredOverload` to the deprecated function signature.
+  
 ## v1.15.0
 
 ### New
