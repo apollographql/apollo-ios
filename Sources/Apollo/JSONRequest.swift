@@ -98,7 +98,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
-        
+        request.cachePolicy = requestCachePolicy
+
         // GET requests shouldn't have a content-type since they do not provide actual content.
         request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
       } else {
@@ -148,6 +149,22 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     )
     
     return body
+  }
+
+  /// Convert the Apollo iOS cache policy into a matching cache policy for URLRequest.
+  private var requestCachePolicy: URLRequest.CachePolicy {
+    switch cachePolicy {
+    case .returnCacheDataElseFetch:
+      return .returnCacheDataElseLoad
+    case .fetchIgnoringCacheData:
+      return .reloadIgnoringLocalCacheData
+    case .fetchIgnoringCacheCompletely:
+      return .reloadIgnoringLocalAndRemoteCacheData
+    case .returnCacheDataDontFetch:
+      return .returnCacheDataDontLoad
+    case .returnCacheDataAndFetch:
+      return .reloadRevalidatingCacheData
+    }
   }
 
   // MARK: - Equtable/Hashable Conformance
