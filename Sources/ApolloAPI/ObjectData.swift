@@ -11,9 +11,6 @@ public struct ObjectData {
   public let _transformer: any _ObjectData_Transformer
   public let _rawData: [String: AnyHashable]
 
-  @usableFromInline internal static let _boolTrue = AnyHashable(true)
-  @usableFromInline internal static let _boolFalse = AnyHashable(false)
-
   public init(
     _transformer: any _ObjectData_Transformer,
     _rawData: [String: AnyHashable]
@@ -29,7 +26,7 @@ public struct ObjectData {
     // This check is based on AnyHashable using a canonical representation of the type-erased value so
     // instances wrapping the same value of any type compare as equal. Therefore while Int(1) and Int(0)
     // might be representable as Bool they will never equal Bool(true) nor Bool(false).
-    if let boolVal = value as? Bool, (value == Self._boolTrue || value == Self._boolFalse) {
+    if let boolVal = value as? Bool, value.isCanonicalBool {
       value = boolVal
 
     // Cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting
@@ -72,17 +69,17 @@ public struct ListData {
   @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
     var value: AnyHashable = _rawData[key]
     
-    // Attempting cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting,
-    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int`
-    switch value {
-    case let boolVal as Bool:
+    // This check is based on AnyHashable using a canonical representation of the type-erased value so
+    // instances wrapping the same value of any type compare as equal. Therefore while Int(1) and Int(0)
+    // might be representable as Bool they will never equal Bool(true) nor Bool(false).
+    if let boolVal = value as? Bool, value.isCanonicalBool {
       value = boolVal
-    case let intVal as Int:
-      value = intVal
-    default:
-      break
+
+    // Cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting
+    } else if let intValue = value as? Int {
+      value = intValue
     }
-    
+
     return _transformer.transform(value)
   }
 
@@ -94,5 +91,14 @@ public struct ListData {
   @_disfavoredOverload
   @inlinable public subscript(_ key: Int) -> ListData? {
     return _transformer.transform(_rawData[key])
+  }
+}
+
+extension AnyHashable {
+  fileprivate static let boolTrue = AnyHashable(true)
+  fileprivate static let boolFalse = AnyHashable(false)
+
+  @usableFromInline var isCanonicalBool: Bool {
+    self == Self.boolTrue || self == Self.boolFalse
   }
 }
