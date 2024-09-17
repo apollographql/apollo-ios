@@ -2,6 +2,7 @@
 @_exported import ApolloAPI
 #endif
 @_spi(Execution) import Apollo
+@testable import ApolloPGATOUR
 import Foundation
 
 @dynamicMemberLookup

@@ -7,7 +7,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Apollo",
+  name: "ApolloPGATOUR",
   platforms: [
     .iOS(.v12),
     .macOS(.v10_14),
@@ -16,9 +16,9 @@ let package = Package(
     .visionOS(.v1),
   ],
   products: [
-    .library(name: "Apollo", targets: ["Apollo"]),
+    .library(name: "ApolloPGATOUR", targets: ["ApolloPGATOUR"]),
     .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
-    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo"]),
+    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["ApolloPGATOUR"]),
     .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
     .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
@@ -31,7 +31,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "Apollo",
+      name: "ApolloPGATOUR",
       dependencies: [
         "ApolloAPI"
       ],
@@ -51,7 +51,7 @@ let package = Package(
     .target(
       name: "ApolloSQLite",
       dependencies: [
-        "Apollo",
+        "ApolloPGATOUR",
         .product(name: "SQLite", package: "SQLite.swift"),
       ],
       resources: [
@@ -62,7 +62,7 @@ let package = Package(
     .target(
       name: "ApolloWebSocket",
       dependencies: [
-        "Apollo"
+        "ApolloPGATOUR"
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
@@ -72,7 +72,7 @@ let package = Package(
     .target(
       name: "ApolloTestSupport",
       dependencies: [
-        "Apollo",
+        "ApolloPGATOUR",
         "ApolloAPI"
       ],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]

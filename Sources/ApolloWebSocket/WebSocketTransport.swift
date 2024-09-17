@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import Apollo
+import ApolloPGATOUR
 import ApolloAPI
 #endif
 import Foundation
@@ -45,7 +45,15 @@ public class WebSocketTransport {
   @Atomic var socketConnectionState: SocketConnectionState = .disconnected
 
   /// Indicates if the websocket connection has been acknowledged by the server.
-  private var acked = false
+  private var timeoutTimer = Atomic<Timer?>(wrappedValue: nil)
+  private var ackTimeout: TimeInterval? {
+    didSet {
+      resetTimeoutTimer()
+    }
+  }
+  private var acked: Bool {
+    ackTimeout != nil
+  }
 
   private var queue: [Int: String] = [:]
 
@@ -182,6 +190,8 @@ public class WebSocketTransport {
   }
 
   private func processMessage(text: String) {
+    resetTimeoutTimer()
+
     OperationMessage(serialized: text).parse { parseHandler in
       guard
         let type = parseHandler.type,
@@ -226,8 +236,7 @@ public class WebSocketTransport {
         }
 
       case .connectionAck:
-        acked = true
-        writeQueue()
+        handleAckMessage(parseHandler: parseHandler)
 
       case .connectionKeepAlive,
            .startAck,
@@ -254,6 +263,37 @@ public class WebSocketTransport {
   }
 
   private func notifyErrorAllHandlers(_ error: any Error) {
+    private func resetTimeoutTimer() {
+        DispatchQueue.main.async { [weak self] in
+            self?.timeoutTimer.mutate { timer in
+                timer?.invalidate()
+                timer = nil
+
+                if let timeout = self?.ackTimeout {
+                    timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] timer in
+                        self?.didTimeout(timer: timer)
+                    }
+                }
+            }
+        }
+    }
+
+  private func didTimeout(timer: Timer) {
+      pauseWebSocketConnection()
+      resumeWebSocketConnection()
+  }
+
+  private func handleAckMessage(parseHandler: ParseHandler) {
+    guard let timeoutMs = parseHandler.payload?["connectionTimeoutMs"] as? Double else {
+      notifyErrorAllHandlers(WebSocketError(payload: parseHandler.payload, error: parseHandler.error, kind: .badAckMessage))
+      return
+    }
+
+    ackTimeout = timeoutMs / 1_000
+    writeQueue()
+  }
+
+  private func notifyErrorAllHandlers(_ error: Error) {
     for (_, handler) in subscribers {
       handler(.failure(error))
     }
@@ -277,7 +317,7 @@ public class WebSocketTransport {
 
   public func initServer() {
     processingQueue.async {
-      self.acked = false
+      self.ackTimeout = nil
 
       if let str = OperationMessage(payload: self.config.connectingPayload,
                                     type: .connectionInit).rawMessage {
@@ -563,7 +603,7 @@ extension WebSocketTransport: WebSocketClientDelegate {
 
   private func handleDisconnection()  {
     self.delegate?.webSocketTransport(self, didDisconnectWithError: self.error)
-    self.acked = false // need new connect and ack before sending
+    self.ackTimeout = nil // need new connect and ack before sending
 
     self.attemptReconnectionIfDesired()
   }
