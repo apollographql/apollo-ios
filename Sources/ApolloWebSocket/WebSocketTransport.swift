@@ -262,13 +262,12 @@ public class WebSocketTransport {
     }
   }
 
-  private func notifyErrorAllHandlers(_ error: any Error) {
     private func resetTimeoutTimer() {
         DispatchQueue.main.async { [weak self] in
             self?.timeoutTimer.mutate { timer in
                 timer?.invalidate()
                 timer = nil
-
+                
                 if let timeout = self?.ackTimeout {
                     timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] timer in
                         self?.didTimeout(timer: timer)
@@ -293,7 +292,7 @@ public class WebSocketTransport {
     writeQueue()
   }
 
-  private func notifyErrorAllHandlers(_ error: Error) {
+    private func notifyErrorAllHandlers(_ error: any Error) {
     for (_, handler) in subscribers {
       handler(.failure(error))
     }
