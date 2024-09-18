@@ -39,8 +39,6 @@ public extension MutableSelectionSet where Fragments: FragmentContainer {
       yield &f
       self.__data._data = f.__data._data
     }
-    @available(*, unavailable, message: "mutate properties of the fragment instead.")
-    set { preconditionFailure("") }
   }
 }
 

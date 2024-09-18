@@ -18,6 +18,14 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
   /// against the cache data.
   weak var transaction: ApolloStore.ReadTransaction?
 
+  /// Used to determine whether deferred selections within a selection set should be executed at the same
+  /// time as the other selections.
+  ///
+  /// When executing on cache data all selections, including deferred, must be executed together because
+  /// there is only a single response from the cache data. Any deferred selection that was cached will
+  /// be returned in the response.
+  var shouldAttemptDeferredFragmentExecution: Bool { true }
+
   init(transaction: ApolloStore.ReadTransaction) {
     self.transaction = transaction
   }
@@ -64,7 +72,7 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     return transaction.loadObject(forKey: reference.key)
   }
 
-  func computeCacheKey(for object: Record, in schema: SchemaMetadata.Type) -> CacheKey? {
+  func computeCacheKey(for object: Record, in schema: any SchemaMetadata.Type) -> CacheKey? {
     return object.key
   }
 

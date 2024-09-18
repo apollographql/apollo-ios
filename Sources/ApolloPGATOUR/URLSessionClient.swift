@@ -14,7 +14,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError
     case dataForRequestNotFound(request: URLRequest?)
-    case networkError(data: Data, response: HTTPURLResponse?, underlying: Error)
+    case networkError(data: Data, response: HTTPURLResponse?, underlying: any Error)
     case sessionInvalidated
     case missingMultipartBoundary
     case cannotParseBoundaryData
@@ -40,10 +40,10 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   }
   
   /// A completion block to be called when the raw task has completed, with the raw information from the session
-  public typealias RawCompletion = (Data?, HTTPURLResponse?, Error?) -> Void
+  public typealias RawCompletion = (Data?, HTTPURLResponse?, (any Error)?) -> Void
   
   /// A completion block returning a result. On `.success` it will contain a tuple with non-nil `Data` and its corresponding `HTTPURLResponse`. On `.failure` it will contain an error.
-  public typealias Completion = (Result<(Data, HTTPURLResponse), Error>) -> Void
+  public typealias Completion = (Result<(Data, HTTPURLResponse), any Error>) -> Void
   
   @Atomic private var tasks: [Int: TaskData] = [:]
   
@@ -152,7 +152,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     sendRequest(
       request,
       taskDescription: nil,
-      rawTaskCompletionHandler: nil,
+      rawTaskCompletionHandler: rawTaskCompletionHandler,
       completion: completion
     )
   }
@@ -169,7 +169,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   // MARK: - URLSessionDelegate
   
-  open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+  open func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
     let finalError = error ?? URLSessionClientError.sessionBecameInvalidWithoutUnderlyingError
     for task in self.tasks.values {
       task.completionBlock(.failure(finalError))
@@ -212,7 +212,7 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
   
   open func urlSession(_ session: URLSession,
                        task: URLSessionTask,
-                       didCompleteWithError error: Error?) {
+                       didCompleteWithError error: (any Error)?) {
     defer {
       self.clear(task: task.taskIdentifier)
     }

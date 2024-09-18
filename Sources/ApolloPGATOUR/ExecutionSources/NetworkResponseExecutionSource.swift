@@ -4,28 +4,39 @@ import ApolloAPI
 
 /// A `GraphQLExecutionSource` configured to execute upon the JSON data from the network response
 /// for a GraphQL operation.
-struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
-  typealias RawObjectData = JSONObject
-  typealias FieldCollector = DefaultFieldSelectionCollector
+@_spi(Execution)
+public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
+  public typealias RawObjectData = JSONObject
+  public typealias FieldCollector = DefaultFieldSelectionCollector
 
-  func resolveField(
+  /// Used to determine whether deferred selections within a selection set should be executed at the same
+  /// time as the other selections.
+  ///
+  /// When executing on a network response, deferred selections are not executed at the same time as the
+  /// other selections because they are sent from the server as independent responses, are parsed
+  /// sequentially, and the results are returned separately.
+  public var shouldAttemptDeferredFragmentExecution: Bool { false }
+
+  public init() {}
+
+  public func resolveField(
     with info: FieldExecutionInfo,
     on object: JSONObject
   ) -> PossiblyDeferred<AnyHashable?> {
     .immediate(.success(object[info.responseKeyForField]))
   }
 
-  func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
+  public func opaqueObjectDataWrapper(for rawData: JSONObject) -> ObjectData {
     ObjectData(_transformer: DataTransformer(), _rawData: rawData)
   }
 
   struct DataTransformer: _ObjectData_Transformer {
     func transform(_ value: AnyHashable) -> (any ScalarType)? {
       switch value {
-      case let scalar as ScalarType:
+      case let scalar as any ScalarType:
         return scalar
-      case let customScalar as CustomScalarType:
-        return customScalar._jsonValue as? ScalarType
+      case let customScalar as any CustomScalarType:
+        return customScalar._jsonValue as? (any ScalarType)
       default: return nil
       }
     }

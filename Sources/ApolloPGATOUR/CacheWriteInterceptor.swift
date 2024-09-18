@@ -5,10 +5,10 @@ import ApolloAPI
 
 /// An interceptor which writes data to the cache, following the `HTTPRequest`'s `cachePolicy`.
 public struct CacheWriteInterceptor: ApolloInterceptor {
-  
+
   public enum CacheWriteError: Error, LocalizedError {
     case noResponseToParse
-    
+
     public var errorDescription: String? {
       switch self {
       case .noResponseToParse:
@@ -28,11 +28,15 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
   }
   
   public func interceptAsync<Operation: GraphQLOperation>(
-    chain: RequestChain,
+    chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) {
-    
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
+
+    guard !chain.isCancelled else {
+      return
+    }
+
     guard request.cachePolicy != .fetchIgnoringCacheCompletely else {
       // If we're ignoring the cache completely, we're not writing to it.
       chain.proceedAsync(
@@ -43,44 +47,26 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
       )
       return
     }
-    
-    guard
-      let createdResponse = response,
-      let legacyResponse = createdResponse.legacyResponse else {
+
+    guard let createdResponse = response else {
       chain.handleErrorAsync(
         CacheWriteError.noResponseToParse,
         request: request,
         response: response,
         completion: completion
       )
-        return
+      return
     }
-    
-    do {
-      let (_, records) = try legacyResponse.parseResult()
-      
-      guard !chain.isCancelled else {
-        return
-      }
-      
-      if let records = records {
-        self.store.publish(records: records, identifier: request.contextIdentifier)
-      }
-      
-      chain.proceedAsync(
-        request: request,
-        response: createdResponse,
-        interceptor: self,
-        completion: completion
-      )
 
-    } catch {
-      chain.handleErrorAsync(
-        error,
-        request: request,
-        response: response,
-        completion: completion
-      )
+    if let cacheRecords = createdResponse.cacheRecords {
+      self.store.publish(records: cacheRecords, identifier: request.contextIdentifier)
     }
+
+    chain.proceedAsync(
+      request: request,
+      response: createdResponse,
+      interceptor: self,
+      completion: completion
+    )
   }
 }

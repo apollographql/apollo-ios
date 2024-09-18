@@ -114,7 +114,7 @@ fileprivate extension Array where Element == Selection.Condition {
 }
 
 // MARK: Conditions - Individual
-fileprivate extension Selection.Condition {
+public extension Selection.Condition {
   func evaluate(with variables: GraphQLOperation.Variables?) -> Bool {
     switch self {
     case let .value(value):

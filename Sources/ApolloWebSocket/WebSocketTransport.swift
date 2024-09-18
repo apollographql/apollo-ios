@@ -9,13 +9,13 @@ import Foundation
 public protocol WebSocketTransportDelegate: AnyObject {
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport)
   func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport)
-  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?)
+  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:(any Error)?)
 }
 
 public extension WebSocketTransportDelegate {
   func webSocketTransportDidConnect(_ webSocketTransport: WebSocketTransport) {}
   func webSocketTransportDidReconnect(_ webSocketTransport: WebSocketTransport) {}
-  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:Error?) {}
+  func webSocketTransport(_ webSocketTransport: WebSocketTransport, didDisconnectWithError error:(any Error)?) {}
   func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePingData: Data?) {}
   func webSocketTransport(_ webSocketTransport: WebSocketTransport, didReceivePongData: Data?) {}
 }
@@ -24,12 +24,12 @@ public extension WebSocketTransportDelegate {
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server.
 public class WebSocketTransport {
-  public weak var delegate: WebSocketTransportDelegate?
+  public weak var delegate: (any WebSocketTransportDelegate)?
 
-  let websocket: WebSocketClient
+  let websocket: any WebSocketClient
   let store: ApolloStore?
   private(set) var config: Configuration
-  @Atomic var error: Error?
+  @Atomic var error: (any Error)?
   let serializationFormat = JSONSerializationFormat.self
 
   /// non-private for testing - you should not use this directly
@@ -57,7 +57,7 @@ public class WebSocketTransport {
 
   private var queue: [Int: String] = [:]
 
-  private var subscribers = [String: (Result<JSONObject, Error>) -> Void]()
+  private var subscribers = [String: (Result<JSONObject, any Error>) -> Void]()
   private var subscriptions : [String: String] = [:]
   let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
@@ -104,10 +104,10 @@ public class WebSocketTransport {
     /// [optional]The payload to send on connection. Defaults to an empty `JSONEncodableDictionary`.
     public fileprivate(set) var connectingPayload: JSONEncodableDictionary?
     /// The `RequestBodyCreator` to use when serializing requests. Defaults to an `ApolloRequestBodyCreator`.
-    public let requestBodyCreator: RequestBodyCreator
+    public let requestBodyCreator: any RequestBodyCreator
     /// The `OperationMessageIdCreator` used to generate a unique message identifier per request.
     /// Defaults to `ApolloSequencedOperationMessageIdCreator`.
-    public let operationMessageIdCreator: OperationMessageIdCreator
+    public let operationMessageIdCreator: any OperationMessageIdCreator
 
     /// The designated initializer
     public init(
@@ -118,8 +118,8 @@ public class WebSocketTransport {
       allowSendingDuplicates: Bool = true,
       connectOnInit: Bool = true,
       connectingPayload: JSONEncodableDictionary? = [:],
-      requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
-      operationMessageIdCreator: OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()
+      requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
+      operationMessageIdCreator: any OperationMessageIdCreator = ApolloSequencedOperationMessageIdCreator()
     ) {
       self.clientName = clientName
       self.clientVersion = clientVersion
@@ -138,7 +138,7 @@ public class WebSocketTransport {
   /// Note: Will return `false` from the getter and no-op the setter for implementations that do not conform to `SOCKSProxyable`.
   public var enableSOCKSProxy: Bool {
     get {
-      guard let websocket = websocket as? SOCKSProxyable else {
+      guard let websocket = websocket as? (any SOCKSProxyable) else {
         // If it's not proxyable, then the proxy can't be enabled
         return false
       }
@@ -147,7 +147,7 @@ public class WebSocketTransport {
     }
 
     set {
-      guard var websocket = websocket as? SOCKSProxyable else {
+      guard var websocket = websocket as? (any SOCKSProxyable) else {
         // If it's not proxyable, there's nothing to do here.
         return
       }
@@ -164,7 +164,7 @@ public class WebSocketTransport {
   ///   - config: A `WebSocketTransport.Configuration` object with options for configuring the
   ///             web socket connection. Defaults to a configuration with default values.
   public init(
-    websocket: WebSocketClient,
+    websocket: any WebSocketClient,
     store: ApolloStore? = nil,
     config: Configuration = Configuration()
   ) {
@@ -267,7 +267,7 @@ public class WebSocketTransport {
             self?.timeoutTimer.mutate { timer in
                 timer?.invalidate()
                 timer = nil
-
+                
                 if let timeout = self?.ackTimeout {
                     timer = Timer.scheduledTimer(withTimeInterval: timeout, repeats: false) { [weak self] timer in
                         self?.didTimeout(timer: timer)
@@ -292,7 +292,7 @@ public class WebSocketTransport {
     writeQueue()
   }
 
-  private func notifyErrorAllHandlers(_ error: Error) {
+    private func notifyErrorAllHandlers(_ error: any Error) {
     for (_, handler) in subscribers {
       handler(.failure(error))
     }
@@ -362,7 +362,7 @@ public class WebSocketTransport {
     self.websocket.delegate = nil
   }
 
-  func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, Error>) -> Void) -> String? {
+  func sendHelper<Operation: GraphQLOperation>(operation: Operation, resultHandler: @escaping (_ result: Result<JSONObject, any Error>) -> Void) -> String? {
     let body = config.requestBodyCreator.requestBody(for: operation,
                                               sendQueryDocument: true,
                                               autoPersistQuery: false)
@@ -477,11 +477,11 @@ extension WebSocketTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy,
     contextIdentifier: UUID? = nil,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable {
     
-    func callCompletion(with result: Result<GraphQLResult<Operation.Data>, Error>) {
+      func callCompletion(with result: Result<GraphQLResult<Operation.Data>, any Error>) {
       callbackQueue.async {
         completionHandler(result)
       }
@@ -536,7 +536,7 @@ extension WebSocketTransport: NetworkTransport {
 
 extension WebSocketTransport: WebSocketClientDelegate {
 
-  public func websocketDidConnect(socket: WebSocketClient) {
+  public func websocketDidConnect(socket: any WebSocketClient) {
     self.handleConnection()
   }
 
@@ -564,7 +564,7 @@ extension WebSocketTransport: WebSocketClientDelegate {
     self.reconnected = true
   }
 
-  public func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
+  public func websocketDidDisconnect(socket: any WebSocketClient, error: (any Error)?) {
     self.$socketConnectionState.mutate { $0 = .disconnected }
     if let error = error {
       handleDisconnection(with: error)
@@ -575,7 +575,7 @@ extension WebSocketTransport: WebSocketClientDelegate {
     }
   }
 
-  private func handleDisconnection(with error: Error) {
+  private func handleDisconnection(with error: any Error) {
     // Set state to `.failed`, and grab its previous value.
     let previousState: SocketConnectionState = self.$socketConnectionState.mutate { socketConnectionState in
       let previousState = socketConnectionState
@@ -629,11 +629,11 @@ extension WebSocketTransport: WebSocketClientDelegate {
     }
   }
 
-  public func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
+  public func websocketDidReceiveMessage(socket: any WebSocketClient, text: String) {
     self.processMessage(text: text)
   }
 
-  public func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
+  public func websocketDidReceiveData(socket: any WebSocketClient, data: Data) {
     self.processMessage(data: data)
   }
   

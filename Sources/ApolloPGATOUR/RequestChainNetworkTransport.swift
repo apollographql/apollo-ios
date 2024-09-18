@@ -8,7 +8,7 @@ import ApolloAPI
 open class RequestChainNetworkTransport: NetworkTransport {
 
   /// The interceptor provider to use when constructing a request chain
-  let interceptorProvider: InterceptorProvider
+  let interceptorProvider: any InterceptorProvider
   
   /// The GraphQL endpoint URL to use.
   public let endpointURL: URL
@@ -40,7 +40,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
   /// The `RequestBodyCreator` object used to build your `URLRequest`.
   ///
   /// Defaults to an ``ApolloRequestBodyCreator`` initialized with the default configuration.
-  public var requestBodyCreator: RequestBodyCreator
+  public var requestBodyCreator: any RequestBodyCreator
   
   /// Designated initializer
   ///
@@ -52,11 +52,11 @@ open class RequestChainNetworkTransport: NetworkTransport {
   ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestBodyCreator` implementation.
   ///   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
-  public init(interceptorProvider: InterceptorProvider,
+  public init(interceptorProvider: any InterceptorProvider,
               endpointURL: URL,
               additionalHeaders: [String: String] = [:],
               autoPersistQueries: Bool = false,
-              requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator(),
+              requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
               useGETForQueries: Bool = false,
               useGETForPersistedQueryRetry: Bool = false) {
     self.interceptorProvider = interceptorProvider
@@ -83,7 +83,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     for operation: Operation,
     cachePolicy: CachePolicy,
     contextIdentifier: UUID? = nil,
-    context: RequestContext? = nil
+    context: (any RequestContext)? = nil
   ) -> HTTPRequest<Operation> {
     let request = JSONRequest(
       operation: operation,
@@ -105,12 +105,11 @@ open class RequestChainNetworkTransport: NetworkTransport {
         name: "Accept",
         value: "multipart/mixed;\(MultipartResponseSubscriptionParser.protocolSpec),application/json"
       )
-    }
 
-    if Operation.hasDeferredFragments {
+    } else {
       request.addHeader(
         name: "Accept",
-        value: "multipart/mixed;boundary=\"graphql\";\(MultipartResponseDeferParser.protocolSpec),application/json"
+        value: "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/json"
       )
     }
 
@@ -126,9 +125,9 @@ open class RequestChainNetworkTransport: NetworkTransport {
     operation: Operation,
     cachePolicy: CachePolicy = .default,
     contextIdentifier: UUID? = nil,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable {
     
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)
     let request = self.constructRequest(
@@ -144,7 +143,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
   private func makeChain<Operation: GraphQLOperation>(
     operation: Operation,
     callbackQueue: DispatchQueue = .main
-  ) -> RequestChain {
+  ) -> any RequestChain {
     let interceptors = self.interceptorProvider.interceptors(for: operation)
     let chain = InterceptorRequestChain(interceptors: interceptors, callbackQueue: callbackQueue)
     chain.additionalErrorHandler = self.interceptorProvider.additionalErrorInterceptor(for: operation)
@@ -168,7 +167,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   public func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
     with files: [GraphQLFile],
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     manualBoundary: String? = nil) -> HTTPRequest<Operation> {
     
     UploadRequest(graphQLEndpoint: self.endpointURL,
@@ -185,9 +184,9 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
-    context: RequestContext?,
+    context: (any RequestContext)?,
     callbackQueue: DispatchQueue = .main,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void) -> Cancellable {
+    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable {
     
     let request = self.constructUploadRequest(for: operation, with: files, context: context)
     let chain = makeChain(operation: operation, callbackQueue: callbackQueue)

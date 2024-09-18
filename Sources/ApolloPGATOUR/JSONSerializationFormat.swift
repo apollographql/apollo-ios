@@ -4,7 +4,7 @@ import ApolloAPI
 #endif
 
 public final class JSONSerializationFormat {
-  public class func serialize(value: JSONEncodable) throws -> Data {
+  public class func serialize(value: any JSONEncodable) throws -> Data {
     return try JSONSerialization.sortedData(withJSONObject: value._jsonValue)
   }
 

@@ -38,7 +38,7 @@ public struct WebSocketError: Error, LocalizedError {
   public let payload: JSONObject?
 
   /// The underlying error, or nil if one was not returned
-  public let error: Error?
+  public let error: (any Error)?
 
   /// The kind of problem which occurred.
   public let kind: ErrorKind

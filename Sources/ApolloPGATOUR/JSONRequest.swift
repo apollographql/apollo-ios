@@ -6,7 +6,7 @@ import ApolloAPI
 /// A request which sends JSON related to a GraphQL operation.
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   
-  public let requestBodyCreator: RequestBodyCreator
+  public let requestBodyCreator: any RequestBodyCreator
   
   public let autoPersistQueries: Bool
   public let useGETForQueries: Bool
@@ -50,11 +50,11 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     clientVersion: String,
     additionalHeaders: [String: String] = [:],
     cachePolicy: CachePolicy = .default,
-    context: RequestContext? = nil,
+    context: (any RequestContext)? = nil,
     autoPersistQueries: Bool = false,
     useGETForQueries: Bool = false,
     useGETForPersistedQueryRetry: Bool = false,
-    requestBodyCreator: RequestBodyCreator = ApolloRequestBodyCreator()
+    requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator()
   ) {
     self.autoPersistQueries = autoPersistQueries
     self.useGETForQueries = useGETForQueries
@@ -98,7 +98,8 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
-        
+        request.cachePolicy = requestCachePolicy
+
         // GET requests shouldn't have a content-type since they do not provide actual content.
         request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
       } else {
@@ -148,6 +149,22 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     )
     
     return body
+  }
+
+  /// Convert the Apollo iOS cache policy into a matching cache policy for URLRequest.
+  private var requestCachePolicy: URLRequest.CachePolicy {
+    switch cachePolicy {
+    case .returnCacheDataElseFetch:
+      return .returnCacheDataElseLoad
+    case .fetchIgnoringCacheData:
+      return .reloadIgnoringLocalCacheData
+    case .fetchIgnoringCacheCompletely:
+      return .reloadIgnoringLocalAndRemoteCacheData
+    case .returnCacheDataDontFetch:
+      return .returnCacheDataDontLoad
+    case .returnCacheDataAndFetch:
+      return .reloadRevalidatingCacheData
+    }
   }
 
   // MARK: - Equtable/Hashable Conformance

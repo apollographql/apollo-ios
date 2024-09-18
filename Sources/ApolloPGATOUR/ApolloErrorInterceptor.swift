@@ -14,9 +14,9 @@ public protocol ApolloErrorInterceptor {
   ///   - response: [optional] The response, if one was received
   ///   - completion: The completion closure to fire when the operation has completed. Note that if you call `retry` on the chain, you will not want to call the completion block in this method.
   func handleErrorAsync<Operation: GraphQLOperation>(
-      error: Error,
-      chain: RequestChain,
-      request: HTTPRequest<Operation>,
-      response: HTTPResponse<Operation>?,
-      completion: @escaping (Result<GraphQLResult<Operation.Data>, Error>) -> Void)
+    error: any Error,
+    chain: any RequestChain,
+    request: HTTPRequest<Operation>,
+    response: HTTPResponse<Operation>?,
+    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void)
 }

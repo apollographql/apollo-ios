@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.14'
   s.tvos.deployment_target = '12.0'
   s.watchos.deployment_target = '5.0'
+  s.visionos.deployment_target = '1.0'
 
   cli_binary_name = 'apollo-ios-cli'
   s.preserve_paths = [cli_binary_name]
@@ -30,7 +31,7 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '~>0.13.1'
+    ss.dependency 'SQLite.swift', '~>0.15.1'
     ss.resource_bundles = {
       'ApolloSQLite' => ['Sources/ApolloSQLite/Resources/PrivacyInfo.xcprivacy']
     }

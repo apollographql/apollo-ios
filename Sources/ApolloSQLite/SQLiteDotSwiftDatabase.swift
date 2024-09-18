@@ -8,9 +8,9 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
   private var db: Connection!
   
   private let records: Table
-  private let keyColumn: Expression<CacheKey>
-  private let recordColumn: Expression<String>
-  
+  private let keyColumn: SQLite.Expression<CacheKey>
+  private let recordColumn: SQLite.Expression<String>
+
   public init(fileURL: URL) throws {
     self.records = Table(Self.tableName)
     self.keyColumn = Expression<CacheKey>(Self.keyColumnName)
@@ -27,9 +27,9 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
   
   public func createRecordsTableIfNeeded() throws {
     try self.db.run(self.records.create(ifNotExists: true) { table in
-      table.column(Expression<Int64>(Self.idColumnName), primaryKey: .autoincrement)
+      table.column(SQLite.Expression<Int64>(Self.idColumnName), primaryKey: .autoincrement)
       table.column(keyColumn, unique: true)
-      table.column(Expression<String>(Self.recordColumName))
+      table.column(SQLite.Expression<String>(Self.recordColumName))
     })
     try self.db.run(self.records.createIndex(keyColumn, unique: true, ifNotExists: true))
   }
@@ -65,5 +65,12 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
     if shouldVacuumOnClear {
       try self.db.prepare("VACUUM;").run()
     }
+  }
+
+  /// Sets the journal mode for the current database.
+  ///
+  /// - Parameter mode: The journal mode controls how the journal file is stored and processed.
+  public func setJournalMode(mode: JournalMode) throws {
+    try self.db.run("PRAGMA journal_mode = \(mode.rawValue)")
   }
 }

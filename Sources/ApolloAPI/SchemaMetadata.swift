@@ -6,7 +6,7 @@
 public protocol SchemaMetadata {
 
   /// A ``SchemaConfiguration`` that provides custom configuration for the generated GraphQL schema.
-  static var configuration: SchemaConfiguration.Type { get }
+  static var configuration: any SchemaConfiguration.Type { get }
 
   /// Maps each object in a `GraphQLResponse` to the ``Object`` type representing the
   /// response object.

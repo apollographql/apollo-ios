@@ -9,7 +9,7 @@ public struct DatabaseRow {
 }
 
 public protocol SQLiteDatabase {
-  
+
   init(fileURL: URL) throws
   
   func createRecordsTableIfNeeded() throws
@@ -23,7 +23,7 @@ public protocol SQLiteDatabase {
   func deleteRecords(matching pattern: CacheKey) throws
   
   func clearDatabase(shouldVacuumOnClear: Bool) throws
-  
+
 }
 
 public extension SQLiteDatabase {
