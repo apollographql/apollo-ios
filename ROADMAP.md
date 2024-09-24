@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-08-27**
+**Last updated: 2024-09-24**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -44,7 +44,7 @@ _Approximate Date: to be released incrementally_
 
 To support the breaking language changes in Swift 6, a major version 2.0 of Apollo iOS will be released. This version will include support for the new Swift Concurrency Model and improve upon networking and caching APIs.
 
-_Approximate Date: Beta release in September alongside Xcode 16 & Swift 6 stable release
+_Approximate Date: _Pending completion of design review._ Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411).
 
 - ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
 - (in progress) [`Sendable` types and `async/await` APIs](https://github.com/apollographql/apollo-ios/issues/3291)
