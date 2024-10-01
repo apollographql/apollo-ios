@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.15.2
+
+### Improvements
+- **Set `URLRequest` cache policy on GET requests ([#476](https://github.com/apollographql/apollo-ios-dev/pull/476)):** Uses the Apollo cache policy to set a comparable cache policy on `URLRequest`. Previously there was no way to opt-out of default `URLRequest` caching behaviour.
+- **Batch writing records to the SQLite store ([#498](https://github.com/apollographql/apollo-ios-dev/pull/498)):** Uses the `insertMany` to batch write records for a given operation vs previously performing a write for each individual record.
+
+### Fixed
+- **Fix `ListData` type check ([#473](https://github.com/apollographql/apollo-ios-dev/pull/473)):** Fixed bool type check in `ListData`.
+- **Remove local cache mutation type condition setter ([#485](https://github.com/apollographql/apollo-ios-dev/pull/485)):** Removes the setter for mutable inline fragments. The correct way to initialize with a type condition is to use `asRootEntityType`.
+
 ## v1.15.1
 
 ### Fixed
