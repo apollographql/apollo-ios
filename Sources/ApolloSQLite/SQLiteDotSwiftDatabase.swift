@@ -43,11 +43,17 @@ public final class SQLiteDotSwiftDatabase: SQLiteDatabase {
       return DatabaseRow(cacheKey: key, storedInfo: record)
     }
   }
-  
-  public func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheKey) throws {
-    try self.db.run(self.records.insert(or: .replace, self.keyColumn <- cacheKey, self.recordColumn <- recordString))
+
+  public func addOrUpdate(records: [(cacheKey: CacheKey, recordString: String)]) throws {
+    guard !records.isEmpty else { return }
+    
+    let setters = records.map {
+      [self.keyColumn <- $0.cacheKey, self.recordColumn <- $0.recordString]
+    }
+
+    try self.db.run(self.records.insertMany(or: .replace, setters))
   }
-  
+
   public func deleteRecord(for cacheKey: CacheKey) throws {
     let query = self.records.filter(keyColumn == cacheKey)
     try self.db.run(query.delete())

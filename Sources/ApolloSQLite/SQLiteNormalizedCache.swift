@@ -61,17 +61,21 @@ public final class SQLiteNormalizedCache {
     var recordSet = RecordSet(records: try self.selectRecords(for: records.keys))
     let changedFieldKeys = recordSet.merge(records: records)
     let changedRecordKeys = changedFieldKeys.map { self.recordCacheKey(forFieldCacheKey: $0) }
-    for recordKey in Set(changedRecordKeys) {
-      if let recordFields = recordSet[recordKey]?.fields {
-        let recordData = try SQLiteSerialization.serialize(fields: recordFields)
-        guard let recordString = String(data: recordData, encoding: .utf8) else {
-          assertionFailure("Serialization should yield UTF-8 data")
-          continue
+
+    let serializedRecords = try Set(changedRecordKeys)
+      .compactMap { recordKey -> (CacheKey, String)? in
+        if let recordFields = recordSet[recordKey]?.fields {
+          let recordData = try SQLiteSerialization.serialize(fields: recordFields)
+          guard let recordString = String(data: recordData, encoding: .utf8) else {
+            assertionFailure("Serialization should yield UTF-8 data")
+            return nil
+          }
+          return (recordKey, recordString)
         }
-        
-        try self.database.addOrUpdateRecordString(recordString, for: recordKey)
+        return nil
       }
-    }
+
+    try self.database.addOrUpdate(records: serializedRecords)
     return Set(changedFieldKeys)
   }
   

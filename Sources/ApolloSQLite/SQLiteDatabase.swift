@@ -16,13 +16,24 @@ public protocol SQLiteDatabase {
   
   func selectRawRows(forKeys keys: Set<CacheKey>) throws -> [DatabaseRow]
 
-  func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheKey) throws
-  
+  func addOrUpdate(records: [(cacheKey: CacheKey, recordString: String)]) throws
+
   func deleteRecord(for cacheKey: CacheKey) throws
 
   func deleteRecords(matching pattern: CacheKey) throws
   
   func clearDatabase(shouldVacuumOnClear: Bool) throws
+
+  @available(*, deprecated, renamed: "addOrUpdate(records:)")
+  func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheKey) throws
+
+}
+
+extension SQLiteDatabase {
+
+  public func addOrUpdateRecordString(_ recordString: String, for cacheKey: CacheKey) throws {
+    try addOrUpdate(records: [(cacheKey, recordString)])
+  }
 
 }
 
