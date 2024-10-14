@@ -292,23 +292,28 @@ open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegat
     taskData.append(additionalData: data)
 
     if let httpResponse = dataTask.response as? HTTPURLResponse, httpResponse.isMultipart {
-      let multipartHeaderComponents = httpResponse.multipartHeaderComponents
-      guard let boundaryString = multipartHeaderComponents.boundary else {
+      guard let boundary = httpResponse.multipartHeaderComponents.boundary else {
         taskData.completionBlock(.failure(URLSessionClientError.missingMultipartBoundary))
         return
       }
 
-      let boundaryMarker = "--\(boundaryString)"
+      // Parsing Notes:
+      //
+      // Multipart messages are parsed here only to look for complete chunks to pass on to the downstream
+      // parsers. Any leftover data beyond a delimited chunk is held back for more data to arrive.
+      //
+      // Do not return `.failure` here simply because there was no boundary delimiter found; the
+      // data may still be arriving. If the request ends without more data arriving it will get handled
+      // in urlSession(_:task:didCompleteWithError:).
       guard
-        let dataString = String(data: taskData.data, encoding: .utf8)?.trimmingCharacters(in: .newlines),
-        let lastBoundaryIndex = dataString.range(of: boundaryMarker, options: .backwards)?.upperBound,
-        let boundaryData = dataString.prefix(upTo: lastBoundaryIndex).data(using: .utf8)
+        let dataString = String(data: taskData.data, encoding: .utf8),
+        let lastBoundaryDelimiterIndex = dataString.multipartRange(using: boundary),
+        let boundaryData = dataString.prefix(upTo: lastBoundaryDelimiterIndex).data(using: .utf8)
       else {
-        taskData.completionBlock(.failure(URLSessionClientError.cannotParseBoundaryData))
         return
       }
 
-      let remainingData = dataString.suffix(from: lastBoundaryIndex).data(using: .utf8)
+      let remainingData = dataString.suffix(from: lastBoundaryDelimiterIndex).data(using: .utf8)
       taskData.reset(data: remainingData)
 
       if let rawCompletion = taskData.rawCompletion {

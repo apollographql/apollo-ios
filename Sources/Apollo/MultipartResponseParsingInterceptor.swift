@@ -85,8 +85,14 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
       return
     }
 
-    for chunk in dataString.components(separatedBy: "--\(boundary)") {
-      if chunk.isEmpty || chunk.isBoundaryMarker { continue }
+    // Parsing Notes:
+    //
+    // Multipart messages arriving here may consist of more than one chunk, but they are always
+    // expected to be complete chunks. Downstream protocol specification parsers are only built
+    // to handle the protocol specific message formats, i.e.: data between the multipart delimiter.
+    let boundaryDelimiter = Self.boundaryDelimiter(with: boundary)
+    for chunk in dataString.components(separatedBy: boundaryDelimiter) {
+      if chunk.isEmpty || chunk.isDashBoundaryPrefix || chunk.isMultipartNewLine { continue }
 
       switch parser.parse(chunk) {
       case let .success(data):
@@ -119,6 +125,8 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
   }
 }
 
+// MARK: Specification Parser Protocol
+
 /// A protocol that multipart response parsers must conform to in order to be added to the list of
 /// available response specification parsers.
 protocol MultipartResponseSpecificationParser {
@@ -140,6 +148,38 @@ extension MultipartResponseSpecificationParser {
   static var dataLineSeparator: StaticString { "\r\n\r\n" }
 }
 
-fileprivate extension String {
-  var isBoundaryMarker: Bool { self == "--" }
+// MARK: Helpers
+
+extension MultipartResponseParsingInterceptor {
+  static func boundaryDelimiter(with boundary: String) -> String {
+    "\r\n--\(boundary)"
+  }
+
+  static func closeBoundaryDelimiter(with boundary: String) -> String {
+    boundaryDelimiter(with: boundary) + "--"
+  }
+}
+
+extension String {
+  fileprivate var isDashBoundaryPrefix: Bool { self == "--" }
+  fileprivate var isMultipartNewLine: Bool { self == "\r\n" }
+
+  /// Returns the range of a complete multipart chunk.
+  func multipartRange(using boundary: String) -> String.Index? {
+    // The end boundary marker indicates that no further chunks will follow so if this delimiter
+    // if found then include the delimiter in the index. Search for this first.
+    let closeBoundaryDelimiter = MultipartResponseParsingInterceptor.closeBoundaryDelimiter(with: boundary)
+    if let endIndex = range(of: closeBoundaryDelimiter, options: .backwards)?.upperBound {
+      return endIndex
+    }
+
+    // A chunk boundary indicates there may still be more chunks to follow so the index need not
+    // include the chunk boundary in the index.
+    let boundaryDelimiter = MultipartResponseParsingInterceptor.boundaryDelimiter(with: boundary)
+    if let chunkIndex = range(of: boundaryDelimiter, options: .backwards)?.lowerBound {
+      return chunkIndex
+    }
+
+    return nil
+  }
 }
