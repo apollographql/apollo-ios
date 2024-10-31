@@ -121,6 +121,8 @@ public extension GraphQLOperation {
   }
 
   func hash(into hasher: inout Hasher) {
+    hasher.combine(Self.operationType)
+    hasher.combine(Self.operationName)
     hasher.combine(__variables?._jsonEncodableValue?._jsonValue)
   }
 }
