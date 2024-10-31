@@ -167,10 +167,14 @@ public class WebSocketTransport {
     self.addApolloClientHeaders(to: &self.websocket.request)
 
     self.websocket.delegate = self
+    // Keep the assignment of the callback queue before attempting to connect. There is the
+    // potential of a data race if the connection fails early and the disconnect logic reads
+    // the callback queue while it's being set.
+    self.websocket.callbackQueue = processingQueue
+
     if config.connectOnInit {
       self.websocket.connect()
     }
-    self.websocket.callbackQueue = processingQueue
   }
 
   public func isConnected() -> Bool {
