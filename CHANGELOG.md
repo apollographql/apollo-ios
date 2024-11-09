@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.15.3
+
+### Improvements
+- **Stable sort schema types for SchemaMetadata ([#514](https://github.com/apollographql/apollo-ios-dev/pull/514)):** _Thank you to [@asmundg](https://github.com/asmundg) for the contribution._
+
+### Fixed
+- **Fix multipart delimter boundary parsing ([#502](https://github.com/apollographql/apollo-ios-dev/pull/502)):** The multipart message parsing code was not splitting message chunks at the correct boundary when the dash boundary was present in the message body.
+- **Fix Websocket error broadcast for unsubscribed ID ([#506](https://github.com/apollographql/apollo-ios-dev/pull/506))** Only broadcast an error to all subscribers if there was no id field in the message.
+- **Fix bug with `AnyHashable` coercion for non-iOS platforms ([#517](https://github.com/apollographql/apollo-ios-dev/pull/517)):** Extended the _AnyHashableCanBeCoerced check to include macOS, watchOS, and tvOS with their respective minimum versions. _Thank you to [@VMLe](https://github.com/VMLe) for the fix._
+- **Fix assigning websocket callback queue before connecting ([#529](https://github.com/apollographql/apollo-ios-dev/pull/529)):** Fixed a race condition with the callback queue assignment during an unstable connection.
+- **Fix `GraphQLOperation` hash uniqueness ([#530](https://github.com/apollographql/apollo-ios-dev/pull/530)):** Adding uniqueness to GraphQLOperation hashing.
+
 ## v1.15.2
 
 ### Improvements
