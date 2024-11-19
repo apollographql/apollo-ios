@@ -169,8 +169,6 @@ MyProject                  // SourceRoot
 
 Here, for example, is what this looks like in a file for one of the queries in our [tutorial application](./tutorial/tutorial-introduction):
 
-<img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
-
 ![Launch list file](screenshot/graphql_file_launchlist.png)
 
 **Note:** You do **not** need to add this file to your target in Xcode. Only the generated Swift code needs to be included in your target for it to work. 
@@ -184,6 +182,7 @@ This is best achieved with a Run Script Build Phase.
 1. Select the target in your project or workspace you want to run code generation, and go to the `Build Phases` tab. 
 
 2. Create a new Run Script Build Phase by selecting the **+** button in the upper left-hand corner:
+
    ![New run script build phase dialog](screenshot/new_run_script_phase.png)
 
 3. Update the build phase run script to `cd` into the folder where your executable's code lives, then run `swift run` (using `xcrun` so that you can ensure it runs with the correct SDK, no matter what type of project you're building): 
