@@ -171,6 +171,8 @@ Here, for example, is what this looks like in a file for one of the queries in o
 
 <img alt="Launch list file" src="screenshot/graphql_file_launchlist.png" class="screenshot"/>
 
+![Launch list file](screenshot/graphql_file_launchlist.png)
+
 **Note:** You do **not** need to add this file to your target in Xcode. Only the generated Swift code needs to be included in your target for it to work. 
 
 ## Running code generation from your main project
