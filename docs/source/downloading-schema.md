@@ -4,7 +4,7 @@ title: Downloading a schema
 
 Apollo iOS requires a GraphQL schema file as input to its code generation process. You can provide your schema either as a JSON file (most commonly the result of an introspection query) or as a `.graphqls` file that uses GraphQL SDL syntax. Conventionally, this file is named `schema.json` or `schema.graphqls` (depending on its format), and you store it in the same folder as your project's `App`:
 
-<img class="screenshot" src="screenshot/schema_location.jpg" alt="Location of schema file in project" width="250" />
+![Location of schema file in project](screenshot/schema_location.jpg)
 
 > 📣 **Check it out:** Instead of writing the scripts below in Bash, try using our new [Swift Scripting Library](./swift-scripting), now in Beta! It supports downloading a schema and generating code.
 

@@ -17,23 +17,23 @@ Create a new empty file and name it `LaunchDetails.graphql`. In this file, you'l
 
 In the Explorer tab, start by clicking the "New Tab" button in the middle operations section: 
 
-<img alt="the new tab button" class="screenshot" src="images/explorer_new_tab.png"/>
+![The new tab button](images/explorer_new_tab.png)
 
-A new tab will be added with nothing in it: 
+A new tab will be added with nothing in it:
 
-<img alt="The UI after adding a new tab" class="screenshot" src="images/explorer_added_empty_tab.png"/>
+![The UI after adding a new tab](images/explorer_added_empty_tab.png)
 
-In the left-hand column, click the word "Query" under "Documentation" to be brought to a list of possible queries: 
+In the left-hand column, click the word "Query" under "Documentation" to be brought to a list of possible queries:
 
-<img alt="The list of possible queries" class="screenshot" src="images/explorer_query_list.png"/>
+![The list of possible queries](images/explorer_query_list.png)
 
-Select the `launch` query by clicking the button next to it. Sandbox Explorer will automatically set up the query for you to use: 
+Select the `launch` query by clicking the button next to it. Sandbox Explorer will automatically set up the query for you to use:
 
-<img alt="What the launch query will look like immediately after adding it" class="screenshot" src="images/explorer_launch_query_start.png"/>
+![What the launch query will look like immediately after adding it](images/explorer_launch_query_start.png)
 
-First, change the name of the operation from "Query" to "LaunchDetails" - that will then reflect in the tab name and make it easier to tell which query you're working with:  
+First, change the name of the operation from "Query" to "LaunchDetails" - that will then reflect in the tab name and make it easier to tell which query you're working with:
 
-<img alt="The renamed query" class="screenshot" src="images/explorer_details_renamed.png"/>
+![The renamed query](images/explorer_details_renamed.png)
 
 Let's go through what's been added here: 
 
@@ -67,11 +67,11 @@ query LaunchDetails($id:ID!) {
 
 Next, look in the left sidebar to see what other fields are available. Selecting `rocket` will add a set of brackets to request details about the rocket, and drill you into the `rocket` property, showing you the available fields on the `Rocket` type: 
 
-<img alt="The available properties for Rocket" class="screenshot" src="images/explorer_rocket_drill_in.png"/>
+![The available properties for Rocket](images/explorer_rocket_drill_in.png)
 
-Click the buttons to check off `name` and `type`. Next, go back to `Launch` by clicking the back button next to the `Rocket` type in the left sidebar: 
+Click the buttons to check off `name` and `type`. Next, go back to `Launch` by clicking the back button next to the `Rocket` type in the left sidebar:
 
-<img alt="The back button" class="screenshot" src="images/explorer_rocket_back.png"/>
+![The back button](images/explorer_rocket_back.png)
 
 Finally, check off the `isBooked` property on the `Launch`. Your final query should look like this: 
 
@@ -101,7 +101,7 @@ At the bottom of the Operations section, update the Variables section to pass in
 
 This tells Sandbox Explorer to fill in the value of the `$launchId` variable with the value `"25"` when it runs the query. Press the big play button, and you should get some results back for the launch with ID 25: 
 
-<img src="images/explorer_launch_detail_result.png" alt="Detail request returning JSON" class="screenshot"/>
+![Detail request returning JSON](images/explorer_launch_detail_result.png)
 
 Now that you've confirmed it worked, copy the query (either by selecting all the text or using the "Copy Operation" option from the meatball menu as before) and paste it into your `LaunchDetails.graphql` file. Build the application so that codegen picks up this new file and generates a new query type for it. 
 
@@ -233,10 +233,10 @@ private var launch: LaunchDetailsQuery.Data.Launch? {
 
 Build and run the application. When you tap into the detail screen, you should now see the full details: 
 
-<img src="images/detail_loaded.png" alt="Final display of the detail screen" class="screenshot" width="300"/>
+![Final display of the detail screen](images/detail_loaded.png)
 
-You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches until you get to the end of the list, you'll get to some rockets that have different rocket types: 
+You'll notice that many of the more recent launches have a rocket type of `FT`. If you load more launches until you get to the end of the list, you'll get to some rockets that have different rocket types:
 
-<img src="images/detail_loaded_merlin_c.png" alt="Final display with different rocket type" class="screenshot" width="300"/>
+![Final display with different rocket type](images/detail_loaded_merlin_c.png)
 
 You may have noticed that the detail view includes a `Book Now!` button, but there's no way to book a seat yet. To fix that, let's [learn how to make changes to objects in your graph with mutations, including authentication](./tutorial-authentication).

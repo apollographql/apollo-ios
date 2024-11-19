@@ -14,19 +14,19 @@ A **mutation** is an operation that changes state on your server. In this case, 
 
 Open [your Sandbox Explorer](https://studio.apollographql.com/sandbox/explorer?endpoint=https%3A%2F%2Fapollo-fullstack-tutorial.herokuapp.com%2Fgraphql) and click on the plus symbol to add a new tab. Next, click on the Schema icon to get back to looking at your schema, and select "Mutation" to look at your list of mutations:
 
-<img alt="The list of available mutations" class="screenshot" src="images/sandbox_schema_mutations.png"/>
+![The list of available mutations](images/sandbox_schema_mutations.png)
 
 Scroll down to take a look at the `login` mutation: 
 
-<img alt="The definition of login in the schema" class="screenshot" src="images/schema_login_definition.png"/>
+![The definition of login in the schema](images/schema_login_definition.png)
 
 Click the play button to the right to open that mutation in the Explorer tab. When it opens, click the plus sign to add the operation: 
 
-<img alt="The login mutation after initially being added" class="screenshot" src="images/explorer_added_login_mutation.png"/>
+![The login mutation after initially being added](images/explorer_added_login_mutation.png)
 
 Sandbox Explorer tries to be helpful by adding the word `Mutation` after the word `Login`, but the iOS SDK also does that for you - so you'd wind up with a `LoginMutationMutation`. Rename the operation `Login` instead: 
 
-<img alt="The renamed operation" class="screenshot" src="images/explorer_login_mutation_rename.png"/>
+![The renamed operation](images/explorer_login_mutation_rename.png)
 
 Notice that there are no brackets after the call to the `login` mutation - this is because the type returned by this mutation is `String`, which is known as a **scalar type**. This means it won't have properties the way an object would, so you don't need to specify what properties you want returned to you. 
 
@@ -34,13 +34,13 @@ You'll also notice that `email` wasn't automatically added as an argument even t
 
 Click the plus sign next to the `email` argument to have that argument added: 
 
-<img alt="The operation with the email argument" class="screenshot" src="images/explorer_login_email_added.png"/>
+![The operation with the email argument](images/explorer_login_email_added.png)
 
 You'll also notice that Sandbox Explorer has added a variable to your "Variables" section to match the login email. 
 
 Click the Submit Operation button your mutation. You'll see that  since you sent `null` for the email address, you get back `null` for the login: 
 
-<img alt="Results of passing a null email" class="screenshot" src="images/login_mutation_null.png"/>
+![Results of passing a null email](images/login_mutation_null.png)
 
 Now, replace `null` in the Query Variables section with an actual email address:
 
@@ -50,7 +50,7 @@ Now, replace `null` in the Query Variables section with an actual email address:
 
 Press the Submit Operation button, and this time you'll get an actual response:
 
-<img alt="Results of passing an actual email" class="screenshot" src="images/login_mutation_email.png"/>
+![Results of passing an actual email](images/login_mutation_email.png)
 
 Next, copy the operation, either manually or using the meatball menu's "Copy operation" option. 
 
@@ -165,6 +165,6 @@ Build and run the application, and select a launch from the list to view its det
 
 When the `DetailViewController` reappears, if you tap the "Book now!" button again, you'll see the print statement you added logging happily to the console:
 
-<img alt="Console with book trip printed out" class="screenshot" src="images/book_trip_printout.png"/>
+![Console with book trip printed out](images/book_trip_printout.png)
 
 In the next step, you'll [use your login token in a mutation to book yourself a trip](./tutorial-mutations)!
