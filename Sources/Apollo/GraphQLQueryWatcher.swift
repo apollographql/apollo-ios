@@ -3,7 +3,9 @@ import Foundation
 import ApolloAPI
 #endif
 
-/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
+/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes. 
+///
+/// NOTE: In order for the `resultHandler` to be called when mutations are executed, you will need to implement Custom Cache Keys - see the Caching section of the Apollo iOS documentation for more details.
 ///
 /// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result in a memory leak.
 public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
