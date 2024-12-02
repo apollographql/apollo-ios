@@ -44,3 +44,5 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
   }
 
 }
+
+public protocol OneOfInputObject: InputObject { }
