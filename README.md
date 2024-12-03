@@ -40,6 +40,8 @@ Apollo iOS does more than simply run your queries against a GraphQL server: It n
 
 This combination of models with value semantics, one way data flow, and automatic consistency management, leads to a very powerful and elegant programming model that allows you to eliminate common glue code and greatly simplifies app development.
 
+Apollo iOS aims to comply with the [Working Draft of the GraphQL specification](https://spec.graphql.org/draft/).
+
 ## Getting started
 
 If you are new to Apollo iOS we recommend our [Getting Started](https://www.apollographql.com/docs/ios/get-started) guide.
