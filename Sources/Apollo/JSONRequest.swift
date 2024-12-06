@@ -155,7 +155,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   private var requestCachePolicy: URLRequest.CachePolicy {
     switch cachePolicy {
     case .returnCacheDataElseFetch:
-      return .returnCacheDataElseLoad
+      return .useProtocolCachePolicy
     case .fetchIgnoringCacheData:
       return .reloadIgnoringLocalCacheData
     case .fetchIgnoringCacheCompletely:
