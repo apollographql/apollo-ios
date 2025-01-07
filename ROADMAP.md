@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2024-12-10**
+**Last updated: 2025-01-07**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -55,14 +55,6 @@ _Status: In design phase. Current RFC for design is available [here](https://git
 
 - ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
 - (in progress) [`Sendable` types and `async/await` APIs](https://github.com/apollographql/apollo-ios/issues/3291)
-
-### `@oneOf` Input Object Support
-
-_Status: Code complete. Will be included in the next minor version release (1.16.0)._
-
-For more information on this feature, see the [RFC](https://github.com/graphql/graphql-spec/pull/825) for its addition to the GraphQL specification.
-
-Support for this feature is considered experimental and subject to change until the RFC is approved and merged into the GraphQL specification.
 
 ### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
 
