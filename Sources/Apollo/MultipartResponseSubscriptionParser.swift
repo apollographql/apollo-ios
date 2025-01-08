@@ -30,7 +30,7 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
 
   private enum DataLine {
     case heartbeat
-    case contentHeader(type: String)
+    case contentHeader(directives: [String])
     case json(object: JSONObject)
     case unknown
 
@@ -46,12 +46,8 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
         return .heartbeat
       }
 
-      if dataLine.lowercased().starts(with: contentTypeHeader.description) {
-        let contentType = (dataLine
-          .components(separatedBy: ":").last ?? dataLine
-        ).trimmingCharacters(in: .whitespaces)
-
-        return .contentHeader(type: contentType)
+      if let directives = dataLine.parseContentTypeDirectives() {
+        return .contentHeader(directives: directives)
       }
 
       if
@@ -74,9 +70,9 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
         // Periodically sent by the router - noop
         break
 
-      case let .contentHeader(type):
-        guard type == "application/json" else {
-          return .failure(ParsingError.unsupportedContentType(type: type))
+      case let .contentHeader(directives):
+        guard directives.contains("application/json") else {
+          return .failure(ParsingError.unsupportedContentType(type: directives.joined(separator: ";")))
         }
 
       case let .json(object):
