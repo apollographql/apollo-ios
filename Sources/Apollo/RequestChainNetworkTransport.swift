@@ -103,13 +103,13 @@ open class RequestChainNetworkTransport: NetworkTransport {
     if Operation.operationType == .subscription {
       request.addHeader(
         name: "Accept",
-        value: "multipart/mixed;\(MultipartResponseSubscriptionParser.protocolSpec),application/json"
+        value: "multipart/mixed;\(MultipartResponseSubscriptionParser.protocolSpec),application/graphql-response+json,application/json"
       )
 
     } else {
       request.addHeader(
         name: "Accept",
-        value: "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/json"
+        value: "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/graphql-response+json,application/json"
       )
     }
 

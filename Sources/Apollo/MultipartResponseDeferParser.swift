@@ -13,7 +13,7 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
       switch self {
 
       case let .unsupportedContentType(type):
-        return "Unsupported content type: application/json is required but got \(type)."
+        return "Unsupported content type: 'application/graphql-response+json' or 'application/json' are supported, received '\(type)'."
       case .cannotParseChunkData:
         return "The chunk data could not be parsed."
       case .cannotParsePayloadData:
@@ -53,7 +53,7 @@ struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
     for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
       switch DataLine(dataLine.trimmingCharacters(in: .newlines)) {
       case let .contentHeader(directives):
-        guard directives.contains("application/json") else {
+        guard directives.contains(where: { $0.isValidGraphQLContentType }) else {
           return .failure(ParsingError.unsupportedContentType(type: directives.joined(separator: ";")))
         }
 

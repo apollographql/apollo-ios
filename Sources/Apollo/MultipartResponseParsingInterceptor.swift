@@ -194,4 +194,8 @@ extension String {
       .components(separatedBy: ";")
       .map({ $0.trimmingCharacters(in: .whitespaces) })
   }
+
+  var isValidGraphQLContentType: Bool {
+    self == "application/json" || self == "application/graphql-response+json"
+  }
 }
