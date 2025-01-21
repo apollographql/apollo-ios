@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-01-07**
+**Last updated: 2025-01-21**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -30,22 +30,6 @@ The `@defer` directive enables your queries to receive data for specific fields 
 * ✅ Partial and incremental caching
 * ✅ Local cache mutations
 * 🔲 Selection Set Initializers (_next_)
-
-### Declarative caching
-
-_Status: [PR #554](https://github.com/apollographql/apollo-ios-dev/pull/554) in review_
-
-- Similar to Apollo Kotlin [declarative caching](https://www.apollographql.com/docs/kotlin/caching/declarative-ids) via the `@typePolicy` directive
-- Provide ability to configure cache keys using directives on schema types as an alternative to programmatic cache key configuration
-
-### [Improvements to code generation configuration and performance](https://github.com/apollographql/apollo-ios/milestone/67)
-
-_Status: To be released incrementally_
-
-- This effort encompasses several smaller features:
-    - ✅ Make codegen support Swift concurrency (`async`/`await`): available in v1.7.0
-    - ✅ [Add configuration for disabling merging of fragment fields](https://github.com/apollographql/apollo-ios/issues/2560)
-    - (in progress) Fix retain cycles and memory issues causing code generation to take very long on certain large, complex schemas with deeply nested fragment composition
 
 ### [2.0 Release] - Swift 6 compatibility
 
