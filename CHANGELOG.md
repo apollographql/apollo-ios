@@ -1,5 +1,11 @@
 # Change Log
 
+## v1.16.1
+### Fixed
+- **Web socket data race crash fixed ([#578](https://github.com/apollographql/apollo-ios-dev/pull/578)):** A data race in the web socket layer was causing crashes in some rare circumstances.
+
+- **Added support for GraphQL over HTTP media type([#558](https://github.com/apollographql/apollo-ios-dev/pull/558)):** Apollo iOS now supports the `content-type` header with a type of `application/graphql-response+json`.
+
 ## v1.16.0
 
 ### New
