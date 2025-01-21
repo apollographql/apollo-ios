@@ -207,6 +207,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   private var connected = false
   private var isConnecting = false
   private let mutex = NSLock()
+  private let serialQueue = DispatchQueue(label: "com.apollographql.WebSocket.serial", qos: .background)
   private var compressionState = CompressionState()
   private var writeQueue = OperationQueue()
   private var readStack = [WSResponse]()
@@ -278,10 +279,12 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
    Connect to the WebSocket server on a background thread.
    */
   public func connect() {
-    guard !isConnecting else { return }
-    didDisconnect = false
-    isConnecting = true
-    createHTTPRequest()
+    serialQueue.sync {
+      guard !self.isConnecting else { return }
+      self.didDisconnect = false
+      self.isConnecting = true
+      self.createHTTPRequest()
+    }
   }
 
   /**
@@ -1106,19 +1109,21 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
    Used to preform the disconnect delegate
    */
   private func doDisconnect(_ error: (any Error)?) {
-    guard !didDisconnect else { return }
-    didDisconnect = true
-    isConnecting = false
-    mutex.lock()
-    connected = false
-    mutex.unlock()
-    guard canDispatch else {return}
-    callbackQueue.async { [weak self] in
-      guard let self = self else { return }
-      self.onDisconnect?(error)
-      self.delegate?.websocketDidDisconnect(socket: self, error: error)
-      let userInfo = error.map{ [Constants.WebsocketDisconnectionErrorKeyName: $0] }
-      NotificationCenter.default.post(name: NSNotification.Name(Constants.Notifications.WebsocketDidDisconnect), object: self, userInfo: userInfo)
+    serialQueue.sync {
+      guard !self.didDisconnect else { return }
+      self.didDisconnect = true
+      self.isConnecting = false
+      self.mutex.lock()
+      self.connected = false
+      self.mutex.unlock()
+      guard self.canDispatch else {return}
+      self.callbackQueue.async { [weak self] in
+        guard let self = self else { return }
+        self.onDisconnect?(error)
+        self.delegate?.websocketDidDisconnect(socket: self, error: error)
+        let userInfo = error.map{ [Constants.WebsocketDisconnectionErrorKeyName: $0] }
+        NotificationCenter.default.post(name: NSNotification.Name(Constants.Notifications.WebsocketDidDisconnect), object: self, userInfo: userInfo)
+      }
     }
   }
 
