@@ -1,3 +1,5 @@
+import Foundation
+
 /// A protocol that a generated GraphQL schema should conform to.
 ///
 /// The generated schema metadata is the source of information about the generated types in the
@@ -43,20 +45,53 @@ extension SchemaMetadata {
   /// Resolves the cache key for an object in a GraphQL response to be used by
   /// `NormalizedCache` mechanisms.
   ///
-  /// Maps the type of the `object` using the ``graphQLType(for:)`` function, then gets the
-  /// ``CacheKeyInfo`` for the `object` using the ``SchemaConfiguration/cacheKeyInfo(for:object:)``
-  /// function.
-  /// Finally, this function transforms the ``CacheKeyInfo`` into the correct ``CacheReference``
-  /// for the `NormalizedCache`.
+  /// The algorithm for resolving the objects cache key:
+  /// 1. Map the type of the `object` using the ``graphQLType(for:)`` function.
+  /// 2. Attempt to gets the `CacheKeyInfo`` using programmatic cache key configuration.
+  ///  2a. Call the ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function.
+  ///  2b. If `CacheKeyInfo` is found, transforms the ``CacheKeyInfo`` into the correct ``CacheReference``
+  ///  for the `NormalizedCache` and return it.
+  /// 3. If no programmatic cache key is returned, attempt to resolve the `keyFields` for the object
+  ///   3a. Check if the object's type has `keyFields`.
+  ///   3b. If the type of the object is unknown (ie. it cannot be found by ``graphQLType(for:)``),
+  ///   or the type does not have `keyFields`, check if the inferred interface for the type has
+  ///   `keyFields`.
+  ///   3c. If `keyFields` are found, resolve the cache key by escaping and joining the values of
+  ///   the `keyFields` on the object. Return the resolved cache key.
+  /// 4. If a cache key is not resolved programmatically or using `keyFields`, return `nil`.
   ///
   /// - Parameter object: A ``JSONObject`` dictionary representing an object in a GraphQL response.
+  /// - Parameter implementedInterface: An optional ``Interface`` that the object is
+  ///     inferred to implement. If the cache key is being resolved for a selection set with an
+  ///     interface as it's `__parentType`, you can infer the object must implement that interface.
+  ///     You should provide that interface to this parameter.
+  ///
   /// - Returns: A `String` representing the cache key for the `object` to be used by
   /// `NormalizedCache` mechanisms.
-  @inlinable public static func cacheKey(for object: ObjectData) -> String? {
-    guard let type = graphQLType(for: object),
-          let info = configuration.cacheKeyInfo(for: type, object: object) else {
-      return nil
+  @inlinable public static func cacheKey(
+    for object: ObjectData,
+    inferredToImplementInterface implementedInterface: Interface? = nil
+  ) -> String? {
+    guard let type = graphQLType(for: object) else { return nil }
+    
+    if let info = configuration.cacheKeyInfo(for: type, object: object) {
+      return "\(info.uniqueKeyGroup ?? type.typename):\(info.id)"
     }
-    return "\(info.uniqueKeyGroup ?? type.typename):\(info.id)"
+    
+    guard let keyFields = type.keyFields ?? implementedInterface?.keyFields else { return nil }
+    
+    let idValues = try? keyFields.map {
+      guard let keyFieldValue = object[$0] else {
+        throw JSONDecodingError.missingValue
+      }
+      let item = try String(_jsonValue: keyFieldValue._asAnyHashable)
+      
+      // Escape all instances of `+` with a backslash, as well as other backslashes
+      return item.replacingOccurrences(of: "\\", with: "\\\\")
+        .replacingOccurrences(of: "+", with: "\\+")
+    }
+    
+    guard let id = idValues?.joined(separator: "+") else { return nil }
+    return "\(type.typename):\(id)"
   }
 }

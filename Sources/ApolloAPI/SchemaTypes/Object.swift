@@ -10,12 +10,19 @@ public struct Object: Hashable, Sendable {
   /// - Parameters:
   ///   - typename: The name of the type.
   ///   - implementedInterfaces: A list of the interfaces implemented by the type.
+  ///   - keyFields: A list of field names that are used to uniquely identify an instance of this type.
   public init(
     typename: String,
-    implementedInterfaces: [Interface]
+    implementedInterfaces: [Interface],
+    keyFields: [String]? = nil
   ) {
     self.typename = typename
     self.implementedInterfaces = implementedInterfaces
+    if keyFields?.isEmpty == false {
+      self.keyFields = keyFields
+    } else {
+      self.keyFields = nil
+    }
   }
 
   /// A list of the interfaces implemented by the type.
@@ -26,6 +33,11 @@ public struct Object: Hashable, Sendable {
   /// When an entity of the type is included in a GraphQL response its `__typename` field will
   /// match this value.
   public let typename: String
+  
+  /// A list of fields used to uniquely identify an instance of this object.
+  ///
+  /// This is set by adding a `@typePolicy` directive to the schema.
+  public let keyFields: [String]?
 
   /// A helper function to determine if the receiver implements a given ``Interface`` Type.
   ///

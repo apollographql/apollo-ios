@@ -493,9 +493,15 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     onChildObject object: Source.RawObjectData,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
+    let expectedInterface = rootSelectionSetType.__parentType as? Interface
+    
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
       withRootType: rootSelectionSetType,
-      cacheKey: executionSource.computeCacheKey(for: object, in: fieldInfo.parentInfo.schema)
+      cacheKey: executionSource.computeCacheKey(
+        for: object,
+        in: fieldInfo.parentInfo.schema,
+        inferredToImplementInterface: expectedInterface
+      )
     )
     
     return execute(

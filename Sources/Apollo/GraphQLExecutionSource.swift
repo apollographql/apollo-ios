@@ -40,10 +40,18 @@ public protocol GraphQLExecutionSource {
   /// - Parameters:
   ///   - object: The data for the object from the source.
   ///   - schema: The schema that the type the object data represents belongs to.
+  ///   - implementedInterface: An optional ``Interface`` that the object is
+  ///     inferred to implement. If the cache key is being resolved for a selection set with an
+  ///     interface as it's `__parentType`, you can infer the object must implement that interface.
+  ///     You should provide that interface to this parameter.
   /// - Returns: A cache key for normalizing the object in the cache. If `nil` is returned the
   /// object is assumed to be stored in the cache with no normalization. The executor will
   /// construct a cache key based on the object's path in its enclosing operation.
-  func computeCacheKey(for object: RawObjectData, in schema: any SchemaMetadata.Type) -> CacheKey?
+  func computeCacheKey(
+    for object: RawObjectData,
+    in schema: any SchemaMetadata.Type,
+    inferredToImplementInterface implementedInterface: Interface?
+  ) -> CacheKey?
 }
 
 /// A type of `GraphQLExecutionSource` that uses the user defined cache key computation
@@ -57,8 +65,12 @@ public protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
 }
 
 extension CacheKeyComputingExecutionSource {
-  @_spi(Execution) public func computeCacheKey(for object: RawObjectData, in schema: any SchemaMetadata.Type) -> CacheKey? {
+  @_spi(Execution) public func computeCacheKey(
+    for object: RawObjectData,
+    in schema: any SchemaMetadata.Type,
+    inferredToImplementInterface implementedInterface: Interface?
+  ) -> CacheKey? {
     let dataWrapper = opaqueObjectDataWrapper(for: object)
-    return schema.cacheKey(for: dataWrapper)
+    return schema.cacheKey(for: dataWrapper, inferredToImplementInterface: implementedInterface)
   }
 }
