@@ -1,6 +1,21 @@
 # Change Log
 
+## v1.17.0
+
+### New
+- **Add suffix to schema type filenames ([#2598](https://github.com/apollographql/apollo-ios/issues/2598)):** When fragments were named the same as schema types code generation would produce two files with the same name, but at different paths, for each respective type. This would cause a build error in Xcode. There is a new codegen configuration option (`appendSchemaTypeFilenameSuffix`) to add a suffix to schema generated filenames and prevent the build error. See PR [#580](https://github.com/apollographql/apollo-ios-dev/pull/580).
+- **Specify caching fields with `typePolicy` directive ([#554](https://github.com/apollographql/apollo-ios-dev/pull/554)):** The `@typePolicy` directive lets you specify an object's cache ID using key fields of the response object. See the [documentation](https://www.apollographql.com/docs/ios/caching/cache-key-resolution#the-typepolicy-directive) for full details. _Thank you to [@x-sheep](https://github.com/x-sheep) for the contribution._
+- **Emit `Identifiable` conformance on `SelectionSet` ([#584](https://github.com/apollographql/apollo-ios-dev/pull/584)):** If the `@typePolicy` of a type uses a `keyField` of `id` the selection set will emit conformance to Swifts [`Identifiable` protocol](https://developer.apple.com/documentation/swift/identifiable). _Thank you to [@x-sheep](https://github.com/x-sheep) for the contribution._
+
+### Improvement
+- **Improved performance of code generation on operations with many nested fragments ([#3434](https://github.com/apollographql/apollo-ios/issues/3434)):** When fragment field merging is disabled the fragment selection trees are no longer merged into the `EntitySelectionSet` while building operations. See PR [#571](https://github.com/apollographql/apollo-ios-dev/pull/571).
+
+### Fixed
+- **Defer metadata extension ([#3505](https://github.com/apollographql/apollo-ios/issues/3503)):** Metadata extensions for deferred selection sets were incorrectly generated inside the namespace extension for `embeddedInTarget` and `other` module types. See PR [#581](https://github.com/apollographql/apollo-ios-dev/pull/581).
+- **`DataDict` initialization of `deferredFragments` for named fragments ([#587](https://github.com/apollographql/apollo-ios-dev/pull/587)):** When deferred fragments are named fragments the deferred type should be the fragment generated definition name.
+
 ## v1.16.1
+
 ### Fixed
 - **Web socket data race crash fixed ([#578](https://github.com/apollographql/apollo-ios-dev/pull/578)):** A data race in the web socket layer was causing crashes in some rare circumstances.
 
