@@ -14,9 +14,9 @@ public final class SQLiteNormalizedCache {
 
   private let db: Connection
   private let records = Table("records")
-  private let id = Expression<Int64>("_id")
-  private let key = Expression<CacheKey>("key")
-  private let record = Expression<String>("record")
+  private let id = SQLite.Expression<Int64>("_id")
+  private let key = SQLite.Expression<CacheKey>("key")
+  private let record = SQLite.Expression<String>("record")
   private let shouldVacuumOnClear: Bool
 
   /// Designated initializer
