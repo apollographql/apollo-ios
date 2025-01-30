@@ -1,7 +1,9 @@
 import Foundation
 
 /// A structure that wraps the underlying data for a ``SelectionSet``.
-public struct DataDict: Hashable {
+public struct DataDict: Hashable, @unchecked Sendable {
+  public typealias FieldValue = any Sendable & Hashable
+
   @usableFromInline var _storage: _Storage
 
   /// The underlying data for a `SelectionSet`.
@@ -16,20 +18,30 @@ public struct DataDict: Hashable {
   /// `GraphQLExecutor` with a`GraphQLSelectionSetMapper`. This can be performed manually
   /// by using `SelectionSet.init(data: JSONObject, variables: GraphQLOperation.Variables?)` in
   /// the `Apollo` library.
-  @inlinable public var _data: [String: AnyHashable] {
+  @inlinable public var _data: [String: FieldValue] {
     get { _storage.data }
     set {
-      if !isKnownUniquelyReferenced(&_storage) {
-        _storage = _storage.copy()
+      // Ensure we check `isKnownUniquelyReferenced` on a unique variable reference to the `_storage`.
+      // See https://forums.swift.org/t/isknownuniquelyreferenced-thread-safety/22933 for details.
+      var storage = _storage
+      if !isKnownUniquelyReferenced(&storage) {
+        storage = storage.copy()
       }
-      _storage.data = newValue
+      storage.data = newValue
+      _storage = storage
     }
     _modify {
+      // Ensure we check `isKnownUniquelyReferenced` on a unique variable reference to the `_storage`.
+      // See https://forums.swift.org/t/isknownuniquelyreferenced-thread-safety/22933 for details.
+      var storage = _storage
       if !isKnownUniquelyReferenced(&_storage) {
-        _storage = _storage.copy()
+        storage = storage.copy()
       }
-      var data = _storage.data
-      defer { _storage.data = data }
+      var data = storage.data
+      defer {
+        storage.data = data
+        _storage = storage
+      }
       yield &data
     }
   }
@@ -53,7 +65,7 @@ public struct DataDict: Hashable {
   }
 
   public init(
-    data: [String: AnyHashable],
+    data: [String: FieldValue],
     fulfilledFragments: Set<ObjectIdentifier>,
     deferredFragments: Set<ObjectIdentifier> = []
   ) {
@@ -64,18 +76,9 @@ public struct DataDict: Hashable {
     )
   }
 
-  @inlinable public subscript<T: AnyScalarType & Hashable>(_ key: String) -> T {
+  @inlinable public subscript<T: AnyScalarType & Hashable & Sendable>(_ key: String) -> T {
     get {
-      if DataDict._AnyHashableCanBeCoerced {
-        return _data[key] as! T
-      } else {        
-        let value = _data[key]
-        if value == DataDict._NullValue {
-          return (Optional<T>.none as Any) as! T
-        } else {
-          return (value?.base as? T) ?? (value._asAnyHashable as! T)
-        }
-      }
+      return _data[key] as! T
     }
     set {
       _data[key] = newValue
@@ -99,12 +102,15 @@ public struct DataDict: Hashable {
     }
   }
 
-  @inlinable public func hash(into hasher: inout Hasher) {
+#warning("TODO: Should this be comparing to storage? Or just the data values? Should we implement the equality checks with only selected values?")
+//  @inlinable
+  public func hash(into hasher: inout Hasher) {
     hasher.combine(_data)
   }
 
-  @inlinable public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
-    lhs._data == rhs._data
+//  @inlinable
+  public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
+    AnySendableHashable.equatableCheck(lhs._data, rhs._data)
   }
 
   @usableFromInline func fragmentIsFulfilled<T: SelectionSet>(_ type: T.Type) -> Bool {
@@ -118,13 +124,13 @@ public struct DataDict: Hashable {
   }
 
   // MARK: - DataDict._Storage
-  @usableFromInline class _Storage: Hashable {
-    @usableFromInline var data: [String: AnyHashable]
+  @usableFromInline final class _Storage: Hashable {
+    @usableFromInline var data: [String: FieldValue]
     @usableFromInline let fulfilledFragments: Set<ObjectIdentifier>
     @usableFromInline let deferredFragments: Set<ObjectIdentifier>
 
     init(
-      data: [String: AnyHashable],
+      data: [String: FieldValue],
       fulfilledFragments: Set<ObjectIdentifier>,
       deferredFragments: Set<ObjectIdentifier>
     ) {
@@ -134,7 +140,7 @@ public struct DataDict: Hashable {
     }
 
     @usableFromInline static func ==(lhs: DataDict._Storage, rhs: DataDict._Storage) -> Bool {
-      lhs.data == rhs.data &&
+      AnySendableHashable.equatableCheck(lhs.data, rhs.data) &&
       lhs.fulfilledFragments == rhs.fulfilledFragments &&
       lhs.deferredFragments == rhs.deferredFragments
     }
@@ -160,21 +166,17 @@ extension DataDict {
   /// A common value used to represent a null value in a `DataDict`.
   ///
   /// This value can be cast to `NSNull` and will bridge automatically.
-  public static let _NullValue = {
-    if DataDict._AnyHashableCanBeCoerced {
-      return AnyHashable(Optional<AnyHashable>.none)
-    } else {
-      return NSNull()
-    }
-  }()
+  #warning("TODO: Kill this?")
+  public static let _NullValue: NSNull = NSNull()
 
   /// Indicates if `AnyHashable` can be coerced via casting into its underlying type.
   ///
   /// In iOS versions 14.4 and lower, `AnyHashable` coercion does not work. On these platforms,
   /// we need to do some additional unwrapping and casting of the values to avoid crashes and other
   /// run time bugs.
+  #warning("TODO: Kill this?")
   public static let _AnyHashableCanBeCoerced: Bool = {
-    if #available(iOS 14.5, macOS 11.3, tvOS 14.5, watchOS 7.4, *) {
+    if #available(iOS 14.5, *) {
       return true
     } else {
       return false
@@ -185,66 +187,62 @@ extension DataDict {
 
 // MARK: - Value Conversion Helpers
 
-public protocol SelectionSetEntityValue {
+public protocol SelectionSetEntityValue: Sendable, Hashable {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   ///
   /// The `_fieldData` should be the underlying `DataDict` for an entity value.
   /// This is represented as `AnyHashable` because for `Optional` and `Array` you will have an
   /// `Optional<DataDict>` and `[DataDict]` respectively.
-  init(_fieldData: AnyHashable?)
-  var _fieldData: AnyHashable { get }
+  init(_fieldData: DataDict.FieldValue?)
+  var _fieldData: DataDict.FieldValue { get }
 }
 
 extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?) {
+  @inlinable public init(_fieldData data: DataDict.FieldValue?) {
     guard let dataDict = data as? DataDict else {
       fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
     }
     self.init(_dataDict: dataDict)
   }
 
-  @inlinable public var _fieldData: AnyHashable { __data }
+  @inlinable public var _fieldData: DataDict.FieldValue { __data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?) {
-    switch data {
-      case .none:
-        self = .none
-      case .some(let hashable):
-      if !DataDict._AnyHashableCanBeCoerced && hashable == DataDict._NullValue {
-        self = .none
-      } else if let optional = hashable.base as? Optional<AnyHashable>, optional == nil {
-        self = .none
-      } else {
-        self = .some(Wrapped.init(_fieldData: data))
-      }
+  @inlinable public init(_fieldData data: DataDict.FieldValue?) {
+    guard let data = data, !(data is NSNull) else {
+      self = .none
+      return
     }
+    self = .some(Wrapped.init(_fieldData: data))
   }
 
-  @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
+  @inlinable public var _fieldData: DataDict.FieldValue {
+    guard case let .some(data) = self else {
+      return Self.none
+    }
+    return data
+  }
 }
 
 extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: AnyHashable?) {
-    guard let data = data as? [AnyHashable?] else {
+  @inlinable public init(_fieldData data: DataDict.FieldValue?) {
+    guard let data = data as? [DataDict.FieldValue?] else {
       fatalError("\(Self.self) expected list of data for entity.")
     }
     self = data.map {
-      if DataDict._AnyHashableCanBeCoerced {
-        return Element.init(_fieldData:$0)
-      } else {
-        return Element.init(_fieldData:$0?.base as? AnyHashable)
-      }
+      return Element.init(_fieldData:$0)
     }
   }
 
-  @inlinable public var _fieldData: AnyHashable { map(\._fieldData) }
+  @inlinable public var _fieldData: DataDict.FieldValue {
+    map { $0._fieldData } as DataDict.FieldValue
+  }
 }

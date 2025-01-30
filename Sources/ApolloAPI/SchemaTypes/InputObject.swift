@@ -7,7 +7,7 @@ public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hasha
 }
 
 extension InputObject {
-  public var _jsonValue: JSONValue { jsonEncodableValue?._jsonValue }
+  public var _jsonValue: JSONValue { __data.data._jsonEncodableObject._jsonValue }
   public var jsonEncodableValue: (any JSONEncodable)? { __data._jsonEncodableValue }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
@@ -22,7 +22,7 @@ extension InputObject {
 /// A structure that wraps the underlying data dictionary used by `InputObject`s.
 public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
-  private var data: [String: any GraphQLOperationVariableValue]
+  fileprivate var data: [String: any GraphQLOperationVariableValue]
 
   public init(_ data: [String: any GraphQLOperationVariableValue] = [:]) {
     self.data = data
@@ -48,11 +48,12 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
   }
 
   public static func == (lhs: InputDict, rhs: InputDict) -> Bool {
-    lhs.data._jsonEncodableValue?._jsonValue == rhs.data._jsonEncodableValue?._jsonValue
+    AnyHashable(lhs.data._jsonEncodableObject._jsonValue) ==
+    AnyHashable(rhs.data._jsonEncodableObject._jsonValue)
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(data._jsonEncodableValue?._jsonValue)
+    hasher.combine(data._jsonEncodableObject._jsonValue)
   }
 
 }

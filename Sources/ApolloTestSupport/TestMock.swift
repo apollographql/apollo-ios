@@ -98,12 +98,12 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
   public var _selectionSetMockData: JSONObject {
     _data.mapValues {
       if let mock = $0.base as? (any AnyMock) {
-        return mock._selectionSetMockData
+        return mock._selectionSetMockData as JSONValue
       }
       if let mockArray = $0 as? Array<Any> {
-        return mockArray._unsafelyConvertToSelectionSetData()
+        return mockArray._unsafelyConvertToSelectionSetData() as JSONValue
       }
-      return $0
+      return $0 as JSONValue
     }
   }
 
@@ -187,25 +187,20 @@ fileprivate extension Array {
     }
   }
 
-  func _unsafelyConvertToSelectionSetData() -> [AnyHashable?] {
+  func _unsafelyConvertToSelectionSetData() -> [JSONValue?] {
     map(_unsafelyConvertToSelectionSetData(element:))
   }
 
-  private func _unsafelyConvertToSelectionSetData(element: Any) -> AnyHashable? {
+  private func _unsafelyConvertToSelectionSetData(element: Any) -> JSONValue? {
     switch element {
     case let element as any AnyMock:
-      return element._selectionSetMockData
+      return element._selectionSetMockData as JSONValue
 
     case let innerArray as Array<Any>:
-      return innerArray._unsafelyConvertToSelectionSetData()
+      return innerArray._unsafelyConvertToSelectionSetData() as JSONValue
 
     case let element as AnyHashable:
-      if DataDict._AnyHashableCanBeCoerced {
-        return element
-
-      } else {
-        return _unsafelyConvertToSelectionSetData(element: element.base)
-      }
+      return _unsafelyConvertToSelectionSetData(element: element.base)
 
     default:
       return nil

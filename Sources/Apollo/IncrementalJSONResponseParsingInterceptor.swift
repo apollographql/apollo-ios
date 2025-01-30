@@ -42,7 +42,8 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
   public var id: String = UUID().uuidString
   private let resultStorage = ResultStorage()
 
-  private class ResultStorage {
+  #warning("TODO: Unchecked and not safe")
+  private class ResultStorage: @unchecked Sendable {
     var currentResult: Any?
     var currentCacheRecords: RecordSet?
   }
@@ -55,7 +56,7 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
     response: HTTPResponse<Operation>?,
     completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
   ) {
-    guard let createdResponse = response else {
+    guard var createdResponse = response else {
       chain.handleErrorAsync(
         ParsingError.noResponseToParse,
         request: request,
@@ -81,7 +82,7 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
         }
 
         guard let incrementalItems = body["incremental"] as? [JSONObject] else {
-          throw ParsingError.couldNotParseIncrementalJSON(json: body)
+          throw ParsingError.couldNotParseIncrementalJSON(json: body as JSONValue)
         }
 
         var currentCacheRecords = resultStorage.currentCacheRecords ?? RecordSet()
@@ -101,14 +102,11 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
           }
         }
 
-        createdResponse._legacyResponse = nil
-
         parsedResult = currentResult
         parsedCacheRecords = currentCacheRecords
 
       } else {
         let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-        createdResponse._legacyResponse = graphQLResponse
 
         let (result, cacheRecords) = try graphQLResponse.parseResult(withCachePolicy: request.cachePolicy)
 

@@ -7,7 +7,7 @@ import ApolloAPI
 final public class InterceptorRequestChain: Cancellable, RequestChain {
 
   public enum ChainError: Error, LocalizedError {
-    case invalidIndex(chain: any RequestChain, index: Int)
+    case invalidIndex(index: Int)
     case noInterceptors
     case unknownInterceptor(id: String)
 
@@ -15,7 +15,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       switch self {
       case .noInterceptors:
         return "No interceptors were provided to this chain. This is a developer error."
-      case .invalidIndex(_, let index):
+      case .invalidIndex(let index):
         return "`proceedAsync` was called for index \(index), which is out of bounds of the receiver for this chain. Double-check the order of your interceptors."
       case let .unknownInterceptor(id):
         return "`proceedAsync` was called by unknown interceptor \(id)."
@@ -26,12 +26,16 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
   private let interceptors: [any ApolloInterceptor]
   private let callbackQueue: DispatchQueue
 
-  private var interceptorIndexes: [String: Int] = [:]
-  private var currentIndex: Int
+#warning("TODO: Unsafe, but We should be getting rid of these completely.")
+  nonisolated(unsafe) private var interceptorIndexes: [String: Int] = [:]
+  nonisolated(unsafe) private var currentIndex: Int
 
-  @Atomic public var isCancelled: Bool = false
+  public let cancellationState = CancellationState()
+  public var isCancelled: Bool { cancellationState.isCancelled }
+
+#warning("TODO: Unsafe.")
   /// Something which allows additional error handling to occur when some kind of error has happened.
-  public var additionalErrorHandler: (any ApolloErrorInterceptor)?
+  nonisolated(unsafe) public var additionalErrorHandler: (any ApolloErrorInterceptor)?
 
   /// Creates a chain with the given interceptor array.
   ///
@@ -172,7 +176,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       } else {
         // We got to the end of the chain and no parsed response is there, there needs to be more processing.
         self.handleErrorAsync(
-          ChainError.invalidIndex(chain: self, index: interceptorIndex),
+          ChainError.invalidIndex(index: interceptorIndex),
           request: request,
           response: response,
           completion: completion
@@ -188,7 +192,7 @@ final public class InterceptorRequestChain: Cancellable, RequestChain {
       return
     }
 
-    self.$isCancelled.mutate { $0 = true }
+    self.cancellationState.cancel()
 
     // If an interceptor adheres to `Cancellable`, it should have its in-flight work cancelled as well.
     for interceptor in self.interceptors {

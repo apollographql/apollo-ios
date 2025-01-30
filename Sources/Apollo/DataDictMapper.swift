@@ -22,32 +22,32 @@ public class DataDictMapper: GraphQLResultAccumulator {
     self.handleMissingValues = handleMissingValues
   }
 
-  public func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
+  public func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     switch info.field.type.namedType {
-    case let .scalar(decodable as any JSONDecodable.Type):
+    case let .scalar(decodable):
       // This will convert a JSON value to the expected value type.
-      return try decodable.init(_jsonValue: scalar)._asAnyHashable
+      return try decodable.init(_jsonValue: scalar)
     default:
       preconditionFailure()
     }
   }
 
-  public func accept(customScalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
+  public func accept(customScalar: JSONValue, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     switch info.field.type.namedType {
-    case let .customScalar(decodable as any JSONDecodable.Type):
+    case let .customScalar(decodable):
       // This will convert a JSON value to the expected value type,
       // which could be a custom scalar or an enum.
-      return try decodable.init(_jsonValue: customScalar)._asAnyHashable
+      return try decodable.init(_jsonValue: customScalar)
     default:
       preconditionFailure()
     }
   }
 
-  public func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
+  public func acceptNullValue(info: FieldExecutionInfo) -> DataDict.FieldValue? {
     return DataDict._NullValue
   }
 
-  public func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
+  public func acceptMissingValue(info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     switch handleMissingValues {
     case .allowForOptionalFields where info.field.type.isNullable: fallthrough
     case .allowForAllFields:
@@ -58,24 +58,24 @@ public class DataDictMapper: GraphQLResultAccumulator {
     }
   }
 
-  public func accept(list: [AnyHashable?], info: FieldExecutionInfo) -> AnyHashable? {
-    return list
+  public func accept(list: [JSONValue?], info: FieldExecutionInfo) -> DataDict.FieldValue? {
+    return list as DataDict.FieldValue
   }
 
-  public func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
+  public func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return childObject
   }
 
   public func accept(
-    fieldEntry: AnyHashable?,
+    fieldEntry: DataDict.FieldValue?,
     info: FieldExecutionInfo
-  ) -> (key: String, value: AnyHashable)? {
+  ) -> (key: String, value: DataDict.FieldValue)? {
     guard let fieldEntry = fieldEntry else { return nil }
     return (info.responseKeyForField, fieldEntry)
   }
 
   public func accept(
-    fieldEntries: [(key: String, value: AnyHashable)],
+    fieldEntries: [(key: String, value: DataDict.FieldValue)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
     return DataDict(

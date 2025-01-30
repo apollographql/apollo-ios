@@ -15,7 +15,7 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
   /// The `value` could not be converted to the expected type.
   ///
   /// This error is thrown when a ``JSONDecodable`` initialization fails for the expected type.
-  case couldNotConvert(value: AnyHashable, to: Any.Type)
+  case couldNotConvert(value: JSONValue, to: Any.Type)
 
   public var errorDescription: String? {
     switch self {
@@ -39,7 +39,7 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
 
     case let (.couldNotConvert(value: lhsValue, to: lhsType),
               .couldNotConvert(value: rhsValue, to: rhsType)):
-      return lhsValue == rhsValue && lhsType == rhsType
+      return AnyHashable(lhsValue) == AnyHashable(rhsValue) && lhsType == rhsType
 
     default:
       return false

@@ -16,7 +16,10 @@ public extension LocalCacheMutation {
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.__variables?._jsonEncodableValue?._jsonValue == rhs.__variables?._jsonEncodableValue?._jsonValue
+    AnySendableHashable.equatableCheck(
+      lhs.__variables?._jsonEncodableValue?._jsonValue,
+      rhs.__variables?._jsonEncodableValue?._jsonValue
+    )
   }
 }
 

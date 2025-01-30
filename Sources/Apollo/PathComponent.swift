@@ -4,7 +4,7 @@ import ApolloAPI
 #endif
 
 /// Represents a path in a GraphQL query.
-public enum PathComponent: Equatable {
+public enum PathComponent: Sendable, Equatable {
   /// A String value for a field in a GraphQL query
   case field(String)
   /// An Int value for an index in a GraphQL List

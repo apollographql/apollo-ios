@@ -3,7 +3,7 @@ import ApolloAPI
 #endif
 
 /// A protocol to set up a chainable unit of networking work.
-public protocol ApolloInterceptor {
+public protocol ApolloInterceptor: Sendable {
 
   /// Used to uniquely identify this interceptor from other interceptors in a request chain.
   ///
@@ -23,5 +23,5 @@ public protocol ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void)
+    completion: @escaping @Sendable (Result<GraphQLResult<Operation.Data>, any Error>) -> Void)
 }

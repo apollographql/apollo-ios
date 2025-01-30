@@ -2,7 +2,7 @@
 ///
 /// # See Also
 /// [GraphQL Spec - Scalars](http://spec.graphql.org/October2021/#sec-Scalars)
-public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
+public protocol AnyScalarType: Sendable, Hashable, JSONEncodable {}
 
 /// A protocol that represents any GraphQL "`scalar`" defined in the GraphQL Specification.
 ///

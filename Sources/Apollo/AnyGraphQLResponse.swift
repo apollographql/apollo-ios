@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 /// An abstract GraphQL response used for full and incremental responses.
@@ -87,9 +87,9 @@ struct AnyGraphQLResponse {
 
 extension AnyGraphQLResponse: Equatable {
   static func == (lhs: AnyGraphQLResponse, rhs: AnyGraphQLResponse) -> Bool {
-    lhs.body == rhs.body &&
+    AnySendableHashable.equatableCheck(lhs.body, rhs.body) &&
     lhs.rootKey == rhs.rootKey &&
-    lhs.variables?._jsonEncodableObject._jsonValue == rhs.variables?._jsonEncodableObject._jsonValue
+    AnySendableHashable.equatableCheck(lhs.variables?._jsonEncodableObject._jsonValue, rhs.variables?._jsonEncodableObject._jsonValue)
   }
 }
 

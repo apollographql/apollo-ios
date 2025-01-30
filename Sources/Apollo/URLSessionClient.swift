@@ -8,8 +8,11 @@ import Foundation
 /// documentation for how the delegate methods work and what needs to be overridden
 /// and handled within your app, particularly in regards to what needs to be called
 /// when for background sessions.
-open class URLSessionClient: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
-  
+open class URLSessionClient:
+  NSObject,
+  @unchecked Sendable,
+  URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate {
+#warning("TODO: temp @unchecked Sendable to move forward; is not yet thread safe")
   public enum URLSessionClientError: Error, LocalizedError {
     case noHTTPResponse(request: URLRequest?)
     case sessionBecameInvalidWithoutUnderlyingError

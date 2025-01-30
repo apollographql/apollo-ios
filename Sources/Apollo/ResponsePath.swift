@@ -6,44 +6,31 @@
 /// In order to optimize for calculation of a path string, `ResponsePath` does not allow insertion
 /// of components in the middle or at the beginning of the path. Components may only be appended to
 /// the end of an existing path.
-public struct ResponsePath: ExpressibleByArrayLiteral {
+public struct ResponsePath: Sendable, ExpressibleByArrayLiteral {
   public typealias Key = String
 
-  private final class Node {
+  private final class Node: Sendable {
     let previous: Node?
     let key: Key
+    let joined: String
 
     init(previous: Node?, key: Key) {
       self.previous = previous
       self.key = key
+
+      self.joined = {
+        if let previous = previous {
+          return previous.joined + ".\(key)"
+        } else {
+          return key
+        }
+      }()
     }
-
-    lazy var joined: String = {
-      if let previous = previous {
-        return previous.joined + ".\(key)"
-      } else {
-        return key
-      }
-    }()
-
-    lazy var components: [String] = {
-      if let previous = previous {
-        var components = previous.components
-        components.append(key)
-        return components
-      } else {
-        return [key]
-      }
-    }()
   }
 
   private var head: Node?
   public var joined: String {
     return head?.joined ?? ""
-  }
-
-  public func toArray() -> [String] {
-    return head?.components ?? []
   }
 
   public init(arrayLiteral segments: Key...) {
@@ -72,20 +59,6 @@ public struct ResponsePath: ExpressibleByArrayLiteral {
 
   public static func + (lhs: ResponsePath, rhs: Key) -> ResponsePath {
     lhs.appending(rhs)
-  }
-
-  public static func + (lhs: ResponsePath, rhs: ResponsePath) -> ResponsePath {
-    lhs + rhs.toArray()
-  }
-
-  public static func + <T: Sequence>(
-    lhs: ResponsePath, rhs: T
-  ) -> ResponsePath where T.Element == Key {
-    var new = lhs
-    for component in rhs {
-      new.append(component)
-    }
-    return new
   }
 }
 

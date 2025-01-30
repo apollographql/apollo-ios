@@ -84,7 +84,7 @@ extension SchemaMetadata {
       guard let keyFieldValue = object[$0] else {
         throw JSONDecodingError.missingValue
       }
-      let item = try String(_jsonValue: keyFieldValue._asAnyHashable)
+      let item = try String(_jsonValue: keyFieldValue)
       
       // Escape all instances of `+` with a backslash, as well as other backslashes
       return item.replacingOccurrences(of: "\\", with: "\\\\")

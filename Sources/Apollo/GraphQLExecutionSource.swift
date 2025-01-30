@@ -34,7 +34,7 @@ public protocol GraphQLExecutionSource {
   func resolveField(
     with info: FieldExecutionInfo,
     on object: RawObjectData
-  ) -> PossiblyDeferred<AnyHashable?>
+  ) -> PossiblyDeferred<JSONValue?>
 
   /// Returns the cache key for an object to be used during GraphQL execution.
   /// - Parameters:

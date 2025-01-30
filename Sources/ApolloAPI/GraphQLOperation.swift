@@ -67,7 +67,7 @@ public struct DeferredFragmentIdentifier: Hashable {
 
 // MARK: - GraphQLOperation
 
-public protocol GraphQLOperation: AnyObject, Hashable {
+public protocol GraphQLOperation: Sendable, Hashable {
   typealias Variables = [String: any GraphQLOperationVariableValue]
 
   static var operationName: String { get }
@@ -88,6 +88,7 @@ public extension GraphQLOperation {
     return nil
   }
 
+  #warning("TODO: Can we remove `for operation:` and just use Self?`")
   static func deferredSelectionSetType<T: GraphQLOperation>(
     for operation: T.Type,
     withLabel label: String,
@@ -109,7 +110,13 @@ public extension GraphQLOperation {
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.__variables?._jsonEncodableValue?._jsonValue == rhs.__variables?._jsonEncodableValue?._jsonValue
+    switch (lhs.__variables, rhs.__variables) {
+    case (.none, .none): return true
+    case (.some, .none), (.none, .some): return false
+    case let (.some(lhsVariables), .some(rhsVariables)):
+      return AnyHashable(lhsVariables._jsonEncodableObject._jsonValue) ==
+      AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
+    }
   }
 }
 

@@ -7,6 +7,7 @@
 /// # See Also
 /// [GraphQLSpec - Enums](https://spec.graphql.org/draft/#sec-Enums)
 public protocol EnumType:
+  Sendable,
   RawRepresentable,
   CaseIterable,
   JSONEncodable,

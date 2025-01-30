@@ -4,7 +4,7 @@
 /// `Record` is a `String`, we treat the string as the value. When the value for the key is a
 /// ``CacheReference``, the reference's ``key`` is the cache key for another referenced object
 /// that is the value.
-public struct CacheReference: Hashable {
+public struct CacheReference: Sendable, Hashable {
 
   /// A CacheReference referencing the root query object.
   public static let RootQuery: CacheReference = CacheReference("QUERY_ROOT")

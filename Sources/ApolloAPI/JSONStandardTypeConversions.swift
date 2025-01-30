@@ -10,7 +10,7 @@ extension String: JSONDecodable, JSONEncodable {
   /// # See Also
   /// ``CustomScalarType``
   @inlinable public init(_jsonValue value: JSONValue) throws {
-    switch value.base {
+    switch value {
     case let string as String:
         self = string
     case let int as Int:
@@ -121,19 +121,22 @@ extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
   }
 }
 
-extension NSDictionary: JSONEncodable {
-  @inlinable public var _jsonValue: JSONValue { self }
-}
+#warning("TODO: do we even need this anymore?")
+//extension NSDictionary: JSONEncodable {
+//  @inlinable public var _jsonValue: JSONValue { self }
+//}
 
 extension NSNull: JSONEncodable {
   @inlinable public var _jsonValue: JSONValue { self }
 }
 
 extension JSONEncodableDictionary: JSONEncodable {
-  @inlinable public var _jsonValue: JSONValue { _jsonObject }
+  @inlinable public var _jsonValue: JSONValue {
+    mapValues { $0._jsonValue } as JSONValue
+  }
 
   @inlinable public var _jsonObject: JSONObject {
-    mapValues(\._jsonValue)
+    mapValues { $0._jsonValue } as JSONObject
   }
 }
 
@@ -149,6 +152,6 @@ extension JSONObject: JSONDecodable {
 
 extension Array: JSONEncodable where Element: JSONEncodable {
   @inlinable public var _jsonValue: JSONValue {
-    map(\._jsonValue)
+    map { $0._jsonValue } as JSONValue
   }
 }

@@ -1,12 +1,15 @@
 import Foundation
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 /// Represents an error encountered during the execution of a GraphQL operation.
 ///
 ///  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
 public struct GraphQLError: Error, Hashable {
+
+  public typealias PathEntry = PathComponent
+
   private let object: JSONObject
 
   public init(_ object: JSONObject) {
@@ -56,7 +59,15 @@ public struct GraphQLError: Error, Hashable {
     }
   }
 
-  public typealias PathEntry = PathComponent
+  // MARK: - Equatable & Hashable Conformance
+
+  public static func == (lhs: GraphQLError, rhs: GraphQLError) -> Bool {
+    AnySendableHashable.equatableCheck(lhs, rhs)
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(object)
+  }
 }
 
 extension GraphQLError: CustomStringConvertible {

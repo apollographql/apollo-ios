@@ -4,8 +4,9 @@ import ApolloAPI
 #endif
 
 /// Encapsulation of all information about a request before it hits the network
-open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
-  
+#warning("TODO: temp @unchecked Sendable to move forward; is not yet correct while its still open. Need to compose JSONRequest instead of inherit.")
+open class HTTPRequest<Operation: GraphQLOperation>: @unchecked Sendable, Hashable {
+
   /// The endpoint to make a GraphQL request to
   open var graphQLEndpoint: URL
   
@@ -23,7 +24,8 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
 
   /// [optional] A context that is being passed through the request chain.
   public let context: (any RequestContext)?
-  
+#warning("TODO: look into replacing this with Task local values?")
+
   /// Designated Initializer
   ///
   /// - Parameters:

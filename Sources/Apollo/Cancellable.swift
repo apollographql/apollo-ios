@@ -1,7 +1,7 @@
 import Foundation
 
 /// An object that can be used to cancel an in progress action.
-public protocol Cancellable: AnyObject {
+public protocol Cancellable: AnyObject, Sendable {
     /// Cancel an in progress action.
     func cancel()
 }
@@ -20,5 +20,18 @@ public final class EmptyCancellable: Cancellable {
 
   public func cancel() {
     // Do nothing, an error occurred and there is nothing to cancel.
+  }
+}
+
+
+public class CancellationState: Cancellable, @unchecked Sendable {
+
+  @Atomic var isCancelled: Bool = false
+
+  nonisolated public func cancel() {
+    if isCancelled { return }
+    $isCancelled.mutate {
+      $0 = true
+    }
   }
 }

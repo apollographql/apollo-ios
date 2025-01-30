@@ -1,5 +1,5 @@
 /// A set of cache records.
-public struct RecordSet: Hashable {
+public struct RecordSet: Sendable, Hashable {
   public private(set) var storage: [CacheKey: Record] = [:]
 
   public init<S: Sequence>(records: S) where S.Iterator.Element == Record {
@@ -59,7 +59,7 @@ public struct RecordSet: Hashable {
       var changedKeys: Set<CacheKey> = Set()
 
       for (key, value) in record.fields {
-        if let oldValue = oldRecord.fields[key], oldValue == value {
+        if let oldValue = oldRecord.fields[key], AnyHashable(oldValue) == AnyHashable(value) {
           continue
         }
         oldRecord[key] = value

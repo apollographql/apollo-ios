@@ -7,36 +7,36 @@ final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulato
   var requiresCacheKeyComputation: Bool { underlyingMapper.requiresCacheKeyComputation }
   let underlyingMapper = GraphQLSelectionSetMapper<T>(handleMissingValues: .allowForAllFields)
 
-  func accept(scalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return scalar
   }
 
-  func accept(customScalar: AnyHashable, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(customScalar: JSONValue, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return customScalar
   }
 
-  func acceptNullValue(info: FieldExecutionInfo) -> AnyHashable? {
+  func acceptNullValue(info: FieldExecutionInfo) -> DataDict.FieldValue? {
     return underlyingMapper.acceptNullValue(info: info)
   }
 
-  func acceptMissingValue(info: FieldExecutionInfo) throws -> AnyHashable? {
+  func acceptMissingValue(info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return try underlyingMapper.acceptMissingValue(info: info)
   }
 
-  func accept(list: [AnyHashable?], info: FieldExecutionInfo) -> AnyHashable? {
+  func accept(list: [DataDict.FieldValue?], info: FieldExecutionInfo) -> DataDict.FieldValue? {
     return underlyingMapper.accept(list: list, info: info)
   }
 
-  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> AnyHashable? {
+  func accept(childObject: DataDict, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return try underlyingMapper.accept(childObject: childObject, info: info)
   }
 
-  func accept(fieldEntry: AnyHashable?, info: FieldExecutionInfo) -> (key: String, value: AnyHashable)? {
+  func accept(fieldEntry: DataDict.FieldValue?, info: FieldExecutionInfo) -> (key: String, value: DataDict.FieldValue)? {
     return underlyingMapper.accept(fieldEntry: fieldEntry, info: info)
   }
 
   func accept(
-    fieldEntries: [(key: String, value: AnyHashable)],
+    fieldEntries: [(key: String, value: DataDict.FieldValue)],
     info: ObjectExecutionInfo
   ) throws -> DataDict {
     return try underlyingMapper.accept(fieldEntries: fieldEntries, info: info)

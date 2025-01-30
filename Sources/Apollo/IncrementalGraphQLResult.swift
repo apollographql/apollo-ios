@@ -6,7 +6,7 @@ import ApolloAPI
 ///
 /// This is not a type exposed to users as a final result, it is an intermediate result that is
 /// merged into a final result.
-struct IncrementalGraphQLResult {
+struct IncrementalGraphQLResult: Sendable {
   /// This is the same label identifier passed to the `@defer` directive associated with the
   /// response.
   let label: String
@@ -19,7 +19,7 @@ struct IncrementalGraphQLResult {
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
   let errors: [GraphQLError]?
   /// A dictionary which services can use however they see fit to provide additional information to clients.
-  let extensions: [String: AnyHashable]?
+  let extensions: JSONObject?
 
   let dependentKeys: Set<CacheKey>?
 
@@ -27,7 +27,7 @@ struct IncrementalGraphQLResult {
     label: String,
     path: [PathComponent],
     data: (any SelectionSet)?,
-    extensions: [String: AnyHashable]?,
+    extensions: JSONObject?,
     errors: [GraphQLError]?,
     dependentKeys: Set<CacheKey>?
   ) {

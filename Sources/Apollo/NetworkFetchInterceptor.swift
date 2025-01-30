@@ -3,8 +3,9 @@ import Foundation
 import ApolloAPI
 #endif
 
+#warning("TODO: should be able to remove @unchecked once we get rid of currentTask and id.")
 /// An interceptor which actually fetches data from the network.
-public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {
+public final class NetworkFetchInterceptor: ApolloInterceptor, @unchecked Sendable, Cancellable {
   let client: URLSessionClient
   @Atomic private var currentTask: URLSessionTask?
 

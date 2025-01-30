@@ -32,7 +32,7 @@ public enum Selection {
       self.type = type
     }
 
-    public indirect enum OutputType {
+    public indirect enum OutputType: Sendable {
       case scalar(any ScalarType.Type)
       case customScalar(any CustomScalarType.Type)
       case object(any RootSelectionSet.Type)

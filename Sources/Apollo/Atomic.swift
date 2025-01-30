@@ -2,7 +2,7 @@ import Foundation
 
 /// Wrapper for a value protected by an `NSLock`
 @propertyWrapper
-public class Atomic<T> {
+public final class Atomic<T> {
   private let lock = NSLock()
   private var _value: T
 
@@ -38,6 +38,8 @@ public class Atomic<T> {
     return block(&_value)
   }
 }
+
+extension Atomic: @unchecked Sendable where T: Sendable {}
 
 public extension Atomic where T : Numeric {
 

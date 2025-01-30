@@ -1,12 +1,13 @@
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
+#warning("TODO: maybe change to generic over Operation to give more access to Operation type info?")
 /// Represents the result of a GraphQL operation.
-public struct GraphQLResult<Data: RootSelectionSet> {
+public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
 
   /// Represents source of data
-  public enum Source: Hashable {
+  public enum Source: Sendable, Hashable {
     case cache
     case server
   }
@@ -16,7 +17,7 @@ public struct GraphQLResult<Data: RootSelectionSet> {
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
   public let errors: [GraphQLError]?
   /// A dictionary which services can use however they see fit to provide additional information to clients.
-  public let extensions: [String: AnyHashable]?
+  public let extensions: JSONObject?
   /// Source of data
   public let source: Source
 
@@ -24,7 +25,7 @@ public struct GraphQLResult<Data: RootSelectionSet> {
 
   public init(
     data: Data?,
-    extensions: [String: AnyHashable]?,
+    extensions: JSONObject?,
     errors: [GraphQLError]?,
     source: Source,
     dependentKeys: Set<CacheKey>?
@@ -101,13 +102,21 @@ extension GraphQLResult: Equatable where Data: Equatable {
   public static func == (lhs: GraphQLResult<Data>, rhs: GraphQLResult<Data>) -> Bool {
     lhs.data == rhs.data &&
     lhs.errors == rhs.errors &&
-    lhs.extensions == rhs.extensions &&
+    AnySendableHashable.equatableCheck(lhs.extensions, rhs.extensions) &&
     lhs.source == rhs.source &&
     lhs.dependentKeys == rhs.dependentKeys
   }
 }
 
-extension GraphQLResult: Hashable where Data: Hashable {}
+extension GraphQLResult: Hashable where Data: Hashable {
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(data)
+    hasher.combine(errors)
+    hasher.combine(extensions)
+    hasher.combine(source)
+    hasher.combine(dependentKeys)
+  }
+}
 
 extension GraphQLResult {
 

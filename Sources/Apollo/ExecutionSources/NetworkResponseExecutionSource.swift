@@ -22,7 +22,7 @@ public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyCo
   public func resolveField(
     with info: FieldExecutionInfo,
     on object: JSONObject
-  ) -> PossiblyDeferred<AnyHashable?> {
+  ) -> PossiblyDeferred<JSONValue?> {
     .immediate(.success(object[info.responseKeyForField]))
   }
 
@@ -31,7 +31,7 @@ public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyCo
   }
 
   struct DataTransformer: _ObjectData_Transformer {
-    func transform(_ value: AnyHashable) -> (any ScalarType)? {
+    func transform(_ value: any Hashable & Sendable) -> (any ScalarType)? {
       switch value {
       case let scalar as any ScalarType:
         return scalar
@@ -41,7 +41,7 @@ public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyCo
       }
     }
 
-    func transform(_ value: AnyHashable) -> ObjectData? {
+    func transform(_ value: any Hashable & Sendable) -> ObjectData? {
       switch value {
       case let object as JSONObject:
         return ObjectData(_transformer: self, _rawData: object)
@@ -49,9 +49,9 @@ public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyCo
       }
     }
 
-    func transform(_ value: AnyHashable) -> ListData? {
+    func transform(_ value: any Hashable & Sendable) -> ListData? {
       switch value {
-      case let list as [AnyHashable]:
+      case let list as [any Hashable & Sendable]:
         return ListData(_transformer: self, _rawData: list)
       default: return nil
       }
