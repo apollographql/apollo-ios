@@ -5,7 +5,7 @@ import Foundation
 
 /// A structure for capturing problems and any associated errors from a `WebSocketTransport`.
 public struct WebSocketError: Error, LocalizedError {
-  public enum ErrorKind {
+  public enum ErrorKind: Sendable {
     case errorResponse
     case networkError
     case unprocessedMessage(String)

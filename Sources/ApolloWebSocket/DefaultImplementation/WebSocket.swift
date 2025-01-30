@@ -54,7 +54,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   }
 
   public struct WSError: Swift.Error {
-    public enum ErrorType {
+    public enum ErrorType: Sendable {
       case outputStreamWriteError //output stream error during write
       case invalidSSLError //Invalid SSL certificate
       case writeTimeoutError //The socket timed out waiting to be ready to write
@@ -1164,7 +1164,7 @@ private extension UnsafeBufferPointer {
 
 }
 
-private let emptyBuffer = UnsafeBufferPointer<UInt8>(start: nil, count: 0)
+nonisolated(unsafe) private let emptyBuffer = UnsafeBufferPointer<UInt8>(start: nil, count: 0)
 
 #if swift(>=4)
 #else

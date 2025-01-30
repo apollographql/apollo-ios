@@ -44,12 +44,14 @@ public class SplitNetworkTransport {
 
 extension SplitNetworkTransport: NetworkTransport {
 
-  public func send<Operation: GraphQLOperation>(operation: Operation,
-                                                cachePolicy: CachePolicy,
-                                                contextIdentifier: UUID? = nil,
-                                                context: (any RequestContext)? = nil,
-                                                callbackQueue: DispatchQueue = .main,
-                                                completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable {
+  public func send<Operation: GraphQLOperation>(
+    operation: Operation,
+    cachePolicy: CachePolicy,
+    contextIdentifier: UUID? = nil,
+    context: (any RequestContext)? = nil,
+    callbackQueue: DispatchQueue = .main,
+    completionHandler: @escaping GraphQLResultHandler<Operation.Data>
+  ) -> any Cancellable {
     if Operation.operationType == .subscription {
       return webSocketNetworkTransport.send(operation: operation,
                                             cachePolicy: cachePolicy,
@@ -77,7 +79,8 @@ extension SplitNetworkTransport: UploadingNetworkTransport {
     files: [GraphQLFile],
     context: (any RequestContext)?,
     callbackQueue: DispatchQueue = .main,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable {
+    completionHandler: @escaping GraphQLResultHandler<Operation.Data>
+  ) -> any Cancellable {
     return uploadingNetworkTransport.upload(operation: operation,
                                             files: files,
                                             context: context,

@@ -23,7 +23,7 @@ public extension WebSocketTransportDelegate {
 // MARK: - WebSocketTransport
 
 /// A network transport that uses web sockets requests to send GraphQL subscription operations to a server.
-public class WebSocketTransport {
+public class WebSocketTransport: @unchecked Sendable {
   public weak var delegate: (any WebSocketTransportDelegate)?
 
   let websocket: any WebSocketClient
