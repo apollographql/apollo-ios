@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 /// A request which sends JSON related to a GraphQL operation.
@@ -184,7 +184,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     lhs.useGETForQueries == rhs.useGETForQueries &&
     lhs.useGETForPersistedQueryRetry == rhs.useGETForPersistedQueryRetry &&
     lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
-    lhs.body._jsonObject == rhs.body._jsonObject
+    AnySendableHashable.equatableCheck(lhs.body._jsonValue, rhs.body._jsonValue)
   }
 
   public override func hash(into hasher: inout Hasher) {

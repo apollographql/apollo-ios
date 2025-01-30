@@ -34,7 +34,8 @@ public class MaxRetryInterceptor: ApolloInterceptor, @unchecked Sendable {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
+    completion: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
     guard self.hitCount <= self.maxRetries else {
       let error = RetryError.hitMaxRetryCount(
         count: self.maxRetries,

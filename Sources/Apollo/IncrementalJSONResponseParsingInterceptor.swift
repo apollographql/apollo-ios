@@ -54,7 +54,7 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
+    completion: @escaping GraphQLResultHandler<Operation.Data>
   ) {
     guard var createdResponse = response else {
       chain.handleErrorAsync(

@@ -31,8 +31,8 @@ public struct CacheWriteInterceptor: ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
-
+    completion: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
     guard !chain.isCancelled else {
       return
     }

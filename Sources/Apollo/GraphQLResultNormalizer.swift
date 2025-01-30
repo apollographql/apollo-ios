@@ -39,7 +39,7 @@ class BaseGraphQLResultNormalizer: GraphQLResultAccumulator {
   }
 
   final func accept(list: [JSONValue?], info: FieldExecutionInfo) -> JSONValue? {
-    return list
+    return list as JSONValue
   }
 
   final func accept(childObject: CacheReference, info: FieldExecutionInfo) -> JSONValue? {

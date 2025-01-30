@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 public struct GraphQLGETTransformer {
@@ -60,7 +60,7 @@ public struct GraphQLGETTransformer {
 
 extension GraphQLGETTransformer: Hashable {
   public static func == (lhs: GraphQLGETTransformer, rhs: GraphQLGETTransformer) -> Bool {
-    lhs.body._jsonValue == rhs.body._jsonValue &&
+    AnySendableHashable.equatableCheck(lhs.body._jsonValue, rhs.body._jsonValue) &&
     lhs.url == rhs.url
   }
 

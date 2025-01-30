@@ -13,6 +13,6 @@ public final class JSONSerializationFormat {
   }
 
   public class func deserialize(data: Data) throws -> JSONValue {
-    return try JSONSerialization.jsonObject(with: data, options: []) as! AnyHashable
+    return try JSONSerialization.jsonObject(with: data, options: []) as! JSONValue
   }
 }

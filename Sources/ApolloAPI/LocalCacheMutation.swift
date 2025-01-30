@@ -12,6 +12,7 @@ public extension LocalCacheMutation {
   }
 
   func hash(into hasher: inout Hasher) {
+    let v = __variables?._jsonEncodableValue
     hasher.combine(__variables?._jsonEncodableValue?._jsonValue)
   }
 

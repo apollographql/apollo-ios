@@ -33,8 +33,8 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
-
+    completion: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
       guard let jsonRequest = request as? JSONRequest,
             jsonRequest.autoPersistQueries else {
         // Not a request that handles APQs, continue along

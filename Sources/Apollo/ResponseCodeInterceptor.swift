@@ -53,9 +53,8 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
-    
-    
+    completion: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
     guard response?.httpResponse.isSuccessful == true else {
       let error = ResponseCodeError.invalidResponseCode(
         response: response?.httpResponse,

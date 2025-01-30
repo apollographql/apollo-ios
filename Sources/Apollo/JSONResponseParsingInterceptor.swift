@@ -37,9 +37,9 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void
+    completion: @escaping GraphQLResultHandler<Operation.Data>
   ) {
-    guard let createdResponse = response else {
+    guard var createdResponse = response else {
       chain.handleErrorAsync(
         JSONResponseParsingError.noResponseToParse,
         request: request,
@@ -57,7 +57,6 @@ public struct JSONResponseParsingInterceptor: ApolloInterceptor {
       }
 
       let graphQLResponse = GraphQLResponse(operation: request.operation, body: body)
-      createdResponse._legacyResponse = graphQLResponse
 
       let (result, cacheRecords) = try graphQLResponse.parseResult(withCachePolicy: request.cachePolicy)
       createdResponse.parsedResponse = result

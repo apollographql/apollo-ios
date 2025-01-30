@@ -18,12 +18,14 @@ public protocol NetworkTransport: AnyObject {
   ///   - callbackQueue: The queue to call back on with the results. Should default to `.main`.
   ///   - completionHandler: A closure to call when a request completes. On `success` will contain the response received from the server. On `failure` will contain the error which occurred.
   /// - Returns: An object that can be used to cancel an in progress request.
-  func send<Operation: GraphQLOperation>(operation: Operation,
-                                         cachePolicy: CachePolicy,
-                                         contextIdentifier: UUID?,
-                                         context: (any RequestContext)?,
-                                         callbackQueue: DispatchQueue,
-                                         completionHandler: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) -> any Cancellable
+  func send<Operation: GraphQLOperation>(
+    operation: Operation,
+    cachePolicy: CachePolicy,
+    contextIdentifier: UUID?,
+    context: (any RequestContext)?,
+    callbackQueue: DispatchQueue,
+    completionHandler: @escaping GraphQLResultHandler<Operation.Data>
+  ) -> any Cancellable
 
   /// The name of the client to send as a header value.
   var clientName: String { get }
@@ -110,5 +112,6 @@ public protocol UploadingNetworkTransport: NetworkTransport {
     files: [GraphQLFile],
     context: (any RequestContext)?,
     callbackQueue: DispatchQueue,
-    completionHandler: @escaping (Result<GraphQLResult<Operation.Data>,any Error>) -> Void) -> any Cancellable
+    completionHandler: @escaping GraphQLResultHandler<Operation.Data>
+  ) -> any Cancellable
 }

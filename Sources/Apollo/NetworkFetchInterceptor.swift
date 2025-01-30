@@ -22,8 +22,8 @@ public final class NetworkFetchInterceptor: ApolloInterceptor, @unchecked Sendab
     chain: any RequestChain,
     request: HTTPRequest<Operation>,
     response: HTTPResponse<Operation>?,
-    completion: @escaping (Result<GraphQLResult<Operation.Data>, any Error>) -> Void) {
-    
+    completion: @escaping GraphQLResultHandler<Operation.Data>
+  ) {
     let urlRequest: URLRequest
     do {
       urlRequest = try request.toURLRequest()

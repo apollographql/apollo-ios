@@ -26,11 +26,11 @@ fileprivate func orderIndependentKey(for object: JSONObject) -> String {
     case let array as [JSONObject]:
       return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
     case let array as [JSONValue]:
-      return "\($0.key):[\(array.map { String(describing: $0.base) }.joined(separator: ", "))]"
+      return "\($0.key):[\(array.map { String(describing: $0) }.joined(separator: ", "))]"
     case is NSNull:
       return "\($0.key):null"
     default:
-      return "\($0.key):\($0.value.base)"
+      return "\($0.key):\($0.value)"
     }
   }.joined(separator: ",")
 }
@@ -59,10 +59,10 @@ extension InputValue {
       return value._jsonValue
 
     case let .list(array):
-      return try InputValue.evaluate(array, with: variables)
+      return try InputValue.evaluate(array, with: variables) as JSONValue
 
     case let .object(dictionary):
-      return try InputValue.evaluate(dictionary, with: variables)
+      return try InputValue.evaluate(dictionary, with: variables) as JSONValue
 
     case .null:
       return NSNull()
