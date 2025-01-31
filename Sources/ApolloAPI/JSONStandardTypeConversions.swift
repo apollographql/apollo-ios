@@ -142,7 +142,7 @@ extension JSONEncodableDictionary: JSONEncodable {
 
 extension JSONObject: JSONDecodable {
   @inlinable public init(_jsonValue value: JSONValue) throws {
-    guard let dictionary = value as? JSONObject else {
+    guard let dictionary = value as? AnyHashable as? JSONObject else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
     }
 

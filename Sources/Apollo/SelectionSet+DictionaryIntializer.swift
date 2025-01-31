@@ -29,17 +29,17 @@ extension RootSelectionSet {
   /// Convert dictionary type [String: Any] to [String: AnyHashable]
   /// - Parameter dict: [String: Any] type dictionary
   /// - Returns: converted [String: AnyHashable] type dictionary
-  private static func convertToAnyHashableValueDict(dict: [String: Any]) throws -> [String: AnyHashable] {
-    var result = [String: AnyHashable]()
-    
+  private static func convertToAnyHashableValueDict(dict: [String: Any]) throws -> JSONObject {
+    var result = JSONObject()
+
     for (key, value) in dict {
       if let arrayValue = value as? [Any] {
-        result[key] = try convertToAnyHashableArray(array: arrayValue)
+        result[key] = try convertToAnyHashableArray(array: arrayValue) as JSONValue
       } else  {
         if let dictValue = value as? [String: Any] {
-          result[key] = try convertToAnyHashableValueDict(dict: dictValue)
+          result[key] = try convertToAnyHashableValueDict(dict: dictValue) as JSONValue
         } else if let hashableValue = value as? AnyHashable {
-          result[key] = hashableValue
+          result[key] = hashableValue as JSONValue
         } else {
           throw RootSelectionSetInitializeError.hasNonHashableValue
         }
@@ -51,15 +51,15 @@ extension RootSelectionSet {
   /// Convert Any type Array type to AnyHashable type Array
   /// - Parameter array: Any type Array
   /// - Returns: AnyHashable type Array
-  private static func convertToAnyHashableArray(array: [Any]) throws -> [AnyHashable] {
-    var result: [AnyHashable] = []
+  private static func convertToAnyHashableArray(array: [Any]) throws -> [JSONValue] {
+    var result: [JSONValue] = []
     for value in array {
       if let array = value as? [Any] {
-        result.append(try convertToAnyHashableArray(array: array))
+        result.append(try convertToAnyHashableArray(array: array) as JSONValue)
       } else if let dict = value as? [String: Any] {
-        result.append(try convertToAnyHashableValueDict(dict: dict))
+        result.append(try convertToAnyHashableValueDict(dict: dict) as JSONValue)
       } else if let hashable = value as? AnyHashable {
-        result.append(hashable)
+        result.append(hashable as JSONValue)
       } else {
         throw RootSelectionSetInitializeError.hasNonHashableValue
       }

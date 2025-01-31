@@ -83,11 +83,11 @@ final class OperationMessage {
     var payload : JSONObject?
 
     do {
-      let json = try serializationFormat.deserialize(data: data) as? JSONObject
+      let json = try serializationFormat.deserialize(data: data) as JSONObject
 
-      id = json?["id"] as? String
-      type = json?["type"] as? String
-      payload = json?["payload"] as? JSONObject
+      id = json["id"] as? String
+      type = json["type"] as? String
+      payload = json["payload"] as? JSONObject
 
       handler(ParseHandler(type,
                            id,

@@ -68,7 +68,7 @@ public struct IncrementalJSONResponseParsingInterceptor: ApolloInterceptor {
 
     do {
       guard
-        let body = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData) as? JSONObject
+        let body = try? JSONSerializationFormat.deserialize(data: createdResponse.rawData) as JSONObject
       else {
         throw ParsingError.couldNotParseToJSON(data: createdResponse.rawData)
       }

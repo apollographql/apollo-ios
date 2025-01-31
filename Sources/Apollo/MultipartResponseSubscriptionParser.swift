@@ -52,7 +52,7 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
 
       if
         let data = dataLine.data(using: .utf8),
-        let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as? JSONObject
+        let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as JSONObject
       {
         return .json(object: jsonObject)
       }
