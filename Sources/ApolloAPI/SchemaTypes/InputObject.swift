@@ -30,8 +30,20 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
   public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
 
+  @_disfavoredOverload
   public subscript<T: GraphQLOperationVariableValue>(key: String) -> T {
     get { data[key] as! T }
+    set { data[key] = newValue }
+  }
+
+  public subscript<T: GraphQLOperationVariableValue>(key: String) -> GraphQLNullable<T> {
+    get {
+      if let value = data[key] {
+        return value as! GraphQLNullable<T>
+      }
+
+      return .none
+    }
     set { data[key] = newValue }
   }
 
