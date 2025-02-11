@@ -474,7 +474,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
         try accumulator.accept(list: $0, info: fieldInfo)
       }
     case let .object(rootSelectionSetType):
-      guard let object = value as? Source.RawObjectData else {
+      guard let object = value as! AnyHashable as? Source.RawObjectData else {
         return PossiblyDeferred { throw JSONDecodingError.wrongType }
       }
 

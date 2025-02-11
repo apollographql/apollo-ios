@@ -20,15 +20,20 @@ func CacheKeyForField(named fieldName: String, arguments: JSONObject) -> String 
 
 fileprivate func orderIndependentKey(for object: JSONObject) -> String {
   return object.sorted { $0.key < $1.key }.map {
-    switch $0.value {
-    case let object as JSONObject:
-      return "[\($0.key):\(orderIndependentKey(for: object))]"
+    let value = $0.value as? AnyHashable
+    switch value {
+    case let jsonObject as JSONObject:
+      return "[\($0.key):\(orderIndependentKey(for: jsonObject))]"
+
     case let array as [JSONObject]:
       return "\($0.key):[\(array.map { orderIndependentKey(for: $0) }.joined(separator: ","))]"
+
     case let array as [JSONValue]:
       return "\($0.key):[\(array.map { String(describing: $0) }.joined(separator: ", "))]"
+
     case is NSNull:
       return "\($0.key):null"
+
     default:
       return "\($0.key):\($0.value)"
     }

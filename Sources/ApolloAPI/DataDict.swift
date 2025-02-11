@@ -78,7 +78,7 @@ public struct DataDict: Hashable, @unchecked Sendable {
 
   @inlinable public subscript<T: AnyScalarType & Hashable & Sendable>(_ key: String) -> T {
     get {
-      return _data[key] as! T
+      return _data[key] as? AnyHashable as! T
     }
     set {
       _data[key] = newValue

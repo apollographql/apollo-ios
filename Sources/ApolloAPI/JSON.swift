@@ -43,7 +43,7 @@ public protocol JSONDecodable: Sendable {
 ///
 /// This is used to interoperate between the type-safe Swift models and the `JSON` in a
 /// GraphQL network response/request or the `NormalizedCache`.
-public protocol JSONEncodable {
+public protocol JSONEncodable: Sendable {
 
   /// Converts the type into a ``JSONValue`` that can be sent in a GraphQL network request or
   /// stored in the `NormalizedCache`.

@@ -24,10 +24,7 @@ enum SQLiteSerialization {
   }
 
   static func deserialize(data: Data) throws -> Record.Fields {
-    let object = try JSONSerialization.jsonObject(with: data, options: [])
-    guard let jsonObject = object as? JSONObject else {
-      preconditionFailure("JSON will always serialize into a JSONObject.")
-    }
+    let jsonObject = try JSONSerializationFormat.deserialize(data: data) as JSONObject    
     var fields = Record.Fields()
     for (key, value) in jsonObject {
       fields[key] = try deserialize(fieldJSONValue: value)

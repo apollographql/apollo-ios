@@ -61,12 +61,16 @@ public enum AnySendableHashable {
 
 @_spi(Internal)
 extension Hasher {
+
   @inlinable
   public mutating func combine(_ optionalJSONValue: (any Sendable & Hashable)?) {
     if let value = optionalJSONValue {
       self.combine(value)
     } else {
-      self.combine(Optional<any Sendable & Hashable>.none)
+      // This mimics the implementation of combining a nil optional from the Swift language core
+      // Source reference at:
+      // https://github.com/swiftlang/swift/blob/main/stdlib/public/core/Optional.swift#L554-L557
+      self.combine(0 as UInt8)
     }
   }
 

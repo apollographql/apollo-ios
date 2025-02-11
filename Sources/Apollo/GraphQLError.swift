@@ -62,7 +62,7 @@ public struct GraphQLError: Error, Hashable {
   // MARK: - Equatable & Hashable Conformance
 
   public static func == (lhs: GraphQLError, rhs: GraphQLError) -> Bool {
-    AnySendableHashable.equatableCheck(lhs, rhs)
+    AnySendableHashable.equatableCheck(lhs.object, rhs.object)
   }
 
   public func hash(into hasher: inout Hasher) {
