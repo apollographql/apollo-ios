@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-01-21**
+**Last updated: 2025-02-11**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -61,6 +61,12 @@ _Status: Not started_
 
 - Provide a mechanism for making generated reponse models mutable.
 - This will allow mutability on an opt-in basis per selection set or definition.
+
+### `@fieldPolicy` directive
+
+_Status: Not Started_
+
+The [`@fieldPolicy` directive](https://www.apollographql.com/docs/kotlin/caching/declarative-ids#fieldpolicy) is currently supported by Apollo Kotlin and Apollo Web. This directive allows users to configure field arguments to be used to retrieve data stored in the normalized cache. In our efforts to improve feature parity across the client platforms, we plan to implement this directive in Apollo iOS as well.
 
 ### Semantic Nullability
 
