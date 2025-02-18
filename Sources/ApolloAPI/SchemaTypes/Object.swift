@@ -17,7 +17,7 @@ public struct Object: Hashable, Sendable {
     keyFields: [String]? = nil
   ) {
     self.typename = typename
-    self.implementedInterfaces = implementedInterfaces
+    self._implementedInterfaces = implementedInterfaces
     if keyFields?.isEmpty == false {
       self.keyFields = keyFields
     } else {
@@ -25,8 +25,13 @@ public struct Object: Hashable, Sendable {
     }
   }
 
+  private let _implementedInterfaces: [Interface]
+  
   /// A list of the interfaces implemented by the type.
-  public let implementedInterfaces: [Interface]
+  @available(*, deprecated, message: "This property will be removed in version 2.0. To check if an Object implements an interface please use the 'implements(_)' function.")
+  public var implementedInterfaces: [Interface] {
+    return _implementedInterfaces
+  }
 
   /// The name of the type.
   ///
@@ -44,6 +49,6 @@ public struct Object: Hashable, Sendable {
   /// - Parameter interface: An ``Interface`` Type
   /// - Returns: A `Bool` indicating if the receiver implements the given ``Interface`` Type.
   public func implements(_ interface: Interface) -> Bool {
-    implementedInterfaces.contains(where: { $0 == interface })
+    interface.implementingObjects.contains(typename)
   }
 }

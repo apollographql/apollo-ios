@@ -12,16 +12,24 @@ public struct Interface: Hashable, Sendable {
   ///
   /// This is set by adding a `@typePolicy` directive to the schema.
   public let keyFields: [String]?
+  
+  /// A list of name for Objects that implement this Interface
+  public let implementingObjects: [String]
 
   /// Designated Initializer
   ///
   /// - Parameter name: The name of the ``Interface`` in the GraphQL schema.
-  public init(name: String, keyFields: [String]? = nil) {
+  public init(
+    name: String,
+    keyFields: [String]? = nil,
+    implementingObjects: [String]
+  ) {
     self.name = name
     if keyFields?.isEmpty == false {
       self.keyFields = keyFields
     } else {
       self.keyFields = nil
     }
+    self.implementingObjects = implementingObjects
   }
 }
