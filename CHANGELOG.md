@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.18.0
+
+### New
+- **Reduce Generated Schema Types ([#3505](https://github.com/apollographql/apollo-ios/issues/3505)):** Adds a new codegen configuration option to reduce the number of `Object` types that are generated so that only types that are referenced in an operation document or have a `@typePolicy` will be generated. See PR [#601](https://github.com/apollographql/apollo-ios-dev/pull/601).
+
+### Improvement
+- **Identifiable conformance for named fragments ([#595](https://github.com/apollographql/apollo-ios-dev/pull/595)):** Identifiable conformance was previously implemented ([#584](https://github.com/apollographql/apollo-ios-dev/pull/584)) for selection sets and has now been extended to include named fragments. _Thank you to [@x-sheep](https://github.com/x-sheep) for the contribution._
+
+### Fixed
+- **Accessing an unset deprecated field in input causes a crash ([#3506](https://github.com/apollographql/apollo-ios/issues/3506)):** `InputObject` needed a `GraphQLNullable`-specific subscript to prevent nil value keys being forcefully unwrapped. See PR [#596](https://github.com/apollographql/apollo-ios-dev/pull/596). _Thank you to [@pixelmatrix](https://github.com/pixelmatrix) for raising the issue._
+- **Crash in `WebSocketTransport` due to data races ([#3512](https://github.com/apollographql/apollo-ios/issues/3512)):** This data race would occur if starting or stopping a subscription at the same time as a message received on the websocket. To prevent these data races the `subscribers` property is now an `@Atomic` property. See PR [#599](https://github.com/apollographql/apollo-ios-dev/pull/599). _Thank you to [@tahirmt](https://github.com/tahirmt) for the contribution._
+
 ## v1.17.0
 
 ### New
