@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-02-11**
+**Last updated: 2025-02-18**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -10,6 +10,9 @@ For up to date release notes, refer to the project's [Changelog](https://github.
 
 - Please report feature requests or bugs as a new [issue](https://github.com/apollographql/apollo-ios/issues/new/choose).
 - If you already see an issue that interests you please add a 👍 or a comment so we can measure community interest.
+
+### [Currently Requesting Feedback on Caching](https://github.com/apollographql/apollo-ios/issues/3501)
+We are currently looking for feedback on what features, use cases, or improvements you would like to see supported by the next iteration of the Apollo iOS normalized cache. Please provide your input on [this issue](https://github.com/apollographql/apollo-ios/issues/3501).
 
 ---
 
@@ -39,13 +42,6 @@ _Status: In design phase. Current RFC for design is available [here](https://git
 
 - ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
 - (in progress) [`Sendable` types and `async/await` APIs](https://github.com/apollographql/apollo-ios/issues/3291)
-
-### [Reduce generated schema types](https://github.com/apollographql/apollo-ios/milestone/71)
-
-_Status: API Design in progress_
-
-- Right now we are naively generating schema types that we don't always need. A smarter algorithm can reduce generated code for certain large schemas that are currently having every type in their schema generated
-- Create configuration for manually indicating schema types you would like to have schema types and TestMocks generated for
 
 ### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
 
@@ -85,6 +81,8 @@ Major release items are still in pre-planning, and are subject to change. More d
 These are the initiatives planned for future major version releases:
 
 ## Caching
+
+[**Requesting Feedback**](https://github.com/apollographql/apollo-ios/issues/3501): We are currently looking for feedback on what features, use cases, or improvements you would like to see supported by the next iteration of the Apollo iOS normalized cache. Please provide your input on [this issue](https://github.com/apollographql/apollo-ios/issues/3501).
 
 - **Cache Improvements**: Here we are looking at bringing across some features inspired by Apollo Client 3 and Apollo Kotlin
   - Better pagination support. Better support for caching and updating paginated lists of objects.
