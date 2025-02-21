@@ -32,6 +32,7 @@ public final class Atomic<T> {
   ///
   /// - Parameter block: The block executed to mutate the value.
   /// - Returns: The value returned by the block.
+  @discardableResult
   public func mutate<U>(block: (inout T) -> U) -> U {
     lock.lock()
     defer { lock.unlock() }
