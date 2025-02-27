@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 @_spi(Execution)
@@ -413,7 +413,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     asType returnType: Selection.Field.OutputType,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
-    guard let value else {
+    guard !value.isRecursivelyNil(), let value else {
       return PossiblyDeferred { try accumulator.acceptMissingValue(info: fieldInfo) }
     }
 

@@ -214,8 +214,8 @@ extension RootSelectionSet {
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @inlinable public init(_fieldData data: DataDict.FieldValue?) {
-    guard let data = data, !(data is NSNull) else {
+  public init(_fieldData data: DataDict.FieldValue?) {
+    guard !data.isRecursivelyNil(), let data = data, !(data is NSNull) else {
       self = .none
       return
     }
@@ -226,7 +226,7 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
     guard case let .some(data) = self else {
       return Self.none
     }
-    return data
+    return data._fieldData
   }
 }
 
