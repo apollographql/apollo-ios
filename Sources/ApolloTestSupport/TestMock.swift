@@ -1,7 +1,8 @@
 #if !COCOAPODS
 @_exported import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
-@_spi(Execution) import Apollo
+@_spi(Execution) @_spi(Internal) import Apollo
 import Foundation
 
 @dynamicMemberLookup
@@ -195,6 +196,12 @@ fileprivate extension Array {
     switch element {
     case let element as any AnyMock:
       return element._selectionSetMockData as JSONValue
+
+    case let optionalElement as any AnyOptional:
+      guard let element = optionalElement.recursivelyUnwrapped() else {
+        return nil
+      }
+      return _unsafelyConvertToSelectionSetData(element: element)
 
     case let innerArray as Array<Any>:
       return innerArray._unsafelyConvertToSelectionSetData() as JSONValue

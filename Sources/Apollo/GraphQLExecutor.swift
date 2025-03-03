@@ -413,7 +413,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     asType returnType: Selection.Field.OutputType,
     accumulator: Accumulator
   ) -> PossiblyDeferred<Accumulator.PartialResult> {
-    guard !value.isRecursivelyNil(), let value else {
+    guard let value = value.recursivelyUnwrapped(as: JSONValue.self) else {
       return PossiblyDeferred { try accumulator.acceptMissingValue(info: fieldInfo) }
     }
 
@@ -475,6 +475,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       }
     case let .object(rootSelectionSetType):
       guard let object = value as! AnyHashable as? Source.RawObjectData else {
+        print(value)
         return PossiblyDeferred { throw JSONDecodingError.wrongType }
       }
 

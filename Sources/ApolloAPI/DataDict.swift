@@ -215,7 +215,7 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
   public init(_fieldData data: DataDict.FieldValue?) {
-    guard !data.isRecursivelyNil(), let data = data, !(data is NSNull) else {
+    guard let data = data.recursivelyUnwrapped(as: JSONValue.self), !(data is NSNull) else {
       self = .none
       return
     }

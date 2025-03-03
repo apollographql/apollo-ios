@@ -53,34 +53,3 @@ public protocol JSONEncodable: Sendable {
   /// initialize a value equal to the receiver.
   var _jsonValue: JSONValue { get }
 }
-
-@_spi(Internal)
-@usableFromInline protocol AnyOptional {
-  var optionalValue: Any? { get }
-}
-
-@_spi(Internal)
-extension Optional: AnyOptional {
-  @usableFromInline var optionalValue: Any? {
-    switch self {
-      case .some(let value): return value
-      case .none: return nil
-    }
-  }
-}
-
-extension AnyOptional {
-
-  public func isRecursivelyNil() -> Bool {
-    switch self.optionalValue {
-    case .some(let value):
-      guard let value = value as? (any AnyOptional) else {
-        return false
-      }
-      return value.isRecursivelyNil()
-
-    case .none: return true
-    }
-  }
-
-}
