@@ -28,8 +28,8 @@ public struct ObjectData {
     switch value {
     case let boolVal as Bool:
       value = boolVal
-    case let intVal as Int:
-      value = intVal
+    case let intVal as any FixedWidthInteger:
+      value = Int(intVal)
     default:
       break
     }
@@ -74,8 +74,8 @@ public struct ListData {
     switch value {
     case let boolVal as Bool:
       value = boolVal
-    case let intVal as Int:
-      value = intVal
+    case let intVal as any FixedWidthInteger:
+      value = Int(intVal)
     default:
       break
     }
