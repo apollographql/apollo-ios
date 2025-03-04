@@ -38,8 +38,10 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
       switch self {
       case .invalidResponseCode(_, let rawData):
         if let jsonRawData = rawData,
-           let jsonData = try? JSONSerialization.jsonObject(with: jsonRawData, options: .allowFragments) as? JSONObject {
-          return GraphQLError(jsonData)
+           let jsonData = try? (JSONSerialization.jsonObject(with: jsonRawData, options: .allowFragments) as! JSONValue),
+           let jsonObject = try? JSONObject(_jsonValue: jsonData)
+        {
+          return GraphQLError(jsonObject)
         }
         return nil
       }

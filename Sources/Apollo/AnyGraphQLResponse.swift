@@ -14,7 +14,7 @@ struct AnyGraphQLResponse {
     rootKey: CacheReference,
     variables: GraphQLOperation.Variables?
   ) {
-    self.body = body
+    self.body = try! JSONObject(_jsonValue: body as JSONValue)
     self.rootKey = rootKey
     self.variables = variables
   }
