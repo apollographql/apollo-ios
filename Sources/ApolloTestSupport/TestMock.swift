@@ -197,18 +197,18 @@ fileprivate extension Array {
     case let element as any AnyMock:
       return element._selectionSetMockData as JSONValue
 
-    case let optionalElement as any AnyOptional:
-      guard let element = optionalElement.recursivelyUnwrapped() else {
+    case let innerArray as Array<Any>:
+      return innerArray._unsafelyConvertToSelectionSetData() as JSONValue
+
+    case let optionalElement as Optional<Any>:
+      guard case let .some(element) = optionalElement.asNullable else {
         return nil
       }
       return _unsafelyConvertToSelectionSetData(element: element)
 
-    case let innerArray as Array<Any>:
-      return innerArray._unsafelyConvertToSelectionSetData() as JSONValue
-
     case let element as AnyHashable:
       return _unsafelyConvertToSelectionSetData(element: element.base)
-
+      
     default:
       return nil
     }
