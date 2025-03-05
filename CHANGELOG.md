@@ -741,7 +741,7 @@ queryMock.animals = [mockDog]
 let generatedSelectionSetMock: AnimalQuery.Data = AnimalQuery.Data.mock(from: queryMock)
 ```
 
-* `GraphQLNullable` and `GraphQLEnum` from the `ApolloAPI` target are now exported by your generated operations. This prevents you from having to `import ApolloAPI` everywhere that you are consuming your generated models.
+* `GraphQLNullable` and `GraphQLEnum` from the `ApolloAPI` target are now exported by your generated operations. This prevents you from having to `import ApolloMigrationAPI` everywhere that you are consuming your generated models.
 * `CacheKeyProvider` now supports grouping multiple types that share key uniqueness.   
 * Lots of performance improvements
   * Using `StaticString` instead of `String` in generated files.

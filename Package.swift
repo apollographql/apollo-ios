@@ -7,7 +7,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "Apollo",
+  name: "ApolloMigration",
   platforms: [
     .iOS(.v12),
     .macOS(.v10_14),
@@ -16,12 +16,12 @@ let package = Package(
     .visionOS(.v1),
   ],
   products: [
-    .library(name: "Apollo", targets: ["Apollo"]),
-    .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
-    .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo"]),
-    .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
-    .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
-    .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
+    .library(name: "ApolloMigration", targets: ["ApolloMigration"]),
+    .library(name: "ApolloMigrationAPI", targets: ["ApolloMigrationAPI"]),
+    .library(name: "ApolloMigration-Dynamic", type: .dynamic, targets: ["ApolloMigration"]),
+    .library(name: "ApolloMigrationSQLite", targets: ["ApolloMigrationSQLite"]),
+    .library(name: "ApolloMigrationWebSocket", targets: ["ApolloMigrationWebSocket"]),
+    .library(name: "ApolloMigrationTestSupport", targets: ["ApolloMigrationTestSupport"]),
     .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
   dependencies: [
@@ -31,9 +31,9 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "Apollo",
+      name: "ApolloMigration",
       dependencies: [
-        "ApolloAPI"
+        "ApolloMigrationAPI"
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
@@ -41,7 +41,7 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "ApolloAPI",
+      name: "ApolloMigrationAPI",
       dependencies: [],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
@@ -49,9 +49,9 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "ApolloSQLite",
+      name: "ApolloMigrationSQLite",
       dependencies: [
-        "Apollo",
+        "ApolloMigration",
         .product(name: "SQLite", package: "SQLite.swift"),
       ],
       resources: [
@@ -60,9 +60,9 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "ApolloWebSocket",
+      name: "ApolloMigrationWebSocket",
       dependencies: [
-        "Apollo"
+        "ApolloMigration"
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
@@ -70,10 +70,10 @@ let package = Package(
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
     .target(
-      name: "ApolloTestSupport",
+      name: "ApolloMigrationTestSupport",
       dependencies: [
-        "Apollo",
-        "ApolloAPI"
+        "ApolloMigration",
+        "ApolloMigrationAPI"
       ],
       swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
     ),
