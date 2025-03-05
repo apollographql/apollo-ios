@@ -5,7 +5,7 @@ import Foundation
 final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulator {
 
   var requiresCacheKeyComputation: Bool { underlyingMapper.requiresCacheKeyComputation }
-  let underlyingMapper = GraphQLSelectionSetMapper<T>(handleMissingValues: .allowForAllFields)
+  let underlyingMapper = DataDictMapper(handleMissingValues: .allowForAllFields)
 
   func accept(scalar: JSONValue, info: FieldExecutionInfo) throws -> DataDict.FieldValue? {
     return scalar
@@ -43,6 +43,6 @@ final class TestMockSelectionSetMapper<T: SelectionSet>: GraphQLResultAccumulato
   }
 
   func finish(rootValue: DataDict, info: ObjectExecutionInfo) -> T {
-    return underlyingMapper.finish(rootValue: rootValue, info: info)
+    return T(_dataDict: underlyingMapper.finish(rootValue: rootValue, info: info))
   }
 }

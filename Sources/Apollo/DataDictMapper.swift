@@ -19,7 +19,7 @@ public class DataDictMapper: GraphQLResultAccumulator {
     case allowForAllFields
   }
 
-  init(handleMissingValues: HandleMissingValues = .disallow) {
+  public init(handleMissingValues: HandleMissingValues = .disallow) {
     self.handleMissingValues = handleMissingValues
   }
 

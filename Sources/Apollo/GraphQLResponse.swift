@@ -41,7 +41,7 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   /// - Returns: A `GraphQLResult` and a `RecordSet`.
   public func parseResult() throws -> (GraphQLResult<Data>, RecordSet?) {
     let accumulator = zip(
-      GraphQLSelectionSetMapper<Data>(),
+      DataDictMapper(),
       ResultNormalizerFactory.networkResponseDataNormalizer(),
       GraphQLDependencyTracker()
     )
@@ -49,7 +49,11 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
       selectionSet: Data.self,
       with: accumulator
     )
-    let result = makeResult(data: executionResult?.0, dependentKeys: executionResult?.2)
+
+    let result = makeResult(
+      data: executionResult.map { Data(_dataDict: $0.0 ) },
+      dependentKeys: executionResult?.2
+    )
 
     return (result, executionResult?.1)
   }
@@ -59,13 +63,13 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   ///
   /// This is faster than `parseResult()` and should be used when cache the response is not needed.
   public func parseResultFast() throws -> GraphQLResult<Data>  {
-    let accumulator = GraphQLSelectionSetMapper<Data>()
+    let accumulator = DataDictMapper()
     let data = try base.execute(
       selectionSet: Data.self,
       with: accumulator
     )
 
-    return makeResult(data: data, dependentKeys: nil)
+    return makeResult(data: data.map { Data(_dataDict: $0) }, dependentKeys: nil)
   }
 
   private func makeResult(data: Data?, dependentKeys: Set<CacheKey>?) -> GraphQLResult<Data> {

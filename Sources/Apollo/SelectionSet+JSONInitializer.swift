@@ -18,17 +18,19 @@ extension RootSelectionSet {
     data: JSONObject,
     variables: GraphQLOperation.Variables? = nil
   ) throws {
-    let accumulator = GraphQLSelectionSetMapper<Self>(
+    let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    self = try executor.execute(
+    let dataDict = try executor.execute(
       selectionSet: Self.self,
       on: data,
       variables: variables,
       accumulator: accumulator
     )
+
+    self.init(_dataDict: dataDict)
   }
 
 }
@@ -51,18 +53,19 @@ extension Deferrable {
     in operation: any GraphQLOperation.Type,
     variables: GraphQLOperation.Variables? = nil
   ) throws {
-    let accumulator = GraphQLSelectionSetMapper<Self>(
+    let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    self = try executor.execute(
+    let dataDict = try executor.execute(
       selectionSet: Self.self,
       in: operation,
       on: data,
       variables: variables,
       accumulator: accumulator
     )
+    self.init(_dataDict: dataDict)
   }
 
 }
