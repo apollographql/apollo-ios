@@ -27,7 +27,7 @@ let package = Package(
   dependencies: [
     .package(
       url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMajor(from: "0.15.1")),
+      .upToNextMajor(from: "0.13.1")),
   ],
   targets: [
     .target(
