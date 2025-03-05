@@ -56,9 +56,10 @@ public struct OperationDefinition: Sendable {
 /// A unique identifier used as a key to map a deferred selection set type to an incremental
 /// response label and path.
 public struct DeferredFragmentIdentifier: Hashable {
-  let label: String
-  let fieldPath: [String]
+  public let label: String
+  public let fieldPath: [String]
 
+  @inlinable
   public init(label: String, fieldPath: [String]) {
     self.label = label
     self.fieldPath = fieldPath
@@ -88,13 +89,12 @@ public extension GraphQLOperation {
     return nil
   }
 
-  #warning("TODO: Can we remove `for operation:` and just use Self?`")
-  static func deferredSelectionSetType<T: GraphQLOperation>(
-    for operation: T.Type,
+  @inlinable
+  static func deferredSelectionSetType(
     withLabel label: String,
     atFieldPath fieldPath: [String]
   ) -> (any SelectionSet.Type)? {
-    return T.deferredFragments?[DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)]
+    return Self.deferredFragments?[DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)]
   }
 
   static var hasDeferredFragments: Bool {

@@ -110,8 +110,7 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
     let pathComponents: [PathComponent] = path.compactMap(PathComponent.init)
     let fieldPath = pathComponents.fieldPath
 
-    guard let selectionSetType = Operation.deferredSelectionSetType(
-      for: Operation.self,
+    guard let selectionSetType = Operation.deferredSelectionSetType(      
       withLabel: label,
       atFieldPath: fieldPath
     ) as? (any Deferrable.Type) else {
