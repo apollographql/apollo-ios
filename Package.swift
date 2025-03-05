@@ -9,7 +9,7 @@ import PackageDescription
 let package = Package(
   name: "ApolloMigration",
   platforms: [
-    .iOS(.v12),
+    .iOS(.v13),
     .macOS(.v10_14),
     .tvOS(.v12),
     .watchOS(.v5),
