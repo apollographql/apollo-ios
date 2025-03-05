@@ -1,6 +1,7 @@
 #if !COCOAPODS
 import ApolloAPI
 #endif
+import Foundation
 
 #warning("TODO: kill this and replace with DataDict Mapper!")
 /// An accumulator that maps executed data to create a `SelectionSet`.
@@ -30,7 +31,7 @@ public final class GraphQLSelectionSetMapper<T: SelectionSet>: GraphQLResultAccu
   }
 
   public func acceptNullValue(info: FieldExecutionInfo) -> DataDict.FieldValue? {
-    return DataDict._NullValue
+    return NSNull()
   }
 
   public func acceptMissingValue(info: FieldExecutionInfo) throws -> DataDict.FieldValue? {

@@ -1,6 +1,7 @@
 #if !COCOAPODS
 import ApolloAPI
 #endif
+import Foundation
 
 /// An accumulator that converts executed data to the correct values for use in a selection set.
 @_spi(Execution)
@@ -44,7 +45,7 @@ public class DataDictMapper: GraphQLResultAccumulator {
   }
 
   public func acceptNullValue(info: FieldExecutionInfo) -> DataDict.FieldValue? {
-    return DataDict._NullValue
+    return NSNull()
   }
 
   public func acceptMissingValue(info: FieldExecutionInfo) throws -> DataDict.FieldValue? {

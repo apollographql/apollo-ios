@@ -161,30 +161,6 @@ public struct DataDict: Hashable, @unchecked Sendable {
   }
 }
 
-// MARK: - Null Value Definition
-extension DataDict {
-  /// A common value used to represent a null value in a `DataDict`.
-  ///
-  /// This value can be cast to `NSNull` and will bridge automatically.
-  #warning("TODO: Kill this?")
-  public static let _NullValue: NSNull = NSNull()
-
-  /// Indicates if `AnyHashable` can be coerced via casting into its underlying type.
-  ///
-  /// In iOS versions 14.4 and lower, `AnyHashable` coercion does not work. On these platforms,
-  /// we need to do some additional unwrapping and casting of the values to avoid crashes and other
-  /// run time bugs.
-  #warning("TODO: Kill this?")
-  public static let _AnyHashableCanBeCoerced: Bool = {
-    if #available(iOS 14.5, *) {
-      return true
-    } else {
-      return false
-    }
-  }()
-
-}
-
 // MARK: - Value Conversion Helpers
 
 public protocol SelectionSetEntityValue: Sendable, Hashable {
