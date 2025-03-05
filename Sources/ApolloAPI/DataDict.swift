@@ -102,9 +102,8 @@ public struct DataDict: Hashable, @unchecked Sendable {
     }
   }
 
-  @inlinable
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(_storage)
+    hasher.combine(_data)
   }
 
   public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
