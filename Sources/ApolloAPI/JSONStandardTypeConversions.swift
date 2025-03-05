@@ -121,11 +121,6 @@ extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
   }
 }
 
-#warning("TODO: do we even need this anymore?")
-//extension NSDictionary: JSONEncodable {
-//  @inlinable public var _jsonValue: JSONValue { self }
-//}
-
 extension NSNull: JSONEncodable {
   @inlinable public var _jsonValue: JSONValue { self }
 }

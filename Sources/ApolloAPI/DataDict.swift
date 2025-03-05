@@ -102,13 +102,11 @@ public struct DataDict: Hashable, @unchecked Sendable {
     }
   }
 
-#warning("TODO: Should this be comparing to storage? Or just the data values? Should we implement the equality checks with only selected values?")
-//  @inlinable
+  @inlinable
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(_data)
+    hasher.combine(_storage)
   }
 
-//  @inlinable
   public static func ==(lhs: DataDict, rhs: DataDict) -> Bool {
     AnySendableHashable.equatableCheck(lhs._data, rhs._data)
   }

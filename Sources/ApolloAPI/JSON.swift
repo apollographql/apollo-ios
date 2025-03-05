@@ -1,7 +1,9 @@
 /// Represents a value in a ``JSONObject``
 ///
-/// Making ``JSONValue`` an `AnyHashable` enables comparing ``JSONObject``s
-/// in `Equatable` conformances.
+/// - precondition: A `JSONValue` must be values types that are valid for JSON
+/// serialization and must be both `Hashable` and `Sendable`. This typealias does not validate
+/// that the its values are valid JSON. It functions only as an indicator of the semantic intentions
+/// of the underlying value.
 public typealias JSONValue = any Sendable & Hashable
 
 /// Represents a JSON Dictionary
