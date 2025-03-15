@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A class to handle URL Session calls that will support background execution,
 /// but still (mostly) use callbacks for its primary method of communication.

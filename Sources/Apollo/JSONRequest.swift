@@ -2,6 +2,9 @@ import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// A request which sends JSON related to a GraphQL operation.
 open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {

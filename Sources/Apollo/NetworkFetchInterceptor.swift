@@ -2,6 +2,9 @@ import Foundation
 #if !COCOAPODS
 import ApolloAPI
 #endif
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// An interceptor which actually fetches data from the network.
 public class NetworkFetchInterceptor: ApolloInterceptor, Cancellable {

@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 /// An object that can be used to cancel an in progress action.
 public protocol Cancellable: AnyObject {

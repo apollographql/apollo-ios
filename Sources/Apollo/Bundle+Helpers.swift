@@ -1,3 +1,4 @@
+#if !os(Linux)
 import Foundation
 
 extension Bundle {
@@ -25,3 +26,4 @@ extension Bundle {
     return self.bundleValue(forKey: "CFBundleShortVersionString")
   }
 }
+#endif // !os(Linux)
