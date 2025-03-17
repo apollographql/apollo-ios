@@ -25,6 +25,7 @@ public protocol ApolloStoreSubscriber: AnyObject, Sendable {
 public class ApolloStore: @unchecked Sendable {
   private let cache: any NormalizedCache
   private let queue: DispatchQueue
+  private let readerWriterLock = ReaderWriter()
 
   internal var subscribers: [any ApolloStoreSubscriber] = []
 
@@ -49,7 +50,7 @@ public class ApolloStore: @unchecked Sendable {
   ///   - callbackQueue: The queue to call the completion block on. Defaults to `DispatchQueue.main`.
   ///   - completion: [optional] A completion block to be called after records are merged into the cache.
   public func clearCache(callbackQueue: DispatchQueue = .main, completion: ((Result<Void, any Swift.Error>) -> Void)? = nil) {
-    queue.async(flags: .barrier) {
+    readerWriterLock.write {
       let result = Result { try self.cache.clear() }
       DispatchQueue.returnResultAsyncIfNeeded(
         on: callbackQueue,
