@@ -85,8 +85,14 @@ open class HTTPRequest<Operation: GraphQLOperation>: Hashable {
   /// - Throws: Any error in creating the request
   /// - Returns: The URL request, ready to send to your server.
   open func toURLRequest() throws -> URLRequest {
-    var request = URLRequest(url: self.graphQLEndpoint)
-    
+    var request: URLRequest
+
+    if let configContext = context as? any RequestContextTimeoutConfigurable {
+      request = URLRequest(url: self.graphQLEndpoint, timeoutInterval: configContext.requestTimeout)
+    } else {
+      request = URLRequest(url: self.graphQLEndpoint)
+    }
+
     for (fieldName, value) in additionalHeaders {
       request.addValue(value, forHTTPHeaderField: fieldName)
     }
