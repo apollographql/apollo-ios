@@ -8,8 +8,11 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
   public enum ParsingError: Error, LocalizedError, Equatable {
     case noResponseToParse
+    @available(*, deprecated, message: "Use the more specific `missingMultipartBoundary` and `invalidMultipartProtocol` errors instead.")
     case cannotParseResponse
     case cannotParseResponseData
+    case missingMultipartBoundary
+    case invalidMultipartProtocol
 
     public var errorDescription: String? {
       switch self {
@@ -19,6 +22,10 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
         return "The response data could not be parsed."
       case .cannotParseResponseData:
         return "The response data could not be parsed."
+      case .missingMultipartBoundary:
+        return "Missing multipart boundary in the response 'content-type' header."
+      case .invalidMultipartProtocol:
+        return "Missing, or unknown, multipart specification protocol in the response 'content-type' header."
       }
     }
   }
@@ -61,13 +68,22 @@ public struct MultipartResponseParsingInterceptor: ApolloInterceptor {
 
     let multipartComponents = response.httpResponse.multipartHeaderComponents
 
+    guard let boundary = multipartComponents.boundary else {
+      chain.handleErrorAsync(
+        ParsingError.missingMultipartBoundary,
+        request: request,
+        response: response,
+        completion: completion
+      )
+      return
+    }
+
     guard
-      let boundary = multipartComponents.boundary,
       let `protocol` = multipartComponents.protocol,
       let parser = Self.responseParsers[`protocol`]
     else {
       chain.handleErrorAsync(
-        ParsingError.cannotParseResponse,
+        ParsingError.invalidMultipartProtocol,
         request: request,
         response: response,
         completion: completion
