@@ -1,5 +1,13 @@
 # Change Log
 
+## v1.20.0
+
+### Fixed
+- **Location of CLI download script changed in Xcode 16.3 ([#3518](https://github.com/apollographql/apollo-ios/pull/3518)):** Xcode 16.3 changed the execution directory for plugins. This is fixed and will work for both < 16.3 and >= 16.3 Xcode versions. See PR [#623](https://github.com/apollographql/apollo-ios-dev/pull/623). _Thank you to [@robb](https://github.com/robb) for raising the issue._
+
+### Improvement
+- **More contextual multipart parsing errors ([#3536](https://github.com/apollographql/apollo-ios/issues/3536#issuecomment-2763230360)):** Apollo iOS will now throw narrower scoped errors when a multipart message cannot be parsed. This will help in determining which part of the response is causing the issue. See PR [#628](https://github.com/apollographql/apollo-ios-dev/pull/628). _Thank you to [@GRajin](https://github.com/GRajin) for raising the issue._
+
 ## v1.19.0
 
 ### New
