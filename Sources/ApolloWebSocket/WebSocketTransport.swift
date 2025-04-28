@@ -51,6 +51,7 @@ public class WebSocketTransport {
 
   @Atomic
   private var subscribers = [String: (Result<JSONObject, any Error>) -> Void]()
+  @Atomic
   private var subscriptions : [String: String] = [:]
   let processingQueue = DispatchQueue(label: "com.apollographql.WebSocketTransport")
 
@@ -307,7 +308,7 @@ public class WebSocketTransport {
       }
 
       self.queue.removeAll()
-      self.subscriptions.removeAll()
+      self.$subscriptions.mutate { $0.removeAll() }
     }
   }
 
@@ -356,7 +357,7 @@ public class WebSocketTransport {
 
       self.$subscribers.mutate { $0[identifier] = resultHandler }
       if Operation.operationType == .subscription {
-        self.subscriptions[identifier] = message
+        self.$subscriptions.mutate { $0[identifier] = message }
       }
     }
 
@@ -377,7 +378,7 @@ public class WebSocketTransport {
         self.write(str)
       }
       self.$subscribers.mutate { $0.removeValue(forKey: subscriptionId) }
-      self.subscriptions.removeValue(forKey: subscriptionId)
+      self.$subscriptions.mutate { $0.removeValue(forKey: subscriptionId) }
     }
   }
 
