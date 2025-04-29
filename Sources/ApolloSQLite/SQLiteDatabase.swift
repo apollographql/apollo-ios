@@ -8,6 +8,26 @@ public struct DatabaseRow {
   let storedInfo: String
 }
 
+public enum SQLiteError: Error, CustomStringConvertible {
+  case execution(message: String)
+  case open(path: String)
+  case prepare(message: String)
+  case step(message: String)
+  
+  public var description: String {
+    switch self {
+    case .execution(let message):
+      return message
+    case .open(let path):
+      return "Failed to open SQLite database connection at path: \(path)"
+    case .prepare(let message):
+      return message
+    case .step(let message):
+      return message
+    }
+  }
+}
+
 public protocol SQLiteDatabase {
 
   init(fileURL: URL) throws

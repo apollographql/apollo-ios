@@ -25,9 +25,6 @@ let package = Package(
     .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
   dependencies: [
-    .package(
-      url: "https://github.com/stephencelis/SQLite.swift.git",
-      .upToNextMajor(from: "0.15.1")),
   ],
   targets: [
     .target(
@@ -52,7 +49,6 @@ let package = Package(
       name: "ApolloSQLite",
       dependencies: [
         "Apollo",
-        .product(name: "SQLite", package: "SQLite.swift"),
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")

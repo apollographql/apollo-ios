@@ -31,7 +31,6 @@ Pod::Spec.new do |s|
   s.subspec 'SQLite' do |ss|
     ss.source_files = 'Sources/ApolloSQLite/*.swift'
     ss.dependency 'Apollo/Core'
-    ss.dependency 'SQLite.swift', '~>0.15.1'
     ss.resource_bundles = {
       'ApolloSQLite' => ['Sources/ApolloSQLite/Resources/PrivacyInfo.xcprivacy']
     }
