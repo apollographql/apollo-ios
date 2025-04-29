@@ -1,5 +1,17 @@
 # Change Log
 
+## v1.21.0
+
+### New
+- **Enhanced Client Awareness ([#638](https://github.com/apollographql/apollo-ios-dev/pull/638)):** Apollo iOS now sends the library name and version as metadata in the `extensions` key of each request. This Enhanced Client Awareness metric is collected in GraphOS along with the existing Client Awareness and general operation metrics. 
+
+### Improvement
+- **Removed SQLite.swift dependency ([#635](https://github.com/apollographql/apollo-ios-dev/pull/635)):** Removed the dependency on `SQLite.swift` and replaced it with direct interaction with the SQLite C API.
+
+### Fixed
+- **Fix possible data races in the WebSocketTransport ([#636](https://github.com/apollographql/apollo-ios-dev/pull/636)):** Fixes possible data race issues in the `subscriptions` property inside of `WebSocketTransport`. _Thank you to [@tahirmt](https://github.com/tahirmt) for the contribution._
+- **Fix cache reading of null list items ([#3527](https://github.com/apollographql/apollo-ios/issues/3527)):** Null list items would previously generate a `wrongType` error if stored and read from the cache. This refactors the execution logic to correctly handle values from cache references in lists. See PR [#637](https://github.com/apollographql/apollo-ios-dev/pull/637).
+
 ## v1.20.0
 
 ### Fixed
