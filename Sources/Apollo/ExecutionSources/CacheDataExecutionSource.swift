@@ -41,11 +41,15 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
       case let reference as CacheReference:
         return deferredResolve(reference: reference).map { $0 as AnyHashable }
 
-      case let referenceList as [CacheReference]:
+      case let referenceList as [JSONValue]:
         return referenceList
           .enumerated()
           .deferredFlatMap { index, element in
-            self.deferredResolve(reference: element)
+            guard let cacheReference = element as? CacheReference else {
+              return .immediate(.success(element))
+            }
+
+            return self.deferredResolve(reference: cacheReference)
               .mapError { error in
                 if !(error is GraphQLExecutionError) {
                   return GraphQLExecutionError(
@@ -55,7 +59,7 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
                 } else {
                   return error
                 }
-              }
+              }.map { $0 as AnyHashable }
           }.map { $0._asAnyHashable }
 
       default:
