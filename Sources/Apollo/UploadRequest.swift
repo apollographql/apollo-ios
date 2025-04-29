@@ -9,9 +9,10 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   public let requestBodyCreator: any RequestBodyCreator
   public let files: [GraphQLFile]
   public let manualBoundary: String?
-  
   public let serializationFormat = JSONSerializationFormat.self
-  
+
+  private let sendEnhancedClientAwareness: Bool
+
   /// Designated Initializer
   ///
   /// - Parameters:
@@ -24,25 +25,32 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise. Defaults to nil.
   ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
-  public init(graphQLEndpoint: URL,
-              operation: Operation,
-              clientName: String,
-              clientVersion: String,
-              additionalHeaders: [String: String] = [:],
-              files: [GraphQLFile],
-              manualBoundary: String? = nil,
-              context: (any RequestContext)? = nil,
-              requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator()) {
+  public init(
+    graphQLEndpoint: URL,
+    operation: Operation,
+    clientName: String,
+    clientVersion: String,
+    additionalHeaders: [String: String] = [:],
+    files: [GraphQLFile],
+    manualBoundary: String? = nil,
+    context: (any RequestContext)? = nil,
+    requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
+    sendEnhancedClientAwareness: Bool = true
+  ) {
     self.requestBodyCreator = requestBodyCreator
     self.files = files
     self.manualBoundary = manualBoundary
-    super.init(graphQLEndpoint: graphQLEndpoint,
-               operation: operation,
-               contentType: "multipart/form-data",
-               clientName: clientName,
-               clientVersion: clientVersion,
-               additionalHeaders: additionalHeaders,
-               context: context)
+    self.sendEnhancedClientAwareness = sendEnhancedClientAwareness
+
+    super.init(
+      graphQLEndpoint: graphQLEndpoint,
+      operation: operation,
+      contentType: "multipart/form-data",
+      clientName: clientName,
+      clientVersion: clientVersion,
+      additionalHeaders: additionalHeaders,
+      context: context
+    )
   }
   
   public override func toURLRequest() throws -> URLRequest {
@@ -87,6 +95,10 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
       }
     }
     fields["variables"] = variables
+
+    if self.sendEnhancedClientAwareness {
+      addEnhancedClientAwarenessExtension(to: &fields)
+    }
 
     let operationData = try serializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")

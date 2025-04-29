@@ -41,24 +41,36 @@ open class RequestChainNetworkTransport: NetworkTransport {
   ///
   /// Defaults to an ``ApolloRequestBodyCreator`` initialized with the default configuration.
   public var requestBodyCreator: any RequestBodyCreator
-  
+
+  private let sendEnhancedClientAwareness: Bool
+
   /// Designated initializer
   ///
   /// - Parameters:
   ///   - interceptorProvider: The interceptor provider to use when constructing a request chain
   ///   - endpointURL: The GraphQL endpoint URL to use
-  ///   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to an empty dictionary.
-  ///   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead of the full query body by default. Defaults to `false`.
-  ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the provided `ApolloRequestBodyCreator` implementation.
-  ///   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take advantage of a CDN. Defaults to `false`.
-  ///   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query. Defaults to `false`. 
-  public init(interceptorProvider: any InterceptorProvider,
-              endpointURL: URL,
-              additionalHeaders: [String: String] = [:],
-              autoPersistQueries: Bool = false,
-              requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
-              useGETForQueries: Bool = false,
-              useGETForPersistedQueryRetry: Bool = false) {
+  ///   - additionalHeaders: Any additional headers that should be automatically added to every request. Defaults to
+  ///   an empty dictionary.
+  ///   - autoPersistQueries: Pass `true` if Automatic Persisted Queries should be used to send a query hash instead
+  ///   of the full query body by default. Defaults to `false`.
+  ///   - requestBodyCreator: The `RequestBodyCreator` object to use to build your `URLRequest`. Defaults to the
+  ///   provided `ApolloRequestBodyCreator` implementation.
+  ///   - useGETForQueries: Pass `true` if you want to use `GET` instead of `POST` for queries, for example to take
+  ///   advantage of a CDN. Defaults to `false`.
+  ///   - useGETForPersistedQueryRetry: Pass `true` to use `GET` instead of `POST` for a retry of a persisted query.
+  ///   Defaults to `false`.
+  ///   - sendEnhancedClientAwareness: Specifies whether client library metadata is sent in each request `extensions`
+  ///   key. Client library metadata is the Apollo iOS library name and version. Defaults to `true`.
+  public init(
+    interceptorProvider: any InterceptorProvider,
+    endpointURL: URL,
+    additionalHeaders: [String: String] = [:],
+    autoPersistQueries: Bool = false,
+    requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
+    useGETForQueries: Bool = false,
+    useGETForPersistedQueryRetry: Bool = false,
+    sendEnhancedClientAwareness: Bool = true
+  ) {
     self.interceptorProvider = interceptorProvider
     self.endpointURL = endpointURL
 
@@ -67,6 +79,7 @@ open class RequestChainNetworkTransport: NetworkTransport {
     self.requestBodyCreator = requestBodyCreator
     self.useGETForQueries = useGETForQueries
     self.useGETForPersistedQueryRetry = useGETForPersistedQueryRetry
+    self.sendEnhancedClientAwareness = sendEnhancedClientAwareness
   }
   
   /// Constructs a GraphQL request for the given operation.
@@ -97,7 +110,8 @@ open class RequestChainNetworkTransport: NetworkTransport {
       autoPersistQueries: self.autoPersistQueries,
       useGETForQueries: self.useGETForQueries,
       useGETForPersistedQueryRetry: self.useGETForPersistedQueryRetry,
-      requestBodyCreator: self.requestBodyCreator
+      requestBodyCreator: self.requestBodyCreator,
+      sendEnhancedClientAwareness: self.sendEnhancedClientAwareness
     )
 
     if Operation.operationType == .subscription {
@@ -169,16 +183,19 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     with files: [GraphQLFile],
     context: (any RequestContext)? = nil,
     manualBoundary: String? = nil) -> HTTPRequest<Operation> {
-    
-    UploadRequest(graphQLEndpoint: self.endpointURL,
-                  operation: operation,
-                  clientName: self.clientName,
-                  clientVersion: self.clientVersion,
-                  additionalHeaders: self.additionalHeaders,
-                  files: files,
-                  manualBoundary: manualBoundary,
-                  context: context,
-                  requestBodyCreator: self.requestBodyCreator)
+
+      UploadRequest(
+        graphQLEndpoint: self.endpointURL,
+        operation: operation,
+        clientName: self.clientName,
+        clientVersion: self.clientVersion,
+        additionalHeaders: self.additionalHeaders,
+        files: files,
+        manualBoundary: manualBoundary,
+        context: context,
+        requestBodyCreator: self.requestBodyCreator,
+        sendEnhancedClientAwareness: self.sendEnhancedClientAwareness
+      )
   }
   
   public func upload<Operation: GraphQLOperation>(

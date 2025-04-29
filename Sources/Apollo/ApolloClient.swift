@@ -34,6 +34,8 @@ public class ApolloClient {
 
   public let store: ApolloStore
 
+  private let sendEnhancedClientAwareness: Bool
+
   public enum ApolloClientError: Error, LocalizedError, Hashable {
     case noUploadTransport
 
@@ -49,22 +51,40 @@ public class ApolloClient {
   ///
   /// - Parameters:
   ///   - networkTransport: A network transport used to send operations to a server.
-  ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes a store, you should make sure the same store is passed here so that it can be cleared properly.
-  public init(networkTransport: any NetworkTransport, store: ApolloStore) {
+  ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes
+  ///   a store, you should make sure the same store is passed here so that it can be cleared properly.
+  ///   - sendEnhancedClientAwareness: Specifies whether client library metadata is sent in each request `extensions`
+  ///   key. Client library metadata is the Apollo iOS library name and version. Defaults to `true`.
+  public init(
+    networkTransport: any NetworkTransport,
+    store: ApolloStore,
+    sendEnhancedClientAwareness: Bool = true
+  ) {
     self.networkTransport = networkTransport
     self.store = store
+    self.sendEnhancedClientAwareness = sendEnhancedClientAwareness
   }
 
   /// Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
   ///
   /// - Parameter url: The URL of a GraphQL server to connect to.
-  public convenience init(url: URL) {
+  public convenience init(
+    url: URL,
+    sendEnhancedClientAwareness: Bool = true
+  ) {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
     let provider = DefaultInterceptorProvider(store: store)
-    let transport = RequestChainNetworkTransport(interceptorProvider: provider,
-                                                 endpointURL: url)
-    
-    self.init(networkTransport: transport, store: store)
+    let transport = RequestChainNetworkTransport(
+      interceptorProvider: provider,
+      endpointURL: url,
+      sendEnhancedClientAwareness: sendEnhancedClientAwareness
+    )
+
+    self.init(
+      networkTransport: transport,
+      store: store,
+      sendEnhancedClientAwareness: sendEnhancedClientAwareness
+    )
   }
 }
 
