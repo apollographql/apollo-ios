@@ -7,7 +7,9 @@ import Foundation
 public protocol AnyOptional {}
 
 @_spi(Internal)
-extension Optional: AnyOptional {
+extension Optional: AnyOptional { }
+
+extension Optional where Wrapped: Sendable {
 #warning("TODO: Document")
   @_spi(Internal)
   public var asNullable: GraphQLNullable<Wrapped> {

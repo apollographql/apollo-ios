@@ -1,18 +1,18 @@
 public protocol NormalizedCache: AnyObject {
-  
+
   /// Loads records corresponding to the given keys.
   ///
   /// - Parameters:
   ///   - key: The cache keys to load data for
   /// - Returns: A dictionary of cache keys to records containing the records that have been found.
-  func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record]
-    
+  func loadRecords(forKeys keys: Set<CacheKey>) async throws -> [CacheKey: Record]
+
   /// Merges a set of records into the cache.
   ///
   /// - Parameters:
   ///   - records: The set of records to merge.
   /// - Returns: A set of keys corresponding to *fields* that have changed (i.e. QUERY_ROOT.Foo.myField). These are the same type of keys as are returned by RecordSet.merge(records:).
-  func merge(records: RecordSet) throws -> Set<CacheKey>
+  func merge(records: RecordSet) async throws -> Set<CacheKey>
 
   /// Removes a record for the specified key. This method will only
   /// remove whole records, not individual fields.
@@ -22,11 +22,11 @@ public protocol NormalizedCache: AnyObject {
   /// record to remove based on that key.
   ///
   /// This method does not support cascading delete - it will only
-  /// remove the record for the specified key, and not any references to it or from it.
-  /// 
+  /// remove the record for the specified key, and not any references to it or from it.z
+  ///
   /// - Parameters:
   ///   - key: The cache key to remove the record for
-  func removeRecord(for key: CacheKey) throws
+  func removeRecord(for key: CacheKey) async throws
 
   /// Removes records with keys that match the specified pattern. This method will only
   /// remove whole records, it does not perform cascading deletes. This means only the
@@ -41,8 +41,8 @@ public protocol NormalizedCache: AnyObject {
   ///
   /// - Parameters:
   ///   - pattern: The pattern that will be applied to find matching keys.
-  func removeRecords(matching pattern: CacheKey) throws
+  func removeRecords(matching pattern: CacheKey) async throws
 
   /// Clears all records.
-  func clear() throws
+  func clear() async throws
 }

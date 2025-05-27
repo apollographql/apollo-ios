@@ -125,11 +125,11 @@ public extension RootSelectionSet {
   static func from<O: MockObject>(
     _ mock: Mock<O>,
     withVariables variables: GraphQLOperation.Variables? = nil
-  ) -> Self {
+  ) async -> Self {
     let accumulator = TestMockSelectionSetMapper<Self>()
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    return try! executor.execute(
+    return try! await executor.execute(
       selectionSet: Self.self,
       on: mock._selectionSetMockData,
       variables: variables,
@@ -200,7 +200,7 @@ fileprivate extension Array {
     case let innerArray as Array<Any>:
       return innerArray._unsafelyConvertToSelectionSetData() as JSONValue
 
-    case let optionalElement as Optional<Any>:
+    case let optionalElement as Optional<any Sendable>:
       guard case let .some(element) = optionalElement.asNullable else {
         return nil
       }

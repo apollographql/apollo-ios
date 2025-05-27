@@ -6,9 +6,9 @@ let package = Package(
   name: "Apollo",
   platforms: [
     .iOS(.v15),
-    .macOS(.v10_15),
-    .tvOS(.v12),
-    .watchOS(.v5),
+    .macOS(.v12),
+    .tvOS(.v15),
+    .watchOS(.v8),
     .visionOS(.v1),
   ],
   products: [

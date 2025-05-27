@@ -157,7 +157,7 @@ public extension GraphQLSubscription {
 
 // MARK: - GraphQLOperationVariableValue
 
-public protocol GraphQLOperationVariableValue {
+public protocol GraphQLOperationVariableValue: Sendable {
   var _jsonEncodableValue: (any JSONEncodable)? { get }
 }
 

@@ -2,6 +2,7 @@
 import ApolloAPI
 #endif
 
+#warning("TODO: kill")
 /// Represents a complete GraphQL response received from a server.
 public final class GraphQLResponse<Data: RootSelectionSet> {
   private let base: AnyGraphQLResponse
@@ -24,14 +25,14 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   /// 
   /// - Parameter cachePolicy: Used to determine whether a cache `RecordSet` is returned. A cache policy that does
   /// not read or write to the cache will return a `nil` cache `RecordSet`.
-  public func parseResult(withCachePolicy cachePolicy: CachePolicy) throws -> (GraphQLResult<Data>, RecordSet?) {
+  public func parseResult(withCachePolicy cachePolicy: CachePolicy) async throws -> (GraphQLResult<Data>, RecordSet?) {
     switch cachePolicy {
     case .fetchIgnoringCacheCompletely:
       // There is no cache, so we don't need to get any info on dependencies. Use fast parsing.
-      return (try parseResultFast(), nil)
+      return (try await parseResultFast(), nil)
 
     default:
-      return try parseResult()
+      return try await parseResult()
     }
   }
 
@@ -39,13 +40,13 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   /// request and the `RecordSet` can be merged into a local cache.
   ///
   /// - Returns: A `GraphQLResult` and a `RecordSet`.
-  public func parseResult() throws -> (GraphQLResult<Data>, RecordSet?) {
+  public func parseResult() async throws -> (GraphQLResult<Data>, RecordSet?) {
     let accumulator = zip(
       DataDictMapper(),
       ResultNormalizerFactory.networkResponseDataNormalizer(),
       GraphQLDependencyTracker()
     )
-    let executionResult = try base.execute(
+    let executionResult = try await base.execute(
       selectionSet: Data.self,
       with: accumulator
     )
@@ -62,9 +63,9 @@ public final class GraphQLResponse<Data: RootSelectionSet> {
   /// create dependent keys or a `RecordSet` for the cache.
   ///
   /// This is faster than `parseResult()` and should be used when cache the response is not needed.
-  public func parseResultFast() throws -> GraphQLResult<Data>  {
+  public func parseResultFast() async throws -> GraphQLResult<Data>  {
     let accumulator = DataDictMapper()
-    let data = try base.execute(
+    let data = try await base.execute(
       selectionSet: Data.self,
       with: accumulator
     )

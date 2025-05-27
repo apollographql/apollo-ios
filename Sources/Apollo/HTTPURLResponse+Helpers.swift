@@ -19,7 +19,7 @@ extension HTTPURLResponse {
     let boundary: String?
     let `protocol`: String?
 
-    init(media: String? = nil, boundary: String? = nil, protocol: String? = nil) {
+    init(media: String?, boundary: String?, protocol: String?) {
       self.media = media
       self.boundary = boundary
       self.protocol = `protocol`
@@ -29,7 +29,7 @@ extension HTTPURLResponse {
   /// Components of the `Content-Type` header specifically related to the `multipart` media type.
   var multipartHeaderComponents: MultipartHeaderComponents {
     guard let contentType = allHeaderFields["Content-Type"] as? String else {
-      return MultipartHeaderComponents()
+      return MultipartHeaderComponents(media: nil, boundary: nil, protocol: nil)
     }
 
     var media: String? = nil

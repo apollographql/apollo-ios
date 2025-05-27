@@ -14,9 +14,6 @@ public final class MultipartFormData {
     }
   }
 
-  /// A Carriage Return Line Feed character, which will be seen as a newline on both unix and Windows servers.
-  static let CRLF = "\r\n"
-
   public let boundary: String
 
   private var bodyParts: [BodyPart]
@@ -29,20 +26,17 @@ public final class MultipartFormData {
     self.bodyParts = []
   }
 
-  /// Convenience initializer which uses a pre-defined boundary
-  public convenience init() {
-    self.init(boundary: "apollo-ios.boundary.\(UUID().uuidString)")
-  }
-
   /// Appends the passed-in string as a part of the body.
   ///
   /// - Parameters:
   ///   - string: The string to append
   ///   - name: The name of the part to pass along to the server
   public func appendPart(string: String, name: String) throws {
-    self.appendPart(data: try self.encode(string: string),
-                    name: name,
-                    contentType: nil)
+    self.appendPart(
+      data: try self.encode(string: string),
+      name: name,
+      contentType: nil
+    )
   }
 
   /// Appends the passed-in data as a part of the body.
@@ -104,10 +98,11 @@ public final class MultipartFormData {
   private func encode(bodyPart: BodyPart) throws -> Data {
     var encoded = Data()
 
-    encoded.append(try self.encode(string: "--\(self.boundary)\(MultipartFormData.CRLF)"))
+    encoded.append(try self.encode(string: "--\(self.boundary)"))
+    encoded.append(MultipartResponseParsing.CRLF)
     encoded.append(try self.encode(string: bodyPart.headers()))
     encoded.append(self.encode(inputStream: bodyPart.inputStream, length: bodyPart.contentLength))
-    encoded.append(try self.encode(string: "\(MultipartFormData.CRLF)"))
+    encoded.append(MultipartResponseParsing.CRLF)
 
     return encoded
   }
@@ -186,13 +181,13 @@ fileprivate struct BodyPart: Hashable {
     if let filename = self.filename {
       headers += "; filename=\"\(filename)\""
     }
-    headers += "\(MultipartFormData.CRLF)"
+    headers += "\r\n"
 
     if let contentType = self.contentType {
-      headers += "Content-Type: \(contentType)\(MultipartFormData.CRLF)"
+      headers += "Content-Type: \(contentType)\r\n"
     }
 
-    headers += "\(MultipartFormData.CRLF)"
+    headers += "\r\n"
 
     return headers
   }

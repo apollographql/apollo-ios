@@ -630,7 +630,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
    Finds the HTTP Packet in the TCP stream, by looking for the CRLF.
    */
   private func processHTTP(_ buffer: UnsafePointer<UInt8>, bufferLen: Int) -> Int {
-    let CRLFBytes = [UInt8(ascii: "\r"), UInt8(ascii: "\n"), UInt8(ascii: "\r"), UInt8(ascii: "\n")]
+    let CRLFBytes = Data([0x0D, 0x0A]) // "\r\n"
     var k = 0
     var totalSize = 0
     for i in 0..<bufferLen {

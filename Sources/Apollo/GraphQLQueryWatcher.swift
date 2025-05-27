@@ -74,33 +74,34 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   }
 
   func fetch(cachePolicy: CachePolicy) {
-    Task {
-      await fetching.mutate {
-        // Cancel anything already in flight before starting a new fetch
-        $0.cancellable?.cancel()
-        $0.cachePolicy = cachePolicy
+    QueryWatcherContext.$identifier.withValue(self.contextIdentifier) {
+      Task {
+        await fetching.mutate {
+          // Cancel anything already in flight before starting a new fetch
+          $0.cancellable?.cancel()
+          $0.cachePolicy = cachePolicy
 
-        $0.cancellable = client?.fetch(
-          query: query,
-          cachePolicy: cachePolicy,
-          contextIdentifier: self.contextIdentifier,
-          context: self.context,
-          queue: callbackQueue
-        ) { [weak self] result in
-          guard let self = self else { return }
+          $0.cancellable = client?.fetch(
+            query: query,
+            cachePolicy: cachePolicy,
+            context: self.context,
+            queue: callbackQueue
+          ) { [weak self] result in
+            guard let self = self else { return }
 
-          switch result {
-          case .success(let graphQLResult):
-            Task {
-             await self.fetching.mutate {
-               $0.dependentKeys = graphQLResult.dependentKeys
-             }
+            switch result {
+            case .success(let graphQLResult):
+              Task {
+                await self.fetching.mutate {
+                  $0.dependentKeys = graphQLResult.dependentKeys
+                }
+              }
+            case .failure:
+              break
             }
-          case .failure:
-            break
-          }
 
-          self.resultHandler(result)
+            self.resultHandler(result)
+          }
         }
       }
     }
@@ -117,11 +118,10 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 
   public func store(
     _ store: ApolloStore,
-    didChangeKeys changedKeys: Set<CacheKey>,
-    contextIdentifier: UUID?
+    didChangeKeys changedKeys: Set<CacheKey>
   ) {
     if
-      let incomingIdentifier = contextIdentifier,
+      let incomingIdentifier = QueryWatcherContext.identifier,
       incomingIdentifier == self.contextIdentifier {
         // This is from changes to the keys made from the `fetch` method above,
         // changes will be returned through that and do not need to be returned
@@ -170,4 +170,11 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
       }
     }
   }
+}
+
+// MARK: - Task Local Values
+
+private enum QueryWatcherContext {
+  @TaskLocal
+  static var identifier: UUID?
 }

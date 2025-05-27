@@ -15,7 +15,7 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
       switch self {
 
       case let .unsupportedContentType(type):
-        return "Unsupported content type: 'application/graphql-response+json' or 'application/json' are supported, received '\(type)'."
+        return "Unsupported content type: application/json is required but got \(type)."
       case .cannotParseChunkData:
         return "The chunk data could not be parsed."
       case let .irrecoverableError(message):
@@ -30,30 +30,26 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
 
   private enum DataLine {
     case heartbeat
-    case contentHeader(directives: [String])
+    case contentHeader(type: MultipartResponseParsing.ContentTypeDataLine)
     case json(object: JSONObject)
     case unknown
 
-    init(_ value: String) {
+    init(_ value: Data) {
       self = Self.parse(value)
     }
 
-    private static func parse(_ dataLine: String) -> DataLine {
-      var contentTypeHeader: StaticString { "content-type:" }
-      var heartbeat: StaticString { "{}" }
+    static let HeartbeatMessage: Data = Data([0x7b, 0x7d]) // "{}"
 
-      if dataLine == heartbeat.description {
+    private static func parse(_ dataLine: Data) -> DataLine {
+      if dataLine == HeartbeatMessage {
         return .heartbeat
       }
 
-      if let directives = dataLine.parseContentTypeDirectives() {
-        return .contentHeader(directives: directives)
+      if let contentType = MultipartResponseParsing.ContentTypeDataLine(dataLine) {
+        return .contentHeader(type: contentType)
       }
 
-      if
-        let data = dataLine.data(using: .utf8),
-        let jsonObject = try? JSONSerializationFormat.deserialize(data: data) as JSONObject
-      {
+      if let jsonObject = try? JSONSerializationFormat.deserialize(data: dataLine) as JSONObject {
         return .json(object: jsonObject)
       }
 
@@ -61,18 +57,24 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
     }
   }
 
+  static let SupportedContentTypes: [MultipartResponseParsing.ContentTypeDataLine] = [
+    .applicationJSON,
+    .applicationGraphQLResponseJSON
+  ]
+
   static let protocolSpec: String = "subscriptionSpec=1.0"
 
-  static func parse(_ chunk: String) -> Result<Data?, any Error> {
-    for dataLine in chunk.components(separatedBy: Self.dataLineSeparator.description) {
-      switch DataLine(dataLine.trimmingCharacters(in: .newlines)) {
+  static func parse(multipartChunk chunk: Data) throws -> JSONObject? {
+    var dataLines = MultipartResponseParsing.DataLineIterator(data: chunk)
+    while let dataLine = dataLines.next() {
+      switch DataLine(dataLine) {
       case .heartbeat:
         // Periodically sent by the router - noop
         break
 
-      case let .contentHeader(directives):
-        guard directives.contains(where: { $0.isValidGraphQLContentType }) else {
-          return .failure(ParsingError.unsupportedContentType(type: directives.joined(separator: ";")))
+      case let .contentHeader(contentType):
+        guard SupportedContentTypes.contains(contentType) else {
+          throw ParsingError.unsupportedContentType(type: contentType.valueString)
         }
 
       case let .json(object):
@@ -81,35 +83,34 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
             let errors = errors as? [JSONObject],
             let message = errors.first?["message"] as? String
           else {
-            return .failure(ParsingError.cannotParseErrorData)
+            throw ParsingError.cannotParseErrorData
           }
 
-          return .failure(ParsingError.irrecoverableError(message: message))
+          throw ParsingError.irrecoverableError(message: message)
         }
 
         if let payload = object.payload, !(payload is NSNull) {
           guard
-            let payload = payload as? JSONObject,
-            let data: Data = try? JSONSerializationFormat.serialize(value: payload)
+            let payload = payload as? JSONObject
           else {
-            return .failure(ParsingError.cannotParsePayloadData)
+            throw ParsingError.cannotParsePayloadData
           }
 
-          return .success(data)
+          return payload
         }
 
         // 'errors' is optional because valid payloads don't have transport errors.
         // `errors` can be null because it's taken to be the same as optional.
         // `payload` is optional because the heartbeat message does not contain a payload field.
         // `payload` can be null such as in the case of a transport error or future use (TBD).
-        return .success(nil)
+        return nil
 
       case .unknown:
-        return .failure(ParsingError.cannotParseChunkData)
+        throw ParsingError.cannotParseChunkData
       }
     }
 
-    return .success(nil)
+    return nil
   }
 }
 

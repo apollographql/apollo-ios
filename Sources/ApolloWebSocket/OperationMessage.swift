@@ -57,24 +57,24 @@ final class OperationMessage {
     self.serialized = serialized
   }
 
-  func parse(handler: (ParseHandler) -> Void) {
+  func parse(handler: (ParseHandler) async -> Void) async {
     guard let serialized = self.serialized else {
-      handler(ParseHandler(nil,
-                           nil,
-                           nil,
-                           WebSocketError(payload: nil,
-                                          error: nil,
-                                          kind: .serializedMessageError)))
+      await handler(ParseHandler(nil,
+                                 nil,
+                                 nil,
+                                 WebSocketError(payload: nil,
+                                                error: nil,
+                                                kind: .serializedMessageError)))
       return
     }
 
     guard let data = self.serialized?.data(using: (.utf8) ) else {
-      handler(ParseHandler(nil,
-                           nil,
-                           nil,
-                           WebSocketError(payload: nil,
-                                          error: nil,
-                                          kind: .unprocessedMessage(serialized))))
+      await handler(ParseHandler(nil,
+                                 nil,
+                                 nil,
+                                 WebSocketError(payload: nil,
+                                                error: nil,
+                                                kind: .unprocessedMessage(serialized))))
       return
     }
 
@@ -89,18 +89,18 @@ final class OperationMessage {
       type = json["type"] as? String
       payload = json["payload"] as? JSONObject
 
-      handler(ParseHandler(type,
-                           id,
-                           payload,
-                           nil))
+      await handler(ParseHandler(type,
+                                 id,
+                                 payload,
+                                 nil))
     }
     catch {
-      handler(ParseHandler(type,
-                           id,
-                           payload,
-                           WebSocketError(payload: payload,
-                                          error: error,
-                                          kind: .unprocessedMessage(serialized))))
+      await handler(ParseHandler(type,
+                                 id,
+                                 payload,
+                                 WebSocketError(payload: payload,
+                                                error: error,
+                                                kind: .unprocessedMessage(serialized))))
     }
   }
 }

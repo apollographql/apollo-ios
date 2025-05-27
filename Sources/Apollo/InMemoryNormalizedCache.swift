@@ -1,4 +1,4 @@
-public final class InMemoryNormalizedCache: NormalizedCache {
+public class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 
   public init(records: RecordSet = RecordSet()) {

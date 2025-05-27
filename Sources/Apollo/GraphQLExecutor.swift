@@ -200,8 +200,8 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     withRootCacheReference root: CacheReference? = nil,
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
-  ) throws -> Accumulator.FinalResult {
-    return try execute(
+  ) async throws -> Accumulator.FinalResult {
+    return try await execute(
       selectionSet: selectionSet,
       on: data,
       withRootCacheReference: root,
@@ -221,8 +221,8 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     withRootCacheReference root: CacheReference? = nil,
     variables: GraphQLOperation.Variables? = nil,
     accumulator: Accumulator
-  ) throws -> Accumulator.FinalResult {
-    return try execute(
+  ) async throws -> Accumulator.FinalResult {
+    return try await execute(
       selectionSet: selectionSet,
       on: data,
       withRootCacheReference: root,
@@ -241,7 +241,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     variables: GraphQLOperation.Variables? = nil,
     schema: (any SchemaMetadata.Type),
     accumulator: Accumulator
-  ) throws -> Accumulator.FinalResult {
+  ) async throws -> Accumulator.FinalResult {
     let info = ObjectExecutionInfo(
       rootType: selectionSet,
       variables: variables,
@@ -249,14 +249,14 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       withRootCacheReference: root
     )
 
-    let rootValue: PossiblyDeferred<Accumulator.ObjectResult> = execute(
+    let rootValue: PossiblyDeferred<Accumulator.ObjectResult> = await execute(
       selections: selectionSet.__selections,
       on: data,
       info: info,
       accumulator: accumulator
     )
 
-    return try accumulator.finish(rootValue: try rootValue.get(), info: info)
+    return try await accumulator.finish(rootValue: try rootValue.get(), info: info)
   }
 
   private func execute<Accumulator: GraphQLResultAccumulator>(
@@ -264,8 +264,8 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     on object: Source.RawObjectData,
     info: ObjectExecutionInfo,
     accumulator: Accumulator
-  ) -> PossiblyDeferred<Accumulator.ObjectResult> {
-    let fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = execute(
+  ) async -> PossiblyDeferred<Accumulator.ObjectResult> {
+    let fieldEntries: [PossiblyDeferred<Accumulator.FieldEntry?>] = await execute(
       selections: selections,
       on: object,
       info: info,
@@ -282,7 +282,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     on object: Source.RawObjectData,
     info: ObjectExecutionInfo,
     accumulator: Accumulator
-  ) -> [PossiblyDeferred<Accumulator.FieldEntry?>] {
+  ) async -> [PossiblyDeferred<Accumulator.FieldEntry?>] {
     do {
       let groupedFields = try groupFields(selections, on: object, info: info)
       info.fulfilledFragments = groupedFields.fulfilledFragments
@@ -292,7 +292,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       fieldEntries.reserveCapacity(groupedFields.count)
 
       for (_, fields) in groupedFields.fieldInfoList {
-        let fieldEntry = execute(
+        let fieldEntry = await execute(
           fields: fields,
           on: object,
           accumulator: accumulator)
@@ -307,7 +307,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
           }
 
           do {
-            let deferredFragmentFieldEntries = try lazilyEvaluateAll(
+            let deferredFragmentFieldEntries = try await lazilyEvaluateAll(
               execute(
                 selections: fragmentType.__selections,
                 on: object,
@@ -368,7 +368,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     fields fieldInfo: FieldExecutionInfo,
     on object: Source.RawObjectData,
     accumulator: Accumulator
-  ) -> PossiblyDeferred<Accumulator.FieldEntry?> {
+  ) async -> PossiblyDeferred<Accumulator.FieldEntry?> {
     if accumulator.requiresCacheKeyComputation {
       do {
         try fieldInfo.computeCacheKeyAndPath()
@@ -377,9 +377,9 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       }
     }
 
-    return executionSource.resolveField(with: fieldInfo, on: object)
+    return await executionSource.resolveField(with: fieldInfo, on: object)
       .flatMap {
-        return self.complete(fields: fieldInfo,
+        return await self.complete(fields: fieldInfo,
                              withValue: $0,
                              accumulator: accumulator)
       }.map {
@@ -397,8 +397,8 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     fields fieldInfo: FieldExecutionInfo,
     withValue value: JSONValue?,
     accumulator: Accumulator
-  ) -> PossiblyDeferred<Accumulator.PartialResult> {
-    complete(fields: fieldInfo,
+  ) async -> PossiblyDeferred<Accumulator.PartialResult> {
+    await complete(fields: fieldInfo,
              withValue: value,
              asType: fieldInfo.field.type,
              accumulator: accumulator)
@@ -412,7 +412,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     withValue value: JSONValue?,
     asType returnType: Selection.Field.OutputType,
     accumulator: Accumulator
-  ) -> PossiblyDeferred<Accumulator.PartialResult> {
+  ) async -> PossiblyDeferred<Accumulator.PartialResult> {
     switch (value.asNullable, returnType) {
     case (.none, _):
       return PossiblyDeferred { try accumulator.acceptMissingValue(info: fieldInfo) }
@@ -424,7 +424,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       return PossiblyDeferred { try accumulator.acceptNullValue(info: fieldInfo) }
 
     case let (.some(value), .nonNull(innerType)):
-      return complete(fields: fieldInfo,
+      return await complete(fields: fieldInfo,
                       withValue: value,
                       asType: innerType,
                       accumulator: accumulator)
@@ -440,33 +440,33 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
         return PossiblyDeferred { throw JSONDecodingError.wrongType }
       }
 
-      let completedArray = array
-        .enumerated()
-        .map { index, element -> PossiblyDeferred<Accumulator.PartialResult> in
-          let elementFieldInfo = fieldInfo.copy()
+      var completedArray: [PossiblyDeferred<Accumulator.PartialResult>] = []
+      for (index, element) in array.enumerated() {
+        let elementFieldInfo = fieldInfo.copy()
 
-          let indexSegment = String(index)
-          elementFieldInfo.responsePath.append(indexSegment)
+        let indexSegment = String(index)
+        elementFieldInfo.responsePath.append(indexSegment)
 
-          if accumulator.requiresCacheKeyComputation {
-            elementFieldInfo.cachePath.append(indexSegment)
-          }
-
-          return self
-            .complete(
-              fields: elementFieldInfo,
-              withValue: element,
-              asType: innerType,
-              accumulator: accumulator
-            )
-            .mapError { error in
-              if !(error is GraphQLExecutionError) {
-                return GraphQLExecutionError(path: elementFieldInfo.responsePath, underlying: error)
-              } else {
-                return error
-              }
-            }
+        if accumulator.requiresCacheKeyComputation {
+          elementFieldInfo.cachePath.append(indexSegment)
         }
+
+        let result = await self
+          .complete(
+            fields: elementFieldInfo,
+            withValue: element,
+            asType: innerType,
+            accumulator: accumulator
+          )
+          .mapError { error in
+            if !(error is GraphQLExecutionError) {
+              return GraphQLExecutionError(path: elementFieldInfo.responsePath, underlying: error)
+            } else {
+              return error
+            }
+          }
+        completedArray.append(result)
+      }
 
       return lazilyEvaluateAll(completedArray).map {
         try accumulator.accept(list: $0, info: fieldInfo)
@@ -477,7 +477,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
         return PossiblyDeferred { throw JSONDecodingError.wrongType }
       }
 
-      return executeChildSelections(
+      return await executeChildSelections(
         forObjectTypeFields: fieldInfo,
         withRootType: rootSelectionSetType,
         onChildObject: object,
@@ -491,7 +491,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     withRootType rootSelectionSetType: any RootSelectionSet.Type,
     onChildObject object: Source.RawObjectData,
     accumulator: Accumulator
-  ) -> PossiblyDeferred<Accumulator.PartialResult> {
+  ) async -> PossiblyDeferred<Accumulator.PartialResult> {
     let expectedInterface = rootSelectionSetType.__parentType as? Interface
     
     let (childExecutionInfo, selections) = fieldInfo.computeChildExecutionData(
@@ -503,7 +503,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
       )
     )
     
-    return execute(
+    return await execute(
       selections: selections,
       on: object,
       info: childExecutionInfo,

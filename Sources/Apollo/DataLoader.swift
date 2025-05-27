@@ -1,5 +1,5 @@
 final class DataLoader<Key: Hashable, Value> {
-  public typealias BatchLoad = (Set<Key>) throws -> [Key: Value]
+  public typealias BatchLoad = (Set<Key>) async throws -> [Key: Value]
   private var batchLoad: BatchLoad
 
   private var cache: [Key: Result<Value?, any Error>] = [:]
@@ -15,19 +15,19 @@ final class DataLoader<Key: Hashable, Value> {
     }
     
     pendingLoads.insert(key)
-
-    return .deferred { try self.load(key) }
+    
+    return .deferred { try await self.load(key) }
   }
   
-  private func load(_ key: Key) throws -> Value? {
+  private func load(_ key: Key) async throws -> Value? {
     if let cachedResult = cache[key] {
       return try cachedResult.get()
     }
     
     assert(pendingLoads.contains(key))
     
-    let values = try batchLoad(pendingLoads)
-    
+    let values = try await batchLoad(pendingLoads)
+
     for key in pendingLoads {
       cache[key] = .success(values[key])
     }

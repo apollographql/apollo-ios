@@ -5,7 +5,7 @@ import ApolloAPI
 import Foundation
 
 /// A task to wrap sending/canceling operations over a websocket.
-final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
+final class WebSocketTask<Operation: GraphQLOperation>: Sendable, Cancellable {
   let sequenceNumber : String?
   let transport: WebSocketTransport
 
@@ -16,7 +16,7 @@ final class WebSocketTask<Operation: GraphQLOperation>: Cancellable {
   /// - Parameter completionHandler: A completion handler to fire when the operation has a result.
   init(_ ws: WebSocketTransport,
        _ operation: Operation,
-       _ completionHandler: @escaping @Sendable (_ result: Result<JSONObject, any Error>) -> Void) {
+       _ completionHandler: @escaping @Sendable (_ result: Result<JSONObject, any Error>) async -> Void) {
     sequenceNumber = ws.sendHelper(operation: operation, resultHandler: completionHandler)
     transport = ws
   }

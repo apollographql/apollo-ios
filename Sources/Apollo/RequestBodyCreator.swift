@@ -2,29 +2,65 @@
 import ApolloAPI
 #endif
 
-public protocol RequestBodyCreator {
+public struct DefaultRequestBodyCreator: JSONRequestBodyCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
+}
+
+public protocol JSONRequestBodyCreator: Sendable {
+  #warning("TODO: replace with version that takes request after rewriting websocket")
   /// Creates a `JSONEncodableDictionary` out of the passed-in operation
   ///
+  /// - Note: This function only exists for supporting the soon-to-be-replaced `WebSocketTransport`
+  /// from the `ApolloWebSocket` package. Once that package is re-written, this function will likely
+  /// be deprecated.
+  ///
   /// - Parameters:
-  ///   - operation: The operation to use
+  ///   - operation: The `GraphQLOperation` to create the JSON body for.
   ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
+  ///   - clientAwarenessMetadata: Metadata used by the
+  ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
+  ///     feature of GraphOS Studio.
   /// - Returns: The created `JSONEncodableDictionary`
   func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
     sendQueryDocument: Bool,
-    autoPersistQuery: Bool
+    autoPersistQuery: Bool,
+    clientAwarenessMetadata: ClientAwarenessMetadata
   ) -> JSONEncodableDictionary
+
 }
 
 // MARK: - Default Implementation
 
-extension RequestBodyCreator {
-  
+extension JSONRequestBodyCreator {
+
+  /// Creates a `JSONEncodableDictionary` out of the passed-in request
+  ///
+  /// - Parameters:
+  ///   - request: The `GraphQLRequest` to create the JSON body for.
+  ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
+  ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
+  /// - Returns: The created `JSONEncodableDictionary`
+  public func requestBody<Request: GraphQLRequest>(
+    for request: Request,
+    sendQueryDocument: Bool,
+    autoPersistQuery: Bool
+  ) -> JSONEncodableDictionary {
+    self.requestBody(
+      for: request.operation,
+      sendQueryDocument: sendQueryDocument,
+      autoPersistQuery: autoPersistQuery,
+      clientAwarenessMetadata: request.clientAwarenessMetadata
+    )
+  }
+
   public func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
     sendQueryDocument: Bool,
-    autoPersistQuery: Bool
+    autoPersistQuery: Bool,
+    clientAwarenessMetadata: ClientAwarenessMetadata
   ) -> JSONEncodableDictionary {
     var body: JSONEncodableDictionary = [
       "operationName": Operation.operationName,
@@ -51,12 +87,17 @@ extension RequestBodyCreator {
       ]
     }
 
+    clientAwarenessMetadata.applyExtension(to: &body)
+
     return body
   }
 }
 
+// MARK: - Deprecations
+
+@available(*, deprecated, renamed: "JSONRequestBodyCreator")
+public typealias RequestBodyCreator = JSONRequestBodyCreator
+
 // Helper struct to create requests independently of HTTP operations.
-public struct ApolloRequestBodyCreator: RequestBodyCreator {
-  // Internal init methods cannot be used in public methods
-  public init() { }
-}
+@available(*, deprecated, renamed: "DefaultRequestBodyCreator")
+public typealias ApolloRequestBodyCreator = DefaultRequestBodyCreator

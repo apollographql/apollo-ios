@@ -4,7 +4,13 @@
 /// - Returns: A deferred array with the result of evaluating each element.
 func lazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value>]) -> PossiblyDeferred<[Value]> {
   return .deferred {
-    try elements.map { try $0.get() }
+    var values = [Value]()
+
+    for element in elements {
+      try await values.append(element.get())
+    }
+
+    return values    
   }
 }
 
@@ -14,7 +20,15 @@ func lazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value>]) -> Possibly
 /// - Returns: A deferred array with the result of evaluating each element.
 func compactLazilyEvaluateAll<Value>(_ elements: [PossiblyDeferred<Value?>]) -> PossiblyDeferred<[Value]> {
   return .deferred {
-    try elements.compactMap { try $0.get() }
+    var values = [Value]()
+
+    for element in elements {
+      if let value = try await element.get() {
+        values.append(value)
+      }
+    }
+
+    return values
   }
 }
 
@@ -48,8 +62,8 @@ public enum PossiblyDeferred<Value> {
   case immediate(Result<Value, any Error>)
   
   /// A deferred value that will be lazily evaluated by invoking the associated throwing closure.
-  case deferred(() throws -> Value)
-  
+  case deferred(() async throws -> Value)
+
   /// Creates a new immediate result by evaluating a throwing closure, capturing the
   /// returned value as a success, or any thrown error as a failure.
   ///
@@ -76,12 +90,12 @@ public enum PossiblyDeferred<Value> {
   ///
   /// - Returns: The success value, if the instance represents a success.
   /// - Throws: The failure value, if the instance represents a failure.
-  func get() throws -> Value {
+  func get() async throws -> Value {
     switch self {
     case .immediate(let result):
       return try result.get()
     case .deferred(let thunk):
-      return try thunk()
+      return try await thunk()
     }
   }
   
@@ -98,7 +112,7 @@ public enum PossiblyDeferred<Value> {
       return .immediate(Result { try transform(try result.get()) })
     case .deferred(let thunk):
       return .deferred {
-        try transform(try thunk())
+        try transform(try await thunk())
       }
     }
   }
@@ -113,17 +127,18 @@ public enum PossiblyDeferred<Value> {
   ///   instance.
   /// - Returns: A `PossiblyDeferred` instance with the result of evaluating `transform`
   ///   as the new success value if this instance represents a success.
-  func flatMap<NewValue>(_ transform: @escaping (Value) -> PossiblyDeferred<NewValue>) -> PossiblyDeferred<NewValue> {
+  func flatMap<NewValue>(
+    _ transform: @escaping (Value) async -> PossiblyDeferred<NewValue>) async -> PossiblyDeferred<NewValue> {
     switch self {
     case .immediate(let result):
       do {
-        return transform(try result.get())
+        return await transform(try result.get())
       } catch {
         return .immediate(.failure(error))
       }
     case .deferred(let thunk):
       return .deferred {
-        return try transform(try thunk()).get()
+        return try await transform(thunk()).get()
       }
     }
   }
@@ -142,7 +157,7 @@ public enum PossiblyDeferred<Value> {
     case .deferred(let thunk):
       return .deferred {
         do {
-          return try thunk()
+          return try await thunk()
         } catch {
           throw transform(error)
         }

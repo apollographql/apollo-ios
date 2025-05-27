@@ -2,7 +2,8 @@
 @_spi(Internal) import ApolloAPI
 #endif
 
-#warning("TODO: maybe change to generic over Operation to give more access to Operation type info?")
+#warning("TODO: maybe change to generic over Operation to give more access to Operation type info? 3.0?")
+#warning("TODO: change to GraphQLResponse when we delete the existing response object?")
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
 

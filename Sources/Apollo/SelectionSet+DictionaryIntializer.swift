@@ -21,9 +21,9 @@ extension RootSelectionSet {
   public init(
     data: [String: Any],
     variables: GraphQLOperation.Variables? = nil
-  ) throws {
+  ) async throws {
     let jsonObject = try Self.convertToAnyHashableValueDict(dict: data)
-    try self.init(data: jsonObject, variables: variables)
+    try await self.init(data: jsonObject, variables: variables)
   }
   
   /// Convert dictionary type [String: Any] to [String: AnyHashable]

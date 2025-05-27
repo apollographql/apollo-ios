@@ -2,19 +2,18 @@
 @_spi(Internal) import ApolloAPI
 #endif
 
-/// An abstract GraphQL response used for full and incremental responses.
-struct AnyGraphQLResponse {
-  let body: JSONObject
+struct BaseResponseExecutionHandler: Sendable {
 
-  private let rootKey: CacheReference
-  private let variables: GraphQLOperation.Variables?
+  let responseBody: JSONObject
+  let rootKey: CacheReference
+  let variables: GraphQLOperation.Variables?
 
   init(
-    body: JSONObject,
+    responseBody: JSONObject,
     rootKey: CacheReference,
     variables: GraphQLOperation.Variables?
   ) {
-    self.body = try! JSONObject(_jsonValue: body as JSONValue)
+    self.responseBody = responseBody
     self.rootKey = rootKey
     self.variables = variables
   }
@@ -29,7 +28,7 @@ struct AnyGraphQLResponse {
     selectionSet: Data.Type,
     with accumulator: Accumulator
   ) async throws -> Accumulator.FinalResult? {
-    guard let dataEntry = body["data"] as? JSONObject else {
+    guard let dataEntry = responseBody["data"] as? JSONObject else {
       return nil
     }
 
@@ -52,7 +51,7 @@ struct AnyGraphQLResponse {
     in operation: Operation.Type,
     with accumulator: Accumulator
   ) async throws -> Accumulator.FinalResult? {
-    guard let dataEntry = body["data"] as? JSONObject else {
+    guard let dataEntry = responseBody["data"] as? JSONObject else {
       return nil
     }
 
@@ -71,33 +70,39 @@ struct AnyGraphQLResponse {
   }
 
   func parseErrors() -> [GraphQLError]? {
-    guard let errorsEntry = self.body["errors"] as? [JSONObject] else {
+    guard let errorsEntry = self.responseBody["errors"] as? [JSONObject] else {
       return nil
     }
 
-    return errorsEntry.map(GraphQLError.init)
+    return errorsEntry.map {
+      GraphQLError($0)
+    }
   }
 
   func parseExtensions() -> JSONObject? {
-    return self.body["extensions"] as? JSONObject
+    return self.responseBody["extensions"] as? JSONObject
   }
 }
 
 // MARK: - Equatable Conformance
 
-extension AnyGraphQLResponse: Equatable {
-  static func == (lhs: AnyGraphQLResponse, rhs: AnyGraphQLResponse) -> Bool {
-    AnySendableHashable.equatableCheck(lhs.body, rhs.body) &&
+#warning("TODO: Do we need this?")
+extension BaseResponseExecutionHandler: Equatable {
+  static func == (lhs: BaseResponseExecutionHandler, rhs: BaseResponseExecutionHandler) -> Bool {
+    AnySendableHashable.equatableCheck(lhs.responseBody, rhs.responseBody) &&
     lhs.rootKey == rhs.rootKey &&
-    AnySendableHashable.equatableCheck(lhs.variables?._jsonEncodableObject._jsonValue, rhs.variables?._jsonEncodableObject._jsonValue)
+    AnySendableHashable.equatableCheck(
+      lhs.variables?._jsonEncodableObject._jsonValue,
+      rhs.variables?._jsonEncodableObject._jsonValue
+    )
   }
 }
 
 // MARK: - Hashable Conformance
 
-extension AnyGraphQLResponse: Hashable {
+extension BaseResponseExecutionHandler: Hashable {
   func hash(into hasher: inout Hasher) {
-    hasher.combine(body)
+    hasher.combine(responseBody)
     hasher.combine(rootKey)
     hasher.combine(variables?._jsonEncodableObject._jsonValue)
   }

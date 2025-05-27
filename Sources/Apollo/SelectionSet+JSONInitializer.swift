@@ -17,13 +17,13 @@ extension RootSelectionSet {
   public init(
     data: JSONObject,
     variables: GraphQLOperation.Variables? = nil
-  ) throws {
+  ) async throws {
     let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    let dataDict = try executor.execute(
+    let dataDict = try await executor.execute(
       selectionSet: Self.self,
       on: data,
       variables: variables,
@@ -52,13 +52,13 @@ extension Deferrable {
     data: JSONObject,
     in operation: any GraphQLOperation.Type,
     variables: GraphQLOperation.Variables? = nil
-  ) throws {
+  ) async throws {
     let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    let dataDict = try executor.execute(
+    let dataDict = try await executor.execute(
       selectionSet: Self.self,
       in: operation,
       on: data,

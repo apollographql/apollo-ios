@@ -4,61 +4,70 @@ import ApolloAPI
 #endif
 
 /// A request class allowing for a multipart-upload request.
-open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
-  
-  public let requestBodyCreator: any RequestBodyCreator
+public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
+
+  /// The endpoint to make a GraphQL request to
+  public var graphQLEndpoint: URL
+
+  /// The GraphQL Operation to execute
+  public var operation: Operation
+
+  /// Any additional headers you wish to add to this request
+  public var additionalHeaders: [String: String] = [:]
+
+  /// The `CachePolicy` to use for this request.
+  public var cachePolicy: CachePolicy
+
+  /// [optional] A context that is being passed through the request chain.
+  public var context: (any RequestContext)?
+
+  public let requestBodyCreator: any JSONRequestBodyCreator
+
   public let files: [GraphQLFile]
-  public let manualBoundary: String?
+
+  public let multipartBoundary: String
+
   public let serializationFormat = JSONSerializationFormat.self
 
-  private let sendEnhancedClientAwareness: Bool
+  /// The telemetry metadata about the client. This is used by GraphOS Studio's
+  /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
+  /// feature.
+  public var clientAwarenessMetadata: ClientAwarenessMetadata
 
   /// Designated Initializer
   ///
   /// - Parameters:
-  ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
   ///   - operation: The GraphQL Operation to execute
-  ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
-  ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
-  ///   - additionalHeaders: Any additional headers you wish to add by default to this request. Defaults to an empty dictionary.
+  ///   - graphQLEndpoint: The endpoint to make a GraphQL request to
   ///   - files: The array of files to upload for all `Upload` parameters in the mutation.
-  ///   - manualBoundary: [optional] A manual boundary to pass in. A default boundary will be used otherwise. Defaults to nil.
+  ///   - multipartBoundary: [optional] A boundary to use for the multipart request.
   ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
   public init(
-    graphQLEndpoint: URL,
     operation: Operation,
-    clientName: String,
-    clientVersion: String,
-    additionalHeaders: [String: String] = [:],
+    graphQLEndpoint: URL,
     files: [GraphQLFile],
-    manualBoundary: String? = nil,
+    multipartBoundary: String? = nil,
     context: (any RequestContext)? = nil,
-    requestBodyCreator: any RequestBodyCreator = ApolloRequestBodyCreator(),
-    sendEnhancedClientAwareness: Bool = true
+    requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
+    clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
+    self.operation = operation
+    self.graphQLEndpoint = graphQLEndpoint
+    self.cachePolicy = .default
+    self.context = context
     self.requestBodyCreator = requestBodyCreator
     self.files = files
-    self.manualBoundary = manualBoundary
-    self.sendEnhancedClientAwareness = sendEnhancedClientAwareness
+    self.multipartBoundary = multipartBoundary ?? "apollo-ios.boundary.\(UUID().uuidString)"
+    self.clientAwarenessMetadata = clientAwarenessMetadata
 
-    super.init(
-      graphQLEndpoint: graphQLEndpoint,
-      operation: operation,
-      contentType: "multipart/form-data",
-      clientName: clientName,
-      clientVersion: clientVersion,
-      additionalHeaders: additionalHeaders,
-      context: context
-    )
+    self.addHeader(name: "Content-Type", value: "multipart/form-data; boundary=\(self.multipartBoundary)")
   }
   
-  public override func toURLRequest() throws -> URLRequest {
+  public func toURLRequest() throws -> URLRequest {
     let formData = try self.requestMultipartFormData()
-    self.updateContentType(to: "multipart/form-data; boundary=\(formData.boundary)")
-    var request = try super.toURLRequest()
+    var request = createDefaultRequest()
     request.httpBody = try formData.encode()
-    request.httpMethod = GraphQLHTTPMethod.POST.rawValue
     
     return request
   }
@@ -69,19 +78,13 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///
   /// - Throws: Any error arising from creating the form data
   /// - Returns: The created form data
-  open func requestMultipartFormData() throws -> MultipartFormData {
-    let formData: MultipartFormData
-
-    if let boundary = manualBoundary {
-      formData = MultipartFormData(boundary: boundary)
-    } else {
-      formData = MultipartFormData()
-    }
+  public func requestMultipartFormData() throws -> MultipartFormData {
+    let formData = MultipartFormData(boundary: multipartBoundary)
 
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName }).sorted()
-    var fields = self.requestBodyCreator.requestBody(for: operation,
+    var fields = self.requestBodyCreator.requestBody(for: self,
                                                      sendQueryDocument: true,
                                                      autoPersistQuery: false)
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
@@ -94,13 +97,9 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
         variables.updateValue(NSNull(), forKey: fieldName)
       }
     }
-    fields["variables"] = variables
+    fields["variables"] = variables    
 
-    if self.sendEnhancedClientAwareness {
-      addEnhancedClientAwarenessExtension(to: &fields)
-    }
-
-    let operationData = try serializationFormat.serialize(value: fields)
+    let operationData = try JSONSerializationFormat.serialize(value: fields)
     formData.appendPart(data: operationData, name: "operations")
 
     // If there are multiple files for the same field, make sure to include them with indexes for the field. If there are multiple files for different fields, just use the field name.
@@ -126,7 +125,7 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
     
     assert(sortedFiles.count == files.count, "Number of sorted files did not equal the number of incoming files - some field name has been left out.")
 
-    let mapData = try serializationFormat.serialize(value: map)
+    let mapData = try JSONSerializationFormat.serialize(value: map)
     formData.appendPart(data: mapData, name: "map")
 
     for (index, file) in sortedFiles.enumerated() {
@@ -143,16 +142,22 @@ open class UploadRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   // MARK: - Equtable/Hashable Conformance
 
   public static func == (lhs: UploadRequest<Operation>, rhs: UploadRequest<Operation>) -> Bool {
-    lhs as HTTPRequest<Operation> == rhs as HTTPRequest<Operation> &&
+    lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
+    lhs.operation == rhs.operation &&
+    lhs.additionalHeaders == rhs.additionalHeaders &&
+    lhs.cachePolicy == rhs.cachePolicy &&
     type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
     lhs.files == rhs.files &&
-    lhs.manualBoundary == rhs.manualBoundary
+    lhs.multipartBoundary == rhs.multipartBoundary
   }
 
-  public override func hash(into hasher: inout Hasher) {
-    super.hash(into: &hasher)
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(graphQLEndpoint)
+    hasher.combine(operation)
+    hasher.combine(additionalHeaders)
+    hasher.combine(cachePolicy)
     hasher.combine("\(type(of: requestBodyCreator))")
     hasher.combine(files)
-    hasher.combine(manualBoundary)    
+    hasher.combine(multipartBoundary)
   }
 }

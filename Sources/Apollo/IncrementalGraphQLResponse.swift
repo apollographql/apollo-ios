@@ -49,18 +49,18 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
   /// not read or write to the cache will return a `nil` cache `RecordSet`.
   func parseIncrementalResult(
     withCachePolicy cachePolicy: CachePolicy
-  ) throws -> (IncrementalGraphQLResult, RecordSet?) {
+  ) async throws -> (IncrementalGraphQLResult, RecordSet?) {
     switch cachePolicy {
     case .fetchIgnoringCacheCompletely:
       // There is no cache, so we don't need to get any info on dependencies. Use fast parsing.
-      return (try parseIncrementalResultFast(), nil)
+      return (try await parseIncrementalResultFast(), nil)
 
     default:
-      return try parseIncrementalResult()
+      return try await parseIncrementalResult()
     }
   }
 
-  private func parseIncrementalResult() throws -> (IncrementalGraphQLResult, RecordSet?) {
+  private func parseIncrementalResult() async throws -> (IncrementalGraphQLResult, RecordSet?) {
     let accumulator = zip(
       DataDictMapper(),
       ResultNormalizerFactory.networkResponseDataNormalizer(),
@@ -68,8 +68,8 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
     )
 
     var cacheKeys: RecordSet? = nil
-    let result = try makeResult { deferrableSelectionSetType in
-      let executionResult = try base.execute(
+    let result = try await makeResult { deferrableSelectionSetType in
+      let executionResult = try await base.execute(
         selectionSet: deferrableSelectionSetType,
         in: Operation.self,
         with: accumulator
@@ -82,10 +82,10 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
     return (result, cacheKeys)
   }
 
-  private func parseIncrementalResultFast() throws -> IncrementalGraphQLResult {
+  private func parseIncrementalResultFast() async throws -> IncrementalGraphQLResult {
     let accumulator = DataDictMapper()
-    let result = try makeResult { deferrableSelectionSetType in
-      let executionResult = try base.execute(
+    let result = try await makeResult { deferrableSelectionSetType in
+      let executionResult = try await base.execute(
         selectionSet: deferrableSelectionSetType,
         in: Operation.self,
         with: accumulator
@@ -98,8 +98,8 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
   }
 
   fileprivate func makeResult(
-    executor: ((any Deferrable.Type) throws -> (data: DataDict?, dependentKeys: Set<CacheKey>?))
-  ) throws -> IncrementalGraphQLResult {
+    executor: ((any Deferrable.Type) async throws -> (data: DataDict?, dependentKeys: Set<CacheKey>?))
+  ) async throws -> IncrementalGraphQLResult {
     guard let path = base.body["path"] as? [JSONValue] else {
       throw ResponseError.missingPath
     }
@@ -117,7 +117,7 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
       throw ResponseError.missingDeferredSelectionSetType(label, fieldPath.joined(separator: "."))
     }
 
-    let executionResult = try executor(selectionSetType)
+    let executionResult = try await executor(selectionSetType)
     let selectionSet: (any SelectionSet)?
 
     if let data = executionResult.data {

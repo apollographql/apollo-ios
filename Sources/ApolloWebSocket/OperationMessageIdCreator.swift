@@ -3,7 +3,7 @@ import Foundation
 import Apollo
 #endif
 
-public protocol OperationMessageIdCreator {
+public protocol OperationMessageIdCreator: Sendable {
   func requestId() -> String
 }
 
