@@ -109,11 +109,10 @@ final class IncrementalGraphQLResponse<Operation: GraphQLOperation> {
 
     let pathComponents: [PathComponent] = path.compactMap(PathComponent.init)
     let fieldPath = pathComponents.fieldPath
+    let fragmentIdentifier = DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)
 
-    guard let selectionSetType = Operation.deferredSelectionSetType(      
-      withLabel: label,
-      atFieldPath: fieldPath
-    ) as? (any Deferrable.Type) else {
+    guard let deferredResponseFormat = Operation.responseFormat as? IncrementalDeferredResponseFormat,
+          let selectionSetType = deferredResponseFormat.deferredFragments[fragmentIdentifier] as? (any Deferrable.Type) else {
       throw ResponseError.missingDeferredSelectionSetType(label, fieldPath.joined(separator: "."))
     }
 

@@ -74,33 +74,17 @@ public protocol GraphQLOperation: Sendable, Hashable {
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
   static var operationDocument: OperationDocument { get }
-
-  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? { get }
+  static var responseFormat: ResponseFormat { get }
 
   var __variables: Variables? { get }
 
   associatedtype Data: RootSelectionSet
+  associatedtype ResponseFormat: OperationResponseFormat = SingleResponseFormat
 }
 
 // MARK: Static Extensions
 
 public extension GraphQLOperation {
-  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? {
-    return nil
-  }
-
-  @inlinable
-  static func deferredSelectionSetType(
-    withLabel label: String,
-    atFieldPath fieldPath: [String]
-  ) -> (any SelectionSet.Type)? {
-    return Self.deferredFragments?[DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)]
-  }
-
-  static var hasDeferredFragments: Bool {
-    return !(deferredFragments?.isEmpty ?? true)
-  }
-
   static var definition: OperationDefinition? {
     operationDocument.definition
   }
@@ -118,6 +102,10 @@ public extension GraphQLOperation {
       AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
     }
   }
+}
+
+public extension GraphQLOperation where ResponseFormat == SingleResponseFormat {
+  static var responseFormat: ResponseFormat { SingleResponseFormat() }
 }
 
 // MARK: Instance Extensions
@@ -153,6 +141,25 @@ public extension GraphQLMutation {
 public protocol GraphQLSubscription: GraphQLOperation {}
 public extension GraphQLSubscription {
   @inlinable static var operationType: GraphQLOperationType { return .subscription }
+}
+
+// MARK: - OperationResponseFormat
+
+/// The format expected for the network response of an operation.
+public protocol OperationResponseFormat {}
+
+/// A response format for an operation that expects a single network response.
+///
+/// This is the default format for most operations.
+public struct SingleResponseFormat: OperationResponseFormat {}
+
+/// An incremental response format for an operation which uses the `@defer` directive.
+public struct IncrementalDeferredResponseFormat: OperationResponseFormat {
+  public let deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]
+
+  public init(deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]) {
+    self.deferredFragments = deferredFragments
+  }
 }
 
 // MARK: - GraphQLOperationVariableValue

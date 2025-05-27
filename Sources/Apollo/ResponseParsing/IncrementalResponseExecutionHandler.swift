@@ -1,7 +1,7 @@
 import Foundation
 
 #if !COCOAPODS
-  @_spi(Internal) import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 public enum IncrementalResponseError: Error, LocalizedError, Equatable {
@@ -120,13 +120,10 @@ extension JSONResponseParser {
 
       let pathComponents: [PathComponent] = path.compactMap(PathComponent.init)
       let fieldPath = pathComponents.fieldPath
-
-      guard
-        let selectionSetType = Operation.deferredSelectionSetType(
-          withLabel: label,
-          atFieldPath: fieldPath
-        ) as? (any Deferrable.Type)
-      else {
+      let fragmentIdentifier = DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)
+      
+      guard let deferredResponseFormat = Operation.responseFormat as? IncrementalDeferredResponseFormat,
+            let selectionSetType = deferredResponseFormat.deferredFragments[fragmentIdentifier] as? (any Deferrable.Type) else {
         throw IncrementalResponseError.missingDeferredSelectionSetType(label, fieldPath.joined(separator: "."))
       }
 
