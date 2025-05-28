@@ -27,7 +27,7 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
-                                  cachePolicy: CachePolicy,
+                                  cachePolicy: CachePolicy?,
                                   context: (any RequestContext)?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> (any Cancellable)
@@ -42,7 +42,7 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - resultHandler: [optional] A closure that is called when query results are available or when an error occurs.
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
-                                  cachePolicy: CachePolicy,
+                                  cachePolicy: CachePolicy?,
                                   context: (any RequestContext)?,
                                   callbackQueue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>

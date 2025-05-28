@@ -22,7 +22,7 @@ public protocol NormalizedCache: AnyObject {
   /// record to remove based on that key.
   ///
   /// This method does not support cascading delete - it will only
-  /// remove the record for the specified key, and not any references to it or from it.z
+  /// remove the record for the specified key, and not any references to it or from it.
   ///
   /// - Parameters:
   ///   - key: The cache key to remove the record for

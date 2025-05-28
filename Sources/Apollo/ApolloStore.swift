@@ -20,8 +20,6 @@ public protocol ApolloStoreSubscriber: AnyObject, Sendable {
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 #warning("TODO: Docs. ReaderWriter usage; why you should not share a cache with 2 stores, etc.")
 public final class ApolloStore: Sendable {
-  #warning("TODO: remove queue")
-  private let queue: DispatchQueue
   private let readerWriterLock = ReaderWriter()
 
   /// The `NormalizedCache` itself is not thread-safe. Access to the cache by a single store is made
@@ -41,7 +39,6 @@ public final class ApolloStore: Sendable {
   ///            Defaults to an `InMemoryNormalizedCache`.
   public init(cache: any NormalizedCache = InMemoryNormalizedCache()) {
     self.cache = cache
-    self.queue = DispatchQueue(label: "com.apollographql.ApolloStore", attributes: .concurrent)
   }
 
   fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>) {
