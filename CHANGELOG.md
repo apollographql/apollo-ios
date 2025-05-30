@@ -1,5 +1,15 @@
 # Change Log
 
+## v1.22.0
+
+### Improvement
+- **Make cache public within `ReadTransaction` ([#661](https://github.com/apollographql/apollo-ios-dev/pull/661)):** Some users have use cases for accessing a custom `NormalizedCache` implementation directly while performing cache transactions. A new `ReadOnlyNormalizedCache` protocol exposes the cache as read-only in the `ReadTransaction` and as writable in the `ReadWriteTransaction`. See PR [#661](https://github.com/apollographql/apollo-ios-dev/pull/661).
+
+### Fixed
+- **Multiple deprecation warning directives not compiling ([#3559](https://github.com/apollographql/apollo-ios/issues/3559)):** Codegen would generate an incorrect list-style character between the Swift deprecation annotations when using multiple deprecation directives in GraphQL. See PR [#658](https://github.com/apollographql/apollo-ios-dev/pull/658). _Thank you to [@guilherme-anchorage](https://github.com/guilherme-anchorage) for raising the issue._
+- **Non-`all` field merging causes selection set initializers to stop being generated for local cache mutations ([#3554](https://github.com/apollographql/apollo-ios/issues/3554)):** Codegen will now force field merging behaviour and selection set initializer generation for local cache mutations. See PR [#654](https://github.com/apollographql/apollo-ios-dev/pull/654).
+- **Referenced fragments within a local cache mutation operation are generated as mutable ([#3557](https://github.com/apollographql/apollo-ios/issues/3557)):** Any fragments referenced within a local cache mutation will now be generated as mutable too, including any fragments within those fragments. See PR [#659](https://github.com/apollographql/apollo-ios-dev/pull/659).
+
 ## v1.21.0
 
 ### New
