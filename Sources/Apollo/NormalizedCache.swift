@@ -1,12 +1,12 @@
-public protocol NormalizedCache: AnyObject {
-  
+public protocol NormalizedCache: AnyObject, ReadOnlyNormalizedCache {
+
   /// Loads records corresponding to the given keys.
   ///
   /// - Parameters:
   ///   - key: The cache keys to load data for
   /// - Returns: A dictionary of cache keys to records containing the records that have been found.
   func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record]
-    
+
   /// Merges a set of records into the cache.
   ///
   /// - Parameters:
@@ -45,4 +45,16 @@ public protocol NormalizedCache: AnyObject {
 
   /// Clears all records.
   func clear() throws
+}
+
+/// A read-only view of a `NormalizedCache` for use within a `ReadTransaction`.
+public protocol ReadOnlyNormalizedCache: AnyObject {
+
+  /// Loads records corresponding to the given keys.
+  ///
+  /// - Parameters:
+  ///   - key: The cache keys to load data for
+  /// - Returns: A dictionary of cache keys to records containing the records that have been found.
+  func loadRecords(forKeys keys: Set<CacheKey>) throws -> [CacheKey: Record]
+
 }

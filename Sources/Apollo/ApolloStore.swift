@@ -201,11 +201,13 @@ public class ApolloStore {
   }
 
   public class ReadTransaction {
-    fileprivate let cache: any NormalizedCache
-      
+    fileprivate let _cache: any NormalizedCache
+
+    public var readOnlyCache: any ReadOnlyNormalizedCache { _cache }
+
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader { [weak self] batchLoad in
           guard let self else { return [:] }
-          return try cache.loadRecords(forKeys: batchLoad)
+          return try _cache.loadRecords(forKeys: batchLoad)
     }
 
     fileprivate lazy var executor = GraphQLExecutor(
@@ -213,7 +215,7 @@ public class ApolloStore {
     ) 
 
     fileprivate init(store: ApolloStore) {
-      self.cache = store.cache
+      self._cache = store.cache
     }
 
     public func read<Query: GraphQLQuery>(query: Query) throws -> Query.Data {
@@ -263,6 +265,8 @@ public class ApolloStore {
   }
 
   public final class ReadWriteTransaction: ReadTransaction {
+
+    public var cache: any NormalizedCache { _cache }
 
     fileprivate var updateChangedKeysFunc: DidChangeKeysFunc?
 
