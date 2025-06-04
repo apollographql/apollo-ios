@@ -6,6 +6,11 @@ import Apollo
 public struct DatabaseRow {
   let cacheKey: CacheKey
   let storedInfo: String
+
+  public init(cacheKey: CacheKey, storedInfo: String) {
+    self.cacheKey = cacheKey
+    self.storedInfo = storedInfo
+  }
 }
 
 public enum SQLiteError: Error, CustomStringConvertible {
