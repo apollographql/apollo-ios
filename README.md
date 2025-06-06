@@ -117,7 +117,7 @@ We regularly update our [public roadmap](https://github.com/apollographql/apollo
 
 ## 📣 Tell us what you think
 
-| ☑️  Apollo Client User Survey |
+| ☑️  Apollo iOS User Survey |
 | :----- |
 | What do you like best about Apollo iOS? What needs to be improved? Please tell us by taking a [one-minute survey](https://docs.google.com/forms/d/e/1FAIpQLSczNDXfJne3ZUOXjk9Ursm9JYvhTh1_nFTDfdq3XBAFWCzplQ/viewform?usp=pp_url&entry.1170701325=Apollo+iOS&entry.204965213=Readme). Your responses will help us understand Apollo iOS usage and allow us to serve you better. |
 
