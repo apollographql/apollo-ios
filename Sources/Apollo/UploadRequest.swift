@@ -15,8 +15,8 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
   /// Any additional headers you wish to add to this request
   public var additionalHeaders: [String: String] = [:]
 
-  /// The `CachePolicy` to use for this request.
-  public var cachePolicy: CachePolicy
+  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
+  public var fetchBehavior: FetchBehavior
 
   /// [optional] A context that is being passed through the request chain.
   public var context: (any RequestContext)?
@@ -145,7 +145,7 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
     lhs.operation == rhs.operation &&
     lhs.additionalHeaders == rhs.additionalHeaders &&
-    lhs.cachePolicy == rhs.cachePolicy &&
+    lhs.fetchBehavior == rhs.fetchBehavior &&
     type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
     lhs.files == rhs.files &&
     lhs.multipartBoundary == rhs.multipartBoundary
@@ -155,7 +155,7 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     hasher.combine(graphQLEndpoint)
     hasher.combine(operation)
     hasher.combine(additionalHeaders)
-    hasher.combine(cachePolicy)
+    hasher.combine(fetchBehavior)
     hasher.combine("\(type(of: requestBodyCreator))")
     hasher.combine(files)
     hasher.combine(multipartBoundary)

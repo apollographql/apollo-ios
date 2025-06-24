@@ -10,17 +10,18 @@ public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
   public init() {}
 
   public func parse<Request: GraphQLRequest>(
-    response: HTTPURLResponse,
-    dataChunkStream: any AsyncChunkSequence,
+    response: consuming HTTPResponse,
     for request: Request,
     includeCacheRecords: Bool
   ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
 
     let parser = JSONResponseParser(
-      response: response,
+      response: response.response,
       operationVariables: request.operation.__variables,
       includeCacheRecords: includeCacheRecords
     )
+
+    let chunks = response.chunks.getResults()
 
     let stream = AsyncThrowingStream<GraphQLResponse<Request.Operation>, any Error> { continuation in
       let task = Task<(), Never> {
@@ -28,12 +29,12 @@ public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
           defer { continuation.finish() }
           var currentResult: GraphQLResponse<Request.Operation>?
 
-          for try await chunk in dataChunkStream {
+          for try await chunk in chunks {
             try Task.checkCancellation()
 
             guard
               let parsedResponse = try await parser.parse(
-                dataChunk: chunk as! Data,
+                dataChunk: chunk,
                 mergingIncrementalItemsInto: currentResult
               )
             else {

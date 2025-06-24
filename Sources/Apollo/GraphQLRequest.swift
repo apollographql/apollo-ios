@@ -15,8 +15,8 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// Any additional headers you wish to add to this request.
   var additionalHeaders: [String: String] { get set }
 
-  /// The `CachePolicy` to use for this request.
-  var cachePolicy: CachePolicy { get set }
+  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
+  var fetchBehavior: FetchBehavior { get set }
 
   /// [optional] A context that is being passed through the request chain.
   var context: (any RequestContext)? { get set }

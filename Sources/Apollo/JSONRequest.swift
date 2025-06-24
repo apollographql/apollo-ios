@@ -15,8 +15,8 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// Any additional headers you wish to add to this request
   public var additionalHeaders: [String: String] = [:]
 
-  /// The `CachePolicy` to use for this request.
-  public var cachePolicy: CachePolicy  
+  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
+  public var fetchBehavior: FetchBehavior
 
   /// [optional] A context that is being passed through the request chain.
   public var context: (any RequestContext)?
@@ -57,7 +57,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   public init(
     operation: Operation,
     graphQLEndpoint: URL,
-    cachePolicy: CachePolicy = .default,
+    fetchBehavior: FetchBehavior,
     context: (any RequestContext)? = nil,
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     useGETForQueries: Bool = false,
@@ -66,7 +66,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   ) {
     self.operation = operation
     self.graphQLEndpoint = graphQLEndpoint
-    self.cachePolicy = cachePolicy
+    self.fetchBehavior = fetchBehavior
     self.context = context
     self.requestBodyCreator = requestBodyCreator
 
@@ -176,17 +176,21 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
 
   /// Convert the Apollo iOS cache policy into a matching cache policy for URLRequest.
   private var requestCachePolicy: URLRequest.CachePolicy {
-    switch cachePolicy {
-    case .returnCacheDataElseFetch:
-      return .useProtocolCachePolicy
-    case .fetchIgnoringCacheData:
-      return .reloadIgnoringLocalCacheData
-    case .fetchIgnoringCacheCompletely:
-      return .reloadIgnoringLocalAndRemoteCacheData
-    case .returnCacheDataDontFetch:
-      return .returnCacheDataDontLoad
-    case .returnCacheDataAndFetch:
-      return .reloadRevalidatingCacheData
+    if !fetchBehavior.shouldAttemptCacheRead {
+      if fetchBehavior.shouldAttemptCacheWrite {
+        return .reloadIgnoringLocalCacheData
+      } else {
+        return .reloadIgnoringLocalAndRemoteCacheData
+      }
+    } else {
+      switch fetchBehavior.shouldAttemptNetworkFetch {
+      case .always:
+        return .reloadRevalidatingCacheData
+      case .never:
+        return .returnCacheDataDontLoad
+      case .onCacheFailure:
+        return .useProtocolCachePolicy
+      }
     }
   }
 
@@ -199,7 +203,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
     lhs.operation == rhs.operation &&
     lhs.additionalHeaders == rhs.additionalHeaders &&
-    lhs.cachePolicy == rhs.cachePolicy &&
+    lhs.fetchBehavior == rhs.fetchBehavior &&
     lhs.apqConfig == rhs.apqConfig &&
     lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
     lhs.useGETForQueries == rhs.useGETForQueries &&
@@ -210,7 +214,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     hasher.combine(graphQLEndpoint)
     hasher.combine(operation)
     hasher.combine(additionalHeaders)
-    hasher.combine(cachePolicy)
+    hasher.combine(fetchBehavior)
     hasher.combine(apqConfig)
     hasher.combine(isPersistedQueryRetry)
     hasher.combine(useGETForQueries)
@@ -229,7 +233,7 @@ extension JSONRequest: CustomDebugStringConvertible {
       debugStrings.append("\t\(key): \(value),")
     }
     debugStrings.append("]")
-    debugStrings.append("Cache Policy: \(self.cachePolicy)")
+    debugStrings.append("Fetch Behavior: \(self.fetchBehavior)")
     debugStrings.append("Operation: \(self.operation)")
     return debugStrings.joined(separator: "\n\t")
   }
