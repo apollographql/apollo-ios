@@ -8,7 +8,7 @@ extension URLSession.AsyncBytes {
 
 }
 
-public protocol AsyncChunkSequence: AsyncSequence where Element == Data {
+public protocol AsyncChunkSequence: AsyncSequence, Sendable where Element == Data {
   
 }
 

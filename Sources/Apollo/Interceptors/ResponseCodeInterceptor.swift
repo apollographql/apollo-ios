@@ -4,7 +4,7 @@ import ApolloAPI
 #endif
 
 /// An interceptor to check the response code returned with a request.
-public struct ResponseCodeInterceptor: ApolloInterceptor {
+public struct ResponseCodeInterceptor: HTTPInterceptor {
 
   public var id: String = UUID().uuidString
 
@@ -33,8 +33,8 @@ public struct ResponseCodeInterceptor: ApolloInterceptor {
   
   public func intercept<Request: GraphQLRequest>(
     request: Request,
-    next: NextInterceptorFunction<Request>
-  ) async throws -> InterceptorResultStream<Request.Operation> {
+    next: NextHTTPInterceptorFunction<Request>
+  ) async throws -> InterceptorResultStream<HTTPResponse> {
     return try await next(request).map { result in
 
       guard result.response.isSuccessful == true else {

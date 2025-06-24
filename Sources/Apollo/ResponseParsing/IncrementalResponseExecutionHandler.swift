@@ -28,13 +28,13 @@ public enum IncrementalResponseError: Error, LocalizedError, Equatable {
 
 extension JSONResponseParser {
   /// Represents an incremental GraphQL response received from a server.
-  struct IncrementalResponseExecutionHandler {
+  struct IncrementalResponseExecutionHandler<Operation: GraphQLOperation> {
 
     private let base: BaseResponseExecutionHandler
 
     init(
       responseBody: JSONObject,
-      operationVariables: Operation.Variables?
+      operationVariables: GraphQLOperation.Variables?
     ) throws {
       guard let path = responseBody["path"] as? [JSONValue] else {
         throw IncrementalResponseError.missingPath

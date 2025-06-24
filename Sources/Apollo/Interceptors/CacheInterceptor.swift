@@ -1,41 +1,41 @@
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 public protocol CacheInterceptor: Sendable {
 
-  func readCacheData<Query: GraphQLQuery>(
-    for query: Query
-  ) async throws -> GraphQLResult<Query.Data>
+  func readCacheData<Request: GraphQLRequest>(
+    from store: ApolloStore,
+    request: Request
+  ) async throws -> GraphQLResult<Request.Operation.Data> where Request.Operation: GraphQLQuery
 
-  func writeCacheData<Operation: GraphQLOperation>(
-    cacheRecords: RecordSet,
-    for operation: Operation,
-    with result: GraphQLResult<Operation.Data>
+  func writeCacheData<Request: GraphQLRequest>(
+    to store: ApolloStore,
+    request: Request,
+    response: GraphQLResponse<Request.Operation>,
   ) async throws
 
 }
 
 public struct DefaultCacheInterceptor: CacheInterceptor {
 
-  public let store: ApolloStore
+  public init() {}
 
-  public init(store: ApolloStore) {
-    self.store = store
+  public func readCacheData<Request: GraphQLRequest>(
+    from store: ApolloStore,
+    request: Request
+  ) async throws -> GraphQLResult<Request.Operation.Data> where Request.Operation: GraphQLQuery {
+    return try await store.load(request.operation)
   }
 
-  public func readCacheData<Query: GraphQLQuery>(
-    for query: Query
-  ) async throws -> GraphQLResult<Query.Data> {    
-    return try await store.load(query)
+  public func writeCacheData<Request: GraphQLRequest>(
+    to store: ApolloStore,
+    request: Request,
+    response: GraphQLResponse<Request.Operation>,
+  ) async throws {
+    if let records = response.cacheRecords {
+      try await store.publish(records: records)
+    }
   }
 
-  public func writeCacheData<Operation: GraphQLOperation>(
-    cacheRecords: RecordSet,
-    for operation: Operation,
-    with result: GraphQLResult<Operation.Data>
-  ) async throws {    
-    try await store.publish(records: cacheRecords)
-  }
-  
 }

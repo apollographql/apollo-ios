@@ -1,63 +1,57 @@
 import Foundation
-import Combine
+
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 /// An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
-public struct JSONResponseParsingInterceptor: ApolloInterceptor {
+public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
 
-  public init() { }
+  public init() {}
 
-  actor CurrentResult<Operation: GraphQLOperation> {
-    var value: JSONResponseParser<Operation>.ParsedResult? = nil
+  public func parse<Request: GraphQLRequest>(
+    response: HTTPURLResponse,
+    dataChunkStream: any AsyncChunkSequence,
+    for request: Request,
+    includeCacheRecords: Bool
+  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
 
-    func set(_ value: JSONResponseParser<Operation>.ParsedResult) {
-      self.value = value
-    }
-  }
+    let parser = JSONResponseParser(
+      response: response,
+      operationVariables: request.operation.__variables,
+      includeCacheRecords: includeCacheRecords
+    )
 
-  public func intercept<Request: GraphQLRequest>(
-    request: Request,
-    next: NextInterceptorFunction<Request>
-  ) async throws -> InterceptorResultStream<Request.Operation> {
+    let stream = AsyncThrowingStream<GraphQLResponse<Request.Operation>, any Error> { continuation in
+      let task = Task<(), Never> {
+        do {
+          defer { continuation.finish() }
+          var currentResult: GraphQLResponse<Request.Operation>?
 
-    let currentResult = CurrentResult<Request.Operation>()
+          for try await chunk in dataChunkStream {
+            try Task.checkCancellation()
 
-    return try await next(request).compactMap { result -> InterceptorResult<Request.Operation>? in
-      let parser = JSONResponseParser<Request.Operation>(
-        response: result.response,
-        operationVariables: request.operation.__variables,
-        includeCacheRecords: request.cachePolicy.shouldParsingIncludeCacheRecords
-      )
+            guard
+              let parsedResponse = try await parser.parse(
+                dataChunk: chunk as! Data,
+                mergingIncrementalItemsInto: currentResult
+              )
+            else {
+              continue
+            }
 
-      guard let parsedResult = try await parser.parse(
-        dataChunk: result.rawResponseChunk,
-        mergingIncrementalItemsInto: await currentResult.value
-      ) else {
-        return nil
+            currentResult = parsedResponse
+            continuation.yield(parsedResponse)
+          }
+
+
+        } catch {
+          continuation.finish(throwing: error)
+        }
       }
 
-      await currentResult.set(parsedResult)
-      return InterceptorResult(
-        response: result.response,
-        rawResponseChunk: result.rawResponseChunk,
-        parsedResult: InterceptorResult.ParsedResult(
-          result: parsedResult.0,
-          cacheRecords: parsedResult.1
-        ))
+      continuation.onTermination = { _ in task.cancel() }
     }
-  }
-}
-
-fileprivate extension CachePolicy {
-  var shouldParsingIncludeCacheRecords: Bool {
-    switch self {
-    case .fetchIgnoringCacheCompletely:
-      return false
-
-    default:
-      return true
-    }
+    return InterceptorResultStream<GraphQLResponse<Request.Operation>>(stream: stream)
   }
 }

@@ -1,6 +1,7 @@
 import Foundation
+
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 public enum JSONResponseParsingError: Swift.Error, LocalizedError {
@@ -31,12 +32,10 @@ public enum JSONResponseParsingError: Swift.Error, LocalizedError {
   }
 }
 
-public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
-
-  public typealias ParsedResult = (GraphQLResult<Operation.Data>, RecordSet?)  
+public struct JSONResponseParser: Sendable {
 
   let response: HTTPURLResponse
-  let operationVariables: Operation.Variables?
+  let operationVariables: GraphQLOperation.Variables?
   let multipartHeader: HTTPURLResponse.MultipartHeaderComponents
   let includeCacheRecords: Bool
 
@@ -51,10 +50,10 @@ public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
     self.includeCacheRecords = includeCacheRecords
   }
 
-  public func parse(
+  public func parse<Operation: GraphQLOperation>(
     dataChunk: Data,
-    mergingIncrementalItemsInto existingResult: ParsedResult?
-  ) async throws -> ParsedResult? {
+    mergingIncrementalItemsInto existingResult: GraphQLResponse<Operation>?
+  ) async throws -> GraphQLResponse<Operation>? {
     switch response.isMultipart {
     case false:
       return try await parseSingleResponse(data: dataChunk)
@@ -96,7 +95,9 @@ public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
 
   // MARK: - Single Response Parsing
 
-  public func parseSingleResponse(data: Data) async throws -> ParsedResult {
+  public func parseSingleResponse<Operation: GraphQLOperation>(
+    data: Data
+  ) async throws -> GraphQLResponse<Operation> {
     guard
       let body = try? JSONSerializationFormat.deserialize(data: data) as JSONObject
     else {
@@ -106,8 +107,10 @@ public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
     return try await parseSingleResponse(body: body)
   }
 
-  public func parseSingleResponse(body: JSONObject) async throws -> ParsedResult {
-    let executionHandler = SingleResponseExecutionHandler(
+  public func parseSingleResponse<Operation: GraphQLOperation>(
+    body: JSONObject
+  ) async throws -> GraphQLResponse<Operation> {
+    let executionHandler = SingleResponseExecutionHandler<Operation>(
       responseBody: body,
       operationVariables: operationVariables
     )
@@ -130,16 +133,17 @@ public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
     }
   }
 
-  private func executeIncrementalResponses(
+  private func executeIncrementalResponses<Operation: GraphQLOperation>(
     merging incrementalItems: [JSONObject],
-    into existingResult: ParsedResult
-  ) async throws -> ParsedResult {
-    var currentResult = existingResult.0
-    var currentCacheRecords = existingResult.1
+    into existingResult: GraphQLResponse<Operation>
+  ) async throws -> GraphQLResponse<Operation> {
+    var currentResult = existingResult.result
+    var currentCacheRecords = existingResult.cacheRecords
 
     for item in incrementalItems {
       let (incrementalResult, incrementalCacheRecords) = try await executeIncrementalItem(
-        itemBody: item
+        itemBody: item,
+        for: Operation.self
       )
       try Task.checkCancellation()
 
@@ -150,13 +154,14 @@ public struct JSONResponseParser<Operation: GraphQLOperation>: Sendable {
       }
     }
 
-    return (currentResult, currentCacheRecords)
+    return GraphQLResponse(result: currentResult, cacheRecords: currentCacheRecords)
   }
 
-  private func executeIncrementalItem(
-    itemBody: JSONObject
+  private func executeIncrementalItem<Operation: GraphQLOperation>(
+    itemBody: JSONObject,
+    for operationType: Operation.Type
   ) async throws -> (IncrementalGraphQLResult, RecordSet?) {
-    let incrementalExecutionHandler = try IncrementalResponseExecutionHandler(
+    let incrementalExecutionHandler = try IncrementalResponseExecutionHandler<Operation>(
       responseBody: itemBody,
       operationVariables: operationVariables
     )

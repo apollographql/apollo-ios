@@ -165,7 +165,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
       autoPersistQueries = false
     }
     
-    var body = self.requestBodyCreator.requestBody(
+    let body = self.requestBodyCreator.requestBody(
       for: self,
       sendQueryDocument: sendQueryDocument,
       autoPersistQuery: autoPersistQueries
