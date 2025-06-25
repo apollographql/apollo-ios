@@ -13,9 +13,9 @@ public protocol ResponseParsingInterceptor: Sendable {
   ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>>
 }
 
-public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable, Equatable {
+public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable, Hashable {
   public let result: GraphQLResult<Operation.Data>
-  public let cacheRecords: RecordSet?  
+  public let cacheRecords: RecordSet?
 }
 
 /// A protocol to set up a chainable unit of networking work.
@@ -42,19 +42,31 @@ public struct HTTPResponse: Sendable, ~Copyable {
   public let response: HTTPURLResponse
 
   public let chunks: InterceptorResultStream<Data>
+
+  public consuming func mapChunks(
+    _ transform: @escaping @Sendable (HTTPURLResponse, Data) async throws -> (Data)
+  ) async throws -> HTTPResponse {
+    let response = self.response
+    let stream = try await chunks.map { chunk in
+      return try await transform(response, chunk)
+    }
+    return HTTPResponse(response: response, chunks: stream)
+  }
 }
 
 public protocol HTTPInterceptor: Sendable {
 
-  typealias NextHTTPInterceptorFunction<Request: URLRequest> = @Sendable (Request) async throws -> HTTPResponse
+  typealias NextHTTPInterceptorFunction = @Sendable (URLRequest) async throws -> HTTPResponse
 
-  func intercept<Request: URLRequest>(
-    request: Request,
-    next: NextHTTPInterceptorFunction<Request>
+  func intercept(
+    request: URLRequest,
+    context: (any RequestContext)?,
+    next: NextHTTPInterceptorFunction
   ) async throws -> HTTPResponse
 
 }
 
+#warning("TODO: Rename to something that explains what this actually does instead of its current use case.")
 public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
 
   private let stream: AsyncThrowingStream<T, any Error>

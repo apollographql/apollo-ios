@@ -172,37 +172,36 @@ struct RequestChain<Request: GraphQLRequest>: Sendable {
   }
 
   private func kickOffHTTPInterceptors(
-    for initialRequest: Request
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
-    nonisolated(unsafe) var finalRequest: Request!
-    var next: @Sendable (Request) async throws -> HTTPResponse = { request in
-      finalRequest = request
+    for graphQLRequest: Request
+  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {    
+    var next: @Sendable (URLRequest) async throws -> HTTPResponse = { request in
       return try await executeNetworkFetch(request: request)
     }
 
-    let interceptors = self.interceptorProvider.httpInterceptors(for: initialRequest)
+    let interceptors = self.interceptorProvider.httpInterceptors(for: graphQLRequest)
+    let context = graphQLRequest.context
 
     for interceptor in interceptors.reversed() {
       let tempNext = next
 
       next = { request in
-        try await interceptor.intercept(request: request, next: tempNext)
+        try await interceptor.intercept(request: request, context: context, next: tempNext)
       }
     }
 
-    let httpResponse = try await next(initialRequest)
+    let httpResponse = try await next(graphQLRequest.toURLRequest())
 
-    let parsingInterceptor = self.interceptorProvider.responseParser(for: finalRequest)
+    let parsingInterceptor = self.interceptorProvider.responseParser(for: graphQLRequest)
 
     return try await parsingInterceptor.parse(
       response: httpResponse,
-      for: finalRequest,
-      includeCacheRecords: finalRequest.fetchBehavior.shouldAttemptCacheWrite
+      for: graphQLRequest,
+      includeCacheRecords: graphQLRequest.fetchBehavior.shouldAttemptCacheWrite
     )
   }
 
   private func executeNetworkFetch(
-    request: Request
+    request: URLRequest
   ) async throws -> HTTPResponse {
     let (chunks, response) = try await urlSession.chunks(for: request)
 

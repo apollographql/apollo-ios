@@ -10,7 +10,7 @@ public struct ResponseCodeInterceptor: HTTPInterceptor {
 
   public struct ResponseCodeError: Error, LocalizedError {
     public let response: HTTPURLResponse
-    public let responseChunk: Data
+    public let chunk: Data
 
     public var errorDescription: String? {
       return "Received a \(response.statusCode) error."
@@ -18,7 +18,7 @@ public struct ResponseCodeInterceptor: HTTPInterceptor {
 
     public var graphQLError: GraphQLError? {
       if let jsonValue = try? (JSONSerialization.jsonObject(
-          with: responseChunk,
+          with: chunk,
           options: .allowFragments) as! JSONValue),
          let jsonObject = try? JSONObject(_jsonValue: jsonValue)
       {
@@ -31,19 +31,19 @@ public struct ResponseCodeInterceptor: HTTPInterceptor {
   /// Designated initializer
   public init() {}
   
-  public func intercept<Request: GraphQLRequest>(
-    request: Request,
-    next: NextHTTPInterceptorFunction<Request>
-  ) async throws -> InterceptorResultStream<HTTPResponse> {
-    return try await next(request).map { result in
-
-      guard result.response.isSuccessful == true else {
+  public func intercept(
+    request: URLRequest,
+    context: (any RequestContext)?,
+    next: NextHTTPInterceptorFunction
+  ) async throws -> HTTPResponse {
+    return try await next(request).mapChunks { (response, chunk) in
+      guard response.isSuccessful == true else {
         throw ResponseCodeError(
-          response: result.response,
-          responseChunk: result.rawResponseChunk
+          response: response,
+          chunk: chunk
         )
       }
-      return result
+      return chunk
     }
   }
 }

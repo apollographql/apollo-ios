@@ -14,7 +14,6 @@ public enum CachePolicy: Sendable, Hashable {
   case networkFirst
   ///  Fetch results from the server, do not attempt to read data from the cache.
   case networkOnly
-
   /// Return data from the cache if available, and always fetch results from the server.
   case cacheAndNetwork  // seperate function?
 
