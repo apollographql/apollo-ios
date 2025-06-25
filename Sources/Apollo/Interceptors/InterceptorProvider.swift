@@ -17,11 +17,6 @@ public protocol InterceptorProvider: Sendable {
   func httpInterceptors<Request: GraphQLRequest>(for request: Request) -> [any HTTPInterceptor]
 
   func responseParser<Request: GraphQLRequest>(for request: Request) -> any ResponseParsingInterceptor
-
-  /// Provides an additional error interceptor for any additional handling of errors
-  /// before returning to the UI, such as logging.
-  /// - Parameter operation: The operation to provide an additional error interceptor for
-  func errorInterceptor<Request: GraphQLRequest>(for request: Request) -> (any ApolloErrorInterceptor)?
 }
 
 // MARK: - Default Implementation
@@ -52,11 +47,7 @@ extension InterceptorProvider {
 
   public func responseParser<Request: GraphQLRequest>(for request: Request) -> any ResponseParsingInterceptor {
     JSONResponseParsingInterceptor()
-  }
-
-  public func errorInterceptor<Request: GraphQLRequest>(for request: Request) -> (any ApolloErrorInterceptor)? {
-    return nil
-  }
+  }  
 }
 
 final class DefaultInterceptorProvider: InterceptorProvider {

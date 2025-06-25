@@ -76,7 +76,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
       var jsonRequest = jsonRequest
       // We need to retry this query with the full body.
       jsonRequest.isPersistedQueryRetry = true
-      throw RequestChainRetry(request: jsonRequest)
+      throw RequestChain.Retry(request: jsonRequest)
     }
   }
 }

@@ -150,4 +150,73 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
     return stream
   }
 
+  // MARK: - Error Handling
+
+  #warning("TODO: Write unit tests for this. Docs: if return nil, error is supressed and stream finishes.")
+  public consuming func mapErrors(
+    _ transform: @escaping @Sendable (any Error) async throws -> T?
+  ) async throws -> InterceptorResultStream<T> {
+    let stream = self.stream
+
+    let newStream = AsyncThrowingStream { continuation in
+      let task = Task {
+        do {
+          for try await result in stream {
+            try Task.checkCancellation()
+
+            continuation.yield(result)
+          }
+          continuation.finish()
+
+        } catch {
+          do {
+            if let recoveryResult = try await transform(error) {
+              continuation.yield(recoveryResult)
+            }
+            continuation.finish()
+
+          } catch {
+            continuation.finish(throwing: error)
+          }
+        }
+      }
+
+      continuation.onTermination = { _ in task.cancel() }
+    }
+    return Self.init(stream: newStream)
+  }
+
+}
+
+#warning("Do we keep this? Helps make TaskLocalValues work, but extension on Swift standard lib type could conflict with other extensions")
+extension TaskLocal {
+
+  @_disfavoredOverload
+  final public func withValue<R: ~Copyable>(
+    _ valueDuringOperation: Value,
+    operation: () async throws -> R
+  ) async rethrows -> R {
+    var returnValue: R?
+
+    try await self.withValue(valueDuringOperation) {
+      returnValue = try await operation()
+    }
+
+    return returnValue!
+  }
+
+  @_disfavoredOverload
+  final public func withValue<R: ~Copyable>(
+    _ valueDuringOperation: Value,
+    operation: () throws -> R
+  ) rethrows -> R {
+    var returnValue: R?
+
+    try self.withValue(valueDuringOperation) {
+      returnValue = try operation()
+    }
+
+    return returnValue!
+  }
+
 }

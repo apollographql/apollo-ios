@@ -4,16 +4,6 @@ import Foundation
   import ApolloAPI
 #endif
 
-public struct RequestChainRetry<Request: GraphQLRequest>: Swift.Error {
-  public let request: Request
-
-  public init(
-    request: Request,
-  ) {
-    self.request = request
-  }
-}
-
 public enum RequestChainError: Swift.Error, LocalizedError {
   case noResults
 
@@ -27,8 +17,16 @@ public enum RequestChainError: Swift.Error, LocalizedError {
 
 }
 
-struct RequestChain<Request: GraphQLRequest>: Sendable {
+public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
+  public struct Retry: Swift.Error {
+    public let request: Request
+
+    public init(request: Request) {
+      self.request = request
+    }
+  }
+  
   private let urlSession: any ApolloURLSession
   private let interceptorProvider: any InterceptorProvider
   private let store: ApolloStore
@@ -107,7 +105,7 @@ struct RequestChain<Request: GraphQLRequest>: Sendable {
     do {
       try await body(request)
 
-    } catch let error as RequestChainRetry<Request> {
+    } catch let error as Retry {
       try await self.doHandlingRetries(request: error.request, body)
     }
   }
@@ -160,6 +158,8 @@ struct RequestChain<Request: GraphQLRequest>: Sendable {
     var didEmitResult: Bool = false
 
     for try await result in resultStream.getResults() {
+      try Task.checkCancellation()
+
       try await writeToCacheIfNecessary(result: result, for: finalRequest)
 
       continuation.yield(result.result)
@@ -173,7 +173,7 @@ struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   private func kickOffHTTPInterceptors(
     for graphQLRequest: Request
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {    
+  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
     var next: @Sendable (URLRequest) async throws -> HTTPResponse = { request in
       return try await executeNetworkFetch(request: request)
     }
