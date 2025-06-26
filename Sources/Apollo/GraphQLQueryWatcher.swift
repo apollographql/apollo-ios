@@ -1,6 +1,7 @@
 import Foundation
+
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 /// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result whenever any of the data the previous result depends on changes.
@@ -23,7 +24,6 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   private let callbackQueue: DispatchQueue
 
   private let contextIdentifier = UUID()
-  private let context: (any RequestContext)?
 
   private actor WeakFetchTaskContainer {
     weak var cancellable: (any Cancellable)?
@@ -52,18 +52,18 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
   ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
   ///   - resultHandler: The result handler to call with changes.
-  public init(client: any ApolloClientProtocol,
-              query: Query,
-              refetchOnFailedUpdates: Bool = true,
-              context: (any RequestContext)? = nil,
-              callbackQueue: DispatchQueue = .main,
-              resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
+  public init(
+    client: any ApolloClientProtocol,
+    query: Query,
+    refetchOnFailedUpdates: Bool = true,
+    callbackQueue: DispatchQueue = .main,
+    resultHandler: @escaping GraphQLResultHandler<Query.Data>
+  ) {
     self.client = client
     self.query = query
     self.refetchOnFailedUpdates = refetchOnFailedUpdates
     self.resultHandler = resultHandler
     self.callbackQueue = callbackQueue
-    self.context = context
 
     client.store.subscribe(self)
   }
@@ -120,13 +120,13 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
     _ store: ApolloStore,
     didChangeKeys changedKeys: Set<CacheKey>
   ) {
-    if
-      let incomingIdentifier = QueryWatcherContext.identifier,
-      incomingIdentifier == self.contextIdentifier {
-        // This is from changes to the keys made from the `fetch` method above,
-        // changes will be returned through that and do not need to be returned
-        // here as well.
-        return
+    if let incomingIdentifier = QueryWatcherContext.identifier,
+      incomingIdentifier == self.contextIdentifier
+    {
+      // This is from changes to the keys made from the `fetch` method above,
+      // changes will be returned through that and do not need to be returned
+      // here as well.
+      return
     }
 
     Task { [store] in
@@ -147,7 +147,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
                 return
               }
 
-    #warning("TODO: temp Task encapsulation to move forward; this probably is not right?")
+              #warning("TODO: temp Task encapsulation to move forward; this probably is not right?")
               Task {
                 await self.fetching.mutate {
                   $0.dependentKeys = graphQLResult.dependentKeys
@@ -157,7 +157,7 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
             }
 
           case .failure:
-#warning("TODO: temp Task encapsulation to move forward; this probably is not right?")
+            #warning("TODO: temp Task encapsulation to move forward; this probably is not right?")
             Task {
               let cachePolicy = await fetching.cachePolicy
               if self.refetchOnFailedUpdates && cachePolicy != .returnCacheDataDontFetch {
@@ -175,6 +175,26 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
 // MARK: - Task Local Values
 
 private enum QueryWatcherContext {
-  @TaskLocal
-  static var identifier: UUID?
+  @TaskLocal static var identifier: UUID?
+}
+
+// MARK: - Deprecation
+
+extension GraphQLQueryWatcher {
+  @available(*, deprecated)
+  public convenience init(
+    client: any ApolloClientProtocol,
+    query: Query,
+    refetchOnFailedUpdates: Bool = true,
+    context: (any RequestContext)? = nil,
+    callbackQueue: DispatchQueue = .main,
+    resultHandler: @escaping GraphQLResultHandler<Query.Data>
+  ) {
+    self.init(
+      client: client,
+      query: query,
+      refetchOnFailedUpdates: refetchOnFailedUpdates,
+      resultHandler: resultHandler
+    )
+  }
 }

@@ -18,9 +18,6 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
   var fetchBehavior: FetchBehavior { get set }
 
-  /// [optional] A context that is being passed through the request chain.
-  var context: (any RequestContext)? { get set }
-
   /// The telemetry metadata about the client. This is used by GraphOS Studio's
   /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
   /// feature.

@@ -117,13 +117,11 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy? = nil,
-    context: (any RequestContext)? = nil
   ) async throws -> GraphQLResult<Query.Data>
   where Query.ResponseFormat == SingleResponseFormat {
     for try await result in try self.networkTransport.send(
       query: query,
       cachePolicy: cachePolicy ?? self.defaultCachePolicy,
-      context: context
     ) {
       return result
     }
@@ -132,14 +130,12 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy? = nil,
-    context: (any RequestContext)? = nil
+    cachePolicy: CachePolicy? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try self.networkTransport.send(
       query: query,
-      cachePolicy: cachePolicy ?? self.defaultCachePolicy,
-      context: context
+      cachePolicy: cachePolicy ?? self.defaultCachePolicy
     )
   }
 
@@ -158,7 +154,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy? = nil,
     refetchOnFailedUpdates: Bool = true,
-    context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Query.Data>
   ) -> GraphQLQueryWatcher<Query> {
@@ -166,7 +161,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
       client: self,
       query: query,
       refetchOnFailedUpdates: refetchOnFailedUpdates,
-      context: context,
       callbackQueue: callbackQueue,
       resultHandler: resultHandler
     )
@@ -178,7 +172,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     publishResultToStore: Bool = true,
-    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Mutation.Data>? = nil
   ) -> (any Cancellable) {
@@ -187,7 +180,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
         try self.networkTransport.send(
           mutation: mutation,
           cachePolicy: publishResultToStore ? self.defaultCachePolicy : .networkOnly,  // TODO: should be NoCache
-          context: context
         )
       },
       callbackQueue: queue,
@@ -199,7 +191,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
-    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Operation.Data>? = nil
   ) -> (any Cancellable) {
@@ -217,8 +208,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
       {
         try uploadingTransport.upload(
           operation: operation,
-          files: files,
-          context: context
+          files: files
         )
       },
       callbackQueue: queue,
@@ -228,7 +218,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func subscribe<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>
   ) -> any Cancellable {
@@ -247,7 +236,6 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
         try networkTransport.send(
           subscription: subscription,
           cachePolicy: self.defaultCachePolicy,  // TODO: should this just be networkOnly?
-          context: context
         )
       },
       callbackQueue: queue,
@@ -280,8 +268,7 @@ extension ApolloClient {
       {
         try self.networkTransport.send(
           query: query,
-          cachePolicy: cachePolicy ?? self.defaultCachePolicy,
-          context: context
+          cachePolicy: cachePolicy ?? self.defaultCachePolicy
         )
       },
       callbackQueue: queue,

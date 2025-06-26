@@ -28,7 +28,6 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Returns: An object that can be used to cancel an in progress fetch.
   func fetch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy?,
-                                  context: (any RequestContext)?,
                                   queue: DispatchQueue,
                                   resultHandler: GraphQLResultHandler<Query.Data>?) -> (any Cancellable)
 
@@ -43,7 +42,6 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   func watch<Query: GraphQLQuery>(query: Query,
                                   cachePolicy: CachePolicy?,
-                                  context: (any RequestContext)?,
                                   callbackQueue: DispatchQueue,
                                   resultHandler: @escaping GraphQLResultHandler<Query.Data>) -> GraphQLQueryWatcher<Query>
 
@@ -58,7 +56,6 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Returns: An object that can be used to cancel an in progress mutation.
   func perform<Mutation: GraphQLMutation>(mutation: Mutation,
                                           publishResultToStore: Bool,
-                                          context: (any RequestContext)?,
                                           queue: DispatchQueue,
                                           resultHandler: GraphQLResultHandler<Mutation.Data>?) -> (any Cancellable)
 
@@ -73,7 +70,6 @@ public protocol ApolloClientProtocol: AnyObject {
   /// - Returns: An object that can be used to cancel an in progress request.
   func upload<Operation: GraphQLOperation>(operation: Operation,
                                            files: [GraphQLFile],
-                                           context: (any RequestContext)?,
                                            queue: DispatchQueue,
                                            resultHandler: GraphQLResultHandler<Operation.Data>?) -> (any Cancellable)
 
@@ -87,7 +83,6 @@ public protocol ApolloClientProtocol: AnyObject {
   ///   - resultHandler: An optional closure that is called when mutation results are available or when an error occurs.
   /// - Returns: An object that can be used to cancel an in progress subscription.
   func subscribe<Subscription: GraphQLSubscription>(subscription: Subscription,
-                                                    context: (any RequestContext)?,
                                                     queue: DispatchQueue,
                                                     resultHandler: @escaping GraphQLResultHandler<Subscription.Data>) -> any Cancellable
 }

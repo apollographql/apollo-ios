@@ -59,8 +59,7 @@ public protocol HTTPInterceptor: Sendable {
   typealias NextHTTPInterceptorFunction = @Sendable (URLRequest) async throws -> HTTPResponse
 
   func intercept(
-    request: URLRequest,
-    context: (any RequestContext)?,
+    request: URLRequest,    
     next: NextHTTPInterceptorFunction
   ) async throws -> HTTPResponse
 

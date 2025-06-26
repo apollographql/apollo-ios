@@ -89,14 +89,12 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   /// - Returns: The constructed request.
   public func constructRequest<Operation: GraphQLOperation>(
     for operation: Operation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)? = nil
+    cachePolicy: CachePolicy
   ) -> JSONRequest<Operation> {
     var request = JSONRequest(
       operation: operation,
       graphQLEndpoint: self.endpointURL,
       cachePolicy: cachePolicy,
-      context: context,
       apqConfig: self.apqConfig,
       useGETForQueries: self.useGETForQueries,
       requestBodyCreator: self.requestBodyCreator,
@@ -110,13 +108,11 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
 
   public func send<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)? = nil
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
     let request = self.constructRequest(
       for: query,
       cachePolicy: cachePolicy,
-      context: context
     )
 
     let chain = makeChain(for: request)
@@ -126,13 +122,11 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
 
   public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)? = nil
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
     let request = self.constructRequest(
       for: mutation,
-      cachePolicy: cachePolicy,
-      context: context
+      cachePolicy: cachePolicy
     )
 
     let chain = makeChain(for: request)
@@ -169,8 +163,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   /// - Returns: The created request.
   public func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
-    with files: [GraphQLFile],
-    context: (any RequestContext)? = nil,
+    with files: [GraphQLFile]
     manualBoundary: String? = nil
   ) -> UploadRequest<Operation> {
     var request = UploadRequest(
@@ -178,7 +171,6 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
       graphQLEndpoint: self.endpointURL,
       files: files,
       multipartBoundary: manualBoundary,
-      context: context,
       requestBodyCreator: self.requestBodyCreator,
       clientAwarenessMetadata: self.clientAwarenessMetadata
     )
@@ -188,10 +180,9 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
 
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
-    files: [GraphQLFile],
-    context: (any RequestContext)?
+    files: [GraphQLFile]
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
-    let request = self.constructUploadRequest(for: operation, with: files, context: context)
+    let request = self.constructUploadRequest(for: operation, with: files)
     let chain = makeChain(for: request)
     return chain.kickoff(request: request)
   }

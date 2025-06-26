@@ -36,25 +36,21 @@ extension SplitNetworkTransport: NetworkTransport {
 
   public func send<Query>(
     query: Query,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> where Query: GraphQLQuery {
     return try uploadingNetworkTransport.send(
       query: query,
-      cachePolicy: cachePolicy,
-      context: context
+      cachePolicy: cachePolicy
     )
   }
 
   public func send<Mutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> where Mutation: GraphQLMutation {
     return try uploadingNetworkTransport.send(
       mutation: mutation,
-      cachePolicy: cachePolicy,
-      context: context
+      cachePolicy: cachePolicy
     )
   }
 }
@@ -64,13 +60,11 @@ extension SplitNetworkTransport: NetworkTransport {
 extension SplitNetworkTransport: SubscriptionNetworkTransport {
   public func send<Subscription>(
     subscription: Subscription,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> where Subscription: GraphQLSubscription {
     return try webSocketNetworkTransport.send(
       subscription: subscription,
-      cachePolicy: cachePolicy,
-      context: context
+      cachePolicy: cachePolicy
     )
   }
 }
@@ -81,13 +75,11 @@ extension SplitNetworkTransport: UploadingNetworkTransport {
 
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
-    files: [GraphQLFile],
-    context: (any RequestContext)?
+    files: [GraphQLFile]
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
     return try uploadingNetworkTransport.upload(
       operation: operation,
-      files: files,
-      context: context
+      files: files
     )
   }
 }

@@ -18,9 +18,6 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
   /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
   public var fetchBehavior: FetchBehavior
 
-  /// [optional] A context that is being passed through the request chain.
-  public var context: (any RequestContext)?
-
   public let requestBodyCreator: any JSONRequestBodyCreator
 
   public let files: [GraphQLFile]
@@ -48,14 +45,12 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     graphQLEndpoint: URL,
     files: [GraphQLFile],
     multipartBoundary: String? = nil,
-    context: (any RequestContext)? = nil,
     requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
     clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
     self.operation = operation
     self.graphQLEndpoint = graphQLEndpoint
-    self.cachePolicy = .default
-    self.context = context
+    self.cachePolicy = .default    
     self.requestBodyCreator = requestBodyCreator
     self.files = files
     self.multipartBoundary = multipartBoundary ?? "apollo-ios.boundary.\(UUID().uuidString)"

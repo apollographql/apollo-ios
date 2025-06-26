@@ -433,32 +433,28 @@ extension URLRequest {
 extension WebSocketTransport: SubscriptionNetworkTransport {
   public func send<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
-    try send(operation: query, cachePolicy: cachePolicy, context: context)
+    try send(operation: query, cachePolicy: cachePolicy)
   }
 
   public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
-    try send(operation: mutation, cachePolicy: cachePolicy, context: context)
+    try send(operation: mutation, cachePolicy: cachePolicy)
   }
 
   public func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
-    try send(operation: subscription, cachePolicy: cachePolicy, context: context)
+    try send(operation: subscription, cachePolicy: cachePolicy)
   }
 
   private func send<Operation: GraphQLOperation>(
     operation: Operation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)? = nil
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
     if let error = self.error {
       return AsyncThrowingStream.init {

@@ -17,9 +17,6 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
 
   /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
   public var fetchBehavior: FetchBehavior
-
-  /// [optional] A context that is being passed through the request chain.
-  public var context: (any RequestContext)?
   
   public let requestBodyCreator: any JSONRequestBodyCreator
 
@@ -48,7 +45,6 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   ///   - clientName: The name of the client to send with the `"apollographql-client-name"` header
   ///   - clientVersion:  The version of the client to send with the `"apollographql-client-version"` header
   ///   - cachePolicy: The `CachePolicy` to use for this request.
-  ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
   ///   - apqConfig: A configuration struct used by a `GraphQLRequest` to configure the usage of
   ///   [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq) By default, APQs
   ///   are disabled.
@@ -58,7 +54,6 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     operation: Operation,
     graphQLEndpoint: URL,
     fetchBehavior: FetchBehavior,
-    context: (any RequestContext)? = nil,
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     useGETForQueries: Bool = false,
     requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),

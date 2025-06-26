@@ -15,14 +15,12 @@ public protocol NetworkTransport: AnyObject, Sendable {
   /// - Returns: A stream of `GraphQLResult`s for each response.
   func send<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
 
   func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error>
 
 }
@@ -33,8 +31,7 @@ public protocol SubscriptionNetworkTransport: NetworkTransport {
 
   func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    cachePolicy: CachePolicy,
-    context: (any RequestContext)?
+    cachePolicy: CachePolicy
   ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error>
 
 }
@@ -54,7 +51,6 @@ public protocol UploadingNetworkTransport: NetworkTransport {
 #warning("TODO: should support query and mutation as seperate functions")
   func upload<Operation: GraphQLOperation>(
     operation: Operation,
-    files: [GraphQLFile],
-    context: (any RequestContext)?
+    files: [GraphQLFile]
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
 }

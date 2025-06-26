@@ -33,7 +33,6 @@ public struct ResponseCodeInterceptor: HTTPInterceptor {
   
   public func intercept(
     request: URLRequest,
-    context: (any RequestContext)?,
     next: NextHTTPInterceptorFunction
   ) async throws -> HTTPResponse {
     return try await next(request).mapChunks { (response, chunk) in
