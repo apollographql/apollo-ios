@@ -18,10 +18,6 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
   var fetchBehavior: FetchBehavior { get set }
 
-  /// The telemetry metadata about the client. This is used by GraphOS Studio's
-  /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
-  /// feature.
-  var clientAwarenessMetadata: ClientAwarenessMetadata { get }
 
   /// Converts the receiver into a `URLRequest` to be used for networking operations.
   ///
@@ -29,10 +25,6 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// default configuration. The implementation may then modify that request. See the documentation
   /// for ``GraphQLRequest/createDefaultRequest()`` for more information.
   func toURLRequest() throws -> URLRequest
-}
-
-public extension GraphQLRequest {
-  var clientAwarenessMetadata: ClientAwarenessMetadata { .init() }
 }
 
 // MARK: - Helper Functions
@@ -44,7 +36,7 @@ extension GraphQLRequest {
   /// This function creates a `URLRequest` with the following behaviors:
   /// - `url` set to the receiver's `graphQLEndpoint`
   /// - `httpMethod` set to POST
-  /// - Client awareness headers from `clientAwarenessMetadata` added to `allHTTPHeaderFields`
+  /// - Client awareness headers from `ApolloClient.clientAwarenessMetadata` added to `allHTTPHeaderFields`
   /// - All header's from `additionalHeaders` added to `allHTTPHeaderFields`
   /// - If the `context` conforms to `RequestContextTimeoutConfigurable`, the `timeoutInterval` is
   /// set to the context's `requestTimeout`.
@@ -58,7 +50,10 @@ extension GraphQLRequest {
 
     request.httpMethod = GraphQLHTTPMethod.POST.rawValue
 
-    clientAwarenessMetadata.applyHeaders(to: &request)
+    if let clientAwarenessMetadata = ApolloClient.context?.clientAwarenessMetadata {
+      clientAwarenessMetadata.applyHeaders(to: &request)
+    }
+
     for (fieldName, value) in self.additionalHeaders {
       request.addValue(value, forHTTPHeaderField: fieldName)
     }

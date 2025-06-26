@@ -1,6 +1,7 @@
 import Foundation
+
 #if !COCOAPODS
-@_spi(Internal) import ApolloAPI
+  @_spi(Internal) import ApolloAPI
 #endif
 
 /// A request which sends JSON related to a GraphQL operation.
@@ -30,12 +31,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// to cache the results of queries that rarely change.
   ///
   /// Mutation operations always use POST, even when this is `false`
-  public let useGETForQueries: Bool
-
-  /// The telemetry metadata about the client. This is used by GraphOS Studio's
-  /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
-  /// feature.
-  public var clientAwarenessMetadata: ClientAwarenessMetadata
+  public let useGETForQueries: Bool  
 
   /// Designated initializer
   ///
@@ -56,35 +52,34 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     fetchBehavior: FetchBehavior,
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     useGETForQueries: Bool = false,
-    requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
-    clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
+    requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator()
   ) {
     self.operation = operation
     self.graphQLEndpoint = graphQLEndpoint
     self.fetchBehavior = fetchBehavior
-    self.context = context
     self.requestBodyCreator = requestBodyCreator
 
     self.apqConfig = apqConfig
     self.useGETForQueries = useGETForQueries
-    self.clientAwarenessMetadata = clientAwarenessMetadata
 
     self.setupDefaultHeaders()
   }
 
   private mutating func setupDefaultHeaders() {
-    self.addHeader(name: "Content-Type", value: "application/json")    
+    self.addHeader(name: "Content-Type", value: "application/json")
 
     if Operation.operationType == .subscription {
       self.addHeader(
         name: "Accept",
-        value: "multipart/mixed;\(MultipartResponseSubscriptionParser.protocolSpec),application/graphql-response+json,application/json"
+        value:
+          "multipart/mixed;\(MultipartResponseSubscriptionParser.protocolSpec),application/graphql-response+json,application/json"
       )
 
     } else {
       self.addHeader(
         name: "Accept",
-        value: "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/graphql-response+json,application/json"
+        value:
+          "multipart/mixed;\(MultipartResponseDeferParser.protocolSpec),application/graphql-response+json,application/json"
       )
     }
   }
@@ -100,15 +95,15 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
       if isPersistedQueryRetry {
         useGetMethod = self.apqConfig.useGETForPersistedQueryRetry
       } else {
-        useGetMethod = self.useGETForQueries ||
-        (self.apqConfig.autoPersistQueries && self.apqConfig.useGETForPersistedQueryRetry)
+        useGetMethod =
+          self.useGETForQueries || (self.apqConfig.autoPersistQueries && self.apqConfig.useGETForPersistedQueryRetry)
       }
     default:
       useGetMethod = false
     }
-    
+
     let httpMethod: GraphQLHTTPMethod = useGetMethod ? .GET : .POST
-    
+
     switch httpMethod {
     case .GET:
       let transformer = GraphQLGETTransformer(body: body, url: self.graphQLEndpoint)
@@ -130,7 +125,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
         throw GraphQLHTTPRequestError.serializedBodyMessageError
       }
     }
-    
+
     return request
   }
 
@@ -159,12 +154,12 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
       sendQueryDocument = true
       autoPersistQueries = false
     }
-    
+
     let body = self.requestBodyCreator.requestBody(
-      for: self,
+      for: self.operation,
       sendQueryDocument: sendQueryDocument,
       autoPersistQuery: autoPersistQueries
-    )    
+    )
 
     return body
   }

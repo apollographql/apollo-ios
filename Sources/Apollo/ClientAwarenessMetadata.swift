@@ -11,12 +11,12 @@ public struct ClientAwarenessMetadata: Sendable {
   /// The name of the application. This value is sent for the header "apollographql-client-name".
   ///
   /// Defaults to `nil`.
-  public var clientApplicationName: String?
+  public let clientApplicationName: String?
 
   /// The version of the application. This value is sent for the header "apollographql-client-version".
   ///
   /// Defaults to `nil`.
-  public var clientApplicationVersion: String?
+  public let clientApplicationVersion: String?
 
   /// Determines if the Apollo iOS library name and version should be sent with the telemetry data.
   ///

@@ -26,11 +26,6 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
 
   public let serializationFormat = JSONSerializationFormat.self
 
-  /// The telemetry metadata about the client. This is used by GraphOS Studio's
-  /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
-  /// feature.
-  public var clientAwarenessMetadata: ClientAwarenessMetadata
-
   /// Designated Initializer
   ///
   /// - Parameters:
@@ -45,16 +40,13 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     graphQLEndpoint: URL,
     files: [GraphQLFile],
     multipartBoundary: String? = nil,
-    requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
-    clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
+    requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator()
   ) {
     self.operation = operation
     self.graphQLEndpoint = graphQLEndpoint
-    self.cachePolicy = .default    
     self.requestBodyCreator = requestBodyCreator
     self.files = files
     self.multipartBoundary = multipartBoundary ?? "apollo-ios.boundary.\(UUID().uuidString)"
-    self.clientAwarenessMetadata = clientAwarenessMetadata
 
     self.addHeader(name: "Content-Type", value: "multipart/form-data; boundary=\(self.multipartBoundary)")
   }
@@ -79,9 +71,11 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     // Make sure all fields for files are set to null, or the server won't look
     // for the files in the rest of the form data
     let fieldsForFiles = Set(files.map { $0.fieldName }).sorted()
-    var fields = self.requestBodyCreator.requestBody(for: self,
-                                                     sendQueryDocument: true,
-                                                     autoPersistQuery: false)
+    var fields = self.requestBodyCreator.requestBody(
+      for: self.operation,
+      sendQueryDocument: true,
+      autoPersistQuery: false
+    )
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
     for fieldName in fieldsForFiles {
       if let value = variables[fieldName],

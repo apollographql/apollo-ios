@@ -80,11 +80,13 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public init(
     networkTransport: any NetworkTransport,
     store: ApolloStore,
-    defaultCachePolicy: CachePolicy = .cacheFirst
+    defaultCachePolicy: CachePolicy = .cacheFirst,
+    clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
     self.networkTransport = networkTransport
     self.store = store
     self.defaultCachePolicy = defaultCachePolicy
+    self.context = ClientContext(clientAwarenessMetadata: clientAwarenessMetadata)
   }
 
   /// Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
@@ -114,14 +116,16 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     try await self.store.clearCache()
   }
 
+  // MARK: - Fetch Query
+
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy? = nil,
   ) async throws -> GraphQLResult<Query.Data>
   where Query.ResponseFormat == SingleResponseFormat {
-    for try await result in try self.networkTransport.send(
+    for try await result in try sendQuery(
       query: query,
-      cachePolicy: cachePolicy ?? self.defaultCachePolicy,
+      cachePolicy: cachePolicy,
     ) {
       return result
     }
@@ -130,13 +134,21 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy? = nil
+    cachePolicy: CachePolicy? = nil,
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
-    return try self.networkTransport.send(
-      query: query,
-      cachePolicy: cachePolicy ?? self.defaultCachePolicy
-    )
+    return try sendQuery(query: query, cachePolicy: cachePolicy, requestConfiguration: requestConfiguration)
+  }
+  private func sendQuery<Query: GraphQLQuery>(
+    query: Query,
+    cachePolicy: CachePolicy?,
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
+    return try doInClientContext {
+      return try self.networkTransport.send(
+        query: query,
+        cachePolicy: cachePolicy ?? self.defaultCachePolicy,
+      )
+    }
   }
 
   /// Watches a query by first fetching an initial result from the server or from the local cache, depending on the current contents of the cache and the specified cache policy. After the initial fetch, the returned query watcher object will get notified whenever any of the data the query result depends on changes in the local cache, and calls the result handler again with the new result.
@@ -241,6 +253,25 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
       callbackQueue: queue,
       completion: resultHandler
     )
+  }
+
+  // MARK: - ClientContext
+
+  @TaskLocal internal static var context: ClientContext?
+
+  private let context: ClientContext
+
+  struct ClientContext: Sendable {
+    /// The telemetry metadata about the client. This is used by GraphOS Studio's
+    /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
+    /// feature.
+    let clientAwarenessMetadata: ClientAwarenessMetadata
+  }
+
+  private func doInClientContext<T>(_ block: () throws -> T) rethrows -> T {
+    return try ApolloClient.$context.withValue(self.context) {
+      return try block()
+    }
   }
 }
 
