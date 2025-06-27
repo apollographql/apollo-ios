@@ -15,6 +15,13 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// Any additional headers you wish to add to this request.
   var additionalHeaders: [String: String] { get set }
 
+  /// The ``FetchBehavior`` to use for this request.
+  /// Determines if fetching will include cache/network.
+  var fetchBehavior: FetchBehavior { get set }
+
+  /// Determines if the results of a network fetch should be written to the local cache.
+  var writeResultsToCache: Bool { get set }
+
   /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
   /// loading. This timeout interval is measured in seconds.
   ///

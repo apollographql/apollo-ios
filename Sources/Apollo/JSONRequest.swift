@@ -16,6 +16,12 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// Any additional headers you wish to add to this request
   public var additionalHeaders: [String: String] = [:]
 
+  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
+  public var fetchBehavior: FetchBehavior
+
+  /// Determines if the results of a network fetch should be written to the local cache.
+  public var writeResultsToCache: Bool
+
   /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
   /// loading. This timeout interval is measured in seconds.
   ///
@@ -52,6 +58,8 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   public init(
     operation: Operation,
     graphQLEndpoint: URL,
+    fetchBehavior: FetchBehavior,
+    writeResultsToCache: Bool,
     requestTimeout: TimeInterval?,
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     useGETForQueries: Bool = false,
@@ -62,6 +70,8 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     self.requestTimeout = requestTimeout
     self.requestBodyCreator = requestBodyCreator
 
+    self.fetchBehavior = fetchBehavior
+    self.writeResultsToCache = writeResultsToCache
     self.apqConfig = apqConfig
     self.useGETForQueries = useGETForQueries
 
@@ -172,9 +182,14 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     lhs: JSONRequest<Operation>,
     rhs: JSONRequest<Operation>
   ) -> Bool {
-    lhs.graphQLEndpoint == rhs.graphQLEndpoint && lhs.operation == rhs.operation
+    lhs.graphQLEndpoint == rhs.graphQLEndpoint
+      && lhs.operation == rhs.operation
       && lhs.additionalHeaders == rhs.additionalHeaders
-      && lhs.apqConfig == rhs.apqConfig && lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry
+      && lhs.fetchBehavior == rhs.fetchBehavior
+      && lhs.writeResultsToCache == rhs.writeResultsToCache
+      && lhs.requestTimeout == rhs.requestTimeout
+      && lhs.apqConfig == rhs.apqConfig
+      && lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry
       && lhs.useGETForQueries == rhs.useGETForQueries
       && type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator)
   }
@@ -183,6 +198,9 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     hasher.combine(graphQLEndpoint)
     hasher.combine(operation)
     hasher.combine(additionalHeaders)
+    hasher.combine(fetchBehavior)
+    hasher.combine(writeResultsToCache)
+    hasher.combine(requestTimeout)
     hasher.combine(apqConfig)
     hasher.combine(isPersistedQueryRetry)
     hasher.combine(useGETForQueries)
@@ -201,6 +219,8 @@ extension JSONRequest: CustomDebugStringConvertible {
       debugStrings.append("\t\(key): \(value),")
     }
     debugStrings.append("]")
+    debugStrings.append("Fetch Behavior: \(self.fetchBehavior)")
+    debugStrings.append("Write Results to Cache: \(self.writeResultsToCache)")
     debugStrings.append("Operation: \(self.operation)")
     return debugStrings.joined(separator: "\n\t")
   }

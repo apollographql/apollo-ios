@@ -20,12 +20,11 @@ public enum RequestChainError: Swift.Error, LocalizedError {
 public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   public struct Retry: Swift.Error {
+    /// The request to be retried.
     public let request: Request
-    public let fetchBehavior: FetchBehavior
 
-    public init(request: Request, fetchBehavior: FetchBehavior) {
-      self.request = request
-      self.fetchBehavior = fetchBehavior
+    public init(request: Request) {
+      self.request = request      
     }
   }
 
@@ -35,12 +34,6 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   public typealias ResultStream = AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
   public typealias Operation = Request.Operation
-
-  private struct RequestContext {
-    var request: Request
-    var fetchBehavior: FetchBehavior
-    let shouldAttemptCacheWrite: Bool
-  }
 
   /// Creates a chain with the given interceptor array.
   ///
@@ -60,70 +53,53 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   ///
   /// - Parameters:
   ///   - request: The request to send.
-  ///   - fetchBehavior: The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
+  ///   - fetchBehavior: The ``FetchBehavior`` to use for this request. Determines if fetching will include cache/network.
   ///   - shouldAttemptCacheWrite: Determines if the results of a network fetch should be written to the local cache.
   public func kickoff(
-    request: Request,
-    fetchBehavior: FetchBehavior,
-    shouldAttemptCacheWrite: Bool
+    request: Request
   ) -> ResultStream {
-    let requestContext = RequestContext(
-      request: request,
-      fetchBehavior: fetchBehavior,
-      shouldAttemptCacheWrite: shouldAttemptCacheWrite
-    )
-
-    return doInRetryingAsyncThrowingStream(requestContext: requestContext) { requestContext, continuation in
+    return doInRetryingAsyncThrowingStream(request: request) { request, continuation in
       #warning("TODO: Write unit test that cache only request gets sent through interceptors still.")
-      try await kickoffRequestInterceptors(requestContext: requestContext, continuation: continuation)
+      try await kickoffRequestInterceptors(request: request, continuation: continuation)
     }
   }
 
   private func doInRetryingAsyncThrowingStream(
-    requestContext: RequestContext,
-    _ body: @escaping @Sendable (RequestContext, ResultStream.Continuation) async throws -> Void
+    request: Request,
+    _ body: @escaping @Sendable (Request, ResultStream.Continuation) async throws -> Void
   ) -> ResultStream {
     return AsyncThrowingStream.executingInAsyncTask { continuation in
-      try await doHandlingRetries(requestContext: requestContext) { request in
-        try await body(requestContext, continuation)
+      try await doHandlingRetries(request: request) { request in
+        try await body(request, continuation)
       }
     }
   }
 
   private func doHandlingRetries(
-    requestContext: RequestContext,
-    _ body: @escaping @Sendable (RequestContext) async throws -> Void
+    request: Request,
+    _ body: @escaping @Sendable (Request) async throws -> Void
   ) async throws {
     do {
-      try await body(requestContext)
+      try await body(request)
 
     } catch let error as Retry {
-      let retryRequestContext = RequestContext(
-        request: error.request,
-        fetchBehavior: error.fetchBehavior,
-        shouldAttemptCacheWrite: requestContext.shouldAttemptCacheWrite
-      )
-
-      try await self.doHandlingRetries(requestContext: retryRequestContext, body)
+      try await self.doHandlingRetries(request: error.request, body)
     }
   }
 
   private func kickoffRequestInterceptors(
-    requestContext: RequestContext,
+    request initialRequest: Request,
     continuation: ResultStream.Continuation
   ) async throws {
-    let initialRequest = requestContext.request
     let interceptors = self.interceptorProvider.graphQLInterceptors(for: initialRequest)
 
     // Setup next function to traverse interceptors
-    nonisolated(unsafe) var finalRequestContext: RequestContext!
+    nonisolated(unsafe) var finalRequest: Request!
     var next: @Sendable (Request) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> = {
-      finalRequest in
+      request in
+      finalRequest = request
 
-      finalRequestContext = requestContext
-      finalRequestContext.request = finalRequest
-
-      return execute(requestContext: finalRequestContext)
+      return execute(request: request)
     }
 
     for interceptor in interceptors.reversed() {
@@ -142,7 +118,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     for try await response in resultStream.getResults() {
       try Task.checkCancellation()
 
-      try await writeToCacheIfNecessary(response: response, for: finalRequestContext)
+      try await writeToCacheIfNecessary(response: response, for: finalRequest)
 
       continuation.yield(response.result)
       didEmitResult = true
@@ -155,17 +131,17 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   #warning("TODO: unit tests for cache read after failed network fetch")
   private func execute(
-    requestContext: RequestContext
+    request: Request
   ) -> InterceptorResultStream<GraphQLResponse<Operation>> {
     return InterceptorResultStream(
       stream: AsyncThrowingStream<GraphQLResponse<Operation>, any Error>.executingInAsyncTask { continuation in
-        let fetchBehavior = requestContext.fetchBehavior
+        let fetchBehavior = request.fetchBehavior
         var didYieldCacheData: Bool
 
         // If read from cache before network fetch
         if fetchBehavior.shouldReadFromCache(hadFailedNetworkFetch: false) {
           do {
-            if let cacheResult = try await attemptCacheRead(request: requestContext.request) {
+            if let cacheResult = try await attemptCacheRead(request: request) {
               // Successful cache read
               didYieldCacheData = true
               continuation.yield(
@@ -198,7 +174,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
         // If should perform network fetch (based on cache result)
         if fetchBehavior.shouldFetchFromNetwork(hadSuccessfulCacheRead: didYieldCacheData) {
           do {
-            let networkStream = try await kickOffHTTPInterceptors(requestContext: requestContext)
+            let networkStream = try await kickOffHTTPInterceptors(request: request)
             try await continuation.passthroughResults(of: networkStream.getResults())
 
             // Successful network fetch -> Finished
@@ -207,7 +183,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
             // Network fetch throws error
             if fetchBehavior.shouldReadFromCache(hadFailedNetworkFetch: true) {
               // Attempt recovery with cache read
-              if let cacheResult = try await attemptCacheRead(request: requestContext.request) {
+              if let cacheResult = try await attemptCacheRead(request: request) {
                 // Successful cache read
                 continuation.yield(
                   GraphQLResponse<Request.Operation>(result: cacheResult, cacheRecords: nil)
@@ -231,9 +207,8 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   }
 
   private func kickOffHTTPInterceptors(
-    requestContext: RequestContext
+    request graphQLRequest: Request
   ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
-    let graphQLRequest = requestContext.request
     let interceptors = self.interceptorProvider.httpInterceptors(for: graphQLRequest)
 
     // Setup next function to traverse interceptors
@@ -257,7 +232,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     return try await parsingInterceptor.parse(
       response: httpResponse,
       for: graphQLRequest,
-      includeCacheRecords: requestContext.shouldAttemptCacheWrite
+      includeCacheRecords: graphQLRequest.writeResultsToCache
     )
   }
 
@@ -275,19 +250,19 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   private func writeToCacheIfNecessary(
     response: GraphQLResponse<Request.Operation>,
-    for requestContext: RequestContext
+    for request: Request
   ) async throws {
-    guard requestContext.shouldAttemptCacheWrite,
+    guard request.writeResultsToCache,
       response.cacheRecords != nil,
       response.result.source == .server
     else {
       return
     }
 
-    let cacheInterceptor = self.interceptorProvider.cacheInterceptor(for: requestContext.request)
+    let cacheInterceptor = self.interceptorProvider.cacheInterceptor(for: request)
     try await cacheInterceptor.writeCacheData(
       to: self.store,
-      request: requestContext.request,
+      request: request,
       response: response
     )
   }

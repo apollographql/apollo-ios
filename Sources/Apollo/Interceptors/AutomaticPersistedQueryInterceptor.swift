@@ -46,8 +46,9 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     let isInitialResult = IsInitialResult()
 
     return try await next(request).map { response in
-
-      guard await isInitialResult.get() else {
+#warning("TODO: Test if cache returns result, then server returns failed result, APQ retry still occurs")
+      guard response.result.source == .server,
+            await isInitialResult.get() else {
         return response
       }
 
@@ -76,6 +77,8 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
       var jsonRequest = jsonRequest
       // We need to retry this query with the full body.
       jsonRequest.isPersistedQueryRetry = true
+      jsonRequest.fetchBehavior = FetchBehavior.NetworkOnly
+
       throw RequestChain.Retry(request: jsonRequest)
     }
   }

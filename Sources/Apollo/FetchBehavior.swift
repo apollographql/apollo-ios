@@ -1,16 +1,35 @@
 public struct FetchBehavior: Sendable, Hashable {
 
-  public let cacheRead: CacheReadBehavior
+  // Pre-defined Constants
 
-  public let networkFetch: NetworkFetchBehavior
+  public static let CacheElseNetwork = FetchBehavior(
+    cacheRead: .beforeNetworkFetch,
+    networkFetch: .onCacheMiss
+  )
 
-  public init(
-    cacheRead: CacheReadBehavior,
-    networkFetch: NetworkFetchBehavior
-  ) {
-    self.cacheRead = cacheRead
-    self.networkFetch = networkFetch
-  }
+  public static let CacheThenNetwork = FetchBehavior(
+    cacheRead: .beforeNetworkFetch,
+    networkFetch: .always
+  )
+
+  public static let NetworkElseCache = FetchBehavior(
+    cacheRead: .onNetworkFailure,
+    networkFetch: .always
+  )
+
+  public static let CacheOnly = FetchBehavior(
+    cacheRead: .beforeNetworkFetch,
+    networkFetch: .never
+  )
+
+  public static let NetworkOnly = FetchBehavior(
+    cacheRead: .never,
+    networkFetch: .always
+  )
+
+  public var cacheRead: CacheReadBehavior
+
+  public var networkFetch: NetworkFetchBehavior
 
   public enum CacheReadBehavior: Sendable {
     case never
@@ -23,4 +42,13 @@ public struct FetchBehavior: Sendable, Hashable {
     case always
     case onCacheMiss
   }
+
+  public init(
+    cacheRead: CacheReadBehavior,
+    networkFetch: NetworkFetchBehavior
+  ) {
+    self.cacheRead = cacheRead
+    self.networkFetch = networkFetch
+  }
+
 }
