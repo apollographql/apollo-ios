@@ -54,12 +54,11 @@ public struct FetchBehavior: Sendable, Hashable {
     case onCacheMiss
   }
 
-  public var cacheRead: CacheReadBehavior
+  public let cacheRead: CacheReadBehavior
 
-  public var networkFetch: NetworkFetchBehavior
+  public let networkFetch: NetworkFetchBehavior
 
-
-  public init(
+  fileprivate init(
     cacheRead: CacheReadBehavior,
     networkFetch: NetworkFetchBehavior
   ) {

@@ -24,7 +24,7 @@ extension AsyncThrowingStream where Failure == any Swift.Error {
 extension AsyncThrowingStream.Continuation {
   func passthroughResults(
     of stream: AsyncThrowingStream<Element, Failure>
-  ) async throws {
+  ) async throws where Element: Sendable {
     for try await element in stream {
       self.yield(element)
     }

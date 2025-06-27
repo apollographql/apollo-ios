@@ -32,7 +32,8 @@ public protocol NetworkTransport: AnyObject, Sendable {
 public protocol SubscriptionNetworkTransport: NetworkTransport {
 
   func send<Subscription: GraphQLSubscription>(
-    subscription: Subscription,    
+    subscription: Subscription,
+    fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error>
 

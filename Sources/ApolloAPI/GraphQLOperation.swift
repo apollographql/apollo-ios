@@ -138,7 +138,10 @@ public extension GraphQLMutation {
 
 // MARK: - GraphQLSubscription
 
-public protocol GraphQLSubscription: GraphQLOperation {}
+public protocol GraphQLSubscription: GraphQLOperation {
+  associatedtype ResponseFormat: OperationResponseFormat = SubscriptionResponseFormat
+}
+
 public extension GraphQLSubscription {
   @inlinable static var operationType: GraphQLOperationType { return .subscription }
 }
@@ -161,6 +164,8 @@ public struct IncrementalDeferredResponseFormat: OperationResponseFormat {
     self.deferredFragments = deferredFragments
   }
 }
+
+public struct SubscriptionResponseFormat: OperationResponseFormat {}
 
 // MARK: - GraphQLOperationVariableValue
 

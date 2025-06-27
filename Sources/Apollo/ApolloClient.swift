@@ -95,6 +95,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     )
   }
 
+  /// Clears the `NormalizedCache` of the client's `ApolloStore`.
   public func clearCache() async throws {
     try await self.store.clearCache()
   }
@@ -328,40 +329,76 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   // MARK: - Perform Mutation
 
+  /// Performs a mutation by sending it to the server.
+  ///
+  /// Mutations always need to send their mutation data to the server, so there is no `cachePolicy` or `fetchBehavior`
+  /// parameter.
+  ///
+  /// - Parameters:
+  ///   - mutation: The mutation to perform.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. If `nil` the
+  ///   client's `defaultRequestConfiguration` will be used.
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration? = nil
   ) async throws -> GraphQLResult<Mutation.Data>
   where Mutation.ResponseFormat == SingleResponseFormat {
-    for try await result in try self.networkTransport.send(
+    for try await result in try self.sendMutation(
       mutation: mutation,
-      requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
+      requestConfiguration: requestConfiguration
     ) {
       return result
     }
     throw ApolloClientError.noResults
   }
 
+  /// Performs a mutation by sending it to the server.
+  ///
+  /// Mutations always need to send their mutation data to the server, so there is no `cachePolicy` or `fetchBehavior`
+  /// parameter.
+  ///
+  /// - Parameters:
+  ///   - mutation: The mutation to perform.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. If `nil` the
+  ///   client's `defaultRequestConfiguration` will be used.
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error>
   where Mutation.ResponseFormat == IncrementalDeferredResponseFormat {
-    return try self.networkTransport.send(
-      mutation: mutation,
-      requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
-    )
+    return try sendMutation(mutation: mutation, requestConfiguration: requestConfiguration)
+  }
+
+  public func sendMutation<Mutation: GraphQLMutation>(
+    mutation: Mutation,
+    requestConfiguration: RequestConfiguration?
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
+    return try doInClientContext {
+      return try self.networkTransport.send(
+        mutation: mutation,
+        requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
+      )
+    }
   }
 
   // MARK: - Upload Operation
 
+  /// Uploads the given files with the given operation.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send
+  ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. If `nil` the
+  ///   client's `defaultRequestConfiguration` will be used.
+  ///
+  ///   - Note: An error will be thrown If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration? = nil
   ) async throws -> GraphQLResult<Operation.Data>
   where Operation.ResponseFormat == SingleResponseFormat {
-    for try await result in try self.upload(
+    for try await result in try self.sendUpload(
       operation: operation,
       files: files,
       requestConfiguration: requestConfiguration
@@ -371,20 +408,29 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     throw ApolloClientError.noResults
   }
 
+  /// Uploads the given files with the given operation.
+  ///
+  /// - Parameters:
+  ///   - operation: The operation to send
+  ///   - files: An array of `GraphQLFile` objects to send.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. If `nil` the
+  ///   client's `defaultRequestConfiguration` will be used.
+  ///
+  ///   - Note: An error will be thrown If your `networkTransport` does not also conform to `UploadingNetworkTransport`.
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
   where Operation.ResponseFormat == IncrementalDeferredResponseFormat {
-    return try self.upload(
+    return try self.sendUpload(
       operation: operation,
       files: files,
       requestConfiguration: requestConfiguration
     )
   }
 
-  private func upload<Operation: GraphQLOperation>(
+  private func sendUpload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration?
@@ -393,46 +439,46 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
       assertionFailure(
         "Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`."
       )
-
-      return AsyncThrowingStream {
-        throw ApolloClientError.noUploadTransport
-      }
+      throw ApolloClientError.noUploadTransport
     }
 
-    return try uploadingTransport.upload(
-      operation: operation,
-      files: files,
-      requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
-    )
+    return try doInClientContext {
+      return try uploadingTransport.upload(
+        operation: operation,
+        files: files,
+        requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
+      )
+    }
   }
 
   // MARK: - Subscription Operations
 
+  /// Subscribe to a subscription
+  ///
+  /// - Parameters:
+  ///   - subscription: The subscription to subscribe to.
+  ///   - cachePolicy: A cache policy that specifies when results should be fetched from the server or from the
+  ///   local cache.
   public func subscribe<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    queue: DispatchQueue = .main,
-    resultHandler: @escaping GraphQLResultHandler<Subscription.Data>
-  ) -> any Cancellable {
-    guard let networkTransport = networkTransport as? (any SubscriptionNetworkTransport) else {
+    cachePolicy: CachePolicy.Subscription = .cacheThenNetwork,
+    requestConfiguration: RequestConfiguration? = nil
+  ) async throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
+    guard let subscriptionTransport = self.networkTransport as? (any SubscriptionNetworkTransport) else {
       assertionFailure(
         "Trying to subscribe without a subscription transport. Please make sure your network transport conforms to `SubscriptionNetworkTransport`."
       )
-      queue.async {
-        resultHandler(.failure(ApolloClientError.noSubscriptionTransport))
-      }
-      return EmptyCancellable()
+      throw ApolloClientError.noSubscriptionTransport
     }
 
-    return awaitStreamInTask(
-      {
-        try networkTransport.send(
+    return try doInClientContext {
+      return try subscriptionTransport
+        .send(
           subscription: subscription,
-          cachePolicy: self.defaultCachePolicy,  // TODO: should this just be networkOnly?
+          fetchBehavior: cachePolicy.toFetchBehavior(),
+          requestConfiguration: requestConfiguration ?? defaultRequestConfiguration
         )
-      },
-      callbackQueue: queue,
-      completion: resultHandler
-    )
+    }
   }
 
   // MARK: - ClientContext
@@ -629,22 +675,34 @@ extension ApolloClient {
     queue: DispatchQueue = .main,
     resultHandler: GraphQLResultHandler<Operation.Data>? = nil
   ) -> (any Cancellable) {
-    guard let uploadingTransport = self.networkTransport as? (any UploadingNetworkTransport) else {
-      assertionFailure(
-        "Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`."
-      )
-      queue.async {
-        resultHandler?(.failure(ApolloClientError.noUploadTransport))
-      }
-      return EmptyCancellable()
-    }
-
     return awaitStreamInTask(
       {
-        try uploadingTransport.upload(
+        try self.sendUpload(
           operation: operation,
-          files: files
+          files: files,
+          requestConfiguration: nil
         )
+      },
+      callbackQueue: queue,
+      completion: resultHandler
+    )
+  }
+
+  @discardableResult
+  @_disfavoredOverload
+  @available(
+    *,
+    deprecated,
+    renamed: "subscribe(subscription:cachePolicy:requestConfiguration:)"
+  )
+  public func subscribe<Subscription: GraphQLSubscription>(
+    subscription: Subscription,
+    queue: DispatchQueue = .main,
+    resultHandler: @escaping GraphQLResultHandler<Subscription.Data>
+  ) -> any Cancellable {
+    return awaitStreamInTask(
+      {
+        try await self.subscribe(subscription: subscription)
       },
       callbackQueue: queue,
       completion: resultHandler

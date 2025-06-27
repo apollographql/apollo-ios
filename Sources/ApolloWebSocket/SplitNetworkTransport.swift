@@ -69,10 +69,12 @@ where SubscriptionTransport: SubscriptionNetworkTransport {
 
   public func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
+    fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
     return try subscriptionTransport.send(
       subscription: subscription,
+      fetchBehavior: fetchBehavior,
       requestConfiguration: requestConfiguration
     )
   }
