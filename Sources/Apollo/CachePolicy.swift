@@ -49,6 +49,29 @@ extension CachePolicy.Query.SingleResponse {
     case .networkOnly:
       return FetchBehavior.NetworkOnly
     }
+  }
+}
 
+extension CachePolicy.Query.CacheOnly {
+  public func toFetchBehavior() -> FetchBehavior {
+    return FetchBehavior.CacheOnly
+  }
+}
+
+extension CachePolicy.Query.CacheThenNetwork {
+  public func toFetchBehavior() -> FetchBehavior {
+    return FetchBehavior.CacheThenNetwork
+  }
+}
+
+extension CachePolicy.Subscription {
+  public func toFetchBehavior() -> FetchBehavior {
+    switch self {
+    case .cacheThenNetwork:
+      return FetchBehavior.CacheThenNetwork
+
+    case .networkOnly:
+      return FetchBehavior.NetworkOnly
+    }
   }
 }

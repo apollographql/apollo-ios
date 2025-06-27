@@ -97,6 +97,8 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
     try await block(self)
   }
 
+  // MARK: - Fetch
+
   public func fetch(
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration? = nil
@@ -138,6 +140,28 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
     }
   }
 
+  public func fetch(
+    cachePolicy: CachePolicy.Query.SingleResponse,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  public func fetch(
+    cachePolicy: CachePolicy.Query.CacheOnly,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  public func fetch(
+    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  // MARK: - Result Handling
 
   private func didReceiveResult(_ result: GraphQLResult<Query.Data>) {
     guard !self.cancelled else { return }

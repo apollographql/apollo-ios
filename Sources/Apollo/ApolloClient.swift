@@ -170,7 +170,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try fetch(
       query: query,
-      fetchBehavior: FetchBehavior.CacheThenNetwork,
+      fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration
     )
   }
@@ -184,7 +184,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ) async throws -> GraphQLResult<Query.Data> {
     for try await result in try fetch(
       query: query,
-      fetchBehavior: FetchBehavior.CacheOnly,
+      fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration
     ) {
       return result
@@ -285,7 +285,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ) -> GraphQLQueryWatcher<Query> {
     return self.watch(
       query: query,
-      fetchBehavior: FetchBehavior.CacheThenNetwork,
+      fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration,
       refetchOnFailedUpdates: refetchOnFailedUpdates,
       resultHandler: resultHandler
@@ -316,7 +316,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ) -> GraphQLQueryWatcher<Query> {
     return self.watch(
       query: query,
-      fetchBehavior: FetchBehavior.CacheThenNetwork,
+      fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration,
       refetchOnFailedUpdates: refetchOnFailedUpdates,
       resultHandler: resultHandler
