@@ -1,5 +1,16 @@
 # Change Log
 
+## v1.23.0
+
+### New
+- **Added `requireNonOptionalMockFields` flag to `ApolloCodegenConfiguration.OutputOptions`. ([#669](https://github.com/apollographql/apollo-ios-dev/pull/669)):** Added new flag to codegen output options to allow having non-optional fields in the test mocks if desired. _Thank you to [@dwroth](https://github.com/dwroth) for the contribution._
+
+### Improvement
+- **Added public initializer to `DatabaseRow`. ([#664](https://github.com/apollographql/apollo-ios-dev/pull/664)):** Not having a public initializer on `DatabasRow` was hindering the ability to create custom `SQLiteDatabase` implementations. This solves that by adding a public initializer to `DatabaseRow`._Thank you to [@ChrisLaganiere](https://github.com/ChrisLaganiere) for the contribution._
+
+### Fixed
+- **Unncessary deprecation warning in codegen options initializer. ([#3563](https://github.com/apollographql/apollo-ios/issues/3563)):** Added `@_disfavoredOverload` to the deprecated initialized in `ApolloCodegenConfiguration` to prevent possible warnings caused by the compiler selecting a deprecated initializer versus the new/current initializer. See PR [#682](https://github.com/apollographql/apollo-ios-dev/pull/682). _Thank you to [@CraigSiemens](https://github.com/CraigSiemens) for raising the issue._
+
 ## v1.22.0
 
 ### Improvement
