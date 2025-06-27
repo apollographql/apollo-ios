@@ -1,36 +1,47 @@
-public struct FetchBehavior: Sendable, Hashable {
-
-  // Pre-defined Constants
-
+// MARK: Pre-defined Constants
+extension FetchBehavior {
+  /// Return data from the cache if available, else fetch results from the server.
   public static let CacheElseNetwork = FetchBehavior(
     cacheRead: .beforeNetworkFetch,
     networkFetch: .onCacheMiss
   )
 
+  /// Return data from the cache if available, and always fetch results from the server.
   public static let CacheThenNetwork = FetchBehavior(
     cacheRead: .beforeNetworkFetch,
     networkFetch: .always
   )
 
+  /// Attempt to fetch results from the server, if failed, return data from the cache if available.
   public static let NetworkElseCache = FetchBehavior(
     cacheRead: .onNetworkFailure,
     networkFetch: .always
   )
 
+  /// Return data from the cache if available, do not attempt to fetch results from the server.
   public static let CacheOnly = FetchBehavior(
     cacheRead: .beforeNetworkFetch,
     networkFetch: .never
   )
 
+  ///  Fetch results from the server, do not attempt to read data from the cache.
   public static let NetworkOnly = FetchBehavior(
     cacheRead: .never,
     networkFetch: .always
   )
+}
 
-  public var cacheRead: CacheReadBehavior
+// MARK: -
 
-  public var networkFetch: NetworkFetchBehavior
-
+/// Describes the cache/networking behaviors that should be usedfor the execution of a GraphQL
+/// request.
+///
+/// - Discussion: ``CachePolicy`` is designed to be the public facing API for determining these
+///  behaviors. It is broken into multiple different types in order to provide the context needed to
+///  dispatch to the correct ``ApolloClient`` function. ``ApolloClient`` then converts the
+///  ``CachePolicy`` to a ``FetchBehavior`` which it provides to the ``NetworkTransport``. This
+///  allows internal components (eg. ``RequestChain``) to operate on a single type for ease of use.
+public struct FetchBehavior: Sendable, Hashable {
   public enum CacheReadBehavior: Sendable {
     case never
     case beforeNetworkFetch
@@ -42,6 +53,11 @@ public struct FetchBehavior: Sendable, Hashable {
     case always
     case onCacheMiss
   }
+
+  public var cacheRead: CacheReadBehavior
+
+  public var networkFetch: NetworkFetchBehavior
+
 
   public init(
     cacheRead: CacheReadBehavior,
