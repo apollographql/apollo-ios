@@ -232,8 +232,9 @@ private enum QueryWatcherContext {
 
 extension GraphQLQueryWatcher {
   @available(*, deprecated)
+  @_disfavoredOverload
   public init(
-    client: any ApolloClientProtocol,
+    client: ApolloClient,
     query: Query,
     refetchOnFailedUpdates: Bool = true,
     context: (any RequestContext)? = nil,
