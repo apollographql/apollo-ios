@@ -82,9 +82,10 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
     let provider = DefaultInterceptorProvider()
     let transport = RequestChainNetworkTransport(
+      urlSession: URLSession(configuration: .default),
       interceptorProvider: provider,
-      endpointURL: url,
-      clientAwarenessMetadata: clientAwarenessMetadata
+      store: store,
+      endpointURL: url
     )
 
     self.init(
@@ -620,7 +621,7 @@ extension ApolloClient {
   @available(
     *,
     deprecated,
-    renamed: "upload(:requestConfiguration:)"
+    renamed: "upload(operation:files:requestConfiguration:)"
   )
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,

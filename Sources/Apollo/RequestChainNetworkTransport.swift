@@ -8,8 +8,12 @@ import Foundation
 /// for each item sent through it.
 public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
 
+  public let urlSession: any ApolloURLSession
+
   /// The interceptor provider to use when constructing a request chain
-  let interceptorProvider: any InterceptorProvider
+  public let interceptorProvider: any InterceptorProvider
+
+  public let store: ApolloStore
 
   /// The GraphQL endpoint URL to use.
   public let endpointURL: URL
@@ -19,7 +23,10 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   ///
   /// Defaults to an empty dictionary.
   public let additionalHeaders: [String: String]
-  
+
+  #warning(
+    "Should this be moved into Client Config? APQs wont work for anything that doesn't use RequestChain with APQInterceptor."
+  )
   /// A configuration struct used by a `GraphQLRequest` to configure the usage of
   /// [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq)
   /// By default, APQs are disabled.
@@ -40,12 +47,6 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   /// Defaults to a ``DefaultRequestBodyCreator`` initialized with the default configuration.
   public let requestBodyCreator: any JSONRequestBodyCreator
 
-  /// Any additional HTTP headers that should be added to **every** request, such as an API key or a language setting.
-  ////// The telemetry metadata about the client. This is used by GraphOS Studio's
-  /// [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
-  /// feature.
-  public let clientAwarenessMetadata: ClientAwarenessMetadata
-
   /// Designated initializer
   ///
   /// - Parameters:
@@ -60,45 +61,46 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   ///   - sendEnhancedClientAwareness: Specifies whether client library metadata is sent in each request `extensions`
   ///   key. Client library metadata is the Apollo iOS library name and version. Defaults to `true`.
   public init(
+    urlSession: any ApolloURLSession,
     interceptorProvider: any InterceptorProvider,
+    store: ApolloStore,
     endpointURL: URL,
     additionalHeaders: [String: String] = [:],
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
-    useGETForQueries: Bool = false,
-    clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
+    useGETForQueries: Bool = false
   ) {
+    self.urlSession = urlSession
     self.interceptorProvider = interceptorProvider
+    self.store = store
     self.endpointURL = endpointURL
-
     self.additionalHeaders = additionalHeaders
     self.apqConfig = apqConfig
     self.requestBodyCreator = requestBodyCreator
     self.useGETForQueries = useGETForQueries
-    self.clientAwarenessMetadata = clientAwarenessMetadata
   }
 
   /// Constructs a GraphQL request for the given operation.
   ///
-  /// Override this method if you need to use a custom subclass of `HTTPRequest`.
-  ///
   /// - Parameters:
   ///   - operation: The operation to create the request for
-  ///   - cachePolicy: The `CachePolicy` to use when creating the request  
+  ///   - cachePolicy: The `CachePolicy` to use when creating the request
   ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
   /// - Returns: The constructed request.
   public func constructRequest<Operation: GraphQLOperation>(
     for operation: Operation,
-    cachePolicy: CachePolicy
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration
   ) -> JSONRequest<Operation> {
     var request = JSONRequest(
       operation: operation,
       graphQLEndpoint: self.endpointURL,
-      cachePolicy: cachePolicy,
+      fetchBehavior: fetchBehavior,
+      writeResultsToCache: requestConfiguration.writeResultsToCache,
+      requestTimeout: requestConfiguration.requestTimeout,
       apqConfig: self.apqConfig,
       useGETForQueries: self.useGETForQueries,
-      requestBodyCreator: self.requestBodyCreator,
-      clientAwarenessMetadata: self.clientAwarenessMetadata
+      requestBodyCreator: self.requestBodyCreator
     )
     request.addHeaders(self.additionalHeaders)
     return request
@@ -108,11 +110,13 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
 
   public func send<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
     let request = self.constructRequest(
       for: query,
-      cachePolicy: cachePolicy,
+      fetchBehavior: fetchBehavior,
+      requestConfiguration: requestConfiguration
     )
 
     let chain = makeChain(for: request)
@@ -122,29 +126,26 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
 
   public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy
+    requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
     let request = self.constructRequest(
       for: mutation,
-      cachePolicy: cachePolicy
+      fetchBehavior: FetchBehavior.NetworkOnly,
+      requestConfiguration: requestConfiguration
     )
 
     let chain = makeChain(for: request)
-
     return chain.kickoff(request: request)
   }
 
   private func makeChain<Request: GraphQLRequest>(
     for request: Request
   ) -> RequestChain<Request> {
-    let operation = request.operation
-    let chain = RequestChain<Request>(
-      urlSession: interceptorProvider.urlSession(for: operation),
-      interceptors: interceptorProvider.interceptors(for: operation),
-      cacheInterceptor: interceptorProvider.cacheInterceptor(for: operation),
-      errorInterceptor: interceptorProvider.errorInterceptor(for: operation)
+    return RequestChain<Request>(
+      urlSession: urlSession,
+      interceptorProvider: interceptorProvider,
+      store: store
     )
-    return chain
   }
 
 }
@@ -158,21 +159,19 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
   /// - Parameters:
   ///   - operation: The operation to create a request for
   ///   - files: The files you wish to upload
-  ///   - context: [optional] A context that is being passed through the request chain. Should default to `nil`.
-  ///   - manualBoundary: [optional] A manually set boundary for your upload request. Defaults to nil.
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
   /// - Returns: The created request.
   public func constructUploadRequest<Operation: GraphQLOperation>(
     for operation: Operation,
-    with files: [GraphQLFile]
-    manualBoundary: String? = nil
+    files: [GraphQLFile],
+    requestConfiguration: RequestConfiguration
   ) -> UploadRequest<Operation> {
     var request = UploadRequest(
       operation: operation,
       graphQLEndpoint: self.endpointURL,
       files: files,
-      multipartBoundary: manualBoundary,
-      requestBodyCreator: self.requestBodyCreator,
-      clientAwarenessMetadata: self.clientAwarenessMetadata
+      writeResultsToCache: requestConfiguration.writeResultsToCache,
+      requestBodyCreator: self.requestBodyCreator
     )
     request.addHeaders(self.additionalHeaders)
     return request
@@ -180,9 +179,14 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
 
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
-    files: [GraphQLFile]
+    files: [GraphQLFile],
+    requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
-    let request = self.constructUploadRequest(for: operation, with: files)
+    let request = self.constructUploadRequest(
+      for: operation,
+      files: files,
+      requestConfiguration: requestConfiguration
+    )
     let chain = makeChain(for: request)
     return chain.kickoff(request: request)
   }

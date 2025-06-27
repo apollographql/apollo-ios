@@ -12,7 +12,7 @@ public protocol NetworkTransport: AnyObject, Sendable {
   ///   - operation: The operation to send.
   ///   - fetchBehavior: The `FetchBehavior` to use for this request.
   ///                    Determines if fetching will include cache/network fetches.
-  ///   - requestConfiguration: TODO
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
   /// - Returns: A stream of `GraphQLResult`s for each response.
   func send<Query: GraphQLQuery>(
     query: Query,
@@ -48,7 +48,7 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - operation: The operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
-  ///   - requestConfiguration: TODO
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
   /// - Returns: A stream of `GraphQLResult`s for each response.
   func upload<Operation: GraphQLOperation>(
     operation: Operation,
