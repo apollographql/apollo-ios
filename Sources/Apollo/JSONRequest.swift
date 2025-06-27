@@ -16,9 +16,12 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// Any additional headers you wish to add to this request
   public var additionalHeaders: [String: String] = [:]
 
-  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
-  public var fetchBehavior: FetchBehavior
-  
+  /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
+  /// loading. This timeout interval is measured in seconds.
+  ///
+  /// The value of this property will be set as the `timeoutInterval` on the `URLRequest` created for this GraphQL request.
+  public var requestTimeout: TimeInterval?
+
   public let requestBodyCreator: any JSONRequestBodyCreator
 
   public var apqConfig: AutoPersistedQueryConfiguration
@@ -31,7 +34,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// to cache the results of queries that rarely change.
   ///
   /// Mutation operations always use POST, even when this is `false`
-  public let useGETForQueries: Bool  
+  public let useGETForQueries: Bool
 
   /// Designated initializer
   ///
@@ -49,14 +52,14 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   public init(
     operation: Operation,
     graphQLEndpoint: URL,
-    fetchBehavior: FetchBehavior,
+    requestTimeout: TimeInterval?,
     apqConfig: AutoPersistedQueryConfiguration = .init(),
     useGETForQueries: Bool = false,
     requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator()
   ) {
     self.operation = operation
     self.graphQLEndpoint = graphQLEndpoint
-    self.fetchBehavior = fetchBehavior
+    self.requestTimeout = requestTimeout
     self.requestBodyCreator = requestBodyCreator
 
     self.apqConfig = apqConfig
@@ -110,7 +113,6 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue
-        request.cachePolicy = requestCachePolicy
 
         // GET requests shouldn't have a content-type since they do not provide actual content.
         request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
@@ -164,47 +166,23 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
     return body
   }
 
-  /// Convert the Apollo iOS cache policy into a matching cache policy for URLRequest.
-  private var requestCachePolicy: URLRequest.CachePolicy {
-    if !fetchBehavior.shouldAttemptCacheRead {
-      if fetchBehavior.shouldAttemptCacheWrite {
-        return .reloadIgnoringLocalCacheData
-      } else {
-        return .reloadIgnoringLocalAndRemoteCacheData
-      }
-    } else {
-      switch fetchBehavior.shouldAttemptNetworkFetch {
-      case .always:
-        return .reloadRevalidatingCacheData
-      case .never:
-        return .returnCacheDataDontLoad
-      case .onCacheFailure:
-        return .useProtocolCachePolicy
-      }
-    }
-  }
-
   // MARK: - Equtable/Hashable Conformance
 
   public static func == (
     lhs: JSONRequest<Operation>,
     rhs: JSONRequest<Operation>
   ) -> Bool {
-    lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
-    lhs.operation == rhs.operation &&
-    lhs.additionalHeaders == rhs.additionalHeaders &&
-    lhs.fetchBehavior == rhs.fetchBehavior &&
-    lhs.apqConfig == rhs.apqConfig &&
-    lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry &&
-    lhs.useGETForQueries == rhs.useGETForQueries &&
-    type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator)
+    lhs.graphQLEndpoint == rhs.graphQLEndpoint && lhs.operation == rhs.operation
+      && lhs.additionalHeaders == rhs.additionalHeaders
+      && lhs.apqConfig == rhs.apqConfig && lhs.isPersistedQueryRetry == rhs.isPersistedQueryRetry
+      && lhs.useGETForQueries == rhs.useGETForQueries
+      && type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator)
   }
 
   public func hash(into hasher: inout Hasher) {
     hasher.combine(graphQLEndpoint)
     hasher.combine(operation)
     hasher.combine(additionalHeaders)
-    hasher.combine(fetchBehavior)
     hasher.combine(apqConfig)
     hasher.combine(isPersistedQueryRetry)
     hasher.combine(useGETForQueries)
@@ -223,7 +201,6 @@ extension JSONRequest: CustomDebugStringConvertible {
       debugStrings.append("\t\(key): \(value),")
     }
     debugStrings.append("]")
-    debugStrings.append("Fetch Behavior: \(self.fetchBehavior)")
     debugStrings.append("Operation: \(self.operation)")
     return debugStrings.joined(separator: "\n\t")
   }

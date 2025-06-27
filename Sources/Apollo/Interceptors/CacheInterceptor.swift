@@ -7,7 +7,7 @@ public protocol CacheInterceptor: Sendable {
   func readCacheData<Request: GraphQLRequest>(
     from store: ApolloStore,
     request: Request
-  ) async throws -> GraphQLResult<Request.Operation.Data> where Request.Operation: GraphQLQuery
+  ) async throws -> GraphQLResult<Request.Operation.Data>?
 
   func writeCacheData<Request: GraphQLRequest>(
     to store: ApolloStore,
@@ -24,7 +24,7 @@ public struct DefaultCacheInterceptor: CacheInterceptor {
   public func readCacheData<Request: GraphQLRequest>(
     from store: ApolloStore,
     request: Request
-  ) async throws -> GraphQLResult<Request.Operation.Data> where Request.Operation: GraphQLQuery {
+  ) async throws -> GraphQLResult<Request.Operation.Data>? {
     return try await store.load(request.operation)
   }
 

@@ -19,7 +19,7 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   ///
   /// Defaults to an empty dictionary.
   public let additionalHeaders: [String: String]
-
+  
   /// A configuration struct used by a `GraphQLRequest` to configure the usage of
   /// [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq)
   /// By default, APQs are disabled.

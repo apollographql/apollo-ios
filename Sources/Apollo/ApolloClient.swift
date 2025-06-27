@@ -14,34 +14,31 @@ public enum CachePolicy: Sendable, Hashable {
   case networkFirst
   ///  Fetch results from the server, do not attempt to read data from the cache.
   case networkOnly
-  /// Return data from the cache if available, and always fetch results from the server.
-  case cacheAndNetwork  // seperate function?
-
-  /// Return data from the cache if available, else return an error.
-  case cacheOnly  // replace with separate function?
+  //  /// Return data from the cache if available, and always fetch results from the server.
+  //  case cacheAndNetwork  // seperate function?
+  //
+  //  /// Return data from the cache if available, else return an error.
+  //  case cacheOnly  // replace with separate function?
 
   ///  Always fetch results from the server, and don't store these in the cache.
   //  case fetchIgnoringCacheCompletely
 
-  #warning("TODO: this unsafe is not properly made atomic. Fix this")
-  //  /// The current default cache policy.
-  //  nonisolated(unsafe) public static var `default`: CachePolicy = .cacheFirst
 }
 
-/// A handler for operation results.
-///
-/// - Parameters:
-///   - result: The result of a performed operation. Will have a `GraphQLResult` with any parsed data and any GraphQL errors on `success`, and an `Error` on `failure`.
-public typealias GraphQLResultHandler<Data: RootSelectionSet> = @Sendable (Result<GraphQLResult<Data>, any Error>) ->
-  Void
+public struct RequestConfiguration: Sendable {
+  public var requestTimeout: TimeInterval?
+  public var writeResultsToCache: Bool
 
-struct RequestConfigurationContext {
-  @TaskLocal static var taskLocal: RequestConfigurationContext = .init()
-
-  var requestTimeout: Int32 = 30
-  var writeResultsToCache: Bool = true
+  public init(
+    requestTimeout: TimeInterval? = nil,
+    writeResultsToCache: Bool = true
+  ) {
+    self.requestTimeout = requestTimeout
+    self.writeResultsToCache = writeResultsToCache
+  }
 }
 
+// MARK: -
 /// The `ApolloClient` class implements the core API for Apollo by conforming to `ApolloClientProtocol`.
 public final class ApolloClient: ApolloClientProtocol, Sendable {
 
@@ -51,6 +48,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   #warning("TODO: unit test usage")
   public let defaultCachePolicy: CachePolicy
+
+  public let defaultRequestConfiguration: RequestConfiguration
 
   public enum ApolloClientError: Error, LocalizedError, Hashable {
     case noResults
@@ -77,24 +76,34 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes
   ///   a store, you should make sure the same store is passed here so that it can be cleared properly.
   ///   - defaultCachePolicy: TODO
+  ///   - clientAwarenessMetadata: Metadata used by the
+  ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
+  ///     feature of GraphOS Studio.
   public init(
     networkTransport: any NetworkTransport,
     store: ApolloStore,
     defaultCachePolicy: CachePolicy = .cacheFirst,
+    defaultRequestConfiguration: RequestConfiguration = RequestConfiguration(),
     clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
     self.networkTransport = networkTransport
     self.store = store
     self.defaultCachePolicy = defaultCachePolicy
+    self.defaultRequestConfiguration = defaultRequestConfiguration
     self.context = ClientContext(clientAwarenessMetadata: clientAwarenessMetadata)
   }
 
   /// Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
   ///
-  /// - Parameter url: The URL of a GraphQL server to connect to.
+  /// - Parameters:
+  ///   - url: The URL of a GraphQL server to connect to.
+  ///   - clientAwarenessMetadata: Metadata used by the
+  ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
+  ///     feature of GraphOS Studio.
   public convenience init(
     url: URL,
     defaultCachePolicy: CachePolicy = .cacheFirst,
+    defaultRequestConfiguration: RequestConfiguration = RequestConfiguration(),
     clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
@@ -108,7 +117,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     self.init(
       networkTransport: transport,
       store: store,
-      defaultCachePolicy: defaultCachePolicy
+      defaultCachePolicy: defaultCachePolicy,
+      defaultRequestConfiguration: defaultRequestConfiguration
     )
   }
 
@@ -121,11 +131,13 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy? = nil,
+    requestConfiguration: RequestConfiguration? = nil
   ) async throws -> GraphQLResult<Query.Data>
   where Query.ResponseFormat == SingleResponseFormat {
     for try await result in try sendQuery(
       query: query,
       cachePolicy: cachePolicy,
+      requestConfiguration: requestConfiguration
     ) {
       return result
     }
@@ -135,18 +147,22 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy? = nil,
+    requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try sendQuery(query: query, cachePolicy: cachePolicy, requestConfiguration: requestConfiguration)
   }
+
   private func sendQuery<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy?,
+    requestConfiguration: RequestConfiguration?
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
     return try doInClientContext {
       return try self.networkTransport.send(
         query: query,
         cachePolicy: cachePolicy ?? self.defaultCachePolicy,
+        requestConfiguration: requestConfiguration ?? self.defaultRequestConfiguration
       )
     }
   }
@@ -277,6 +293,14 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
 // MARK: - Deprecations
 
+/// A handler for operation results.
+///
+/// - Parameters:
+///   - result: The result of a performed operation. Will have a `GraphQLResult` with any parsed data and any GraphQL errors on `success`, and an `Error` on `failure`.
+@available(*, deprecated)
+public typealias GraphQLResultHandler<Data: RootSelectionSet> = @Sendable (Result<GraphQLResult<Data>, any Error>) ->
+  Void
+
 extension ApolloClient {
 
   @available(*, deprecated)
@@ -285,7 +309,7 @@ extension ApolloClient {
     completion: (@Sendable (Result<Void, any Error>) -> Void)? = nil
   ) {
     self.store.clearCache(callbackQueue: callbackQueue, completion: completion)
-  }  
+  }
 
   @available(*, deprecated)
   @discardableResult public func fetch<Query: GraphQLQuery>(
@@ -360,4 +384,19 @@ extension ApolloClient {
     return watcher
   }
 
+}
+
+// MARK: - Fetch Behavior Creation
+extension FetchBehavior {
+  fileprivate init(queryCachePolicy: CachePolicy) {
+    switch queryCachePolicy {
+    case .cacheFirst:
+      self.shouldAttemptCacheRead = true
+      self.shouldAttemptNetworkFetch = .onCacheFailure
+
+    case .networkFirst:
+      self
+    }
+
+  }
 }

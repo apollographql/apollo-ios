@@ -1,35 +1,26 @@
 public struct FetchBehavior: Sendable, Hashable {
 
-  public var shouldAttemptCacheRead: Bool
+  public let cacheRead: CacheReadBehavior
 
-  public var shouldAttemptCacheWrite: Bool
-
-  public var shouldAttemptNetworkFetch: NetworkBehavior
+  public let networkFetch: NetworkFetchBehavior
 
   public init(
-    shouldAttemptCacheRead: Bool,
-    shouldAttemptCacheWrite: Bool,
-    shouldAttemptNetworkFetch: NetworkBehavior
+    cacheRead: CacheReadBehavior,
+    networkFetch: NetworkFetchBehavior
   ) {
-    self.shouldAttemptCacheRead = shouldAttemptCacheRead
-    self.shouldAttemptCacheWrite = shouldAttemptCacheWrite
-    self.shouldAttemptNetworkFetch = shouldAttemptNetworkFetch
+    self.cacheRead = cacheRead
+    self.networkFetch = networkFetch
   }
 
-  public enum NetworkBehavior: Sendable {
+  public enum CacheReadBehavior: Sendable {
+    case never
+    case beforeNetworkFetch
+    case onNetworkFailure
+  }
+
+  public enum NetworkFetchBehavior: Sendable {
     case never
     case always
-    case onCacheFailure
-  }
-
-  public func shouldFetchFromNetwork(hadSuccessfulCacheRead: Bool) -> Bool {
-    switch self.shouldAttemptNetworkFetch {
-    case .never:
-      return false
-    case .always:
-      return true
-    case .onCacheFailure:
-      return !hadSuccessfulCacheRead
-    }
+    case onCacheMiss
   }
 }

@@ -15,8 +15,11 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
   /// Any additional headers you wish to add to this request
   public var additionalHeaders: [String: String] = [:]
 
-  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
-  public var fetchBehavior: FetchBehavior
+  /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
+  /// loading. This timeout interval is measured in seconds.
+  ///
+  /// The value of this property will be set as the `timeoutInterval` on the `URLRequest` created for this GraphQL request.
+  public var requestTimeout: TimeInterval?
 
   public let requestBodyCreator: any JSONRequestBodyCreator
 
@@ -134,7 +137,6 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     lhs.graphQLEndpoint == rhs.graphQLEndpoint &&
     lhs.operation == rhs.operation &&
     lhs.additionalHeaders == rhs.additionalHeaders &&
-    lhs.fetchBehavior == rhs.fetchBehavior &&
     type(of: lhs.requestBodyCreator) == type(of: rhs.requestBodyCreator) &&
     lhs.files == rhs.files &&
     lhs.multipartBoundary == rhs.multipartBoundary
@@ -144,7 +146,6 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
     hasher.combine(graphQLEndpoint)
     hasher.combine(operation)
     hasher.combine(additionalHeaders)
-    hasher.combine(fetchBehavior)
     hasher.combine("\(type(of: requestBodyCreator))")
     hasher.combine(files)
     hasher.combine(multipartBoundary)

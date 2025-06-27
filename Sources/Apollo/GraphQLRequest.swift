@@ -15,9 +15,11 @@ public protocol GraphQLRequest<Operation>: Sendable {
   /// Any additional headers you wish to add to this request.
   var additionalHeaders: [String: String] { get set }
 
-  /// The `FetchBehavior` to use for this request. Determines if fetching will include cache/network.
-  var fetchBehavior: FetchBehavior { get set }
-
+  /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
+  /// loading. This timeout interval is measured in seconds.
+  ///
+  /// The value of this property will be set as the `timeoutInterval` on the `URLRequest` created for this GraphQL request.
+  var requestTimeout: TimeInterval? { get set }
 
   /// Converts the receiver into a `URLRequest` to be used for networking operations.
   ///
@@ -38,8 +40,7 @@ extension GraphQLRequest {
   /// - `httpMethod` set to POST
   /// - Client awareness headers from `ApolloClient.clientAwarenessMetadata` added to `allHTTPHeaderFields`
   /// - All header's from `additionalHeaders` added to `allHTTPHeaderFields`
-  /// - If the `context` conforms to `RequestContextTimeoutConfigurable`, the `timeoutInterval` is
-  /// set to the context's `requestTimeout`.
+  /// - Sets the `timeoutInterval` to `requestTimeout` if not nil.
   ///
   /// - Note: This should be called within the implementation of `toURLRequest()` and the returned request
   /// can then be modified as necessary before being returned.
@@ -58,8 +59,8 @@ extension GraphQLRequest {
       request.addValue(value, forHTTPHeaderField: fieldName)
     }
 
-    if let configContext = self.context as? any RequestContextTimeoutConfigurable {
-      request.timeoutInterval = configContext.requestTimeout
+    if let requestTimeout {
+      request.timeoutInterval = requestTimeout
     }
 
     return request

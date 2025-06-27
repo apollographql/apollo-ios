@@ -4,6 +4,7 @@ import ApolloAPI
 #endif
 
 /// The `ApolloClientProtocol` provides the core API for Apollo. This API provides methods to fetch and watch queries, and to perform mutations.
+#warning("TODO: move this to ApolloTestSupport?")
 public protocol ApolloClientProtocol: AnyObject {
 
   ///  A store used as a local cache.

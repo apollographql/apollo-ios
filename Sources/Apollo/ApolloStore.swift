@@ -118,6 +118,7 @@ public final class ApolloStore: Sendable {
     return value
   }
 
+  #warning("TODO: Make cache reads return nil instead of throwing on cache miss.")
   /// Loads the results for the given operation from the cache.
   ///
   /// This function will throw an error on a cache miss.
