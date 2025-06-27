@@ -31,7 +31,7 @@ public final class ApolloStore: Sendable {
 
   /// In order to comply with `Sendable` requirements, this unsafe property should
   /// only be accessed within a `readerWriterLock.write { }` block.
-  nonisolated(unsafe) private(set) var subscribers: [any ApolloStoreSubscriber] = []
+  nonisolated(unsafe) private(set) var subscribers: [SubscriptionToken: any ApolloStoreSubscriber] = [:]
 
   /// Designated initializer
   /// - Parameters:
@@ -42,7 +42,7 @@ public final class ApolloStore: Sendable {
   }
 
   fileprivate func didChangeKeys(_ changedKeys: Set<CacheKey>) {
-    for subscriber in self.subscribers {
+    for subscriber in self.subscribers.values {
       subscriber.store(self, didChangeKeys: changedKeys)
     }
   }
@@ -69,23 +69,25 @@ public final class ApolloStore: Sendable {
   /// - Parameters:
   ///    - subscriber: A subscriber to receive content change notificatons. To avoid a retain cycle,
   ///                  ensure you call `unsubscribe` on this subscriber before it goes out of scope.
-  public func subscribe(_ subscriber: any ApolloStoreSubscriber) {
-    Task {
+  public func subscribe(_ subscriber: any ApolloStoreSubscriber) -> SubscriptionToken {
+    let token = SubscriptionToken(id: ObjectIdentifier(subscriber))
+    Task(priority: Task.currentPriority < .medium ? .medium : Task.currentPriority) {
       await readerWriterLock.write {
-        self.subscribers.append(subscriber)
+        self.subscribers[token] = subscriber
       }
     }
+    return token
   }
 
   /// Unsubscribes from notifications of ApolloStore content changes
   ///
   /// - Parameters:
-  ///    - subscriber: A subscribe that has previously been added via `subscribe`. To avoid retain cycles,
-  ///                  call `unsubscribe` on all active subscribers before they go out of scope.
-  public func unsubscribe(_ subscriber: any ApolloStoreSubscriber) {
-    Task {
+  ///    - subscriptionToken: An opaque token for the subscriber that was provided via `subscribe(_:)`.
+  ///    To avoid retain cycles, call `unsubscribe` on all active subscribers before they go out of scope.
+  public func unsubscribe(_ subscriptionToken: SubscriptionToken) {
+    Task(priority: Task.currentPriority > .medium ? .medium : Task.currentPriority) {
       await readerWriterLock.write {
-        self.subscribers = self.subscribers.filter({ $0 !== subscriber })
+        self.subscribers.removeValue(forKey: subscriptionToken)
       }
     }
   }
@@ -145,6 +147,11 @@ public final class ApolloStore: Sendable {
         dependentKeys: dependentKeys
       )
     }
+  }
+
+  // MARK: -
+  public struct SubscriptionToken: Sendable, Hashable {
+    let id: ObjectIdentifier
   }
 
   // MARK: -
