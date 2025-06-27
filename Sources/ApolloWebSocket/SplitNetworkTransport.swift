@@ -5,16 +5,20 @@ import Foundation
   import ApolloAPI
 #endif
 
-#warning(
-  """
-  TODO: This is messy. Why is http network transport called "uploadingNetworkTransport"?
-  Websocket transport should be typesafe to a protocol that guaruntees it supports web sockets/ subscriptions
-  """
-)
-/// A network transport that sends subscriptions using one `NetworkTransport` and other requests using another `NetworkTransport`. Ideal for sending subscriptions via a web socket but everything else via HTTP.
-public final class SplitNetworkTransport: Sendable {
-  private let uploadingNetworkTransport: any UploadingNetworkTransport
-  private let webSocketNetworkTransport: any SubscriptionNetworkTransport
+/// A network transport that sends allows you to use different `NetworkTransport` types for each operation type.
+///
+/// This can be used, for example, to send subscriptions via a web socket transport but everything else via HTTP.
+public final class SplitNetworkTransport<
+  QueryTransport: NetworkTransport,
+  MutationTransport: NetworkTransport,
+  SubscriptionTransport: Sendable,
+  UploadTransport: Sendable
+>: NetworkTransport, Sendable {
+
+  private let queryTransport: QueryTransport
+  private let mutationTransport: MutationTransport
+  private let subscriptionTransport: SubscriptionTransport
+  private let uploadTransport: UploadTransport
 
   /// Designated initializer
   ///
@@ -22,64 +26,71 @@ public final class SplitNetworkTransport: Sendable {
   ///   - uploadingNetworkTransport: An `UploadingNetworkTransport` to use for non-subscription requests. Should generally be a `RequestChainNetworkTransport` or something similar.
   ///   - webSocketNetworkTransport: A `NetworkTransport` to use for subscription requests. Should generally be a `WebSocketTransport` or something similar.
   public init(
-    uploadingNetworkTransport: any UploadingNetworkTransport,
-    webSocketNetworkTransport: any SubscriptionNetworkTransport
+    queryTransport: QueryTransport,
+    mutationTransport: MutationTransport,
+    subscriptionTransport: SubscriptionTransport = Void(),
+    uploadTransport: UploadTransport = Void(),
   ) {
-    self.uploadingNetworkTransport = uploadingNetworkTransport
-    self.webSocketNetworkTransport = webSocketNetworkTransport
+    self.queryTransport = queryTransport
+    self.mutationTransport = mutationTransport
+    self.subscriptionTransport = subscriptionTransport
+    self.uploadTransport = uploadTransport
   }
-}
 
-// MARK: - NetworkTransport conformance
+  // MARK: - NetworkTransport conformance
 
-extension SplitNetworkTransport: NetworkTransport {
-
-  public func send<Query>(
+  public func send<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> where Query: GraphQLQuery {
-    return try uploadingNetworkTransport.send(
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
+    return try queryTransport.send(
       query: query,
-      cachePolicy: cachePolicy
+      fetchBehavior: fetchBehavior,
+      requestConfiguration: requestConfiguration
     )
   }
 
-  public func send<Mutation>(
+  public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
-    cachePolicy: CachePolicy
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> where Mutation: GraphQLMutation {
-    return try uploadingNetworkTransport.send(
+    requestConfiguration: RequestConfiguration
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
+    return try mutationTransport.send(
       mutation: mutation,
-      cachePolicy: cachePolicy
+      requestConfiguration: requestConfiguration
     )
   }
 }
 
 // MARK: - SubscriptionNetworkTransport conformance
 
-extension SplitNetworkTransport: SubscriptionNetworkTransport {
-  public func send<Subscription>(
+extension SplitNetworkTransport: SubscriptionNetworkTransport
+where SubscriptionTransport: SubscriptionNetworkTransport {
+
+  public func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
-    cachePolicy: CachePolicy
-  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> where Subscription: GraphQLSubscription {
-    return try webSocketNetworkTransport.send(
+    requestConfiguration: RequestConfiguration
+  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
+    return try subscriptionTransport.send(
       subscription: subscription,
-      cachePolicy: cachePolicy
+      requestConfiguration: requestConfiguration
     )
   }
 }
 
 // MARK: - UploadingNetworkTransport conformance
 
-extension SplitNetworkTransport: UploadingNetworkTransport {
+extension SplitNetworkTransport: UploadingNetworkTransport where UploadTransport: UploadingNetworkTransport {
 
   public func upload<Operation: GraphQLOperation>(
     operation: Operation,
-    files: [GraphQLFile]
+    files: [GraphQLFile],
+    requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
-    return try uploadingNetworkTransport.upload(
+    return try uploadTransport.upload(
       operation: operation,
-      files: files
+      files: files,
+      requestConfiguration: requestConfiguration
     )
   }
 }

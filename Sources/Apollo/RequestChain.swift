@@ -136,7 +136,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     return InterceptorResultStream(
       stream: AsyncThrowingStream<GraphQLResponse<Operation>, any Error>.executingInAsyncTask { continuation in
         let fetchBehavior = request.fetchBehavior
-        var didYieldCacheData: Bool
+        var didYieldCacheData: Bool = false
 
         // If read from cache before network fetch
         if fetchBehavior.shouldReadFromCache(hadFailedNetworkFetch: false) {
@@ -150,7 +150,6 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
             }
 
             // Cache miss
-            didYieldCacheData = false
 
           } catch {
             #warning(
@@ -165,8 +164,6 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
             // Cache read failure
             if !fetchBehavior.shouldFetchFromNetwork(hadSuccessfulCacheRead: false) {
               throw error
-            } else {
-              didYieldCacheData = false
             }
           }
         }
