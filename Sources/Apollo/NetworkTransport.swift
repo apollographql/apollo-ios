@@ -48,9 +48,8 @@ public protocol UploadingNetworkTransport: NetworkTransport {
   /// - Parameters:
   ///   - operation: The operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
-  ///   - context: [optional] A context that is being passed through the request chain.
+  ///   - requestConfiguration: TODO
   /// - Returns: A stream of `GraphQLResult`s for each response.
-#warning("TODO: should support query and mutation as seperate functions")
   func upload<Operation: GraphQLOperation>(
     operation: Operation,
     files: [GraphQLFile],
