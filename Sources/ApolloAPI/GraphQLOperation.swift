@@ -88,18 +88,18 @@ public extension GraphQLOperation {
   static var definition: OperationDefinition? {
     operationDocument.definition
   }
-  
+
   static var operationIdentifier: String? {
     operationDocument.operationIdentifier
   }
 
-  static func ==(lhs: Self, rhs: Self) -> Bool {
+  static func == (lhs: Self, rhs: Self) -> Bool {
     switch (lhs.__variables, rhs.__variables) {
     case (.none, .none): return true
     case (.some, .none), (.none, .some): return false
     case let (.some(lhsVariables), .some(rhsVariables)):
-      return AnyHashable(lhsVariables._jsonEncodableObject._jsonValue) ==
-      AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
+      return AnyHashable(lhsVariables._jsonEncodableObject._jsonValue)
+        == AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
     }
   }
 }
@@ -138,12 +138,14 @@ public extension GraphQLMutation {
 
 // MARK: - GraphQLSubscription
 
-public protocol GraphQLSubscription: GraphQLOperation {
+public protocol GraphQLSubscription: GraphQLOperation
+where ResponseFormat == SubscriptionResponseFormat {
   associatedtype ResponseFormat: OperationResponseFormat = SubscriptionResponseFormat
 }
 
 public extension GraphQLSubscription {
   @inlinable static var operationType: GraphQLOperationType { return .subscription }
+  static var responseFormat: ResponseFormat { SubscriptionResponseFormat() }
 }
 
 // MARK: - OperationResponseFormat
@@ -198,7 +200,7 @@ where Wrapped: GraphQLOperationVariableValue {
 extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
     switch self {
-    case .none: return nil    
+    case .none: return nil
     case let .some(value): return value._jsonEncodableValue
     }
   }
