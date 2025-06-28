@@ -69,7 +69,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
 
     self.fetchBlock = { [weak client] in
       guard let client else { return nil }
-      
+
       return try client.fetch(
         query: query,
         fetchBehavior: $0,
@@ -93,7 +93,9 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
     self.subscriptionToken = client.store.subscribe(self)
   }
 
-  private func doOnActor(_ block: @escaping @Sendable (isolated GraphQLQueryWatcher) async throws -> Void) async rethrows {
+  private func doOnActor(
+    _ block: @escaping @Sendable (isolated GraphQLQueryWatcher) async throws -> Void
+  ) async rethrows {
     try await block(self)
   }
 

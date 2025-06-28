@@ -25,7 +25,7 @@ public struct ClientAwarenessMetadata: Sendable {
   /// application.
   ///
   /// Defaults to `true`.
-  public var includeApolloLibraryAwareness: Bool = true
+  public let includeApolloLibraryAwareness: Bool = true
 
   public init(
     clientApplicationName: String? = nil,

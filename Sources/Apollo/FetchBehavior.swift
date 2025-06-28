@@ -33,7 +33,7 @@ extension FetchBehavior {
 
 // MARK: -
 
-/// Describes the cache/networking behaviors that should be usedfor the execution of a GraphQL
+/// Describes the cache/networking behaviors that should be used for the execution of a GraphQL
 /// request.
 ///
 /// - Discussion: ``CachePolicy`` is designed to be the public facing API for determining these

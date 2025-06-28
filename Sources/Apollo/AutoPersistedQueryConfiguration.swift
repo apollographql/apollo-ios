@@ -26,7 +26,6 @@ public struct AutoPersistedQueryConfiguration: Sendable, Hashable {
 
 public protocol AutoPersistedQueryCompatibleRequest: GraphQLRequest {
 
-#warning("Consider moving this to ClientContext or RequestConfiguration?")
   /// A configuration struct used by a `GraphQLRequest` to configure the usage of
   ///   [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq)
   ///   By default, APQs are disabled.

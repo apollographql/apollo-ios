@@ -52,6 +52,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ///   - networkTransport: A network transport used to send operations to a server.
   ///   - store: A store used as a local cache. Note that if the `NetworkTransport` or any of its dependencies takes
   ///   a store, you should make sure the same store is passed here so that it can be cleared properly.
+  ///   - defaultRequestConfiguration: A default``RequestConfiguration`` for the client's requests. When starting a
+  ///   request with the client, if no ``RequestConfiguration`` is provided the default will be used.
   ///   - clientAwarenessMetadata: Metadata used by the
   ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
   ///     feature of GraphOS Studio.
@@ -71,6 +73,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.
+  ///   - defaultRequestConfiguration: A default``RequestConfiguration`` for the client's requests. When starting a
+  ///   request with the client, if no ``RequestConfiguration`` is provided the default will be used.
   ///   - clientAwarenessMetadata: Metadata used by the
   ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
   ///     feature of GraphOS Studio.

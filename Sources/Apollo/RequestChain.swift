@@ -24,7 +24,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     public let request: Request
 
     public init(request: Request) {
-      self.request = request      
+      self.request = request
     }
   }
 
