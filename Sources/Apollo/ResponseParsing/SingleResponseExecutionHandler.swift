@@ -1,5 +1,5 @@
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 extension JSONResponseParser {
@@ -63,7 +63,7 @@ extension JSONResponseParser {
     /// create dependent keys or a `RecordSet` for the cache.
     ///
     /// This is faster than `parseResult()` and should be used when cache the response is not needed.
-    public func parseResultOmittingCacheRecords() async throws -> GraphQLResult<Operation.Data>  {
+    public func parseResultOmittingCacheRecords() async throws -> GraphQLResult<Operation.Data> {
       let accumulator = DataDictMapper()
       let data = try await base.execute(
         selectionSet: Operation.Data.self,
@@ -91,20 +91,3 @@ extension JSONResponseParser {
     }
   }
 }
-
-// MARK: - Equatable Conformance
-
-#warning("TODO: do we need these?")
-//extension GraphQLResponse: Equatable where Data: Equatable {
-//  public static func == (lhs: GraphQLResponse<Data>, rhs: GraphQLResponse<Data>) -> Bool {
-//    lhs.base == rhs.base
-//  }
-//}
-//
-//// MARK: - Hashable Conformance
-//
-//extension GraphQLResponse: Hashable {
-//  public func hash(into hasher: inout Hasher) {
-//    hasher.combine(base)
-//  }
-//}

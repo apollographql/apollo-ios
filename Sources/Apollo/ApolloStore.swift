@@ -1,6 +1,7 @@
 import Foundation
+
 #if !COCOAPODS
-import ApolloAPI
+  import ApolloAPI
 #endif
 
 public typealias DidChangeKeysFunc = (Set<CacheKey>) -> Void
@@ -8,7 +9,7 @@ public typealias DidChangeKeysFunc = (Set<CacheKey>) -> Void
 /// The `ApolloStoreSubscriber` provides a means to observe changes to items in the ApolloStore.
 /// This protocol is available for advanced use cases only. Most users will prefer using `ApolloClient.watch(query:)`.
 public protocol ApolloStoreSubscriber: AnyObject, Sendable {
-  
+
   /// A callback that can be received by subscribers when keys are changed within the database
   ///
   /// - Parameters:
@@ -135,15 +136,17 @@ public final class ApolloStore: Sendable {
         ofType: Operation.Data.self,
         withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
         variables: operation.__variables,
-        accumulator: zip(DataDictMapper(),
-                         GraphQLDependencyTracker())
+        accumulator: zip(
+          DataDictMapper(),
+          GraphQLDependencyTracker()
+        )
       )
 
       return GraphQLResult(
         data: Operation.Data(_dataDict: dataDict),
         extensions: nil,
         errors: nil,
-        source:.cache,
+        source: .cache,
         dependentKeys: dependentKeys
       )
     }
@@ -160,13 +163,15 @@ public final class ApolloStore: Sendable {
   }
 
   // MARK: -
-  #warning("""
-  TODO: figure out how to prevent transaction from escaping closure scope.
-  Maybe explicitly mark non-sendable: https://forums.swift.org/t/what-does-available-unavailable-sendable-actually-do/65218
-  """)
+  #warning(
+    """
+    TODO: figure out how to prevent transaction from escaping closure scope.
+    Maybe explicitly mark non-sendable: https://forums.swift.org/t/what-does-available-unavailable-sendable-actually-do/65218
+    """
+  )
   public class ReadTransaction {
     fileprivate let cache: any NormalizedCache
-      
+
     fileprivate lazy var loader: DataLoader<CacheKey, Record> = DataLoader { [weak self] batchLoad in
       guard let self else { return [:] }
       return try await cache.loadRecords(forKeys: batchLoad)
@@ -174,7 +179,7 @@ public final class ApolloStore: Sendable {
 
     fileprivate lazy var executor = GraphQLExecutor(
       executionSource: CacheDataExecutionSource(transaction: self)
-    ) 
+    )
 
     fileprivate init(store: ApolloStore) {
       self.cache = store.cache
@@ -218,7 +223,7 @@ public final class ApolloStore: Sendable {
         accumulator: accumulator
       )
     }
-    
+
     final func loadObject(forKey key: CacheKey) -> PossiblyDeferred<Record> {
       self.loader[key].map { record in
         guard let record = record else { throw JSONDecodingError.missingValue }
@@ -272,18 +277,22 @@ public final class ApolloStore: Sendable {
       data: CacheMutation.Data,
       for cacheMutation: CacheMutation
     ) async throws {
-      try await write(selectionSet: data,
-                withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
-                variables: cacheMutation.__variables)
+      try await write(
+        selectionSet: data,
+        withKey: CacheReference.rootCacheReference(for: CacheMutation.operationType).key,
+        variables: cacheMutation.__variables
+      )
     }
 
     public func write<Operation: GraphQLOperation>(
       data: Operation.Data,
       for operation: Operation
     ) async throws {
-      try await write(selectionSet: data,
-                withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
-                variables: operation.__variables)
+      try await write(
+        selectionSet: data,
+        withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
+        variables: operation.__variables
+      )
     }
 
     public func write<SelectionSet: RootSelectionSet>(
@@ -313,7 +322,7 @@ public final class ApolloStore: Sendable {
         didChangeKeysFunc(changedKeys)
       }
     }
-    
+
     /// Removes the object for the specified cache key. Does not cascade
     /// or allow removal of only certain fields. Does nothing if an object
     /// does not exist for the given key.
