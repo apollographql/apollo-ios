@@ -23,11 +23,6 @@ public protocol InterceptorProvider: Sendable {
 
 extension InterceptorProvider {
 
-  /// The default interceptor provider.
-  static var `default`: some InterceptorProvider {
-    DefaultInterceptorProvider()
-  }
-
   public func graphQLInterceptors<Request: GraphQLRequest>(for request: Request) -> [any ApolloInterceptor] {
     return [
       MaxRetryInterceptor(),
@@ -50,6 +45,7 @@ extension InterceptorProvider {
   }  
 }
 
-final class DefaultInterceptorProvider: InterceptorProvider {
-  init() {}
+/// The default interceptor provider.
+public final class DefaultInterceptorProvider: InterceptorProvider {
+  public static let shared = DefaultInterceptorProvider()
 }

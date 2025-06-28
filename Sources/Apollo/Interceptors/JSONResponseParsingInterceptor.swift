@@ -21,7 +21,7 @@ public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
       includeCacheRecords: includeCacheRecords
     )
 
-    let chunks = response.chunks.getResults()
+    let chunks = response.chunks.getStream()
 
     let stream = AsyncThrowingStream<GraphQLResponse<Request.Operation>, any Error> { continuation in
       let task = Task<(), Never> {

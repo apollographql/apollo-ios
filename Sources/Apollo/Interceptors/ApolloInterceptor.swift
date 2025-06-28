@@ -5,6 +5,9 @@ import Foundation
   import ApolloAPI
 #endif
 
+public typealias InterceptorResultStream<Request: GraphQLRequest> =
+NonCopyableAsyncThrowingStream<GraphQLResponse<Request.Operation>>
+
 public protocol ResponseParsingInterceptor: Sendable {
   func parse<Request: GraphQLRequest>(
     response: consuming HTTPResponse,
@@ -16,13 +19,18 @@ public protocol ResponseParsingInterceptor: Sendable {
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable, Hashable {
   public let result: GraphQLResult<Operation.Data>
   public let cacheRecords: RecordSet?
+
+  public init(result: GraphQLResult<Operation.Data>, cacheRecords: RecordSet?) {
+    self.result = result
+    self.cacheRecords = cacheRecords
+  }
 }
 
 /// A protocol to set up a chainable unit of networking work.
 public protocol ApolloInterceptor: Sendable {
 
   typealias NextInterceptorFunction<Request: GraphQLRequest> = @Sendable (Request) async throws ->
-    InterceptorResultStream<GraphQLResponse<Request.Operation>>
+    InterceptorResultStream<Request>
 
   /// Called when this interceptor should do its work.
   ///
@@ -34,14 +42,14 @@ public protocol ApolloInterceptor: Sendable {
   func intercept<Request: GraphQLRequest>(
     request: Request,
     next: NextInterceptorFunction<Request>
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>>
+  ) async throws -> InterceptorResultStream<Request>
 
 }
 
 public struct HTTPResponse: Sendable, ~Copyable {
   public let response: HTTPURLResponse
 
-  public let chunks: InterceptorResultStream<Data>
+  public let chunks: NonCopyableAsyncThrowingStream<Data>
 
   public consuming func mapChunks(
     _ transform: @escaping @Sendable (HTTPURLResponse, Data) async throws -> (Data)
@@ -59,7 +67,7 @@ public protocol HTTPInterceptor: Sendable {
   typealias NextHTTPInterceptorFunction = @Sendable (URLRequest) async throws -> HTTPResponse
 
   func intercept(
-    request: URLRequest,    
+    request: URLRequest,
     next: NextHTTPInterceptorFunction
   ) async throws -> HTTPResponse
 

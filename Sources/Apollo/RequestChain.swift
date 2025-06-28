@@ -95,7 +95,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
     // Setup next function to traverse interceptors
     nonisolated(unsafe) var finalRequest: Request!
-    var next: @Sendable (Request) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> = {
+    var next: @Sendable (Request) async throws -> InterceptorResultStream<Request> = {
       request in
       finalRequest = request
 
@@ -115,7 +115,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
     var didEmitResult: Bool = false
 
-    for try await response in resultStream.getResults() {
+    for try await response in resultStream.getStream() {
       try Task.checkCancellation()
 
       try await writeToCacheIfNecessary(response: response, for: finalRequest)
@@ -132,8 +132,8 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   #warning("TODO: unit tests for cache read after failed network fetch")
   private func execute(
     request: Request
-  ) -> InterceptorResultStream<GraphQLResponse<Operation>> {
-    return InterceptorResultStream(
+  ) -> InterceptorResultStream<Request> {
+    return InterceptorResultStream<Request>(
       stream: AsyncThrowingStream<GraphQLResponse<Operation>, any Error>.executingInAsyncTask { continuation in
         let fetchBehavior = request.fetchBehavior
         var didYieldCacheData: Bool = false
@@ -172,7 +172,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
         if fetchBehavior.shouldFetchFromNetwork(hadSuccessfulCacheRead: didYieldCacheData) {
           do {
             let networkStream = try await kickOffHTTPInterceptors(request: request)
-            try await continuation.passthroughResults(of: networkStream.getResults())
+            try await continuation.passthroughResults(of: networkStream.getStream())
 
             // Successful network fetch -> Finished
 
@@ -205,7 +205,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   private func kickOffHTTPInterceptors(
     request graphQLRequest: Request
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
+  ) async throws -> InterceptorResultStream<Request> {
     let interceptors = self.interceptorProvider.httpInterceptors(for: graphQLRequest)
 
     // Setup next function to traverse interceptors
@@ -242,7 +242,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
       preconditionFailure()
     }
 
-    return HTTPResponse(response: response, chunks: InterceptorResultStream(stream: chunks))
+    return HTTPResponse(response: response, chunks: NonCopyableAsyncThrowingStream(stream: chunks))
   }
 
   private func writeToCacheIfNecessary(

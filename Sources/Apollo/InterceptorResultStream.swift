@@ -1,7 +1,22 @@
 import Foundation
 
-#warning("TODO: Rename to something that explains what this actually does instead of its current use case.")
-public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
+/// A move-only wrapper around an `AsyncThrowingStream` that conforms to `~Copyable` used to
+/// protect against multiple concurrent consumers receiving partial data.
+///
+/// `AsyncThrowingStream` does not support multiple consumers awaiting on it's elements. Any
+/// elements consumed by one consumer will not be emitted to any others.
+/// `NonCopyableAsyncThrowingStream` helps to protect a stream's elements from being consumed
+/// until the final consumer.
+///
+/// Intermediary consumers may used the mapping functions of the stream to read or transform the
+/// stream's emitted values. These functions wrap the consumed stream in a new stream, which is
+/// returned. Because these functions `consume` the reciever, only the newly returned stream is
+/// available to be used after the function returns.
+///
+/// When a stream reaches it's final consumer, `getStream()` may be called to return the
+/// underlying `AsyncThrowingStream`. The caller is then responsible for ensuring the stream
+/// is only awaited by a single consumer.
+public struct NonCopyableAsyncThrowingStream<T: Sendable>: Sendable, ~Copyable {
 
   private let stream: AsyncThrowingStream<T, any Error>
 
@@ -19,7 +34,7 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
 
   public consuming func map(
     _ transform: @escaping @Sendable (T) async throws -> T
-  ) async throws -> InterceptorResultStream<T> {
+  ) async throws -> NonCopyableAsyncThrowingStream<T> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -30,12 +45,12 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
       }
     }
 
-    return Self.init(stream: newStream)
+    return NonCopyableAsyncThrowingStream.init(stream: newStream)
   }
 
   public consuming func compactMap(
     _ transform: @escaping @Sendable (T) async throws -> T?
-  ) async throws -> InterceptorResultStream<T> {
+  ) async throws -> NonCopyableAsyncThrowingStream<T> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -50,10 +65,17 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
       }
     }
 
-    return Self.init(stream: newStream)
+    return NonCopyableAsyncThrowingStream.init(stream: newStream)
   }
 
-  public consuming func getResults() -> AsyncThrowingStream<T, any Error> {
+  /// Exposes the underlying `AsyncThrowingStream` for final consumption.
+  ///
+  /// When a stream reaches it's final consumer, `getStream()` may be called to return the
+  /// underlying `AsyncThrowingStream`. The caller is then responsible for ensuring the stream
+  /// is only awaited by a single consumer.
+  ///
+  /// - Returns: The underlying `AsyncThrowingStream`
+  public consuming func getStream() -> AsyncThrowingStream<T, any Error> {
     return stream
   }
 
@@ -62,7 +84,7 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
   #warning("TODO: Write unit tests for this. Docs: if return nil, error is supressed and stream finishes.")
   public consuming func mapErrors(
     _ transform: @escaping @Sendable (any Error) async throws -> T?
-  ) async throws -> InterceptorResultStream<T> {
+  ) async throws -> NonCopyableAsyncThrowingStream<T> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -85,7 +107,7 @@ public struct InterceptorResultStream<T: Sendable>: Sendable, ~Copyable {
       }
     }
 
-    return Self.init(stream: newStream)
+    return NonCopyableAsyncThrowingStream.init(stream: newStream)
   }
 
 }
