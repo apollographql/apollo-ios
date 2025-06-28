@@ -36,7 +36,7 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
   public func intercept<Request: GraphQLRequest>(
     request: Request,
     next: NextInterceptorFunction<Request>
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
+  ) async throws -> InterceptorResultStream<Request> {
     guard let jsonRequest = request as? JSONRequest<Request.Operation>,
           jsonRequest.apqConfig.autoPersistQueries else {
       // Not a request that handles APQs, continue along

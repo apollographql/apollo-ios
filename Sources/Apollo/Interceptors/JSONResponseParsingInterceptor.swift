@@ -13,7 +13,7 @@ public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
     response: consuming HTTPResponse,
     for request: Request,
     includeCacheRecords: Bool
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>> {
+  ) async throws -> InterceptorResultStream<Request> {
 
     let parser = JSONResponseParser(
       response: response.response,
@@ -53,6 +53,6 @@ public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
 
       continuation.onTermination = { _ in task.cancel() }
     }
-    return InterceptorResultStream<GraphQLResponse<Request.Operation>>(stream: stream)
+    return InterceptorResultStream<Request>(stream: stream)
   }
 }

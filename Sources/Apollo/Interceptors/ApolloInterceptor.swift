@@ -13,7 +13,7 @@ public protocol ResponseParsingInterceptor: Sendable {
     response: consuming HTTPResponse,
     for request: Request,
     includeCacheRecords: Bool
-  ) async throws -> InterceptorResultStream<GraphQLResponse<Request.Operation>>
+  ) async throws -> InterceptorResultStream<Request>
 }
 
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable, Hashable {
