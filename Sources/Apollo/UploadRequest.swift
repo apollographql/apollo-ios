@@ -88,6 +88,7 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
       sendQueryDocument: true,
       autoPersistQuery: false
     )
+
     var variables = fields["variables"] as? JSONEncodableDictionary ?? JSONEncodableDictionary()
     for fieldName in fieldsForFiles {
       if let value = variables[fieldName],

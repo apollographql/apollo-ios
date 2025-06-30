@@ -79,7 +79,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     requestConfiguration: RequestConfiguration?,
     refetchOnFailedUpdates: Bool,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query>
+  ) async -> GraphQLQueryWatcher<Query>
 
   func watch<Query: GraphQLQuery>(
     query: Query,
@@ -87,7 +87,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     requestConfiguration: RequestConfiguration?,
     refetchOnFailedUpdates: Bool,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query>
+  ) async -> GraphQLQueryWatcher<Query>
 
   func watch<Query: GraphQLQuery>(
     query: Query,
@@ -95,7 +95,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     requestConfiguration: RequestConfiguration?,
     refetchOnFailedUpdates: Bool,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query>
+  ) async -> GraphQLQueryWatcher<Query>
 
   func watch<Query: GraphQLQuery>(
     query: Query,
@@ -103,7 +103,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     requestConfiguration: RequestConfiguration?,
     refetchOnFailedUpdates: Bool,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query>
+  ) async -> GraphQLQueryWatcher<Query>
 
   // MARK: - Mutation Functions
 

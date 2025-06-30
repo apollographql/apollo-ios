@@ -2,14 +2,9 @@
 import ApolloAPI
 #endif
 
-public struct DefaultRequestBodyCreator: JSONRequestBodyCreator {
-  // Internal init methods cannot be used in public methods
-  public init() { }
-}
-
 #warning("TODO: Do we really need this? Should it be part of RequestChainNetworkTransport, or just on JSONRequest")
 public protocol JSONRequestBodyCreator: Sendable {
-  #warning("TODO: replace with version that takes request after rewriting websocket")
+
   /// Creates a `JSONEncodableDictionary` out of the passed-in operation
   ///
   /// - Note: This function only exists for supporting the soon-to-be-replaced `WebSocketTransport`
@@ -34,7 +29,9 @@ public protocol JSONRequestBodyCreator: Sendable {
 
 // MARK: - Default Implementation
 
-extension JSONRequestBodyCreator {
+public struct DefaultRequestBodyCreator: JSONRequestBodyCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
 
   public func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,

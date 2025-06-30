@@ -99,7 +99,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
       request in
       finalRequest = request
 
-      return await execute(request: request)
+      return execute(request: request)
     }
 
     for interceptor in interceptors.reversed() {

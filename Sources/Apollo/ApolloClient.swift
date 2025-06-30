@@ -223,8 +223,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query> {
-    let watcher = GraphQLQueryWatcher(
+  ) async -> GraphQLQueryWatcher<Query> {
+    let watcher = await GraphQLQueryWatcher(
       client: self,
       query: query,
       refetchOnFailedUpdates: refetchOnFailedUpdates,
@@ -259,8 +259,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query> {
-    return self.watch(
+  ) async -> GraphQLQueryWatcher<Query> {
+    return await self.watch(
       query: query,
       fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration,
@@ -290,8 +290,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query> {
-    return self.watch(
+  ) async -> GraphQLQueryWatcher<Query> {
+    return await self.watch(
       query: query,
       fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration,
@@ -321,8 +321,8 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) -> GraphQLQueryWatcher<Query> {
-    return self.watch(
+  ) async -> GraphQLQueryWatcher<Query> {
+    return await self.watch(
       query: query,
       fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: requestConfiguration,
@@ -621,14 +621,14 @@ extension ApolloClient {
     context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Query.Data>
-  ) -> GraphQLQueryWatcher<Query> {
+  ) async -> GraphQLQueryWatcher<Query> {
     let cachePolicy = cachePolicy ?? CachePolicy_v1.default
     let config = RequestConfiguration(
       requestTimeout: defaultRequestConfiguration.requestTimeout,
       writeResultsToCache: cachePolicy == .fetchIgnoringCacheCompletely
         ? false : defaultRequestConfiguration.writeResultsToCache
     )
-    return self.watch(
+    return await self.watch(
       query: query,
       fetchBehavior: cachePolicy.toFetchBehavior(),
       requestConfiguration: config,

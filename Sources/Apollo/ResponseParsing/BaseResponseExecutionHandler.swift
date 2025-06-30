@@ -13,7 +13,7 @@ struct BaseResponseExecutionHandler: Sendable {
     rootKey: CacheReference,
     variables: GraphQLOperation.Variables?
   ) {
-    self.responseBody = responseBody
+    self.responseBody = try! JSONObject(_jsonValue: responseBody as JSONValue)
     self.rootKey = rootKey
     self.variables = variables
   }
@@ -81,29 +81,5 @@ struct BaseResponseExecutionHandler: Sendable {
 
   func parseExtensions() -> JSONObject? {
     return self.responseBody["extensions"] as? JSONObject
-  }
-}
-
-// MARK: - Equatable Conformance
-
-#warning("TODO: Do we need this?")
-extension BaseResponseExecutionHandler: Equatable {
-  static func == (lhs: BaseResponseExecutionHandler, rhs: BaseResponseExecutionHandler) -> Bool {
-    AnySendableHashable.equatableCheck(lhs.responseBody, rhs.responseBody) &&
-    lhs.rootKey == rhs.rootKey &&
-    AnySendableHashable.equatableCheck(
-      lhs.variables?._jsonEncodableObject._jsonValue,
-      rhs.variables?._jsonEncodableObject._jsonValue
-    )
-  }
-}
-
-// MARK: - Hashable Conformance
-
-extension BaseResponseExecutionHandler: Hashable {
-  func hash(into hasher: inout Hasher) {
-    hasher.combine(responseBody)
-    hasher.combine(rootKey)
-    hasher.combine(variables?._jsonEncodableObject._jsonValue)
   }
 }
