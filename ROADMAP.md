@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-05-27**
+**Last updated: 2025-06-24**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -45,7 +45,7 @@ _Status: In design phase. Current RFC for design is available [here](https://git
 
 ### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
 
-_Status: API Design in progress_
+_Status: Not started_
 
 - Support generating models that expose only the minimal necessary data for operation execution (networking and caching).
 - This would remove the generated response models, exposing response data as a simple `JSONObject` (ie. [String: AnyHashable]).
@@ -60,7 +60,7 @@ _Status: Not started_
 
 ### `@fieldPolicy` directive
 
-_Status: Not Started_
+_Status: Development in progress_
 
 The [`@fieldPolicy` directive](https://www.apollographql.com/docs/kotlin/caching/declarative-ids#fieldpolicy) is currently supported by Apollo Kotlin and Apollo Web. This directive allows users to configure field arguments to be used to retrieve data stored in the normalized cache. In our efforts to improve feature parity across the client platforms, we plan to implement this directive in Apollo iOS as well.
 
@@ -68,7 +68,13 @@ The [`@fieldPolicy` directive](https://www.apollographql.com/docs/kotlin/caching
 
 _Status: Feature Design_
 
-We are active participants in the [Nullability Working Group](https://github.com/graphql/nullability-wg/) and are planning to ship experimental support for @semanticNonNull, @catch, etc. based on Apollo Kotlin’s (link-to-docs) soon.  Future iterations are expected but it’s too early to tell what those might be.
+We are active participants in the [Nullability Working Group](https://github.com/graphql/nullability-wg/) and are planning to ship experimental support for @semanticNonNull, @catch, etc. based on Apollo Kotlin’s soon.  Future iterations are expected but it’s too early to tell what those might be.
+
+### `@stream` directive support
+
+_Status: Not started_
+
+The incremental delivery (`@defer/@stream`) directives are nearing acceptance into the GraphQL specification. Support for `@defer` is already implemented. We will be implementing support for `@stream` in the forseeable future.
 
 ## [Apollo iOS Pagination](https://github.com/apollographql/apollo-ios-pagination)
 
@@ -82,12 +88,12 @@ These are the initiatives planned for future major version releases:
 
 ## Caching
 
-[**Requesting Feedback**](https://github.com/apollographql/apollo-ios/issues/3501): We are currently looking for feedback on what features, use cases, or improvements you would like to see supported by the next iteration of the Apollo iOS normalized cache. Please provide your input on [this issue](https://github.com/apollographql/apollo-ios/issues/3501).
-
-- **Cache Improvements**: Here we are looking at bringing across some features inspired by Apollo Client 3 and Apollo Kotlin
+We are planning an overhaul of the caching mechanisms for a 3.0 release. This is planned to include:
   - Better pagination support. Better support for caching and updating paginated lists of objects.
   - Result model improvements
   - Reducing over-normalization. Only separating out results into individual records when something that can identify them is present
   - Real cache eviction & dangling reference collection. There's presently a way to manually remove objects for a given key or pattern, but Apollo Client 3 has given us a roadmap for how to handle some of this stuff much more thoroughly and safely.
   - Cache metadata. Ability to add per-field metadata if needed, to allow for TTL and time-based invalidation, etc.
   - Querying/sorting cached data by field values.
+
+For more information see the [Caching Rework RFC](https://github.com/apollographql/apollo-ios/issues/3529).

@@ -1,5 +1,26 @@
 # Change Log
 
+## v1.23.0
+
+### New
+- **Added `requireNonOptionalMockFields` flag to `ApolloCodegenConfiguration.OutputOptions`. ([#669](https://github.com/apollographql/apollo-ios-dev/pull/669)):** Added new flag to codegen output options to allow having non-optional fields in the test mocks if desired. _Thank you to [@dwroth](https://github.com/dwroth) for the contribution._
+
+### Improvement
+- **Added public initializer to `DatabaseRow`. ([#664](https://github.com/apollographql/apollo-ios-dev/pull/664)):** Not having a public initializer on `DatabasRow` was hindering the ability to create custom `SQLiteDatabase` implementations. This solves that by adding a public initializer to `DatabaseRow`._Thank you to [@ChrisLaganiere](https://github.com/ChrisLaganiere) for the contribution._
+
+### Fixed
+- **Unncessary deprecation warning in codegen options initializer. ([#3563](https://github.com/apollographql/apollo-ios/issues/3563)):** Added `@_disfavoredOverload` to the deprecated initialized in `ApolloCodegenConfiguration` to prevent possible warnings caused by the compiler selecting a deprecated initializer versus the new/current initializer. See PR [#682](https://github.com/apollographql/apollo-ios-dev/pull/682). _Thank you to [@CraigSiemens](https://github.com/CraigSiemens) for raising the issue._
+
+## v1.22.0
+
+### Improvement
+- **Make cache public within `ReadTransaction` ([#661](https://github.com/apollographql/apollo-ios-dev/pull/661)):** Some users have use cases for accessing a custom `NormalizedCache` implementation directly while performing cache transactions. A new `ReadOnlyNormalizedCache` protocol exposes the cache as read-only in the `ReadTransaction` and as writable in the `ReadWriteTransaction`. See PR [#661](https://github.com/apollographql/apollo-ios-dev/pull/661).
+
+### Fixed
+- **Multiple deprecation warning directives not compiling ([#3559](https://github.com/apollographql/apollo-ios/issues/3559)):** Codegen would generate an incorrect list-style character between the Swift deprecation annotations when using multiple deprecation directives in GraphQL. See PR [#658](https://github.com/apollographql/apollo-ios-dev/pull/658). _Thank you to [@guilherme-anchorage](https://github.com/guilherme-anchorage) for raising the issue._
+- **Non-`all` field merging causes selection set initializers to stop being generated for local cache mutations ([#3554](https://github.com/apollographql/apollo-ios/issues/3554)):** Codegen will now force field merging behaviour and selection set initializer generation for local cache mutations. See PR [#654](https://github.com/apollographql/apollo-ios-dev/pull/654).
+- **Referenced fragments within a local cache mutation operation are generated as mutable ([#3557](https://github.com/apollographql/apollo-ios/issues/3557)):** Any fragments referenced within a local cache mutation will now be generated as mutable too, including any fragments within those fragments. See PR [#659](https://github.com/apollographql/apollo-ios-dev/pull/659).
+
 ## v1.21.0
 
 ### New
