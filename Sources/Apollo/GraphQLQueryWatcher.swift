@@ -157,7 +157,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
   }
 
   public func fetch(
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
   ) {
     self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
@@ -252,7 +252,7 @@ extension GraphQLQueryWatcher {
   }
 
   @available(*, deprecated, renamed: "fetch(fetchBehavior:)")
-  public func refetch(cachePolicy: CachePolicy.Query.SingleResponse = .cacheElseNetwork) {
+  public func refetch(cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst) {
     fetch(fetchBehavior: cachePolicy.toFetchBehavior())
   }
 

@@ -31,7 +31,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == SingleResponseFormat
@@ -45,7 +45,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat
@@ -91,7 +91,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
 
   func watch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?,
     refetchOnFailedUpdates: Bool,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler

@@ -1,20 +1,20 @@
 // MARK: Pre-defined Constants
 extension FetchBehavior {
   /// Return data from the cache if available, else fetch results from the server.
-  public static let CacheElseNetwork = FetchBehavior(
+  public static let CacheFirst = FetchBehavior(
     cacheRead: .beforeNetworkFetch,
     networkFetch: .onCacheMiss
   )
 
-  /// Return data from the cache if available, and always fetch results from the server.
-  public static let CacheThenNetwork = FetchBehavior(
-    cacheRead: .beforeNetworkFetch,
+  /// Attempt to fetch results from the server, if failed, return data from the cache if available.
+  public static let NetworkFirst = FetchBehavior(
+    cacheRead: .onNetworkFailure,
     networkFetch: .always
   )
 
-  /// Attempt to fetch results from the server, if failed, return data from the cache if available.
-  public static let NetworkElseCache = FetchBehavior(
-    cacheRead: .onNetworkFailure,
+  /// Return data from the cache if available, and always fetch results from the server.
+  public static let CacheAndNetwork = FetchBehavior(
+    cacheRead: .beforeNetworkFetch,
     networkFetch: .always
   )
 

@@ -9,9 +9,9 @@ public enum CachePolicy: Sendable, Hashable {
   public enum Query: Sendable, Hashable {
     public enum SingleResponse: Sendable, Hashable {
       /// Return data from the cache if available, else fetch results from the server.
-      case cacheElseNetwork
+      case cacheFirst
       /// Attempt to fetch results from the server, if failed, return data from the cache if available.
-      case networkElseCache
+      case networkFirst
       ///  Fetch results from the server, do not attempt to read data from the cache.
       case networkOnly
     }
@@ -21,9 +21,9 @@ public enum CachePolicy: Sendable, Hashable {
       case cacheOnly
     }
 
-    public enum CacheThenNetwork: Sendable, Hashable {
+    public enum CacheAndNetwork: Sendable, Hashable {
       /// Return data from the cache if available, and always fetch results from the server.
-      case cacheThenNetwork
+      case cacheAndNetwork
     }
   }
 
@@ -40,11 +40,11 @@ public enum CachePolicy: Sendable, Hashable {
 extension CachePolicy.Query.SingleResponse {
   public func toFetchBehavior() -> FetchBehavior {
     switch self {
-    case .cacheElseNetwork:
-      return FetchBehavior.CacheElseNetwork
+    case .cacheFirst:
+      return FetchBehavior.CacheFirst
 
-    case .networkElseCache:
-      return FetchBehavior.NetworkElseCache
+    case .networkFirst:
+      return FetchBehavior.NetworkFirst
 
     case .networkOnly:
       return FetchBehavior.NetworkOnly
@@ -58,9 +58,9 @@ extension CachePolicy.Query.CacheOnly {
   }
 }
 
-extension CachePolicy.Query.CacheThenNetwork {
+extension CachePolicy.Query.CacheAndNetwork {
   public func toFetchBehavior() -> FetchBehavior {
-    return FetchBehavior.CacheThenNetwork
+    return FetchBehavior.CacheAndNetwork
   }
 }
 
@@ -68,7 +68,7 @@ extension CachePolicy.Subscription {
   public func toFetchBehavior() -> FetchBehavior {
     switch self {
     case .cacheThenNetwork:
-      return FetchBehavior.CacheThenNetwork
+      return FetchBehavior.CacheAndNetwork
 
     case .networkOnly:
       return FetchBehavior.NetworkOnly

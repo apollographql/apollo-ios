@@ -110,7 +110,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    fetchBehavior: FetchBehavior = FetchBehavior.CacheElseNetwork,
+    fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
     return try doInClientContext {
@@ -142,13 +142,13 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == SingleResponseFormat {
     return try fetch(
       query: query,
-      fetchBehavior: FetchBehavior.CacheThenNetwork,
+      fetchBehavior: FetchBehavior.CacheAndNetwork,
       requestConfiguration: requestConfiguration
     )
   }
@@ -170,7 +170,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
@@ -219,7 +219,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   public func watch<Query: GraphQLQuery>(
     query: Query,
-    fetchBehavior: FetchBehavior = FetchBehavior.CacheElseNetwork,
+    fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
@@ -286,7 +286,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   /// - Returns: A query watcher object that can be used to control the watching behavior.
   public func watch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.CacheThenNetwork,
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
@@ -534,7 +534,7 @@ public enum CachePolicy_v1: Sendable, Hashable {
   func toFetchBehavior() -> FetchBehavior {
     switch self {
     case .returnCacheDataElseFetch:
-      return FetchBehavior.CacheElseNetwork
+      return FetchBehavior.CacheFirst
     case .fetchIgnoringCacheData:
       return FetchBehavior.NetworkOnly
     case .fetchIgnoringCacheCompletely:
@@ -542,7 +542,7 @@ public enum CachePolicy_v1: Sendable, Hashable {
     case .returnCacheDataDontFetch:
       return FetchBehavior.CacheOnly
     case .returnCacheDataAndFetch:
-      return FetchBehavior.CacheThenNetwork
+      return FetchBehavior.CacheAndNetwork
     }
   }
 }
