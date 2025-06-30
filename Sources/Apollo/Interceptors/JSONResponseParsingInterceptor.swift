@@ -5,54 +5,43 @@ import Foundation
 #endif
 
 /// An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
-public struct JSONResponseParsingInterceptor: ResponseParsingInterceptor {
+public actor JSONResponseParsingInterceptor: ResponseParsingInterceptor {
 
   public init() {}
+
+  private actor ResultStorage<Request: GraphQLRequest> {
+    var currentResult: GraphQLResponse<Request.Operation>?
+
+    func setResult(_ result: GraphQLResponse<Request.Operation>) {
+      currentResult = result
+    }
+  }
 
   public func parse<Request: GraphQLRequest>(
     response: consuming HTTPResponse,
     for request: Request,
     includeCacheRecords: Bool
   ) async throws -> InterceptorResultStream<Request> {
-
     let parser = JSONResponseParser(
       response: response.response,
       operationVariables: request.operation.__variables,
       includeCacheRecords: includeCacheRecords
     )
 
-    let chunks = response.chunks.getStream()
+    let storage = ResultStorage<Request>()
 
-    let stream = AsyncThrowingStream<GraphQLResponse<Request.Operation>, any Error> { continuation in
-      let task = Task<(), Never> {
-        do {
-          defer { continuation.finish() }
-          var currentResult: GraphQLResponse<Request.Operation>?
+    return try await response.chunks.compactMap { chunk in
+      try Task.checkCancellation()
 
-          for try await chunk in chunks {
-            try Task.checkCancellation()
-
-            guard
-              let parsedResponse = try await parser.parse(
-                dataChunk: chunk,
-                mergingIncrementalItemsInto: currentResult
-              )
-            else {
-              continue
-            }
-
-            currentResult = parsedResponse
-            continuation.yield(parsedResponse)
-          }
-
-
-        } catch {
-          continuation.finish(throwing: error)
-        }
+      if let parsedResponse = try await parser.parse(
+          dataChunk: chunk,
+          mergingIncrementalItemsInto: await storage.currentResult
+      ) {
+        await storage.setResult(parsedResponse)
+        return parsedResponse
       }
 
-      continuation.onTermination = { _ in task.cancel() }
+      return nil
     }
-    return InterceptorResultStream<Request>(stream: stream)
   }
 }
