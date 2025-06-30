@@ -30,7 +30,7 @@ public actor JSONResponseParsingInterceptor: ResponseParsingInterceptor {
 
     let storage = ResultStorage<Request>()
 
-    return try await response.chunks.compactMap { chunk in
+    return await response.chunks.compactMap { chunk in
       try Task.checkCancellation()
 
       if let parsedResponse = try await parser.parse(

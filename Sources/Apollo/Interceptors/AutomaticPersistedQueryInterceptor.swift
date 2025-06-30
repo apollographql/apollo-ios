@@ -40,12 +40,12 @@ public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
     guard let jsonRequest = request as? JSONRequest<Request.Operation>,
           jsonRequest.apqConfig.autoPersistQueries else {
       // Not a request that handles APQs, continue along
-      return try await next(request)
+      return await next(request)
     }
 
     let isInitialResult = IsInitialResult()
 
-    return try await next(request).map { response in
+    return await next(request).map { response in
 #warning("TODO: Test if cache returns result, then server returns failed result, APQ retry still occurs")
       guard response.result.source == .server,
             await isInitialResult.get() else {

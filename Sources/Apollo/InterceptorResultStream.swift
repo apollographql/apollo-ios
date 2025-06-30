@@ -35,7 +35,7 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
 
   public consuming func map<ElementOfResult>(
     _ transform: @escaping @Sendable (Element) async throws -> ElementOfResult
-  ) async rethrows -> NonCopyableAsyncThrowingStream<ElementOfResult> {
+  ) async -> NonCopyableAsyncThrowingStream<ElementOfResult> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -51,7 +51,7 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
 
   public consuming func compactMap<ElementOfResult>(
     _ transform: @escaping @Sendable (Element) async throws -> ElementOfResult?
-  ) async rethrows -> NonCopyableAsyncThrowingStream<ElementOfResult> {
+  ) async -> NonCopyableAsyncThrowingStream<ElementOfResult> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -85,7 +85,7 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
   #warning("TODO: Write unit tests for this. Docs: if return nil, error is supressed and stream finishes.")
   public consuming func mapErrors(
     _ transform: @escaping @Sendable (any Error) async throws -> Element?
-  ) async throws -> NonCopyableAsyncThrowingStream<Element> {
+  ) async -> NonCopyableAsyncThrowingStream<Element> {
     let stream = self.stream
 
     let newStream = AsyncThrowingStream.executingInAsyncTask { continuation in
@@ -113,7 +113,7 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
 
 }
 
-#warning("Do we keep this? Helps make TaskLocalValues work, but extension on Swift standard lib type could conflict with other extensions")
+#warning("Do we keep this public? Helps make TaskLocalValues work, but extension on Swift standard lib type could conflict with other extensions")
 extension TaskLocal {
 
   @_disfavoredOverload

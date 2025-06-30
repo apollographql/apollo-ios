@@ -95,23 +95,30 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
     // Setup next function to traverse interceptors
     nonisolated(unsafe) var finalRequest: Request!
-    var next: @Sendable (Request) async throws -> InterceptorResultStream<Request> = {
+    var next: @Sendable (Request) async -> InterceptorResultStream<Request> = {
       request in
       finalRequest = request
 
-      return execute(request: request)
+      return await execute(request: request)
     }
 
     for interceptor in interceptors.reversed() {
       let tempNext = next
 
       next = { request in
-        try await interceptor.intercept(request: request, next: tempNext)
+        do {
+          return try await interceptor.intercept(request: request, next: tempNext)
+
+        } catch {
+          return InterceptorResultStream<Request>(stream: .init(unfolding: {
+            throw error
+          }))
+        }
       }
     }
 
     // Kickoff first interceptor
-    let resultStream = try await next(initialRequest)
+    let resultStream = await next(initialRequest)
 
     var didEmitResult: Bool = false
 
