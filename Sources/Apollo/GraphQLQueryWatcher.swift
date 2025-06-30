@@ -62,7 +62,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
     query: Query,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping ResultHandler
-  ) {
+  ) async {
     self.query = query
     self.refetchOnFailedUpdates = refetchOnFailedUpdates
     self.resultHandler = resultHandler
@@ -90,7 +90,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
       }
     }
 
-    self.subscriptionToken = client.store.subscribe(self)
+    self.subscriptionToken = await client.store.subscribe(self)
   }
 
   private func doOnActor(
@@ -242,8 +242,8 @@ extension GraphQLQueryWatcher {
     context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
     resultHandler: @escaping GraphQLResultHandler<Query.Data>
-  ) {
-    self.init(
+  ) async {
+    await self.init(
       client: client,
       query: query,
       refetchOnFailedUpdates: refetchOnFailedUpdates,

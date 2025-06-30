@@ -70,12 +70,10 @@ public final class ApolloStore: Sendable {
   /// - Parameters:
   ///    - subscriber: A subscriber to receive content change notificatons. To avoid a retain cycle,
   ///                  ensure you call `unsubscribe` on this subscriber before it goes out of scope.
-  public func subscribe(_ subscriber: any ApolloStoreSubscriber) -> SubscriptionToken {
+  public func subscribe(_ subscriber: any ApolloStoreSubscriber) async -> SubscriptionToken {
     let token = SubscriptionToken(id: ObjectIdentifier(subscriber))
-    Task(priority: Task.currentPriority < .medium ? .medium : Task.currentPriority) {
-      await readerWriterLock.write {
-        self.subscribers[token] = subscriber
-      }
+    await readerWriterLock.write {
+      self.subscribers[token] = subscriber
     }
     return token
   }
