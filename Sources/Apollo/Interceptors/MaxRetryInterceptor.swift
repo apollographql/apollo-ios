@@ -37,6 +37,6 @@ public actor MaxRetryInterceptor: ApolloInterceptor, Sendable {
     }
 
     self.hitCount += 1
-    return try await next(request)
+    return await next(request)
   }
 }

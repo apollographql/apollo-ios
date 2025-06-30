@@ -29,7 +29,7 @@ public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable, Hashable {
 /// A protocol to set up a chainable unit of networking work.
 public protocol ApolloInterceptor: Sendable {
 
-  typealias NextInterceptorFunction<Request: GraphQLRequest> = @Sendable (Request) async throws ->
+  typealias NextInterceptorFunction<Request: GraphQLRequest> = @Sendable (Request) async ->
     InterceptorResultStream<Request>
 
   /// Called when this interceptor should do its work.
