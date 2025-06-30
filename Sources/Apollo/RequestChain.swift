@@ -29,7 +29,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   }
 
   private let urlSession: any ApolloURLSession
-  private let interceptorProvider: any InterceptorProvider
+  private let interceptors: Interceptors
   private let store: ApolloStore
 
   public typealias ResultStream = AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
@@ -40,11 +40,11 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   /// - Parameters: TODO
   public init(
     urlSession: any ApolloURLSession,
-    interceptorProvider: any InterceptorProvider,
+    interceptors: Interceptors,
     store: ApolloStore
   ) {
     self.urlSession = urlSession
-    self.interceptorProvider = interceptorProvider
+    self.interceptors = interceptors
     self.store = store
 
   }
@@ -91,7 +91,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     request initialRequest: Request,
     continuation: ResultStream.Continuation
   ) async throws {
-    let interceptors = self.interceptorProvider.graphQLInterceptors(for: initialRequest)
+    let interceptors = self.interceptors.graphQL
 
     // Setup next function to traverse interceptors
     nonisolated(unsafe) var finalRequest: Request!
@@ -199,14 +199,14 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   private func attemptCacheRead(
     request: Request
   ) async throws -> GraphQLResult<Operation.Data>? {
-    let cacheInterceptor = self.interceptorProvider.cacheInterceptor(for: request)
+    let cacheInterceptor = self.interceptors.cache
     return try await cacheInterceptor.readCacheData(from: self.store, request: request)
   }
 
   private func kickOffHTTPInterceptors(
     request graphQLRequest: Request
   ) async throws -> InterceptorResultStream<Request> {
-    let interceptors = self.interceptorProvider.httpInterceptors(for: graphQLRequest)
+    let interceptors = self.interceptors.http
 
     // Setup next function to traverse interceptors
     var next: @Sendable (URLRequest) async throws -> HTTPResponse = { request in
@@ -224,7 +224,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     // Kickoff first HTTP interceptor
     let httpResponse = try await next(graphQLRequest.toURLRequest())
 
-    let parsingInterceptor = self.interceptorProvider.responseParser(for: graphQLRequest)
+    let parsingInterceptor = self.interceptors.parser
 
     return try await parsingInterceptor.parse(
       response: httpResponse,
@@ -256,13 +256,14 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
       return
     }
 
-    let cacheInterceptor = self.interceptorProvider.cacheInterceptor(for: request)
+    let cacheInterceptor = self.interceptors.cache
     try await cacheInterceptor.writeCacheData(
       to: self.store,
       request: request,
       response: response
     )
   }
+
 }
 
 // MARK: - FetchBehavior Helpers
