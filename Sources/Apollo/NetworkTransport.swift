@@ -19,12 +19,12 @@ public protocol NetworkTransport: AnyObject, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
 
   func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error>
 
 }
 
@@ -36,7 +36,7 @@ public protocol SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription>, any Error>
 
 }
 
@@ -56,5 +56,5 @@ public protocol UploadingNetworkTransport {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Operation>, any Error>
 }

@@ -8,6 +8,8 @@ import Foundation
 public final class WebSocketTransport: SubscriptionNetworkTransport {
 
   public enum Error: Swift.Error {
+    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0. This will be implemented prior to
+    /// Beta release.
     case notImplemented
   }
 
@@ -15,7 +17,7 @@ public final class WebSocketTransport: SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: Apollo.FetchBehavior,
     requestConfiguration: Apollo.RequestConfiguration
-  ) throws -> AsyncThrowingStream<Apollo.GraphQLResult<Subscription.Data>, any Swift.Error> {
+  ) throws -> AsyncThrowingStream<Apollo.GraphQLResult<Subscription>, any Swift.Error> {
     throw Error.notImplemented
   }
 

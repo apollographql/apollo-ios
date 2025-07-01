@@ -11,9 +11,9 @@ import Foundation
 /// longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result
 /// in a memory leak.
 public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Apollo.Cancellable {
-  public typealias ResultHandler = @Sendable (Result<GraphQLResult<Query.Data>, any Swift.Error>) -> Void
+  public typealias ResultHandler = @Sendable (Result<GraphQLResult<Query>, any Swift.Error>) -> Void
   private typealias FetchBlock = @Sendable (FetchBehavior, RequestConfiguration?) throws -> AsyncThrowingStream<
-    GraphQLResult<Query.Data>, any Error
+    GraphQLResult<Query>, any Error
   >?
 
   /// The ``GraphQLQuery`` for the watcher.
@@ -165,7 +165,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
 
   // MARK: - Result Handling
 
-  private func didReceiveResult(_ result: GraphQLResult<Query.Data>) {
+  private func didReceiveResult(_ result: GraphQLResult<Query>) {
     guard !self.cancelled else { return }
     resultHandler(.success(result))
   }
@@ -241,7 +241,7 @@ extension GraphQLQueryWatcher {
     refetchOnFailedUpdates: Bool = true,
     context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
-    resultHandler: @escaping GraphQLResultHandler<Query.Data>
+    resultHandler: @escaping GraphQLResultHandler<Query>
   ) async {
     await self.init(
       client: client,

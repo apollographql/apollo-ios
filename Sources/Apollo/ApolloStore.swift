@@ -128,7 +128,7 @@ public final class ApolloStore: Sendable {
   ///   - operation: The operation to load results for
   public func load<Operation: GraphQLOperation>(
     _ operation: Operation
-  ) async throws -> GraphQLResult<Operation.Data> {
+  ) async throws -> GraphQLResult<Operation> {
     try await withinReadTransaction { transaction in
       let (dataDict, dependentKeys) = try await transaction.readObject(
         ofType: Operation.Data.self,
@@ -454,7 +454,7 @@ public final class ApolloStore: Sendable {
   public func load<Operation: GraphQLOperation>(
     _ operation: Operation,
     callbackQueue: DispatchQueue? = nil,
-    resultHandler: @escaping GraphQLResultHandler<Operation.Data>
+    resultHandler: @escaping GraphQLResultHandler<Operation>
   ) {
     performInTask(
       {

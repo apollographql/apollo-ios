@@ -2,10 +2,9 @@
 @_spi(Internal) import ApolloAPI
 #endif
 
-#warning("TODO: maybe change to generic over Operation to give more access to Operation type info? 3.0?")
 #warning("TODO: change to GraphQLResponse when we delete the existing response object?")
 /// Represents the result of a GraphQL operation.
-public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
+public struct GraphQLResult<Operation: GraphQLOperation>: Sendable {
 
   /// Represents source of data
   public enum Source: Sendable, Hashable {
@@ -14,7 +13,7 @@ public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
   }
 
   /// The typed result data, or `nil` if an error was encountered that prevented a valid response.
-  public let data: Data?
+  public let data: Operation.Data?
   /// A list of errors, or `nil` if the operation completed without encountering any errors.
   public let errors: [GraphQLError]?
   /// A dictionary which services can use however they see fit to provide additional information to clients.
@@ -25,7 +24,7 @@ public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
   let dependentKeys: Set<CacheKey>?
 
   public init(
-    data: Data?,
+    data: Operation.Data?,
     extensions: JSONObject?,
     errors: [GraphQLError]?,
     source: Source,
@@ -38,16 +37,16 @@ public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
     self.dependentKeys = dependentKeys
   }
 
-  func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResult<Data> {
+  func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResult<Operation> {
     let mergedDataDict = try merge(
       incrementalResult.data?.__data,
       into: self.data?.__data
     ) { currentDataDict, incrementalDataDict in
       try currentDataDict.merging(incrementalDataDict, at: incrementalResult.path)
     }
-    var mergedData: Data? = nil
+    var mergedData: Operation.Data? = nil
     if let mergedDataDict {
-      mergedData = Data(_dataDict: mergedDataDict)
+      mergedData = Operation.Data(_dataDict: mergedDataDict)
     }
 
     let mergedErrors = try merge(
@@ -99,8 +98,8 @@ public struct GraphQLResult<Data: RootSelectionSet>: Sendable {
 }
 
 // MARK: - Equatable/Hashable Conformance
-extension GraphQLResult: Equatable where Data: Equatable {
-  public static func == (lhs: GraphQLResult<Data>, rhs: GraphQLResult<Data>) -> Bool {
+extension GraphQLResult: Equatable where Operation.Data: Equatable {
+  public static func == (lhs: GraphQLResult<Operation>, rhs: GraphQLResult<Operation>) -> Bool {
     lhs.data == rhs.data &&
     lhs.errors == rhs.errors &&
     AnySendableHashable.equatableCheck(lhs.extensions, rhs.extensions) &&
@@ -109,7 +108,7 @@ extension GraphQLResult: Equatable where Data: Equatable {
   }
 }
 
-extension GraphQLResult: Hashable where Data: Hashable {
+extension GraphQLResult: Hashable where Operation.Data: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(data)
     hasher.combine(errors)

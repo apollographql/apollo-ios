@@ -112,7 +112,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error> {
     return try doInClientContext {
       return try self.networkTransport.send(
         query: query,
@@ -128,7 +128,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> GraphQLResult<Query.Data>
+  ) async throws -> GraphQLResult<Query>
   where Query.ResponseFormat == SingleResponseFormat {
     for try await result in try fetch(
       query: query,
@@ -144,7 +144,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == SingleResponseFormat {
     return try fetch(
       query: query,
@@ -159,7 +159,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try fetch(
       query: query,
@@ -172,7 +172,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try fetch(
       query: query,
@@ -187,7 +187,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.CacheOnly,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> GraphQLResult<Query.Data> {
+  ) async throws -> GraphQLResult<Query> {
     for try await result in try fetch(
       query: query,
       fetchBehavior: cachePolicy.toFetchBehavior(),
@@ -345,7 +345,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> GraphQLResult<Mutation.Data>
+  ) async throws -> GraphQLResult<Mutation>
   where Mutation.ResponseFormat == SingleResponseFormat {
     for try await result in try self.sendMutation(
       mutation: mutation,
@@ -368,7 +368,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error>
   where Mutation.ResponseFormat == IncrementalDeferredResponseFormat {
     return try sendMutation(mutation: mutation, requestConfiguration: requestConfiguration)
   }
@@ -376,7 +376,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func sendMutation<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error> {
     return try doInClientContext {
       return try self.networkTransport.send(
         mutation: mutation,
@@ -400,7 +400,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> GraphQLResult<Operation.Data>
+  ) async throws -> GraphQLResult<Operation>
   where Operation.ResponseFormat == SingleResponseFormat {
     for try await result in try self.sendUpload(
       operation: operation,
@@ -425,7 +425,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Operation>, any Error>
   where Operation.ResponseFormat == IncrementalDeferredResponseFormat {
     return try self.sendUpload(
       operation: operation,
@@ -438,7 +438,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Operation>, any Error> {
     guard let uploadingTransport = self.networkTransport as? (any UploadingNetworkTransport) else {
       assertionFailure(
         "Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`."
@@ -467,7 +467,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     subscription: Subscription,
     cachePolicy: CachePolicy.Subscription = .cacheThenNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
+  ) async throws -> AsyncThrowingStream<GraphQLResult<Subscription>, any Error> {
     guard let subscriptionTransport = self.networkTransport as? (any SubscriptionNetworkTransport) else {
       assertionFailure(
         "Trying to subscribe without a subscription transport. Please make sure your network transport conforms to `SubscriptionNetworkTransport`."
@@ -512,7 +512,9 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 /// - Parameters:
 ///   - result: The result of a performed operation. Will have a `GraphQLResult` with any parsed data and any GraphQL errors on `success`, and an `Error` on `failure`.
 @available(*, deprecated)
-public typealias GraphQLResultHandler<Data: RootSelectionSet> = @Sendable (Result<GraphQLResult<Data>, any Error>) ->
+public typealias GraphQLResultHandler<Operation: GraphQLOperation> = @Sendable (
+  Result<GraphQLResult<Operation>, any Error>
+) ->
   Void
 
 @available(*, deprecated)
@@ -564,7 +566,7 @@ extension ApolloClient {
     cachePolicy: CachePolicy_v1? = nil,
     context: (any RequestContext)? = nil,
     queue: DispatchQueue = .main,
-    resultHandler: GraphQLResultHandler<Query.Data>? = nil
+    resultHandler: GraphQLResultHandler<Query>? = nil
   ) -> (any Cancellable) {
     let cachePolicy = cachePolicy ?? CachePolicy_v1.default
     return awaitStreamInTask(
@@ -620,7 +622,7 @@ extension ApolloClient {
     cachePolicy: CachePolicy_v1? = nil,
     context: (any RequestContext)? = nil,
     callbackQueue: DispatchQueue = .main,
-    resultHandler: @escaping GraphQLResultHandler<Query.Data>
+    resultHandler: @escaping GraphQLResultHandler<Query>
   ) async -> GraphQLQueryWatcher<Query> {
     let cachePolicy = cachePolicy ?? CachePolicy_v1.default
     let config = RequestConfiguration(
@@ -647,7 +649,7 @@ extension ApolloClient {
     mutation: Mutation,
     publishResultToStore: Bool = true,
     queue: DispatchQueue = .main,
-    resultHandler: GraphQLResultHandler<Mutation.Data>? = nil
+    resultHandler: GraphQLResultHandler<Mutation>? = nil
   ) -> (any Cancellable) {
     let config = RequestConfiguration(
       requestTimeout: defaultRequestConfiguration.requestTimeout,
@@ -677,7 +679,7 @@ extension ApolloClient {
     operation: Operation,
     files: [GraphQLFile],
     queue: DispatchQueue = .main,
-    resultHandler: GraphQLResultHandler<Operation.Data>? = nil
+    resultHandler: GraphQLResultHandler<Operation>? = nil
   ) -> (any Cancellable) {
     return awaitStreamInTask(
       {
@@ -702,7 +704,7 @@ extension ApolloClient {
   public func subscribe<Subscription: GraphQLSubscription>(
     subscription: Subscription,
     queue: DispatchQueue = .main,
-    resultHandler: @escaping GraphQLResultHandler<Subscription.Data>
+    resultHandler: @escaping GraphQLResultHandler<Subscription>
   ) -> any Cancellable {
     return awaitStreamInTask(
       {

@@ -27,34 +27,34 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == SingleResponseFormat
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheOnly,
     requestConfiguration: RequestConfiguration?
-  ) async throws -> GraphQLResult<Query.Data>
+  ) async throws -> GraphQLResult<Query>
 
   // MARK: - Watch Functions
 
@@ -119,13 +119,13 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
   func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration?
-  ) async throws -> GraphQLResult<Mutation.Data>
+  ) async throws -> GraphQLResult<Mutation>
   where Mutation.ResponseFormat == SingleResponseFormat
 
   func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error>
   where Mutation.ResponseFormat == IncrementalDeferredResponseFormat
 
   // MARK: - Upload Functions
@@ -143,7 +143,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration?
-  ) async throws -> GraphQLResult<Operation.Data>
+  ) async throws -> GraphQLResult<Operation>
   where Operation.ResponseFormat == SingleResponseFormat
 
   // MARK: - Subscription Functions
@@ -158,6 +158,6 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     subscription: Subscription,
     cachePolicy: CachePolicy.Subscription,
     requestConfiguration: RequestConfiguration?
-  ) async throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error>
+  ) async throws -> AsyncThrowingStream<GraphQLResult<Subscription>, any Error>
 
 }

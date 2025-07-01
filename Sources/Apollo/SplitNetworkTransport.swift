@@ -1,7 +1,6 @@
 import Foundation
 
 #if !COCOAPODS
-  import Apollo
   import ApolloAPI
 #endif
 
@@ -43,7 +42,7 @@ public final class SplitNetworkTransport<
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error> {
     return try queryTransport.send(
       query: query,
       fetchBehavior: fetchBehavior,
@@ -54,7 +53,7 @@ public final class SplitNetworkTransport<
   public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error> {
     return try mutationTransport.send(
       mutation: mutation,
       requestConfiguration: requestConfiguration
@@ -71,7 +70,7 @@ where SubscriptionTransport: SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Subscription>, any Error> {
     return try subscriptionTransport.send(
       subscription: subscription,
       fetchBehavior: fetchBehavior,
@@ -88,7 +87,7 @@ extension SplitNetworkTransport: UploadingNetworkTransport where UploadTransport
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResult<Operation>, any Error> {
     return try uploadTransport.upload(
       operation: operation,
       files: files,

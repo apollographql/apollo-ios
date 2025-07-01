@@ -63,7 +63,7 @@ extension JSONResponseParser {
     /// create dependent keys or a `RecordSet` for the cache.
     ///
     /// This is faster than `parseResult()` and should be used when cache the response is not needed.
-    public func parseResultOmittingCacheRecords() async throws -> GraphQLResult<Operation.Data> {
+    public func parseResultOmittingCacheRecords() async throws -> GraphQLResult<Operation> {
       let accumulator = DataDictMapper()
       let data = try await base.execute(
         selectionSet: Operation.Data.self,
@@ -79,9 +79,9 @@ extension JSONResponseParser {
     private func makeResult(
       data: Operation.Data?,
       dependentKeys: Set<CacheKey>?
-    ) -> GraphQLResult<Operation.Data> {
+    ) -> GraphQLResult<Operation> {
       #warning("TODO: Do we need to make sure that there is either data or errors in the result?")
-      return GraphQLResult<Operation.Data>(
+      return GraphQLResult<Operation>(
         data: data,
         extensions: base.parseExtensions(),
         errors: base.parseErrors(),

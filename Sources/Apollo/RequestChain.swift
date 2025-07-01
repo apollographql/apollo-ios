@@ -32,7 +32,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   private let interceptors: Interceptors
   private let store: ApolloStore
 
-  public typealias ResultStream = AsyncThrowingStream<GraphQLResult<Operation.Data>, any Error>
+  public typealias ResultStream = AsyncThrowingStream<GraphQLResult<Operation>, any Error>
   public typealias Operation = Request.Operation
 
   /// Creates a chain with the given interceptor array.
@@ -99,7 +99,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
       request in
       finalRequest = request
 
-      return await execute(request: request)
+      return execute(request: request)
     }
 
     for interceptor in interceptors.reversed() {
@@ -205,7 +205,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   private func attemptCacheRead(
     request: Request
-  ) async throws -> GraphQLResult<Operation.Data>? {
+  ) async throws -> GraphQLResult<Operation>? {
     let cacheInterceptor = self.interceptors.cache
     return try await cacheInterceptor.readCacheData(from: self.store, request: request)
   }
