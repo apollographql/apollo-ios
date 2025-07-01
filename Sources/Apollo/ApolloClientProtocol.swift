@@ -27,34 +27,42 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == SingleResponseFormat
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat
 
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat
 
+  /// Fetches a query from the local cache. Does not attempt to fetch results from the server.
+  ///
+  /// - Parameters:
+  ///   - query: The query to fetch.
+  ///   - cachePolicy: The `CacheOnly` cache policy.
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
+  ///
+  ///   - Returns: The response loaded from the cache. On a cache miss, this will return `nil`.
   func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheOnly,
     requestConfiguration: RequestConfiguration?
-  ) async throws -> GraphQLResponse<Query>
+  ) async throws -> GraphQLResponse<Query>?
 
   // MARK: - Watch Functions
 
@@ -125,7 +133,7 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
   func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Swift.Error>
   where Mutation.ResponseFormat == IncrementalDeferredResponseFormat
 
   // MARK: - Upload Functions
@@ -158,6 +166,6 @@ public protocol ApolloClientProtocol: AnyObject, Sendable {
     subscription: Subscription,
     cachePolicy: CachePolicy.Subscription,
     requestConfiguration: RequestConfiguration?
-  ) async throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error>
+  ) async throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Swift.Error>
 
 }

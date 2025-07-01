@@ -4,19 +4,6 @@ import Foundation
   import ApolloAPI
 #endif
 
-public enum RequestChainError: Swift.Error, LocalizedError {
-  case noResults
-
-  public var errorDescription: String? {
-    switch self {
-    case .noResults:
-      return
-        "Request chain completed request with no results emitted. This can occur if the network returns a success response with no body content, or if an interceptor fails to pass on the emitted results"
-    }
-  }
-
-}
-
 public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   public struct Retry: Swift.Error {
@@ -132,7 +119,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     }
 
     guard didEmitResult else {
-      throw RequestChainError.noResults
+      throw ApolloClient.Error.noResults
     }
   }
 
@@ -158,16 +145,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
             // Cache miss
 
-          } catch {
-            #warning(
-              """
-              TODO: If we are making cache miss return nil (instead of throwing error), then should
-              this just always be throwing the error? What's the point of differentiating cache miss 
-              from thrown error if we are still supressing it here?
-
-              An error interceptor can still catch on the error and run a retry with a fetch behavior that doesn't do a cache read on the cache failure
-              """
-            )
+          } catch {            
             // Cache read failure
             if !fetchBehavior.shouldFetchFromNetwork(hadSuccessfulCacheRead: false) {
               throw error

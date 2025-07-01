@@ -28,7 +28,7 @@ public final class SplitNetworkTransport<
     queryTransport: QueryTransport,
     mutationTransport: MutationTransport,
     subscriptionTransport: SubscriptionTransport = Void(),
-    uploadTransport: UploadTransport = Void(),
+    uploadTransport: UploadTransport = Void()
   ) {
     self.queryTransport = queryTransport
     self.mutationTransport = mutationTransport

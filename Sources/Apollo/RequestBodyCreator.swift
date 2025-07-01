@@ -2,7 +2,6 @@
 import ApolloAPI
 #endif
 
-#warning("TODO: Do we really need this? Should it be part of RequestChainNetworkTransport, or just on JSONRequest")
 public protocol JSONRequestBodyCreator: Sendable {
 
   /// Creates a `JSONEncodableDictionary` out of the passed-in operation

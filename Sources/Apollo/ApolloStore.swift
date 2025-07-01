@@ -119,34 +119,43 @@ public final class ApolloStore: Sendable {
     return value
   }
 
-  #warning("TODO: Make cache reads return nil instead of throwing on cache miss.")
   /// Loads the results for the given operation from the cache.
-  ///
-  /// This function will throw an error on a cache miss.
   ///
   /// - Parameters:
   ///   - operation: The operation to load results for
+  ///
+  /// - Returns: The response loaded from the cache. On a cache miss, this will return `nil`.
   public func load<Operation: GraphQLOperation>(
     _ operation: Operation
-  ) async throws -> GraphQLResponse<Operation> {
-    try await withinReadTransaction { transaction in
-      let (dataDict, dependentKeys) = try await transaction.readObject(
-        ofType: Operation.Data.self,
-        withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
-        variables: operation.__variables,
-        accumulator: zip(
-          DataDictMapper(),
-          GraphQLDependencyTracker()
+  ) async throws -> GraphQLResponse<Operation>? {
+    do {
+      return try await withinReadTransaction { transaction in
+        let (dataDict, dependentKeys) = try await transaction.readObject(
+          ofType: Operation.Data.self,
+          withKey: CacheReference.rootCacheReference(for: Operation.operationType).key,
+          variables: operation.__variables,
+          accumulator: zip(
+            DataDictMapper(),
+            GraphQLDependencyTracker()
+          )
         )
-      )
 
-      return GraphQLResponse(
-        data: Operation.Data(_dataDict: dataDict),
-        extensions: nil,
-        errors: nil,
-        source: .cache,
-        dependentKeys: dependentKeys
-      )
+        return GraphQLResponse<Operation>(
+          data: Operation.Data(_dataDict: dataDict),
+          extensions: nil,
+          errors: nil,
+          source: .cache,
+          dependentKeys: dependentKeys
+        )
+      }
+    } catch JSONDecodingError.missingValue {
+      return nil
+    } catch let error as GraphQLExecutionError {
+      if case JSONDecodingError.missingValue = error.underlying {
+        return nil
+      } else {
+        throw error
+      }
     }
   }
 
@@ -458,7 +467,10 @@ public final class ApolloStore: Sendable {
   ) {
     performInTask(
       {
-        try await self.load(operation)
+        guard let response = try await self.load(operation) else {
+          throw JSONDecodingError.missingValue
+        }
+        return response
       },
       callbackQueue: callbackQueue,
       completion: resultHandler

@@ -16,6 +16,8 @@ public enum CachePolicy: Sendable, Hashable {
       case networkOnly
     }
 
+    /// A cache policy that returns data from the cache if available,
+    /// Does not attempt to fetch results from the server.
     public enum CacheOnly: Sendable, Hashable {
       /// Return data from the cache if available, do not attempt to fetch results from the server.
       case cacheOnly

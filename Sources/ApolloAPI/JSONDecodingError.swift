@@ -7,7 +7,7 @@ import Foundation
 public enum JSONDecodingError: Error, LocalizedError, Hashable {
   /// A value that is expected to be present is missing from the ``JSONObject``.
   case missingValue
-  /// A value that is non-null has a `null`value.
+  /// A value that is non-null has a `null` value.
   case nullValue
   /// A value in a ``JSONObject`` was not of the expected `JSON` type.
   /// (eg. An object instead of a list)

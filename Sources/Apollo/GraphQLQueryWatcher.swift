@@ -201,22 +201,30 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Ap
           return
         }
 
+        let cacheReadFailed = {
+          if self.refetchOnFailedUpdates && self.lastFetch?.fetchBehavior.networkFetch != .never {
+            // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
+            self.fetch(
+              fetchBehavior: FetchBehavior.NetworkOnly,
+              requestConfiguration: self.lastFetch?.requestConfiguration
+            )
+          }
+        }
+
         if !dependentKeys.isDisjoint(with: changedKeys) {
           do {
             // First, attempt to reload the query from the cache directly, in order not to interrupt any
             // in-flight server-side fetch.
-            let result = try await store.load(self.query)
+            guard let result = try await store.load(self.query) else {
+              cacheReadFailed()
+              return
+            }
+            
             self.dependentKeys = result.dependentKeys
             self.didReceiveResult(result)
 
           } catch {
-            if self.refetchOnFailedUpdates && self.lastFetch?.fetchBehavior.networkFetch != .never {
-              // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
-              self.fetch(
-                fetchBehavior: FetchBehavior.NetworkOnly,
-                requestConfiguration: self.lastFetch?.requestConfiguration
-              )
-            }
+            cacheReadFailed()
           }
         }
       }

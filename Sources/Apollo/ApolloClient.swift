@@ -28,7 +28,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
 
   public let defaultRequestConfiguration: RequestConfiguration
 
-  public enum ApolloClientError: Error, LocalizedError, Hashable {
+  public enum Error: Swift.Error, LocalizedError, Hashable {
     case noResults
     case noUploadTransport
     case noSubscriptionTransport
@@ -36,7 +36,10 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     public var errorDescription: String? {
       switch self {
       case .noResults:
-        return "The operation completed without returning any results."
+        return """
+          The operation completed without returning any results. This can occur if the network returns a success response with no body content.
+          If using a `RequestChainNetworkTransport`, this can also occur if an interceptor fails to pass on the emitted results.
+          """
       case .noUploadTransport:
         return "Attempting to upload using a transport which does not support uploads. This is a developer error."
       case .noSubscriptionTransport:
@@ -112,7 +115,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error> {
     return try doInClientContext {
       return try self.networkTransport.send(
         query: query,
@@ -137,14 +140,14 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     ) {
       return result
     }
-    throw ApolloClientError.noResults
+    throw Error.noResults
   }
 
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == SingleResponseFormat {
     return try fetch(
       query: query,
@@ -159,7 +162,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try fetch(
       query: query,
@@ -172,7 +175,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     query: Query,
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
     return try fetch(
       query: query,
@@ -182,20 +185,32 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   }
 
   // MARK: Cache Only
-
+  
+  /// Fetches a query from the local cache. Does not attempt to fetch results from the server.
+  ///
+  /// - Parameters:
+  ///   - query: The query to fetch.
+  ///   - cachePolicy: The `CacheOnly` cache policy.
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
+  ///
+  ///   - Returns: The response loaded from the cache. On a cache miss, this will return `nil`.
   public func fetch<Query: GraphQLQuery>(
     query: Query,
     cachePolicy: CachePolicy.Query.CacheOnly,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> GraphQLResponse<Query> {
-    for try await result in try fetch(
-      query: query,
-      fetchBehavior: cachePolicy.toFetchBehavior(),
-      requestConfiguration: requestConfiguration
-    ) {
-      return result
+  ) async throws -> GraphQLResponse<Query>? {
+    do {
+      for try await result in try fetch(
+        query: query,
+        fetchBehavior: cachePolicy.toFetchBehavior(),
+        requestConfiguration: requestConfiguration
+      ) {
+        return result
+      }
+      return nil
+    } catch ApolloClient.Error.noResults {
+      return nil
     }
-    throw ApolloClientError.noResults
   }
 
   // MARK: - Watch Query
@@ -353,7 +368,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     ) {
       return result
     }
-    throw ApolloClientError.noResults
+    throw Error.noResults
   }
 
   /// Performs a mutation by sending it to the server.
@@ -368,7 +383,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func perform<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Swift.Error>
   where Mutation.ResponseFormat == IncrementalDeferredResponseFormat {
     return try sendMutation(mutation: mutation, requestConfiguration: requestConfiguration)
   }
@@ -376,7 +391,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
   public func sendMutation<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Swift.Error> {
     return try doInClientContext {
       return try self.networkTransport.send(
         mutation: mutation,
@@ -409,7 +424,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     ) {
       return result
     }
-    throw ApolloClientError.noResults
+    throw Error.noResults
   }
 
   /// Uploads the given files with the given operation.
@@ -425,7 +440,7 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration? = nil
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Operation>, any Error>
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Operation>, any Swift.Error>
   where Operation.ResponseFormat == IncrementalDeferredResponseFormat {
     return try self.sendUpload(
       operation: operation,
@@ -438,12 +453,12 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration?
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Operation>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Operation>, any Swift.Error> {
     guard let uploadingTransport = self.networkTransport as? (any UploadingNetworkTransport) else {
       assertionFailure(
         "Trying to upload without an uploading transport. Please make sure your network transport conforms to `UploadingNetworkTransport`."
       )
-      throw ApolloClientError.noUploadTransport
+      throw Error.noUploadTransport
     }
 
     return try doInClientContext {
@@ -467,16 +482,17 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     subscription: Subscription,
     cachePolicy: CachePolicy.Subscription = .cacheThenNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error> {
+  ) async throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Swift.Error> {
     guard let subscriptionTransport = self.networkTransport as? (any SubscriptionNetworkTransport) else {
       assertionFailure(
         "Trying to subscribe without a subscription transport. Please make sure your network transport conforms to `SubscriptionNetworkTransport`."
       )
-      throw ApolloClientError.noSubscriptionTransport
+      throw Error.noSubscriptionTransport
     }
 
     return try doInClientContext {
-      return try subscriptionTransport
+      return
+        try subscriptionTransport
         .send(
           subscription: subscription,
           fetchBehavior: cachePolicy.toFetchBehavior(),
@@ -554,7 +570,7 @@ extension ApolloClient {
   @available(*, deprecated)
   public func clearCache(
     callbackQueue: DispatchQueue = .main,
-    completion: (@Sendable (Result<Void, any Error>) -> Void)? = nil
+    completion: (@Sendable (Result<Void, any Swift.Error>) -> Void)? = nil
   ) {
     self.store.clearCache(callbackQueue: callbackQueue, completion: completion)
   }
