@@ -7,9 +7,8 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
   public enum ParsingError: Swift.Error, LocalizedError, Equatable {
     case unsupportedContentType(type: String)
     case cannotParseChunkData
-    case irrecoverableError(message: String?)
+    case irrecoverableErrors([GraphQLError])
     case cannotParsePayloadData
-    case cannotParseErrorData
 
     public var errorDescription: String? {
       switch self {
@@ -18,12 +17,10 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
         return "Unsupported content type: application/json is required but got \(type)."
       case .cannotParseChunkData:
         return "The chunk data could not be parsed."
-      case let .irrecoverableError(message):
-        return "An irrecoverable error occured: \(message ?? "unknown")."
+      case .irrecoverableErrors:
+        return "An irrecoverable error occured."
       case .cannotParsePayloadData:
         return "The payload data could not be parsed."
-      case .cannotParseErrorData:
-        return "The error data could not be parsed."
       }
     }
   }
@@ -78,15 +75,8 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
         }
 
       case let .json(object):
-        if let errors = object.errors, !(errors is NSNull) {
-          guard
-            let errors = errors as? [JSONObject],
-            let message = errors.first?["message"] as? String
-          else {
-            throw ParsingError.cannotParseErrorData
-          }
-
-          throw ParsingError.irrecoverableError(message: message)
+        if let errorsJSON = object.errors {
+          throw ParsingError.irrecoverableErrors(errorsJSON.map(GraphQLError.init))
         }
 
         if let payload = object.payload, !(payload is NSNull) {
@@ -115,8 +105,8 @@ struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser
 }
 
 fileprivate extension JSONObject {
-  var errors: JSONValue? {
-    self["errors"]
+  var errors: [JSONObject]? {
+    self["errors"] as? [JSONObject]
   }
 
   var payload: JSONValue? {
