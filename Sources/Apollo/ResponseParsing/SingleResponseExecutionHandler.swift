@@ -26,10 +26,10 @@ extension JSONResponseParser {
     /// - Returns: A `GraphQLResult` and optional `RecordSet`.
     func execute(
       includeCacheRecords: Bool
-    ) async throws -> GraphQLResponse<Operation> {
+    ) async throws -> ParsedResult<Operation> {
       switch includeCacheRecords {
       case false:
-        return GraphQLResponse(result: try await parseResultOmittingCacheRecords(), cacheRecords: nil)
+        return ParsedResult(result: try await parseResultOmittingCacheRecords(), cacheRecords: nil)
 
       case true:
         return try await parseResultIncludingCacheRecords()
@@ -40,7 +40,7 @@ extension JSONResponseParser {
     /// request and the `RecordSet` can be merged into a local cache.
     ///
     /// - Returns: A `GraphQLResult` and a `RecordSet`.
-    public func parseResultIncludingCacheRecords() async throws -> GraphQLResponse<Operation> {
+    public func parseResultIncludingCacheRecords() async throws -> ParsedResult<Operation> {
       let accumulator = zip(
         DataDictMapper(),
         ResultNormalizerFactory.networkResponseDataNormalizer(),
@@ -56,14 +56,14 @@ extension JSONResponseParser {
         dependentKeys: executionResult?.2
       )
 
-      return GraphQLResponse(result: result, cacheRecords: executionResult?.1)
+      return ParsedResult(result: result, cacheRecords: executionResult?.1)
     }
 
     /// Parses a response into a `GraphQLResult` for use without the cache. This parsing does not
     /// create dependent keys or a `RecordSet` for the cache.
     ///
     /// This is faster than `parseResult()` and should be used when cache the response is not needed.
-    public func parseResultOmittingCacheRecords() async throws -> GraphQLResult<Operation> {
+    public func parseResultOmittingCacheRecords() async throws -> GraphQLResponse<Operation> {
       let accumulator = DataDictMapper()
       let data = try await base.execute(
         selectionSet: Operation.Data.self,
@@ -79,9 +79,9 @@ extension JSONResponseParser {
     private func makeResult(
       data: Operation.Data?,
       dependentKeys: Set<CacheKey>?
-    ) -> GraphQLResult<Operation> {
+    ) -> GraphQLResponse<Operation> {
       #warning("TODO: Do we need to make sure that there is either data or errors in the result?")
-      return GraphQLResult<Operation>(
+      return GraphQLResponse<Operation>(
         data: data,
         extensions: base.parseExtensions(),
         errors: base.parseErrors(),

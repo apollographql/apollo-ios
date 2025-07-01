@@ -32,7 +32,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   private let interceptors: Interceptors
   private let store: ApolloStore
 
-  public typealias ResultStream = AsyncThrowingStream<GraphQLResult<Operation>, any Error>
+  public typealias ResultStream = AsyncThrowingStream<GraphQLResponse<Operation>, any Error>
   public typealias Operation = Request.Operation
 
   /// Creates a chain with the given interceptor array.
@@ -141,7 +141,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     request: Request
   ) -> InterceptorResultStream<Request> {
     return InterceptorResultStream<Request>(
-      stream: AsyncThrowingStream<GraphQLResponse<Operation>, any Error>.executingInAsyncTask { continuation in
+      stream: AsyncThrowingStream<ParsedResult<Operation>, any Error>.executingInAsyncTask { continuation in
         let fetchBehavior = request.fetchBehavior
         var didYieldCacheData: Bool = false
 
@@ -152,7 +152,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
               // Successful cache read
               didYieldCacheData = true
               continuation.yield(
-                GraphQLResponse<Request.Operation>(result: cacheResult, cacheRecords: nil)
+                ParsedResult<Request.Operation>(result: cacheResult, cacheRecords: nil)
               )
             }
 
@@ -190,7 +190,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
               if let cacheResult = try await attemptCacheRead(request: request) {
                 // Successful cache read
                 continuation.yield(
-                  GraphQLResponse<Request.Operation>(result: cacheResult, cacheRecords: nil)
+                  ParsedResult<Request.Operation>(result: cacheResult, cacheRecords: nil)
                 )
               }
 
@@ -205,7 +205,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
 
   private func attemptCacheRead(
     request: Request
-  ) async throws -> GraphQLResult<Operation>? {
+  ) async throws -> GraphQLResponse<Operation>? {
     let cacheInterceptor = self.interceptors.cache
     return try await cacheInterceptor.readCacheData(from: self.store, request: request)
   }
@@ -253,7 +253,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
   }
 
   private func writeToCacheIfNecessary(
-    response: GraphQLResponse<Request.Operation>,
+    response: ParsedResult<Request.Operation>,
     for request: Request
   ) async throws {
     guard request.writeResultsToCache,

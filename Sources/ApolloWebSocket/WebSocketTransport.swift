@@ -17,7 +17,7 @@ public final class WebSocketTransport: SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: Apollo.FetchBehavior,
     requestConfiguration: Apollo.RequestConfiguration
-  ) throws -> AsyncThrowingStream<Apollo.GraphQLResult<Subscription>, any Swift.Error> {
+  ) throws -> AsyncThrowingStream<Apollo.GraphQLResponse<Subscription>, any Swift.Error> {
     throw Error.notImplemented
   }
 

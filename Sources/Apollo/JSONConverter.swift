@@ -19,7 +19,7 @@ public enum JSONConverter {
   /// Converts a ``GraphQLResult`` into a basic JSON dictionary for use.
   ///
   /// - Returns: A `[String: Any]` JSON dictionary representing the ``GraphQLResult``.
-  public static func convert<T>(_ result: GraphQLResult<T>) -> [String: Any] {
+  public static func convert<T>(_ result: GraphQLResponse<T>) -> [String: Any] {
     result.asJSONDictionary()
   }
 

@@ -2,9 +2,8 @@
 @_spi(Internal) import ApolloAPI
 #endif
 
-#warning("TODO: change to GraphQLResponse when we delete the existing response object?")
 /// Represents the result of a GraphQL operation.
-public struct GraphQLResult<Operation: GraphQLOperation>: Sendable {
+public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {
 
   /// Represents source of data
   public enum Source: Sendable, Hashable {
@@ -37,7 +36,7 @@ public struct GraphQLResult<Operation: GraphQLOperation>: Sendable {
     self.dependentKeys = dependentKeys
   }
 
-  func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResult<Operation> {
+  func merging(_ incrementalResult: IncrementalGraphQLResult) throws -> GraphQLResponse<Operation> {
     let mergedDataDict = try merge(
       incrementalResult.data?.__data,
       into: self.data?.__data
@@ -70,7 +69,7 @@ public struct GraphQLResult<Operation: GraphQLOperation>: Sendable {
       currentDependentKeys.union(incrementalDependentKeys)
     }
 
-    return GraphQLResult(
+    return GraphQLResponse(
       data: mergedData,
       extensions: mergedExtensions,
       errors: mergedErrors,
@@ -98,8 +97,8 @@ public struct GraphQLResult<Operation: GraphQLOperation>: Sendable {
 }
 
 // MARK: - Equatable/Hashable Conformance
-extension GraphQLResult: Equatable where Operation.Data: Equatable {
-  public static func == (lhs: GraphQLResult<Operation>, rhs: GraphQLResult<Operation>) -> Bool {
+extension GraphQLResponse: Equatable where Operation.Data: Equatable {
+  public static func == (lhs: GraphQLResponse<Operation>, rhs: GraphQLResponse<Operation>) -> Bool {
     lhs.data == rhs.data &&
     lhs.errors == rhs.errors &&
     AnySendableHashable.equatableCheck(lhs.extensions, rhs.extensions) &&
@@ -108,7 +107,7 @@ extension GraphQLResult: Equatable where Operation.Data: Equatable {
   }
 }
 
-extension GraphQLResult: Hashable where Operation.Data: Hashable {
+extension GraphQLResponse: Hashable where Operation.Data: Hashable {
   public func hash(into hasher: inout Hasher) {
     hasher.combine(data)
     hasher.combine(errors)
@@ -118,11 +117,11 @@ extension GraphQLResult: Hashable where Operation.Data: Hashable {
   }
 }
 
-extension GraphQLResult {
+extension GraphQLResponse {
 
-  /// Converts a ``GraphQLResult`` into a basic JSON dictionary for use.
+  /// Converts a ``GraphQLResponse`` into a basic JSON dictionary for use.
   ///
-  /// - Returns: A `[String: Any]` JSON dictionary representing the ``GraphQLResult``.
+  /// - Returns: A `[String: Any]` JSON dictionary representing the ``GraphQLResponse``.
   public func asJSONDictionary() -> [String: Any] {
     var dict: [String: Any] = [:]
     if let data { dict["data"] = JSONConverter.convert(data) }

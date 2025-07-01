@@ -10,9 +10,9 @@ public actor JSONResponseParsingInterceptor: ResponseParsingInterceptor {
   public init() {}
 
   private actor ResultStorage<Request: GraphQLRequest> {
-    var currentResult: GraphQLResponse<Request.Operation>?
+    var currentResult: ParsedResult<Request.Operation>?
 
-    func setResult(_ result: GraphQLResponse<Request.Operation>) {
+    func setResult(_ result: ParsedResult<Request.Operation>) {
       currentResult = result
     }
   }

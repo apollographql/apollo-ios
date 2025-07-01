@@ -109,7 +109,7 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Query>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error> {
     let request = self.constructRequest(
       for: query,
       fetchBehavior: fetchBehavior,
@@ -124,7 +124,7 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
   public func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Mutation>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Error> {
     let request = self.constructRequest(
       for: mutation,
       fetchBehavior: FetchBehavior.NetworkOnly,
@@ -178,7 +178,7 @@ extension RequestChainNetworkTransport: UploadingNetworkTransport {
     operation: Operation,
     files: [GraphQLFile],
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResult<Operation>, any Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Operation>, any Error> {
     let request = self.constructUploadRequest(
       for: operation,
       files: files,

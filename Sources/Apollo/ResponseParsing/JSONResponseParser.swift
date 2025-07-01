@@ -52,8 +52,8 @@ public struct JSONResponseParser: Sendable {
 
   public func parse<Operation: GraphQLOperation>(
     dataChunk: Data,
-    mergingIncrementalItemsInto existingResult: GraphQLResponse<Operation>?
-  ) async throws -> GraphQLResponse<Operation>? {
+    mergingIncrementalItemsInto existingResult: ParsedResult<Operation>?
+  ) async throws -> ParsedResult<Operation>? {
     switch response.isMultipart {
     case false:
       return try await parseSingleResponse(data: dataChunk)
@@ -97,7 +97,7 @@ public struct JSONResponseParser: Sendable {
 
   public func parseSingleResponse<Operation: GraphQLOperation>(
     data: Data
-  ) async throws -> GraphQLResponse<Operation> {
+  ) async throws -> ParsedResult<Operation> {
     guard
       let body = try? JSONSerializationFormat.deserialize(data: data) as JSONObject
     else {
@@ -109,7 +109,7 @@ public struct JSONResponseParser: Sendable {
 
   public func parseSingleResponse<Operation: GraphQLOperation>(
     body: JSONObject
-  ) async throws -> GraphQLResponse<Operation> {
+  ) async throws -> ParsedResult<Operation> {
     let executionHandler = SingleResponseExecutionHandler<Operation>(
       responseBody: body,
       operationVariables: operationVariables
@@ -135,8 +135,8 @@ public struct JSONResponseParser: Sendable {
 
   private func executeIncrementalResponses<Operation: GraphQLOperation>(
     merging incrementalItems: [JSONObject],
-    into existingResult: GraphQLResponse<Operation>
-  ) async throws -> GraphQLResponse<Operation> {
+    into existingResult: ParsedResult<Operation>
+  ) async throws -> ParsedResult<Operation> {
     var currentResult = existingResult.result
     var currentCacheRecords = existingResult.cacheRecords
 
@@ -154,7 +154,7 @@ public struct JSONResponseParser: Sendable {
       }
     }
 
-    return GraphQLResponse(result: currentResult, cacheRecords: currentCacheRecords)
+    return ParsedResult(result: currentResult, cacheRecords: currentCacheRecords)
   }
 
   private func executeIncrementalItem<Operation: GraphQLOperation>(
