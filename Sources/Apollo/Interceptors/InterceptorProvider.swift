@@ -3,7 +3,7 @@ import ApolloAPI
 #endif
 
 public struct Interceptors: Sendable {
-  let graphQL: [any ApolloInterceptor]
+  let graphQL: [any GraphQLInterceptor]
   let cache: any CacheInterceptor
   let http: [any HTTPInterceptor]
   let parser: any ResponseParsingInterceptor
@@ -24,7 +24,7 @@ public protocol InterceptorProvider: Sendable {
   /// Creates a new array of interceptors when called
   ///
   /// - Parameter operation: The operation to provide interceptors for
-  func graphQLInterceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any ApolloInterceptor]
+  func graphQLInterceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any GraphQLInterceptor]
 
   func cacheInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> any CacheInterceptor
 
@@ -41,21 +41,21 @@ extension InterceptorProvider {
     .init(provider: self, operation: operation)
   }
 
-  public func graphQLInterceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any ApolloInterceptor] {
+  public func graphQLInterceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any GraphQLInterceptor] {
     return [
       MaxRetryInterceptor(),
       AutomaticPersistedQueryInterceptor()
     ]
   }
 
+  public func cacheInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> any CacheInterceptor {
+    DefaultCacheInterceptor()
+  }
+
   public func httpInterceptors<Operation: GraphQLOperation>(for operation: Operation) -> [any HTTPInterceptor] {
     return [
       ResponseCodeInterceptor()
     ]
-  }
-
-  public func cacheInterceptor<Operation: GraphQLOperation>(for operation: Operation) -> any CacheInterceptor {
-    DefaultCacheInterceptor()
   }
 
   public func responseParser<Operation: GraphQLOperation>(for operation: Operation) -> any ResponseParsingInterceptor {

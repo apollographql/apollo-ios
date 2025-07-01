@@ -58,8 +58,7 @@ public struct OperationDefinition: Sendable {
 public struct DeferredFragmentIdentifier: Hashable {
   public let label: String
   public let fieldPath: [String]
-
-  @inlinable
+  
   public init(label: String, fieldPath: [String]) {
     self.label = label
     self.fieldPath = fieldPath

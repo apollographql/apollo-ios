@@ -69,17 +69,6 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
     return NonCopyableAsyncThrowingStream<ElementOfResult>.init(stream: newStream)
   }
 
-  /// Exposes the underlying `AsyncThrowingStream` for final consumption.
-  ///
-  /// When a stream reaches it's final consumer, `getStream()` may be called to return the
-  /// underlying `AsyncThrowingStream`. The caller is then responsible for ensuring the stream
-  /// is only awaited by a single consumer.
-  ///
-  /// - Returns: The underlying `AsyncThrowingStream`
-  public consuming func getStream() -> AsyncThrowingStream<Element, any Error> {
-    return stream
-  }
-
   // MARK: - Error Handling
 
   #warning("TODO: Write unit tests for this. Docs: if return nil, error is supressed and stream finishes.")
@@ -111,6 +100,18 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
     return NonCopyableAsyncThrowingStream.init(stream: newStream)
   }
 
+  // MARK: - Stream Consumption
+
+  /// Exposes the underlying `AsyncThrowingStream` for final consumption.
+  ///
+  /// When a stream reaches it's final consumer, `getStream()` may be called to return the
+  /// underlying `AsyncThrowingStream`. The caller is then responsible for ensuring the stream
+  /// is only awaited by a single consumer.
+  ///
+  /// - Returns: The underlying `AsyncThrowingStream`
+  public consuming func getStream() -> AsyncThrowingStream<Element, any Error> {
+    return stream
+  }
 }
 
 #warning("Do we keep this public? Helps make TaskLocalValues work, but extension on Swift standard lib type could conflict with other extensions")

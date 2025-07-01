@@ -12,7 +12,7 @@ public protocol CacheInterceptor: Sendable {
   func writeCacheData<Request: GraphQLRequest>(
     to store: ApolloStore,
     request: Request,
-    response: ParsedResult<Request.Operation>,
+    response: ParsedResult<Request.Operation>
   ) async throws
 
 }
@@ -31,7 +31,7 @@ public struct DefaultCacheInterceptor: CacheInterceptor {
   public func writeCacheData<Request: GraphQLRequest>(
     to store: ApolloStore,
     request: Request,
-    response: ParsedResult<Request.Operation>,
+    response: ParsedResult<Request.Operation>
   ) async throws {
     if let records = response.cacheRecords {
       try await store.publish(records: records)

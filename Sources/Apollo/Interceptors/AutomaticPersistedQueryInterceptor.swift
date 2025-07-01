@@ -3,7 +3,7 @@ import Foundation
 import ApolloAPI
 #endif
 
-public struct AutomaticPersistedQueryInterceptor: ApolloInterceptor {
+public struct AutomaticPersistedQueryInterceptor: GraphQLInterceptor {
 
   public enum APQError: LocalizedError, Equatable {
     case persistedQueryNotFoundForPersistedOnlyQuery(operationName: String)

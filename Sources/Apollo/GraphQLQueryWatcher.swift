@@ -10,7 +10,7 @@ import Foundation
 /// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no
 /// longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result
 /// in a memory leak.
-public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber, Apollo.Cancellable {
+public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
   public typealias ResultHandler = @Sendable (Result<GraphQLResponse<Query>, any Swift.Error>) -> Void
   private typealias FetchBlock = @Sendable (FetchBehavior, RequestConfiguration?) throws -> AsyncThrowingStream<
     GraphQLResponse<Query>, any Error
