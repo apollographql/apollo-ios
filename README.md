@@ -9,6 +9,7 @@
 ➡️ [**Get Started with Apollo iOS →**](https://www.apollographql.com/docs/ios/get-started?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme)
 
   <div align="center">
+  <br><br>
 
   <a href="https://github.com/apollographql/apollo-ios-dev/actions/workflows/ci-tests.yml">
     <img src="https://github.com/apollographql/apollo-ios-dev/actions/workflows/ci-tests.yml/badge.svg?branch=main" alt="GitHub Action Status">
@@ -32,10 +33,6 @@
 
   </div>
 </header>
-
-<p align="center">
-  <img src="https://raw.githubusercontent.com/apollographql/apollo-client-devtools/main/assets/apollo-wordmark.svg" alt="Apollo GraphQL"/>
-</p>
 
 ## ❓ Why Choose Apollo iOS?
 
@@ -95,8 +92,8 @@ Any targets in your application that will use `ApolloClient` need to have a depe
 Deliver tomorrow's roadmap today with our comprehensive suite of API orchestration tools:
 
 * [**Apollo Client**](https://www.apollographql.com/docs/react?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- Type-safe apps with GraphQL-powered on-device caching ([React](https://www.apollographql.com/docs/react?utm_medium=github&utm_source=apollographql_apollo-client&utm_campaign=readme), [iOS](https://www.apollographql.com/docs/ios?utm_medium=github&utm_source=apollographql_apollo-client&utm_campaign=readme), [Kotlin](https://www.apollographql.com/docs/kotlin?utm_medium=github&utm_source=apollographql_apollo-client&utm_campaign=readme))  
-* [**Apollo Connectors**](https://www.apollographql.com/connectors?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- Compose all your GraphQL and REST APIs into one GraphQL endpoint  
-* [**Apollo MCP Server**](https://www.apollographql.com/ai?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- AI needs APIs. The fastest way to ship reliable AI experiences  
+* [**Apollo Connectors**](https://www.apollographql.com/graphos/apollo-connectors?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- Compose all your GraphQL and REST APIs into one GraphQL endpoint  
+* [**Apollo MCP Server**](https://www.apollographql.com/apollo-mcp-server?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- AI needs APIs. The fastest way to ship reliable AI experiences  
 * [**Apollo Router**](https://www.apollographql.com/docs/router?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- Scale your APIs seamlessly with GraphQL Federation, Security, Auth, and more  
 * [**GraphOS**](https://www.apollographql.com/graphos?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme) \- Deploy, manage, govern, and explore your APIs ([start for free, no credit card needed](https://www.apollographql.com/pricing?utm_medium=github&utm_source=apollographql_apollo-client&utm_campaign=readme))
 
