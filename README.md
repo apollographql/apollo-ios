@@ -139,7 +139,7 @@ Join these live events to meet other GraphQL users and learn more:
 
 Thank you for your interest in submitting a Pull Request to Apollo iOS!  Read our [guidelines](https://github.com/apollographql/apollo-ios-dev/blob/main/CONTRIBUTING.md) first, and don't hesitate to get in touch.
 
-**New to open source?** Check out our [**Good First Issues**](https://github.com/apollographql/apollo-ios/issues?q=is%3Aopen%20label%3A%22%3Abooks%3A%20good-first-issue%22) to get started.
+**New to open source?** Check out our [**Good First Issues**](https://github.com/apollographql/apollo-ios/labels/good%20first%20issue) to get started.
 
 ## 🤝 Code of Conduct
 
