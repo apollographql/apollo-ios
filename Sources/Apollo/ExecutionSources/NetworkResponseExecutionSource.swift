@@ -5,7 +5,7 @@ import ApolloAPI
 /// A `GraphQLExecutionSource` configured to execute upon the JSON data from the network response
 /// for a GraphQL operation.
 @_spi(Execution)
-public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource {
+public struct NetworkResponseExecutionSource: GraphQLExecutionSource, CacheKeyComputingExecutionSource, Sendable {
   public typealias RawObjectData = JSONObject
   public typealias FieldCollector = DefaultFieldSelectionCollector
 

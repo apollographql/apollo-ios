@@ -145,7 +145,7 @@ public protocol AnyMock {
 }
 
 public protocol MockObject: MockFieldValue {
-  associatedtype MockFields
+  associatedtype MockFields: Sendable
   associatedtype MockValueCollectionType = Array<Mock<Self>>
 
   static var objectType: Object { get }

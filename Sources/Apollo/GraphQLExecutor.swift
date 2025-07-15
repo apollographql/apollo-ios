@@ -167,7 +167,7 @@ public struct GraphQLExecutionError: Error, LocalizedError {
   }
 }
 
-/// A GraphQL executor is responsible for executing a selection set and generating a result. It is 
+/// A GraphQL executor is responsible for executing a selection set and generating a result. It is
 /// initialized with a resolver closure that gets called repeatedly to resolve field values.
 ///
 /// An executor is used both to parse a response received from the server, and to read from the 
@@ -512,3 +512,7 @@ public final class GraphQLExecutor<Source: GraphQLExecutionSource> {
     .map { try accumulator.accept(childObject: $0, info: fieldInfo) }
   }
 }
+
+// MARK: - Sendable Conformance (Conditional)
+@_spi(Execution)
+extension GraphQLExecutor: Sendable where Source: Sendable {}

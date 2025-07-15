@@ -110,7 +110,7 @@ public final class ApolloStore: Sendable {
   /// - Parameters:
   ///   - body: The body of the operation to perform
   public func withinReadWriteTransaction<T>(
-    _ body: (ReadWriteTransaction) async throws -> T
+    _ body: @Sendable (ReadWriteTransaction) async throws -> T
   ) async rethrows -> T {
     var value: T!
     try await readerWriterLock.write {

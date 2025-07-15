@@ -2,7 +2,7 @@
 ///
 /// A ``SelectionSet``'s `__parentType` is the type from the schema that the selection set is
 /// selected against. This type can be an ``Object``, ``Interface``, or ``Union``.
-public protocol ParentType {
+public protocol ParentType: Sendable {
   /// A helper function to determine if an ``Object`` of the given type can be converted to
   /// the receiver type.
   ///
