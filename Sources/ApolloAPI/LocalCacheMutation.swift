@@ -1,4 +1,5 @@
-public protocol LocalCacheMutation: AnyObject, Hashable, Sendable {
+
+public protocol LocalCacheMutation: Hashable, Sendable {
   static var operationType: GraphQLOperationType { get }
 
   var __variables: GraphQLOperation.Variables? { get }

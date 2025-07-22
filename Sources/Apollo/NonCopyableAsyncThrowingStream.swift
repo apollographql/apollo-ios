@@ -20,12 +20,11 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
 
   private let stream: AsyncThrowingStream<Element, any Error>
 
-#warning("Maybe these shouldn't be public inits. Easy to create bugs when creating your own stream")
-  public init(stream: AsyncThrowingStream<Element, any Error>) {
+  public init(stream: consuming AsyncThrowingStream<Element, any Error>) {
     self.stream = stream
   }
 
-  public init<S: AsyncSequence & Sendable>(stream wrapped: sending S) where S.Element == Element {
+  public init<S: AsyncSequence & Sendable>(stream wrapped: consuming sending S) where S.Element == Element {
     self.stream = AsyncThrowingStream.executingInAsyncTask { [wrapped] continuation in
       for try await element in wrapped {
         continuation.yield(element)
