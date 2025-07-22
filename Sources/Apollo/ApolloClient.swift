@@ -19,8 +19,10 @@ public struct RequestConfiguration: Sendable {
 }
 
 // MARK: -
-/// The `ApolloClient` class implements the core API for Apollo by conforming to `ApolloClientProtocol`.
-public final class ApolloClient: ApolloClientProtocol, Sendable {
+
+/// `ApolloClient` is the primary public entry point for interacting with a GraphQL server and a local GraphQL
+/// normalized cache. This class provides the
+public final class ApolloClient: Sendable {
 
   let networkTransport: any NetworkTransport
 
@@ -72,7 +74,12 @@ public final class ApolloClient: ApolloClientProtocol, Sendable {
     self.context = ClientContext(clientAwarenessMetadata: clientAwarenessMetadata)
   }
 
-  /// Creates a client with a `RequestChainNetworkTransport` connecting to the specified URL.
+  /// Convenience initializer that creates a client with a default network transport and cache setup.
+  ///
+  /// This initializer creates a client that uses an in-memory only cache and a `RequestChainNetworkTransport`
+  /// connecting to the specified URL with a default interceptor setup.
+  ///
+  /// The ``InMemoryNormalizedCache`` used by this client does not persist data between application runs.
   ///
   /// - Parameters:
   ///   - url: The URL of a GraphQL server to connect to.

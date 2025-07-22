@@ -30,7 +30,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
   /// If set to `false`, the watcher will not receive updates if the cache load fails.
   public let refetchOnFailedUpdates: Bool
 
-  public var cancelled: Bool = false
+  public private(set) var cancelled: Bool = false
 
   private var lastFetch: FetchContext?
   private var dependentKeys: Set<CacheKey>? = nil
