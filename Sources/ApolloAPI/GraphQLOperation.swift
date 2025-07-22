@@ -196,15 +196,6 @@ where Wrapped: GraphQLOperationVariableValue {
   }
 }
 
-extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
-    switch self {
-    case .none: return nil
-    case let .some(value): return value._jsonEncodableValue
-    }
-  }
-}
-
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
 }
