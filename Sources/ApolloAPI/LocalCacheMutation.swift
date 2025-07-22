@@ -1,4 +1,3 @@
-
 public protocol LocalCacheMutation: Hashable, Sendable {
   static var operationType: GraphQLOperationType { get }
 
