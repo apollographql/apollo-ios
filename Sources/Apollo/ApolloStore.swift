@@ -21,7 +21,7 @@ public protocol ApolloStoreSubscriber: AnyObject, Sendable {
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
 #warning("TODO: Docs. ReaderWriter usage; why you should not share a cache with 2 stores, etc.")
 public final class ApolloStore: Sendable {
-  private let readerWriterLock = ReaderWriter()
+  private let readerWriterLock = AsyncReadWriteLock()
 
   /// The `NormalizedCache` itself is not thread-safe. Access to the cache by a single store is made
   /// thread-safe by using a `ReaderWriter`. All access to the cache must be done within the
@@ -72,7 +72,7 @@ public final class ApolloStore: Sendable {
   ///                  ensure you call `unsubscribe` on this subscriber before it goes out of scope.
   public func subscribe(_ subscriber: any ApolloStoreSubscriber) async -> SubscriptionToken {
     let token = SubscriptionToken(id: ObjectIdentifier(subscriber))
-    await readerWriterLock.write {
+    try? await readerWriterLock.write {
       self.subscribers[token] = subscriber
     }
     return token
@@ -85,7 +85,7 @@ public final class ApolloStore: Sendable {
   ///    To avoid retain cycles, call `unsubscribe` on all active subscribers before they go out of scope.
   public func unsubscribe(_ subscriptionToken: SubscriptionToken) {
     Task(priority: Task.currentPriority > .medium ? .medium : Task.currentPriority) {
-      await readerWriterLock.write {
+      try? await readerWriterLock.write {
         self.subscribers.removeValue(forKey: subscriptionToken)
       }
     }
@@ -95,10 +95,10 @@ public final class ApolloStore: Sendable {
   ///
   /// - Parameters:
   ///   - body: The body of the operation to perform.
-  public func withinReadTransaction<T>(
-    _ body: @Sendable (ReadTransaction) async throws -> T
+  public func withinReadTransaction<T: Sendable>(
+    _ body: @Sendable @escaping (ReadTransaction) async throws -> T
   ) async throws -> T {
-    var value: T!
+    nonisolated(unsafe) var value: T!
     try await readerWriterLock.read {
       value = try await body(ReadTransaction(store: self))
     }
@@ -109,10 +109,10 @@ public final class ApolloStore: Sendable {
   ///
   /// - Parameters:
   ///   - body: The body of the operation to perform
-  public func withinReadWriteTransaction<T>(
-    _ body: @Sendable (ReadWriteTransaction) async throws -> T
-  ) async rethrows -> T {
-    var value: T!
+  public func withinReadWriteTransaction<T: Sendable>(
+    _ body: @Sendable @escaping (ReadWriteTransaction) async throws -> T
+  ) async throws -> T {
+    nonisolated(unsafe) var value: T!
     try await readerWriterLock.write {
       value = try await body(ReadWriteTransaction(store: self))
     }

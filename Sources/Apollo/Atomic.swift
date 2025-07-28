@@ -53,4 +53,14 @@ public extension Atomic where T : Numeric {
     _value += 1
     return _value
   }
+
+  /// Decrements the wrapped `Int` atomically, subtracting 1 from the value.
+  @discardableResult
+  func decrement() -> T {
+    lock.lock()
+    defer { lock.unlock() }
+
+    _value -= 1
+    return _value
+  }
 }

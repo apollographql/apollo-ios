@@ -20,17 +20,12 @@ let package = Package(
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
-  dependencies: [
-    .package(
-      url: "https://github.com/apple/swift-atomics",
-      .upToNextMajor(from: "1.2.0"))
-  ],
+  dependencies: [],
   targets: [
     .target(
       name: "Apollo",
       dependencies: [
-        "ApolloAPI",
-        .product(name: "Atomics", package: "swift-atomics"),
+        "ApolloAPI"
       ],
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
