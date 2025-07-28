@@ -170,12 +170,7 @@ public final class ApolloStore: Sendable {
   }
 
   // MARK: -
-  #warning(
-    """
-    TODO: figure out how to prevent transaction from escaping closure scope.
-    Maybe explicitly mark non-sendable: https://forums.swift.org/t/what-does-available-unavailable-sendable-actually-do/65218
-    """
-  )
+
   public class ReadTransaction {
     fileprivate let _cache: any NormalizedCache
 
@@ -501,3 +496,6 @@ public final class ApolloStore: Sendable {
     }
   }
 }
+
+@available(*, unavailable)
+extension ApolloStore.ReadTransaction: Sendable { }
