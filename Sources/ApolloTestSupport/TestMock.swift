@@ -152,7 +152,7 @@ public protocol MockObject: MockFieldValue {
   static var _mockFields: MockFields { get }
 }
 
-public protocol MockFieldValue {
+public protocol MockFieldValue: Sendable {
   associatedtype MockValueCollectionType: Collection
 }
 
