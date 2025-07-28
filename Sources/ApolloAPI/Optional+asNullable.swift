@@ -10,7 +10,12 @@ public protocol AnyOptional {}
 extension Optional: AnyOptional { }
 
 extension Optional where Wrapped: Sendable {
-#warning("TODO: Document")
+
+  /// Converts the optional to a `GraphQLNullable.
+  ///
+  /// - Double nested optional (ie. `Optional.some(nil)`) -> `GraphQLNullable.null`.
+  /// - `Optional.none` -> `GraphQLNullable.none`
+  /// - `Optional.some` -> `GraphQLNullable.some`
   @_spi(Internal)
   public var asNullable: GraphQLNullable<Wrapped> {
     unwrapAsNullable()

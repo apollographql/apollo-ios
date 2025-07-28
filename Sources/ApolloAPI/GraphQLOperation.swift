@@ -55,7 +55,7 @@ public struct OperationDefinition: Sendable {
 
 /// A unique identifier used as a key to map a deferred selection set type to an incremental
 /// response label and path.
-public struct DeferredFragmentIdentifier: Hashable {
+public struct DeferredFragmentIdentifier: Sendable, Hashable {
   public let label: String
   public let fieldPath: [String]
   
@@ -150,7 +150,7 @@ public extension GraphQLSubscription {
 // MARK: - OperationResponseFormat
 
 /// The format expected for the network response of an operation.
-public protocol OperationResponseFormat {}
+public protocol OperationResponseFormat: Sendable {}
 
 /// A response format for an operation that expects a single network response.
 ///

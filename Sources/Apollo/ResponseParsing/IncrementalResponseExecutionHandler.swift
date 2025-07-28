@@ -48,15 +48,13 @@ extension JSONResponseParser {
         variables: operationVariables
       )
     }
-
-    #warning("Fix Docs")
+    
     /// Parses the response into a `IncrementalGraphQLResult` and a `RecordSet` depending on the cache policy. The result
     /// can be used to merge into a partial result and the `RecordSet` can be merged into a local cache.
     ///
     /// - Returns: A tuple of a `IncrementalGraphQLResult` and an optional `RecordSet`.
     ///
-    /// - Parameter cachePolicy: Used to determine whether a cache `RecordSet` is returned. A cache policy that does
-    /// not read or write to the cache will return a `nil` cache `RecordSet`.
+    /// - Parameter includeCacheRecords: Used to determine whether a cache `RecordSet` is returned.
     func execute(
       includeCacheRecords: Bool
     ) async throws -> (IncrementalGraphQLResult, RecordSet?) {

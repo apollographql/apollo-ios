@@ -70,7 +70,10 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
 
   // MARK: - Error Handling
 
-  #warning("TODO: Write unit tests for this. Docs: if return nil, error is supressed and stream finishes.")
+  /// Calls the given `transform` if an error is thrown by the stream.
+  ///
+  /// If the `transform` returns `nil`, the error is supressed and the resulting stream will terminate without
+  /// emitting an error.
   public consuming func mapErrors(
     _ transform: @escaping @Sendable (any Error) async throws -> Element?
   ) async -> NonCopyableAsyncThrowingStream<Element> {
@@ -113,7 +116,6 @@ public struct NonCopyableAsyncThrowingStream<Element: Sendable>: Sendable, ~Copy
   }
 }
 
-#warning("Do we keep this public? Helps make TaskLocalValues work, but extension on Swift standard lib type could conflict with other extensions")
 extension TaskLocal {
 
   @_disfavoredOverload

@@ -219,3 +219,5 @@ extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue 
     map { $0._fieldData } as DataDict.FieldValue
   }
 }
+
+extension NSArray: @retroactive @unchecked Sendable {}

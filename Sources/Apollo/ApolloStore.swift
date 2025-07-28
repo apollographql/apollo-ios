@@ -19,7 +19,12 @@ public protocol ApolloStoreSubscriber: AnyObject, Sendable {
 }
 
 /// The `ApolloStore` class acts as a local cache for normalized GraphQL results.
-#warning("TODO: Docs. ReaderWriter usage; why you should not share a cache with 2 stores, etc.")
+///
+/// - Warning: Using the same `NormalizedCache` with multiple `ApolloStore` instances at the same time is unsupported
+/// and can result in undefined behavior, data races, and crashes.
+/// The store uses an internal read/write lock to protect against concurrent write access to the `NormalizedCache`.
+/// This means that the `NormalizedCache` implementation does not need to manage thread safety. If a cache is used
+/// with multiple `ApolloStore` instances, no guaruntees about thread safety can be made.
 public final class ApolloStore: Sendable {
   private let readerWriterLock = AsyncReadWriteLock()
 

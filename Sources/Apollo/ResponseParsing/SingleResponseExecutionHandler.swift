@@ -79,8 +79,7 @@ extension JSONResponseParser {
     private func makeResult(
       data: Operation.Data?,
       dependentKeys: Set<CacheKey>?
-    ) -> GraphQLResponse<Operation> {
-      #warning("TODO: Do we need to make sure that there is either data or errors in the result?")
+    ) -> GraphQLResponse<Operation> {      
       return GraphQLResponse<Operation>(
         data: data,
         extensions: base.parseExtensions(),

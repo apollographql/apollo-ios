@@ -46,7 +46,6 @@ public struct AutomaticPersistedQueryInterceptor: GraphQLInterceptor {
     let isInitialResult = IsInitialResult()
 
     return await next(request).map { response in
-#warning("TODO: Test if cache returns result, then server returns failed result, APQ retry still occurs")
       guard response.result.source == .server,
             await isInitialResult.get() else {
         return response

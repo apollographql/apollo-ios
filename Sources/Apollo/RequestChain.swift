@@ -46,7 +46,6 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
     request: Request
   ) -> ResultStream {
     return doInRetryingAsyncThrowingStream(request: request) { request, continuation in
-      #warning("TODO: Write unit test that cache only request gets sent through interceptors still.")
       try await kickoffRequestInterceptors(request: request, continuation: continuation)
     }
   }
@@ -122,8 +121,7 @@ public struct RequestChain<Request: GraphQLRequest>: Sendable {
       throw ApolloClient.Error.noResults
     }
   }
-
-  #warning("TODO: unit tests for cache read after failed network fetch")
+  
   private func execute(
     request: Request
   ) -> InterceptorResultStream<Request> {
