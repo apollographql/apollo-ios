@@ -68,7 +68,7 @@ public extension NetworkTransport {
       if version.isEmpty {
         version.append(buildNumber)
       } else {
-        version.append("-\(buildNumber)")
+        version.append("+\(buildNumber)")
       }
     }
 
