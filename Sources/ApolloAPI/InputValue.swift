@@ -3,7 +3,7 @@
 /// # See Also
 /// [GraphQLSpec - Input Values](http://spec.graphql.org/October2021/#sec-Input-Values)
 public indirect enum InputValue {
-  /// A direct input value, valid types are `String`, `Int` `Float` and `Bool`.
+  /// A direct input value, valid types are `String`, `Int32` `Float` and `Bool`.
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
   case scalar(any ScalarType)
 
@@ -42,7 +42,7 @@ extension InputValue: ExpressibleByStringLiteral {
 }
 
 extension InputValue: ExpressibleByIntegerLiteral {
-  @inlinable public init(integerLiteral value: IntegerLiteralType) {
+  @inlinable public init(integerLiteral value: Int32) {
     self = .scalar(value)
   }
 }
@@ -82,7 +82,7 @@ extension InputValue: Hashable {
       return lhsValue == rhsValue
     case let (.scalar(lhsValue as Bool), .scalar(rhsValue as Bool)):
       return lhsValue == rhsValue
-    case let (.scalar(lhsValue as Int), .scalar(rhsValue as Int)):
+    case let (.scalar(lhsValue as Int32), .scalar(rhsValue as Int32)):
       return lhsValue == rhsValue
     case let (.scalar(lhsValue as Float), .scalar(rhsValue as Float)):
       return lhsValue == rhsValue

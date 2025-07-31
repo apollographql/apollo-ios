@@ -15,6 +15,8 @@ extension String: JSONDecodable, JSONEncodable {
         self = string
     case let int as Int:
       self = String(int)
+    case let int as Int32:
+      self = String(int)
     case let int64 as Int64:
       self = String(int64)
     case let double as Double:
@@ -29,12 +31,12 @@ extension String: JSONDecodable, JSONEncodable {
   }
 }
 
-extension Int: JSONDecodable, JSONEncodable {
+extension Int32: JSONDecodable, JSONEncodable {
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
-      throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
+      throw JSONDecodingError.couldNotConvert(value: value, to: Int32.self)
     }
-    self = number.intValue
+    self = number.int32Value
   }
 
   @inlinable public var _jsonValue: JSONValue {

@@ -23,13 +23,13 @@ public struct ObjectData {
     guard let rawValue = _rawData[key] else { return nil }
     var value: any Hashable & Sendable = rawValue
 
-    // Attempting cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting,
-    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int`
+    // Attempting cast to `Int` to ensure we always use `Int32` vs `Int` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int32`
     switch value {
     case let boolVal as Bool:
       value = boolVal
     case let intVal as any FixedWidthInteger:
-      value = Int(intVal)
+      value = Int32(intVal)
     default:
       break
     }
@@ -69,13 +69,13 @@ public struct ListData {
   @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
     var value: any Hashable & Sendable = _rawData[key]
 
-    // Attempting cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting,
-    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int`
+    // Attempting cast to `Int` to ensure we always use `Int32` vs `Int` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int32`
     switch value {
     case let boolVal as Bool:
       value = boolVal
     case let intVal as any FixedWidthInteger:
-      value = Int(intVal)
+      value = Int32(intVal)
     default:
       break
     }

@@ -5,8 +5,8 @@ public protocol OutputTypeConvertible {
 extension String: OutputTypeConvertible {
   public static let _asOutputType: Selection.Field.OutputType = .nonNull(.scalar(String.self))
 }
-extension Int: OutputTypeConvertible {
-  public static let _asOutputType: Selection.Field.OutputType = .nonNull(.scalar(Int.self))
+extension Int32: OutputTypeConvertible {
+  public static let _asOutputType: Selection.Field.OutputType = .nonNull(.scalar(Int32.self))
 }
 extension Bool: OutputTypeConvertible {
   public static let _asOutputType: Selection.Field.OutputType = .nonNull(.scalar(Bool.self))
