@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-07-22**
+**Last updated: 2025-08-05**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -38,10 +38,16 @@ The `@defer` directive enables your queries to receive data for specific fields 
 
 To support the breaking language changes in Swift 6, a major version 2.0 of Apollo iOS will be released. This version will include support for the new Swift Concurrency Model and improve upon networking and caching APIs.
 
-_Status: In design phase. Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411)._
+_Status: [Alpha release](https://github.com/apollographql/apollo-ios/releases)_
 
-- ✅ [`ExistentialAny` upcoming feature](https://github.com/apollographql/apollo-ios/issues/3205)
-- (in progress) [`Sendable` types and `async/await` APIs](https://github.com/apollographql/apollo-ios/issues/3291)
+Beta Release Milestones:
+
+* ✅ Apollo-iOS
+* ✅ ApolloCodegenLib
+* 🔲 ApolloWebSocket
+* 🔲 GraphQLQueryWatcher
+  
+Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411)._
 
 ### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
 
