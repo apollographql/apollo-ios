@@ -78,7 +78,7 @@ public struct ClientAwarenessMetadata: Sendable {
       if version.isEmpty {
         version.append(buildNumber)
       } else {
-        version.append("-\(buildNumber)")
+        version.append("+\(buildNumber)")
       }
     }
 
