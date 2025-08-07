@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 @_spi(Internal) import ApolloAPI
-#endif
 
 public struct GraphQLGETTransformer {
 

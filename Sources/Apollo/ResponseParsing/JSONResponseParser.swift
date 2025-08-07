@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 public enum JSONResponseParsingError: Swift.Error, LocalizedError {
   case couldNotParseToJSON(data: Data)

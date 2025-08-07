@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 /// Represents a path in a GraphQL query.
 public enum PathComponent: Sendable, Equatable {

@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 /// Represents an incremental result received as part of a deferred incremental response.
 ///

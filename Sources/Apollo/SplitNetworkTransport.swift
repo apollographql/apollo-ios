@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 /// A network transport that sends allows you to use different `NetworkTransport` types for each operation type.
 ///

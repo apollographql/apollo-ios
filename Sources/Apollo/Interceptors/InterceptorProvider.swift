@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 public struct Interceptors: Sendable {
   let graphQL: [any GraphQLInterceptor]

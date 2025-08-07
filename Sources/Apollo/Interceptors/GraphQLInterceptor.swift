@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 public typealias InterceptorResultStream<Request: GraphQLRequest> =
 NonCopyableAsyncThrowingStream<ParsedResult<Request.Operation>>

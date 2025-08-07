@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser {
   public enum ParsingError: Swift.Error, LocalizedError, Equatable {

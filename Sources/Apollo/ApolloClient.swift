@@ -1,9 +1,6 @@
 import Dispatch
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 public struct RequestConfiguration: Sendable {
   public var requestTimeout: TimeInterval?

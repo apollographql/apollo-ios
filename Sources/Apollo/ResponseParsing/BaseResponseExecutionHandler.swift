@@ -1,6 +1,4 @@
-#if !COCOAPODS
 @_spi(Internal) import ApolloAPI
-#endif
 
 struct BaseResponseExecutionHandler: Sendable {
 

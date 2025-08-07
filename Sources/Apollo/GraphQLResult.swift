@@ -1,6 +1,4 @@
-#if !COCOAPODS
 @_spi(Internal) import ApolloAPI
-#endif
 
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {

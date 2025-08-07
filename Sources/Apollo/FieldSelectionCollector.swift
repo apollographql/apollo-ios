@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 @_spi(Execution)
 public struct FieldSelectionGrouping {

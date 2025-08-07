@@ -1,7 +1,5 @@
-#if !COCOAPODS
 @_exported import ApolloAPI
 @_spi(Internal) import ApolloAPI
-#endif
 @_spi(Execution) @_spi(Internal) import Apollo
 import Foundation
 

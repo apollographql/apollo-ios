@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 import Foundation
 
 /// An accumulator that converts executed data to the correct values for use in a selection set.

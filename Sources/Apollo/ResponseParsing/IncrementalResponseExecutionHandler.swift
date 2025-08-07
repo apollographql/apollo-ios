@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
 @_spi(Internal) import ApolloAPI
-#endif
 
 public enum IncrementalResponseError: Error, LocalizedError, Equatable {
   case missingExistingData

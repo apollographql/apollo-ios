@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 /// An implementation of `NetworkTransport` which creates a `RequestChain` object
 /// for each item sent through it.

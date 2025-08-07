@@ -1,9 +1,6 @@
 import Foundation
-
-#if !COCOAPODS
-  import Apollo
-  import ApolloAPI
-#endif
+import Apollo
+import ApolloAPI
 
 public final class WebSocketTransport: SubscriptionNetworkTransport {
 

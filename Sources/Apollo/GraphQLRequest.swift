@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 public protocol GraphQLRequest<Operation>: Sendable {
   associatedtype Operation: GraphQLOperation

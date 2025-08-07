@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 /// A protocol representing a data source for GraphQL data to be executed upon by a
 /// `GraphQLExecutor`.

@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 public enum RootSelectionSetInitializeError: Error {
   case hasNonHashableValue

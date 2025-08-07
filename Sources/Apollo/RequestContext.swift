@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 /// A marker protocol to set up an object to pass through the request chain.
 ///

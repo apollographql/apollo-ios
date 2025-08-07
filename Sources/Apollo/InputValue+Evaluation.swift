@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 import Foundation
 
 /// A global function that formats the the cache key for a field on an object.

@@ -1,6 +1,4 @@
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 public protocol CacheInterceptor: Sendable {
 

@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 /// A request class allowing for a multipart-upload request.
 public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {

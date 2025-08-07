@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import Apollo
-#endif
 import SQLite3
 
 public final class ApolloSQLiteDatabase: SQLiteDatabase {

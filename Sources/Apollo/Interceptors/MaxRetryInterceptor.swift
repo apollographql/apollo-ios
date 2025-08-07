@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 /// An interceptor to enforce a maximum number of retries of any `HTTPRequest`
 public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {

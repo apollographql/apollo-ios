@@ -1,8 +1,5 @@
 import Foundation
-
-#if !COCOAPODS
-  import ApolloAPI
-#endif
+import ApolloAPI
 
 public struct RequestChain<Request: GraphQLRequest>: Sendable {
 

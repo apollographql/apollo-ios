@@ -1,6 +1,4 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 @_spi(Execution)
 public protocol GraphQLResultAccumulator: AnyObject {
