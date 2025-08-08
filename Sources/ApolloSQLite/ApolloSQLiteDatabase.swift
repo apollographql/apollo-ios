@@ -86,39 +86,49 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
   }
 
   public func selectRawRows(forKeys keys: Set<CacheKey>) throws -> [DatabaseRow] {
-    guard !keys.isEmpty else { return [] }
+      guard !keys.isEmpty else { return [] }
 
-    return try performSync {
-      let placeholders = keys.map { _ in "?" }.joined(separator: ", ")
-      let sql = """
-      SELECT \(Self.keyColumnName), \(Self.recordColumName) FROM \(Self.tableName)
-      WHERE \(Self.keyColumnName) IN (\(placeholders))
-      """
+      let batchSize = 500
+      var allRows = [DatabaseRow]()
+      let keyBatches = keys.chunked(into: batchSize)
 
-      let stmt = try prepareStatement(sql, errorMessage: "Failed to prepare select statement")
-      defer { sqlite3_finalize(stmt) }
+      for batch in keyBatches {
+        let rows = try performSync {
+          let placeholders = batch.map { _ in "?" }.joined(separator: ", ")
+          let sql = """
+          SELECT \(Self.keyColumnName), \(Self.recordColumName)
+          FROM \(Self.tableName)
+          WHERE \(Self.keyColumnName) IN (\(placeholders))
+          """
 
-      for (index, key) in keys.enumerated() {
-        sqlite3_bind_text(stmt, Int32(index + 1), key, -1, SQLITE_TRANSIENT)
-      }
+          let stmt = try prepareStatement(sql, errorMessage: "Failed to prepare select statement")
+          defer { sqlite3_finalize(stmt) }
 
-      var rows = [DatabaseRow]()
-      var result: Int32
-      repeat {
-          result = sqlite3_step(stmt)
-          if result == SQLITE_ROW {
+          for (index, key) in batch.enumerated() {
+            sqlite3_bind_text(stmt, Int32(index + 1), key, -1, SQLITE_TRANSIENT)
+          }
+
+          var rows = [DatabaseRow]()
+          var result: Int32
+          repeat {
+            result = sqlite3_step(stmt)
+            if result == SQLITE_ROW {
               let key = String(cString: sqlite3_column_text(stmt, 0))
               let record = String(cString: sqlite3_column_text(stmt, 1))
               rows.append(DatabaseRow(cacheKey: key, storedInfo: record))
-          } else if result != SQLITE_DONE {
+            } else if result != SQLITE_DONE {
               let errorMsg = String(cString: sqlite3_errmsg(db))
               throw SQLiteError.step(message: "Failed to step raw row select: \(errorMsg)")
-          }
-      } while result != SQLITE_DONE
+            }
+          } while result != SQLITE_DONE
 
+          return rows
+        }
 
-      return rows
-    }
+        allRows.append(contentsOf: rows)
+      }
+
+      return allRows
   }
 
   public func addOrUpdate(records: [(cacheKey: CacheKey, recordString: String)]) throws {
@@ -202,3 +212,20 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
     }
   }
 }
+
+// MARK: - Extensions
+
+extension Array {
+  func chunked(into size: Int) -> [[Element]] {
+    stride(from: 0, to: count, by: size).map {
+      Array(self[$0..<Swift.min($0 + size, count)])
+    }
+  }
+}
+
+extension Set {
+  func chunked(into size: Int) -> [[Element]] {
+    Array(self).chunked(into: size)
+  }
+}
+
