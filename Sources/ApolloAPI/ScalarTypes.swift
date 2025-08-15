@@ -21,6 +21,7 @@ public protocol ScalarType:
   GraphQLOperationVariableValue {}
 
 extension String: ScalarType {}
+extension Int: ScalarType {}
 extension Int32: ScalarType {}
 extension Bool: ScalarType {}
 extension Float: ScalarType {}

@@ -31,6 +31,19 @@ extension String: JSONDecodable, JSONEncodable {
   }
 }
 
+extension Int: JSONDecodable, JSONEncodable {
+  @inlinable public init(_jsonValue value: JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
+    }
+    self = number.intValue
+  }
+
+  @inlinable public var _jsonValue: JSONValue {
+    return self
+  }
+}
+
 extension Int32: JSONDecodable, JSONEncodable {
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
