@@ -11,5 +11,6 @@ public protocol EnumType:
   RawRepresentable,
   CaseIterable,
   JSONEncodable,
-  GraphQLOperationVariableValue
+  GraphQLOperationVariableValue,
+  GraphQLOperationVariableListElement
 where RawValue == String {}

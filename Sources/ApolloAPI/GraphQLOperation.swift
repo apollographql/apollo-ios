@@ -173,11 +173,14 @@ public struct SubscriptionResponseFormat: OperationResponseFormat {}
 public protocol GraphQLOperationVariableValue: Sendable {
   var _jsonEncodableValue: (any JSONEncodable)? { get }
 }
+public protocol GraphQLOperationVariableListElement: Sendable {
+  var _jsonEncodableValue: (any JSONEncodable)? { get }
+}
 
-extension Array: GraphQLOperationVariableValue
-where Element: GraphQLOperationVariableValue & JSONEncodable & Hashable {}
+extension Array: GraphQLOperationVariableValue, GraphQLOperationVariableListElement
+where Element: GraphQLOperationVariableListElement & JSONEncodable & Hashable {}
 
-extension Dictionary: GraphQLOperationVariableValue
+extension Dictionary: GraphQLOperationVariableValue, GraphQLOperationVariableListElement
 where Key == String, Value == any GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { _jsonEncodableObject }
   @inlinable public var _jsonEncodableObject: JSONEncodableDictionary {
@@ -198,6 +201,15 @@ where Wrapped: GraphQLOperationVariableValue {
 
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
+}
+
+extension Optional: GraphQLOperationVariableListElement where Wrapped: GraphQLOperationVariableListElement {
+  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
+     switch self {
+     case .none: return nil
+     case let .some(value): return value._jsonEncodableValue
+     }
+   }
 }
 
 // MARK: - Deprecations
