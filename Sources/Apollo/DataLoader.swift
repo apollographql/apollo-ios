@@ -1,11 +1,11 @@
 final class DataLoader<Key: Hashable, Value> {
-  public typealias BatchLoad = (Set<Key>) async throws -> [Key: Value]
+  typealias BatchLoad = (Set<Key>) async throws -> [Key: Value]
   private var batchLoad: BatchLoad
 
   private var cache: [Key: Result<Value?, any Error>] = [:]
   private var pendingLoads: Set<Key> = []
 
-  public init(_ batchLoad: @escaping BatchLoad) {
+  init(_ batchLoad: @escaping BatchLoad) {
     self.batchLoad = batchLoad
   }
 

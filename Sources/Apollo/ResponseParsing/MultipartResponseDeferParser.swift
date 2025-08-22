@@ -1,7 +1,7 @@
 import Foundation
 import ApolloAPI
 
-struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
+public struct MultipartResponseDeferParser: MultipartResponseSpecificationParser {
   public enum ParsingError: Swift.Error, LocalizedError, Equatable {
     case unsupportedContentType(type: String)
     case cannotParseChunkData

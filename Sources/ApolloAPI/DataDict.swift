@@ -1,6 +1,7 @@
 import Foundation
 
 /// A structure that wraps the underlying data for a ``SelectionSet``.
+@_spi(Unsafe)
 public struct DataDict: Hashable, @unchecked Sendable {
   public typealias FieldValue = any Sendable & Hashable
 
@@ -167,13 +168,17 @@ public protocol SelectionSetEntityValue: Sendable, Hashable {
   /// The `_fieldData` should be the underlying `DataDict` for an entity value.
   /// This is represented as `AnyHashable` because for `Optional` and `Array` you will have an
   /// `Optional<DataDict>` and `[DataDict]` respectively.
+  @_spi(Unsafe)
   init(_fieldData: DataDict.FieldValue?)
+
+  @_spi(Unsafe)
   var _fieldData: DataDict.FieldValue { get }
 }
 
 extension RootSelectionSet {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
+  @_spi(Unsafe)
   @inlinable public init(_fieldData data: DataDict.FieldValue?) {
     guard let dataDict = data as? DataDict else {
       fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
@@ -181,13 +186,15 @@ extension RootSelectionSet {
     self.init(_dataDict: dataDict)
   }
 
-  @inlinable public var _fieldData: DataDict.FieldValue { __data }
+  @_spi(Unsafe)
+  public var _fieldData: DataDict.FieldValue { __data }
 }
 
 extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
-  public init(_fieldData data: DataDict.FieldValue?) {
+  @_spi(Unsafe)
+  @inlinable public init(_fieldData data: DataDict.FieldValue?) {
     guard case let .some(fieldData) = data.asNullable else {
       self = .none
       return
@@ -195,6 +202,7 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
     self = .some(Wrapped.init(_fieldData: fieldData))
   }
 
+  @_spi(Unsafe)
   @inlinable public var _fieldData: DataDict.FieldValue {
     guard case let .some(data) = self else {
       return Self.none
@@ -206,6 +214,7 @@ extension Optional: SelectionSetEntityValue where Wrapped: SelectionSetEntityVal
 extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue {
   /// - Warning: This function is not supported for external use.
   /// Unsupported usage may result in unintended consequences including crashes.
+  @_spi(Unsafe)
   @inlinable public init(_fieldData data: DataDict.FieldValue?) {
     guard let data = data as? [DataDict.FieldValue?] else {
       fatalError("\(Self.self) expected list of data for entity.")
@@ -215,6 +224,7 @@ extension Array: SelectionSetEntityValue where Element: SelectionSetEntityValue 
     }
   }
 
+  @_spi(Unsafe)
   @inlinable public var _fieldData: DataDict.FieldValue {
     map { $0._fieldData } as DataDict.FieldValue
   }

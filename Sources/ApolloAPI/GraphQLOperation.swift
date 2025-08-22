@@ -55,6 +55,7 @@ public struct OperationDefinition: Sendable {
 
 /// A unique identifier used as a key to map a deferred selection set type to an incremental
 /// response label and path.
+@_spi(Execution)
 public struct DeferredFragmentIdentifier: Sendable, Hashable {
   public let label: String
   public let fieldPath: [String]
@@ -75,6 +76,7 @@ public protocol GraphQLOperation: Sendable, Hashable {
   static var operationDocument: OperationDocument { get }
   static var responseFormat: ResponseFormat { get }
 
+  @_spi(Unsafe)
   var __variables: Variables? { get }
 
   associatedtype Data: RootSelectionSet
@@ -110,6 +112,7 @@ public extension GraphQLOperation where ResponseFormat == SingleResponseFormat {
 // MARK: Instance Extensions
 
 public extension GraphQLOperation {
+  @_spi(Unsafe)
   var __variables: Variables? {
     return nil
   }
@@ -159,8 +162,10 @@ public struct SingleResponseFormat: OperationResponseFormat {}
 
 /// An incremental response format for an operation which uses the `@defer` directive.
 public struct IncrementalDeferredResponseFormat: OperationResponseFormat {
+  @_spi(Execution)
   public let deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]
 
+  @_spi(Execution)
   public init(deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]) {
     self.deferredFragments = deferredFragments
   }
@@ -171,6 +176,7 @@ public struct SubscriptionResponseFormat: OperationResponseFormat {}
 // MARK: - GraphQLOperationVariableValue
 
 public protocol GraphQLOperationVariableValue: Sendable {
+  @_spi(Internal)
   var _jsonEncodableValue: (any JSONEncodable)? { get }
 }
 public protocol GraphQLOperationVariableListElement: Sendable {
@@ -182,7 +188,10 @@ where Element: GraphQLOperationVariableListElement & JSONEncodable & Hashable {}
 
 extension Dictionary: GraphQLOperationVariableValue, GraphQLOperationVariableListElement
 where Key == String, Value == any GraphQLOperationVariableValue {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { _jsonEncodableObject }
+
+  @_spi(Internal)
   @inlinable public var _jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0._jsonEncodableValue }
   }
@@ -190,6 +199,7 @@ where Key == String, Value == any GraphQLOperationVariableValue {
 
 extension GraphQLNullable: GraphQLOperationVariableValue
 where Wrapped: GraphQLOperationVariableValue {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
     switch self {
     case .none: return nil
@@ -200,6 +210,7 @@ where Wrapped: GraphQLOperationVariableValue {
 }
 
 extension JSONEncodable where Self: GraphQLOperationVariableValue {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
 }
 

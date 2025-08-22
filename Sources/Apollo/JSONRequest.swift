@@ -116,7 +116,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
 
     switch httpMethod {
     case .GET:
-      let transformer = GraphQLGETTransformer(body: body, url: self.graphQLEndpoint)
+      let transformer = URLQueryParameterTransformer(body: body, url: self.graphQLEndpoint)
       if let urlForGet = transformer.createGetURL() {
         request.url = urlForGet
         request.httpMethod = GraphQLHTTPMethod.GET.rawValue

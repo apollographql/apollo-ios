@@ -1,3 +1,4 @@
+@_spi(Execution)
 public protocol _ObjectData_Transformer {
   func transform(_ value: any Hashable & Sendable) -> (any ScalarType)?
   func transform(_ value: any Hashable & Sendable) -> ObjectData?
@@ -8,9 +9,10 @@ public protocol _ObjectData_Transformer {
 /// sources, using a `_transformer` to ensure the raw data from different sources (which may be in
 /// different formats) can be consumed with a consistent API.
 public struct ObjectData {
-  public let _transformer: any _ObjectData_Transformer
-  public let _rawData: [String: any Hashable & Sendable]
+  let _transformer: any _ObjectData_Transformer
+  let _rawData: [String: any Hashable & Sendable]
 
+  @_spi(Execution)
   public init(
     _transformer: any _ObjectData_Transformer,
     _rawData: [String: any Hashable & Sendable]
@@ -19,7 +21,7 @@ public struct ObjectData {
     self._rawData = _rawData
   }
 
-  @inlinable public subscript(_ key: String) -> (any ScalarType)? {
+  public subscript(_ key: String) -> (any ScalarType)? {
     guard let rawValue = _rawData[key] else { return nil }
     var value: any Hashable & Sendable = rawValue
 
@@ -38,13 +40,13 @@ public struct ObjectData {
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ObjectData? {
+  public subscript(_ key: String) -> ObjectData? {
     guard let value = _rawData[key] else { return nil }
     return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ListData? {
+  public subscript(_ key: String) -> ListData? {
     guard let value = _rawData[key] else { return nil }
     return _transformer.transform(value)
   }
@@ -55,9 +57,10 @@ public struct ObjectData {
 /// This type wraps data from different sources, using a `_transformer` to ensure the raw data from
 /// different sources (which may be in different formats) can be consumed with a consistent API.
 public struct ListData {
-  public let _transformer: any _ObjectData_Transformer
-  public let _rawData: [any Hashable & Sendable]
+  let _transformer: any _ObjectData_Transformer
+  let _rawData: [any Hashable & Sendable]
 
+  @_spi(Execution)
   public init(
     _transformer: any _ObjectData_Transformer,
     _rawData: [any Hashable & Sendable]
@@ -66,7 +69,7 @@ public struct ListData {
     self._rawData = _rawData
   }
 
-  @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
+  public subscript(_ key: Int) -> (any ScalarType)? {
     var value: any Hashable & Sendable = _rawData[key]
 
     // Attempting cast to `Int` to ensure we always use `Int32` vs `Int` or `Int64` for consistency and ScalarType casting,
@@ -84,12 +87,12 @@ public struct ListData {
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ObjectData? {
+  public subscript(_ key: Int) -> ObjectData? {
     return _transformer.transform(_rawData[key])
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ListData? {
+  public subscript(_ key: Int) -> ListData? {
     return _transformer.transform(_rawData[key])
   }
 }

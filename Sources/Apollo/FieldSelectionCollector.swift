@@ -1,5 +1,5 @@
 import Foundation
-import ApolloAPI
+@_spi(Unsafe) @_spi(Execution) import ApolloAPI
 
 @_spi(Execution)
 public struct FieldSelectionGrouping {
@@ -77,7 +77,7 @@ public protocol FieldSelectionCollector<ObjectData> {
 
 @_spi(Execution)
 public struct DefaultFieldSelectionCollector: FieldSelectionCollector {
-  static public  func collectFields(
+  public static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
     for object: JSONObject,
@@ -149,8 +149,9 @@ public struct DefaultFieldSelectionCollector: FieldSelectionCollector {
 /// It collects fields that are wrapped in inclusion conditions if data for the field exists,
 /// ignoring the inclusion condition and variables. This ensures that object data for these fields
 /// will be written to the cache.
-struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
-  static func collectFields(
+@_spi(Execution)
+public struct CustomCacheDataWritingFieldSelectionCollector: FieldSelectionCollector {
+  public static func collectFields(
     from selections: [Selection],
     into groupedFields: inout FieldSelectionGrouping,
     for object: DataDict,

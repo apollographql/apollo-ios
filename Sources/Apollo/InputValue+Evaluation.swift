@@ -1,4 +1,4 @@
-import ApolloAPI
+@_spi(Execution) @_spi(Internal) import ApolloAPI
 import Foundation
 
 /// A global function that formats the the cache key for a field on an object.
@@ -38,6 +38,7 @@ fileprivate func orderIndependentKey(for object: JSONObject) -> String {
   }.joined(separator: ",")
 }
 
+@_spi(Execution)
 extension Selection.Field {
   public func cacheKey(with variables: GraphQLOperation.Variables?) throws -> String {
     if let arguments = arguments {

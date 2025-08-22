@@ -1,4 +1,5 @@
 @_spi(Execution) import Apollo
+@_spi(Unsafe) import ApolloAPI
 import Foundation
 
 /// An accumulator that converts data from a `Mock` to the correct values to create a `SelectionSet`.

@@ -1,4 +1,4 @@
-/// Contains the information needed to resolve a ``CacheReference`` in a `NormalizedCache`.
+/// Contains the information needed to resolve a cache key in a `NormalizedCache`.
 ///
 /// You can create and return a ``CacheKeyInfo`` from your implementation of the
 /// ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function to configure the cache key
@@ -98,7 +98,7 @@ public struct CacheKeyInfo {
   ///                This must be a scalar type to be used as a cache id. 
   ///   - uniqueKeyGroup: An optional ``uniqueKeyGroup`` for the ``CacheKeyInfo``.
   ///     Defaults to `nil`.
-  @inlinable public init(jsonValue: (any ScalarType)?, uniqueKeyGroup: String? = nil) throws {
+  public init(jsonValue: (any ScalarType)?, uniqueKeyGroup: String? = nil) throws {
     guard let jsonValue = jsonValue else {
       throw JSONDecodingError.missingValue
     }

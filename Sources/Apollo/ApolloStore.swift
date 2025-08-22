@@ -1,5 +1,5 @@
 import Foundation
-import ApolloAPI
+@_spi(Unsafe) import ApolloAPI
 
 public typealias DidChangeKeysFunc = (Set<CacheKey>) -> Void
 

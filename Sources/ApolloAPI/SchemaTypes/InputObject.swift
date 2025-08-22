@@ -3,11 +3,14 @@
 /// # See Also
 /// [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
 public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hashable {
+  @_spi(Unsafe)
   var __data: InputDict { get }
 }
 
 extension InputObject {
+  @_spi(Internal)
   public var _jsonValue: JSONValue { __data.data._jsonEncodableObject._jsonValue }
+  @_spi(Internal)
   public var jsonEncodableValue: (any JSONEncodable)? { __data._jsonEncodableValue }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
@@ -20,6 +23,7 @@ extension InputObject {
 }
 
 /// A structure that wraps the underlying data dictionary used by `InputObject`s.
+@_spi(Unsafe)
 public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
   fileprivate var data: [String: any GraphQLOperationVariableValue]
@@ -28,6 +32,7 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
     self.data = data
   }
 
+  @_spi(Internal)
   public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
 
   public subscript<T: GraphQLOperationVariableValue>(key: String) -> GraphQLNullable<T> {

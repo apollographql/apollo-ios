@@ -1,4 +1,4 @@
-import ApolloAPI
+@_spi(Execution) import ApolloAPI
 
 /// A protocol representing a data source for GraphQL data to be executed upon by a
 /// `GraphQLExecutor`.
@@ -63,7 +63,8 @@ public protocol CacheKeyComputingExecutionSource: GraphQLExecutionSource {
 }
 
 extension CacheKeyComputingExecutionSource {
-  @_spi(Execution) public func computeCacheKey(
+  @_spi(Execution)
+  public func computeCacheKey(
     for object: RawObjectData,
     in schema: any SchemaMetadata.Type,
     inferredToImplementInterface implementedInterface: Interface?

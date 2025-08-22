@@ -1,5 +1,5 @@
 import Foundation
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 
 /// An interceptor to check the response code returned with a request.
 public struct ResponseCodeInterceptor: HTTPInterceptor {

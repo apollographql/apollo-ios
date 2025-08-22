@@ -1,5 +1,5 @@
 import Foundation
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 
 enum ResultNormalizerFactory {
 

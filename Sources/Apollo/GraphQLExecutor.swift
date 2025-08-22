@@ -1,5 +1,5 @@
 import Foundation
-@_spi(Internal) import ApolloAPI
+@_spi(Execution) @_spi(Internal) @_spi(Execution) import ApolloAPI
 
 @_spi(Execution)
 public class ObjectExecutionInfo {

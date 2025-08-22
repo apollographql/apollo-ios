@@ -1,4 +1,4 @@
-import ApolloAPI
+@_spi(Unsafe) import ApolloAPI
 
 extension RootSelectionSet {
 

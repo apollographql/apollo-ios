@@ -31,7 +31,7 @@ public struct UploadRequest<Operation: GraphQLOperation>: GraphQLRequest {
 
   public let multipartBoundary: String
 
-  public let serializationFormat = JSONSerializationFormat.self
+  let serializationFormat = JSONSerializationFormat.self
 
   /// Designated Initializer
   ///

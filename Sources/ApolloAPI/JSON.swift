@@ -38,6 +38,7 @@ public protocol JSONDecodable: Sendable {
   ///
   /// - Throws: A ``JSONDecodingError`` if the `jsonValue` cannot be converted to the receiver's
   /// type.
+  @_spi(Internal)
   init(_jsonValue value: JSONValue) throws
 }
 
@@ -53,5 +54,6 @@ public protocol JSONEncodable: Sendable {
   /// > Important: For a type that conforms to both ``JSONEncodable`` and ``JSONDecodable``,
   /// the return value of this function, when passed to ``JSONDecodable/init(jsonValue:)`` should
   /// initialize a value equal to the receiver.
+  @_spi(Internal)
   var _jsonValue: JSONValue { get }
 }

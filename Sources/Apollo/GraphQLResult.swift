@@ -1,4 +1,4 @@
-@_spi(Internal) import ApolloAPI
+@_spi(Internal) @_spi(Unsafe) import ApolloAPI
 
 /// Represents the result of a GraphQL operation.
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {

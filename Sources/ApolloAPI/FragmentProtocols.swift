@@ -59,11 +59,11 @@ extension Fragment {
 /// ```
 public protocol FragmentContainer {
   /// The data of the underlying GraphQL object represented by the parent ``SelectionSet``
-  var __data: DataDict { get }
+  @_spi(Unsafe) var __data: DataDict { get }
 
   /// Designated Initializer
   /// - Parameter dataDict: The data of the underlying GraphQL object represented by the parent ``SelectionSet``
-  init(_dataDict: DataDict)
+  @_spi(Unsafe) init(_dataDict: DataDict)
 }
 
 extension FragmentContainer {
@@ -75,10 +75,12 @@ extension FragmentContainer {
   /// Unsupported usage may result in unintended consequences including crashes.
   ///
   /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to
+  @_spi(Unsafe)
   @inlinable public func _toFragment<T: Fragment>() -> T {
     _convertToFragment()
   }
 
+  @_spi(Unsafe)
   @usableFromInline func _convertToFragment<T: Fragment>()-> T {
     return T.init(_dataDict: __data)
   }
@@ -95,6 +97,7 @@ extension FragmentContainer {
   ///
   /// - Returns: The ``Fragment`` the ``SelectionSet`` has been converted to, or `nil` if the
   /// fragment was not fulfilled.
+  @_spi(Unsafe)
   @inlinable public func _toFragment<T: Fragment>() -> T? {
     guard __data.fragmentIsFulfilled(T.self) else { return nil }
     return T.init(_dataDict: __data)

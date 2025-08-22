@@ -1,7 +1,8 @@
 import Foundation
 @_spi(Internal) import ApolloAPI
 
-public struct GraphQLGETTransformer {
+/// A helper for transforming a `JSONEncodableDictionary` that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
+public struct URLQueryParameterTransformer {
 
   let body: JSONEncodableDictionary
   let url: URL
@@ -56,8 +57,8 @@ public struct GraphQLGETTransformer {
 
 // MARK: - Hashable Conformance
 
-extension GraphQLGETTransformer: Hashable {
-  public static func == (lhs: GraphQLGETTransformer, rhs: GraphQLGETTransformer) -> Bool {
+extension URLQueryParameterTransformer: Hashable {
+  public static func == (lhs: URLQueryParameterTransformer, rhs: URLQueryParameterTransformer) -> Bool {
     AnySendableHashable.equatableCheck(lhs.body._jsonValue, rhs.body._jsonValue) &&
     lhs.url == rhs.url
   }

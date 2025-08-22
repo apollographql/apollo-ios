@@ -9,6 +9,7 @@ extension String: JSONDecodable, JSONEncodable {
   ///
   /// # See Also
   /// ``CustomScalarType``
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     switch value {
     case let string as String:
@@ -26,12 +27,14 @@ extension String: JSONDecodable, JSONEncodable {
     }
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension Int: JSONDecodable, JSONEncodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
@@ -39,12 +42,14 @@ extension Int: JSONDecodable, JSONEncodable {
     self = number.intValue
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension Int32: JSONDecodable, JSONEncodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Int32.self)
@@ -52,12 +57,14 @@ extension Int32: JSONDecodable, JSONEncodable {
     self = number.int32Value
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension Float: JSONDecodable, JSONEncodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Float.self)
@@ -65,12 +72,14 @@ extension Float: JSONDecodable, JSONEncodable {
     self = number.floatValue
   }
 
+  @_spi(Internal) 
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension Double: JSONDecodable, JSONEncodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let number = value as? NSNumber else {
       throw JSONDecodingError.couldNotConvert(value: value, to: Double.self)
@@ -78,12 +87,14 @@ extension Double: JSONDecodable, JSONEncodable {
     self = number.doubleValue
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension Bool: JSONDecodable, JSONEncodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let bool = value as? Bool else {
         throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
@@ -91,16 +102,19 @@ extension Bool: JSONDecodable, JSONEncodable {
     self = bool
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return self
   }
 }
 
 extension EnumType {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue { rawValue }
 }
 
 extension RawRepresentable where RawValue: JSONDecodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     let rawValue = try RawValue(_jsonValue: value)
     if let tempSelf = Self(rawValue: rawValue) {
@@ -112,12 +126,14 @@ extension RawRepresentable where RawValue: JSONDecodable {
 }
 
 extension RawRepresentable where RawValue: JSONEncodable {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     return rawValue._jsonValue
   }
 }
 
 extension Optional where Wrapped: JSONDecodable {
+  @_spi(Internal)
   @inlinable public init(jsonValue value: JSONValue) throws {
     if value is NSNull {
       self = .none
@@ -128,6 +144,7 @@ extension Optional where Wrapped: JSONDecodable {
 }
 
 extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     switch self {
     case .none: return NSNull()
@@ -137,20 +154,24 @@ extension Optional: JSONEncodable where Wrapped: JSONEncodable & Hashable {
 }
 
 extension NSNull: JSONEncodable {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue { self }
 }
 
 extension JSONEncodableDictionary: JSONEncodable {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     mapValues { $0._jsonValue } as JSONValue
   }
 
+  @_spi(Internal)
   @inlinable public var _jsonObject: JSONObject {
     mapValues { $0._jsonValue } as JSONObject
   }
 }
 
 extension JSONObject: JSONDecodable {
+  @_spi(Internal)
   @inlinable public init(_jsonValue value: JSONValue) throws {
     guard let dictionary = value as? AnyHashable as? JSONObject else {
       throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
@@ -161,6 +182,7 @@ extension JSONObject: JSONDecodable {
 }
 
 extension Array: JSONEncodable where Element: JSONEncodable {
+  @_spi(Internal)
   @inlinable public var _jsonValue: JSONValue {
     map { $0._jsonValue } as JSONValue
   }

@@ -1,4 +1,4 @@
-import ApolloAPI
+@_spi(Execution) import ApolloAPI
 
 /// A `GraphQLExecutionSource` configured to execute upon the data stored in a ``NormalizedCache``.
 ///

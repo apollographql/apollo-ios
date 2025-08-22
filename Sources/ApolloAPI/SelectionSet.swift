@@ -41,6 +41,7 @@ public protocol CompositeSelectionSet: SelectionSet {}
 public protocol CompositeInlineFragment: CompositeSelectionSet, InlineFragment {
 
   /// A list of the selection sets that the selection set is composed of.
+  @_spi(Execution)
   static var __mergedSources: [any SelectionSet.Type] { get }
 
 }
@@ -54,23 +55,28 @@ public protocol SelectionSet: Sendable, Hashable, CustomDebugStringConvertible {
   /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
   associatedtype Fragments = NoFragments
 
+  @_spi(Execution)
   static var __selections: [Selection] { get }
 
   /// The GraphQL type for the `SelectionSet`.
   ///
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
+  @_spi(Execution)
   static var __parentType: any ParentType { get }
 
   /// The fragments whose selections are always fulfilled on a valid instance of the `SelectionSet`.
+  @_spi(Execution)
   static var __fulfilledFragments: [any SelectionSet.Type] { get }
 
   /// The deferred fragments that may be fulfilled on a valid instance of the `SelectionSet`.
+  @_spi(Execution)
   static var __deferredFragments: [any Deferrable.Type] { get }
 
   /// The data of the underlying GraphQL object represented by the generated selection set.
+  @_spi(Unsafe)
   var __data: DataDict { get }
 
-  /// **For Internal Use Only -** Designated Initializer
+  /// **For Internal Use Only** - Designated Initializer
   ///
   /// - Warning: This initializer is not supported for public use. It should only be used by the
   /// `GraphQLSelectionSetMapper`, which is guaranteed by the GraphQL compiler to be safe.
@@ -85,21 +91,25 @@ public protocol SelectionSet: Sendable, Hashable, CustomDebugStringConvertible {
   ///
   /// - Parameter dataDict: The data of the underlying GraphQL object represented by the generated
   /// selection set.
+  @_spi(Unsafe)
   init(_dataDict: DataDict)
 }
 
 extension SelectionSet {  
 
-  @inlinable public static var __selections: [Selection] { [] }
+  public var __typename: String? { __data["__typename"] }
 
+  @_spi(Execution)
+  public static var __selections: [Selection] { [] }
+
+  @_spi(Execution)
   @inlinable public static var __deferredFragments: [any Deferrable.Type] { [] }
 
+  @_spi(Execution)
   @inlinable public var __objectType: Object? {
     guard let __typename else { return nil }
     return Schema.objectType(forTypename: __typename)
   }
-
-  @inlinable public var __typename: String? { __data["__typename"] }
 
   /// Verifies if a `SelectionSet` may be converted to an `InlineFragment` and performs
   /// the conversion.
@@ -107,22 +117,23 @@ extension SelectionSet {
   /// - Warning: This function is not supported for use outside of generated call sites.
   /// Generated call sites are guaranteed by the GraphQL compiler to be safe.
   /// Unsupported usage may result in unintended consequences including crashes.
-  @_disfavoredOverload
+  @_disfavoredOverload @_spi(Unsafe)
   @inlinable public func _asInlineFragment<T: SelectionSet>() -> T? {
     guard __data.fragmentIsFulfilled(T.self) else { return nil }
     return T.init(_dataDict: __data)
   }
 
-  @inlinable public func _asInlineFragment<T: CompositeInlineFragment>() -> T? {
+  @_spi(Unsafe)
+  public func _asInlineFragment<T: CompositeInlineFragment>() -> T? {
     guard __data.fragmentsAreFulfilled(T.__mergedSources) else { return nil }
     return T.init(_dataDict: __data)
   }
 
-  @inlinable public func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     hasher.combine(__data)
   }
 
-  @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
+  public static func ==(lhs: Self, rhs: Self) -> Bool {
     return lhs.__data == rhs.__data
   }
 
@@ -132,16 +143,15 @@ extension SelectionSet {
 
   // MARK: - Internal
 
-  @_spi(Internal)
-  @inlinable public static var __fulfilledFragmentIds: Set<ObjectIdentifier> {
+  private static var __fulfilledFragmentIds: Set<ObjectIdentifier> {
     Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
   }
 
-  @_spi(Internal)
-  @inlinable public static var __deferredFragmentIds: Set<ObjectIdentifier> {
+  private static var __deferredFragmentIds: Set<ObjectIdentifier> {
     Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
   }
 
+  @_spi(Unsafe)
   public init(unsafelyWithData data: [String: DataDict.FieldValue]) {
     self.init(_dataDict: DataDict(
       data: data,
@@ -158,7 +168,7 @@ extension SelectionSet where Fragments: FragmentContainer {
 }
 
 extension InlineFragment {
-  @inlinable public var asRootEntityType: RootEntityType {
+  public var asRootEntityType: RootEntityType {
     RootEntityType.init(_dataDict: __data)
   }
 }

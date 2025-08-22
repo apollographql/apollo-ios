@@ -1,3 +1,4 @@
+@_spi(Execution)
 public enum Selection {
   /// A single field selection.
   case field(Field)
@@ -57,7 +58,7 @@ public enum Selection {
 
   // MARK: - Convenience Initializers
 
-  @inlinable static public func field(
+  static public func field(
     _ name: String,
     alias: String? = nil,
     _ type: any OutputTypeConvertible.Type,
