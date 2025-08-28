@@ -65,7 +65,7 @@ extension Hasher {
   @inlinable
   public mutating func combine(_ optionalJSONValue: (any Sendable & Hashable)?) {
     if let value = optionalJSONValue {
-      self.combine(value)
+      self.combine(value)      
     } else {
       // This mimics the implementation of combining a nil optional from the Swift language core
       // Source reference at:
@@ -83,7 +83,7 @@ extension Hasher {
     for (key, value) in dictionary {
       var elementHasher = self
       elementHasher.combine(key)
-      elementHasher.combine(value)
+      elementHasher.combine(AnyHashable(value))
       commutativeHash ^= elementHasher.finalize()
     }
     self.combine(commutativeHash)

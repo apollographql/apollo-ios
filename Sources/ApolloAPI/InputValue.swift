@@ -2,7 +2,7 @@
 ///
 /// # See Also
 /// [GraphQLSpec - Input Values](http://spec.graphql.org/October2021/#sec-Input-Values)
-public indirect enum InputValue {
+public indirect enum InputValue: Sendable {
   /// A direct input value, valid types are `String`, `Int32` `Float` and `Bool`.
   /// For enum input values, the enum cases's `rawValue` as a `String` should be used.
   case scalar(any ScalarType)
@@ -99,6 +99,17 @@ extension InputValue: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .scalar(valueType):
+      hasher.combine(valueType)
+    case let .variable(name):
+      hasher.combine(name)
+    case let .list(elements):
+      hasher.combine(elements)
+    case let .object(dict):
+      hasher.combine(dict)
+    case .null:
+      hasher.combine(GraphQLNullable<InputValue>.null)
+    }
   }
 }

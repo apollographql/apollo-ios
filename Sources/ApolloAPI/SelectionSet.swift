@@ -12,7 +12,7 @@
 /// This is why only a `RootSelectionSet` can be executed by a `GraphQLExecutor`. Executing a
 /// non-root selection set would result in fields from the root selection set not being collected
 /// into the `ResponseDict` for the `SelectionSet`'s data.
-public protocol RootSelectionSet: SelectionSet, SelectionSetEntityValue, OutputTypeConvertible { }
+public protocol RootSelectionSet: SelectionSet, SelectionSetEntityValue, OutputTypeConvertible {}
 
 /// A selection set that represents an inline fragment nested inside a `RootSelectionSet`.
 ///
@@ -95,7 +95,7 @@ public protocol SelectionSet: Sendable, Hashable, CustomDebugStringConvertible {
   init(_dataDict: DataDict)
 }
 
-extension SelectionSet {  
+extension SelectionSet {
 
   public var __typename: String? { __data["__typename"] }
 
@@ -129,35 +129,29 @@ extension SelectionSet {
     return T.init(_dataDict: __data)
   }
 
-  public func hash(into hasher: inout Hasher) {
-    hasher.combine(__data)
-  }
-
-  public static func ==(lhs: Self, rhs: Self) -> Bool {
-    return lhs.__data == rhs.__data
-  }
-
   public var debugDescription: String {
     return "\(self.__data._data as AnyObject)"
   }
 
   // MARK: - Internal
 
-  private static var __fulfilledFragmentIds: Set<ObjectIdentifier> {
+  static var __fulfilledFragmentIds: Set<ObjectIdentifier> {
     Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
   }
 
-  private static var __deferredFragmentIds: Set<ObjectIdentifier> {
+  static var __deferredFragmentIds: Set<ObjectIdentifier> {
     Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
   }
 
   @_spi(Unsafe)
   public init(unsafelyWithData data: [String: DataDict.FieldValue]) {
-    self.init(_dataDict: DataDict(
-      data: data,
-      fulfilledFragments: Self.__fulfilledFragmentIds,
-      deferredFragments: Self.__deferredFragmentIds
-    ))
+    self.init(
+      _dataDict: DataDict(
+        data: data,
+        fulfilledFragments: Self.__fulfilledFragmentIds,
+        deferredFragments: Self.__deferredFragmentIds
+      )
+    )
   }
 
 }
