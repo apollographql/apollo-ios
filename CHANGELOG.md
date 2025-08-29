@@ -1,5 +1,155 @@
 # Change Log
 
+## v2.0.0-beta-1
+
+- **Remove Cocoapods Support ([#723](https://github.com/apollographql/apollo-ios-dev/pull/723)):** Apollo iOS 2.0 will no longer support Cocoapods. While support was carried over in the alpha releases, this has been officially removed in beta 1.
+
+- **Only Input Variables use `Int32` in generated models ([#729](https://github.com/apollographql/apollo-ios-dev/pull/729)):** Generated models in alpha-2 generated `Int` as `Int32` to more safely represent GraphQL spec compliant data. This made using the models much more cumbersome. Beta 1 changes this behavior so only input variables that may be sent to a GraphQL server use `Int32`.
+
+- **Narrowly Scoped `SelectionSet` Equality ([#736](https://github.com/apollographql/apollo-ios-dev/pull/736)):** Generated models now implement `Equatable` and `Hashable` using only the relevant fields for the model. This means that named fragments that do not have access to fields from the parent operation that fetched them will be equal if only the fields the fragment can access are equal. 
+
+### Bug Fixes
+
+- **Fix nullable list of nullable items in `InputObject` ([#730](https://github.com/apollographql/apollo-ios-dev/pull/730)):** Fixed a bug when generating a nullable list of nullable items on an `InputObject`.
+
+## v2.0.0-alpha-2
+
+### Default type for integers changed to `Int32`
+
+The generated models will now represent Integers using `Int32` instead of `Int`. The GraphQL spec specifically states that `Int` is a 32-bit integer, so this aligns us more correctly with the specification.
+
+The impact of this change on the usability of the generated models is unclear at this time. **We are seeking feedback on if this change is too much of an issue for users.** While we would like to keep this new behavior, if user feedback is negative, this may be reverted or made into an optional behavior based on a codegen configuration option.
+
+### All sub-projects updated to Swift 6
+
+The codegen engine, apollo-ios-cli, pagination library, unit tests and other development projects have all been updated to Swift 6 with strict concurrency enabled.
+
+## v2.0.0-alpha-1
+
+This is the first preview release of Apollo iOS 2.0. This preview release contains APIs that are still in development and are subject to change prior to stable release.
+
+This version is likely to contain bugs and some features are still limited. This preview is intended to allow interested users to test out the new APIs and provide feedback to help shape the final product. 
+
+Apollo iOS 2.0 reimagines many of the APIs to take full advantage of the new Swift concurrency model. This is a non-exhaustive list of the key changes:
+
+### `ApolloClient` & `CachePolicy`
+
+The APIs of `ApolloClient` have changed significantly to use `async/await`. Rather than providing a `resultHandler` closure that may be called one or more times, separate APIs are defined depending on if an operation expects single/multiple responses. `CachePolicy` has been broken up into multiple types that will automatically force the function with the correct return signature.
+
+
+```swift
+// Single response
+let response = try await client.fetch(query: query, cachePolicy: .cacheFirst)
+let response = try await client.fetch(query: query, cachePolicy: .networkFirst)
+let response = try await client.fetch(query: query, cachePolicy: .networkOnly)
+
+// Single response with Optional return value
+let response = try await client.fetch(query: query, cachePolicy: .cacheOnly)
+
+// Multiple responses
+// Returns an AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
+let responses = try client.fetch(query: query, cachePolicy: .cacheAndNetwork)
+
+Task {
+  for try await response in responses {
+    // Handle response
+  }
+}
+```
+
+Subscriptions and operations that provide incremental data (via the `@defer` directive and in the future `@stream`), will always return an `AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>` of responses unless using the `.cacheOnly` policy.
+
+
+```swift
+let responses = try client.fetch(query: deferQuery, cachePolicy: .cacheFirst) // -> AsyncThrowingStream
+let responses = try client.fetch(query: deferQuery, cachePolicy: .networkFirst) // -> AsyncThrowingStream
+let responses = try client.fetch(query: deferQuery, cachePolicy: .networkOnly) // -> AsyncThrowingStream
+let responses = try client.fetch(query: deferQuery, cachePolicy: .cacheAndNetwork)
+
+Task {
+  for try await response in responses {
+    // Handle response
+  }
+}
+
+let response = try await client.fetch(query: deferQuery, cachePolicy: .cacheOnly) // async throws -> GraphQLResponse<DeferQuery>?
+```
+
+The `for try await response in responses` loop will continue to run until the operation is complete. For subscriptions, this may be indefinite. For this reason, **the returned stream should be consumed within a `Task`.**
+
+### `Sendable` Types
+
+In order to support the new Swift concurrency model, most of the types in Apollo iOS have been made `Sendable`. In order to make these types `Sendable`, some limitations were necessary.
+
+- Some fields that were mutable `var` properties have been converted to constant `let` properties. We don't believe this should prevent users from accessing any necessary functionality, but we are seeking feedback on the effect this change has on your usage.
+- Public `open` classes have been changed to `final` classes or structs. This prevents subclassing types such as `RequestChainNetworkTransport`, `InterceptorProvider`, `JSONRequest`, and others. If you are currently subclassing these types, you will need to convert your existing subclasses to wrappers that wrap these types and passthrough calls to them instead.
+
+### New Request Interceptor Framework
+
+The `RequestChain` and interceptor framework has been completely reimagined. The new version supports `async/await` and provides the ability to interact with the request at each step within the chain more safely with more explicit APIs.
+
+If you are providing your own custom `InterceptorProvider` with your own interceptors, you will need to modify your code to utilize these new APIs.
+
+The singular `ApolloInterceptor` that was used to handle any step of the request chain has been broken up into discrete interceptor types for different portions of request execution. Additionally, requests are sent down the request chain pre-flight and then back up the chain post-flight, allowing each interceptors to interact with the both the request and response in a type-safe way.
+
+#### Interceptors Types
+
+`ApolloInterceptor` has been separated into 4 different interceptor types.
+
+- `GraphQLInterceptor`
+  - Can inspect and mutate the `GraphQLRequest` and `GraphQLResponse`
+- `HTTPInterceptor`
+  - Can inspect and mutate the `URLRequest`
+  - After network response can inspect the `HTTPURLResponse` (readonly) and mutate the actual raw response `Data` **prior to parsing**
+- `CacheInterceptor`
+  - Handles read/write of cache data
+  - Read currently runs before `GraphQLInterceptors` (not sure if that is the desired behavior, we should discuss)
+  - Write runs after parsing
+- `ResponseParsingInterceptor`
+  - Handles the parsing of the response Data into the `GraphQLResponse`
+
+`NetworkFetchInterceptor` is no longer used, as the network fetch is managed by the `ApolloURLSession`. See the section on `ApolloURLSession` for more information.
+
+#### Request Chain Flow
+
+Requests are now processed by the `RequestChain` using the following flow:
+
+- `GraphQLInterceptors` receive and may mutate `Request`
+- Cache read executed via `CacheInterceptor` if necessary (based on cache policy)
+- `GraphQLRequest.toURLRequest()` called to obtain `URLRequest`
+- `HTTPInterceptors` receive and may mutate `URLRequest`
+- `ApolloURLSession` handles networking with `URLRequest`
+- `HTTPInterceptors` receive stream of `HTTPResponse` objects for each chunk & may mutate raw chunk `Data` stream
+- `ResponseParsingInterceptor` receives `HTTPResponse` and parses data chunks into stream of `GraphQLResponse`
+- `GraphQLInterceptors` receive and may mutate `GraphQLResponse` with parsed `GraphQLResult` and (possibly) cache records.
+- Cache write executed via `CacheInterceptor` if necessary (based on cache policy)
+- `GraphQLResponse` emitted out to `NetworkTransport`
+
+#### `GraphQLResponse` and `HTTPResponse` separated
+
+Previously, there was a single `GraphQLResponse` which included the `HTTPResponse` and optionally the `ParsedResult` (if the parsing interceptor had been called already). Now, since different interceptors will be called pre/post parsing, we have separate types for these response objects.
+
+#### Replacing `ApolloErrorInterceptor`
+
+The `ApolloErrorInterceptor` protocol has been removed. Instead, any `GraphQLInterceptor` can handle errors using `.mapErrors()`. If any following interceptors, or the `ApolloURLSession` throw an error, the `mapErrors` closures will be called. You can then re-throw it; throw a different error; or trigger a retry by throwing a `RequestChain.Retry` error. If you would like to use a dedicated error handling interceptor, it is recommended to place it as the first interceptor returned by your provider to ensure all errors thrown by the chain are handled.
+
+#### `RequestChain.Retry`
+
+Interceptors are no longer provided a reference to the `RequestChain`, so they cannot call `RequestChain.retry(request:) directly`. Instead, any interceptor may throw a `RequestChain.Retry` error that contains the request to kick-off the retry with. This error is caught internally by the `RequestChain` which initiates a retry.
+
+### Network Fetching
+
+The network fetch is now managed by an `ApolloURLSession` provided to the `ApolloClient`. For your convenience, `Foundation.URLSession` already conforms to the `ApolloURLSession` protocol. This allows you to provide your own `URLSession` and have complete control over the session's configuration and delegate.
+
+You may alternatively provide any other object that conforms to `ApolloURLSession`, wrapping the `URLSession` or providing an entirely separate networking stack.
+
+### Protocols Require `async` Functions
+
+Many of the public protocols in Apollo iOS have been modified to use `async` functions. If you have custom implementations of these types, they will need to be modified to use `async/await` instead of `resultHandler` closures.
+
+This includes `ApolloStore`, `NormalizedCache`, `NetworkTransport`, and all interceptor types.
+
+
 ## v1.23.0
 
 ### New
