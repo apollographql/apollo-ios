@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-08-05**
+**Last updated: 2025-09-03**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -20,32 +20,18 @@ We are currently looking for feedback on what features, use cases, or improvemen
 
 Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.  Anything labeled [`planned-next`](https://github.com/apollographql/apollo-ios/labels/planned-next) is slated for the next patch release.
 
-## Upcoming 1.x features
-
-As we identify feature sets that we intend to ship, we'll add to and update the subheadings in this section. We intend to keep this section in chronological order.  In order to enable rapid and continuous feature delivery, we'll avoid assigning minor version numbers to these feature groups in the roadmap.
-
-### `@defer` support - Available in release [1.14.0](https://github.com/apollographql/apollo-ios/releases/tag/1.14.0)
-
-The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  This has been released as an experimental feature in `1.14.0`.
-
-* ✅ Code generation
-* ✅ Partial incremental execution
-* ✅ Partial and incremental caching
-* ✅ Local cache mutations
-* 🔲 Selection Set Initializers (_next_)
-
 ### [2.0 Release] - Swift 6 compatibility
 
 To support the breaking language changes in Swift 6, a major version 2.0 of Apollo iOS will be released. This version will include support for the new Swift Concurrency Model and improve upon networking and caching APIs.
 
-_Status: [Alpha release](https://github.com/apollographql/apollo-ios/releases)_
+_Status: [Beta release](https://github.com/apollographql/apollo-ios/releases)_
 
 Beta Release Milestones:
 
 * ✅ Apollo-iOS
 * ✅ ApolloCodegenLib
-* 🔲 ApolloWebSocket
 * 🔲 GraphQLQueryWatcher
+* 🔲 ApolloWebSocket (Will be released with Apollo-iOS 2.1)
   
 Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411)._
 
@@ -75,6 +61,16 @@ The [`@fieldPolicy` directive](https://www.apollographql.com/docs/kotlin/caching
 _Status: Feature Design_
 
 We are active participants in the [Nullability Working Group](https://github.com/graphql/nullability-wg/) and are planning to ship experimental support for @semanticNonNull, @catch, etc. based on Apollo Kotlin’s soon.  Future iterations are expected but it’s too early to tell what those might be.
+
+### `@defer` support - Available in release [1.14.0](https://github.com/apollographql/apollo-ios/releases/tag/1.14.0)
+
+The `@defer` directive enables your queries to receive data for specific fields asynchronously. This is helpful whenever some fields in a query take much longer to resolve than others.  [Apollo Kotlin](https://www.apollographql.com/docs/kotlin/fetching/defer/) and [Apollo Client (web)](https://www.apollographql.com/docs/react/data/defer/) currently support this syntax, so if you're interested in learning more check out their documentation.  This has been released as an experimental feature in `1.14.0`.
+
+* ✅ Code generation
+* ✅ Partial incremental execution
+* ✅ Partial and incremental caching
+* ✅ Local cache mutations
+* 🔲 Selection Set Initializers (_next_)
 
 ### `@stream` directive support
 
