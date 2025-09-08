@@ -215,6 +215,7 @@ extension JSONEncodable where Self: GraphQLOperationVariableValue {
 }
 
 extension Optional: GraphQLOperationVariableListElement where Wrapped: GraphQLOperationVariableListElement {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
      switch self {
      case .none: return nil
