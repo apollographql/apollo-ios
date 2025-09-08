@@ -1,5 +1,9 @@
 # Change Log
 
+## v2.0.0-beta-2
+
+
+
 ## v2.0.0-beta-1
 
 - **Remove Cocoapods Support ([#723](https://github.com/apollographql/apollo-ios-dev/pull/723)):** Apollo iOS 2.0 will no longer support Cocoapods. While support was carried over in the alpha releases, this has been officially removed in beta 1.
