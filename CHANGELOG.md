@@ -2,7 +2,9 @@
 
 ## v2.0.0-beta-2
 
+### Bug Fixes
 
+- **Input Variable Lists & Custom Scalars([#742](https://github.com/apollographql/apollo-ios-dev/pull/742)):** Compilation errors for custom scalars and input variables that were list types have been fixed.
 
 ## v2.0.0-beta-1
 
