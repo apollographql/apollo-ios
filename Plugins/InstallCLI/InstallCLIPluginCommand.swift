@@ -40,7 +40,7 @@ extension InstallCLIPluginCommand: XcodeCommandPlugin {
     process.executableURL = URL(fileURLWithPath: toolURL.absoluteString)
 
     let downloadScriptPath = try downloadScriptPath(context: context)
-    process.arguments = [downloadScriptPath, context.xcodeProject.directoryURL.absoluteString]
+    process.arguments = [downloadScriptPath, context.xcodeProject.directoryURL.standardized.relativePath]
 
     try process.run()
     process.waitUntilExit()
@@ -53,15 +53,15 @@ extension InstallCLIPluginCommand: XcodeCommandPlugin {
   private func downloadScriptPath(context: XcodePluginContext) throws -> String {
     let xcodeVersion = try xcodeVersion(context: context)
     let relativeScriptPath = "SourcePackages/checkouts/apollo-ios/scripts/download-cli.sh"
-    let absoluteScriptPath: String
+    let absoluteScriptPath: URL
 
     if xcodeVersion.lexicographicallyPrecedes("16.3") {
-      absoluteScriptPath = "\(context.pluginWorkDirectoryURL.absoluteString)/../../../\(relativeScriptPath)"
+      absoluteScriptPath = context.pluginWorkDirectoryURL.appending(path: "../../../\(relativeScriptPath)")
     } else {
-      absoluteScriptPath = "\(context.pluginWorkDirectoryURL.absoluteString)/../../../../\(relativeScriptPath)"
+      absoluteScriptPath = context.pluginWorkDirectoryURL.appending(path: "../../../../\(relativeScriptPath)")
     }
 
-    return absoluteScriptPath
+    return absoluteScriptPath.standardized.relativePath
   }
 
   /// Used to get a string representation of Xcode in the current toolchain.
