@@ -2,7 +2,7 @@
 ///
 /// # See Also
 /// [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
-public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hashable {
+public protocol InputObject: GraphQLOperationVariableValue, GraphQLOperationVariableListElement, JSONEncodable, Hashable {
   @_spi(Unsafe)
   var __data: InputDict { get }
 }
