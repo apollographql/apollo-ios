@@ -161,8 +161,16 @@ extension SelectionSet where Fragments: FragmentContainer {
   public var fragments: Fragments { Fragments(_dataDict: __data) }
 }
 
+// MARK: - Root Entity Type Conversion Helpers
+
 extension InlineFragment {
   public var asRootEntityType: RootEntityType {
     RootEntityType.init(_dataDict: __data)
+  }
+}
+
+extension RootSelectionSet {
+  public init<T: InlineFragment>(_ inlineFragment: T) where T.RootEntityType == Self {
+    self = inlineFragment.asRootEntityType
   }
 }
