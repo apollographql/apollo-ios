@@ -39,5 +39,4 @@ public protocol SchemaConfiguration {
   ///     Represented as a ``ObjectData`` dictionary.
   /// - Returns: A ``CacheKeyInfo`` describing the computed cache key for the response object.
   static func cacheKeyInfo(for type: Object, object: ObjectData) -> CacheKeyInfo?
-
 }

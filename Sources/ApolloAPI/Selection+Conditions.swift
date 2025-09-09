@@ -1,4 +1,3 @@
-@_spi(Execution)
 public extension Selection {
   /// The conditions representing a group of `@include/@skip` directives.
   ///
