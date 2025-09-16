@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-09-03**
+**Last updated: 2025-09-16**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -30,7 +30,7 @@ Beta Release Milestones:
 
 * ✅ Apollo-iOS
 * ✅ ApolloCodegenLib
-* 🔲 GraphQLQueryWatcher
+* 🔲 Documentation
 * 🔲 ApolloWebSocket (Will be released with Apollo-iOS 2.1)
   
 Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411)._
