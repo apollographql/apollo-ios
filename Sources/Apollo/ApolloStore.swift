@@ -438,7 +438,7 @@ public final class ApolloStore: Sendable {
   ///                 Defaults to nil.
   @available(*, deprecated, renamed: "withinReadWriteTransaction(_:)")
   public func withinReadWriteTransaction<T: Sendable>(
-    _ body: @escaping @Sendable (ReadWriteTransaction) throws -> T,
+    _ body: @escaping @Sendable (ReadWriteTransaction) async throws -> T,
     callbackQueue: DispatchQueue? = nil,
     completion: (@Sendable (Result<T, any Swift.Error>) -> Void)? = nil
   ) {

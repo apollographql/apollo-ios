@@ -2,7 +2,7 @@
 ///
 /// A ``SchemaConfiguration`` provides an entry point for customizing the cache key resolution
 /// for the types in the schema, which is used by `NormalizedCache` mechanisms.
-public protocol SchemaConfiguration {
+public protocol SchemaConfiguration: Sendable {
   /// The entry point for configuring the cache key resolution
   /// for the types in the schema, which is used by `NormalizedCache` mechanisms.
   ///
