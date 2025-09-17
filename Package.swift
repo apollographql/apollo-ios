@@ -31,8 +31,7 @@ let package = Package(
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
       swiftSettings: [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableExperimentalFeature("StrictConcurrency")
+        .swiftLanguageMode(.v6)
       ]
     ),
     .target(
@@ -42,8 +41,7 @@ let package = Package(
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
       swiftSettings: [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableExperimentalFeature("StrictConcurrency")
+        .swiftLanguageMode(.v6)
       ]
     ),
     .target(
@@ -55,8 +53,7 @@ let package = Package(
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
       swiftSettings: [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableExperimentalFeature("StrictConcurrency")
+        .swiftLanguageMode(.v6)
       ]
     ),
     .target(
@@ -68,8 +65,7 @@ let package = Package(
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
       swiftSettings: [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableExperimentalFeature("StrictConcurrency")
+        .swiftLanguageMode(.v6)
       ]
     ),
     .target(
@@ -79,8 +75,7 @@ let package = Package(
         "ApolloAPI"
       ],
       swiftSettings: [
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableExperimentalFeature("StrictConcurrency")
+        .swiftLanguageMode(.v6)
       ]
     ),
     .plugin(
