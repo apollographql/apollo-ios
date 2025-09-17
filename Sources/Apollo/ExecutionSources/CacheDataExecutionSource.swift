@@ -2,7 +2,7 @@
 
 /// A `GraphQLExecutionSource` configured to execute upon the data stored in a ``NormalizedCache``.
 ///
-/// Each object exposed by the cache is represented as a `Record`.
+/// Each object exposed by the cache is represented as a ``Record``.
 struct CacheDataExecutionSource: GraphQLExecutionSource {
   typealias RawObjectData = Record
   typealias FieldCollector = CacheDataFieldSelectionCollector

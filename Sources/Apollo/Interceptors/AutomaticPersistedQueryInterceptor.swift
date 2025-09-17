@@ -1,6 +1,10 @@
 import Foundation
 import ApolloAPI
 
+/// A ``GraphQLInterceptor`` that handles the functionality of automatic persisted queries (APQs).
+///
+/// **Prerequisite:** The `Request` used with this interceptor must be a ``JSONRequest``, otherwise this
+/// interceptor will forward the request without performing any operations.
 public struct AutomaticPersistedQueryInterceptor: GraphQLInterceptor {
 
   public enum APQError: LocalizedError, Equatable {

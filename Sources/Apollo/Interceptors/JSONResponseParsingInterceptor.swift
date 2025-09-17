@@ -1,7 +1,7 @@
 import Foundation
 @_spi(Unsafe) import ApolloAPI
 
-/// An interceptor which parses JSON response data into a `GraphQLResult` and attaches it to the `HTTPResponse`.
+/// A ``ResponseParsingInterceptor`` which uses a ``JSONResponseParser`` to parse JSON response data.
 public actor JSONResponseParsingInterceptor: ResponseParsingInterceptor {
 
   public init() {}

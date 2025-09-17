@@ -1,7 +1,7 @@
-import Foundation
 import ApolloAPI
+import Foundation
 
-/// An interceptor to enforce a maximum number of retries of any `HTTPRequest`
+/// A ``GraphQLInterceptor`` that enforces a maximum number of retries for a request
 public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {
 
   /// A configuration object that defines behavior for retry logic and exponential backoff.
@@ -45,9 +45,6 @@ public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {
     }
   }
 
-  private let configuration: Configuration
-  private var hitCount = 0
-  
   public struct MaxRetriesError: Error, LocalizedError {
     public let count: Int
     public let operationName: String
@@ -56,7 +53,10 @@ public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {
       return "The maximum number of retries (\(count)) was hit without success for operation \"\(operationName)\"."
     }
   }
-  
+
+  private let configuration: Configuration
+  private var hitCount = 0
+
   /// Designated initializer.
   ///
   /// - Parameter maxRetriesAllowed: How many times a query can be retried, in addition to the initial attempt before
@@ -87,7 +87,7 @@ public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {
     // Apply exponential backoff delay if enabled and this is a retry (hitCount > 1)
     if self.configuration.enableExponentialBackoff && self.hitCount > 1 {
       try Task.checkCancellation()
-      
+
       let delay = UInt64(calculateExponentialBackoffDelay() * 1_000_000_000)
       try await Task.sleep(nanoseconds: delay)
     }
@@ -95,25 +95,25 @@ public actor MaxRetryInterceptor: GraphQLInterceptor, Sendable {
     return await next(request)
   }
 
-    /// Calculates the exponential backoff delay based on current retry attempt.
-    ///
-    /// - Returns: The calculated delay in seconds, including jitter if enabled.
-    private func calculateExponentialBackoffDelay() -> TimeInterval {
-      // Calculate exponential delay: baseDelay * multiplier^(hitCount - 1)
-      // We use (hitCount - 1) because hitCount includes the initial attempt
-      let retryAttempt = hitCount - 1
-      let exponentialDelay = configuration.baseDelay * pow(configuration.multiplier, Double(retryAttempt))
+  /// Calculates the exponential backoff delay based on current retry attempt.
+  ///
+  /// - Returns: The calculated delay in seconds, including jitter if enabled.
+  private func calculateExponentialBackoffDelay() -> TimeInterval {
+    // Calculate exponential delay: baseDelay * multiplier^(hitCount - 1)
+    // We use (hitCount - 1) because hitCount includes the initial attempt
+    let retryAttempt = hitCount - 1
+    let exponentialDelay = configuration.baseDelay * pow(configuration.multiplier, Double(retryAttempt))
 
-      // Apply maximum delay cap
-      let cappedDelay = min(exponentialDelay, configuration.maxDelay)
+    // Apply maximum delay cap
+    let cappedDelay = min(exponentialDelay, configuration.maxDelay)
 
-      // Apply jitter if enabled to prevent thundering herd problems
-      if configuration.enableJitter {
-        // Equal jitter: random value between 50% and 100% of calculated delay
-        let minDelay = cappedDelay / 2
-        return TimeInterval.random(in: minDelay...cappedDelay)
-      } else {
-        return cappedDelay
-      }
+    // Apply jitter if enabled to prevent thundering herd problems
+    if configuration.enableJitter {
+      // Equal jitter: random value between 50% and 100% of calculated delay
+      let minDelay = cappedDelay / 2
+      return TimeInterval.random(in: minDelay...cappedDelay)
+    } else {
+      return cappedDelay
     }
+  }
 }

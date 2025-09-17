@@ -1,7 +1,8 @@
 import Foundation
 @_spi(Internal) import ApolloAPI
 
-/// An interceptor to check the response code returned with a request.
+/// An ``HTTPInterceptor`` that checks the response code returned with a request. If the response code indicates a
+/// failure, it throws an error, failing early and preventing unnecessary additional work.
 public struct ResponseCodeInterceptor: HTTPInterceptor {
 
   public var id: String = UUID().uuidString

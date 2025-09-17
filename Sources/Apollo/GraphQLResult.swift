@@ -1,11 +1,14 @@
 @_spi(Internal) @_spi(Unsafe) import ApolloAPI
 
-/// Represents the result of a GraphQL operation.
+/// Represents the result of a GraphQL operation, including the response data as well as any ``GraphQLError``s
+/// or extension data included in the response.
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {
 
   /// Represents source of data
   public enum Source: Sendable, Hashable {
+    /// Indicates response data was fetched from a local cache
     case cache
+    /// Indicates response data was fetched from a remote server
     case server
   }
 

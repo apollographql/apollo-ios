@@ -21,14 +21,29 @@ public enum JSONResponseParsingError: Swift.Error, LocalizedError {
       return errorStrings.joined(separator: " ")
 
     case .missingMultipartBoundary:
-      return "Missing multipart boundary in the response 'content-type' header."
+      return "Missing multi-part boundary in the response 'content-type' header."
 
     case .invalidMultipartProtocol:
-      return "Missing, or unknown, multipart specification protocol in the response 'content-type' header."
+      return "Missing, or unknown, multi-part specification protocol in the response 'content-type' header."
     }
   }
 }
 
+/// ``JSONResponseParser`` parses JSON format GraphQL responses from raw HTTP responses into ``ParsedResult``s. This
+/// parser performs GraphQL execution over the response data using a ``GraphQLExecutor``.
+///  
+/// ## Parsing Multi-part Data
+/// Some GraphQL responses will be sent as multi-part data using the `Content-Type:multipart/mixed` header.
+/// This parser currently supports parsing multiple response chunks received incrementally for the following multi-part
+/// protocol specifications:
+///  - `subscriptionSpec=1.0`: GraphQL subscriptions over HTTP. See ``MultipartResponseSubscriptionParser``
+///  - `deferSpec=20220824`: GraphQL operations using the `@defer` directive. See ``MultipartResponseDeferParser``
+///  
+/// For supported multi-part responses, ``JSONResponseParser/parse(dataChunk:mergingIncrementalItemsInto:)`` can be
+/// called each time a new response chunk is received, passing the previously received ``ParsedResult`` to the
+/// `mergingIncrementalItemsInto` parameter. This will parse the new incremental items from the multi-part chunk and
+/// merge them into the existing result, returning a new merged ``ParsedResult``. See ``JSONResponseParsingInterceptor``
+/// for an example implementation.
 public struct JSONResponseParser: Sendable {
 
   let response: HTTPURLResponse
@@ -47,6 +62,13 @@ public struct JSONResponseParser: Sendable {
     self.includeCacheRecords = includeCacheRecords
   }
 
+  /// Parses GraphQL response data as JSON
+  /// - Parameters:
+  ///   - dataChunk: A `Data` object for the response data. For a multi-part response, this should be the data for a
+  ///   single chunk of the GraphQL response.
+  ///   - existingResult: [optional] Used for multi-part responses only. The previously received ``ParsedResult`` for
+  ///   newly received incremental items of the `dataChunk` to be merged into.
+  /// - Returns: The parsed response as a ``ParsedResult``
   public func parse<Operation: GraphQLOperation>(
     dataChunk: Data,
     mergingIncrementalItemsInto existingResult: ParsedResult<Operation>?
@@ -92,7 +114,7 @@ public struct JSONResponseParser: Sendable {
 
   // MARK: - Single Response Parsing
 
-  public func parseSingleResponse<Operation: GraphQLOperation>(
+  func parseSingleResponse<Operation: GraphQLOperation>(
     data: Data
   ) async throws -> ParsedResult<Operation> {
     guard
@@ -104,7 +126,7 @@ public struct JSONResponseParser: Sendable {
     return try await parseSingleResponse(body: body)
   }
 
-  public func parseSingleResponse<Operation: GraphQLOperation>(
+  func parseSingleResponse<Operation: GraphQLOperation>(
     body: JSONObject
   ) async throws -> ParsedResult<Operation> {
     let executionHandler = SingleResponseExecutionHandler<Operation>(

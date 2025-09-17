@@ -1,6 +1,9 @@
 import Foundation
 import ApolloAPI
 
+/// A `MultipartResponseSpecificationParser` that parses response data for GraphQL subscriptions over HTTP as defined by
+/// the [`subscriptionSpec=1.0`](https://www.apollographql.com/docs/graphos/routing/operations/subscriptions/multipart-protocol)
+/// specification.
 public struct MultipartResponseSubscriptionParser: MultipartResponseSpecificationParser {
   public enum ParsingError: Swift.Error, LocalizedError, Equatable {
     case unsupportedContentType(type: String)
