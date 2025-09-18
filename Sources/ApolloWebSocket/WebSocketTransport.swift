@@ -5,8 +5,8 @@ import ApolloAPI
 public final class WebSocketTransport: SubscriptionNetworkTransport {
 
   public enum Error: Swift.Error {
-    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0. This will be implemented prior to
-    /// Beta release.
+    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0. This will be implemented in a future
+    /// release.
     case notImplemented
   }
 

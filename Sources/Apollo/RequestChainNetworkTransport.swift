@@ -1,5 +1,5 @@
-import Foundation
 import ApolloAPI
+import Foundation
 
 /// An implementation of `NetworkTransport` which creates a `RequestChain` object
 /// for each item sent through it.
@@ -142,6 +142,25 @@ public final class RequestChainNetworkTransport: NetworkTransport, Sendable {
     )
   }
 
+}
+
+extension RequestChainNetworkTransport: SubscriptionNetworkTransport {
+
+  public func send<Subscription>(
+    subscription: Subscription,
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error> where Subscription: GraphQLSubscription {
+    let request = self.constructRequest(
+      for: subscription,
+      fetchBehavior: fetchBehavior,
+      requestConfiguration: requestConfiguration
+    )
+
+    let chain = makeChain(for: request)
+    
+    return chain.kickoff(request: request)
+  }
 }
 
 extension RequestChainNetworkTransport: UploadingNetworkTransport {
