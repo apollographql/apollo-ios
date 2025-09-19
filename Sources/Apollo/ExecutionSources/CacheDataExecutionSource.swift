@@ -93,7 +93,8 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     with info: FieldExecutionInfo,
     and type: Selection.Field.OutputType
   ) -> FieldPolicyResult? {
-    guard let provider = info.parentInfo.schema.configuration.self as? (any FieldPolicyProvider.Type) else {
+    guard let provider = info.parentInfo.schema.configuration.self as? (any FieldPolicy.Provider.Type),
+          let arguments = info.field.arguments else {
       return nil
     }
     
@@ -102,16 +103,16 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
       return resolveProgrammaticFieldPolicy(with: info, and: innerType)
     case .list(_):
       if let keys = provider.cacheKeyList(
-        for: info.field,
-        variables: info.parentInfo.variables,
+        for: FieldPolicy.Field(info.field),
+        inputData: FieldPolicy.InputData(_rawType: .inputValue(arguments), _variables: info.parentInfo.variables),
         path: info.responsePath
       ) {
         return .list(keys)
       }
     default:
       if let key = provider.cacheKey(
-        for: info.field,
-        variables: info.parentInfo.variables,
+        for: FieldPolicy.Field(info.field),
+        inputData: FieldPolicy.InputData(_rawType: .inputValue(arguments), _variables: info.parentInfo.variables),
         path: info.responsePath
       ) {
         return .single(key)

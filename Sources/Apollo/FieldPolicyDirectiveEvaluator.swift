@@ -10,7 +10,7 @@ enum FieldPolicyResult {
 
 struct FieldPolicyDirectiveEvaluator {
   let field: Selection.Field
-  let fieldPolicy: Selection.FieldPolicy
+  let fieldPolicy: Selection.FieldPolicyDirective
   let arguments: [String: InputValue]
   let variables: GraphQLOperation.Variables?
   
@@ -103,7 +103,7 @@ struct FieldPolicyDirectiveEvaluator {
     return keys
   }
   
-  private func parseKeyArgs(for fieldPolicy: Selection.FieldPolicy) -> [ParsedKey] {
+  private func parseKeyArgs(for fieldPolicy: Selection.FieldPolicyDirective) -> [ParsedKey] {
     fieldPolicy.keyArgs.map { key in
       if let dot = key.firstIndex(of: ".") {
         let name = String(key[..<dot])
