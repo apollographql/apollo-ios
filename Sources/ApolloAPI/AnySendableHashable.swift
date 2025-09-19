@@ -9,11 +9,11 @@ import Foundation
 public enum AnySendableHashable {
 
   @inlinable
-  public static func equatableCheck(
-    _ lhs: any Sendable & Hashable,
+  public static func equatableCheck<T: Sendable & Hashable>(
+    _ lhs: T,
     _ rhs: any Sendable & Hashable
   ) -> Bool {
-    AnyHashable(lhs) == AnyHashable(rhs)
+    lhs == rhs as? T
   }
 
   @inlinable
