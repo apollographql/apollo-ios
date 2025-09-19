@@ -43,6 +43,7 @@ open class JSONRequest<Operation: GraphQLOperation>: HTTPRequest<Operation> {
   ///   - useGETForQueries: `true` if Queries should use `GET` instead of `POST` for HTTP requests. Defaults to `false`.
   ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
   ///   - requestBodyCreator: An object conforming to the `RequestBodyCreator` protocol to assist with creating the request body. Defaults to the provided `ApolloRequestBodyCreator` implementation.
+  ///   - sendEnhancedClientAwareness: Specifies whether client library metadata is sent in the request `extensions` key. Client library metadata is the Apollo iOS library name and version. Defaults to `true`.
   public init(
     operation: Operation,
     graphQLEndpoint: URL,
