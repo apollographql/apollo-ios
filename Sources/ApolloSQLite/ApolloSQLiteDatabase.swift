@@ -37,8 +37,9 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
 
   private func openConnection() throws {
     let flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_URI
-    if sqlite3_open_v2(dbURL.path, &db, flags, nil) != SQLITE_OK {
-      throw SQLiteError.open(path: dbURL.path)
+    let result = sqlite3_open_v2(dbURL.path, &db, flags, nil)
+    if result != SQLITE_OK {
+      throw SQLiteError.open(path: dbURL.path, resultCode: result)
     }
   }
 
@@ -54,15 +55,16 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
   private func exec(_ sql: String, errorMessage: @autoclosure () -> String) throws -> Int32 {
     let result = sqlite3_exec(db, sql, nil, nil, nil)
     if result != SQLITE_OK {
-      throw SQLiteError.execution(message: "\(errorMessage()): \(sqliteErrorMessage())")
+      throw SQLiteError.execution(message: "\(errorMessage()): \(sqliteErrorMessage())", resultCode: result)
     }
     return result
   }
 
   private func prepareStatement(_ sql: String, errorMessage: @autoclosure () -> String) throws -> OpaquePointer? {
     var stmt: OpaquePointer?
-    if sqlite3_prepare_v2(db, sql, -1, &stmt, nil) != SQLITE_OK {
-      throw SQLiteError.prepare(message: "\(errorMessage()): \(sqliteErrorMessage())")
+    let result = sqlite3_prepare_v2(db, sql, -1, &stmt, nil)
+    if result != SQLITE_OK {
+      throw SQLiteError.prepare(message: "\(errorMessage()): \(sqliteErrorMessage())", resultCode: result)
     }
     return stmt
   }
@@ -116,7 +118,7 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
               rows.append(DatabaseRow(cacheKey: key, storedInfo: record))
             } else if result != SQLITE_DONE {
               let errorMsg = String(cString: sqlite3_errmsg(db))
-              throw SQLiteError.step(message: "Failed to step raw row select: \(errorMsg)")
+              throw SQLiteError.step(message: "Failed to step raw row select: \(errorMsg)", resultCode: result)
             }
           } while result != SQLITE_DONE
 
@@ -147,10 +149,11 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
       for (key, record) in records {
         sqlite3_bind_text(stmt, 1, key, -1, SQLITE_TRANSIENT)
         sqlite3_bind_text(stmt, 2, record, -1, SQLITE_TRANSIENT)
-
-        if sqlite3_step(stmt) != SQLITE_DONE {
+        
+        let result = sqlite3_step(stmt)
+        if result != SQLITE_DONE {
           rollbackTransaction()
-          throw SQLiteError.step(message: "Insert/update failed: \(sqliteErrorMessage())")
+          throw SQLiteError.step(message: "Insert/update failed: \(sqliteErrorMessage())", resultCode: result)
         }
 
         sqlite3_reset(stmt)
@@ -173,8 +176,9 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
       defer { sqlite3_finalize(stmt) }
 
       sqlite3_bind_text(stmt, 1, cacheKey, -1, SQLITE_TRANSIENT)
-      if sqlite3_step(stmt) != SQLITE_DONE {
-        throw SQLiteError.step(message: "Delete failed: \(sqliteErrorMessage())")
+      let result = sqlite3_step(stmt)
+      if result != SQLITE_DONE {
+        throw SQLiteError.step(message: "Delete failed: \(sqliteErrorMessage())", resultCode: result)
       }
     }
   }
@@ -189,8 +193,9 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
       defer { sqlite3_finalize(stmt) }
 
       sqlite3_bind_text(stmt, 1, wildcardPattern, -1, SQLITE_TRANSIENT)
-      if sqlite3_step(stmt) != SQLITE_DONE {
-        throw SQLiteError.step(message: "Pattern delete failed: \(sqliteErrorMessage())")
+      let result = sqlite3_step(stmt)
+      if result != SQLITE_DONE {
+        throw SQLiteError.step(message: "Pattern delete failed: \(sqliteErrorMessage())", resultCode: result)
       }
     }
   }

@@ -15,7 +15,7 @@ public enum Selection {
     public let alias: String?
     public let arguments: [String: InputValue]?
     public let type: OutputType
-    public let fieldPolicy: FieldPolicy?
+    public let fieldPolicy: FieldPolicyDirective?
 
     public var responseKey: String {
       return alias ?? name
@@ -26,7 +26,7 @@ public enum Selection {
       alias: String? = nil,
       type: OutputType,
       arguments: [String: InputValue]? = nil,
-      fieldPolicy: FieldPolicy? = nil
+      fieldPolicy: FieldPolicyDirective? = nil
     ) {
       self.name = name
       self.alias = alias
@@ -58,7 +58,7 @@ public enum Selection {
     }
   }
   
-  public struct FieldPolicy: Hashable {
+  public struct FieldPolicyDirective: Hashable {
     public let keyArgs: [String]
     
     public init(
@@ -76,7 +76,7 @@ public enum Selection {
     alias: String? = nil,
     _ type: any OutputTypeConvertible.Type,
     arguments: [String: InputValue]? = nil,
-    fieldPolicy: FieldPolicy? = nil
+    fieldPolicy: FieldPolicyDirective? = nil
   ) -> Selection {
     .field(.init(name, alias: alias, type: type._asOutputType, arguments: arguments, fieldPolicy: fieldPolicy))
   }

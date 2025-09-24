@@ -12,20 +12,20 @@ public struct DatabaseRow {
 }
 
 public enum SQLiteError: Error, CustomStringConvertible {
-  case execution(message: String)
-  case open(path: String)
-  case prepare(message: String)
-  case step(message: String)
+  case execution(message: String, resultCode: Int32)
+  case open(path: String, resultCode: Int32)
+  case prepare(message: String, resultCode: Int32)
+  case step(message: String, resultCode: Int32)
   
   public var description: String {
     switch self {
-    case .execution(let message):
+    case .execution(let message, _):
       return message
-    case .open(let path):
+    case .open(let path, _):
       return "Failed to open SQLite database connection at path: \(path)"
-    case .prepare(let message):
+    case .prepare(let message, _):
       return message
-    case .step(let message):
+    case .step(let message, _):
       return message
     }
   }
