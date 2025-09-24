@@ -99,6 +99,27 @@ extension InputValue: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .scalar(value):
+      hasher.combine(0)
+      hasher.combine(value._asAnyHashable)
+    case let .variable(name):
+      hasher.combine(1)
+      hasher.combine(name)
+    case let .list(values):
+      hasher.combine(2)
+      hasher.combine(values)
+    case let .object(dictionary):
+      hasher.combine(3)
+      // Need to hash dictionary in a deterministic way
+      let sortedKeys = dictionary.keys.sorted()
+      hasher.combine(sortedKeys.count)
+      for key in sortedKeys {
+        hasher.combine(key)
+        hasher.combine(dictionary[key])
+      }
+    case .null:
+      hasher.combine(4)
+    }
   }
 }

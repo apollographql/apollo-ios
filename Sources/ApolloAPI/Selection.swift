@@ -163,7 +163,26 @@ extension Selection: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .field(field):
+      hasher.combine(0)
+      hasher.combine(field)
+    case let .fragment(fragment):
+      hasher.combine(1)
+      hasher.combine(ObjectIdentifier(fragment))
+    case let .inlineFragment(inlineFragment):
+      hasher.combine(2)
+      hasher.combine(ObjectIdentifier(inlineFragment))
+    case let .deferred(condition, deferrable, label):
+      hasher.combine(3)
+      hasher.combine(condition)
+      hasher.combine(ObjectIdentifier(deferrable))
+      hasher.combine(label)
+    case let .conditional(conditions, selections):
+      hasher.combine(4)
+      hasher.combine(conditions)
+      hasher.combine(selections)
+    }
   }
 }
 
@@ -194,6 +213,22 @@ extension Selection.Field.OutputType: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .scalar(scalarType):
+      hasher.combine(0)
+      hasher.combine(ObjectIdentifier(scalarType))
+    case let .customScalar(customScalarType):
+      hasher.combine(1)
+      hasher.combine(ObjectIdentifier(customScalarType))
+    case let .object(objectType):
+      hasher.combine(2)
+      hasher.combine(ObjectIdentifier(objectType))
+    case let .nonNull(innerType):
+      hasher.combine(3)
+      hasher.combine(innerType)
+    case let .list(innerType):
+      hasher.combine(4)
+      hasher.combine(innerType)
+    }
   }
 }

@@ -47,6 +47,17 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case .missingValue:
+      hasher.combine(0)
+    case .nullValue:
+      hasher.combine(1)
+    case .wrongType:
+      hasher.combine(2)
+    case let .couldNotConvert(value, type):
+      hasher.combine(3)
+      hasher.combine(value)
+      hasher.combine(ObjectIdentifier(type))
+    }
   }
 }
