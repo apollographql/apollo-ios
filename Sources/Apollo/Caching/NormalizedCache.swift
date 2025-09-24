@@ -47,7 +47,7 @@ public protocol NormalizedCache: AnyObject, ReadOnlyNormalizedCache {
   func clear() async throws
 }
 
-/// A read-only view of a `NormalizedCache` for use within a `ReadTransaction`.
+/// A read-only view of a ``NormalizedCache`` for use within a ``ReadTransaction``.
 public protocol ReadOnlyNormalizedCache: AnyObject {
 
   /// Loads records corresponding to the given keys.

@@ -14,7 +14,8 @@ public struct AutoPersistedQueryConfiguration: Sendable, Hashable {
 
   /// - Parameters:
   ///   - autoPersistQueries: `true` if Auto Persisted Queries should be used. Defaults to `false`.
-  ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET` instead of `POST` to send the query. Defaults to `false`.
+  ///   - useGETForPersistedQueryRetry: `true` if when an Auto-Persisted query is retried, it should use `GET`
+  ///   instead of `POST` to send the query. Defaults to `false`.
   public init(
     autoPersistQueries: Bool = false,
     useGETForPersistedQueryRetry: Bool = false
@@ -27,8 +28,8 @@ public struct AutoPersistedQueryConfiguration: Sendable, Hashable {
 public protocol AutoPersistedQueryCompatibleRequest: GraphQLRequest {
 
   /// A configuration struct used by a `GraphQLRequest` to configure the usage of
-  ///   [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq)
-  ///   By default, APQs are disabled.
+  /// [Automatic Persisted Queries (APQs).](https://www.apollographql.com/docs/apollo-server/performance/apq)
+  /// By default, APQs are disabled.
   var apqConfig: AutoPersistedQueryConfiguration { get set }
 
   /// Flag used to track the state of the Auto Persisted Query request. Should default to `false`.

@@ -1,12 +1,5 @@
 import Foundation
 
-// MARK: Status extensions
-extension HTTPURLResponse {
-  var isSuccessful: Bool {
-    return (200..<300).contains(statusCode)
-  }
-}
-
 // MARK: Multipart extensions
 extension HTTPURLResponse {
   /// Returns true if the `Content-Type` HTTP header contains the `multipart/mixed` MIME type.
@@ -69,3 +62,4 @@ extension HTTPURLResponse {
     return MultipartHeaderComponents(media: media, boundary: boundary, protocol: `protocol`)
   }
 }
+

@@ -1,5 +1,5 @@
-import Foundation
 @_spi(Internal) import ApolloAPI
+import Foundation
 
 /// A helper for transforming a `JSONEncodableDictionary` that can be sent with a `POST` request into a URL with query parameters for a `GET` request.
 public struct URLQueryParameterTransformer {
@@ -28,7 +28,7 @@ public struct URLQueryParameterTransformer {
     var queryItems: [URLQueryItem] = components.queryItems ?? []
 
     do {
-      _ = try self.body.sorted(by: {$0.key < $1.key}).compactMap({ arg in
+      _ = try self.body.sorted(by: { $0.key < $1.key }).compactMap({ arg in
         if let value = arg.value as? JSONEncodableDictionary {
           let data = try JSONSerialization.sortedData(withJSONObject: value._jsonValue)
           if let string = String(data: data, encoding: .utf8) {
@@ -36,7 +36,7 @@ public struct URLQueryParameterTransformer {
           }
         } else if let string = arg.value as? String {
           queryItems.append(URLQueryItem(name: arg.key, value: string))
-        } else if (arg.key != "variables") {
+        } else if arg.key != "variables" {
           assertionFailure()
         }
       })
@@ -59,8 +59,7 @@ public struct URLQueryParameterTransformer {
 
 extension URLQueryParameterTransformer: Hashable {
   public static func == (lhs: URLQueryParameterTransformer, rhs: URLQueryParameterTransformer) -> Bool {
-    AnySendableHashable.equatableCheck(lhs.body._jsonValue, rhs.body._jsonValue) &&
-    lhs.url == rhs.url
+    AnySendableHashable.equatableCheck(lhs.body._jsonValue, rhs.body._jsonValue) && lhs.url == rhs.url
   }
 
   public func hash(into hasher: inout Hasher) {

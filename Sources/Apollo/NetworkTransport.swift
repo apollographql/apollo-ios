@@ -1,15 +1,18 @@
 import Foundation
 import ApolloAPI
 
-/// A network transport is responsible for sending GraphQL operations to a server.
+/// A protocol for a type that is responsible for sending GraphQL query and mutation operations to a server.
+///
+/// To support subscription operations, a ``NetworkTransport`` should also implement the
+/// ``SubscriptionNetworkTransport`` protocol.
 public protocol NetworkTransport: AnyObject, Sendable {
 
-  /// Send a GraphQL operation to a server and return a response.
+  /// Send a GraphQL query to a server and return a response.
   ///
   /// - Parameters:
-  ///   - operation: The operation to send.
+  ///   - query: The `GraphQLQuery` operation to send.
   ///   - fetchBehavior: The `FetchBehavior` to use for this request.
-  ///                    Determines if fetching will include cache/network fetches.
+  ///   Determines if fetching will include cache/network fetches.
   ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
   /// - Returns: A stream of `GraphQLResult`s for each response.
   func send<Query: GraphQLQuery>(
@@ -18,6 +21,14 @@ public protocol NetworkTransport: AnyObject, Sendable {
     requestConfiguration: RequestConfiguration
   ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Error>
 
+  /// Send a GraphQL mutation to a server and return a response.
+  ///
+  /// - Parameters:
+  ///   - mutation: The `GraphQLMutation` operation to send.
+  ///   - fetchBehavior: The `FetchBehavior` to use for this request.
+  ///   Determines if fetching will include cache/network fetches.
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
+  /// - Returns: A stream of `GraphQLResult`s for each response.
   func send<Mutation: GraphQLMutation>(
     mutation: Mutation,
     requestConfiguration: RequestConfiguration
@@ -27,8 +38,20 @@ public protocol NetworkTransport: AnyObject, Sendable {
 
 // MARK: -
 
+/// A protocol for a type that is responsible for sending GraphQL subscriptions to a server.
+///
+/// To support query and mutation operations, a ``SubscriptionNetworkTransport`` should also implement the
+/// ``NetworkTransport`` protocol.
 public protocol SubscriptionNetworkTransport {
 
+  /// Send a GraphQL subscription to a server and return a response stream.
+  ///
+  /// - Parameters:
+  ///   - subscription: The `GraphQLSubscription` operation to send.
+  ///   - fetchBehavior: The `FetchBehavior` to use for this request.
+  ///   Determines if fetching will include cache/network fetches.
+  ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
+  /// - Returns: A stream of `GraphQLResult`s for each response.
   func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
@@ -39,13 +62,16 @@ public protocol SubscriptionNetworkTransport {
 
 // MARK: -
 
-/// A network transport which can also handle uploads of files.
+/// A protocol for a type that is responsible for sending GraphQL file upload operations to a server.
+///
+/// To support query and mutation operations without file uploads, an ``UploadingNetworkTransport`` should also
+/// implement the ``NetworkTransport`` protocol.
 public protocol UploadingNetworkTransport {
 
-  /// Uploads the given files with the given operation.
+  /// Sends a GraphQL operation to a server and uploads the given files.
   ///
   /// - Parameters:
-  ///   - operation: The operation to send
+  ///   - operation: The GraphQL operation to send
   ///   - files: An array of `GraphQLFile` objects to send.
   ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
   /// - Returns: A stream of `GraphQLResult`s for each response.

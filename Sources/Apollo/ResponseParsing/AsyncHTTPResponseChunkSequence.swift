@@ -1,26 +1,26 @@
 import Foundation
 
-extension URLSession.AsyncBytes {
-
-  var chunks: AsyncHTTPResponseChunkSequence {
-    return AsyncHTTPResponseChunkSequence(self)
-  }
-
-}
-
+/// An `AsyncSequence` that emits `Data` for each chunk of a network response.
+///
+/// For a multi-part response, each element emitted by the sequence should be the `Data` for an individual chunked part
+/// of the response.
 public protocol AsyncChunkSequence: AsyncSequence, Sendable where Element == Data {
   
 }
 
-/// An `AsyncSequence` of multipart reponse chunks. This sequence wraps a `URLSession.AsyncBytes`
-/// sequence. It uses the multipart boundary specified by the `HTTPURLResponse` to split the data
-/// into chunks as it is received.
+/// An ``AsyncChunkSequence`` implementation that parses the chunks of an HTTP multi-part response from a
+/// `URLSession.AsyncBytes` data stream. It uses the multi-part boundary specified by the `HTTPURLResponse` to split
+/// the data into chunks as it is received.
 public struct AsyncHTTPResponseChunkSequence: AsyncChunkSequence {
   public typealias Element = Data
 
   private let bytes: URLSession.AsyncBytes
-
-  init(_ bytes: URLSession.AsyncBytes) {
+  
+  /// Designated Initializer
+  ///
+  /// - Parameter bytes: The response byte stream to be seperated into multi-part chunks. Must be the result of an
+  /// HTTP `URLRequest` to ensure that `bytes.task.response` is an `HTTPURLResponse`.
+  public init(_ bytes: URLSession.AsyncBytes) {
     self.bytes = bytes
   }
 
@@ -91,4 +91,13 @@ public struct AsyncHTTPResponseChunkSequence: AsyncChunkSequence {
       }
     }
   }
+}
+
+// MARK: - AsyncBytes.chunks helper function
+extension URLSession.AsyncBytes {
+
+  var chunks: AsyncHTTPResponseChunkSequence {
+    return AsyncHTTPResponseChunkSequence(self)
+  }
+
 }

@@ -103,7 +103,7 @@ public struct ClientAwarenessMetadata: Sendable {
   /// feature.
   ///
   /// - Parameters:
-  ///   - clientAwarenessMetadata: The client name. The telemetry metadata about the client.
+  ///   - request: The `URLRequest` to add the client awareness headers to.
   public func applyHeaders(
     to request: inout URLRequest
   ) {

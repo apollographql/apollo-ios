@@ -4,7 +4,7 @@
 /// or extension data included in the response.
 public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {
 
-  /// Represents source of data
+  /// Represents the source of the response's data
   public enum Source: Sendable, Hashable {
     /// Indicates response data was fetched from a local cache
     case cache
@@ -21,7 +21,10 @@ public struct GraphQLResponse<Operation: GraphQLOperation>: Sendable {
   /// Source of data
   public let source: Source
 
-  let dependentKeys: Set<CacheKey>?
+  /// The cache keys for the fields that were included in this response. Custom ``ApolloStoreSubscriber``s can use these
+  /// keys to understand when changes to the cache would affect the result of a specific response.
+  @_spi(Execution)
+  public let dependentKeys: Set<CacheKey>?
 
   public init(
     data: Operation.Data?,

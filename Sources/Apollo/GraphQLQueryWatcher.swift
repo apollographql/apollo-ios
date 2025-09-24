@@ -1,12 +1,12 @@
 import Foundation
 import ApolloAPI
 
-/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result
+/// A ``GraphQLQueryWatcher`` is responsible for watching the store, and calling the result handler with a new result
 /// whenever any of query's data changes.
 ///
-/// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no
-/// longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will result
-/// in a memory leak.
+/// - Important: The store retains the watcher while subscribed. You must call ``GraphQLQueryWatcher/cancel()`` on your
+/// query watcher when you are done watching updates. Failure to call `cancel()` before releasing your reference to the
+/// returned watcher will result in a memory leak.
 public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
   public typealias ResultHandler = @Sendable (Result<GraphQLResponse<Query>, any Swift.Error>) -> Void
   private typealias FetchBlock = @Sendable (FetchBehavior, RequestConfiguration?) throws -> AsyncThrowingStream<
@@ -15,7 +15,7 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
 
   /// The ``GraphQLQuery`` for the watcher.
   ///
-  /// When `fetch(fetchBehavior:requestConfiguration)` is called, this query will be fetched and the `resultHandler`
+  /// When ``fetch(fetchBehavior:requestConfiguration:)`` is called, this query will be fetched and the `resultHandler`
   /// will be called with the results.
   /// After the initial fetch, changes in the local cache to any of the query's data will trigger this query
   /// to be re-fetched from the cache and the `resultHandler` will be called again with the updated results.
@@ -46,14 +46,17 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
 
   /// Designated initializer
   ///
+  /// The watcher will not begin watching for updates on the query until an initial fetch is triggered and completes.
+  /// The initial fetch provides the watcher the data to watch for changes. A fetch must be triggered after the watcher
+  /// is initialized using any of the `fetch` methods provided by the ``GraphQLQueryWatcher``. Once the initial result
+  /// is returned, the watcher has begun watching for changes.
+  ///
   /// - Parameters:
-  ///   - client: The client protocol to pass in.
-  ///   - query: The query to watch.
+  ///   - client: The ``ApolloClient`` used to make fetch requests for the watcher.
+  ///   - query: The `GraphQLQuery` to watch.
   ///   - refetchOnFailedUpdates: Should the watcher perform a network fetch when it's watched
   ///     objects have changed, but reloading them from the cache fails. Defaults to `true`.
-  ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
-  ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
-  ///   - resultHandler: The result handler to call with changes.
+  ///   - resultHandler: The result handler to call when updated data is received.
   public init(
     client: ApolloClient,
     query: Query,
@@ -97,7 +100,15 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
   }
 
   // MARK: - Fetch
-
+  
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``FetchBehavior``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - fetchBehavior: The ``FetchBehavior`` to use for this request.
+  ///   Determines if fetching will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
   public func fetch(
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration? = nil
@@ -139,6 +150,14 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
     }
   }
 
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
   public func fetch(
     cachePolicy: CachePolicy.Query.SingleResponse,
     requestConfiguration: RequestConfiguration? = nil
@@ -146,6 +165,14 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
     self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
   }
 
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
   public func fetch(
     cachePolicy: CachePolicy.Query.CacheOnly,
     requestConfiguration: RequestConfiguration? = nil
@@ -153,6 +180,14 @@ public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
     self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
   }
 
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
   public func fetch(
     cachePolicy: CachePolicy.Query.CacheAndNetwork,
     requestConfiguration: RequestConfiguration? = nil
@@ -258,6 +293,11 @@ extension GraphQLQueryWatcher {
 
   @available(*, deprecated, renamed: "fetch(fetchBehavior:)")
   public func refetch(cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst) {
+    fetch(fetchBehavior: cachePolicy.toFetchBehavior())
+  }
+
+  @available(*, deprecated, renamed: "fetch(fetchBehavior:)")
+  public func refetch(cachePolicy: CachePolicy_v1 = .returnCacheDataElseFetch) {
     fetch(fetchBehavior: cachePolicy.toFetchBehavior())
   }
 

@@ -1,6 +1,7 @@
 import Foundation
 import ApolloAPI
 
+/// A protocol for a type that represents a request to fetch a `GraphQLOperation`.
 public protocol GraphQLRequest<Operation>: Sendable {
   associatedtype Operation: GraphQLOperation
 

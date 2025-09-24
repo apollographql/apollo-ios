@@ -1,3 +1,6 @@
+/// An implementation of a ``NormalizedCache`` that stores cache data in application memory.
+///
+/// This cache does not persist data between application lifecycles. For a persisted cache, use `ApolloSQLite`.
 public class InMemoryNormalizedCache: NormalizedCache {
   private var records: RecordSet
 

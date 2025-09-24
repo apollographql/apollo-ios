@@ -18,7 +18,7 @@ actor AsyncReadWriteLock {
   /// any other reads/writes from beginning.
   ///
   /// This function should be `rethrows` but the compiler doesn't understand that when passing the `block` into a Task.
-  ///  If the `body` provided does not throw, this function will not throw.
+  /// If the `body` provided does not throw, this function will not throw.
   func write(_ body: @Sendable @escaping () async throws -> Void) async throws {
     while currentWriteTask != nil || !currentReadTasks.isEmpty {
       await Task.yield()
@@ -38,7 +38,7 @@ actor AsyncReadWriteLock {
   /// any other writes from beginning. Other reads may be executed concurrently.
   ///
   /// This function should be `rethrows` but the compiler doesn't understand that when passing the `block` into a Task.
-  ///  If the `body` provided does not throw, this function will not throw.
+  /// If the `body` provided does not throw, this function will not throw.
   func read(_ body: @Sendable @escaping () async throws -> Void) async throws {
     while currentWriteTask != nil {
       await Task.yield()

@@ -6,8 +6,6 @@ import Foundation
 ///  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
 public struct GraphQLError: Error, Hashable {
 
-  public typealias PathEntry = PathComponent
-
   private let object: JSONObject
 
   public init(_ object: JSONObject) {
@@ -33,9 +31,9 @@ public struct GraphQLError: Error, Hashable {
     return (self["locations"] as? [JSONObject])?.compactMap(Location.init)
   }
 
-  /// A path to the field that triggered the error, represented by an array of Path Entries.
-  public var path: [PathEntry]? {
-    return (self["path"] as? [JSONValue])?.compactMap(PathEntry.init)
+  /// A path to the field that triggered the error, represented by an array of path components.
+  public var path: [PathComponent]? {
+    return (self["path"] as? [JSONValue])?.compactMap(PathComponent.init)
   }
 
   /// A dictionary which services can use however they see fit to provide additional information in errors to clients.

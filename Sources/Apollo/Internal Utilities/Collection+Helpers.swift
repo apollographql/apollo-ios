@@ -1,7 +1,7 @@
 // MARK: - Unzipping
 // MARK: Arrays of tuples to tuples of arrays
 
-public func unzip<Element1, Element2>(_ array: [(Element1?, Element2?)]) -> ([Element1], [Element2]) {
+func unzip<Element1, Element2>(_ array: [(Element1?, Element2?)]) -> ([Element1], [Element2]) {
   var array1: [Element1] = []
   var array2: [Element2] = []
 
@@ -13,7 +13,7 @@ public func unzip<Element1, Element2>(_ array: [(Element1?, Element2?)]) -> ([El
   return (array1, array2)
 }
 
-public func unzip<Element1, Element2, Element3>(_ array: [(Element1?, Element2?, Element3?)]) -> ([Element1], [Element2], [Element3]) {
+func unzip<Element1, Element2, Element3>(_ array: [(Element1?, Element2?, Element3?)]) -> ([Element1], [Element2], [Element3]) {
   var array1: [Element1] = []
   var array2: [Element2] = []
   var array3: [Element3] = []

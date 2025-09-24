@@ -46,18 +46,22 @@ public final class MultipartFormData {
   ///   - name: The name of the part to pass along to the server
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
-  public func appendPart(data: Data,
-                         name: String,
-                         contentType: String? = nil,
-                         filename: String? = nil) {
+  public func appendPart(
+    data: Data,
+    name: String,
+    contentType: String? = nil,
+    filename: String? = nil
+  ) {
     let inputStream = InputStream(data: data)
     let contentLength = UInt64(data.count)
 
-    self.appendPart(inputStream: inputStream,
-                    contentLength: contentLength,
-                    name: name,
-                    contentType: contentType,
-                    filename: filename)
+    self.appendPart(
+      inputStream: inputStream,
+      contentLength: contentLength,
+      name: name,
+      contentType: contentType,
+      filename: filename
+    )
   }
 
   /// Appends the passed-in input stream as a part of the body.
@@ -68,16 +72,22 @@ public final class MultipartFormData {
   ///   - name: The name of the part to pass along to the server
   ///   - contentType: [optional] The content type of this part. Defaults to nil.
   ///   - filename: [optional] The name of the file for this part. Defaults to nil.
-  public func appendPart(inputStream: InputStream,
-                         contentLength: UInt64,
-                         name: String,
-                         contentType: String? = nil,
-                         filename: String? = nil) {
-    self.bodyParts.append(BodyPart(name: name,
-                                   inputStream: inputStream,
-                                   contentLength: contentLength,
-                                   contentType: contentType,
-                                   filename: filename))
+  public func appendPart(
+    inputStream: InputStream,
+    contentLength: UInt64,
+    name: String,
+    contentType: String? = nil,
+    filename: String? = nil
+  ) {
+    self.bodyParts.append(
+      BodyPart(
+        name: name,
+        inputStream: inputStream,
+        contentLength: contentLength,
+        contentType: contentType,
+        filename: filename
+      )
+    )
   }
 
   /// Encodes everything into the final form data to send to a server.
@@ -113,7 +123,7 @@ public final class MultipartFormData {
 
     var encoded = Data()
 
-    while (inputStream.hasBytesAvailable) {
+    while inputStream.hasBytesAvailable {
       var buffer = [UInt8](repeating: 0, count: 1024)
       let bytesRead = inputStream.read(&buffer, maxLength: 1024)
 
@@ -144,8 +154,7 @@ public final class MultipartFormData {
 
 extension MultipartFormData: Hashable {
   public static func == (lhs: MultipartFormData, rhs: MultipartFormData) -> Bool {
-    lhs.boundary == rhs.boundary &&
-    lhs.bodyParts == rhs.bodyParts
+    lhs.boundary == rhs.boundary && lhs.bodyParts == rhs.bodyParts
   }
 
   public func hash(into hasher: inout Hasher) {
@@ -157,18 +166,20 @@ extension MultipartFormData: Hashable {
 /// MARK: - BodyPart
 
 /// A structure representing a single part of multi-part form data.
-fileprivate struct BodyPart: Hashable {
+private struct BodyPart: Hashable {
   let name: String
   let inputStream: InputStream
   let contentLength: UInt64
   let contentType: String?
   let filename: String?
 
-  init(name: String,
-       inputStream: InputStream,
-       contentLength: UInt64,
-       contentType: String?,
-       filename: String?) {
+  init(
+    name: String,
+    inputStream: InputStream,
+    contentLength: UInt64,
+    contentType: String?,
+    filename: String?
+  ) {
     self.name = name
     self.inputStream = inputStream
     self.contentLength = contentLength

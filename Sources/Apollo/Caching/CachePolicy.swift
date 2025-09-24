@@ -1,11 +1,12 @@
-/// A set of cache policy for requests to an ``ApolloClient`` that specify whether results should be fetched from the
+/// A set of cache policies for requests to an ``ApolloClient`` that specify whether results should be fetched from the
 /// server or loaded from the local cache.
 ///
-/// Cache Policy consists of multiple enums that can be used with different ``ApolloClient`` functions.
+/// ``CachePolicy`` consists of multiple enums that can be used with different ``ApolloClient`` functions.
 /// Different cache policy types can result in different return types for requests. Seperate enums are used to
 /// determine what return type ``ApolloClient`` should provide.
 public enum CachePolicy: Sendable, Hashable {
-
+  
+  /// Cache policies for use with `GraphQLQuery` operations.
   public enum Query: Sendable, Hashable {
     public enum SingleResponse: Sendable, Hashable {
       /// Return data from the cache if available, else fetch results from the server.
@@ -23,12 +24,14 @@ public enum CachePolicy: Sendable, Hashable {
       case cacheOnly
     }
 
+    /// A cache policy that returns data from the cache if available and then fetches results from the server.
     public enum CacheAndNetwork: Sendable, Hashable {
       /// Return data from the cache if available, and always fetch results from the server.
       case cacheAndNetwork
     }
   }
 
+  /// Cache policies for use with `GraphQLSubscription` operations.
   public enum Subscription: Sendable, Hashable {
     /// Return data from the cache if available, and always begin receiving subscription results from the server.
     case cacheThenNetwork

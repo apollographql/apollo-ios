@@ -1,8 +1,8 @@
 /// Represents a value in a ``JSONObject``
 ///
-/// - precondition: A `JSONValue` must be values types that are valid for JSON
+/// - precondition: A `JSONValue` must be a value type that is valid for JSON
 /// serialization and must be both `Hashable` and `Sendable`. This typealias does not validate
-/// that the its values are valid JSON. It functions only as an indicator of the semantic intentions
+/// that the value is valid JSON. It functions only as an indicator of the semantic intentions
 /// of the underlying value.
 public typealias JSONValue = any Sendable & Hashable
 
@@ -10,7 +10,7 @@ public typealias JSONValue = any Sendable & Hashable
 ///
 /// - precondition: A `JSONObject` must only contain values types that are valid for JSON
 /// serialization and must be both `Hashable` and `Sendable`. This typealias does not validate
-/// that the its values are valid JSON. It functions only as an indicator of the semantic intentions
+/// that the values are valid JSON. It functions only as an indicator of the semantic intentions
 /// of the underlying value.
 public typealias JSONObject = [String: JSONValue]
 

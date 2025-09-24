@@ -2,19 +2,12 @@
 
 public protocol JSONRequestBodyCreator: Sendable {
 
-  /// Creates a `JSONEncodableDictionary` out of the passed-in operation
-  ///
-  /// - Note: This function only exists for supporting the soon-to-be-replaced `WebSocketTransport`
-  /// from the `ApolloWebSocket` package. Once that package is re-written, this function will likely
-  /// be deprecated.
+  /// Creates a the JSON body for a GraphQL specification compliant request from the given `GraphQLOperation`.
   ///
   /// - Parameters:
   ///   - operation: The `GraphQLOperation` to create the JSON body for.
   ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
-  ///   - clientAwarenessMetadata: Metadata used by the
-  ///     [client awareness](https://www.apollographql.com/docs/graphos/platform/insights/client-segmentation)
-  ///     feature of GraphOS Studio.
   /// - Returns: The created `JSONEncodableDictionary`
   func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
