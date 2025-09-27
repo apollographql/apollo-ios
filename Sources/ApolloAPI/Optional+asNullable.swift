@@ -17,11 +17,13 @@ extension Optional where Wrapped: Sendable {
   /// - `Optional.none` -> `GraphQLNullable.none`
   /// - `Optional.some` -> `GraphQLNullable.some`
   @_spi(Internal)
+  @inlinable
   public var asNullable: GraphQLNullable<Wrapped> {
     unwrapAsNullable()
   }
 
-  private func unwrapAsNullable(nullIfNil: Bool = false) -> GraphQLNullable<Wrapped> {
+  @usableFromInline
+  func unwrapAsNullable(nullIfNil: Bool = false) -> GraphQLNullable<Wrapped> {
     switch self {
     case .none: return nullIfNil ? .null : .none
 

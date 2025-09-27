@@ -1,3 +1,5 @@
+import Foundation
+
 // MARK: - Equatable & Hashable
 public extension SelectionSet {
 
@@ -62,7 +64,12 @@ public extension SelectionSet {
     field: Selection.Field,
     to fields: inout [String: DataDict.FieldValue]
   ) {
-    guard let fieldData = self.__data._data[field.responseKey] else {
+    let nullableFieldData = self.__data._data[field.responseKey].asNullable
+    let fieldData: DataDict.FieldValue
+    switch nullableFieldData {
+    case let .some(value):
+      fieldData = value
+    case .none, .null:
       return
     }
     addData(for: field.type)
