@@ -16,12 +16,12 @@ let package = Package(
     .visionOS(.v1),
   ],
   products: [
-    .library(name: "Apollo", targets: ["Apollo"]),
-    .library(name: "ApolloAPI", targets: ["ApolloAPI"]),
+    .library(name: "Apollo", type: .dynamic, targets: ["Apollo"]),
+    .library(name: "ApolloAPI", type: .dynamic, targets: ["ApolloAPI"]),
     .library(name: "Apollo-Dynamic", type: .dynamic, targets: ["Apollo"]),
-    .library(name: "ApolloSQLite", targets: ["ApolloSQLite"]),
-    .library(name: "ApolloWebSocket", targets: ["ApolloWebSocket"]),
-    .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
+    .library(name: "ApolloSQLite", type: .dynamic, targets: ["ApolloSQLite"]),
+    .library(name: "ApolloWebSocket", type: .dynamic, targets: ["ApolloWebSocket"]),
+    .library(name: "ApolloTestSupport", type: .dynamic, targets: ["ApolloTestSupport"]),
     .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
   dependencies: [
