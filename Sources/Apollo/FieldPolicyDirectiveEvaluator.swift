@@ -32,7 +32,7 @@ struct FieldPolicyDirectiveEvaluator {
     self.arguments = arguments
   }
   
-  func resolveFieldPolicy() -> FieldPolicyResult? {   
+  func resolveFieldPolicy() -> FieldPolicyResult? {
     let keyArgs = parseKeyArgs(for: fieldPolicy)
 
     var singleValueArgs = [String?](repeating: nil, count: keyArgs.count)
