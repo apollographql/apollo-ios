@@ -126,7 +126,7 @@ public final class ApolloClient: Sendable {
   /// - Returns: A `GraphQLResponse` with the result for the query.
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.SingleResponse,
+    cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst,
     requestConfiguration: RequestConfiguration? = nil
   ) async throws -> GraphQLResponse<Query>
   where Query.ResponseFormat == SingleResponseFormat {
@@ -175,7 +175,7 @@ public final class ApolloClient: Sendable {
   /// - Returns: An ``AsyncThrowingStream`` of `GraphQLResponse` results for the query.
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.SingleResponse,
+    cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
   where Query.ResponseFormat == IncrementalDeferredResponseFormat {
@@ -261,7 +261,7 @@ public final class ApolloClient: Sendable {
   /// - Returns: An ``AsyncThrowingStream`` of `GraphQLResponse` results for the query.
   public func fetch<Query: GraphQLQuery>(
     query: Query,
-    fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
+    fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration? = nil
   ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error> {
     return try doInClientContext {
@@ -274,52 +274,6 @@ public final class ApolloClient: Sendable {
   }
 
   // MARK: - Watch Query
-
-  // MARK: Watch Query w/Fetch Behavior
-
-  /// Watches a `GraphQLQuery` by first fetching an initial result using the provided ``FetchBehavior``. The
-  /// `resultHandler` is called after the initial fetch and again each time the data for the watched query changes in
-  /// the local cache of this client's ``ApolloClient/store``.
-  ///
-  /// This function triggers a fetch on the ``GraphQLQueryWatcher`` prior to returning it.
-  ///
-  /// The ``GraphQLQueryWatcher`` returned by this function is notified whenever any of the data the query result
-  /// depends on changes in the local cache. The ``GraphQLQueryWatcher`` retains the provided `resultHandler` and will
-  /// continue to call it until ``GraphQLQueryWatcher/cancel()`` is called. Failure to call `cancel()` before releasing
-  /// your reference to the returned watcher will result in a memory leak.
-  ///
-  /// - Parameters:
-  ///   - query: The `GraphQLQuery` to fetch.
-  ///   - fetchBehavior: The ``FetchBehavior`` to use for this request.
-  ///   Determines if fetching will include cache/network fetches.
-  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. Defaults to `nil`.
-  ///   If `nil` the receiver's ``ApolloClient/defaultRequestConfiguration`` will be used.
-  ///   - refetchOnFailedUpdates: Should the watcher perform a network fetch when it's watched objects have changed,
-  ///   but reloading them from the cache fails. Defaults to `true`.
-  ///   - resultHandler: A closure that is called when the watcher receives initial or updated query results or when an
-  ///   error occurs.
-  /// - Returns: A ``GraphQLQueryWatcher`` that watches for changes to the query. Call ``GraphQLQueryWatcher/cancel()``
-  ///   to stop receiving new results.
-  public func watch<Query: GraphQLQuery>(
-    query: Query,
-    fetchBehavior: FetchBehavior = FetchBehavior.CacheFirst,
-    requestConfiguration: RequestConfiguration? = nil,
-    refetchOnFailedUpdates: Bool = true,
-    resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
-  ) async -> GraphQLQueryWatcher<Query> {
-    let watcher = await GraphQLQueryWatcher(
-      client: self,
-      query: query,
-      refetchOnFailedUpdates: refetchOnFailedUpdates,
-      resultHandler: resultHandler
-    )
-    Task {
-      await watcher.fetch(fetchBehavior: fetchBehavior, requestConfiguration: requestConfiguration)
-    }
-    return watcher
-  }
-
-  // MARK: Watch Query - CachePolicy Overloads
 
   /// Watches a `GraphQLQuery` by first fetching an initial result from the network or local cache. The `resultHandler`
   /// is called after the initial fetch and again each time the data for the watched query changes in the local cache
@@ -344,7 +298,7 @@ public final class ApolloClient: Sendable {
   ///   to stop receiving new results.
   public func watch<Query: GraphQLQuery>(
     query: Query,
-    cachePolicy: CachePolicy.Query.SingleResponse,
+    cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst,
     requestConfiguration: RequestConfiguration? = nil,
     refetchOnFailedUpdates: Bool = true,
     resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
@@ -430,6 +384,50 @@ public final class ApolloClient: Sendable {
       refetchOnFailedUpdates: refetchOnFailedUpdates,
       resultHandler: resultHandler
     )
+  }
+
+  // MARK: Watch Query w/Fetch Behavior
+
+  /// Watches a `GraphQLQuery` by first fetching an initial result using the provided ``FetchBehavior``. The
+  /// `resultHandler` is called after the initial fetch and again each time the data for the watched query changes in
+  /// the local cache of this client's ``ApolloClient/store``.
+  ///
+  /// This function triggers a fetch on the ``GraphQLQueryWatcher`` prior to returning it.
+  ///
+  /// The ``GraphQLQueryWatcher`` returned by this function is notified whenever any of the data the query result
+  /// depends on changes in the local cache. The ``GraphQLQueryWatcher`` retains the provided `resultHandler` and will
+  /// continue to call it until ``GraphQLQueryWatcher/cancel()`` is called. Failure to call `cancel()` before releasing
+  /// your reference to the returned watcher will result in a memory leak.
+  ///
+  /// - Parameters:
+  ///   - query: The `GraphQLQuery` to fetch.
+  ///   - fetchBehavior: The ``FetchBehavior`` to use for this request.
+  ///   Determines if fetching will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the watcher's initial fetch. Defaults to `nil`.
+  ///   If `nil` the receiver's ``ApolloClient/defaultRequestConfiguration`` will be used.
+  ///   - refetchOnFailedUpdates: Should the watcher perform a network fetch when it's watched objects have changed,
+  ///   but reloading them from the cache fails. Defaults to `true`.
+  ///   - resultHandler: A closure that is called when the watcher receives initial or updated query results or when an
+  ///   error occurs.
+  /// - Returns: A ``GraphQLQueryWatcher`` that watches for changes to the query. Call ``GraphQLQueryWatcher/cancel()``
+  ///   to stop receiving new results.
+  public func watch<Query: GraphQLQuery>(
+    query: Query,
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration? = nil,
+    refetchOnFailedUpdates: Bool = true,
+    resultHandler: @escaping GraphQLQueryWatcher<Query>.ResultHandler
+  ) async -> GraphQLQueryWatcher<Query> {
+    let watcher = await GraphQLQueryWatcher(
+      client: self,
+      query: query,
+      refetchOnFailedUpdates: refetchOnFailedUpdates,
+      resultHandler: resultHandler
+    )
+    Task {
+      await watcher.fetch(fetchBehavior: fetchBehavior, requestConfiguration: requestConfiguration)
+    }
+    return watcher
   }
 
   // MARK: - Perform Mutation
