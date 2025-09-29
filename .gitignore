@@ -86,3 +86,10 @@ Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sou
 !Tests/TestCodeGenConfigurations/**/SchemaConfiguration.swift
 !Tests/TestCodeGenConfigurations/Other-CustomTarget/AnimalKingdomAPI/AnimalKingdomAPI.h
 !Tests/TestCodeGenConfigurations/EmbeddedInTarget-RelativeAbsolute/PackageTwo/Sources/PackageTwo/PackageTwo.swift
+/DerivedData-iphonesimulator
+/DerivedData-iphoneos
+DerivedData-iphonesimulator
+DerivedData-iphoneos
+*.xcarchive
+DerivedData-watchos
+DerivedData-watchsimulator

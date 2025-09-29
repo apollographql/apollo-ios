@@ -1,0 +1,1682 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-watchos11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -module-name ApolloAPI -package-name apollo_ios
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Foundation
+import Foundation/*.Bundle*/
+import Foundation/*.ProcessInfo*/
+import Foundation/*.URL*/
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol AnyHashableConvertible {
+  var _asAnyHashable: Swift.AnyHashable { get }
+}
+extension ApolloAPI.AnyHashableConvertible where Self : Swift.Hashable {
+  @inlinable public var _asAnyHashable: Swift.AnyHashable {
+    get { self }
+  }
+}
+extension Swift.AnyHashable : ApolloAPI.AnyHashableConvertible {
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.AnyHashableConvertible where Wrapped : Swift.Hashable {
+}
+#endif
+extension Swift.Dictionary : ApolloAPI.AnyHashableConvertible where Value : Swift.Hashable {
+}
+extension Swift.Array : ApolloAPI.AnyHashableConvertible where Element : Swift.Hashable {
+}
+public struct CacheKeyInfo {
+  public let id: Swift.String
+  public let uniqueKeyGroup: Swift.String?
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public init(jsonValue: (any ApolloAPI.ScalarType)?, uniqueKeyGroup: Swift.String? = nil) throws {
+    guard let jsonValue = jsonValue else {
+      throw JSONDecodingError.missingValue
+    }
+
+    self.init(id: try String(_jsonValue: jsonValue._asAnyHashable), uniqueKeyGroup: uniqueKeyGroup)
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(id: Swift.String, uniqueKeyGroup: Swift.String? = nil)
+  #endif
+}
+public struct CacheReference : Swift.Hashable {
+  public static let RootQuery: ApolloAPI.CacheReference
+  public static let RootMutation: ApolloAPI.CacheReference
+  public static let RootSubscription: ApolloAPI.CacheReference
+  public static func rootCacheReference(for operationType: ApolloAPI.GraphQLOperationType) -> ApolloAPI.CacheReference
+  public let key: Swift.String
+  public init(_ key: Swift.String)
+  public static func == (a: ApolloAPI.CacheReference, b: ApolloAPI.CacheReference) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.CacheReference : Swift.CustomStringConvertible {
+  @inlinable public var description: Swift.String {
+    get {
+    return "-> #\(key)"
+  }
+  }
+}
+public struct DataDict : Swift.Hashable {
+  @usableFromInline
+  internal var _storage: ApolloAPI.DataDict._Storage
+  @inlinable public var _data: [Swift.String : Swift.AnyHashable] {
+    get { _storage.data }
+    set {
+      if !isKnownUniquelyReferenced(&_storage) {
+        _storage = _storage.copy()
+      }
+      _storage.data = newValue
+    }
+    _modify {
+      if !isKnownUniquelyReferenced(&_storage) {
+        _storage = _storage.copy()
+      }
+      var data = _storage.data
+      defer { _storage.data = data }
+      yield &data
+    }
+  }
+  @inlinable public var _fulfilledFragments: Swift.Set<Swift.ObjectIdentifier> {
+    get {
+    _storage.fulfilledFragments
+  }
+  }
+  @inlinable public var _deferredFragments: Swift.Set<Swift.ObjectIdentifier> {
+    get {
+    _storage.deferredFragments
+  }
+  }
+  public init(data: [Swift.String : Swift.AnyHashable], fulfilledFragments: Swift.Set<Swift.ObjectIdentifier>, deferredFragments: Swift.Set<Swift.ObjectIdentifier> = [])
+  @inlinable public subscript<T>(key: Swift.String) -> T where T : ApolloAPI.AnyScalarType, T : Swift.Hashable {
+    get {
+      if DataDict._AnyHashableCanBeCoerced {
+        return _data[key] as! T
+      } else {        
+        let value = _data[key]
+        if value == DataDict._NullValue {
+          return (Optional<T>.none as Any) as! T
+        } else {
+          return (value?.base as? T) ?? (value._asAnyHashable as! T)
+        }
+      }
+    }
+    set {
+      _data[key] = newValue
+    }
+    _modify {
+      var value = _data[key] as! T
+      defer { _data[key] = value }
+      yield &value
+    }
+  }
+  @inlinable public subscript<T>(key: Swift.String) -> T where T : ApolloAPI.SelectionSetEntityValue {
+    get { T.init(_fieldData: _data[key]) }
+    set {
+      _data[key] = newValue._fieldData
+    }
+    _modify {
+      var value = T.init(_fieldData: _data[key])
+      defer { _data[key] = value._fieldData }
+      yield &value
+    }
+  }
+  @inlinable public func hash(into hasher: inout Swift.Hasher) {
+    hasher.combine(_data)
+  }
+  @inlinable public static func == (lhs: ApolloAPI.DataDict, rhs: ApolloAPI.DataDict) -> Swift.Bool {
+    lhs._data == rhs._data
+  }
+  @usableFromInline
+  internal func fragmentIsFulfilled<T>(_ type: T.Type) -> Swift.Bool where T : ApolloAPI.SelectionSet
+  @usableFromInline
+  internal func fragmentsAreFulfilled(_ types: [any ApolloAPI.SelectionSet.Type]) -> Swift.Bool
+  @_hasMissingDesignatedInitializers @usableFromInline
+  internal class _Storage : Swift.Hashable {
+    @usableFromInline
+    internal var data: [Swift.String : Swift.AnyHashable]
+    @usableFromInline
+    final internal let fulfilledFragments: Swift.Set<Swift.ObjectIdentifier>
+    @usableFromInline
+    final internal let deferredFragments: Swift.Set<Swift.ObjectIdentifier>
+    @usableFromInline
+    internal static func == (lhs: ApolloAPI.DataDict._Storage, rhs: ApolloAPI.DataDict._Storage) -> Swift.Bool
+    @usableFromInline
+    internal func hash(into hasher: inout Swift.Hasher)
+    @usableFromInline
+    internal func copy() -> ApolloAPI.DataDict._Storage
+    @objc @usableFromInline
+    deinit
+    @usableFromInline
+    internal var hashValue: Swift.Int {
+      @usableFromInline
+      get
+    }
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.DataDict {
+  public static let _NullValue: Swift.AnyHashable
+  public static let _AnyHashableCanBeCoerced: Swift.Bool
+}
+public protocol SelectionSetEntityValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  init(_fieldData: Swift.AnyHashable?)
+  #endif
+  var _fieldData: Swift.AnyHashable { get }
+}
+extension ApolloAPI.RootSelectionSet {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public init(_fieldData data: Swift.AnyHashable?) {
+    guard let dataDict = data as? DataDict else {
+      fatalError("\(Self.self) expected DataDict for entity, got \(type(of: data)).")
+    }
+    self.init(_dataDict: dataDict)
+  }
+  #endif
+  @inlinable public var _fieldData: Swift.AnyHashable {
+    get { __data }
+  }
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.SelectionSetEntityValue where Wrapped : ApolloAPI.SelectionSetEntityValue {
+  @inlinable public init(_fieldData data: Swift.AnyHashable?) {
+    switch data {
+      case .none:
+        self = .none
+      case .some(let hashable):
+      if !DataDict._AnyHashableCanBeCoerced && hashable == DataDict._NullValue {
+        self = .none
+      } else if let optional = hashable.base as? Optional<AnyHashable>, optional == nil {
+        self = .none
+      } else {
+        self = .some(Wrapped.init(_fieldData: data))
+      }
+    }
+  }
+  @inlinable public var _fieldData: Swift.AnyHashable {
+    get { map(\._fieldData) }
+  }
+}
+#endif
+extension Swift.Array : ApolloAPI.SelectionSetEntityValue where Element : ApolloAPI.SelectionSetEntityValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public init(_fieldData data: Swift.AnyHashable?) {
+    guard let data = data as? [AnyHashable?] else {
+      fatalError("\(Self.self) expected list of data for entity.")
+    }
+    self = data.map {
+      if DataDict._AnyHashableCanBeCoerced {
+        return Element.init(_fieldData:$0)
+      } else {
+        return Element.init(_fieldData:$0?.base as? AnyHashable)
+      }
+    }
+  }
+  #endif
+  @inlinable public var _fieldData: Swift.AnyHashable {
+    get { map(\._fieldData) }
+  }
+}
+public protocol Deferrable : ApolloAPI.SelectionSet {
+}
+@propertyWrapper public struct Deferred<Fragment> where Fragment : ApolloAPI.Deferrable {
+  public enum State : Swift.Equatable {
+    case pending
+    case notExecuted
+    case fulfilled(Fragment)
+    public static func == (a: ApolloAPI.Deferred<Fragment>.State, b: ApolloAPI.Deferred<Fragment>.State) -> Swift.Bool
+  }
+  public init(_dataDict: ApolloAPI.DataDict)
+  public var state: ApolloAPI.Deferred<Fragment>.State {
+    get
+  }
+  public var projectedValue: ApolloAPI.Deferred<Fragment>.State {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var wrappedValue: Fragment? {
+    get
+  }
+  #endif
+}
+public enum FieldPolicy {
+  public protocol Provider {
+    #if compiler(>=5.3) && $NonescapableTypes
+    static func cacheKey(for field: ApolloAPI.FieldPolicy.Field, inputData: ApolloAPI.FieldPolicy.InputData, path: ApolloAPI.ResponsePath) -> ApolloAPI.CacheKeyInfo?
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    static func cacheKeyList(for listField: ApolloAPI.FieldPolicy.Field, inputData: ApolloAPI.FieldPolicy.InputData, path: ApolloAPI.ResponsePath) -> [ApolloAPI.CacheKeyInfo]?
+    #endif
+  }
+  public struct Field {
+    public let name: Swift.String
+    public let alias: Swift.String?
+    public let type: ApolloAPI.Selection.Field.OutputType
+    public var responseKey: Swift.String {
+      get
+    }
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(name: Swift.String, alias: Swift.String?, type: ApolloAPI.Selection.Field.OutputType)
+    #endif
+    public init(_ selectionField: ApolloAPI.Selection.Field)
+  }
+}
+public protocol Fragment : ApolloAPI.Deferrable {
+  static var fragmentDefinition: Swift.StaticString { get }
+}
+extension ApolloAPI.Fragment {
+  public static var fragmentDefinition: Swift.StaticString {
+    get
+  }
+}
+public protocol FragmentContainer {
+  var __data: ApolloAPI.DataDict { get }
+  init(_dataDict: ApolloAPI.DataDict)
+}
+extension ApolloAPI.FragmentContainer {
+  @inlinable public func _toFragment<T>() -> T where T : ApolloAPI.Fragment {
+    _convertToFragment()
+  }
+  @usableFromInline
+  internal func _convertToFragment<T>() -> T where T : ApolloAPI.Fragment
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public func _toFragment<T>() -> T? where T : ApolloAPI.Fragment {
+    guard __data.fragmentIsFulfilled(T.self) else { return nil }
+    return T.init(_dataDict: __data)
+  }
+  #endif
+}
+public enum NoFragments {
+}
+public enum GraphQLEnum<T> : Swift.CaseIterable, Swift.Hashable, Swift.RawRepresentable where T : ApolloAPI.EnumType {
+  public typealias RawValue = Swift.String
+  case `case`(T)
+  case unknown(Swift.String)
+  @inlinable public init(_ caseValue: T) {
+    self = .case(caseValue)
+  }
+  @inlinable public init(rawValue: Swift.String) {
+    guard let caseValue = T(rawValue: rawValue) else {
+      self = .unknown(rawValue)
+      return
+    }
+    self = .case(caseValue)
+  }
+  @inlinable public init(_ rawValue: Swift.String) {
+    self.init(rawValue: rawValue)
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var value: T? {
+    get {
+    switch self {
+    case let .case(value): return value
+    default: return nil
+    }
+  }
+  }
+  #endif
+  @inlinable public var rawValue: Swift.String {
+    get {
+    switch self {
+    case let .case(value): return value.rawValue
+    case let .unknown(value): return value
+    }
+  }
+  }
+  @inlinable public static var allCases: [ApolloAPI.GraphQLEnum<T>] {
+    get {
+    return T.allCases.map { .case($0) }
+  }
+  }
+  public typealias AllCases = [ApolloAPI.GraphQLEnum<T>]
+}
+extension ApolloAPI.GraphQLEnum : ApolloAPI.CustomScalarType {
+  @inlinable public init(_jsonValue: ApolloAPI.JSONValue) throws {
+    guard let stringData = _jsonValue as? String else {
+      throw JSONDecodingError.couldNotConvert(value: _jsonValue, to: String.self)      
+    }
+    self.init(rawValue: stringData)
+  }
+}
+extension ApolloAPI.GraphQLEnum {
+  @inlinable public static func == (lhs: ApolloAPI.GraphQLEnum<T>, rhs: ApolloAPI.GraphQLEnum<T>) -> Swift.Bool {
+    return lhs.rawValue == rhs.rawValue
+  }
+  @inlinable public static func == (lhs: ApolloAPI.GraphQLEnum<T>, rhs: T) -> Swift.Bool {
+    return lhs.rawValue == rhs.rawValue
+  }
+  @inlinable public static func != (lhs: ApolloAPI.GraphQLEnum<T>, rhs: T) -> Swift.Bool {
+    return lhs.rawValue != rhs.rawValue
+  }
+}
+#if compiler(>=5.3) && $NonescapableTypes
+@inlinable public func == <T>(lhs: ApolloAPI.GraphQLEnum<T>?, rhs: T) -> Swift.Bool where T : ApolloAPI.EnumType {
+  return lhs?.rawValue == rhs.rawValue
+}
+#endif
+#if compiler(>=5.3) && $NonescapableTypes
+@inlinable public func != <T>(lhs: ApolloAPI.GraphQLEnum<T>?, rhs: T) -> Swift.Bool where T : ApolloAPI.EnumType {
+  return lhs?.rawValue != rhs.rawValue
+}
+#endif
+extension ApolloAPI.GraphQLEnum {
+  @inlinable public static func ~= (lhs: T, rhs: ApolloAPI.GraphQLEnum<T>) -> Swift.Bool {
+    switch rhs {
+    case let .case(rhs) where rhs == lhs: return true
+    case let .unknown(rhsRawValue) where rhsRawValue == lhs.rawValue: return true
+    default: return false
+    }
+  }
+}
+@dynamicMemberLookup public enum GraphQLNullable<Wrapped> {
+  case none
+  case null
+  case some(Wrapped)
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var unwrapped: Wrapped? {
+    get {
+    guard case let .some(wrapped) = self else { return nil }
+    return wrapped
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public subscript<T>(dynamicMember path: Swift.KeyPath<Wrapped, T>) -> T? {
+    get {
+    unwrapped?[keyPath: path]
+  }
+  }
+  #endif
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByNilLiteral {
+  @inlinable public init(nilLiteral: ()) {
+    self = .none
+  }
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByUnicodeScalarLiteral where Wrapped : Swift.ExpressibleByUnicodeScalarLiteral {
+  @inlinable public init(unicodeScalarLiteral value: Wrapped.UnicodeScalarLiteralType) {
+    self = .some(Wrapped(unicodeScalarLiteral: value))
+  }
+  public typealias UnicodeScalarLiteralType = Wrapped.UnicodeScalarLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByExtendedGraphemeClusterLiteral where Wrapped : Swift.ExpressibleByExtendedGraphemeClusterLiteral {
+  @inlinable public init(extendedGraphemeClusterLiteral value: Wrapped.ExtendedGraphemeClusterLiteralType) {
+    self = .some(Wrapped(extendedGraphemeClusterLiteral: value))
+  }
+  public typealias ExtendedGraphemeClusterLiteralType = Wrapped.ExtendedGraphemeClusterLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByStringLiteral where Wrapped : Swift.ExpressibleByStringLiteral {
+  @inlinable public init(stringLiteral value: Wrapped.StringLiteralType) {
+    self = .some(Wrapped(stringLiteral: value))
+  }
+  public typealias StringLiteralType = Wrapped.StringLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByIntegerLiteral where Wrapped : Swift.ExpressibleByIntegerLiteral {
+  @inlinable public init(integerLiteral value: Wrapped.IntegerLiteralType) {
+    self = .some(Wrapped(integerLiteral: value))
+  }
+  public typealias IntegerLiteralType = Wrapped.IntegerLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByFloatLiteral where Wrapped : Swift.ExpressibleByFloatLiteral {
+  @inlinable public init(floatLiteral value: Wrapped.FloatLiteralType) {
+    self = .some(Wrapped(floatLiteral: value))
+  }
+  public typealias FloatLiteralType = Wrapped.FloatLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByBooleanLiteral where Wrapped : Swift.ExpressibleByBooleanLiteral {
+  @inlinable public init(booleanLiteral value: Wrapped.BooleanLiteralType) {
+    self = .some(Wrapped(booleanLiteral: value))
+  }
+  public typealias BooleanLiteralType = Wrapped.BooleanLiteralType
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByArrayLiteral where Wrapped : ApolloAPI._InitializableByArrayLiteralElements {
+  @inlinable public init(arrayLiteral elements: Wrapped.ArrayLiteralElement...) {
+    self = .some(Wrapped(elements))
+  }
+  public typealias ArrayLiteralElement = Wrapped.ArrayLiteralElement
+}
+extension ApolloAPI.GraphQLNullable : Swift.ExpressibleByDictionaryLiteral where Wrapped : ApolloAPI._InitializableByDictionaryLiteralElements {
+  @inlinable public init(dictionaryLiteral elements: (Wrapped.Key, Wrapped.Value)...) {
+    self = .some(Wrapped(elements))
+  }
+  public typealias Key = Wrapped.Key
+  public typealias Value = Wrapped.Value
+}
+public protocol _InitializableByArrayLiteralElements : Swift.ExpressibleByArrayLiteral {
+  init(_ array: [Self.ArrayLiteralElement])
+}
+extension Swift.Array : ApolloAPI._InitializableByArrayLiteralElements {
+}
+public protocol _InitializableByDictionaryLiteralElements : Swift.ExpressibleByDictionaryLiteral {
+  init(_ elements: [(Self.Key, Self.Value)])
+}
+extension Swift.Dictionary : ApolloAPI._InitializableByDictionaryLiteralElements {
+  @inlinable public init(_ elements: [(Key, Value)]) {
+    self.init(uniqueKeysWithValues: elements)
+  }
+}
+extension ApolloAPI.GraphQLNullable {
+  @inlinable public init<T>(_ caseValue: T) where Wrapped == ApolloAPI.GraphQLEnum<T>, T : ApolloAPI.EnumType {
+    self = .some(Wrapped(caseValue))
+  }
+  @inlinable public init(_ object: Wrapped) where Wrapped : ApolloAPI.InputObject {
+    self = .some(object)
+  }
+}
+#if compiler(>=5.3) && $NonescapableTypes
+@_disfavoredOverload @inlinable public func ?? <T>(lhs: T?, rhs: ApolloAPI.GraphQLNullable<T>) -> ApolloAPI.GraphQLNullable<T> {
+  if let lhs = lhs {
+    return .some(lhs)
+  }
+  return rhs
+}
+#endif
+extension ApolloAPI.GraphQLNullable : Swift.Equatable where Wrapped : Swift.Equatable {
+  public static func == (a: ApolloAPI.GraphQLNullable<Wrapped>, b: ApolloAPI.GraphQLNullable<Wrapped>) -> Swift.Bool
+}
+extension ApolloAPI.GraphQLNullable : Swift.Hashable where Wrapped : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum GraphQLOperationType : Swift.Hashable {
+  case query
+  case mutation
+  case subscription
+  public static func == (a: ApolloAPI.GraphQLOperationType, b: ApolloAPI.GraphQLOperationType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct OperationDocument : Swift.Sendable {
+  public let operationIdentifier: Swift.String?
+  public let definition: ApolloAPI.OperationDefinition?
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(operationIdentifier: Swift.String? = nil, definition: ApolloAPI.OperationDefinition? = nil)
+  #endif
+}
+public struct OperationDefinition : Swift.Sendable {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(_ definition: Swift.String, fragments: [any ApolloAPI.Fragment.Type]? = nil)
+  #endif
+  public var queryDocument: Swift.String {
+    get
+  }
+}
+public struct DeferredFragmentIdentifier : Swift.Hashable {
+  public init(label: Swift.String, fieldPath: [Swift.String])
+  public static func == (a: ApolloAPI.DeferredFragmentIdentifier, b: ApolloAPI.DeferredFragmentIdentifier) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol GraphQLOperation : AnyObject, Swift.Hashable {
+  typealias Variables = [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]
+  static var operationName: Swift.String { get }
+  static var operationType: ApolloAPI.GraphQLOperationType { get }
+  static var operationDocument: ApolloAPI.OperationDocument { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  static var deferredFragments: [ApolloAPI.DeferredFragmentIdentifier : any ApolloAPI.SelectionSet.Type]? { get }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  var __variables: Self.Variables? { get }
+  #endif
+  associatedtype Data : ApolloAPI.RootSelectionSet
+}
+extension ApolloAPI.GraphQLOperation {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static var deferredFragments: [ApolloAPI.DeferredFragmentIdentifier : any ApolloAPI.SelectionSet.Type]? {
+    get
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static func deferredSelectionSetType<T>(for operation: T.Type, withLabel label: Swift.String, atFieldPath fieldPath: [Swift.String]) -> (any ApolloAPI.SelectionSet.Type)? where T : ApolloAPI.GraphQLOperation
+  #endif
+  public static var hasDeferredFragments: Swift.Bool {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static var definition: ApolloAPI.OperationDefinition? {
+    get
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  public static var operationIdentifier: Swift.String? {
+    get
+  }
+  #endif
+  public static func == (lhs: Self, rhs: Self) -> Swift.Bool
+}
+extension ApolloAPI.GraphQLOperation {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var __variables: Self.Variables? {
+    get
+  }
+  #endif
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public protocol GraphQLQuery : ApolloAPI.GraphQLOperation {
+}
+extension ApolloAPI.GraphQLQuery {
+  @inlinable public static var operationType: ApolloAPI.GraphQLOperationType {
+    get { return .query }
+  }
+}
+public protocol GraphQLMutation : ApolloAPI.GraphQLOperation {
+}
+extension ApolloAPI.GraphQLMutation {
+  @inlinable public static var operationType: ApolloAPI.GraphQLOperationType {
+    get { return .mutation }
+  }
+}
+public protocol GraphQLSubscription : ApolloAPI.GraphQLOperation {
+}
+extension ApolloAPI.GraphQLSubscription {
+  @inlinable public static var operationType: ApolloAPI.GraphQLOperationType {
+    get { return .subscription }
+  }
+}
+public protocol GraphQLOperationVariableValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? { get }
+  #endif
+}
+extension Swift.Array : ApolloAPI.GraphQLOperationVariableValue where Element : ApolloAPI.GraphQLOperationVariableValue, Element : ApolloAPI.JSONEncodable, Element : Swift.Hashable {
+}
+extension Swift.Dictionary : ApolloAPI.GraphQLOperationVariableValue where Key == Swift.String, Value == any ApolloAPI.GraphQLOperationVariableValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get { _jsonEncodableObject }
+  }
+  #endif
+  @inlinable public var _jsonEncodableObject: ApolloAPI.JSONEncodableDictionary {
+    get {
+    compactMapValues { $0._jsonEncodableValue }
+  }
+  }
+}
+extension ApolloAPI.GraphQLNullable : ApolloAPI.GraphQLOperationVariableValue where Wrapped : ApolloAPI.GraphQLOperationVariableValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get {
+    switch self {
+    case .none: return nil
+    case .null: return NSNull()
+    case let .some(value): return value._jsonEncodableValue
+    }
+  }
+  }
+  #endif
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.GraphQLOperationVariableValue where Wrapped : ApolloAPI.GraphQLOperationVariableValue {
+  @inlinable public var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get {
+    switch self {
+    case .none: return nil    
+    case let .some(value): return value._jsonEncodableValue
+    }
+  }
+  }
+}
+#endif
+extension ApolloAPI.JSONEncodable where Self : ApolloAPI.GraphQLOperationVariableValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get { self }
+  }
+  #endif
+}
+@available(*, deprecated, renamed: "OperationDocument")
+public enum DocumentType {
+  case notPersisted(definition: ApolloAPI.OperationDefinition)
+  case automaticallyPersisted(operationIdentifier: Swift.String, definition: ApolloAPI.OperationDefinition)
+  case persistedOperationsOnly(operationIdentifier: Swift.String)
+}
+extension ApolloAPI.GraphQLOperation {
+  @available(*, deprecated, renamed: "operationDocument")
+  public static var document: ApolloAPI.DocumentType {
+    get
+  }
+}
+extension ApolloAPI.FieldPolicy {
+  public struct InputData {
+    public let _rawType: ApolloAPI.FieldPolicy.InputData.RawType
+    public let _variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(_rawType: ApolloAPI.FieldPolicy.InputData.RawType, _variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?)
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @inlinable public subscript(key: Swift.String) -> (any ApolloAPI.ScalarType)? {
+      get {
+      switch _rawType {
+      case .inputValue(let dict):
+        guard let value = dict[key] else {
+          return nil
+        }
+        return value.toAnyScalar(_variables: _variables)
+      case .json(let dict):
+        guard let value = dict[key] else {
+          return nil
+        }
+        return value.toAnyScalar()
+      }
+    }
+    }
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @_disfavoredOverload @inlinable public subscript(key: Swift.String) -> ApolloAPI.FieldPolicy.InputListData? {
+      get {
+      switch _rawType {
+      case .inputValue(let dict):
+        guard let value = dict[key] else {
+          return nil
+        }
+        return value.toFieldInputListData(_variables: _variables)
+      case .json(let dict):
+        guard let value = dict[key] else {
+          return nil
+        }
+        return value.toFieldInputListData()
+      }
+    }
+    }
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @_disfavoredOverload @inlinable public subscript(key: Swift.String) -> ApolloAPI.FieldPolicy.InputData? {
+      get {
+      switch _rawType {
+      case .inputValue(let dict):
+        guard let value = dict[key] else { return nil }
+        return value.toFieldInputData(_variables: _variables)
+      case .json(let dict):
+        guard let value = dict[key] else {
+          return nil
+        }
+        return value.toFieldInputData()
+      }
+    }
+    }
+    #endif
+    public enum RawType {
+      case inputValue([Swift.String : ApolloAPI.InputValue])
+      case json(ApolloAPI.JSONObject)
+    }
+  }
+  public struct InputListData {
+    public let _rawType: ApolloAPI.FieldPolicy.InputListData.RawType
+    public let _variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?
+    public let count: Swift.Int
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(_rawType: ApolloAPI.FieldPolicy.InputListData.RawType, _variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?)
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @inlinable public subscript(index: Swift.Int) -> (any ApolloAPI.ScalarType)? {
+      get {
+      switch _rawType {
+      case .hashable(let list):
+        let value: AnyHashable = list[index]
+        return value.toAnyScalar()
+      case .inputValue(let list):
+        let value = list[index]
+        return value.toAnyScalar(_variables: _variables)
+      }
+    }
+    }
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @_disfavoredOverload @inlinable public subscript(index: Swift.Int) -> ApolloAPI.FieldPolicy.InputData? {
+      get {
+      switch _rawType {
+      case .hashable(let list):
+        let value = list[index]
+        return value.toFieldInputData()
+      case .inputValue(let list):
+        let value = list[index]
+        return value.toFieldInputData(_variables: _variables)
+      }
+    }
+    }
+    #endif
+    #if compiler(>=5.3) && $NonescapableTypes
+    @_disfavoredOverload @inlinable public subscript(index: Swift.Int) -> ApolloAPI.FieldPolicy.InputListData? {
+      get {
+      switch _rawType {
+      case .hashable(let list):
+        let value = list[index]
+        return value.toFieldInputListData()
+      case .inputValue(let list):
+        let value = list[index]
+        return value.toFieldInputListData(_variables: _variables)
+      }
+    }
+    }
+    #endif
+    public enum RawType {
+      case hashable([Swift.AnyHashable])
+      case inputValue([ApolloAPI.InputValue])
+    }
+  }
+}
+extension Swift.AnyHashable {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toAnyScalar() -> (any ApolloAPI.ScalarType)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toFieldInputListData() -> ApolloAPI.FieldPolicy.InputListData?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toFieldInputData() -> ApolloAPI.FieldPolicy.InputData?
+  #endif
+}
+extension ApolloAPI.InputValue {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toAnyScalar(_variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?) -> (any ApolloAPI.ScalarType)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toFieldInputListData(_variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?) -> ApolloAPI.FieldPolicy.InputListData?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @usableFromInline
+  internal func toFieldInputData(_variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?) -> ApolloAPI.FieldPolicy.InputData?
+  #endif
+}
+indirect public enum InputValue {
+  case scalar(any ApolloAPI.ScalarType)
+  case variable(Swift.String)
+  case list([ApolloAPI.InputValue])
+  case object([Swift.String : ApolloAPI.InputValue])
+  case null
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByStringLiteral {
+  @inlinable public init(stringLiteral value: Swift.StringLiteralType) {
+    self = .scalar(value)
+  }
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.StringLiteralType
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.StringLiteralType
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByIntegerLiteral {
+  @inlinable public init(integerLiteral value: Swift.IntegerLiteralType) {
+    self = .scalar(value)
+  }
+  public typealias IntegerLiteralType = Swift.IntegerLiteralType
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByFloatLiteral {
+  @inlinable public init(floatLiteral value: Swift.FloatLiteralType) {
+    self = .scalar(value)
+  }
+  public typealias FloatLiteralType = Swift.FloatLiteralType
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByBooleanLiteral {
+  @inlinable public init(booleanLiteral value: Swift.BooleanLiteralType) {
+    self = .scalar(value)
+  }
+  public typealias BooleanLiteralType = Swift.BooleanLiteralType
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByArrayLiteral {
+  @inlinable public init(arrayLiteral elements: ApolloAPI.InputValue...) {
+    self = .list(Array(elements.map { $0 }))
+  }
+  public typealias ArrayLiteralElement = ApolloAPI.InputValue
+}
+extension ApolloAPI.InputValue : Swift.ExpressibleByDictionaryLiteral {
+  @inlinable public init(dictionaryLiteral elements: (Swift.String, ApolloAPI.InputValue)...) {
+    self = .object(Dictionary(elements.map{ ($0.0, $0.1) },
+                              uniquingKeysWith: { (_, last) in last }))
+  }
+  public typealias Key = Swift.String
+  public typealias Value = ApolloAPI.InputValue
+}
+extension ApolloAPI.InputValue : Swift.Hashable {
+  public static func == (lhs: ApolloAPI.InputValue, rhs: ApolloAPI.InputValue) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public typealias JSONValue = Swift.AnyHashable
+public typealias JSONObject = [Swift.String : ApolloAPI.JSONValue]
+public typealias JSONEncodableDictionary = [Swift.String : any ApolloAPI.JSONEncodable]
+public protocol JSONDecodable : ApolloAPI.AnyHashableConvertible {
+  init(_jsonValue value: ApolloAPI.JSONValue) throws
+}
+public protocol JSONEncodable {
+  var _jsonValue: ApolloAPI.JSONValue { get }
+}
+public enum JSONDecodingError : Swift.Error, Foundation.LocalizedError, Swift.Hashable {
+  case missingValue
+  case nullValue
+  case wrongType
+  case couldNotConvert(value: Swift.AnyHashable, to: any Any.Type)
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var errorDescription: Swift.String? {
+    get
+  }
+  #endif
+  public static func == (lhs: ApolloAPI.JSONDecodingError, rhs: ApolloAPI.JSONDecodingError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Swift.String : ApolloAPI.JSONDecodable, ApolloAPI.JSONEncodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    switch value.base {
+    case let string as String:
+        self = string
+    case let int as Int:
+      self = String(int)
+    case let int64 as Int64:
+      self = String(int64)
+    case let double as Double:
+      self = String(double)
+    default:
+        throw JSONDecodingError.couldNotConvert(value: value, to: String.self)
+    }
+  }
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return self
+  }
+  }
+}
+extension Swift.Int : ApolloAPI.JSONDecodable, ApolloAPI.JSONEncodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Int.self)
+    }
+    self = number.intValue
+  }
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return self
+  }
+  }
+}
+extension Swift.Float : ApolloAPI.JSONDecodable, ApolloAPI.JSONEncodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Float.self)
+    }
+    self = number.floatValue
+  }
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return self
+  }
+  }
+}
+extension Swift.Double : ApolloAPI.JSONDecodable, ApolloAPI.JSONEncodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    guard let number = value as? NSNumber else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Double.self)
+    }
+    self = number.doubleValue
+  }
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return self
+  }
+  }
+}
+extension Swift.Bool : ApolloAPI.JSONDecodable, ApolloAPI.JSONEncodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    guard let bool = value as? Bool else {
+        throw JSONDecodingError.couldNotConvert(value: value, to: Bool.self)
+    }
+    self = bool
+  }
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return self
+  }
+  }
+}
+extension ApolloAPI.EnumType {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get { rawValue }
+  }
+}
+extension Swift.RawRepresentable where Self.RawValue : ApolloAPI.JSONDecodable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    let rawValue = try RawValue(_jsonValue: value)
+    if let tempSelf = Self(rawValue: rawValue) {
+      self = tempSelf
+    } else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: Self.self)
+    }
+  }
+}
+extension Swift.RawRepresentable where Self.RawValue : ApolloAPI.JSONEncodable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    return rawValue._jsonValue
+  }
+  }
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional where Wrapped : ApolloAPI.JSONDecodable {
+  @inlinable public init(jsonValue value: ApolloAPI.JSONValue) throws {
+    if value is NSNull {
+      self = .none
+    } else {
+      self = .some(try Wrapped(_jsonValue: value))
+    }
+  }
+}
+#endif
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.JSONEncodable where Wrapped : ApolloAPI.JSONEncodable, Wrapped : Swift.Hashable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    switch self {
+    case .none: return NSNull()
+    case let .some(value): return value._jsonValue
+    }
+  }
+  }
+}
+#endif
+extension Foundation.NSDictionary : ApolloAPI.JSONEncodable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get { self }
+  }
+}
+extension Foundation.NSNull : ApolloAPI.JSONEncodable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get { self }
+  }
+}
+extension Swift.Dictionary : ApolloAPI.JSONEncodable where Key == Swift.String, Value == any ApolloAPI.JSONEncodable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get { _jsonObject }
+  }
+  @inlinable public var _jsonObject: ApolloAPI.JSONObject {
+    get {
+    mapValues(\._jsonValue)
+  }
+  }
+}
+extension Swift.Dictionary : ApolloAPI.JSONDecodable where Key == Swift.String, Value == Swift.AnyHashable {
+  @inlinable public init(_jsonValue value: ApolloAPI.JSONValue) throws {
+    guard let dictionary = value as? JSONObject else {
+      throw JSONDecodingError.couldNotConvert(value: value, to: JSONObject.self)
+    }
+
+    self = dictionary
+  }
+}
+extension Swift.Array : ApolloAPI.JSONEncodable where Element : ApolloAPI.JSONEncodable {
+  @inlinable public var _jsonValue: ApolloAPI.JSONValue {
+    get {
+    map(\._jsonValue)
+  }
+  }
+}
+public protocol LocalCacheMutation : AnyObject, Swift.Hashable {
+  static var operationType: ApolloAPI.GraphQLOperationType { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  var __variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]? { get }
+  #endif
+  associatedtype Data : ApolloAPI.MutableRootSelectionSet
+}
+extension ApolloAPI.LocalCacheMutation {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var __variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]? {
+    get
+  }
+  #endif
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: Self, rhs: Self) -> Swift.Bool
+}
+public protocol MutableSelectionSet : ApolloAPI.SelectionSet {
+  var __data: ApolloAPI.DataDict { get set }
+}
+extension ApolloAPI.MutableSelectionSet {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var __typename: Swift.String? {
+    get { __data["__typename"] }
+    set { __data["__typename"] = newValue }
+  }
+  #endif
+}
+extension ApolloAPI.MutableSelectionSet where Self.Fragments : ApolloAPI.FragmentContainer {
+  @inlinable public var fragments: Self.Fragments {
+    get { Self.Fragments(_dataDict: __data) }
+    _modify {
+      var f = Self.Fragments(_dataDict: __data)
+      yield &f
+      self.__data._data = f.__data._data
+    }
+  }
+}
+extension ApolloAPI.MutableSelectionSet where Self : ApolloAPI.InlineFragment {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @discardableResult
+  public mutating func mutateIfFulfilled<T>(_ keyPath: Swift.KeyPath<Self, T?>, _ transform: (inout T) -> Swift.Void) -> Swift.Bool where T : ApolloAPI.InlineFragment, Self.RootEntityType == T.RootEntityType
+  #endif
+}
+public protocol MutableRootSelectionSet : ApolloAPI.MutableSelectionSet, ApolloAPI.RootSelectionSet {
+}
+extension ApolloAPI.MutableRootSelectionSet {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @discardableResult
+  public mutating func mutateIfFulfilled<T>(_ keyPath: Swift.KeyPath<Self, T?>, _ transform: (inout T) -> Swift.Void) -> Swift.Bool where Self == T.RootEntityType, T : ApolloAPI.InlineFragment
+  #endif
+}
+public protocol _ObjectData_Transformer {
+  #if compiler(>=5.3) && $NonescapableTypes
+  func transform(_ value: Swift.AnyHashable) -> (any ApolloAPI.ScalarType)?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func transform(_ value: Swift.AnyHashable) -> ApolloAPI.ObjectData?
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  func transform(_ value: Swift.AnyHashable) -> ApolloAPI.ListData?
+  #endif
+}
+public struct ObjectData {
+  public let _transformer: any ApolloAPI._ObjectData_Transformer
+  public let _rawData: [Swift.String : Swift.AnyHashable]
+  public init(_transformer: any ApolloAPI._ObjectData_Transformer, _rawData: [Swift.String : Swift.AnyHashable])
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public subscript(key: Swift.String) -> (any ApolloAPI.ScalarType)? {
+    get {
+    guard let rawValue = _rawData[key] else { return nil }
+    var value: AnyHashable = rawValue
+
+     
+     
+     
+    if let boolVal = value as? Bool, value.isCanonicalBool {
+      value = boolVal
+
+     
+    } else if let intValue = value as? Int {
+      value = intValue
+    }
+
+    return _transformer.transform(value)
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_disfavoredOverload @inlinable public subscript(key: Swift.String) -> ApolloAPI.ObjectData? {
+    get {
+    guard let value = _rawData[key] else { return nil }
+    return _transformer.transform(value)
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_disfavoredOverload @inlinable public subscript(key: Swift.String) -> ApolloAPI.ListData? {
+    get {
+    guard let value = _rawData[key] else { return nil }
+    return _transformer.transform(value)
+  }
+  }
+  #endif
+}
+public struct ListData {
+  public let _transformer: any ApolloAPI._ObjectData_Transformer
+  public let _rawData: [Swift.AnyHashable]
+  public init(_transformer: any ApolloAPI._ObjectData_Transformer, _rawData: [Swift.AnyHashable])
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public subscript(key: Swift.Int) -> (any ApolloAPI.ScalarType)? {
+    get {
+    var value: AnyHashable = _rawData[key]
+    
+     
+     
+     
+    if let boolVal = value as? Bool, value.isCanonicalBool {
+      value = boolVal
+
+     
+    } else if let intValue = value as? Int {
+      value = intValue
+    }
+
+    return _transformer.transform(value)
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_disfavoredOverload @inlinable public subscript(key: Swift.Int) -> ApolloAPI.ObjectData? {
+    get {
+    return _transformer.transform(_rawData[key])
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_disfavoredOverload @inlinable public subscript(key: Swift.Int) -> ApolloAPI.ListData? {
+    get {
+    return _transformer.transform(_rawData[key])
+  }
+  }
+  #endif
+}
+extension Swift.AnyHashable {
+  @usableFromInline
+  internal var isCanonicalBool: Swift.Bool {
+    get
+  }
+}
+public protocol OutputTypeConvertible {
+  @inlinable static var _asOutputType: ApolloAPI.Selection.Field.OutputType { get }
+}
+extension Swift.String : ApolloAPI.OutputTypeConvertible {
+  public static let _asOutputType: ApolloAPI.Selection.Field.OutputType
+}
+extension Swift.Int : ApolloAPI.OutputTypeConvertible {
+  public static let _asOutputType: ApolloAPI.Selection.Field.OutputType
+}
+extension Swift.Bool : ApolloAPI.OutputTypeConvertible {
+  public static let _asOutputType: ApolloAPI.Selection.Field.OutputType
+}
+extension Swift.Float : ApolloAPI.OutputTypeConvertible {
+  public static let _asOutputType: ApolloAPI.Selection.Field.OutputType
+}
+extension Swift.Double : ApolloAPI.OutputTypeConvertible {
+  public static let _asOutputType: ApolloAPI.Selection.Field.OutputType
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.OutputTypeConvertible where Wrapped : ApolloAPI.OutputTypeConvertible {
+  @inlinable public static var _asOutputType: ApolloAPI.Selection.Field.OutputType {
+    get {
+    guard case let .nonNull(wrappedOutputType) = Wrapped._asOutputType else {
+      return Wrapped._asOutputType
+    }
+    return wrappedOutputType
+  }
+  }
+}
+#endif
+extension Swift.Array : ApolloAPI.OutputTypeConvertible where Element : ApolloAPI.OutputTypeConvertible {
+  @inlinable public static var _asOutputType: ApolloAPI.Selection.Field.OutputType {
+    get {
+    .nonNull(.list(Element._asOutputType))
+  }
+  }
+}
+extension ApolloAPI.RootSelectionSet {
+  @inlinable public static var _asOutputType: ApolloAPI.Selection.Field.OutputType {
+    get {
+    .nonNull(.object(self))
+  }
+  }
+}
+public protocol ParentType {
+  @inlinable func canBeConverted(from objectType: ApolloAPI.Object) -> Swift.Bool
+  @inlinable var __typename: Swift.String { get }
+}
+extension ApolloAPI.Object : ApolloAPI.ParentType {
+  @inlinable public func canBeConverted(from objectType: ApolloAPI.Object) -> Swift.Bool {
+    objectType.typename == self.typename
+  }
+  @inlinable public var __typename: Swift.String {
+    get { self.typename }
+  }
+}
+extension ApolloAPI.Interface : ApolloAPI.ParentType {
+  @inlinable public func canBeConverted(from objectType: ApolloAPI.Object) -> Swift.Bool {
+    objectType.implements(self)
+  }
+  @inlinable public var __typename: Swift.String {
+    get { self.name }
+  }
+}
+extension ApolloAPI.Union : ApolloAPI.ParentType {
+  @inlinable public func canBeConverted(from objectType: ApolloAPI.Object) -> Swift.Bool {
+    possibleTypes.contains(where: { $0 == objectType })
+  }
+  @inlinable public var __typename: Swift.String {
+    get { self.name }
+  }
+}
+public struct ResponsePath : Swift.ExpressibleByArrayLiteral {
+  public typealias Key = Swift.String
+  public var joined: Swift.String {
+    get
+  }
+  public func toArray() -> [Swift.String]
+  public init(arrayLiteral segments: ApolloAPI.ResponsePath.Key...)
+  public init(_ key: ApolloAPI.ResponsePath.Key)
+  public mutating func append(_ key: ApolloAPI.ResponsePath.Key)
+  public func appending(_ key: ApolloAPI.ResponsePath.Key) -> ApolloAPI.ResponsePath
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public static func + (lhs: ApolloAPI.ResponsePath, rhs: ApolloAPI.ResponsePath.Key) -> ApolloAPI.ResponsePath
+  public static func + (lhs: ApolloAPI.ResponsePath, rhs: ApolloAPI.ResponsePath) -> ApolloAPI.ResponsePath
+  public static func + <T>(lhs: ApolloAPI.ResponsePath, rhs: T) -> ApolloAPI.ResponsePath where T : Swift.Sequence, T.Element == Swift.String
+  public typealias ArrayLiteralElement = ApolloAPI.ResponsePath.Key
+}
+extension ApolloAPI.ResponsePath : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension ApolloAPI.ResponsePath : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.ResponsePath : Swift.Equatable {
+  public static func == (lhs: ApolloAPI.ResponsePath, rhs: ApolloAPI.ResponsePath) -> Swift.Bool
+}
+public protocol AnyScalarType : ApolloAPI.AnyHashableConvertible, ApolloAPI.JSONEncodable {
+}
+public protocol ScalarType : ApolloAPI.AnyScalarType, ApolloAPI.GraphQLOperationVariableValue, ApolloAPI.JSONDecodable {
+}
+extension Swift.String : ApolloAPI.ScalarType {
+}
+extension Swift.Int : ApolloAPI.ScalarType {
+}
+extension Swift.Bool : ApolloAPI.ScalarType {
+}
+extension Swift.Float : ApolloAPI.ScalarType {
+}
+extension Swift.Double : ApolloAPI.ScalarType {
+}
+public protocol CustomScalarType : ApolloAPI.AnyScalarType, ApolloAPI.GraphQLOperationVariableValue, ApolloAPI.JSONDecodable, ApolloAPI.OutputTypeConvertible {
+}
+extension ApolloAPI.CustomScalarType {
+  @inlinable public static var _asOutputType: ApolloAPI.Selection.Field.OutputType {
+    get {
+    .nonNull(.customScalar(self))
+  }
+  }
+}
+extension Swift.Array : ApolloAPI.AnyScalarType where Element : ApolloAPI.AnyScalarType, Element : Swift.Hashable {
+}
+#if compiler(>=5.3) && $NonescapableTypes
+extension Swift.Optional : ApolloAPI.AnyScalarType where Wrapped : ApolloAPI.AnyScalarType, Wrapped : Swift.Hashable {
+}
+#endif
+public protocol SchemaConfiguration {
+  #if compiler(>=5.3) && $NonescapableTypes
+  static func cacheKeyInfo(for type: ApolloAPI.Object, object: ApolloAPI.ObjectData) -> ApolloAPI.CacheKeyInfo?
+  #endif
+}
+public protocol SchemaMetadata {
+  static var configuration: any ApolloAPI.SchemaConfiguration.Type { get }
+  #if compiler(>=5.3) && $NonescapableTypes
+  static func objectType(forTypename typename: Swift.String) -> ApolloAPI.Object?
+  #endif
+}
+extension ApolloAPI.SchemaMetadata {
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public static func graphQLType(for object: ApolloAPI.ObjectData) -> ApolloAPI.Object? {
+    guard let typename = object["__typename"] as? String else {
+      return nil
+    }
+    return objectType(forTypename: typename) ??
+    Object(typename: typename, implementedInterfaces: [])
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public static func cacheKey(for object: ApolloAPI.ObjectData, inferredToImplementInterface implementedInterface: ApolloAPI.Interface? = nil) -> Swift.String? {
+    guard let type = graphQLType(for: object) else { return nil }
+    
+    if let info = configuration.cacheKeyInfo(for: type, object: object) {
+      return "\(info.uniqueKeyGroup ?? type.typename):\(info.id)"
+    }
+    
+    guard let keyFields = type.keyFields ?? implementedInterface?.keyFields else { return nil }
+    
+    let idValues = try? keyFields.map {
+      guard let keyFieldValue = object[$0] else {
+        throw JSONDecodingError.missingValue
+      }
+      let item = try String(_jsonValue: keyFieldValue._asAnyHashable)
+      
+       
+      return item.replacingOccurrences(of: "\\", with: "\\\\")
+        .replacingOccurrences(of: "+", with: "\\+")
+    }
+    
+    guard let id = idValues?.joined(separator: "+") else { return nil }
+    return "\(type.typename):\(id)"
+  }
+  #endif
+}
+public protocol EnumType : ApolloAPI.GraphQLOperationVariableValue, ApolloAPI.JSONEncodable, Swift.CaseIterable, Swift.RawRepresentable where Self.RawValue == Swift.String {
+}
+public protocol InputObject : ApolloAPI.GraphQLOperationVariableValue, ApolloAPI.JSONEncodable, Swift.Hashable {
+  var __data: ApolloAPI.InputDict { get }
+}
+extension ApolloAPI.InputObject {
+  public var _jsonValue: ApolloAPI.JSONValue {
+    get
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get
+  }
+  #endif
+  public static func == (lhs: Self, rhs: Self) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public struct InputDict : ApolloAPI.GraphQLOperationVariableValue, Swift.Hashable {
+  public init(_ data: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue] = [:])
+  #if compiler(>=5.3) && $NonescapableTypes
+  public var _jsonEncodableValue: (any ApolloAPI.JSONEncodable)? {
+    get
+  }
+  #endif
+  @_disfavoredOverload public subscript<T>(key: Swift.String) -> T where T : ApolloAPI.GraphQLOperationVariableValue {
+    get
+    set
+  }
+  public subscript<T>(key: Swift.String) -> ApolloAPI.GraphQLNullable<T> where T : ApolloAPI.GraphQLOperationVariableValue {
+    get
+    set
+  }
+  public static func == (lhs: ApolloAPI.InputDict, rhs: ApolloAPI.InputDict) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol OneOfInputObject : ApolloAPI.InputObject {
+}
+public struct Interface : Swift.Hashable, Swift.Sendable {
+  public let name: Swift.String
+  public let keyFields: [Swift.String]?
+  public let implementingObjects: [Swift.String]
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(name: Swift.String, keyFields: [Swift.String]? = nil, implementingObjects: [Swift.String])
+  #endif
+  public static func == (a: ApolloAPI.Interface, b: ApolloAPI.Interface) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Object : Swift.Hashable, Swift.Sendable {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init(typename: Swift.String, implementedInterfaces: [ApolloAPI.Interface], keyFields: [Swift.String]? = nil)
+  #endif
+  @available(*, deprecated, message: "This property will be removed in version 2.0. To check if an Object implements an interface please use the 'implements(_)' function.")
+  public var implementedInterfaces: [ApolloAPI.Interface] {
+    get
+  }
+  public let typename: Swift.String
+  public let keyFields: [Swift.String]?
+  public func implements(_ interface: ApolloAPI.Interface) -> Swift.Bool
+  public static func == (a: ApolloAPI.Object, b: ApolloAPI.Object) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Union : Swift.Hashable, Swift.Sendable {
+  public let name: Swift.String
+  public let possibleTypes: [ApolloAPI.Object]
+  public init(name: Swift.String, possibleTypes: [ApolloAPI.Object])
+  public static func == (a: ApolloAPI.Union, b: ApolloAPI.Union) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.Selection {
+  public struct Conditions : Swift.Hashable {
+    public let value: [[ApolloAPI.Selection.Condition]]
+    public init(_ value: [[ApolloAPI.Selection.Condition]])
+    public init(_ conditions: [ApolloAPI.Selection.Condition]...)
+    public init(_ condition: ApolloAPI.Selection.Condition)
+    @inlinable public static func || (lhs: ApolloAPI.Selection.Conditions, rhs: [ApolloAPI.Selection.Condition]) -> ApolloAPI.Selection.Conditions {
+      var newValue = lhs.value
+      newValue.append(rhs)
+      return .init(newValue)
+    }
+    @inlinable public static func || (lhs: ApolloAPI.Selection.Conditions, rhs: ApolloAPI.Selection.Condition) -> ApolloAPI.Selection.Conditions {
+      lhs || [rhs]
+    }
+    public static func == (a: ApolloAPI.Selection.Conditions, b: ApolloAPI.Selection.Conditions) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public enum Condition : Swift.ExpressibleByStringLiteral, Swift.ExpressibleByBooleanLiteral, Swift.Hashable {
+    case value(Swift.Bool)
+    case variable(name: Swift.String, inverted: Swift.Bool)
+    public init(variableName: Swift.String, inverted: Swift.Bool)
+    public init(stringLiteral value: Swift.StringLiteralType)
+    public init(booleanLiteral value: Swift.BooleanLiteralType)
+    @inlinable public static func `if`(_ condition: Swift.StringLiteralType) -> ApolloAPI.Selection.Condition {
+      .variable(name: condition, inverted: false)
+    }
+    @inlinable public static func `if`(_ condition: ApolloAPI.Selection.Condition) -> ApolloAPI.Selection.Condition {
+      condition
+    }
+    @inlinable prefix public static func ! (condition: ApolloAPI.Selection.Condition) -> ApolloAPI.Selection.Condition {
+      switch condition {
+      case let .value(value):
+        return .value(!value)
+      case let .variable(name, inverted):
+        return .init(variableName: name, inverted: !inverted)
+      }
+    }
+    @inlinable public static func && (lhs: ApolloAPI.Selection.Condition, rhs: ApolloAPI.Selection.Condition) -> [ApolloAPI.Selection.Condition] {
+      [lhs, rhs]
+    }
+    @inlinable public static func && (lhs: [ApolloAPI.Selection.Condition], rhs: ApolloAPI.Selection.Condition) -> [ApolloAPI.Selection.Condition] {
+      var newValue = lhs
+      newValue.append(rhs)
+      return newValue
+    }
+    @inlinable public static func || (lhs: ApolloAPI.Selection.Condition, rhs: ApolloAPI.Selection.Condition) -> ApolloAPI.Selection.Conditions {
+      .init([[lhs], [rhs]])
+    }
+    @inlinable public static func || (lhs: [ApolloAPI.Selection.Condition], rhs: ApolloAPI.Selection.Condition) -> ApolloAPI.Selection.Conditions {
+      .init([lhs, [rhs]])
+    }
+    public static func == (a: ApolloAPI.Selection.Condition, b: ApolloAPI.Selection.Condition) -> Swift.Bool
+    public typealias BooleanLiteralType = Swift.BooleanLiteralType
+    public typealias ExtendedGraphemeClusterLiteralType = Swift.StringLiteralType
+    public typealias StringLiteralType = Swift.StringLiteralType
+    public typealias UnicodeScalarLiteralType = Swift.StringLiteralType
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+extension ApolloAPI.Selection.Conditions {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func evaluate(with variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?) -> Swift.Bool
+  #endif
+}
+extension ApolloAPI.Selection.Condition {
+  #if compiler(>=5.3) && $NonescapableTypes
+  public func evaluate(with variables: [Swift.String : any ApolloAPI.GraphQLOperationVariableValue]?) -> Swift.Bool
+  #endif
+}
+public enum Selection {
+  case field(ApolloAPI.Selection.Field)
+  case fragment(any ApolloAPI.Fragment.Type)
+  case inlineFragment(any ApolloAPI.InlineFragment.Type)
+  case deferred(if: ApolloAPI.Selection.Condition? = nil, any ApolloAPI.Deferrable.Type, label: Swift.String)
+  case conditional(ApolloAPI.Selection.Conditions, [ApolloAPI.Selection])
+  public struct Field {
+    public let name: Swift.String
+    public let alias: Swift.String?
+    public let arguments: [Swift.String : ApolloAPI.InputValue]?
+    public let type: ApolloAPI.Selection.Field.OutputType
+    public let fieldPolicy: ApolloAPI.Selection.FieldPolicyDirective?
+    public var responseKey: Swift.String {
+      get
+    }
+    #if compiler(>=5.3) && $NonescapableTypes
+    public init(_ name: Swift.String, alias: Swift.String? = nil, type: ApolloAPI.Selection.Field.OutputType, arguments: [Swift.String : ApolloAPI.InputValue]? = nil, fieldPolicy: ApolloAPI.Selection.FieldPolicyDirective? = nil)
+    #endif
+    indirect public enum OutputType {
+      case scalar(any ApolloAPI.ScalarType.Type)
+      case customScalar(any ApolloAPI.CustomScalarType.Type)
+      case object(any ApolloAPI.RootSelectionSet.Type)
+      case nonNull(ApolloAPI.Selection.Field.OutputType)
+      case list(ApolloAPI.Selection.Field.OutputType)
+      public var namedType: ApolloAPI.Selection.Field.OutputType {
+        get
+      }
+      public var isNullable: Swift.Bool {
+        get
+      }
+    }
+  }
+  public struct FieldPolicyDirective : Swift.Hashable {
+    public let keyArgs: [Swift.String]
+    public init(keyArgs: [Swift.String])
+    public static func == (a: ApolloAPI.Selection.FieldPolicyDirective, b: ApolloAPI.Selection.FieldPolicyDirective) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public static func field(_ name: Swift.String, alias: Swift.String? = nil, _ type: any ApolloAPI.OutputTypeConvertible.Type, arguments: [Swift.String : ApolloAPI.InputValue]? = nil, fieldPolicy: ApolloAPI.Selection.FieldPolicyDirective? = nil) -> ApolloAPI.Selection {
+    .field(.init(name, alias: alias, type: type._asOutputType, arguments: arguments, fieldPolicy: fieldPolicy))
+  }
+  #endif
+  @inlinable public static func include(if condition: Swift.String, _ selection: ApolloAPI.Selection) -> ApolloAPI.Selection {
+    .conditional(Conditions([[Selection.Condition(stringLiteral: condition)]]), [selection])
+  }
+  @inlinable public static func include(if condition: Swift.String, _ selections: [ApolloAPI.Selection]) -> ApolloAPI.Selection {
+    .conditional(Conditions([[Selection.Condition(stringLiteral: condition)]]), selections)
+  }
+  @inlinable public static func include(if conditions: ApolloAPI.Selection.Conditions, _ selection: ApolloAPI.Selection) -> ApolloAPI.Selection {
+    .conditional(conditions, [selection])
+  }
+  @inlinable public static func include(if conditions: ApolloAPI.Selection.Conditions, _ selections: [ApolloAPI.Selection]) -> ApolloAPI.Selection {
+    .conditional(conditions, selections)
+  }
+  @inlinable public static func include(if condition: ApolloAPI.Selection.Condition, _ selection: ApolloAPI.Selection) -> ApolloAPI.Selection {
+    .conditional(Conditions([[condition]]), [selection])
+  }
+  @inlinable public static func include(if condition: ApolloAPI.Selection.Condition, _ selections: [ApolloAPI.Selection]) -> ApolloAPI.Selection {
+    .conditional(Conditions([[condition]]), selections)
+  }
+  @inlinable public static func include(if conditions: [ApolloAPI.Selection.Condition], _ selection: ApolloAPI.Selection) -> ApolloAPI.Selection {
+    .conditional(Conditions([conditions]), [selection])
+  }
+  @inlinable public static func include(if conditions: [ApolloAPI.Selection.Condition], _ selections: [ApolloAPI.Selection]) -> ApolloAPI.Selection {
+    .conditional(Conditions([conditions]), selections)
+  }
+}
+extension ApolloAPI.Selection : Swift.Hashable {
+  public static func == (lhs: ApolloAPI.Selection, rhs: ApolloAPI.Selection) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.Selection.Field : Swift.Hashable {
+  public static func == (lhs: ApolloAPI.Selection.Field, rhs: ApolloAPI.Selection.Field) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ApolloAPI.Selection.Field.OutputType : Swift.Hashable {
+  public static func == (lhs: ApolloAPI.Selection.Field.OutputType, rhs: ApolloAPI.Selection.Field.OutputType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol RootSelectionSet : ApolloAPI.OutputTypeConvertible, ApolloAPI.SelectionSet, ApolloAPI.SelectionSetEntityValue {
+}
+public protocol InlineFragment : ApolloAPI.Deferrable {
+  associatedtype RootEntityType : ApolloAPI.RootSelectionSet
+}
+public protocol CompositeSelectionSet : ApolloAPI.SelectionSet {
+}
+public protocol CompositeInlineFragment : ApolloAPI.CompositeSelectionSet, ApolloAPI.InlineFragment {
+  static var __mergedSources: [any ApolloAPI.SelectionSet.Type] { get }
+}
+public protocol SelectionSet : Swift.CustomDebugStringConvertible, Swift.Hashable {
+  associatedtype Schema : ApolloAPI.SchemaMetadata
+  associatedtype Fragments = ApolloAPI.NoFragments
+  static var __selections: [ApolloAPI.Selection] { get }
+  static var __parentType: any ApolloAPI.ParentType { get }
+  var __data: ApolloAPI.DataDict { get }
+  init(_dataDict: ApolloAPI.DataDict)
+}
+extension ApolloAPI.SelectionSet {
+  @inlinable public static var __selections: [ApolloAPI.Selection] {
+    get { [] }
+  }
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var __objectType: ApolloAPI.Object? {
+    get {
+    guard let __typename else { return nil }
+    return Schema.objectType(forTypename: __typename)
+  }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public var __typename: Swift.String? {
+    get { __data["__typename"] }
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @_disfavoredOverload @inlinable public func _asInlineFragment<T>() -> T? where T : ApolloAPI.SelectionSet {
+    guard __data.fragmentIsFulfilled(T.self) else { return nil }
+    return T.init(_dataDict: __data)
+  }
+  #endif
+  #if compiler(>=5.3) && $NonescapableTypes
+  @inlinable public func _asInlineFragment<T>() -> T? where T : ApolloAPI.CompositeInlineFragment {
+    guard __data.fragmentsAreFulfilled(T.__mergedSources) else { return nil }
+    return T.init(_dataDict: __data)
+  }
+  #endif
+  @inlinable public func hash(into hasher: inout Swift.Hasher) {
+    hasher.combine(__data)
+  }
+  @inlinable public static func == (lhs: Self, rhs: Self) -> Swift.Bool {
+    return lhs.__data == rhs.__data
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension ApolloAPI.SelectionSet where Self.Fragments : ApolloAPI.FragmentContainer {
+  public var fragments: Self.Fragments {
+    get
+  }
+}
+extension ApolloAPI.InlineFragment {
+  @inlinable public var asRootEntityType: Self.RootEntityType {
+    get {
+    RootEntityType.init(_dataDict: __data)
+  }
+  }
+}
+extension ApolloAPI.RootSelectionSet {
+  public init<T>(_ inlineFragment: T) where Self == T.RootEntityType, T : ApolloAPI.InlineFragment
+}

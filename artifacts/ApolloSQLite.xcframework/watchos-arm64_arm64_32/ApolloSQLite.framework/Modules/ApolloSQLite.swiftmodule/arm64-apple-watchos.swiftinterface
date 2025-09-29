@@ -1,0 +1,100 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.2 effective-5.10 (swiftlang-6.2.0.19.9 clang-1700.3.19.1)
+// swift-module-flags: -target arm64-apple-watchos11.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-experimental-feature DebugDescriptionMacro -module-name ApolloSQLite -package-name apollo_ios
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.2
+import Apollo
+import ApolloAPI
+import Foundation
+import Foundation/*.Bundle*/
+import Foundation/*.ProcessInfo*/
+import Foundation/*.URL*/
+import SQLite3
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+final public class ApolloSQLiteDatabase : ApolloSQLite.SQLiteDatabase {
+  public init(fileURL: Foundation.URL) throws
+  @objc deinit
+  final public func createRecordsTableIfNeeded() throws
+  final public func selectRawRows(forKeys keys: Swift.Set<Apollo.CacheKey>) throws -> [ApolloSQLite.DatabaseRow]
+  final public func addOrUpdate(records: [(cacheKey: Apollo.CacheKey, recordString: Swift.String)]) throws
+  final public func deleteRecord(for cacheKey: Apollo.CacheKey) throws
+  final public func deleteRecords(matching pattern: Apollo.CacheKey) throws
+  final public func clearDatabase(shouldVacuumOnClear: Swift.Bool) throws
+  final public func setJournalMode(mode: ApolloSQLite.JournalMode) throws
+}
+public enum JournalMode : Swift.String {
+  case delete
+  case truncate
+  case persist
+  case memory
+  case wal
+  case off
+  #if compiler(>=5.3) && $NonescapableTypes
+  public init?(rawValue: Swift.String)
+  #endif
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct DatabaseRow {
+  public init(cacheKey: Apollo.CacheKey, storedInfo: Swift.String)
+}
+public enum SQLiteError : Swift.Error, Swift.CustomStringConvertible {
+  case execution(message: Swift.String, resultCode: Swift.Int32)
+  case open(path: Swift.String, resultCode: Swift.Int32)
+  case prepare(message: Swift.String, resultCode: Swift.Int32)
+  case step(message: Swift.String, resultCode: Swift.Int32)
+  public var description: Swift.String {
+    get
+  }
+}
+public protocol SQLiteDatabase {
+  init(fileURL: Foundation.URL) throws
+  func createRecordsTableIfNeeded() throws
+  func selectRawRows(forKeys keys: Swift.Set<Apollo.CacheKey>) throws -> [ApolloSQLite.DatabaseRow]
+  func addOrUpdate(records: [(cacheKey: Apollo.CacheKey, recordString: Swift.String)]) throws
+  func deleteRecord(for cacheKey: Apollo.CacheKey) throws
+  func deleteRecords(matching pattern: Apollo.CacheKey) throws
+  func clearDatabase(shouldVacuumOnClear: Swift.Bool) throws
+  @available(*, deprecated, renamed: "addOrUpdate(records:)")
+  func addOrUpdateRecordString(_ recordString: Swift.String, for cacheKey: Apollo.CacheKey) throws
+}
+extension ApolloSQLite.SQLiteDatabase {
+  public func addOrUpdateRecordString(_ recordString: Swift.String, for cacheKey: Apollo.CacheKey) throws
+}
+extension ApolloSQLite.SQLiteDatabase {
+  public static var tableName: Swift.String {
+    get
+  }
+  public static var idColumnName: Swift.String {
+    get
+  }
+  public static var keyColumnName: Swift.String {
+    get
+  }
+  public static var recordColumName: Swift.String {
+    get
+  }
+}
+public enum SQLiteNormalizedCacheError : Swift.Error {
+  case invalidRecordEncoding(record: Swift.String)
+  case invalidRecordShape(object: Any)
+}
+final public class SQLiteNormalizedCache {
+  public init(fileURL: Foundation.URL, databaseType: any ApolloSQLite.SQLiteDatabase.Type = ApolloSQLiteDatabase.self, shouldVacuumOnClear: Swift.Bool = false) throws
+  public init(database: any ApolloSQLite.SQLiteDatabase, shouldVacuumOnClear: Swift.Bool = false) throws
+  @objc deinit
+}
+extension ApolloSQLite.SQLiteNormalizedCache : Apollo.NormalizedCache {
+  final public func loadRecords(forKeys keys: Swift.Set<Apollo.CacheKey>) throws -> [Apollo.CacheKey : Apollo.Record]
+  final public func merge(records: Apollo.RecordSet) throws -> Swift.Set<Apollo.CacheKey>
+  final public func removeRecord(for key: Apollo.CacheKey) throws
+  final public func removeRecords(matching pattern: Apollo.CacheKey) throws
+  final public func clear() throws
+}
+extension ApolloSQLite.JournalMode : Swift.Equatable {}
+extension ApolloSQLite.JournalMode : Swift.Hashable {}
+extension ApolloSQLite.JournalMode : Swift.RawRepresentable {}

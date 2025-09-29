@@ -1,0 +1,3056 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "ApolloSQLite",
+    "printedName": "ApolloSQLite",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Apollo",
+        "printedName": "Apollo",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "SQLite3",
+        "printedName": "SQLite3",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "ApolloSQLiteDatabase",
+        "printedName": "ApolloSQLiteDatabase",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(fileURL:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ApolloSQLiteDatabase",
+                "printedName": "ApolloSQLite.ApolloSQLiteDatabase",
+                "usr": "s:12ApolloSQLite0aB8DatabaseC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC7fileURLAC10Foundation0E0V_tKcfc",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC7fileURLAC10Foundation0E0V_tKcfc",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "createRecordsTableIfNeeded",
+            "printedName": "createRecordsTableIfNeeded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC26createRecordsTableIfNeededyyKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC26createRecordsTableIfNeededyyKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "selectRawRows",
+            "printedName": "selectRawRows(forKeys:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[ApolloSQLite.DatabaseRow]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DatabaseRow",
+                    "printedName": "ApolloSQLite.DatabaseRow",
+                    "usr": "s:12ApolloSQLite11DatabaseRowV"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC13selectRawRows7forKeysSayAA0C3RowVGShySSG_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC13selectRawRows7forKeysSayAA0C3RowVGShySSG_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOrUpdate",
+            "printedName": "addOrUpdate(records:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[(cacheKey: Swift.String, recordString: Swift.String)]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(cacheKey: Swift.String, recordString: Swift.String)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC11addOrUpdate7recordsySaySS8cacheKey_SS12recordStringtG_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC11addOrUpdate7recordsySaySS8cacheKey_SS12recordStringtG_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deleteRecord",
+            "printedName": "deleteRecord(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC12deleteRecord3forySS_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC12deleteRecord3forySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deleteRecords",
+            "printedName": "deleteRecords(matching:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC13deleteRecords8matchingySS_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC13deleteRecords8matchingySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "clearDatabase",
+            "printedName": "clearDatabase(shouldVacuumOnClear:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC05clearC019shouldVacuumOnClearySb_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC05clearC019shouldVacuumOnClearySb_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setJournalMode",
+            "printedName": "setJournalMode(mode:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "JournalMode",
+                "printedName": "ApolloSQLite.JournalMode",
+                "usr": "s:12ApolloSQLite11JournalModeO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0aB8DatabaseC14setJournalMode4modeyAA0eF0O_tKF",
+            "mangledName": "$s12ApolloSQLite0aB8DatabaseC14setJournalMode4modeyAA0eF0O_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12ApolloSQLite0aB8DatabaseC",
+        "mangledName": "$s12ApolloSQLite0aB8DatabaseC",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "Final",
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SQLiteDatabase",
+            "printedName": "SQLiteDatabase",
+            "usr": "s:12ApolloSQLite0B8DatabaseP",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "JournalMode",
+        "printedName": "JournalMode",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delete",
+            "printedName": "delete",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO6deleteyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO6deleteyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "truncate",
+            "printedName": "truncate",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO8truncateyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO8truncateyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "persist",
+            "printedName": "persist",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO7persistyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO7persistyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "memory",
+            "printedName": "memory",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO6memoryyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO6memoryyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "wal",
+            "printedName": "wal",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO3walyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO3walyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "off",
+            "printedName": "off",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.JournalMode.Type) -> ApolloSQLite.JournalMode",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.JournalMode.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JournalMode",
+                        "printedName": "ApolloSQLite.JournalMode",
+                        "usr": "s:12ApolloSQLite11JournalModeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite11JournalModeO3offyA2CmF",
+            "mangledName": "$s12ApolloSQLite11JournalModeO3offyA2CmF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "RawDocComment"
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite11JournalModeO8rawValueSSvp",
+            "mangledName": "$s12ApolloSQLite11JournalModeO8rawValueSSvp",
+            "moduleName": "ApolloSQLite",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite11JournalModeO8rawValueSSvg",
+                "mangledName": "$s12ApolloSQLite11JournalModeO8rawValueSSvg",
+                "moduleName": "ApolloSQLite",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "ApolloSQLite.JournalMode?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JournalMode",
+                    "printedName": "ApolloSQLite.JournalMode",
+                    "usr": "s:12ApolloSQLite11JournalModeO"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite11JournalModeO8rawValueACSgSS_tcfc",
+            "mangledName": "$s12ApolloSQLite11JournalModeO8rawValueACSgSS_tcfc",
+            "moduleName": "ApolloSQLite",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:12ApolloSQLite11JournalModeO",
+        "mangledName": "$s12ApolloSQLite11JournalModeO",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "enumRawTypeName": "String",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Apollo",
+        "printedName": "Apollo",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "DatabaseRow",
+        "printedName": "DatabaseRow",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(cacheKey:storedInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "DatabaseRow",
+                "printedName": "ApolloSQLite.DatabaseRow",
+                "usr": "s:12ApolloSQLite11DatabaseRowV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite11DatabaseRowV8cacheKey10storedInfoACSS_SStcfc",
+            "mangledName": "$s12ApolloSQLite11DatabaseRowV8cacheKey10storedInfoACSS_SStcfc",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:12ApolloSQLite11DatabaseRowV",
+        "mangledName": "$s12ApolloSQLite11DatabaseRowV",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SQLiteError",
+        "printedName": "SQLiteError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "execution",
+            "printedName": "execution",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int32",
+                            "printedName": "Swift.Int32",
+                            "usr": "s:s5Int32V"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B5ErrorO9executionyACSS_s5Int32VtcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO9executionyACSS_s5Int32VtcACmF",
+            "moduleName": "ApolloSQLite"
+          },
+          {
+            "kind": "Var",
+            "name": "open",
+            "printedName": "open",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(path: Swift.String, resultCode: Swift.Int32)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int32",
+                            "printedName": "Swift.Int32",
+                            "usr": "s:s5Int32V"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B5ErrorO4openyACSS_s5Int32VtcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO4openyACSS_s5Int32VtcACmF",
+            "moduleName": "ApolloSQLite"
+          },
+          {
+            "kind": "Var",
+            "name": "prepare",
+            "printedName": "prepare",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int32",
+                            "printedName": "Swift.Int32",
+                            "usr": "s:s5Int32V"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B5ErrorO7prepareyACSS_s5Int32VtcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO7prepareyACSS_s5Int32VtcACmF",
+            "moduleName": "ApolloSQLite"
+          },
+          {
+            "kind": "Var",
+            "name": "step",
+            "printedName": "step",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Int32",
+                            "printedName": "Swift.Int32",
+                            "usr": "s:s5Int32V"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteError",
+                        "printedName": "ApolloSQLite.SQLiteError",
+                        "usr": "s:12ApolloSQLite0B5ErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B5ErrorO4stepyACSS_s5Int32VtcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO4stepyACSS_s5Int32VtcACmF",
+            "moduleName": "ApolloSQLite"
+          },
+          {
+            "kind": "Var",
+            "name": "description",
+            "printedName": "description",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite0B5ErrorO11descriptionSSvp",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO11descriptionSSvp",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite0B5ErrorO11descriptionSSvg",
+                "mangledName": "$s12ApolloSQLite0B5ErrorO11descriptionSSvg",
+                "moduleName": "ApolloSQLite",
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:12ApolloSQLite0B5ErrorO",
+        "mangledName": "$s12ApolloSQLite0B5ErrorO",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SQLiteDatabase",
+        "printedName": "SQLiteDatabase",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(fileURL:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "GenericTypeParam",
+                "printedName": "τ_0_0"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite0B8DatabaseP7fileURLx10Foundation0E0V_tKcfc",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP7fileURLx10Foundation0E0V_tKcfc",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "createRecordsTableIfNeeded",
+            "printedName": "createRecordsTableIfNeeded()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP26createRecordsTableIfNeededyyKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP26createRecordsTableIfNeededyyKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "selectRawRows",
+            "printedName": "selectRawRows(forKeys:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[ApolloSQLite.DatabaseRow]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "DatabaseRow",
+                    "printedName": "ApolloSQLite.DatabaseRow",
+                    "usr": "s:12ApolloSQLite11DatabaseRowV"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP13selectRawRows7forKeysSayAA0C3RowVGShySSG_tKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP13selectRawRows7forKeysSayAA0C3RowVGShySSG_tKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOrUpdate",
+            "printedName": "addOrUpdate(records:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[(cacheKey: Swift.String, recordString: Swift.String)]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(cacheKey: Swift.String, recordString: Swift.String)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP11addOrUpdate7recordsySaySS8cacheKey_SS12recordStringtG_tKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP11addOrUpdate7recordsySaySS8cacheKey_SS12recordStringtG_tKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deleteRecord",
+            "printedName": "deleteRecord(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP12deleteRecord3forySS_tKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP12deleteRecord3forySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deleteRecords",
+            "printedName": "deleteRecords(matching:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP13deleteRecords8matchingySS_tKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP13deleteRecords8matchingySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "clearDatabase",
+            "printedName": "clearDatabase(shouldVacuumOnClear:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP05clearC019shouldVacuumOnClearySb_tKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP05clearC019shouldVacuumOnClearySb_tKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "protocolReq": true,
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOrUpdateRecordString",
+            "printedName": "addOrUpdateRecordString(_:for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabaseP23addOrUpdateRecordString_3forySS_SStKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabaseP23addOrUpdateRecordString_3forySS_SStKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "deprecated": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "Available"
+            ],
+            "throwing": true,
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addOrUpdateRecordString",
+            "printedName": "addOrUpdateRecordString(_:for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B8DatabasePAAE23addOrUpdateRecordString_3forySS_SStKF",
+            "mangledName": "$s12ApolloSQLite0B8DatabasePAAE23addOrUpdateRecordString_3forySS_SStKF",
+            "moduleName": "ApolloSQLite",
+            "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+            "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "tableName",
+            "printedName": "tableName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite0B8DatabasePAAE9tableNameSSvpZ",
+            "mangledName": "$s12ApolloSQLite0B8DatabasePAAE9tableNameSSvpZ",
+            "moduleName": "ApolloSQLite",
+            "static": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite0B8DatabasePAAE9tableNameSSvgZ",
+                "mangledName": "$s12ApolloSQLite0B8DatabasePAAE9tableNameSSvgZ",
+                "moduleName": "ApolloSQLite",
+                "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+                "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "idColumnName",
+            "printedName": "idColumnName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite0B8DatabasePAAE12idColumnNameSSvpZ",
+            "mangledName": "$s12ApolloSQLite0B8DatabasePAAE12idColumnNameSSvpZ",
+            "moduleName": "ApolloSQLite",
+            "static": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite0B8DatabasePAAE12idColumnNameSSvgZ",
+                "mangledName": "$s12ApolloSQLite0B8DatabasePAAE12idColumnNameSSvgZ",
+                "moduleName": "ApolloSQLite",
+                "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+                "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "keyColumnName",
+            "printedName": "keyColumnName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite0B8DatabasePAAE13keyColumnNameSSvpZ",
+            "mangledName": "$s12ApolloSQLite0B8DatabasePAAE13keyColumnNameSSvpZ",
+            "moduleName": "ApolloSQLite",
+            "static": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite0B8DatabasePAAE13keyColumnNameSSvgZ",
+                "mangledName": "$s12ApolloSQLite0B8DatabasePAAE13keyColumnNameSSvgZ",
+                "moduleName": "ApolloSQLite",
+                "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+                "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "recordColumName",
+            "printedName": "recordColumName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12ApolloSQLite0B8DatabasePAAE15recordColumNameSSvpZ",
+            "mangledName": "$s12ApolloSQLite0B8DatabasePAAE15recordColumNameSSvpZ",
+            "moduleName": "ApolloSQLite",
+            "static": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12ApolloSQLite0B8DatabasePAAE15recordColumNameSSvgZ",
+                "mangledName": "$s12ApolloSQLite0B8DatabasePAAE15recordColumNameSSvgZ",
+                "moduleName": "ApolloSQLite",
+                "genericSig": "<τ_0_0 where τ_0_0 : ApolloSQLite.SQLiteDatabase>",
+                "sugared_genericSig": "<Self where Self : ApolloSQLite.SQLiteDatabase>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:12ApolloSQLite0B8DatabaseP",
+        "mangledName": "$s12ApolloSQLite0B8DatabaseP",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Apollo",
+        "printedName": "Apollo",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SQLiteNormalizedCacheError",
+        "printedName": "SQLiteNormalizedCacheError",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "invalidRecordEncoding",
+            "printedName": "invalidRecordEncoding",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteNormalizedCacheError.Type) -> (Swift.String) -> ApolloSQLite.SQLiteNormalizedCacheError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.String) -> ApolloSQLite.SQLiteNormalizedCacheError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteNormalizedCacheError",
+                        "printedName": "ApolloSQLite.SQLiteNormalizedCacheError",
+                        "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(record: Swift.String)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteNormalizedCacheError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteNormalizedCacheError",
+                        "printedName": "ApolloSQLite.SQLiteNormalizedCacheError",
+                        "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO21invalidRecordEncodingyACSS_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B20NormalizedCacheErrorO21invalidRecordEncodingyACSS_tcACmF",
+            "moduleName": "ApolloSQLite"
+          },
+          {
+            "kind": "Var",
+            "name": "invalidRecordShape",
+            "printedName": "invalidRecordShape",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(ApolloSQLite.SQLiteNormalizedCacheError.Type) -> (Any) -> ApolloSQLite.SQLiteNormalizedCacheError",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Any) -> ApolloSQLite.SQLiteNormalizedCacheError",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteNormalizedCacheError",
+                        "printedName": "ApolloSQLite.SQLiteNormalizedCacheError",
+                        "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Tuple",
+                        "printedName": "(object: Any)",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ProtocolComposition",
+                            "printedName": "Any"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "ApolloSQLite.SQLiteNormalizedCacheError.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "SQLiteNormalizedCacheError",
+                        "printedName": "ApolloSQLite.SQLiteNormalizedCacheError",
+                        "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO18invalidRecordShapeyACyp_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B20NormalizedCacheErrorO18invalidRecordShapeyACyp_tcACmF",
+            "moduleName": "ApolloSQLite"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:12ApolloSQLite0B20NormalizedCacheErrorO",
+        "mangledName": "$s12ApolloSQLite0B20NormalizedCacheErrorO",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Error",
+            "printedName": "Error",
+            "usr": "s:s5ErrorP",
+            "mangledName": "$ss5ErrorP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "SendableMetatype",
+            "printedName": "SendableMetatype",
+            "usr": "s:s16SendableMetatypeP",
+            "mangledName": "$ss16SendableMetatypeP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "SQLiteNormalizedCache",
+        "printedName": "SQLiteNormalizedCache",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(fileURL:databaseType:shouldVacuumOnClear:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SQLiteNormalizedCache",
+                "printedName": "ApolloSQLite.SQLiteNormalizedCache",
+                "usr": "s:12ApolloSQLite0B15NormalizedCacheC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any ApolloSQLite.SQLiteDatabase.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SQLiteDatabase",
+                    "printedName": "ApolloSQLite.SQLiteDatabase",
+                    "usr": "s:12ApolloSQLite0B8DatabaseP"
+                  }
+                ],
+                "hasDefaultArg": true
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC7fileURL12databaseType19shouldVacuumOnClearAC10Foundation0F0V_AA0B8Database_pXpSbtKcfc",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC7fileURL12databaseType19shouldVacuumOnClearAC10Foundation0F0V_AA0B8Database_pXpSbtKcfc",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(database:shouldVacuumOnClear:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "SQLiteNormalizedCache",
+                "printedName": "ApolloSQLite.SQLiteNormalizedCache",
+                "usr": "s:12ApolloSQLite0B15NormalizedCacheC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "SQLiteDatabase",
+                "printedName": "any ApolloSQLite.SQLiteDatabase",
+                "usr": "s:12ApolloSQLite0B8DatabaseP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC8database19shouldVacuumOnClearAcA0B8Database_p_SbtKcfc",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC8database19shouldVacuumOnClearAcA0B8Database_p_SbtKcfc",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "loadRecords",
+            "printedName": "loadRecords(forKeys:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Apollo.Record]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Record",
+                    "printedName": "Apollo.Record",
+                    "usr": "s:6Apollo6RecordV"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC11loadRecords7forKeysSDySS0A06RecordVGShySSG_tKF",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC11loadRecords7forKeysSDySS0A06RecordVGShySSG_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "merge",
+            "printedName": "merge(records:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Set",
+                "printedName": "Swift.Set<Swift.String>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sh"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "RecordSet",
+                "printedName": "Apollo.RecordSet",
+                "usr": "s:6Apollo9RecordSetV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC5merge7recordsShySSG0A09RecordSetV_tKF",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC5merge7recordsShySSG0A09RecordSetV_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeRecord",
+            "printedName": "removeRecord(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC12removeRecord3forySS_tKF",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC12removeRecord3forySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "removeRecords",
+            "printedName": "removeRecords(matching:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC13removeRecords8matchingySS_tKF",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC13removeRecords8matchingySS_tKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "clear",
+            "printedName": "clear()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:12ApolloSQLite0B15NormalizedCacheC5clearyyKF",
+            "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC5clearyyKF",
+            "moduleName": "ApolloSQLite",
+            "declAttributes": [
+              "Final",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:12ApolloSQLite0B15NormalizedCacheC",
+        "mangledName": "$s12ApolloSQLite0B15NormalizedCacheC",
+        "moduleName": "ApolloSQLite",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "NormalizedCache",
+            "printedName": "NormalizedCache",
+            "usr": "s:6Apollo15NormalizedCacheP",
+            "mangledName": "$s6Apollo15NormalizedCacheP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "ReadOnlyNormalizedCache",
+            "printedName": "ReadOnlyNormalizedCache",
+            "usr": "s:6Apollo23ReadOnlyNormalizedCacheP",
+            "mangledName": "$s6Apollo23ReadOnlyNormalizedCacheP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "Apollo",
+        "printedName": "Apollo",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      },
+      {
+        "kind": "Import",
+        "name": "ApolloAPI",
+        "printedName": "ApolloAPI",
+        "declKind": "Import",
+        "moduleName": "ApolloSQLite"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/artifacts\/DerivedData-iphoneos\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ApolloSQLite\/IntermediateBuildFilesPath\/Apollo.build\/Release-iphoneos\/ApolloSQLite.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "kind": "StringLiteral",
+      "offset": 295,
+      "length": 21,
+      "value": "\"Apollo_ApolloSQLite\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/artifacts\/DerivedData-iphoneos\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ApolloSQLite\/IntermediateBuildFilesPath\/Apollo.build\/Release-iphoneos\/ApolloSQLite.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "kind": "Array",
+      "offset": 963,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/artifacts\/DerivedData-iphoneos\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ApolloSQLite\/IntermediateBuildFilesPath\/Apollo.build\/Release-iphoneos\/ApolloSQLite.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "kind": "StringLiteral",
+      "offset": 1490,
+      "length": 9,
+      "value": "\".bundle\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/artifacts\/DerivedData-iphoneos\/Build\/Intermediates.noindex\/ArchiveIntermediates\/ApolloSQLite\/IntermediateBuildFilesPath\/Apollo.build\/Release-iphoneos\/ApolloSQLite.build\/DerivedSources\/resource_bundle_accessor.swift",
+      "kind": "StringLiteral",
+      "offset": 1642,
+      "length": 49,
+      "value": "\"unable to find bundle named Apollo_ApolloSQLite\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 286,
+      "length": 28,
+      "value": "\"com.apollo.sqlite.database\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 478,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1362,
+      "length": 22,
+      "value": "\"ROLLBACK TRANSACTION\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1747,
+      "length": 44,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1765,
+      "length": 1,
+      "value": "\": \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1790,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2031,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2117,
+      "length": 44,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2135,
+      "length": 1,
+      "value": "\": \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2160,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2338,
+      "length": 184,
+      "value": "\"CREATE TABLE IF NOT EXISTS \"records\" (\n  \"_id\"  INTEGER,\n  \"key\"  TEXT UNIQUE,\n  \"record\"  TEXT,\n  PRIMARY KEY(\"_id\" AUTOINCREMENT)\n);\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2557,
+      "length": 43,
+      "value": "\"Failed to create 'records' database table\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "Array",
+      "offset": 2736,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2764,
+      "length": 3,
+      "value": "500"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2973,
+      "length": 3,
+      "value": "\"?\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 2997,
+      "length": 4,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3023,
+      "length": 173,
+      "value": "\"SELECT \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3065,
+      "length": 1,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3090,
+      "length": 4,
+      "value": "\"\nFROM \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3123,
+      "length": 5,
+      "value": "\"\nWHERE \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3161,
+      "length": 2,
+      "value": "\" IN (\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3181,
+      "length": 1,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 3259,
+      "length": 36,
+      "value": "\"Failed to prepare select statement\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3442,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3451,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3714,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 3787,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4022,
+      "length": 44,
+      "value": "\"Failed to step raw row select: \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4065,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4424,
+      "length": 232,
+      "value": "\"INSERT INTO \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4463,
+      "length": 1,
+      "value": "\" (\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4486,
+      "length": 1,
+      "value": "\", \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4511,
+      "length": 1,
+      "value": "\")\nVALUES (?, ?)\nON CONFLICT(\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4572,
+      "length": 1,
+      "value": "\") DO UPDATE SET \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4611,
+      "length": 1,
+      "value": "\" = excluded.\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4646,
+      "length": 2938,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4673,
+      "length": 19,
+      "value": "\"BEGIN TRANSACTION\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4708,
+      "length": 43,
+      "value": "\"Failed to begin insert\/update transaction\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 4811,
+      "length": 43,
+      "value": "\"Failed to prepare insert\/update statement\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4965,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 4973,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5027,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5038,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5218,
+      "length": 47,
+      "value": "\"Insert\/update failed: \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5264,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5400,
+      "length": 20,
+      "value": "\"COMMIT TRANSACTION\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5436,
+      "length": 30,
+      "value": "\"Failed to commit transaction\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5651,
+      "length": 63,
+      "value": "\"DELETE FROM \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5681,
+      "length": 5,
+      "value": "\" WHERE \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5709,
+      "length": 1,
+      "value": "\" = ?\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 5772,
+      "length": 36,
+      "value": "\"Failed to prepare delete statement\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5880,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5893,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6026,
+      "length": 40,
+      "value": "\"Delete failed: \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6065,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6241,
+      "length": 14,
+      "value": "\"%\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6253,
+      "length": 1,
+      "value": "\"%\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6295,
+      "length": 81,
+      "value": "\"DELETE FROM \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6325,
+      "length": 5,
+      "value": "\" WHERE \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6353,
+      "length": 4,
+      "value": "\" LIKE ? COLLATE NOCASE\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6434,
+      "length": 44,
+      "value": "\"Failed to prepare delete pattern statement\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6550,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 6570,
+      "length": 2,
+      "value": "-1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6703,
+      "length": 48,
+      "value": "\"Pattern delete failed: \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6750,
+      "length": 22,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6893,
+      "length": 31,
+      "value": "\"DELETE FROM \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6923,
+      "length": 18,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 6940,
+      "length": 26,
+      "value": "\"Failed to clear database\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 7016,
+      "length": 9,
+      "value": "\"VACUUM;\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 7041,
+      "length": 27,
+      "value": "\"Failed to vacuum database\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 7183,
+      "length": 41,
+      "value": "\"PRAGMA journal_mode = \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 7222,
+      "length": 1,
+      "value": "\";\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 7240,
+      "length": 28,
+      "value": "\"Failed to set journal mode\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
+      "kind": "IntegerLiteral",
+      "offset": 7389,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 177,
+      "length": 8,
+      "value": "\"DELETE\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 305,
+      "length": 10,
+      "value": "\"TRUNCATE\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 488,
+      "length": 9,
+      "value": "\"PERSIST\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 644,
+      "length": 8,
+      "value": "\"MEMORY\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 921,
+      "length": 5,
+      "value": "\"WAL\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 987,
+      "length": 5,
+      "value": "\"OFF\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 177,
+      "length": 8,
+      "value": "\"DELETE\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 305,
+      "length": 10,
+      "value": "\"TRUNCATE\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 488,
+      "length": 9,
+      "value": "\"PERSIST\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 644,
+      "length": 8,
+      "value": "\"MEMORY\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 921,
+      "length": 5,
+      "value": "\"WAL\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
+      "kind": "StringLiteral",
+      "offset": 987,
+      "length": 5,
+      "value": "\"OFF\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 670,
+      "length": 60,
+      "value": "\"Failed to open SQLite database connection at path: \""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 729,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1702,
+      "length": 9,
+      "value": "\"records\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1759,
+      "length": 5,
+      "value": "\"_id\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1811,
+      "length": 5,
+      "value": "\"key\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
+      "kind": "StringLiteral",
+      "offset": 1865,
+      "length": 8,
+      "value": "\"record\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 998,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1267,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 1645,
+      "length": 7,
+      "value": "\"_ROOT\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1657,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1753,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1791,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1853,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 1863,
+      "length": 15,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 1877,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2051,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 2145,
+      "length": 3,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 2836,
+      "length": 39,
+      "value": "\"Serialization should yield UTF-8 data\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 4589,
+      "length": 3,
+      "value": "\"(\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 4606,
+      "length": 3,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4625,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "Array",
+      "offset": 4695,
+      "length": 10,
+      "value": "[\"(\", \")\"]"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 4750,
+      "length": 3,
+      "value": "\"(\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 4835,
+      "length": 3,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5020,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5054,
+      "length": 3,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5086,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5237,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5340,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5353,
+      "length": 11,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5363,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5483,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "StringLiteral",
+      "offset": 5539,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteNormalizedCache.swift",
+      "kind": "IntegerLiteral",
+      "offset": 5566,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteSerialization.swift",
+      "kind": "StringLiteral",
+      "offset": 109,
+      "length": 12,
+      "value": "\"$reference\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteSerialization.swift",
+      "kind": "Array",
+      "offset": 362,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteSerialization.swift",
+      "kind": "Array",
+      "offset": 846,
+      "length": 2,
+      "value": "[]"
+    }
+  ]
+}
