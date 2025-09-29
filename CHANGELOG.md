@@ -1,5 +1,29 @@
 # Change Log
 
+## v2.0.0-beta-3
+
+### New
+
+- **Added `@fieldPolicy` directive ([#766](https://github.com/apollographql/apollo-ios-dev/pull/766), [#749](https://github.com/apollographql/apollo-ios-dev/pull/749)):** The `@fieldPolicy` directive provides new functionality for configuring cache keys for fields with arguments. See the [documentation](https://www.apollographql.com/docs/ios/caching/cache-key-resolution#the-fieldpolicy-directive) for more information.
+
+- **RootSelectionSet Convenience Initializer ([#748](https://github.com/apollographql/apollo-ios-dev/pull/748)):** Added convenience initializer for `RootSelectionSet` from inline fragments for easier model construction.
+
+### Improved
+
+- **Swift 6 Language Mode ([#740](https://github.com/apollographql/apollo-ios-dev/pull/740)):** Enabled Swift 6 language mode with strict concurrency checking for improved thread safety and modern Swift patterns.
+
+- **Xcode 26 Support ([#756](https://github.com/apollographql/apollo-ios-dev/pull/756)):** Updated project configuration and build settings for Xcode 26 compatibility.
+
+### Fixed
+
+- **Subscription Over HTTP Support for `RequestChainNetworkTransport` ([#759](https://github.com/apollographql/apollo-ios-dev/pull/759)):** Added subscription support to `RequestChainNetworkTransport` with HTTP chunked multipart response handling for GraphQL subscriptions over HTTP.
+
+- **Fix Fetch Default Cache Policies ([#777](https://github.com/apollographql/apollo-ios-dev/pull/777)):** Fixed default cache policy behavior for fetch operations to ensure consistent caching behavior across different operation types.
+
+- **Narrowly Scoped `SelectionSet` Equality Checking ([#757](https://github.com/apollographql/apollo-ios-dev/pull/757), [#770](https://github.com/apollographql/apollo-ios-dev/pull/770)):** Fixed equality checking implementation for generated models in Apollo iOS 2.0 to ensure proper comparison of selection set data.
+
+- **CLI Installation ([#746](https://github.com/apollographql/apollo-ios-dev/pull/746)):** Fixed issues with Apollo iOS CLI installation and distribution.
+
 ## v2.0.0-beta-2
 
 ### Bug Fixes
