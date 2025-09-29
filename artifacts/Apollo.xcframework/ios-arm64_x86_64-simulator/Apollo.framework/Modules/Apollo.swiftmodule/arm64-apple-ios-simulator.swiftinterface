@@ -431,7 +431,6 @@ public struct GraphQLResult<Data> where Data : ApolloAPI.RootSelectionSet {
   public let errors: [Apollo.GraphQLError]?
   public let extensions: [Swift.String : Swift.AnyHashable]?
   public let source: Apollo.GraphQLResult<Data>.Source
-  public let dependentKeys: Swift.Set<Apollo.CacheKey>?
   #if compiler(>=5.3) && $NonescapableTypes
   public init(data: Data?, extensions: [Swift.String : Swift.AnyHashable]?, errors: [Apollo.GraphQLError]?, source: Apollo.GraphQLResult<Data>.Source, dependentKeys: Swift.Set<Apollo.CacheKey>?)
   #endif
@@ -630,15 +629,6 @@ public struct JSONResponseParsingInterceptor : Apollo.ApolloInterceptor {
   @objc deinit
 }
 public class MaxRetryInterceptor : Apollo.ApolloInterceptor {
-  public struct Configuration {
-    public let maxRetries: Swift.Int
-    public let baseDelay: Foundation.TimeInterval
-    public let multiplier: Swift.Double
-    public let maxDelay: Foundation.TimeInterval
-    public let enableExponentialBackoff: Swift.Bool
-    public let enableJitter: Swift.Bool
-    public init(maxRetries: Swift.Int = 3, baseDelay: Foundation.TimeInterval = 0.3, multiplier: Swift.Double = 2.0, maxDelay: Foundation.TimeInterval = 20.0, enableExponentialBackoff: Swift.Bool = false, enableJitter: Swift.Bool = true)
-  }
   public var id: Swift.String
   public enum RetryError : Swift.Error, Foundation.LocalizedError {
     case hitMaxRetryCount(count: Swift.Int, operationName: Swift.String)
@@ -649,7 +639,6 @@ public class MaxRetryInterceptor : Apollo.ApolloInterceptor {
     #endif
   }
   public init(maxRetriesAllowed: Swift.Int = 3)
-  public init(configuration: Apollo.MaxRetryInterceptor.Configuration)
   #if compiler(>=5.3) && $NonescapableTypes
   public func interceptAsync<Operation>(chain: any Apollo.RequestChain, request: Apollo.HTTPRequest<Operation>, response: Apollo.HTTPResponse<Operation>?, completion: @escaping (Swift.Result<Apollo.GraphQLResult<Operation.Data>, any Swift.Error>) -> Swift.Void) where Operation : ApolloAPI.GraphQLOperation
   #endif
@@ -919,6 +908,38 @@ public struct ResponseCodeInterceptor : Apollo.ApolloInterceptor {
   #if compiler(>=5.3) && $NonescapableTypes
   public func interceptAsync<Operation>(chain: any Apollo.RequestChain, request: Apollo.HTTPRequest<Operation>, response: Apollo.HTTPResponse<Operation>?, completion: @escaping (Swift.Result<Apollo.GraphQLResult<Operation.Data>, any Swift.Error>) -> Swift.Void) where Operation : ApolloAPI.GraphQLOperation
   #endif
+}
+public struct ResponsePath : Swift.ExpressibleByArrayLiteral {
+  public typealias Key = Swift.String
+  public var joined: Swift.String {
+    get
+  }
+  public func toArray() -> [Swift.String]
+  public init(arrayLiteral segments: Apollo.ResponsePath.Key...)
+  public init(_ key: Apollo.ResponsePath.Key)
+  public mutating func append(_ key: Apollo.ResponsePath.Key)
+  public func appending(_ key: Apollo.ResponsePath.Key) -> Apollo.ResponsePath
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public static func + (lhs: Apollo.ResponsePath, rhs: Apollo.ResponsePath.Key) -> Apollo.ResponsePath
+  public static func + (lhs: Apollo.ResponsePath, rhs: Apollo.ResponsePath) -> Apollo.ResponsePath
+  public static func + <T>(lhs: Apollo.ResponsePath, rhs: T) -> Apollo.ResponsePath where T : Swift.Sequence, T.Element == Swift.String
+  public typealias ArrayLiteralElement = Apollo.ResponsePath.Key
+}
+extension Apollo.ResponsePath : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Apollo.ResponsePath : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Apollo.ResponsePath : Swift.Equatable {
+  public static func == (lhs: Apollo.ResponsePath, rhs: Apollo.ResponsePath) -> Swift.Bool
 }
 public enum RootSelectionSetInitializeError : Swift.Error {
   case hasNonHashableValue

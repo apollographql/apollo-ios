@@ -43,10 +43,10 @@ public struct DatabaseRow {
   public init(cacheKey: Apollo.CacheKey, storedInfo: Swift.String)
 }
 public enum SQLiteError : Swift.Error, Swift.CustomStringConvertible {
-  case execution(message: Swift.String, resultCode: Swift.Int32)
-  case open(path: Swift.String, resultCode: Swift.Int32)
-  case prepare(message: Swift.String, resultCode: Swift.Int32)
-  case step(message: Swift.String, resultCode: Swift.Int32)
+  case execution(message: Swift.String)
+  case open(path: Swift.String)
+  case prepare(message: Swift.String)
+  case step(message: Swift.String)
   public var description: Swift.String {
     get
   }

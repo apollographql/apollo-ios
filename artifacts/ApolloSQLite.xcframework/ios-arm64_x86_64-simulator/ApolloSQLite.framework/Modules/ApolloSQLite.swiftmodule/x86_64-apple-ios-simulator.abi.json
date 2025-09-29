@@ -817,12 +817,12 @@
               {
                 "kind": "TypeFunc",
                 "name": "Function",
-                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String) -> ApolloSQLite.SQLiteError",
                 "children": [
                   {
                     "kind": "TypeFunc",
                     "name": "Function",
-                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "printedName": "(Swift.String) -> ApolloSQLite.SQLiteError",
                     "children": [
                       {
                         "kind": "TypeNominal",
@@ -833,19 +833,13 @@
                       {
                         "kind": "TypeNominal",
                         "name": "Tuple",
-                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "printedName": "(message: Swift.String)",
                         "children": [
                           {
                             "kind": "TypeNominal",
                             "name": "String",
                             "printedName": "Swift.String",
                             "usr": "s:SS"
-                          },
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Int32",
-                            "printedName": "Swift.Int32",
-                            "usr": "s:s5Int32V"
                           }
                         ]
                       }
@@ -868,8 +862,8 @@
               }
             ],
             "declKind": "EnumElement",
-            "usr": "s:12ApolloSQLite0B5ErrorO9executionyACSS_s5Int32VtcACmF",
-            "mangledName": "$s12ApolloSQLite0B5ErrorO9executionyACSS_s5Int32VtcACmF",
+            "usr": "s:12ApolloSQLite0B5ErrorO9executionyACSS_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO9executionyACSS_tcACmF",
             "moduleName": "ApolloSQLite"
           },
           {
@@ -880,12 +874,12 @@
               {
                 "kind": "TypeFunc",
                 "name": "Function",
-                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String) -> ApolloSQLite.SQLiteError",
                 "children": [
                   {
                     "kind": "TypeFunc",
                     "name": "Function",
-                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "printedName": "(Swift.String) -> ApolloSQLite.SQLiteError",
                     "children": [
                       {
                         "kind": "TypeNominal",
@@ -896,19 +890,13 @@
                       {
                         "kind": "TypeNominal",
                         "name": "Tuple",
-                        "printedName": "(path: Swift.String, resultCode: Swift.Int32)",
+                        "printedName": "(path: Swift.String)",
                         "children": [
                           {
                             "kind": "TypeNominal",
                             "name": "String",
                             "printedName": "Swift.String",
                             "usr": "s:SS"
-                          },
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Int32",
-                            "printedName": "Swift.Int32",
-                            "usr": "s:s5Int32V"
                           }
                         ]
                       }
@@ -931,8 +919,8 @@
               }
             ],
             "declKind": "EnumElement",
-            "usr": "s:12ApolloSQLite0B5ErrorO4openyACSS_s5Int32VtcACmF",
-            "mangledName": "$s12ApolloSQLite0B5ErrorO4openyACSS_s5Int32VtcACmF",
+            "usr": "s:12ApolloSQLite0B5ErrorO4openyACSS_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO4openyACSS_tcACmF",
             "moduleName": "ApolloSQLite"
           },
           {
@@ -943,12 +931,12 @@
               {
                 "kind": "TypeFunc",
                 "name": "Function",
-                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String) -> ApolloSQLite.SQLiteError",
                 "children": [
                   {
                     "kind": "TypeFunc",
                     "name": "Function",
-                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "printedName": "(Swift.String) -> ApolloSQLite.SQLiteError",
                     "children": [
                       {
                         "kind": "TypeNominal",
@@ -959,19 +947,13 @@
                       {
                         "kind": "TypeNominal",
                         "name": "Tuple",
-                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "printedName": "(message: Swift.String)",
                         "children": [
                           {
                             "kind": "TypeNominal",
                             "name": "String",
                             "printedName": "Swift.String",
                             "usr": "s:SS"
-                          },
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Int32",
-                            "printedName": "Swift.Int32",
-                            "usr": "s:s5Int32V"
                           }
                         ]
                       }
@@ -994,8 +976,8 @@
               }
             ],
             "declKind": "EnumElement",
-            "usr": "s:12ApolloSQLite0B5ErrorO7prepareyACSS_s5Int32VtcACmF",
-            "mangledName": "$s12ApolloSQLite0B5ErrorO7prepareyACSS_s5Int32VtcACmF",
+            "usr": "s:12ApolloSQLite0B5ErrorO7prepareyACSS_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO7prepareyACSS_tcACmF",
             "moduleName": "ApolloSQLite"
           },
           {
@@ -1006,12 +988,12 @@
               {
                 "kind": "TypeFunc",
                 "name": "Function",
-                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                "printedName": "(ApolloSQLite.SQLiteError.Type) -> (Swift.String) -> ApolloSQLite.SQLiteError",
                 "children": [
                   {
                     "kind": "TypeFunc",
                     "name": "Function",
-                    "printedName": "(Swift.String, Swift.Int32) -> ApolloSQLite.SQLiteError",
+                    "printedName": "(Swift.String) -> ApolloSQLite.SQLiteError",
                     "children": [
                       {
                         "kind": "TypeNominal",
@@ -1022,19 +1004,13 @@
                       {
                         "kind": "TypeNominal",
                         "name": "Tuple",
-                        "printedName": "(message: Swift.String, resultCode: Swift.Int32)",
+                        "printedName": "(message: Swift.String)",
                         "children": [
                           {
                             "kind": "TypeNominal",
                             "name": "String",
                             "printedName": "Swift.String",
                             "usr": "s:SS"
-                          },
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Int32",
-                            "printedName": "Swift.Int32",
-                            "usr": "s:s5Int32V"
                           }
                         ]
                       }
@@ -1057,8 +1033,8 @@
               }
             ],
             "declKind": "EnumElement",
-            "usr": "s:12ApolloSQLite0B5ErrorO4stepyACSS_s5Int32VtcACmF",
-            "mangledName": "$s12ApolloSQLite0B5ErrorO4stepyACSS_s5Int32VtcACmF",
+            "usr": "s:12ApolloSQLite0B5ErrorO4stepyACSS_tcACmF",
+            "mangledName": "$s12ApolloSQLite0B5ErrorO4stepyACSS_tcACmF",
             "moduleName": "ApolloSQLite"
           },
           {
@@ -2208,506 +2184,492 @@
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1362,
+      "offset": 1318,
       "length": 22,
       "value": "\"ROLLBACK TRANSACTION\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1747,
+      "offset": 1703,
       "length": 44,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1765,
+      "offset": 1721,
       "length": 1,
       "value": "\": \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1790,
-      "length": 22,
+      "offset": 1746,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 2031,
+      "offset": 1957,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2117,
+      "offset": 2029,
       "length": 44,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2135,
+      "offset": 2047,
       "length": 1,
       "value": "\": \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2160,
-      "length": 22,
+      "offset": 2072,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2338,
+      "offset": 2230,
       "length": 184,
       "value": "\"CREATE TABLE IF NOT EXISTS \"records\" (\n  \"_id\"  INTEGER,\n  \"key\"  TEXT UNIQUE,\n  \"record\"  TEXT,\n  PRIMARY KEY(\"_id\" AUTOINCREMENT)\n);\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2557,
+      "offset": 2449,
       "length": 43,
       "value": "\"Failed to create 'records' database table\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "Array",
-      "offset": 2736,
+      "offset": 2626,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2764,
-      "length": 3,
-      "value": "500"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2973,
+      "offset": 2702,
       "length": 3,
       "value": "\"?\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 2997,
+      "offset": 2726,
       "length": 4,
       "value": "\", \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3023,
-      "length": 173,
+      "offset": 2748,
+      "length": 151,
       "value": "\"SELECT \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3065,
+      "offset": 2786,
       "length": 1,
       "value": "\", \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3090,
+      "offset": 2811,
       "length": 4,
-      "value": "\"\nFROM \""
+      "value": "\" FROM \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3123,
+      "offset": 2834,
       "length": 5,
       "value": "\"\nWHERE \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3161,
+      "offset": 2868,
       "length": 2,
       "value": "\" IN (\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3181,
+      "offset": 2888,
       "length": 1,
       "value": "\")\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 3259,
+      "offset": 2958,
       "length": 36,
       "value": "\"Failed to prepare select statement\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 3442,
+      "offset": 3128,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 3451,
+      "offset": 3137,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 3714,
+      "offset": 3380,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 3787,
+      "offset": 3453,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4022,
+      "offset": 3686,
       "length": 44,
       "value": "\"Failed to step raw row select: \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4065,
-      "length": 22,
+      "offset": 3729,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4424,
+      "offset": 3983,
       "length": 232,
       "value": "\"INSERT INTO \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4463,
+      "offset": 4022,
       "length": 1,
       "value": "\" (\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4486,
+      "offset": 4045,
       "length": 1,
       "value": "\", \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4511,
+      "offset": 4070,
       "length": 1,
       "value": "\")\nVALUES (?, ?)\nON CONFLICT(\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4572,
+      "offset": 4131,
       "length": 1,
       "value": "\") DO UPDATE SET \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4611,
+      "offset": 4170,
       "length": 1,
       "value": "\" = excluded.\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4646,
-      "length": 2938,
+      "offset": 4205,
+      "length": 2481,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4673,
+      "offset": 4232,
       "length": 19,
       "value": "\"BEGIN TRANSACTION\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4708,
+      "offset": 4267,
       "length": 43,
       "value": "\"Failed to begin insert\/update transaction\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 4811,
+      "offset": 4370,
       "length": 43,
       "value": "\"Failed to prepare insert\/update statement\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 4965,
+      "offset": 4524,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 4973,
+      "offset": 4532,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 5027,
+      "offset": 4586,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 5038,
+      "offset": 4597,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5218,
+      "offset": 4741,
       "length": 47,
       "value": "\"Insert\/update failed: \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5264,
-      "length": 22,
+      "offset": 4787,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5400,
+      "offset": 4903,
       "length": 20,
       "value": "\"COMMIT TRANSACTION\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5436,
+      "offset": 4939,
       "length": 30,
       "value": "\"Failed to commit transaction\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5651,
+      "offset": 5154,
       "length": 63,
       "value": "\"DELETE FROM \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5681,
+      "offset": 5184,
       "length": 5,
       "value": "\" WHERE \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5709,
+      "offset": 5212,
       "length": 1,
       "value": "\" = ?\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 5772,
+      "offset": 5275,
       "length": 36,
       "value": "\"Failed to prepare delete statement\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 5880,
+      "offset": 5383,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 5893,
+      "offset": 5396,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6026,
+      "offset": 5503,
       "length": 40,
       "value": "\"Delete failed: \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6065,
-      "length": 22,
+      "offset": 5542,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6241,
+      "offset": 5698,
       "length": 14,
       "value": "\"%\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6253,
+      "offset": 5710,
       "length": 1,
       "value": "\"%\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6295,
+      "offset": 5752,
       "length": 81,
       "value": "\"DELETE FROM \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6325,
+      "offset": 5782,
       "length": 5,
       "value": "\" WHERE \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6353,
+      "offset": 5810,
       "length": 4,
       "value": "\" LIKE ? COLLATE NOCASE\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6434,
+      "offset": 5891,
       "length": 44,
       "value": "\"Failed to prepare delete pattern statement\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 6550,
+      "offset": 6007,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "IntegerLiteral",
-      "offset": 6570,
+      "offset": 6027,
       "length": 2,
       "value": "-1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6703,
+      "offset": 6134,
       "length": 48,
       "value": "\"Pattern delete failed: \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6750,
-      "length": 22,
+      "offset": 6181,
+      "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6893,
+      "offset": 6304,
       "length": 31,
       "value": "\"DELETE FROM \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6923,
+      "offset": 6334,
       "length": 18,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 6940,
+      "offset": 6351,
       "length": 26,
       "value": "\"Failed to clear database\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 7016,
+      "offset": 6427,
       "length": 9,
       "value": "\"VACUUM;\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 7041,
+      "offset": 6452,
       "length": 27,
       "value": "\"Failed to vacuum database\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 7183,
+      "offset": 6594,
       "length": 41,
       "value": "\"PRAGMA journal_mode = \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 7222,
+      "offset": 6633,
       "length": 1,
       "value": "\";\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 7240,
+      "offset": 6651,
       "length": 28,
       "value": "\"Failed to set journal mode\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/ApolloSQLiteDatabase.swift",
-      "kind": "IntegerLiteral",
-      "offset": 7389,
-      "length": 1,
-      "value": "0"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/JournalMode.swift",
@@ -2796,42 +2758,42 @@
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 670,
+      "offset": 588,
       "length": 60,
       "value": "\"Failed to open SQLite database connection at path: \""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 729,
+      "offset": 647,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1702,
+      "offset": 1614,
       "length": 9,
       "value": "\"records\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1759,
+      "offset": 1671,
       "length": 5,
       "value": "\"_id\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1811,
+      "offset": 1723,
       "length": 5,
       "value": "\"key\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/ApolloSQLite\/SQLiteDatabase.swift",
       "kind": "StringLiteral",
-      "offset": 1865,
+      "offset": 1777,
       "length": 8,
       "value": "\"record\""
     },

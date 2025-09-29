@@ -7872,20 +7872,6 @@
         "moduleName": "Apollo"
       },
       {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "Apollo"
-      },
-      {
-        "kind": "Import",
-        "name": "ApolloAPI",
-        "printedName": "ApolloAPI",
-        "declKind": "Import",
-        "moduleName": "Apollo"
-      },
-      {
         "kind": "TypeDecl",
         "name": "FieldSelectionGrouping",
         "printedName": "FieldSelectionGrouping",
@@ -12469,85 +12455,6 @@
                 "declKind": "Accessor",
                 "usr": "s:6Apollo13GraphQLResultV6sourceAC6SourceOyx_Gvg",
                 "mangledName": "$s6Apollo13GraphQLResultV6sourceAC6SourceOyx_Gvg",
-                "moduleName": "Apollo",
-                "genericSig": "<τ_0_0 where τ_0_0 : ApolloAPI.RootSelectionSet>",
-                "sugared_genericSig": "<Data where Data : ApolloAPI.RootSelectionSet>",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "dependentKeys",
-            "printedName": "dependentKeys",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "Swift.Set<Swift.String>?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Set",
-                    "printedName": "Swift.Set<Swift.String>",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "String",
-                        "printedName": "Swift.String",
-                        "usr": "s:SS"
-                      }
-                    ],
-                    "usr": "s:Sh"
-                  }
-                ],
-                "usr": "s:Sq"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:6Apollo13GraphQLResultV13dependentKeysShySSGSgvp",
-            "mangledName": "$s6Apollo13GraphQLResultV13dependentKeysShySSGSgvp",
-            "moduleName": "Apollo",
-            "declAttributes": [
-              "HasStorage",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Optional",
-                    "printedName": "Swift.Set<Swift.String>?",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Set",
-                        "printedName": "Swift.Set<Swift.String>",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "String",
-                            "printedName": "Swift.String",
-                            "usr": "s:SS"
-                          }
-                        ],
-                        "usr": "s:Sh"
-                      }
-                    ],
-                    "usr": "s:Sq"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:6Apollo13GraphQLResultV13dependentKeysShySSGSgvg",
-                "mangledName": "$s6Apollo13GraphQLResultV13dependentKeysShySSGSgvg",
                 "moduleName": "Apollo",
                 "genericSig": "<τ_0_0 where τ_0_0 : ApolloAPI.RootSelectionSet>",
                 "sugared_genericSig": "<Data where Data : ApolloAPI.RootSelectionSet>",
@@ -19726,371 +19633,6 @@
         "printedName": "MaxRetryInterceptor",
         "children": [
           {
-            "kind": "TypeDecl",
-            "name": "Configuration",
-            "printedName": "Configuration",
-            "children": [
-              {
-                "kind": "Var",
-                "name": "maxRetries",
-                "printedName": "maxRetries",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetriesSivp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetriesSivp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Int",
-                        "printedName": "Swift.Int",
-                        "usr": "s:Si"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetriesSivg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetriesSivg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Var",
-                "name": "baseDelay",
-                "printedName": "baseDelay",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "usr": "s:Sd"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV9baseDelaySdvp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV9baseDelaySdvp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Double",
-                        "printedName": "Swift.Double",
-                        "usr": "s:Sd"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV9baseDelaySdvg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV9baseDelaySdvg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Var",
-                "name": "multiplier",
-                "printedName": "multiplier",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "usr": "s:Sd"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV10multiplierSdvp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV10multiplierSdvp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Double",
-                        "printedName": "Swift.Double",
-                        "usr": "s:Sd"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV10multiplierSdvg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV10multiplierSdvg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Var",
-                "name": "maxDelay",
-                "printedName": "maxDelay",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "usr": "s:Sd"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV8maxDelaySdvp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV8maxDelaySdvp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Double",
-                        "printedName": "Swift.Double",
-                        "usr": "s:Sd"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV8maxDelaySdvg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV8maxDelaySdvg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Var",
-                "name": "enableExponentialBackoff",
-                "printedName": "enableExponentialBackoff",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "usr": "s:Sb"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV24enableExponentialBackoffSbvp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV24enableExponentialBackoffSbvp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Bool",
-                        "printedName": "Swift.Bool",
-                        "usr": "s:Sb"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV24enableExponentialBackoffSbvg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV24enableExponentialBackoffSbvg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Var",
-                "name": "enableJitter",
-                "printedName": "enableJitter",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "usr": "s:Sb"
-                  }
-                ],
-                "declKind": "Var",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV12enableJitterSbvp",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV12enableJitterSbvp",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "HasStorage",
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "isLet": true,
-                "hasStorage": true,
-                "accessors": [
-                  {
-                    "kind": "Accessor",
-                    "name": "Get",
-                    "printedName": "Get()",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Bool",
-                        "printedName": "Swift.Bool",
-                        "usr": "s:Sb"
-                      }
-                    ],
-                    "declKind": "Accessor",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV12enableJitterSbvg",
-                    "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV12enableJitterSbvg",
-                    "moduleName": "Apollo",
-                    "implicit": true,
-                    "accessorKind": "get"
-                  }
-                ]
-              },
-              {
-                "kind": "Constructor",
-                "name": "init",
-                "printedName": "init(maxRetries:baseDelay:multiplier:maxDelay:enableExponentialBackoff:enableJitter:)",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Configuration",
-                    "printedName": "Apollo.MaxRetryInterceptor.Configuration",
-                    "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "hasDefaultArg": true,
-                    "usr": "s:Si"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "hasDefaultArg": true,
-                    "usr": "s:Sd"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "hasDefaultArg": true,
-                    "usr": "s:Sd"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Double",
-                    "printedName": "Swift.Double",
-                    "hasDefaultArg": true,
-                    "usr": "s:Sd"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "hasDefaultArg": true,
-                    "usr": "s:Sb"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Bool",
-                    "printedName": "Swift.Bool",
-                    "hasDefaultArg": true,
-                    "usr": "s:Sb"
-                  }
-                ],
-                "declKind": "Constructor",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetries9baseDelay10multiplier0fI024enableExponentialBackoff0K6JitterAESi_S3dS2btcfc",
-                "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV10maxRetries9baseDelay10multiplier0fI024enableExponentialBackoff0K6JitterAESi_S3dS2btcfc",
-                "moduleName": "Apollo",
-                "declAttributes": [
-                  "AccessControl",
-                  "RawDocComment"
-                ],
-                "init_kind": "Designated"
-              }
-            ],
-            "declKind": "Struct",
-            "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV",
-            "mangledName": "$s6Apollo19MaxRetryInterceptorC13ConfigurationV",
-            "moduleName": "Apollo",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "conformances": [
-              {
-                "kind": "Conformance",
-                "name": "Copyable",
-                "printedName": "Copyable",
-                "usr": "s:s8CopyableP",
-                "mangledName": "$ss8CopyableP"
-              },
-              {
-                "kind": "Conformance",
-                "name": "Escapable",
-                "printedName": "Escapable",
-                "usr": "s:s9EscapableP",
-                "mangledName": "$ss9EscapableP"
-              }
-            ]
-          },
-          {
             "kind": "Var",
             "name": "id",
             "printedName": "id",
@@ -20375,34 +19917,6 @@
             "declKind": "Constructor",
             "usr": "s:6Apollo19MaxRetryInterceptorC17maxRetriesAllowedACSi_tcfc",
             "mangledName": "$s6Apollo19MaxRetryInterceptorC17maxRetriesAllowedACSi_tcfc",
-            "moduleName": "Apollo",
-            "declAttributes": [
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(configuration:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "MaxRetryInterceptor",
-                "printedName": "Apollo.MaxRetryInterceptor",
-                "usr": "s:6Apollo19MaxRetryInterceptorC"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Configuration",
-                "printedName": "Apollo.MaxRetryInterceptor.Configuration",
-                "usr": "s:6Apollo19MaxRetryInterceptorC13ConfigurationV"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:6Apollo19MaxRetryInterceptorC13configurationA2C13ConfigurationV_tcfc",
-            "mangledName": "$s6Apollo19MaxRetryInterceptorC13configurationA2C13ConfigurationV_tcfc",
             "moduleName": "Apollo",
             "declAttributes": [
               "AccessControl",
@@ -27275,6 +26789,554 @@
         ]
       },
       {
+        "kind": "TypeDecl",
+        "name": "ResponsePath",
+        "printedName": "ResponsePath",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "joined",
+            "printedName": "joined",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:6Apollo12ResponsePathV6joinedSSvp",
+            "mangledName": "$s6Apollo12ResponsePathV6joinedSSvp",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:6Apollo12ResponsePathV6joinedSSvg",
+                "mangledName": "$s6Apollo12ResponsePathV6joinedSSvg",
+                "moduleName": "Apollo",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "toArray",
+            "printedName": "toArray()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV7toArraySaySSGyF",
+            "mangledName": "$s6Apollo12ResponsePathV7toArraySaySSGyF",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(arrayLiteral:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:6Apollo12ResponsePathV12arrayLiteralACSSd_tcfc",
+            "mangledName": "$s6Apollo12ResponsePathV12arrayLiteralACSSd_tcfc",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:6Apollo12ResponsePathVyACSScfc",
+            "mangledName": "$s6Apollo12ResponsePathVyACSScfc",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "append",
+            "printedName": "append(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV6appendyySSF",
+            "mangledName": "$s6Apollo12ResponsePathV6appendyySSF",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "Mutating",
+              "AccessControl"
+            ],
+            "funcSelfKind": "Mutating"
+          },
+          {
+            "kind": "Function",
+            "name": "appending",
+            "printedName": "appending(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV9appendingyACSSF",
+            "mangledName": "$s6Apollo12ResponsePathV9appendingyACSSF",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "isEmpty",
+            "printedName": "isEmpty",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:6Apollo12ResponsePathV7isEmptySbvp",
+            "mangledName": "$s6Apollo12ResponsePathV7isEmptySbvp",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:6Apollo12ResponsePathV7isEmptySbvg",
+                "mangledName": "$s6Apollo12ResponsePathV7isEmptySbvg",
+                "moduleName": "Apollo",
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "+",
+            "printedName": "+(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV1poiyA2C_SStFZ",
+            "mangledName": "$s6Apollo12ResponsePathV1poiyA2C_SStFZ",
+            "moduleName": "Apollo",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "+",
+            "printedName": "+(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV1poiyA2C_ACtFZ",
+            "mangledName": "$s6Apollo12ResponsePathV1poiyA2C_ACtFZ",
+            "moduleName": "Apollo",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "+",
+            "printedName": "+(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "GenericTypeParam",
+                "printedName": "τ_0_0"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV1poiyA2C_xtSTRzSS7ElementRtzlFZ",
+            "mangledName": "$s6Apollo12ResponsePathV1poiyA2C_xtSTRzSS7ElementRtzlFZ",
+            "moduleName": "Apollo",
+            "genericSig": "<τ_0_0 where τ_0_0 : Swift.Sequence, τ_0_0.Element == Swift.String>",
+            "sugared_genericSig": "<T where T : Swift.Sequence, T.Element == Swift.String>",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "description",
+            "printedName": "description",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:6Apollo12ResponsePathV11descriptionSSvp",
+            "mangledName": "$s6Apollo12ResponsePathV11descriptionSSvp",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:6Apollo12ResponsePathV11descriptionSSvg",
+                "mangledName": "$s6Apollo12ResponsePathV11descriptionSSvg",
+                "moduleName": "Apollo",
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV4hash4intoys6HasherVz_tF",
+            "mangledName": "$s6Apollo12ResponsePathV4hash4intoys6HasherVz_tF",
+            "moduleName": "Apollo",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:6Apollo12ResponsePathV9hashValueSivp",
+            "mangledName": "$s6Apollo12ResponsePathV9hashValueSivp",
+            "moduleName": "Apollo",
+            "implicit": true,
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:6Apollo12ResponsePathV9hashValueSivg",
+                "mangledName": "$s6Apollo12ResponsePathV9hashValueSivg",
+                "moduleName": "Apollo",
+                "implicit": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ResponsePath",
+                "printedName": "Apollo.ResponsePath",
+                "usr": "s:6Apollo12ResponsePathV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:6Apollo12ResponsePathV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s6Apollo12ResponsePathV2eeoiySbAC_ACtFZ",
+            "moduleName": "Apollo",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:6Apollo12ResponsePathV",
+        "mangledName": "$s6Apollo12ResponsePathV",
+        "moduleName": "Apollo",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "ExpressibleByArrayLiteral",
+            "printedName": "ExpressibleByArrayLiteral",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "ArrayLiteralElement",
+                "printedName": "ArrayLiteralElement",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:s25ExpressibleByArrayLiteralP",
+            "mangledName": "$ss25ExpressibleByArrayLiteralP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
         "kind": "Import",
         "name": "ApolloAPI",
         "printedName": "ApolloAPI",
@@ -32536,27 +32598,6 @@
       "value": "true"
     },
     {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ExecutionSources\/CacheDataExecutionSource.swift",
-      "kind": "StringLiteral",
-      "offset": 4570,
-      "length": 47,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ExecutionSources\/CacheDataExecutionSource.swift",
-      "kind": "StringLiteral",
-      "offset": 4605,
-      "length": 1,
-      "value": "\":\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ExecutionSources\/CacheDataExecutionSource.swift",
-      "kind": "StringLiteral",
-      "offset": 4616,
-      "length": 1,
-      "value": "\"\""
-    },
-    {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ExecutionSources\/NetworkResponseExecutionSource.swift",
       "kind": "BooleanLiteral",
       "offset": 875,
@@ -32569,118 +32610,6 @@
       "offset": 423,
       "length": 5,
       "value": "false"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "Array",
-      "offset": 963,
-      "length": 2,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "IntegerLiteral",
-      "offset": 1292,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 1937,
-      "length": 3,
-      "value": "\"+\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "Array",
-      "offset": 2153,
-      "length": 2,
-      "value": "[]"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2329,
-      "length": 1,
-      "value": "0"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 2632,
-      "length": 3,
-      "value": "\"+\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 2837,
-      "length": 3,
-      "value": "\".\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 2997,
-      "length": 3,
-      "value": "\".\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 3393,
-      "length": 6,
-      "value": "\"true\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "StringLiteral",
-      "offset": 3402,
-      "length": 7,
-      "value": "\"false\""
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "Array",
-      "offset": 3927,
-      "length": 8,
-      "value": "[\"true\"]"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "Array",
-      "offset": 3938,
-      "length": 9,
-      "value": "[\"false\"]"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4908,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5608,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "BooleanLiteral",
-      "offset": 5629,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldPolicyDirectiveEvaluator.swift",
-      "kind": "IntegerLiteral",
-      "offset": 6328,
-      "length": 1,
-      "value": "1"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/FieldSelectionCollector.swift",
@@ -33007,28 +32936,28 @@
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/GraphQLResult.swift",
       "kind": "Dictionary",
-      "offset": 3697,
+      "offset": 3470,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/GraphQLResult.swift",
       "kind": "StringLiteral",
-      "offset": 3724,
+      "offset": 3497,
       "length": 6,
       "value": "\"data\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/GraphQLResult.swift",
       "kind": "StringLiteral",
-      "offset": 3789,
+      "offset": 3562,
       "length": 8,
       "value": "\"errors\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/GraphQLResult.swift",
       "kind": "StringLiteral",
-      "offset": 3869,
+      "offset": 3642,
       "length": 12,
       "value": "\"extensions\""
     },
@@ -33777,112 +33706,112 @@
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "Dictionary",
-      "offset": 2551,
+      "offset": 2341,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 2670,
+      "offset": 2460,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 2706,
+      "offset": 2496,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 2754,
+      "offset": 2544,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 2878,
+      "offset": 2668,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "StringLiteral",
-      "offset": 3316,
+      "offset": 3106,
       "length": 18,
       "value": "\"application\/json\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 3983,
+      "offset": 3773,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "StringLiteral",
-      "offset": 4546,
+      "offset": 4336,
       "length": 14,
       "value": "\"Content-Type\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5181,
+      "offset": 4971,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5215,
+      "offset": 5005,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5430,
+      "offset": 5220,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5464,
+      "offset": 5254,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5637,
+      "offset": 5427,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "BooleanLiteral",
-      "offset": 5669,
+      "offset": 5459,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "StringLiteral",
-      "offset": 7241,
+      "offset": 7031,
       "length": 33,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/JSONRequest.swift",
       "kind": "StringLiteral",
-      "offset": 7273,
+      "offset": 7063,
       "length": 2,
       "value": "\"\""
     },
@@ -33945,107 +33874,44 @@
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "IntegerLiteral",
-      "offset": 1681,
-      "length": 1,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "FloatLiteral",
-      "offset": 1716,
-      "length": 3,
-      "value": "0.3"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "FloatLiteral",
-      "offset": 1748,
-      "length": 3,
-      "value": "2.0"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "FloatLiteral",
-      "offset": 1784,
-      "length": 4,
-      "value": "20.0"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1829,
-      "length": 5,
-      "value": "false"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "BooleanLiteral",
-      "offset": 1863,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2193,
+      "offset": 249,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "StringLiteral",
-      "offset": 2497,
+      "offset": 553,
       "length": 102,
       "value": "\"The maximum number of retries (\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "StringLiteral",
-      "offset": 2537,
+      "offset": 593,
       "length": 1,
       "value": "\") was hit without success for operation \"\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "StringLiteral",
-      "offset": 2595,
+      "offset": 651,
       "length": 1,
       "value": "\"\".\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "IntegerLiteral",
-      "offset": 2814,
+      "offset": 870,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
       "kind": "IntegerLiteral",
-      "offset": 3824,
+      "offset": 1550,
       "length": 1,
       "value": "1"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "IntegerLiteral",
-      "offset": 3986,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "IntegerLiteral",
-      "offset": 4944,
-      "length": 1,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MaxRetryInterceptor.swift",
-      "kind": "IntegerLiteral",
-      "offset": 5375,
-      "length": 1,
-      "value": "2"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/MultipartFormData.swift",
@@ -34591,7 +34457,7 @@
       "kind": "StringLiteral",
       "offset": 3228,
       "length": 17,
-      "value": "\"+\""
+      "value": "\"-\""
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/NetworkTransport.swift",
@@ -34886,6 +34752,34 @@
       "offset": 1877,
       "length": 4,
       "value": "true"
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ResponsePath.swift",
+      "kind": "StringLiteral",
+      "offset": 831,
+      "length": 9,
+      "value": "\".\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ResponsePath.swift",
+      "kind": "StringLiteral",
+      "offset": 839,
+      "length": 1,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ResponsePath.swift",
+      "kind": "StringLiteral",
+      "offset": 1207,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/ResponsePath.swift",
+      "kind": "Array",
+      "offset": 1284,
+      "length": 2,
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/fnazarios\/Developer\/Runna\/apollo-ios\/Sources\/Apollo\/SelectionSet+DictionaryIntializer.swift",
