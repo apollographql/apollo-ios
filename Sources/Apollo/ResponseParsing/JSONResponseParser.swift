@@ -51,7 +51,7 @@ public struct JSONResponseParser: Sendable {
   let includeCacheRecords: Bool
   let multipartHeader: HTTPURLResponse.MultipartHeaderComponents
 
-  init(
+  public init(
     response: HTTPURLResponse,
     operationVariables: GraphQLOperation.Variables?,
     includeCacheRecords: Bool

@@ -91,7 +91,7 @@ public final class ApolloClient: Sendable {
     clientAwarenessMetadata: ClientAwarenessMetadata = ClientAwarenessMetadata()
   ) {
     let store = ApolloStore(cache: InMemoryNormalizedCache())
-    let provider = DefaultInterceptorProvider()
+    let provider = DefaultInterceptorProvider.shared
     let transport = RequestChainNetworkTransport(
       urlSession: URLSession(configuration: .default),
       interceptorProvider: provider,

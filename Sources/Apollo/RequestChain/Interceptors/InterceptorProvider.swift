@@ -62,7 +62,7 @@ public struct Interceptors: Sendable {
 // MARK: - Default Implementation
 
 extension InterceptorProvider {
-  
+
   /// Creates all of the interceptors for a given `GraphQLOperation`
   /// - Parameter operation: The `GraphQLOperation` to provide the interceptors for
   /// - Returns: An `Interceptors` struct containing the interceptors for the operation.
@@ -89,7 +89,7 @@ extension InterceptorProvider {
 
   public func responseParser<Operation: GraphQLOperation>(for operation: Operation) -> any ResponseParsingInterceptor {
     JSONResponseParsingInterceptor()
-  }  
+  }
 }
 
 /// The default interceptor provider. Provides default interceptors for executing a `GraphQLOperation` using a
