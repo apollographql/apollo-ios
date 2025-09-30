@@ -109,9 +109,7 @@ build_framework() {
 
 create_xcframework() {
     local framework_name="$1"
-    
-    echo "📦 Creating XCFramework for $framework_name..."
-    
+
     cd "$PROJECT_BUILD_DIR"
     
     rm -rf "$framework_name.xcframework"
@@ -154,23 +152,29 @@ create_xcframework() {
     
     # Create zip archive
     zip -r "$framework_name.xcframework.zip" "$framework_name.xcframework"
-    
-    echo "✅ $framework_name.xcframework created successfully!"
 }
 
-generate_checksum() {
+cleanup_artifacts() {
     local framework_name="$1"
-    local zip_path="$PROJECT_BUILD_DIR/$framework_name.xcframework.zip"
+
+    cd "$PROJECT_BUILD_DIR"
     
-    if [ -f "$zip_path" ]; then
-        echo "🔐 Generating checksum for $framework_name.xcframework.zip..."
-        local checksum=$(swift package compute-checksum "$zip_path")
-        echo "$checksum" > "$PROJECT_BUILD_DIR/$framework_name.xcframework.sha256"
-        echo "📝 Checksum: $checksum"
-        echo "💾 Saved to: $framework_name.xcframework.sha256"
-    else
-        echo "❌ Error: $framework_name.xcframework.zip not found at $zip_path"
-        exit 1
+    # Remove .xcarchive directories
+    rm -rf "$framework_name-iphoneos.xcarchive"
+    rm -rf "$framework_name-iphonesimulator.xcarchive"
+    rm -rf "$framework_name-watchos.xcarchive"
+    rm -rf "$framework_name-watchsimulator.xcarchive"
+    
+    # Remove DerivedData directories
+    rm -rf "DerivedData-iphoneos"
+    rm -rf "DerivedData-iphonesimulator"
+    rm -rf "DerivedData-watchos"
+    rm -rf "DerivedData-watchsimulator"
+    
+    # Remove xcodebuild directory if it exists
+    if [ -d "xcodebuild" ]; then
+        echo "  Removing xcodebuild directory..."
+        rm -rf "xcodebuild"
     fi
 }
 
@@ -188,15 +192,9 @@ echo "🏗️ Builds completed successfully."
 # Create the XCFramework
 create_xcframework "$PACKAGE_NAME"
 
-# Generate the checksum
-generate_checksum "$PACKAGE_NAME"
+# Cleanup intermediate artifacts
+cleanup_artifacts "$PACKAGE_NAME"
 
 echo "🎉 XCFramework build completed!"
 echo "📁 Location: $PROJECT_BUILD_DIR/"
 echo "📦 Built framework: $PACKAGE_NAME.xcframework"
-echo "📦 Archive: $PACKAGE_NAME.xcframework.zip"
-echo "📦 Checksum: $PACKAGE_NAME.xcframework.sha256"
-echo ""
-echo "🎯 Supported platforms:"
-echo "  • iOS 17.0+ (Device & Simulator)"
-echo "  • watchOS 11.0+ (Device & Simulator)"
