@@ -1,5 +1,22 @@
 # Change Log
 
+## v1.24.0
+
+### New
+- **Configure cache keys for an operation using the new `@fieldPolicy` directive. ([#735](https://github.com/apollographql/apollo-ios-dev/pull/735)):** Added a new `@fieldPolicy` directive that can be used to configure cache keys for reading data from the cache prior to making a network request for an operation. Cache keys can also be configured programatically, for more information see documentation [here](https://www.apollographql.com/docs/ios/caching/cache-key-resolution#the-fieldpolicy-directive).
+
+### Improvement
+- **Add batching to sqlite selects. ([#725](https://github.com/apollographql/apollo-ios-dev/pull/725)):** Adding batching to the SQLite select handling to cap the number of parameters at 500 per query.
+- **Add result code to `SQLiteError`. ([#755](https://github.com/apollographql/apollo-ios-dev/pull/755)):** Adding the raw sqlite result code as an associated value on enum cases of `SQLiteError`.
+- **Add `RootSelectionSet` convenience initializer from inline fragment. ([#748](https://github.com/apollographql/apollo-ios-dev/pull/748)):** Added a convenience initializer to `RootSelectionSet` that allows it to be initialized directly from an `InlineFragment`, simplifying the conversion process between fragments and root entity types.
+- **Make `dependentKeys` in `GraphQLResult` public. ([#758](https://github.com/apollographql/apollo-ios-dev/pull/758)):** Making `dependentKeys` public allows for implementing custom `ApolloStoreSubscribers` similar to `GraphQLQueryWatcher`. Without this it's extremely difficult to know when to react to cache changes for a query. _Thank you to [@chrsmys](https://github.com/chrsmys) for the contribution.
+
+### Fixed
+- **Duplicate deferred fragment identifiers. ([#700](https://github.com/apollographql/apollo-ios-dev/pull/700)):**  The deferred fragment identifier was being generated using all elements in the deferred fragments path type info array. While the contents of that array are correct because of the unique selection sets, the identifier is able to be shared amongst elements with the same path and defer condition. Taking this into account the identifiers are now generated without duplicates.
+- **Fix generated default mock initializer for lowercase type names. ([#712](https://github.com/apollographql/apollo-ios-dev/pull/712)):** Type name in mock initializer of a type with a lowercase name was being inadvertently captialized. _Thank you to [@dwroth](https://github.com/dwroth) for the contribution._
+- **Deferred fragment accessor with nested fragment. ([#709](https://github.com/apollographql/apollo-ios-dev/pull/709)):** The selection set template would correctly produce a fragment accessor property for merged deferred fragments but the initializer was missing.
+- **Change `clientVersion` build delimiter. ([#721](https://github.com/apollographql/apollo-ios-dev/pull/721)):** This changes the version/build delimiter from a `-` to a `+`. This now matches the semver specification of that additional metadata.
+
 ## v1.23.0
 
 ### New
