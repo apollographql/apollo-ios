@@ -1,18 +1,24 @@
 import Foundation
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
-/// A `GraphQLQueryWatcher` is responsible for watching the store, and calling the result handler with a new result
-/// whenever any of the data the previous result depends on changes. If your query shares response objects with other
-/// operations you should read about normalizing objects by cache key in our documentation. Normalized objects will
-/// update all query watchers that had received that object before.
+/// A ``GraphQLQueryWatcher`` is responsible for watching the store, and calling the result handler with a new result
+/// whenever any of query's data changes.
 ///
-/// NOTE: The store retains the watcher while subscribed. You must call `cancel()` on your query watcher when you no
-/// longer need results. Failure to call `cancel()` before releasing your reference to the returned watcher will
-/// result in a memory leak.
-public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, ApolloStoreSubscriber {
-  weak var client: (any ApolloClientProtocol)?
+/// - Important: The store retains the watcher while subscribed. You must call ``GraphQLQueryWatcher/cancel()`` on your
+/// query watcher when you are done watching updates. Failure to call `cancel()` before releasing your reference to the
+/// returned watcher will result in a memory leak.
+public actor GraphQLQueryWatcher<Query: GraphQLQuery>: ApolloStoreSubscriber {
+  public typealias ResultHandler = @Sendable (Result<GraphQLResponse<Query>, any Swift.Error>) -> Void
+  private typealias FetchBlock = @Sendable (FetchBehavior, RequestConfiguration?) throws -> AsyncThrowingStream<
+    GraphQLResponse<Query>, any Error
+  >?
+
+  /// The ``GraphQLQuery`` for the watcher.
+  ///
+  /// When ``fetch(fetchBehavior:requestConfiguration:)`` is called, this query will be fetched and the `resultHandler`
+  /// will be called with the results.
+  /// After the initial fetch, changes in the local cache to any of the query's data will trigger this query
+  /// to be re-fetched from the cache and the `resultHandler` will be called again with the updated results.
   public let query: Query
 
   /// Determines if the watcher should perform a network fetch when it's watched objects have
@@ -21,127 +27,278 @@ public final class GraphQLQueryWatcher<Query: GraphQLQuery>: Cancellable, Apollo
   /// If set to `false`, the watcher will not receive updates if the cache load fails.
   public let refetchOnFailedUpdates: Bool
 
-  let resultHandler: GraphQLResultHandler<Query.Data>
+  public private(set) var cancelled: Bool = false
 
-  private let callbackQueue: DispatchQueue
+  private var lastFetch: FetchContext?
+  private var dependentKeys: Set<CacheKey>? = nil
 
+  private let resultHandler: ResultHandler
   private let contextIdentifier = UUID()
-  private let context: (any RequestContext)?
+  private let fetchBlock: FetchBlock
+  private let cancelBlock: @Sendable (GraphQLQueryWatcher) -> Void
+  private nonisolated(unsafe) var subscriptionToken: ApolloStore.SubscriptionToken!
 
-  private class WeakFetchTaskContainer {
-    weak var cancellable: (any Cancellable)?
-    var cachePolicy: CachePolicy?
-
-    fileprivate init(_ cancellable: (any Cancellable)?, _ cachePolicy: CachePolicy?) {
-      self.cancellable = cancellable
-      self.cachePolicy = cachePolicy
-    }
+  private struct FetchContext {
+    let task: Task<Void, Never>
+    let fetchBehavior: FetchBehavior
+    let requestConfiguration: RequestConfiguration?
   }
-
-  @Atomic private var fetching: WeakFetchTaskContainer = .init(nil, nil)
-
-  @Atomic private var dependentKeys: Set<CacheKey>? = nil
 
   /// Designated initializer
   ///
+  /// The watcher will not begin watching for updates on the query until an initial fetch is triggered and completes.
+  /// The initial fetch provides the watcher the data to watch for changes. A fetch must be triggered after the watcher
+  /// is initialized using any of the `fetch` methods provided by the ``GraphQLQueryWatcher``. Once the initial result
+  /// is returned, the watcher has begun watching for changes.
+  ///
   /// - Parameters:
-  ///   - client: The client protocol to pass in.
-  ///   - query: The query to watch.
+  ///   - client: The ``ApolloClient`` used to make fetch requests for the watcher.
+  ///   - query: The `GraphQLQuery` to watch.
   ///   - refetchOnFailedUpdates: Should the watcher perform a network fetch when it's watched
   ///     objects have changed, but reloading them from the cache fails. Defaults to `true`.
-  ///   - context: [optional] A context that is being passed through the request chain. Defaults to `nil`.
-  ///   - callbackQueue: The queue for the result handler. Defaults to the main queue.
-  ///   - resultHandler: The result handler to call with changes.
-  public init(client: any ApolloClientProtocol,
-              query: Query,
-              refetchOnFailedUpdates: Bool = true,
-              context: (any RequestContext)? = nil,
-              callbackQueue: DispatchQueue = .main,
-              resultHandler: @escaping GraphQLResultHandler<Query.Data>) {
-    self.client = client
+  ///   - resultHandler: The result handler to call when updated data is received.
+  public init(
+    client: ApolloClient,
+    query: Query,
+    refetchOnFailedUpdates: Bool = true,
+    resultHandler: @escaping ResultHandler
+  ) async {
     self.query = query
     self.refetchOnFailedUpdates = refetchOnFailedUpdates
     self.resultHandler = resultHandler
-    self.callbackQueue = callbackQueue
-    self.context = context
 
-    client.store.subscribe(self)
-  }
+    self.fetchBlock = { [weak client] in
+      guard let client else { return nil }
 
-  /// Refetch a query from the server.
-  public func refetch(cachePolicy: CachePolicy = .fetchIgnoringCacheData) {
-    fetch(cachePolicy: cachePolicy)
-  }
+      return try client.fetch(
+        query: query,
+        fetchBehavior: $0,
+        requestConfiguration: $1
+      )
+    }
 
-  func fetch(cachePolicy: CachePolicy) {
-    $fetching.mutate {
-      // Cancel anything already in flight before starting a new fetch
-      $0.cancellable?.cancel()
-      $0.cachePolicy = cachePolicy
-      $0.cancellable = client?.fetch(query: query, cachePolicy: cachePolicy, contextIdentifier: self.contextIdentifier, context: self.context, queue: callbackQueue) { [weak self] result in
-        guard let self = self else { return }
+    self.cancelBlock = { [weak client] (self) in
+      guard let client else {
+        return
+      }
 
-        switch result {
-        case .success(let graphQLResult):
-          self.$dependentKeys.mutate {
-            $0 = graphQLResult.dependentKeys
-          }
-        case .failure:
-          break
+      client.store.unsubscribe(self.subscriptionToken)
+      Task.detached {
+        await self.doOnActor { (self) in
+          self.cancelled = true
         }
-
-        self.resultHandler(result)
       }
     }
+
+    self.subscriptionToken = await client.store.subscribe(self)
+  }
+
+  private func doOnActor(
+    _ block: @escaping @Sendable (isolated GraphQLQueryWatcher) async throws -> Void
+  ) async rethrows {
+    try await block(self)
+  }
+
+  // MARK: - Fetch
+  
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``FetchBehavior``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - fetchBehavior: The ``FetchBehavior`` to use for this request.
+  ///   Determines if fetching will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
+  public func fetch(
+    fetchBehavior: FetchBehavior,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    QueryWatcherContext.$identifier.withValue(self.contextIdentifier) {
+      self.lastFetch?.task.cancel()
+
+      let fetchTask = Task {
+        do {
+          try Task.checkCancellation()
+
+          guard let fetch = try self.fetchBlock(fetchBehavior, requestConfiguration) else {
+            // Fetch returned nil because the client has been deinitialized.
+            // Watcher is invalid and should be cancelled.
+            self.cancel()
+            return
+          }
+
+          for try await result in fetch {
+            try Task.checkCancellation()
+
+            if let dependentKeys = result.dependentKeys {
+              self.dependentKeys = dependentKeys
+            }
+            self.didReceiveResult(result)
+          }
+        } catch is CancellationError {
+          // Fetch cancellation. No-op
+        } catch {
+          self.didReceiveError(error)
+        }
+      }
+
+      self.lastFetch = FetchContext(
+        task: fetchTask,
+        fetchBehavior: fetchBehavior,
+        requestConfiguration: requestConfiguration
+      )
+    }
+  }
+
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
+  public func fetch(
+    cachePolicy: CachePolicy.Query.SingleResponse,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
+  public func fetch(
+    cachePolicy: CachePolicy.Query.CacheOnly,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  /// Triggers a fetch of the receiver's ``GraphQLQueryWatcher/query`` using a provided ``CachePolicy``. If a fetch
+  /// is currently in progress, it will be cancelled.
+  ///
+  /// - Parameters:
+  ///   - cachePolicy: A ``CachePolicy`` to use for this request.
+  ///   Determines if the initial fetch will include cache/network fetches.
+  ///   - requestConfiguration: A ``RequestConfiguration`` to use for the fetch. Defaults to `nil`.
+  ///   If `nil`, the ``ApolloClient/defaultRequestConfiguration`` of the receiver's `client` will be used.
+  public func fetch(
+    cachePolicy: CachePolicy.Query.CacheAndNetwork,
+    requestConfiguration: RequestConfiguration? = nil
+  ) {
+    self.fetch(fetchBehavior: cachePolicy.toFetchBehavior(), requestConfiguration: requestConfiguration)
+  }
+
+  // MARK: - Result Handling
+
+  private func didReceiveResult(_ result: GraphQLResponse<Query>) {
+    guard !self.cancelled else { return }
+    resultHandler(.success(result))
+  }
+
+  private func didReceiveError(_ error: any Swift.Error) {
+    guard !self.cancelled else { return }
+    resultHandler(.failure(error))
   }
 
   /// Cancel any in progress fetching operations and unsubscribe from the store.
-  public func cancel() {
-    fetching.cancellable?.cancel()
-    client?.store.unsubscribe(self)
+  public nonisolated consuming func cancel() {
+    self.cancelBlock(self)
   }
 
-  public func store(_ store: ApolloStore,
-                    didChangeKeys changedKeys: Set<CacheKey>,
-                    contextIdentifier: UUID?) {
-    if
-      let incomingIdentifier = contextIdentifier,
-      incomingIdentifier == self.contextIdentifier {
-        // This is from changes to the keys made from the `fetch` method above,
-        // changes will be returned through that and do not need to be returned
-        // here as well.
-        return
-    }
-    
-    guard let dependentKeys = self.dependentKeys else {
-      // This query has nil dependent keys, so nothing that changed will affect it.
+  public nonisolated func store(
+    _ store: ApolloStore,
+    didChangeKeys changedKeys: Set<CacheKey>
+  ) {
+    if let incomingIdentifier = QueryWatcherContext.identifier,
+      incomingIdentifier == self.contextIdentifier
+    {
+      // This is from changes to the keys made from the `fetch` method above,
+      // changes will be returned through that and do not need to be returned
+      // here as well.
       return
     }
-    
-    if !dependentKeys.isDisjoint(with: changedKeys) {
-      // First, attempt to reload the query from the cache directly, in order not to interrupt any in-flight server-side fetch.
-      store.load(self.query) { [weak self] result in
-        guard let self = self else { return }
-        
-        switch result {
-        case .success(let graphQLResult):
-          self.callbackQueue.async { [weak self] in
-            guard let self = self else {
+
+    Task {
+      await self.doOnActor { (self) in
+        guard !self.cancelled else { return }
+        guard let dependentKeys = self.dependentKeys else {
+          // This query has nil dependent keys, so nothing that changed will affect it.
+          return
+        }
+
+        let cacheReadFailed = {
+          if self.refetchOnFailedUpdates && self.lastFetch?.fetchBehavior.networkFetch != .never {
+            // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
+            self.fetch(
+              fetchBehavior: FetchBehavior.NetworkOnly,
+              requestConfiguration: self.lastFetch?.requestConfiguration
+            )
+          }
+        }
+
+        if !dependentKeys.isDisjoint(with: changedKeys) {
+          do {
+            // First, attempt to reload the query from the cache directly, in order not to interrupt any
+            // in-flight server-side fetch.
+            guard let result = try await store.load(self.query) else {
+              cacheReadFailed()
               return
             }
             
-            self.$dependentKeys.mutate {
-              $0 = graphQLResult.dependentKeys
-            }
-            self.resultHandler(result)
-          }
-        case .failure:
-          if self.refetchOnFailedUpdates && self.fetching.cachePolicy != .returnCacheDataDontFetch {
-            // If the cache fetch is not successful, for instance if the data is missing, refresh from the server.
-            self.fetch(cachePolicy: .fetchIgnoringCacheData)
+            self.dependentKeys = result.dependentKeys
+            self.didReceiveResult(result)
+
+          } catch {
+            cacheReadFailed()
           }
         }
       }
     }
   }
+}
+
+// MARK: - Task Local Values
+
+private enum QueryWatcherContext {
+  @TaskLocal static var identifier: UUID?
+}
+
+// MARK: - Deprecation
+
+extension GraphQLQueryWatcher {
+  @available(*, deprecated)
+  @_disfavoredOverload
+  public init(
+    client: ApolloClient,
+    query: Query,
+    refetchOnFailedUpdates: Bool = true,
+    context: (any RequestContext)? = nil,
+    callbackQueue: DispatchQueue = .main,
+    resultHandler: @escaping GraphQLResultHandler<Query>
+  ) async {
+    await self.init(
+      client: client,
+      query: query,
+      refetchOnFailedUpdates: refetchOnFailedUpdates,
+      resultHandler: resultHandler
+    )
+  }
+
+  @available(*, deprecated, renamed: "fetch(fetchBehavior:)")
+  public func refetch(cachePolicy: CachePolicy.Query.SingleResponse = .cacheFirst) {
+    fetch(fetchBehavior: cachePolicy.toFetchBehavior())
+  }
+
+  @available(*, deprecated, renamed: "fetch(fetchBehavior:)")
+  public func refetch(cachePolicy: CachePolicy_v1 = .returnCacheDataElseFetch) {
+    fetch(fetchBehavior: cachePolicy.toFetchBehavior())
+  }
+
 }

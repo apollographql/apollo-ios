@@ -1,6 +1,6 @@
 import Foundation
 #if !COCOAPODS
-import ApolloAPI
+@_spi(Internal) import ApolloAPI
 #endif
 
 enum FieldPolicyResult {
@@ -32,7 +32,7 @@ struct FieldPolicyDirectiveEvaluator {
     self.arguments = arguments
   }
   
-  func resolveFieldPolicy() -> FieldPolicyResult? {   
+  func resolveFieldPolicy() -> FieldPolicyResult? {
     let keyArgs = parseKeyArgs(for: fieldPolicy)
 
     var singleValueArgs = [String?](repeating: nil, count: keyArgs.count)
@@ -145,45 +145,11 @@ extension ScalarType {
   }
 }
 
-extension JSONValue {
-  fileprivate func cacheKeyComponentStringValue(keyPath: [String]? = nil) -> [String]? {
-    switch self {
-    case let strVal as String:
-      return [strVal]
-      
-    case let boolVal as Bool:
-      return boolVal ? ["true"] : ["false"]
-      
-    case let intVal as Int:
-      return [String(intVal)]
-      
-    case let doubleVal as Double:
-      return [String(doubleVal)]
-      
-    case let floatVal as Float:
-      return [String(floatVal)]
-      
-    case let arrVal as [JSONValue]:
-      let values: [String] = arrVal.compactMap { $0.cacheKeyComponentStringValue()?.first }
-      guard !values.isEmpty else { return nil }
-      return values
-      
-    case let objVal as JSONObject:
-      guard let keyPath, !keyPath.isEmpty else { return nil }
-      guard let targetValue = objVal.traverse(to: keyPath[...]) else { return nil }
-      return targetValue.cacheKeyComponentStringValue()
-      
-    default:
-      return [String(describing: self)]
-    }
-  }
-}
-
 extension JSONObject {
   fileprivate func traverse(
     to path: ArraySlice<String>
   ) -> JSONValue? {
-    guard let head = path.first else { return self }
+    guard let head = path.first else { return self as JSONValue }
     guard let next = self[head] else { return nil }
     if path.count == 1 { return next }
     if let nested = next as? JSONObject {
@@ -202,7 +168,10 @@ extension InputValue {
       guard let varValue = variables?[varName] else {
         return nil
       }
-      return varValue._jsonEncodableValue?._jsonValue.cacheKeyComponentStringValue(keyPath: keyPath)
+      if let encodableValue = varValue._jsonEncodableValue {
+        return cacheKeyComponentStringValue(encodableValue._jsonValue, keyPath: keyPath)
+      }
+      return nil
     case .list(let list):
       if list.contains(where: { if case .list = $0 { return true } else { return false } }) {
         return nil
@@ -231,4 +200,37 @@ extension InputValue {
     }
     return nil
   }
+  
+  fileprivate func cacheKeyComponentStringValue(_ jsonValue: JSONValue, keyPath: [String]? = nil) -> [String]? {
+    switch jsonValue {
+    case let strVal as String:
+      return [strVal]
+      
+    case let boolVal as Bool:
+      return boolVal ? ["true"] : ["false"]
+      
+    case let intVal as Int:
+      return [String(intVal)]
+      
+    case let doubleVal as Double:
+      return [String(doubleVal)]
+      
+    case let floatVal as Float:
+      return [String(floatVal)]
+      
+    case let arrVal as [JSONValue]:
+      let values: [String] = arrVal.compactMap { cacheKeyComponentStringValue($0)?.first }
+      guard !values.isEmpty else { return nil }
+      return values
+      
+    case let objVal as JSONObject:
+      guard let keyPath, !keyPath.isEmpty else { return nil }
+      guard let targetValue = objVal.traverse(to: keyPath[...]) else { return nil }
+      return cacheKeyComponentStringValue(targetValue)
+      
+    default:
+      return [String(describing: self)]
+    }
+  }
+
 }

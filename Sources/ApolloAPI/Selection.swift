@@ -35,7 +35,7 @@ public enum Selection {
       self.fieldPolicy = fieldPolicy
     }
 
-    public indirect enum OutputType {
+    public indirect enum OutputType: Sendable {
       case scalar(any ScalarType.Type)
       case customScalar(any CustomScalarType.Type)
       case object(any RootSelectionSet.Type)
@@ -71,7 +71,7 @@ public enum Selection {
 
   // MARK: - Convenience Initializers
 
-  @inlinable static public func field(
+  static public func field(
     _ name: String,
     alias: String? = nil,
     _ type: any OutputTypeConvertible.Type,
@@ -163,11 +163,33 @@ extension Selection: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .field(field):
+      hasher.combine(field)
+    case let .fragment(fragmentType):
+      hasher.combine(ObjectIdentifier(fragmentType))
+    case let .inlineFragment(fragmentType):
+      hasher.combine(ObjectIdentifier(fragmentType))
+    case let .deferred(condition, fragmentType, label):
+      hasher.combine(condition)
+      hasher.combine(ObjectIdentifier(fragmentType))
+      hasher.combine(label)
+    case let .conditional(condition, selections):
+      hasher.combine(condition)
+      hasher.combine(selections)
+    }
   }
 }
 
 extension Selection.Field: Hashable {
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(name)
+    hasher.combine(alias)
+    hasher.combine(arguments)
+    hasher.combine(type)
+  }
+
   public static func == (lhs: Selection.Field, rhs: Selection.Field) -> Bool {
     lhs.name == rhs.name &&
     lhs.alias == rhs.alias &&
@@ -194,6 +216,17 @@ extension Selection.Field.OutputType: Hashable {
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(self)
+    switch self {
+    case let .scalar(valueType):
+      hasher.combine(ObjectIdentifier(valueType))
+    case let .customScalar(valueType):
+      hasher.combine(ObjectIdentifier(valueType))
+    case let .object(objectType):
+      hasher.combine(ObjectIdentifier(objectType))
+    case
+      let .nonNull(nested),
+      let .list(nested):
+      hasher.combine(nested)
+    }
   }
 }

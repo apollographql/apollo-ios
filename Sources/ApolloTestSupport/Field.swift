@@ -1,9 +1,7 @@
-#if !COCOAPODS
 import ApolloAPI
-#endif
 
 @propertyWrapper
-public struct Field<T> {
+public struct Field<T>: Sendable {
 
   let key: StaticString
 

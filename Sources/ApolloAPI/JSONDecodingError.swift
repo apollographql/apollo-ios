@@ -3,11 +3,11 @@ import Foundation
 /// An error thrown while decoding `JSON`.
 ///
 /// This error should be thrown when a ``JSONDecodable`` initialization fails.
-/// `GraphQLExecutor` and `ApolloStore` may also throw this error when decoding a `JSON` fails.
+/// `GraphQLExecutor` and `ApolloStore` may also throw this error when decoding `JSON` fails.
 public enum JSONDecodingError: Error, LocalizedError, Hashable {
   /// A value that is expected to be present is missing from the ``JSONObject``.
   case missingValue
-  /// A value that is non-null has a `null`value.
+  /// A value that is non-null has a `null` value.
   case nullValue
   /// A value in a ``JSONObject`` was not of the expected `JSON` type.
   /// (eg. An object instead of a list)
@@ -15,7 +15,7 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
   /// The `value` could not be converted to the expected type.
   ///
   /// This error is thrown when a ``JSONDecodable`` initialization fails for the expected type.
-  case couldNotConvert(value: AnyHashable, to: Any.Type)
+  case couldNotConvert(value: JSONValue, to: Any.Type)
 
   public var errorDescription: String? {
     switch self {
@@ -39,7 +39,7 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
 
     case let (.couldNotConvert(value: lhsValue, to: lhsType),
               .couldNotConvert(value: rhsValue, to: rhsType)):
-      return lhsValue == rhsValue && lhsType == rhsType
+      return AnyHashable(lhsValue) == AnyHashable(rhsValue) && lhsType == rhsType
 
     default:
       return false

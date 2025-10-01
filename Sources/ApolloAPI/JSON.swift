@@ -1,17 +1,24 @@
 /// Represents a value in a ``JSONObject``
 ///
-/// Making ``JSONValue`` an `AnyHashable` enables comparing ``JSONObject``s
-/// in `Equatable` conformances.
-public typealias JSONValue = AnyHashable
+/// - precondition: A `JSONValue` must be a value type that is valid for JSON
+/// serialization and must be both `Hashable` and `Sendable`. This typealias does not validate
+/// that the value is valid JSON. It functions only as an indicator of the semantic intentions
+/// of the underlying value.
+public typealias JSONValue = any Sendable & Hashable
 
 /// Represents a JSON Dictionary
+///
+/// - precondition: A `JSONObject` must only contain values types that are valid for JSON
+/// serialization and must be both `Hashable` and `Sendable`. This typealias does not validate
+/// that the values are valid JSON. It functions only as an indicator of the semantic intentions
+/// of the underlying value.
 public typealias JSONObject = [String: JSONValue]
 
 /// Represents a Dictionary that can be converted into a ``JSONObject``
 ///
 /// To convert to a ``JSONObject``:
 /// ```swift
-/// dictionary.compactMapValues { $0.jsonValue }
+/// dictionary.mapValues { $0.jsonValue }
 /// ```
 public typealias JSONEncodableDictionary = [String: any JSONEncodable]
 
@@ -19,7 +26,7 @@ public typealias JSONEncodableDictionary = [String: any JSONEncodable]
 ///
 /// This is used to interoperate between the type-safe Swift models and the `JSON` in a
 /// GraphQL network response/request or the `NormalizedCache`.
-public protocol JSONDecodable: AnyHashableConvertible {
+public protocol JSONDecodable: Sendable {
 
   /// Intializes the conforming type from a ``JSONValue``.
   ///
@@ -31,6 +38,7 @@ public protocol JSONDecodable: AnyHashableConvertible {
   ///
   /// - Throws: A ``JSONDecodingError`` if the `jsonValue` cannot be converted to the receiver's
   /// type.
+  @_spi(Internal)
   init(_jsonValue value: JSONValue) throws
 }
 
@@ -38,7 +46,7 @@ public protocol JSONDecodable: AnyHashableConvertible {
 ///
 /// This is used to interoperate between the type-safe Swift models and the `JSON` in a
 /// GraphQL network response/request or the `NormalizedCache`.
-public protocol JSONEncodable {
+public protocol JSONEncodable: Sendable {
 
   /// Converts the type into a ``JSONValue`` that can be sent in a GraphQL network request or
   /// stored in the `NormalizedCache`.
@@ -46,5 +54,6 @@ public protocol JSONEncodable {
   /// > Important: For a type that conforms to both ``JSONEncodable`` and ``JSONDecodable``,
   /// the return value of this function, when passed to ``JSONDecodable/init(jsonValue:)`` should
   /// initialize a value equal to the receiver.
+  @_spi(Internal)
   var _jsonValue: JSONValue { get }
 }

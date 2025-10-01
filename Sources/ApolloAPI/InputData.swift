@@ -1,3 +1,5 @@
+import Foundation
+
 extension FieldPolicy {
   
   /// An opaque wrapper for input data of a GraphQL operation. This type wraps data from the
@@ -26,7 +28,7 @@ extension FieldPolicy {
         guard let value = dict[key] else {
           return nil
         }
-        return value.toAnyScalar()
+        return jsonValueToAnyScalar(value)
       }
     }
     
@@ -42,7 +44,7 @@ extension FieldPolicy {
         guard let value = dict[key] else {
           return nil
         }
-        return value.toFieldInputListData()
+        return jsonValueToFieldInputListData(value)
       }
     }
     
@@ -56,7 +58,7 @@ extension FieldPolicy {
         guard let value = dict[key] else {
           return nil
         }
-        return value.toFieldInputData()
+        return jsonValueToFieldInputData(value)
       }
     }
     
@@ -92,8 +94,8 @@ extension FieldPolicy {
     @inlinable public subscript(_ index: Int) -> (any ScalarType)? {
       switch _rawType {
       case .hashable(let list):
-        let value: AnyHashable = list[index]
-        return value.toAnyScalar()
+        let value: JSONValue = list[index]
+        return jsonValueToAnyScalar(value)
       case .inputValue(let list):
         let value = list[index]
         return value.toAnyScalar(_variables: _variables)
@@ -105,7 +107,7 @@ extension FieldPolicy {
       switch _rawType {
       case .hashable(let list):
         let value = list[index]
-        return value.toFieldInputData()
+        return jsonValueToFieldInputData(value)
       case .inputValue(let list):
         let value = list[index]
         return value.toFieldInputData(_variables: _variables)
@@ -117,7 +119,7 @@ extension FieldPolicy {
       switch _rawType {
       case .hashable(let list):
         let value = list[index]
-        return value.toFieldInputListData()
+        return jsonValueToFieldInputListData(value)
       case .inputValue(let list):
         let value = list[index]
         return value.toFieldInputListData(_variables: _variables)
@@ -125,19 +127,24 @@ extension FieldPolicy {
     }
    
     public enum RawType {
-      case hashable([AnyHashable])
+      case hashable([JSONValue])
       case inputValue([InputValue])
     }
   }
-}
-
-extension AnyHashable {
-  @usableFromInline func toAnyScalar() -> (any ScalarType)? {
-    var value = self
-    if let boolVal = value as? Bool, value.isCanonicalBool {
+  
+  // MARK: - JSONValue Helper Functions
+  
+  @usableFromInline static func jsonValueToAnyScalar(_ val: any Hashable & Sendable) -> (any ScalarType)? {
+    var value = val
+    switch value {
+    case let boolVal as Bool:
       value = boolVal
-    } else if let intVal = value as? Int {
-      value = intVal
+    case let intVal as any FixedWidthInteger:
+      value = Int32(intVal)
+    case let str as NSString:
+      value = str as String
+    default:
+      break
     }
     
     switch value {
@@ -150,15 +157,15 @@ extension AnyHashable {
     }
   }
   
-  @usableFromInline func toFieldInputListData() -> FieldPolicy.InputListData? {
-    if let list = self as? [AnyHashable] {
+  @usableFromInline static func jsonValueToFieldInputListData(_ val: JSONValue) -> FieldPolicy.InputListData? {
+    if let list = val as? [JSONValue] {
       return FieldPolicy.InputListData(_rawType: .hashable(list), _variables: nil)
     }
     return nil
   }
   
-  @usableFromInline func toFieldInputData() -> FieldPolicy.InputData? {
-    if let object = self as? JSONObject {
+  @usableFromInline static func jsonValueToFieldInputData(_ val: JSONValue) -> FieldPolicy.InputData? {
+    if let object = val as? JSONObject {
       return FieldPolicy.InputData(_rawType: .json(object), _variables: nil)
     }
     return nil
@@ -184,7 +191,7 @@ extension InputValue {
       return FieldPolicy.InputListData(_rawType: .inputValue(list), _variables: _variables)
     case .variable(let varName):
       guard let varValue = _variables?[varName],
-            let list = varValue._jsonEncodableValue?._jsonValue as? [AnyHashable] else {
+            let list = varValue._jsonEncodableValue?._jsonValue as? [JSONValue] else {
         return nil
       }
       return FieldPolicy.InputListData(_rawType: .hashable(list), _variables: _variables)

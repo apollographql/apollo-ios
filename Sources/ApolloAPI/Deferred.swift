@@ -13,6 +13,7 @@ public struct Deferred<Fragment: Deferrable> {
     case fulfilled(Fragment)
   }
 
+  @_spi(Unsafe)
   public init(_dataDict: DataDict) {
     __data = _dataDict
   }

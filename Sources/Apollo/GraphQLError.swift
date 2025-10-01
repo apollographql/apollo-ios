@@ -1,12 +1,11 @@
 import Foundation
-#if !COCOAPODS
-import ApolloAPI
-#endif
+@_spi(Internal) import ApolloAPI
 
 /// Represents an error encountered during the execution of a GraphQL operation.
 ///
 ///  - SeeAlso: [The Response Format section in the GraphQL specification](https://facebook.github.io/graphql/#sec-Response-Format)
 public struct GraphQLError: Error, Hashable {
+
   private let object: JSONObject
 
   public init(_ object: JSONObject) {
@@ -32,9 +31,9 @@ public struct GraphQLError: Error, Hashable {
     return (self["locations"] as? [JSONObject])?.compactMap(Location.init)
   }
 
-  /// A path to the field that triggered the error, represented by an array of Path Entries.
-  public var path: [PathEntry]? {
-    return (self["path"] as? [JSONValue])?.compactMap(PathEntry.init)
+  /// A path to the field that triggered the error, represented by an array of path components.
+  public var path: [PathComponent]? {
+    return (self["path"] as? [JSONValue])?.compactMap(PathComponent.init)
   }
 
   /// A dictionary which services can use however they see fit to provide additional information in errors to clients.
@@ -56,7 +55,15 @@ public struct GraphQLError: Error, Hashable {
     }
   }
 
-  public typealias PathEntry = PathComponent
+  // MARK: - Equatable & Hashable Conformance
+
+  public static func == (lhs: GraphQLError, rhs: GraphQLError) -> Bool {
+    AnySendableHashable.equatableCheck(lhs.object, rhs.object)
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(object)
+  }
 }
 
 extension GraphQLError: CustomStringConvertible {

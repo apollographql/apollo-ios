@@ -1,18 +1,16 @@
 import Foundation
-#if !COCOAPODS
-import ApolloAPI
-#endif
+@_spi(Internal) @_spi(Unsafe) import ApolloAPI
 
 // MARK: Internal
 
 extension DataDict {
-  enum MergeError: Error, LocalizedError, Equatable {
+  public enum MergeError: Error, LocalizedError, Equatable {
     case emptyMergePath
     case dataTypeNotAccessibleByPathComponent(PathComponent)
     case invalidPathComponentForDataType(PathComponent, String)
     case cannotFindPathComponent(PathComponent)
     case incrementalMergeNeedsDataDict
-    case cannotOverwriteFieldData(AnyHashable, AnyHashable)
+    case cannotOverwriteFieldData(DataDict.FieldValue, DataDict.FieldValue)
 
     public var errorDescription: String? {
       switch self {
@@ -35,6 +33,36 @@ extension DataDict {
         return "Incremental data merge cannot overwrite field data value '\(current)' with mismatched value '\(new)'."
       }
     }
+
+    public static func ==(lhs: MergeError, rhs: MergeError) -> Bool {
+      switch (lhs, rhs) {
+      case
+        (.emptyMergePath, .emptyMergePath),
+        (.incrementalMergeNeedsDataDict, .incrementalMergeNeedsDataDict):
+        return true
+
+      case
+        (.dataTypeNotAccessibleByPathComponent(let lhsComponent),
+         .dataTypeNotAccessibleByPathComponent(let rhsComponent)),
+        (.cannotFindPathComponent(let lhsComponent),
+         .cannotFindPathComponent(let rhsComponent)):
+        return lhsComponent == rhsComponent
+
+      case let
+        (.invalidPathComponentForDataType(lhsComponent, lhsDataType),
+         .invalidPathComponentForDataType(rhsComponent, rhsDataType)):
+        return lhsComponent == rhsComponent && lhsDataType == rhsDataType
+
+      case let
+        (.cannotOverwriteFieldData(lhsCurrent, lhsNew),
+         .cannotOverwriteFieldData(rhsCurrent, rhsNew)):
+        return AnySendableHashable.equatableCheck(lhsCurrent, rhsCurrent) &&
+        AnySendableHashable.equatableCheck(lhsNew, rhsNew)
+
+      default:
+        return false
+      }
+    }
   }
 
   /// Creates a new `DataDict` instance by merging the given `DataDict` into this `DataDict` at the
@@ -51,7 +79,7 @@ extension DataDict {
     }
 
     let mergedData = try pathDataDict._data.merging(newDataDict._data) { current, new in
-      if current != new {
+      if !AnySendableHashable.equatableCheck(current, new) {
         throw MergeError.cannotOverwriteFieldData(current, new)
       }
 
@@ -83,13 +111,13 @@ extension DataDict {
 /// Functions that provide the ability to get and set a value when type-specific access to the
 /// underlying data storage is required.
 fileprivate protocol PathComponentAccessible {
-  func value(at path: PathComponent) throws -> AnyHashable?
-  mutating func set(value newValue: AnyHashable?, at path: PathComponent) throws
+  func value(at path: PathComponent) throws -> DataDict.FieldValue?
+  mutating func set(value newValue: DataDict.FieldValue?, at path: PathComponent) throws
 }
 
 /// Common implementations for working with an array of path components - `[PathComponent]`.
 extension PathComponentAccessible {
-  fileprivate func value(at path: [PathComponent]) throws -> AnyHashable? {
+  fileprivate func value(at path: [PathComponent]) throws -> DataDict.FieldValue? {
     switch path.headAndTail() {
     case nil:
       throw DataDict.MergeError.emptyMergePath
@@ -102,7 +130,7 @@ extension PathComponentAccessible {
       case let dict as DataDict:
         return try dict.value(at: remaining)
 
-      case let array as [AnyHashable?]:
+      case let array as [DataDict.FieldValue?]:
         return try array.value(at: remaining)
 
       default:
@@ -111,7 +139,7 @@ extension PathComponentAccessible {
     }
   }
 
-  fileprivate mutating func set(value newValue: AnyHashable?, at path: [PathComponent]) throws {
+  fileprivate mutating func set(value newValue: DataDict.FieldValue?, at path: [PathComponent]) throws {
     switch path.headAndTail() {
     case nil:
       throw DataDict.MergeError.emptyMergePath
@@ -125,9 +153,9 @@ extension PathComponentAccessible {
         try dict.set(value: newValue, at: remaining)
         try set(value: dict, at: head)
 
-      case var array as [AnyHashable?]:
+      case var array as [DataDict.FieldValue?]:
         try array.set(value: newValue, at: remaining)
-        try set(value: array, at: head)
+        try set(value: array as DataDict.FieldValue, at: head)
 
       default:
         throw DataDict.MergeError.dataTypeNotAccessibleByPathComponent(head)
@@ -137,13 +165,13 @@ extension PathComponentAccessible {
 }
 
 extension DataDict: PathComponentAccessible {
-  fileprivate func value(at path: PathComponent) throws -> AnyHashable? {
+  fileprivate func value(at path: PathComponent) throws -> DataDict.FieldValue? {
     let key = try validatedKeyFromPath(path)
 
     return self._data[key]
   }
 
-  fileprivate mutating func set(value: AnyHashable?, at path: PathComponent) throws {
+  fileprivate mutating func set(value: DataDict.FieldValue?, at path: PathComponent) throws {
     let key = try validatedKeyFromPath(path)
 
     self._data[key] = value
@@ -162,14 +190,14 @@ extension DataDict: PathComponentAccessible {
   }
 }
 
-extension Array: PathComponentAccessible where Element == AnyHashable? {
-  fileprivate func value(at path: PathComponent) throws -> AnyHashable? {
+extension Array: PathComponentAccessible where Element == DataDict.FieldValue? {
+  fileprivate func value(at path: PathComponent) throws -> DataDict.FieldValue? {
     let index = try validatedIndexFromPath(path)
 
     return self[index]
   }
 
-  fileprivate mutating func set(value: AnyHashable?, at path: PathComponent) throws {
+  fileprivate mutating func set(value: DataDict.FieldValue?, at path: PathComponent) throws {
     let index = try validatedIndexFromPath(path)
 
     self[index] = value

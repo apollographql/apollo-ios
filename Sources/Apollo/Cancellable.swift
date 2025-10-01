@@ -1,24 +1,29 @@
 import Foundation
 
 /// An object that can be used to cancel an in progress action.
-public protocol Cancellable: AnyObject {
-    /// Cancel an in progress action.
-    func cancel()
+@available(*, deprecated)
+public protocol Cancellable: Sendable {
+  /// Cancel an in progress action.
+  func cancel()
 }
 
-// MARK: - URL Session Conformance
+// MARK: - Task Cancellable
 
-extension URLSessionTask: Cancellable {}
+@available(*, deprecated)
+final class TaskCancellable<Success: Sendable, Failure: Error>: Apollo.Cancellable {
 
-// MARK: - Early-Exit Helper
+  let task: Task<Success, Failure>
 
-/// A class to return when we need to bail out of something which still needs to return `Cancellable`.
-public final class EmptyCancellable: Cancellable {
+  init(task: Task<Success, Failure>) {
+    self.task = task
+  }
 
-  // Needs to be public so this can be instantiated outside of the current framework.
-  public init() {}
-
-  public func cancel() {
-    // Do nothing, an error occurred and there is nothing to cancel.
+  func cancel() {
+    task.cancel()
   }
 }
+
+// MARK: - GraphQLQueryWatcher
+
+@available(*, deprecated)
+extension GraphQLQueryWatcher: Cancellable {}

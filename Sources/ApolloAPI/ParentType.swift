@@ -2,7 +2,8 @@
 ///
 /// A ``SelectionSet``'s `__parentType` is the type from the schema that the selection set is
 /// selected against. This type can be an ``Object``, ``Interface``, or ``Union``.
-public protocol ParentType {
+@_spi(Execution)
+public protocol ParentType: Sendable {
   /// A helper function to determine if an ``Object`` of the given type can be converted to
   /// the receiver type.
   ///
@@ -20,6 +21,7 @@ public protocol ParentType {
   @inlinable var __typename: String { get }
 }
 
+@_spi(Execution)
 extension Object: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     objectType.typename == self.typename
@@ -28,6 +30,7 @@ extension Object: ParentType {
   @inlinable public var __typename: String { self.typename }
 }
 
+@_spi(Execution)
 extension Interface: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     objectType.implements(self)
@@ -36,6 +39,7 @@ extension Interface: ParentType {
   @inlinable public var __typename: String { self.name }
 }
 
+@_spi(Execution)
 extension Union: ParentType {
   @inlinable public func canBeConverted(from objectType: Object) -> Bool {
     possibleTypes.contains(where: { $0 == objectType })

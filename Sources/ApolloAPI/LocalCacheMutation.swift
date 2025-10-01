@@ -1,12 +1,14 @@
-public protocol LocalCacheMutation: AnyObject, Hashable {
+public protocol LocalCacheMutation: Hashable, Sendable {
   static var operationType: GraphQLOperationType { get }
 
+  @_spi(Unsafe)
   var __variables: GraphQLOperation.Variables? { get }
 
   associatedtype Data: MutableRootSelectionSet
 }
 
 public extension LocalCacheMutation {
+  @_spi(Unsafe)
   var __variables: GraphQLOperation.Variables? {
     return nil
   }
@@ -16,23 +18,27 @@ public extension LocalCacheMutation {
   }
 
   static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.__variables?._jsonEncodableValue?._jsonValue == rhs.__variables?._jsonEncodableValue?._jsonValue
+    AnySendableHashable.equatableCheck(
+      lhs.__variables?._jsonEncodableValue?._jsonValue,
+      rhs.__variables?._jsonEncodableValue?._jsonValue
+    )
   }
 }
 
 public protocol MutableSelectionSet: SelectionSet {
+  @_spi(Unsafe)
   var __data: DataDict { get set }
 }
 
 public extension MutableSelectionSet {
-  @inlinable var __typename: String? {
+  var __typename: String? {
     get { __data["__typename"] }
     set { __data["__typename"] = newValue }
   }
 }
 
 public extension MutableSelectionSet where Fragments: FragmentContainer {
-  @inlinable var fragments: Fragments {
+  var fragments: Fragments {
     get { Self.Fragments(_dataDict: __data) }
     _modify {
       var f = Self.Fragments(_dataDict: __data)

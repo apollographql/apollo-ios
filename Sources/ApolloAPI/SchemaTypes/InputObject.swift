@@ -2,12 +2,15 @@
 ///
 /// # See Also
 /// [GraphQLSpec - Input Objects](https://spec.graphql.org/draft/#sec-Input-Objects)
-public protocol InputObject: GraphQLOperationVariableValue, JSONEncodable, Hashable {
+public protocol InputObject: GraphQLOperationVariableValue, GraphQLOperationVariableListElement, JSONEncodable, Hashable {
+  @_spi(Unsafe)
   var __data: InputDict { get }
 }
 
 extension InputObject {
-  public var _jsonValue: JSONValue { jsonEncodableValue?._jsonValue }
+  @_spi(Internal)
+  public var _jsonValue: JSONValue { __data.data._jsonEncodableObject._jsonValue }
+  @_spi(Internal)
   public var jsonEncodableValue: (any JSONEncodable)? { __data._jsonEncodableValue }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
@@ -20,21 +23,17 @@ extension InputObject {
 }
 
 /// A structure that wraps the underlying data dictionary used by `InputObject`s.
+@_spi(Unsafe)
 public struct InputDict: GraphQLOperationVariableValue, Hashable {
 
-  private var data: [String: any GraphQLOperationVariableValue]
+  fileprivate var data: [String: any GraphQLOperationVariableValue]
 
   public init(_ data: [String: any GraphQLOperationVariableValue] = [:]) {
     self.data = data
   }
 
+  @_spi(Internal)
   public var _jsonEncodableValue: (any JSONEncodable)? { data._jsonEncodableObject }
-
-  @_disfavoredOverload
-  public subscript<T: GraphQLOperationVariableValue>(key: String) -> T {
-    get { data[key] as! T }
-    set { data[key] = newValue }
-  }
 
   public subscript<T: GraphQLOperationVariableValue>(key: String) -> GraphQLNullable<T> {
     get {
@@ -47,12 +46,34 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
     set { data[key] = newValue }
   }
 
+  @_disfavoredOverload
+  public subscript<T: GraphQLOperationVariableValue>(key: String) -> T {
+    get { data[key] as! T }
+    set { data[key] = newValue }
+  }
+
+  @_disfavoredOverload
+  public subscript<T: GraphQLOperationVariableValue>(key: String) -> T? {
+    get {
+      switch data[key] {
+      case let .some(value) as GraphQLNullable<T>,
+        let value as T:
+        return value
+        
+      default:
+        return nil
+      }
+    }
+    set { data[key] = newValue ?? GraphQLNullable.none }
+  }
+
   public static func == (lhs: InputDict, rhs: InputDict) -> Bool {
-    lhs.data._jsonEncodableValue?._jsonValue == rhs.data._jsonEncodableValue?._jsonValue
+    AnyHashable(lhs.data._jsonEncodableObject._jsonValue) ==
+    AnyHashable(rhs.data._jsonEncodableObject._jsonValue)
   }
 
   public func hash(into hasher: inout Hasher) {
-    hasher.combine(data._jsonEncodableValue?._jsonValue)
+    hasher.combine(data._jsonEncodableObject._jsonValue)
   }
 
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public enum GraphQLOperationType: Hashable {
+public enum GraphQLOperationType: Sendable, Hashable {
   case query
   case mutation
   case subscription
@@ -55,10 +55,11 @@ public struct OperationDefinition: Sendable {
 
 /// A unique identifier used as a key to map a deferred selection set type to an incremental
 /// response label and path.
-public struct DeferredFragmentIdentifier: Hashable {
-  let label: String
-  let fieldPath: [String]
-
+@_spi(Execution)
+public struct DeferredFragmentIdentifier: Sendable, Hashable {
+  public let label: String
+  public let fieldPath: [String]
+  
   public init(label: String, fieldPath: [String]) {
     self.label = label
     self.fieldPath = fieldPath
@@ -67,55 +68,51 @@ public struct DeferredFragmentIdentifier: Hashable {
 
 // MARK: - GraphQLOperation
 
-public protocol GraphQLOperation: AnyObject, Hashable {
+public protocol GraphQLOperation: Sendable, Hashable {
   typealias Variables = [String: any GraphQLOperationVariableValue]
 
   static var operationName: String { get }
   static var operationType: GraphQLOperationType { get }
   static var operationDocument: OperationDocument { get }
+  static var responseFormat: ResponseFormat { get }
 
-  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? { get }
-
+  @_spi(Unsafe)
   var __variables: Variables? { get }
 
   associatedtype Data: RootSelectionSet
+  associatedtype ResponseFormat: OperationResponseFormat = SingleResponseFormat
 }
 
 // MARK: Static Extensions
 
 public extension GraphQLOperation {
-  static var deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]? {
-    return nil
-  }
-
-  static func deferredSelectionSetType<T: GraphQLOperation>(
-    for operation: T.Type,
-    withLabel label: String,
-    atFieldPath fieldPath: [String]
-  ) -> (any SelectionSet.Type)? {
-    return T.deferredFragments?[DeferredFragmentIdentifier(label: label, fieldPath: fieldPath)]
-  }
-
-  static var hasDeferredFragments: Bool {
-    return !(deferredFragments?.isEmpty ?? true)
-  }
-
   static var definition: OperationDefinition? {
     operationDocument.definition
   }
-  
+
   static var operationIdentifier: String? {
     operationDocument.operationIdentifier
   }
 
-  static func ==(lhs: Self, rhs: Self) -> Bool {
-    lhs.__variables?._jsonEncodableValue?._jsonValue == rhs.__variables?._jsonEncodableValue?._jsonValue
+  static func == (lhs: Self, rhs: Self) -> Bool {
+    switch (lhs.__variables, rhs.__variables) {
+    case (.none, .none): return true
+    case (.some, .none), (.none, .some): return false
+    case let (.some(lhsVariables), .some(rhsVariables)):
+      return AnyHashable(lhsVariables._jsonEncodableObject._jsonValue)
+        == AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
+    }
   }
+}
+
+public extension GraphQLOperation where ResponseFormat == SingleResponseFormat {
+  static var responseFormat: ResponseFormat { SingleResponseFormat() }
 }
 
 // MARK: Instance Extensions
 
 public extension GraphQLOperation {
+  @_spi(Unsafe)
   var __variables: Variables? {
     return nil
   }
@@ -143,23 +140,58 @@ public extension GraphQLMutation {
 
 // MARK: - GraphQLSubscription
 
-public protocol GraphQLSubscription: GraphQLOperation {}
+public protocol GraphQLSubscription: GraphQLOperation
+where ResponseFormat == SubscriptionResponseFormat {
+  associatedtype ResponseFormat: OperationResponseFormat = SubscriptionResponseFormat
+}
+
 public extension GraphQLSubscription {
   @inlinable static var operationType: GraphQLOperationType { return .subscription }
+  static var responseFormat: ResponseFormat { SubscriptionResponseFormat() }
 }
+
+// MARK: - OperationResponseFormat
+
+/// The format expected for the network response of an operation.
+public protocol OperationResponseFormat: Sendable {}
+
+/// A response format for an operation that expects a single network response.
+///
+/// This is the default format for most operations.
+public struct SingleResponseFormat: OperationResponseFormat {}
+
+/// An incremental response format for an operation which uses the `@defer` directive.
+public struct IncrementalDeferredResponseFormat: OperationResponseFormat {
+  @_spi(Execution)
+  public let deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]
+
+  @_spi(Execution)
+  public init(deferredFragments: [DeferredFragmentIdentifier: any SelectionSet.Type]) {
+    self.deferredFragments = deferredFragments
+  }
+}
+
+public struct SubscriptionResponseFormat: OperationResponseFormat {}
 
 // MARK: - GraphQLOperationVariableValue
 
-public protocol GraphQLOperationVariableValue {
+public protocol GraphQLOperationVariableValue: Sendable {
+  @_spi(Internal)
+  var _jsonEncodableValue: (any JSONEncodable)? { get }
+}
+public protocol GraphQLOperationVariableListElement: Sendable {
   var _jsonEncodableValue: (any JSONEncodable)? { get }
 }
 
-extension Array: GraphQLOperationVariableValue
-where Element: GraphQLOperationVariableValue & JSONEncodable & Hashable {}
+extension Array: GraphQLOperationVariableValue, GraphQLOperationVariableListElement
+where Element: GraphQLOperationVariableListElement & JSONEncodable & Hashable {}
 
-extension Dictionary: GraphQLOperationVariableValue
+extension Dictionary: GraphQLOperationVariableValue, GraphQLOperationVariableListElement
 where Key == String, Value == any GraphQLOperationVariableValue {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { _jsonEncodableObject }
+
+  @_spi(Internal)
   @inlinable public var _jsonEncodableObject: JSONEncodableDictionary {
     compactMapValues { $0._jsonEncodableValue }
   }
@@ -167,6 +199,7 @@ where Key == String, Value == any GraphQLOperationVariableValue {
 
 extension GraphQLNullable: GraphQLOperationVariableValue
 where Wrapped: GraphQLOperationVariableValue {
+  @_spi(Internal)
   @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
     switch self {
     case .none: return nil
@@ -176,17 +209,19 @@ where Wrapped: GraphQLOperationVariableValue {
   }
 }
 
-extension Optional: GraphQLOperationVariableValue where Wrapped: GraphQLOperationVariableValue {
-  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
-    switch self {
-    case .none: return nil    
-    case let .some(value): return value._jsonEncodableValue
-    }
-  }
+extension JSONEncodable where Self: GraphQLOperationVariableValue {
+  @_spi(Internal)
+  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
 }
 
-extension JSONEncodable where Self: GraphQLOperationVariableValue {
-  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? { self }
+extension Optional: GraphQLOperationVariableListElement where Wrapped: GraphQLOperationVariableListElement {
+  @_spi(Internal)
+  @inlinable public var _jsonEncodableValue: (any JSONEncodable)? {
+     switch self {
+     case .none: return nil
+     case let .some(value): return value._jsonEncodableValue
+     }
+   }
 }
 
 // MARK: - Deprecations

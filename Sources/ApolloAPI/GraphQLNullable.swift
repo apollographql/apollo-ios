@@ -90,7 +90,7 @@
 /// # See Also
 /// [GraphQLSpec - Input Values - Null Value](http://spec.graphql.org/October2021/#sec-Null-Value)
 @dynamicMemberLookup
-public enum GraphQLNullable<Wrapped> {
+public enum GraphQLNullable<Wrapped: Sendable>: Sendable {
 
   /// The absence of a value.
   /// Functionally equivalent to `nil`.

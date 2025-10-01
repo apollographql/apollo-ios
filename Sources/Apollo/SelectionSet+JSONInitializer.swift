@@ -1,6 +1,4 @@
-#if !COCOAPODS
-import ApolloAPI
-#endif
+@_spi(Unsafe) import ApolloAPI
 
 extension RootSelectionSet {
 
@@ -17,18 +15,20 @@ extension RootSelectionSet {
   public init(
     data: JSONObject,
     variables: GraphQLOperation.Variables? = nil
-  ) throws {
-    let accumulator = GraphQLSelectionSetMapper<Self>(
+  ) async throws {
+    let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    self = try executor.execute(
+    let dataDict = try await executor.execute(
       selectionSet: Self.self,
       on: data,
       variables: variables,
       accumulator: accumulator
     )
+
+    self.init(_dataDict: dataDict)
   }
 
 }
@@ -50,19 +50,20 @@ extension Deferrable {
     data: JSONObject,
     in operation: any GraphQLOperation.Type,
     variables: GraphQLOperation.Variables? = nil
-  ) throws {
-    let accumulator = GraphQLSelectionSetMapper<Self>(
+  ) async throws {
+    let accumulator = DataDictMapper(
       handleMissingValues: .allowForOptionalFields
     )
     let executor = GraphQLExecutor(executionSource: NetworkResponseExecutionSource())
 
-    self = try executor.execute(
+    let dataDict = try await executor.execute(
       selectionSet: Self.self,
       in: operation,
       on: data,
       variables: variables,
       accumulator: accumulator
     )
+    self.init(_dataDict: dataDict)
   }
 
 }

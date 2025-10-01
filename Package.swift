@@ -1,18 +1,14 @@
-// swift-tools-version:5.9
-//
-// The swift-tools-version declares the minimum version of Swift required to build this package.
-// Swift 5.9 is available from Xcode 15.0.
-
+// swift-tools-version:6.1
 
 import PackageDescription
 
 let package = Package(
   name: "Apollo",
   platforms: [
-    .iOS(.v12),
-    .macOS(.v10_14),
-    .tvOS(.v12),
-    .watchOS(.v5),
+    .iOS(.v15),
+    .macOS(.v12),
+    .tvOS(.v15),
+    .watchOS(.v8),
     .visionOS(.v1),
   ],
   products: [
@@ -24,8 +20,7 @@ let package = Package(
     .library(name: "ApolloTestSupport", targets: ["ApolloTestSupport"]),
     .plugin(name: "InstallCLI", targets: ["Install CLI"])
   ],
-  dependencies: [
-  ],
+  dependencies: [],
   targets: [
     .target(
       name: "Apollo",
@@ -35,7 +30,9 @@ let package = Package(
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
-      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
     ),
     .target(
       name: "ApolloAPI",
@@ -43,7 +40,9 @@ let package = Package(
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
-      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
     ),
     .target(
       name: "ApolloSQLite",
@@ -53,7 +52,9 @@ let package = Package(
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
-      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
     ),
     .target(
       name: "ApolloWebSocket",
@@ -63,7 +64,9 @@ let package = Package(
       resources: [
         .copy("Resources/PrivacyInfo.xcprivacy")
       ],
-      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
     ),
     .target(
       name: "ApolloTestSupport",
@@ -71,7 +74,9 @@ let package = Package(
         "Apollo",
         "ApolloAPI"
       ],
-      swiftSettings: [.enableUpcomingFeature("ExistentialAny")]
+      swiftSettings: [
+        .swiftLanguageMode(.v6)
+      ]
     ),
     .plugin(
       name: "Install CLI",
@@ -86,5 +91,6 @@ let package = Package(
       dependencies: [],
       path: "Plugins/InstallCLI"
     )
-  ]
+  ],
+  swiftLanguageModes: [.v6, .v5]
 )

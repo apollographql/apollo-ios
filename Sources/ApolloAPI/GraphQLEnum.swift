@@ -3,7 +3,7 @@
 /// ``GraphQLEnum`` provides an ``unknown(_:)`` case that is used when the response returns a value
 /// that is not recognized as a valid enum case. This is usually caused by future cases added to
 /// the enum on the schema after code generation.
-public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
+public enum GraphQLEnum<T: EnumType>: CaseIterable, Sendable, Hashable, RawRepresentable {
   public typealias RawValue = String
 
   /// A recognized case of the wrapped enum.
@@ -72,6 +72,7 @@ public enum GraphQLEnum<T: EnumType>: CaseIterable, Hashable, RawRepresentable {
 
 // MARK: CustomScalarType
 extension GraphQLEnum: CustomScalarType {
+  @_spi(Internal)
   @inlinable public init(_jsonValue: JSONValue) throws {
     guard let stringData = _jsonValue as? String else {
       throw JSONDecodingError.couldNotConvert(value: _jsonValue, to: String.self)      

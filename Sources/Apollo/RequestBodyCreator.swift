@@ -1,12 +1,11 @@
-#if !COCOAPODS
-import ApolloAPI
-#endif
+@_spi(Internal) @_spi(Unsafe) import ApolloAPI
 
-public protocol RequestBodyCreator {
-  /// Creates a `JSONEncodableDictionary` out of the passed-in operation
+public protocol JSONRequestBodyCreator: Sendable {
+
+  /// Creates a the JSON body for a GraphQL specification compliant request from the given `GraphQLOperation`.
   ///
   /// - Parameters:
-  ///   - operation: The operation to use
+  ///   - operation: The `GraphQLOperation` to create the JSON body for.
   ///   - sendQueryDocument: Whether or not to send the full query document. Should default to `true`.
   ///   - autoPersistQuery: Whether to use auto-persisted query information. Should default to `false`.
   /// - Returns: The created `JSONEncodableDictionary`
@@ -15,16 +14,19 @@ public protocol RequestBodyCreator {
     sendQueryDocument: Bool,
     autoPersistQuery: Bool
   ) -> JSONEncodableDictionary
+
 }
 
 // MARK: - Default Implementation
 
-extension RequestBodyCreator {
-  
+public struct DefaultRequestBodyCreator: JSONRequestBodyCreator {
+  // Internal init methods cannot be used in public methods
+  public init() { }
+
   public func requestBody<Operation: GraphQLOperation>(
     for operation: Operation,
     sendQueryDocument: Bool,
-    autoPersistQuery: Bool
+    autoPersistQuery: Bool    
   ) -> JSONEncodableDictionary {
     var body: JSONEncodableDictionary = [
       "operationName": Operation.operationName,
@@ -51,12 +53,19 @@ extension RequestBodyCreator {
       ]
     }
 
+    if let clientAwarenessMetadata = ApolloClient.context?.clientAwarenessMetadata {
+      clientAwarenessMetadata.applyExtension(to: &body)
+    }
+
     return body
   }
 }
 
+// MARK: - Deprecations
+
+@available(*, deprecated, renamed: "JSONRequestBodyCreator")
+public typealias RequestBodyCreator = JSONRequestBodyCreator
+
 // Helper struct to create requests independently of HTTP operations.
-public struct ApolloRequestBodyCreator: RequestBodyCreator {
-  // Internal init methods cannot be used in public methods
-  public init() { }
-}
+@available(*, deprecated, renamed: "DefaultRequestBodyCreator")
+public typealias ApolloRequestBodyCreator = DefaultRequestBodyCreator

@@ -1,11 +1,8 @@
 import Foundation
-#if !COCOAPODS
 import Apollo
-#endif
 
 public enum SQLiteNormalizedCacheError: Error {
-  case invalidRecordEncoding(record: String)
-  case invalidRecordShape(object: Any)
+  case invalidRecordEncoding(record: String)  
 }
 
 /// A `NormalizedCache` implementation which uses a SQLite database to store data.

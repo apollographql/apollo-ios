@@ -2,7 +2,7 @@
 ///
 /// # See Also
 /// [GraphQL Spec - Scalars](http://spec.graphql.org/October2021/#sec-Scalars)
-public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
+public protocol AnyScalarType: Sendable, Hashable, JSONEncodable {}
 
 /// A protocol that represents any GraphQL "`scalar`" defined in the GraphQL Specification.
 ///
@@ -18,10 +18,13 @@ public protocol AnyScalarType: JSONEncodable, AnyHashableConvertible {}
 public protocol ScalarType:
   AnyScalarType,
   JSONDecodable,
-  GraphQLOperationVariableValue {}
+  GraphQLOperationVariableValue,
+  GraphQLOperationVariableListElement
+{}
 
 extension String: ScalarType {}
 extension Int: ScalarType {}
+extension Int32: ScalarType {}
 extension Bool: ScalarType {}
 extension Float: ScalarType {}
 extension Double: ScalarType {}
@@ -39,14 +42,9 @@ public protocol CustomScalarType:
   AnyScalarType,
   JSONDecodable,
   OutputTypeConvertible,
-  GraphQLOperationVariableValue
+  GraphQLOperationVariableValue,
+  GraphQLOperationVariableListElement
 {}
-
-extension CustomScalarType {
-  @inlinable public static var _asOutputType: Selection.Field.OutputType {
-    .nonNull(.customScalar(self))
-  }
-}
 
 extension Array: AnyScalarType where Array.Element: AnyScalarType & Hashable {}
 

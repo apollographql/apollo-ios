@@ -1,8 +1,6 @@
 import Foundation
-#if !COCOAPODS
-import Apollo
+@_spi(Internal) @_spi(Execution) import Apollo
 import ApolloAPI
-#endif
 
 private let serializedReferenceKey = "$reference"
 
@@ -24,10 +22,7 @@ enum SQLiteSerialization {
   }
 
   static func deserialize(data: Data) throws -> Record.Fields {
-    let object = try JSONSerialization.jsonObject(with: data, options: [])
-    guard let jsonObject = object as? JSONObject else {
-      throw SQLiteNormalizedCacheError.invalidRecordShape(object: object)
-    }
+    let jsonObject = try JSONSerializationFormat.deserialize(data: data) as JSONObject    
     var fields = Record.Fields()
     for (key, value) in jsonObject {
       fields[key] = try deserialize(fieldJSONValue: value)
@@ -43,7 +38,7 @@ enum SQLiteSerialization {
       }
       return CacheReference(reference)
     case let array as [JSONValue]:
-      return try array.map { try deserialize(fieldJSONValue: $0) }
+      return try array.map { try deserialize(fieldJSONValue: $0) } as Record.Value
     default:
       return fieldJSONValue
     }

@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 import Apollo
-#endif
 import SQLite3
 
 public final class ApolloSQLiteDatabase: SQLiteDatabase {
@@ -213,7 +211,7 @@ public final class ApolloSQLiteDatabase: SQLiteDatabase {
 
   public func setJournalMode(mode: JournalMode) throws {
     try performSync {
-      try exec("PRAGMA journal_mode = \(mode.rawValue);", errorMessage: "Failed to set journal mode")
+      _ = try exec("PRAGMA journal_mode = \(mode.rawValue);", errorMessage: "Failed to set journal mode")
     }
   }
 }

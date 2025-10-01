@@ -20,6 +20,7 @@ public protocol SchemaMetadata {
   /// - Returns: An ``Object`` type representing the response object if the type is known to the
   /// schema. If the schema does not include a known ``Object`` with the given ``Object/typename``,
   /// returns `nil`.
+  @_spi(Execution)
   static func objectType(forTypename typename: String) -> Object?
 }
 
@@ -34,6 +35,7 @@ extension SchemaMetadata {
   /// - Returns: An ``Object`` type representing the response object if the type is known to the
   /// schema. If the schema does not include a known ``Object`` with the given ``Object/typename``,
   /// returns `nil`.
+  @_spi(Execution)
   @inlinable public static func graphQLType(for object: ObjectData) -> Object? {
     guard let typename = object["__typename"] as? String else {
       return nil
@@ -49,7 +51,7 @@ extension SchemaMetadata {
   /// 1. Map the type of the `object` using the ``graphQLType(for:)`` function.
   /// 2. Attempt to gets the `CacheKeyInfo`` using programmatic cache key configuration.
   ///  2a. Call the ``SchemaConfiguration/cacheKeyInfo(for:object:)`` function.
-  ///  2b. If `CacheKeyInfo` is found, transforms the ``CacheKeyInfo`` into the correct ``CacheReference``
+  ///  2b. If `CacheKeyInfo` is found, transforms the ``CacheKeyInfo`` into the correct cache reference
   ///  for the `NormalizedCache` and return it.
   /// 3. If no programmatic cache key is returned, attempt to resolve the `keyFields` for the object
   ///   3a. Check if the object's type has `keyFields`.
@@ -68,6 +70,7 @@ extension SchemaMetadata {
   ///
   /// - Returns: A `String` representing the cache key for the `object` to be used by
   /// `NormalizedCache` mechanisms.
+  @_spi(Execution)
   @inlinable public static func cacheKey(
     for object: ObjectData,
     inferredToImplementInterface implementedInterface: Interface? = nil
@@ -84,7 +87,7 @@ extension SchemaMetadata {
       guard let keyFieldValue = object[$0] else {
         throw JSONDecodingError.missingValue
       }
-      let item = try String(_jsonValue: keyFieldValue._asAnyHashable)
+      let item = try String(_jsonValue: keyFieldValue)
       
       // Escape all instances of `+` with a backslash, as well as other backslashes
       return item.replacingOccurrences(of: "\\", with: "\\\\")

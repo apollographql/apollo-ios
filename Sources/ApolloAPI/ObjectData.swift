@@ -1,50 +1,52 @@
+@_spi(Execution)
 public protocol _ObjectData_Transformer {
-  func transform(_ value: AnyHashable) -> (any ScalarType)?
-  func transform(_ value: AnyHashable) -> ObjectData?
-  func transform(_ value: AnyHashable) -> ListData?
+  func transform(_ value: any Hashable & Sendable) -> (any ScalarType)?
+  func transform(_ value: any Hashable & Sendable) -> ObjectData?
+  func transform(_ value: any Hashable & Sendable) -> ListData?
 }
 
 /// An opaque wrapper for data representing a GraphQL object. This type wraps data from different
 /// sources, using a `_transformer` to ensure the raw data from different sources (which may be in
 /// different formats) can be consumed with a consistent API.
 public struct ObjectData {
-  public let _transformer: any _ObjectData_Transformer
-  public let _rawData: [String: AnyHashable]
+  let _transformer: any _ObjectData_Transformer
+  let _rawData: [String: any Hashable & Sendable]
 
+  @_spi(Execution)
   public init(
     _transformer: any _ObjectData_Transformer,
-    _rawData: [String: AnyHashable]
+    _rawData: [String: any Hashable & Sendable]
   ) {
     self._transformer = _transformer
     self._rawData = _rawData
   }
 
-  @inlinable public subscript(_ key: String) -> (any ScalarType)? {
+  public subscript(_ key: String) -> (any ScalarType)? {
     guard let rawValue = _rawData[key] else { return nil }
-    var value: AnyHashable = rawValue
+    var value: any Hashable & Sendable = rawValue
 
-    // This check is based on AnyHashable using a canonical representation of the type-erased value so
-    // instances wrapping the same value of any type compare as equal. Therefore while Int(1) and Int(0)
-    // might be representable as Bool they will never equal Bool(true) nor Bool(false).
-    if let boolVal = value as? Bool, value.isCanonicalBool {
+    // Attempting cast to `Int` to ensure we always use `Int32` vs `Int` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int32`
+    switch value {
+    case let boolVal as Bool:
       value = boolVal
-
-    // Cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting
-    } else if let intValue = value as? Int {
-      value = intValue
+    case let intVal as any FixedWidthInteger:
+      value = Int32(intVal)
+    default:
+      break
     }
 
     return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ObjectData? {
+  public subscript(_ key: String) -> ObjectData? {
     guard let value = _rawData[key] else { return nil }
     return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: String) -> ListData? {
+  public subscript(_ key: String) -> ListData? {
     guard let value = _rawData[key] else { return nil }
     return _transformer.transform(value)
   }
@@ -55,50 +57,42 @@ public struct ObjectData {
 /// This type wraps data from different sources, using a `_transformer` to ensure the raw data from
 /// different sources (which may be in different formats) can be consumed with a consistent API.
 public struct ListData {
-  public let _transformer: any _ObjectData_Transformer
-  public let _rawData: [AnyHashable]
+  let _transformer: any _ObjectData_Transformer
+  let _rawData: [any Hashable & Sendable]
 
+  @_spi(Execution)
   public init(
     _transformer: any _ObjectData_Transformer,
-    _rawData: [AnyHashable]
+    _rawData: [any Hashable & Sendable]
   ) {
     self._transformer = _transformer
     self._rawData = _rawData
   }
 
-  @inlinable public subscript(_ key: Int) -> (any ScalarType)? {
-    var value: AnyHashable = _rawData[key]
-    
-    // This check is based on AnyHashable using a canonical representation of the type-erased value so
-    // instances wrapping the same value of any type compare as equal. Therefore while Int(1) and Int(0)
-    // might be representable as Bool they will never equal Bool(true) nor Bool(false).
-    if let boolVal = value as? Bool, value.isCanonicalBool {
-      value = boolVal
+  public subscript(_ key: Int) -> (any ScalarType)? {
+    var value: any Hashable & Sendable = _rawData[key]
 
-    // Cast to `Int` to ensure we always use `Int` vs `Int32` or `Int64` for consistency and ScalarType casting
-    } else if let intValue = value as? Int {
-      value = intValue
+    // Attempting cast to `Int` to ensure we always use `Int32` vs `Int` or `Int64` for consistency and ScalarType casting,
+    // also need to attempt `Bool` cast first to ensure a bool doesn't get inadvertently converted to `Int32`
+    switch value {
+    case let boolVal as Bool:
+      value = boolVal
+    case let intVal as any FixedWidthInteger:
+      value = Int32(intVal)
+    default:
+      break
     }
 
     return _transformer.transform(value)
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ObjectData? {
+  public subscript(_ key: Int) -> ObjectData? {
     return _transformer.transform(_rawData[key])
   }
 
   @_disfavoredOverload
-  @inlinable public subscript(_ key: Int) -> ListData? {
+  public subscript(_ key: Int) -> ListData? {
     return _transformer.transform(_rawData[key])
-  }
-}
-
-extension AnyHashable {
-  fileprivate static let boolTrue = AnyHashable(true)
-  fileprivate static let boolFalse = AnyHashable(false)
-
-  @usableFromInline var isCanonicalBool: Bool {
-    self == Self.boolTrue || self == Self.boolFalse
   }
 }
