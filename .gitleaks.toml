@@ -19,7 +19,7 @@
     [ rules.allowlist ]
         commits = [
             "2568a4c9921ccb04e8391200554bdd8897000fa6",
-            
+
         ]
 
 [[ rules ]]
@@ -27,11 +27,14 @@
     [ rules.allowlist ]
 
         paths = [
-            # Allowlists a false positive detection at  
+            # Allowlists a false positive detection at
             # https://github.com/apollographql/apollo-ios/blob/474554504e7e33cef2a71774f825d5b3947ff797/Tests/ApolloCodegenTests/TestHelpers/ASTMatchers.swift#L72
             # This was previously allowlisted via commit hash, but updating that rule
             # To support allowlisting false positive detections in the files below as well.
             '''Tests/ApolloCodegenTests/TestHelpers/ASTMatchers.swift''',
+
+            # Allowlists a false positive detection at line 156
+            '''apollo-ios/Sources/Apollo/Execution/GraphQLResultAccumulator.swift$'''
 
             # Allowlist the various high-entropy strings in xcscmblueprint files
             '''Apollo.xcodeproj/project.xcworkspace/xcshareddata/Apollo.xcscmblueprint$''',

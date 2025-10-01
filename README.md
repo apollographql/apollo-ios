@@ -4,7 +4,7 @@
   </div>
   <h1 align="center">Apollo iOS</h1>
  
-**The industry-leading GraphQL client in Swift for iOS, macOS, watchOS, tvOS, and more.** Apollo iOS delivers powerful caching, robust code generation, and intuitive APIs to accelerate your app development.
+**The industry-leading GraphQL client in Swift for iOS, macOS, watchOS, tvOS, and visionOS.** Apollo iOS delivers powerful caching, robust code generation, and intuitive APIs to accelerate your app development.
 
 ➡️ [**Get Started with Apollo iOS →**](https://www.apollographql.com/docs/ios/get-started?utm_source=github&utm_medium=apollographql_apollo-client&utm_campaign=readme)
 
@@ -18,11 +18,11 @@
     <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg?maxAge=2592000" alt="MIT license">
   </a>
   <a href="Platforms">
-    <img src="https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS-333333.svg" alt="Supported Platforms: iOS, macOS, tvOS, watchOS" />
+    <img src="https://img.shields.io/badge/platforms-iOS%2015%2B%20%7C%20macOS%2012%2B%20%7C%20tvOS%2015%2B%20%7C%20watchOS%208%2B%20%7C%20visionOS%201%2B-333333.svg" alt="Supported Platforms: iOS 15+, macOS 12+, tvOS 15+, watchOS 8+, visionOS 1+" />
   </a><br><br>
 
   <a href="https://github.com/apple/swift">
-    <img src="https://img.shields.io/badge/Swift-5.7-orange.svg" alt="Swift 5.7 supported">
+    <img src="https://img.shields.io/badge/Swift-6.1-orange.svg" alt="Swift 6.1 supported">
   </a>
   <a href="https://swift.org/package-manager/">
     <img src="https://img.shields.io/badge/Swift_Package_Manager-compatible-orange?style=flat-square" alt="Swift Package Manager compatible">
@@ -34,10 +34,10 @@
 
 ## ❓ Why Choose Apollo iOS?
 
-✅ Intuitive caching - Intelligent in-memory or SQLite out of the box<br>
-✅ Highly configurable code generation - The days of hand-writing models for network responses are over!<br>
-✅ Opinionated - Leads users down the "pit of success" and encourages good practices by default<br>
-✅ Production-tested - Powers countless apps worldwide that serve millions of end users<br>
+✅ **Intuitive caching** - Intelligent in-memory or SQLite out of the box<br>
+✅ **Highly configurable code generation** - The days of hand-writing models for network responses are over!<br>
+✅ **Opinionated** - Leads users down the "pit of success" and encourages good practices by default<br>
+✅ **Production-tested** - Powers countless apps worldwide that serve millions of end users<br>
 
 ## 🚀 Quick Start
  
@@ -47,7 +47,7 @@
 dependencies: [
     .package(
         url: "https://github.com/apollographql/apollo-ios.git",
-        .upToNextMajor(from: "1.0.0")
+        .upToNextMajor(from: "2.0.0")
     ),
 ],
 ```

@@ -1,5 +1,69 @@
 # Change Log
 
+## v2.0.0
+
+**Apollo iOS 2.0 is now available!** 🎉
+
+Apollo iOS 2.0 represents a complete reimplementation of many components of the library, redesigned from the ground up to take full advantage of Swift's modern concurrency model. This major release introduces significant breaking changes but provides substantial improvements in type safety, performance, and developer experience.
+
+### 🚀 What's New
+
+- **Swift Concurrency First**: Complete reimplementation using `async/await` and structured concurrency
+- **Streamlined APIs**: Simplified client APIs with clearer separation of concerns and more precise type safety
+- **Modern Swift Features**: Full adoption of Swift 6 with strict concurrency enabled
+- **Enhanced Request Chain**: New interceptor framework with separate types for different request phases
+- **Sendable Types**: Most types now conform to `Sendable` for improved thread safety
+
+### 🔧 Major API Changes
+
+- **ApolloClient**: Complete redesign using `async/await` instead of callback-based APIs
+- **Cache Policies**: Split into discrete types (`cacheFirst`, `networkFirst`, `networkOnly`, `cacheOnly`, `cacheAndNetwork`) with specific return signatures
+- **Request Interceptors**: New framework with `GraphQLInterceptor`, `HTTPInterceptor`, `CacheInterceptor`, and `ResponseParsingInterceptor` types
+- **GraphQLResponse**: Renamed from `GraphQLResult` with improved generic typing over operations
+
+### ⚠️ Breaking Changes & Limitations
+
+**Minimum Deployment Targets**
+- iOS 15.0+ (was iOS 12.0+)
+- macOS 12.0+ (was macOS 10.14+)
+- tvOS 15.0+ (was tvOS 12.0+)
+- watchOS 8.0+ (was watchOS 5.0+)
+- visionOS 1.0+ (new)
+
+**Removed Features**
+- **CocoaPods Support**: No longer available. Use Swift Package Manager or XCFrameworks
+- **Legacy Network Session**: `URLSessionClient` replaced with `ApolloURLSession` protocol
+- **RequestContext**: Replaced with Swift 6 `@TaskLocal` values for dependency injection
+
+**Current Limitations**
+- **Web Socket Support**: Not available in initial 2.0 release. HTTP subscriptions are supported via `RequestChainNetworkTransport`. Web socket support will be added in a future 2.0.x release.
+- **Deprecated APIs**: 1.x callback-based APIs are deprecated but still available for incremental migration
+
+### 📖 Migration Guide
+
+Apollo iOS 2.0 migration follows a two-phase approach:
+
+**Phase 1: Breaking Changes**
+- Update request/response models with code-generation
+- Migrate custom `Interceptors` to new discrete types
+- Update custom `NetworkTransport` implementations
+- Update custom `NormalizedCache` implementations
+
+**Phase 2: Incremental Updates**
+- Migrate from deprecated callback APIs to new `async/await` APIs
+- Update cache policies to use new discrete types
+- Replace `RequestContext` with `@TaskLocal` values
+
+For detailed migration instructions, see the [Apollo iOS 2.0 Migration Guide](https://www.apollographql.com/docs/ios/migrations/2.0).
+
+### 🎯 Recommended Migration Path
+
+1. **Update dependency** to Apollo iOS 2.0
+2. **Re-run code generation** with 2.0 engine
+3. **Fix breaking changes** (custom interceptors, network transports, etc.)
+4. **Incrementally migrate** `ApolloClient` usage from callbacks to `async/await`
+5. **Test thoroughly** at each step
+
 ## v2.0.0-beta-3
 
 ### New
