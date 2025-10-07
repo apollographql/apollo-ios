@@ -34,7 +34,7 @@
             '''Tests/ApolloCodegenTests/TestHelpers/ASTMatchers.swift''',
 
             # Allowlists a false positive detection at line 156
-            '''apollo-ios/Sources/Apollo/Execution/GraphQLResultAccumulator.swift$'''
+            '''apollo-ios/Sources/Apollo/Execution/GraphQLResultAccumulator.swift$''',
 
             # Allowlist the various high-entropy strings in xcscmblueprint files
             '''Apollo.xcodeproj/project.xcworkspace/xcshareddata/Apollo.xcscmblueprint$''',
