@@ -110,14 +110,6 @@ extension SelectionSet {
     return T.init(_dataDict: __data)
   }
 
-  @inlinable public func hash(into hasher: inout Hasher) {
-    hasher.combine(__data)
-  }
-
-  @inlinable public static func ==(lhs: Self, rhs: Self) -> Bool {
-    return lhs.__data == rhs.__data
-  }
-  
   public var debugDescription: String {
     return "\(self.__data._data as AnyObject)"
   }
