@@ -1,6 +1,6 @@
 # 🔮 Apollo iOS Roadmap
 
-**Last updated: 2025-09-16**
+**Last updated: 2025-10-02**
 
 For up to date release notes, refer to the project's [Changelog](https://github.com/apollographql/apollo-ios/blob/main/CHANGELOG.md).
 
@@ -16,24 +16,13 @@ We are currently looking for feedback on what features, use cases, or improvemen
 
 ---
 
-## [1.x.x patch releases](https://github.com/apollographql/apollo-ios/milestone/70)
+## [Bug fixes & patch releases](https://github.com/apollographql/apollo-ios/milestone/70)
 
-Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.  Anything labeled [`planned-next`](https://github.com/apollographql/apollo-ios/labels/planned-next) is slated for the next patch release.
+Please see our [patch releases milestone](https://github.com/apollographql/apollo-ios/milestone/70) for more information about the fixes and enhancements we plan to ship in the near future.
 
-### [2.0 Release] - Swift 6 compatibility
+### [2.0 web socket support] - Swift 6 compatibility
 
-To support the breaking language changes in Swift 6, a major version 2.0 of Apollo iOS will be released. This version will include support for the new Swift Concurrency Model and improve upon networking and caching APIs.
-
-_Status: [Beta release](https://github.com/apollographql/apollo-ios/releases)_
-
-Beta Release Milestones:
-
-* ✅ Apollo-iOS
-* ✅ ApolloCodegenLib
-* 🔲 Documentation
-* 🔲 ApolloWebSocket (Will be released with Apollo-iOS 2.1)
-  
-Current RFC for design is available [here](https://github.com/apollographql/apollo-ios/issues/3411)._
+The initial release of Apollo iOS 2.0 does not include support for web sockets. We are committed to implementing web sockets for 2.0 as soon as possible to return to feature parity with 1.0 in this regard.
 
 ### [Support codegen of operations without response models](https://github.com/apollographql/apollo-ios/issues/3165)
 
@@ -49,12 +38,6 @@ _Status: Not started_
 
 - Provide a mechanism for making generated reponse models mutable.
 - This will allow mutability on an opt-in basis per selection set or definition.
-
-### `@fieldPolicy` directive
-
-_Status: Development in progress_
-
-The [`@fieldPolicy` directive](https://www.apollographql.com/docs/kotlin/caching/declarative-ids#fieldpolicy) is currently supported by Apollo Kotlin and Apollo Web. This directive allows users to configure field arguments to be used to retrieve data stored in the normalized cache. In our efforts to improve feature parity across the client platforms, we plan to implement this directive in Apollo iOS as well.
 
 ### Semantic Nullability
 
@@ -77,10 +60,6 @@ The `@defer` directive enables your queries to receive data for specific fields 
 _Status: Not started_
 
 The incremental delivery (`@defer/@stream`) directives are nearing acceptance into the GraphQL specification. Support for `@defer` is already implemented. We will be implementing support for `@stream` in the forseeable future.
-
-## [Apollo iOS Pagination](https://github.com/apollographql/apollo-ios-pagination)
-
-Version 0.1 of this module was released in March 2024.  We are iterating quickly based on user feedback - please see the project's Issues and PRs for up-to-date information.  We expect the API to become more stable over time and will consider a v1 release when appropriate.
 
 # [Future Major Releases](https://github.com/apollographql/apollo-ios/milestone/60)
 
