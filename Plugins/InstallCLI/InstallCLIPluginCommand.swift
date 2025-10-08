@@ -16,10 +16,13 @@ struct InstallCLIPluginCommand: CommandPlugin {
         let process = Process()
         let url = try context.tool(named: "sh").url
         process.executableURL = URL(fileURLWithPath: url.absoluteString)
-        process.arguments = [
-          "\(dep.package.directoryURL)/scripts/download-cli.sh",
-          context.package.directoryURL.absoluteString
-        ]
+
+        let downloadScriptPath = dep.package.directoryURL
+          .appendingPathComponent("scripts/download-cli.sh")
+          .standardized
+          .relativePath
+        process.arguments = [downloadScriptPath, context.package.directoryURL.standardized.relativePath]
+
         try process.run()
         process.waitUntilExit()
       }
