@@ -1,5 +1,13 @@
 # Change Log
 
+## v2.0.1
+
+### Fixed
+
+- **SPM CLI Installation ([#795](https://github.com/apollographql/apollo-ios-dev/pull/795)):** Fixed CLI installation via Swift Package Manager by standardizing relative path handling.
+
+- **SPI Attributes on Internal Models ([#796](https://github.com/apollographql/apollo-ios-dev/pull/796)):** Fixed code generation to exclude `@_spi` attributes from models with `internal` access modifier, preventing compilation errors.
+
 ## v2.0.0
 
 **Apollo iOS 2.0 is now available!** 🎉
