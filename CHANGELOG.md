@@ -1,5 +1,12 @@
 # Change Log
 
+## v1.25.0
+
+### Fixed
+- **Narrowly Scoped `SelectionSet` Equality ([#3579](https://github.com/apollographql/apollo-ios/issues/3579)):** `SelectionSet` equality now uses a narrowly scoped algorithm that only compares fields in the underlying data that are relevant to the `SelectionSet`. This fixes a bug where a fragment read back from the graph doesn't match one created in memory by ensuring that equality checks for a fragment do not consider fields that are not included in the fragment, even if they are present in the data. Previous equality checks would simply compare the underlying `DataDict` dictionary which was incorrect. See PR [#771](https://github.com/apollographql/apollo-ios-dev/pull/771). _Thank you to [@potrebic](https://github.com/potrebic) for raising the issue._
+
+**Note:** This change is fixing a long-standing bug in `SelectionSet` equality, however it may highlight previously hidden equality issues and appear to be a bug. If you're convinced this new equality behaviour exposes a bug please open a new issue and we can discuss it.
+
 ## v1.24.0
 
 ### New
