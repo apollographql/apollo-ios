@@ -24,7 +24,6 @@ struct InstallCLIPluginCommand: CommandPlugin {
 
         print("""
           CLI Plugin Command Debugging:
-          url: \(url)
           process.executableURL: \(process.executableURL)
           process.arguments: \(process.arguments)
           """)
