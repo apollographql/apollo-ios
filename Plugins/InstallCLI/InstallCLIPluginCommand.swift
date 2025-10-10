@@ -23,6 +23,13 @@ struct InstallCLIPluginCommand: CommandPlugin {
           .relativePath
         process.arguments = [downloadScriptPath, context.package.directoryURL.standardized.relativePath]
 
+        print("""
+          CLI Plugin Command Debugging:
+          url: \(url)
+          process.executableURL: \(process.executableURL)
+          process.arguments: \(process.arguments)
+          """)
+
         try process.run()
         process.waitUntilExit()
       }
