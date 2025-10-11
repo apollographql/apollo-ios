@@ -14,8 +14,7 @@ struct InstallCLIPluginCommand: CommandPlugin {
     try dependencies.forEach { dep in
       if dep.package.displayName == "Apollo" {
         let process = Process()
-        let url = try context.tool(named: "sh").url
-        process.executableURL = URL(fileURLWithPath: url.absoluteString)
+        process.executableURL = try context.tool(named: "sh").url
 
         let downloadScriptPath = dep.package.directoryURL
           .appendingPathComponent("scripts/download-cli.sh")
