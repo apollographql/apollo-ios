@@ -195,8 +195,8 @@ public extension SelectionSet {
       case let .conditional(_, selections):
         addConditionalSelections(selections, to: &fields)
 
-      case .field:
-        assertionFailure("Conditional selections should not directly include fields. They should use an InlineFragment instead.")
+      case let .field(field):
+        add(field: field, to: &fields)
       }
     }
   }
