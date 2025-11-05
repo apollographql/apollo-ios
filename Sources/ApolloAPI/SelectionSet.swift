@@ -49,7 +49,7 @@ public protocol CompositeInlineFragment: CompositeSelectionSet, InlineFragment {
 public protocol SelectionSet: Hashable, CustomDebugStringConvertible {
   associatedtype Schema: SchemaMetadata
 
-  /// A type representing all of the fragments the `SelectionSet` can be converted to.
+  /// A type representing all of the named fragments the `SelectionSet` can be converted to.
   /// Defaults to a stub type with no fragments.
   /// A `SelectionSet` with fragments should provide a type that conforms to `FragmentContainer`
   associatedtype Fragments = NoFragments
@@ -60,6 +60,12 @@ public protocol SelectionSet: Hashable, CustomDebugStringConvertible {
   ///
   /// This may be a concrete type (`Object`) or an abstract type (`Interface`, or `Union`).
   static var __parentType: any ParentType { get }
+
+  /// The fragments whose selections are always fulfilled on a valid instance of the `SelectionSet`.
+  static var __fulfilledFragments: [any SelectionSet.Type] { get }
+
+  /// The deferred fragments that may be fulfilled on a valid instance of the `SelectionSet`.
+  static var __deferredFragments: [any Deferrable.Type] { get }
 
   /// The data of the underlying GraphQL object represented by the generated selection set.
   var __data: DataDict { get }
@@ -85,6 +91,8 @@ public protocol SelectionSet: Hashable, CustomDebugStringConvertible {
 extension SelectionSet {  
 
   @inlinable public static var __selections: [Selection] { [] }
+
+  @inlinable public static var __deferredFragments: [any Deferrable.Type] { [] }
 
   @inlinable public var __objectType: Object? {
     guard let __typename else { return nil }
@@ -113,6 +121,27 @@ extension SelectionSet {
   public var debugDescription: String {
     return "\(self.__data._data as AnyObject)"
   }
+
+  // MARK: - Internal
+
+  @_spi(Internal)
+  @inlinable public static var __fulfilledFragmentIds: Set<ObjectIdentifier> {
+    Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
+  }
+
+  @_spi(Internal)
+  @inlinable public static var __deferredFragmentIds: Set<ObjectIdentifier> {
+    Set(Self.__fulfilledFragments.map(ObjectIdentifier.init))
+  }
+
+  public init(unsafelyWithData data: [String: JSONValue]) {
+    self.init(_dataDict: DataDict(
+      data: data,
+      fulfilledFragments: Self.__fulfilledFragmentIds,
+      deferredFragments: Self.__deferredFragmentIds
+    ))
+  }
+
 }
 
 extension SelectionSet where Fragments: FragmentContainer {
