@@ -1,5 +1,14 @@
 # Change Log
 
+## v2.0.3
+
+### Fixed
+
+- **Percent encode semicolons when using GET ([#812](https://github.com/apollographql/apollo-ios-dev/pull/812)):** Semicolons were not being correctly encoded into the query string when `useGETForQueries` was enabled. _Thank you to [@nevil](https://github.com/nevil) for the contribution_.
+- **Include merged fields in selection set equality check ([#3602](https://github.com/apollographql/apollo-ios/issues/3602)):** When a field merged from a child object in a named fragment was merged, it was not being used for equality checks. Equality checks now use the types `__fulfilledFragments` and collects selections from all of them, instead of just traversing downward from `self.__selections`. This ensures all expected data is collected from merged fragments. See PR [#832](https://github.com/apollographql/apollo-ios-dev/pull/832). _Thank you to [@JOyo246](https://github.com/JOyo246) for raising the issue_.
+- **Fixed compilation of initializers for mock objects with custom scalars ([#3599](https://github.com/apollographql/apollo-ios/issues/3599)):** Default values for custom scalars were not compiling due to SPI usage. See PR [#838](https://github.com/apollographql/apollo-ios-dev/pull/838). _Thank you to [@akoslowski](https://github.com/akoslowski) for raising the issue.
+- **Fixed infinite loop in parsing invalid multipart messages ([#3608](https://github.com/apollographql/apollo-ios/issues/3608)):** When a multipart message did not end with the correct ending delimiter, the parser would loop over the line infinitely. See PR [#839](https://github.com/apollographql/apollo-ios-dev/pull/839). _Thank you to [@frehulfd](https://github.com/frehulfd) for raising the issue.
+
 ## v2.0.2
 
 ### Fixed
