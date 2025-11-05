@@ -36,7 +36,7 @@ enum MultipartResponseParsing {
 
 
   struct DataLineIterator: IteratorProtocol {
-    /// A double carriage return. Used as the seperator between data lines within a multipart response chunk
+    /// A double carriage return. Used as the separator between data lines within a multipart response chunk
     private static let DataLineSeparator: Data = CRLF + CRLF // "\r\n\r\n"
 
     var data: Data
@@ -44,6 +44,7 @@ enum MultipartResponseParsing {
     mutating func next() -> Data? {
       guard !data.isEmpty else { return nil }
       guard let separatorRange = data.firstRange(of: Self.DataLineSeparator) else {
+        defer { data = Data() }
         return data
       }
 
