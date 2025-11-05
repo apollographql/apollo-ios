@@ -49,8 +49,9 @@ public struct GraphQLGETTransformer {
       components.queryItems = queryItems
     }
 
+    let allowedCharacters = CharacterSet(charactersIn: "+;").inverted
     components.percentEncodedQuery =
-      components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+      components.percentEncodedQuery?.addingPercentEncoding(withAllowedCharacters: allowedCharacters)
 
     return components.url
   }
