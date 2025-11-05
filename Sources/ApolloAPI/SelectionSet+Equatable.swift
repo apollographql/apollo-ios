@@ -1,19 +1,19 @@
 import Foundation
 
 // MARK: - Equatable & Hashable
-public extension SelectionSet {
+extension SelectionSet {
 
   /// Creates a hash using a narrowly scoped algorithm that only combines fields in the underlying data
   /// that are relevant to the `SelectionSet`. This ensures that hashes for a fragment do not
   /// consider fields that are not included in the fragment, even if they are present in the data.
-  func hash(into hasher: inout Hasher) {
+  public func hash(into hasher: inout Hasher) {
     hasher.combine(self.fieldsForEquality())
   }
 
   /// Checks for equality using a narrowly scoped algorithm that only compares fields in the underlying data
   /// that are relevant to the `SelectionSet`. This ensures that equality checks for a fragment do not
   /// consider fields that are not included in the fragment, even if they are present in the data.
-  static func == (lhs: Self, rhs: Self) -> Bool {
+  public static func == (lhs: Self, rhs: Self) -> Bool {
     return AnySendableHashable.equatableCheck(
       lhs.fieldsForEquality(),
       rhs.fieldsForEquality()
@@ -22,40 +22,72 @@ public extension SelectionSet {
 
   private func fieldsForEquality() -> [String: DataDict.FieldValue] {
     var fields: [String: DataDict.FieldValue] = [:]
-    if let asTypeCase = self as? any InlineFragment {
-      self.addFulfilledSelections(of: type(of: asTypeCase.asRootEntityType), to: &fields)
+    var addedFragments: Set<ObjectIdentifier> = []
 
-    } else {
-      self.addFulfilledSelections(of: type(of: self), to: &fields)
-      
+    for fragment in type(of: self).__fulfilledFragments {
+      self.addFulfilledSelections(of: fragment, to: &fields, addedFragments: &addedFragments)
     }
     return fields
   }
 
   private func addFulfilledSelections(
     of selectionSetType: any SelectionSet.Type,
-    to fields: inout [String: DataDict.FieldValue]
+    to fields: inout [String: DataDict.FieldValue],
+    addedFragments: inout Set<ObjectIdentifier>
   ) {
-    guard self.__data.fragmentIsFulfilled(selectionSetType) else {
+    let selectionSetTypeId = ObjectIdentifier(selectionSetType)
+    guard !addedFragments.contains(selectionSetTypeId),
+      self.__data.fragmentIsFulfilled(selectionSetType) else {
       return
     }
 
+    addedFragments.insert(selectionSetTypeId)
+
     for selection in selectionSetType.__selections {
       switch selection {
-      case let .field(field):
+      case .field(let field):
         add(field: field, to: &fields)
 
-      case let .inlineFragment(typeCase):
-        self.addFulfilledSelections(of: typeCase, to: &fields)
+      case .inlineFragment(let typeCase):
+        self.addFulfilledSelections(of: typeCase, to: &fields, addedFragments: &addedFragments)
 
-      case let .conditional(_, selections):
-        self.addConditionalSelections(selections, to: &fields)
+      case .conditional(_, let selections):
+        self.addConditionalSelections(selections, to: &fields, addedFragments: &addedFragments)
 
-      case let .fragment(fragmentType):
-        self.addFulfilledSelections(of: fragmentType, to: &fields)
+      case .fragment(let fragmentType):
+        self.addFulfilledSelections(of: fragmentType, to: &fields, addedFragments: &addedFragments)
 
-      case let .deferred(_, fragmentType, _):
-        self.addFulfilledSelections(of: fragmentType, to: &fields)
+      case .deferred(_, let fragmentType, _):
+        self.addFulfilledSelections(of: fragmentType, to: &fields, addedFragments: &addedFragments)
+      }
+    }
+
+    for fragment in selectionSetType.__fulfilledFragments {
+      self.addFulfilledSelections(of: fragment, to: &fields, addedFragments: &addedFragments)
+    }
+  }
+
+  private func addConditionalSelections(
+    _ selections: [Selection],
+    to fields: inout [String: DataDict.FieldValue],
+    addedFragments: inout Set<ObjectIdentifier>
+  ) {
+    for selection in selections {
+      switch selection {
+      case .inlineFragment(let typeCase):
+        self.addFulfilledSelections(of: typeCase, to: &fields, addedFragments: &addedFragments)
+
+      case .fragment(let fragment):
+        self.addFulfilledSelections(of: fragment, to: &fields, addedFragments: &addedFragments)
+
+      case .deferred(_, let fragment, _):
+        self.addFulfilledSelections(of: fragment, to: &fields, addedFragments: &addedFragments)
+
+      case .conditional(_, let selections):
+        addConditionalSelections(selections, to: &fields, addedFragments: &addedFragments)
+
+      case .field(let field):
+        add(field: field, to: &fields)
       }
     }
   }
@@ -64,10 +96,12 @@ public extension SelectionSet {
     field: Selection.Field,
     to fields: inout [String: DataDict.FieldValue]
   ) {
+    guard !fields.keys.contains(field.responseKey) else { return }
+
     let nullableFieldData = self.__data._data[field.responseKey].asNullable
     let fieldData: DataDict.FieldValue
     switch nullableFieldData {
-    case let .some(value):
+    case .some(let value):
       fieldData = value
     case .none, .null:
       return
@@ -79,13 +113,13 @@ public extension SelectionSet {
       case .scalar, .customScalar:
         fields[field.responseKey] = fieldData
 
-      case let .nonNull(innerType):
+      case .nonNull(let innerType):
         addData(for: innerType, inList: inList)
 
-      case let .list(innerType):
+      case .list(let innerType):
         addData(for: innerType, inList: true)
 
-      case let .object(selectionSetType):
+      case .object(let selectionSetType):
         switch inList {
         case false:
           guard let objectData = fieldData as? DataDict else {
@@ -117,30 +151,6 @@ public extension SelectionSet {
     }
 
     preconditionFailure("Expected list data to contain objects.")
-  }
-
-  private func addConditionalSelections(
-    _ selections: [Selection],
-    to fields: inout [String: DataDict.FieldValue]
-  ) {
-    for selection in selections {
-      switch selection {
-      case let .inlineFragment(typeCase):
-        self.addFulfilledSelections(of: typeCase, to: &fields)
-
-      case let .fragment(fragment):
-        self.addFulfilledSelections(of: fragment, to: &fields)
-
-      case let .deferred(_, fragment, _):
-        self.addFulfilledSelections(of: fragment, to: &fields)
-
-      case let .conditional(_, selections):
-        addConditionalSelections(selections, to: &fields)
-
-      case let .field(field):
-        add(field: field, to: &fields)
-      }
-    }
   }
 
 }
