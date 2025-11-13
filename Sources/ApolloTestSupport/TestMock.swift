@@ -198,6 +198,9 @@ fileprivate extension Array {
     case let innerArray as Array<Any>:
       return innerArray._unsafelyConvertToSelectionSetData() as JSONValue
 
+    case let element as JSONValue:
+      return element
+
     case let optionalElement as Optional<any Sendable>:
       guard case let .some(element) = optionalElement.asNullable else {
         return nil
