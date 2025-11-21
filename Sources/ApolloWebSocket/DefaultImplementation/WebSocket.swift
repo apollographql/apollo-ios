@@ -590,7 +590,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   private func dequeueInput() {
     while !inputQueue.isEmpty {
       autoreleasepool {
-        let data = inputQueue[0]
+        let data = inputQueue.remove(at: 0)
         var work = data
         if let buffer = fragBuffer {
           var combine = NSData(data: buffer) as Data
@@ -605,7 +605,6 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
         } else {
           processRawMessagesInBuffer(buffer, bufferLen: length)
         }
-        inputQueue = inputQueue.filter{ $0 != data }
       }
     }
   }
@@ -1013,7 +1012,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
           }
         }
       }
-      readStack.removeLast()
+      _ = readStack.popLast()
       return true
     }
     return false
@@ -1111,6 +1110,7 @@ public final class WebSocket: NSObject, WebSocketClient, StreamDelegate, WebSock
   private func doDisconnect(_ error: (any Error)?) {
     serialQueue.sync {
       guard !self.didDisconnect else { return }
+      readStack = []
       self.didDisconnect = true
       self.isConnecting = false
       self.mutex.lock()
