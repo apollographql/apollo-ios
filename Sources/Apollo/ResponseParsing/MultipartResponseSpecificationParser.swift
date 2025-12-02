@@ -27,13 +27,12 @@ enum MultipartResponseParsing {
   /// Carriage Return Line Feed
   static let CRLF: Data = Data([0x0D, 0x0A]) // "\r\n"
 
-  static let Delimeter: Data = CRLF + [0x2D, 0x2D] // "\r\n--"
+  static let Delimiter: Data = CRLF + [0x2D, 0x2D] // "\r\n--"
 
-  /// The delimeter that signifies the end of a multipart response.
+  /// The delimiter that signifies the end of a multipart response.
   ///
-  /// This should immediately follow a Delimeter + Boundary.
-  static let CloseDelimeter: Data = Data([0x2D, 0x2D]) // "--"
-
+  /// This should immediately follow a Delimiter + Boundary.
+  static let CloseDelimiter: Data = Data([0x2D, 0x2D]) // "--"
 
   struct DataLineIterator: IteratorProtocol {
     /// A double carriage return. Used as the separator between data lines within a multipart response chunk

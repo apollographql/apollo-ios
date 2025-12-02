@@ -52,7 +52,7 @@ public struct AsyncHTTPResponseChunkSequence: AsyncChunkSequence {
       self.underlyingIterator = underlyingIterator
 
       if let boundaryString = boundary?.data(using: .utf8) {
-        self.boundary = Constants.Delimeter + boundaryString
+        self.boundary = Constants.Delimiter + boundaryString
       } else {
         self.boundary = nil
       }
@@ -86,7 +86,7 @@ public struct AsyncHTTPResponseChunkSequence: AsyncChunkSequence {
         buffer.removeFirst(Constants.CRLF.count)
       }
 
-      if buffer == Constants.CloseDelimeter {
+      if buffer.starts(with: Constants.CloseDelimiter) {
         buffer.removeAll()
       }
     }
