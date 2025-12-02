@@ -137,6 +137,7 @@ public final class ApolloClient: Sendable {
     ) {
       return result
     }
+    try Task.checkCancellation()
     throw Error.noResults
   }
 
@@ -453,6 +454,7 @@ public final class ApolloClient: Sendable {
     ) {
       return result
     }
+    try Task.checkCancellation()
     throw Error.noResults
   }
 
@@ -512,6 +514,7 @@ public final class ApolloClient: Sendable {
     ) {
       return result
     }
+    try Task.checkCancellation()
     throw Error.noResults
   }
 
