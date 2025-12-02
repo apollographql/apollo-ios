@@ -55,17 +55,19 @@ public struct RecordSet: Sendable, Hashable {
   }
 
   @discardableResult public mutating func merge(record: Record) -> Set<CacheKey> {
-    if var oldRecord = storage.removeValue(forKey: record.key) {
+    if let oldRecord = storage[record.key] {
       var changedKeys: Set<CacheKey> = Set()
-
+      var updatedRecord = oldRecord
+      
       for (key, value) in record.fields {
         if let oldValue = oldRecord.fields[key], AnyHashable(oldValue) == AnyHashable(value) {
           continue
         }
-        oldRecord[key] = value
+        updatedRecord[key] = value
         changedKeys.insert([record.key, key].joined(separator: "."))
       }
-      storage[record.key] = oldRecord
+
+      storage[record.key] = updatedRecord
       return changedKeys
     } else {
       storage[record.key] = record
