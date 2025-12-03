@@ -1,5 +1,15 @@
 # Change Log
 
+## v2.0.4
+
+### Fixed
+
+- **Fix infinite loop bug in Test Mocks ([#842](https://github.com/apollographql/apollo-ios-dev/pull/842)):** _Thank you to [@AlexPan1992](https://github.com/AlexPan1992) for raising the issue_.
+- **Improve error description formatting for validation failure ([#846](https://github.com/apollographql/apollo-ios-dev/pull/846)):** GraphQL validation errors encountered while running code generation are now formatted to be easier to read in logs. _Thank you to [@dfed](https://github.com/dfed) for the contribution_.
+- **Fix deadlock in `AsyncReadWriteLock` ([#851](https://github.com/apollographql/apollo-ios-dev/pull/851)):** When under heavy loads, the `AsyncReadWriteLock` used by the `ApolloStore` could cause a deadlock. This is now resolved. _Thank you to [@marksvend](https://github.com/marksvend) for raising the issue_.
+- **Fix cancellation error for single response operations ([#855](https://github.com/apollographql/apollo-ios-dev/pull/855)):** When a single response operation was cancelled, a `.noResults` error was thrown instead of the expected `CancellationError`. This is now resolved. _Thank you to [@3redrubies](https://github.com/3redrubies) for raising the issue_.
+- **Fix multipart parsing error ([#852](https://github.com/apollographql/apollo-ios-dev/pull/852)):** When a multipart message was received with characters after the closing boundary the multipart parser would emit a `cannotParseChunkData` parsing error. This is now resolved. _Thank you to [@ecant](https://github.com/ecant) for raising the issue_.
+
 ## v2.0.3
 
 ### Fixed
