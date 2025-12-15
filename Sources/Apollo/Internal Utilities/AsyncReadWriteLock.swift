@@ -7,25 +7,9 @@ actor AsyncReadWriteLock {
     case writing
   }
 
-  private final class ReadTask: Sendable {
-    let task: Task<Void, any Swift.Error>
-
-    init(_ body: @Sendable @escaping () async throws -> Void) {
-      task = Task {
-        try await body()
-      }
-    }
-  }
-
-  private var currentReadTasks: [ObjectIdentifier: ReadTask] = [:]
-  private var currentWriteTask: Task<Void, any Swift.Error>?
-  private var queue: [(handle: CheckedContinuation<Void, Never>, isWriter: Bool)] = []
-
-  private var state: State {
-    if currentWriteTask != nil { return .writing }
-    if !currentReadTasks.isEmpty { return .reading }
-    return .idle
-  }
+  private var state: State = .idle
+  private var queue: Queue = Queue()
+  private var runningReadCount: UInt = 0
 
   /// Waits for all current reads/writes to be completed, then calls the provided closure while preventing
   /// any other reads/writes from beginning.
@@ -38,17 +22,14 @@ actor AsyncReadWriteLock {
       await addToQueueAndWait(isWriter: true)
 
     case .idle:
-      break
+      state = .writing
     }
 
-    defer {
-      currentWriteTask = nil
-      writeTaskDidFinish()
-    }
+    defer { writeTaskDidFinish() }
+
     let writeTask = Task {
       try await body()
     }
-    currentWriteTask = writeTask
 
     try await writeTask.value
   }
@@ -69,29 +50,36 @@ actor AsyncReadWriteLock {
       if !queue.isEmpty {
         await addToQueueAndWait(isWriter: false)
       }
+      
     case .idle:
-      break
+      state = .reading
     }
 
-    let readTask = ReadTask(body)
-    let taskID = ObjectIdentifier(readTask)
-    defer {
-      currentReadTasks[taskID] = nil
-      readTaskDidFinish()
-    }
-    currentReadTasks[taskID] = readTask
+    runningReadCount += 1
 
-    try await readTask.task.value
+    defer { readTaskDidFinish() }
+
+    let readTask = Task {
+      try await body()
+    }
+
+    try await readTask.value
   }
 
   private func addToQueueAndWait(isWriter: Bool) async {
     await withCheckedContinuation { continuation in
-      queue.append((handle: continuation, isWriter: isWriter))
+      switch isWriter {
+      case true:
+        queue.addWriteTask(continuation)
+      case false:
+        queue.addReadTask(continuation)
+      }
     }
   }
 
   private func readTaskDidFinish() {
-    if state == .idle {
+    runningReadCount -= 1
+    if runningReadCount == 0 {
       wakeNext()
     }
   }
@@ -101,25 +89,56 @@ actor AsyncReadWriteLock {
   }
 
   private func wakeNext() {
-    guard !queue.isEmpty else {
+    guard let nextItem = queue.pop() else {
+      state = .idle
       return
     }
 
-    let next = queue[0]
-    next.handle.resume(returning: ())
+    switch nextItem {
+    case let .write(continuation):
+      state = .writing
+      continuation.resume()
 
-    if next.isWriter {
-      queue.remove(at: 0)
-      return
-
-    } else {
-      var lastReader = 0
-      for i in 1..<queue.count {
-        guard !queue[i].isWriter else { break }
-        queue[i].handle.resume(returning: ())
-        lastReader = i
+    case let .readBatch(continuations):
+      state = .reading
+      for continuation in continuations {
+        continuation.resume()
       }
-      queue.removeSubrange(0...lastReader)
+    }
+  }
+
+  /// MARK: - Queue
+  private struct Queue {
+    enum Item {
+      case write(CheckedContinuation<Void, Never>)
+      case readBatch([CheckedContinuation<Void, Never>])
+    }
+
+    private var queueItems: [Item] = []
+
+    mutating func addWriteTask(_ continuation: CheckedContinuation<Void, Never>) {
+      queueItems.append(.write(continuation))
+    }
+
+    mutating func addReadTask(_ continuation: CheckedContinuation<Void, Never>) {
+      if case var .readBatch(batch) = queueItems.first {
+        batch.append(continuation)
+        queueItems[0] = .readBatch(batch)
+
+      } else {
+        queueItems.append(.readBatch([continuation]))
+      }
+    }
+
+    mutating func pop() -> Item? {
+      guard !queueItems.isEmpty else {
+        return nil
+      }
+      return queueItems.removeFirst()
+    }
+
+    var isEmpty: Bool {
+      queueItems.isEmpty
     }
   }
 
