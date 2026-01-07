@@ -69,6 +69,8 @@ extension GraphQLRequest {
       request.timeoutInterval = requestTimeout
     }
 
+    request.cachePolicy = requestCachePolicy
+      
     return request
   }
 
@@ -78,6 +80,39 @@ extension GraphQLRequest {
 
   public mutating func addHeaders(_ headers: [String: String]) {
     self.additionalHeaders.merge(headers) { (_, new) in new }
+  }
+    
+  /// Convert the Apollo iOS cache policy into a matching cache policy for URLRequest.
+  /// Ensures URL cache doesn't interfere with Apollo's cache strategy.
+  private var requestCachePolicy: URLRequest.CachePolicy {
+    switch (fetchBehavior.cacheRead, fetchBehavior.networkFetch) {
+    /// CacheOnly
+    case (.beforeNetworkFetch, .never):
+      return .returnCacheDataDontLoad
+      
+    /// CacheAndNetwork
+    case (.beforeNetworkFetch, .always):
+      return .reloadIgnoringLocalCacheData
+      
+    /// CacheFirst
+    case (.beforeNetworkFetch, .onCacheMiss):
+      return .useProtocolCachePolicy
+      
+    /// NetworkFirst
+    case (.onNetworkFailure, .always):
+      return .reloadIgnoringLocalCacheData
+      
+    /// NetworkOnly
+    case (.never, .always):
+      return .reloadIgnoringLocalCacheData
+    
+    /// Impossible / nondefined combinations - Safest fallback is fetch from the server to avoid stale URL cache
+    case (.onNetworkFailure, .never),
+      (.onNetworkFailure, .onCacheMiss),
+      (.never, .never),
+      (.never, .onCacheMiss):
+      return .reloadIgnoringLocalCacheData
+    }
   }
 
 }
