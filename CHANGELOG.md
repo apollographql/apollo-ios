@@ -1,5 +1,10 @@
 # Change Log
 
+## v2.0.5
+
+- **Fix data race in `AsyncReadWriteLock` ([#862](https://github.com/apollographql/apollo-ios-dev/pull/862)):** This fixes issue [#3616](https://github.com/apollographql/apollo-ios/issues/3616). _Thank you to [@AlexPan1992](https://github.com/AlexPan1992) for raising the issue_.
+- **Set `URLRequest.cachePolicy` on `GET` requests ([#859](https://github.com/apollographql/apollo-ios-dev/pull/859)):** _Thank you to [@samjdurante](https://github.com/samjdurante) for the contribution_.
+
 ## v2.0.4
 
 ### Fixed
