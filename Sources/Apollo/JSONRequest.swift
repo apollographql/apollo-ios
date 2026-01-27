@@ -105,8 +105,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
       if isPersistedQueryRetry {
         useGetMethod = self.apqConfig.useGETForPersistedQueryRetry
       } else {
-        useGetMethod =
-          self.useGETForQueries || (self.apqConfig.autoPersistQueries && self.apqConfig.useGETForPersistedQueryRetry)
+        useGetMethod = self.useGETForQueries
       }
     default:
       useGetMethod = false
