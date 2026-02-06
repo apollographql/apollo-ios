@@ -212,7 +212,9 @@ public protocol _InitializableByDictionaryLiteralElements: ExpressibleByDictiona
 
 extension Dictionary: _InitializableByDictionaryLiteralElements {
   @inlinable public init(_ elements: [(Key, Value)]) {
-    self.init(uniqueKeysWithValues: elements)
+    self.init(elements) { current, new in
+      return current
+    }
   }
 }
 
