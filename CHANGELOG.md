@@ -1,5 +1,12 @@
 # Change Log
 
+## v2.0.6
+
+### Fixed
+
+- **Fix HTTP method selection ([#877](https://github.com/apollographql/apollo-ios-dev/pull/877)):** The APQ retry logic was overriding the HTTP method selected for all queries. _Thank you to [@3redrubies](https://github.com/3redrubies) for raising the issue_.
+- **Prevent crashes in `Dictionary` initialization with duplicate keys ([#884](https://github.com/apollographql/apollo-ios-dev/pull/884)):** `Dictionary` initialization using literal elements now uses a safer internal initializer to prevent crashes when duplicate keys are used. In the event that duplicate keys are present, the value associated with the first key will override all other values. _Thank you to [@adysart](https://github.com/adysart) for raising the issue_.
+
 ## v2.0.5
 
 - **Fix data race in `AsyncReadWriteLock` ([#862](https://github.com/apollographql/apollo-ios-dev/pull/862)):** This fixes issue [#3616](https://github.com/apollographql/apollo-ios/issues/3616). _Thank you to [@AlexPan1992](https://github.com/AlexPan1992) for raising the issue_.
