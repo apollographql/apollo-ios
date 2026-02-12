@@ -1,12 +1,14 @@
 import Foundation
 
-final class WebSocketConnection: Sendable {
+final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate {
 
   //  private unowned let transport: WebSocketTransport
   private let webSocketTask: URLSessionWebSocketTask
 
   init(task: URLSessionWebSocketTask) {
     self.webSocketTask = task
+    super.init()
+    task.delegate = self
   }
 
   deinit {
@@ -15,6 +17,8 @@ final class WebSocketConnection: Sendable {
 
   func openConnection() -> AsyncThrowingStream<URLSessionWebSocketTask.Message, any Swift.Error> {
     webSocketTask.resume()
+    send()
+
     return AsyncThrowingStream { [weak self] in
       guard let self else { return nil }
 
@@ -26,10 +30,46 @@ final class WebSocketConnection: Sendable {
     }
   }
 
-  func send(with: Any) throws {
-
+  func send() {
+    Task {
+      try await webSocketTask.send(.string("{\"type\":\"connection_init\"}"))
+    }
   }
 
+  // MARK: URLSessionWebSocketDelegate
+
+  func urlSession(
+    _ session: URLSession,
+    webSocketTask: URLSessionWebSocketTask,
+    didOpenWithProtocol protocol: String?
+  ) {
+    print("did open!")
+//    send()
+  }
+
+  func urlSession(
+    _ session: URLSession,
+    webSocketTask: URLSessionWebSocketTask,
+    didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
+    reason: Data?
+  ) {
+    print("Closed")
+    print(closeCode.rawValue)
+  }
+
+  func urlSession(
+    _ session: URLSession,
+    task: URLSessionTask,
+    didSendBodyData bytesSent: Int64,
+    totalBytesSent: Int64,
+    totalBytesExpectedToSend: Int64
+  ) {
+    print(bytesSent)
+  }
+
+  func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
+    print(error)
+  }
 }
 
 #warning("TODO")
