@@ -16,8 +16,15 @@ final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate
   }
 
   func openConnection() -> AsyncThrowingStream<URLSessionWebSocketTask.Message, any Swift.Error> {
-    webSocketTask.resume()
-    send()
+    do {
+      webSocketTask.resume()
+      try send(WebSocketTransport.Message.Outgoing.connectionInit(payload: nil).toWebSocketMessage())
+
+    } catch {
+      return AsyncThrowingStream {
+        throw error
+      }
+    }
 
     return AsyncThrowingStream { [weak self] in
       guard let self else { return nil }
@@ -30,9 +37,9 @@ final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate
     }
   }
 
-  func send() {
+  func send(_ message: URLSessionWebSocketTask.Message) {
     Task {
-      try await webSocketTask.send(.string("{\"type\":\"connection_init\"}"))
+      try await webSocketTask.send(message)
     }
   }
 

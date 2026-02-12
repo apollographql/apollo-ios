@@ -72,7 +72,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
           didReceive(message: message)
         }
       } catch {
-        print(error)
+//        print(error)
         self.connectionState = .disconnected
       }
     }
