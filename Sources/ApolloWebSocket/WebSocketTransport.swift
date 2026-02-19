@@ -1,14 +1,15 @@
-import Apollo
-import ApolloAPI
+@_spi(Execution) import Apollo
+@_spi(Unsafe) import ApolloAPI
 import Foundation
 
 public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport {
 
   public enum Error: Swift.Error {
-    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0. This will be implemented in a future
-    /// release.
+    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0.
+    /// This will be implemented in a future release.
     case notImplemented
-    case invalidURL(url: URL)
+    /// The received WebSocket message could not be parsed as a valid `graphql-transport-ws` message.
+    case unrecognizedMessage
   }
 
   struct Constants {
@@ -32,6 +33,13 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   private var connection: WebSocketConnection
 
   private var connectionState: ConnectionState = .notStarted
+
+  private var nextOperationID: OperationID = 1
+
+  /// Active subscribers keyed by operation ID. Each continuation receives raw JSON payloads
+  /// from incoming `next` messages that are then parsed into typed `GraphQLResponse`s
+  /// per-subscriber.
+  private var subscribers: [OperationID: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation] = [:]
 
   public init(
     urlSession: WebSocketURLSession,
@@ -71,17 +79,82 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         for try await message in connectionStream {
           didReceive(message: message)
         }
-      } catch {
-//        print(error)
+        finishAllSubscribers()
+      } catch is CancellationError {
         self.connectionState = .disconnected
+        finishAllSubscribers()
+      } catch {
+        self.connectionState = .disconnected
+        finishAllSubscribers(throwing: error)
       }
     }
+  }
+
+  // MARK: - Subscriber Management
+
+  private func registerSubscriber() -> (OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
+    let id = nextOperationID
+    nextOperationID += 1
+
+    let (stream, continuation) = AsyncThrowingStream<JSONObject, any Swift.Error>.makeStream()
+    subscribers[id] = continuation
+
+    return (id, stream)
+  }
+
+  private func sendSubscribeMessage<Subscription: GraphQLSubscription>(
+    operationID: OperationID,
+    subscription: Subscription
+  ) {
+    let payload = SubscribePayload(
+      operationName: Subscription.operationName,
+      query: Subscription.definition?.queryDocument ?? "",
+      variables: subscription.__variables,
+      extensions: nil
+    )
+    let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
+    do {
+      connection.send(try message.toWebSocketMessage())
+    } catch {
+      // Serialization error — subscriber will be notified when connection drops
+    }
+  }
+
+  private func finishAllSubscribers(throwing error: (any Swift.Error)? = nil) {
+    for (_, continuation) in subscribers {
+      continuation.finish(throwing: error)
+    }
+    subscribers.removeAll()
   }
 
   // MARK: - Processing Messages
 
   private func didReceive(message: URLSessionWebSocketTask.Message) {
-    self.connectionState = .connected
+    do {
+      let incoming = try Message.Incoming.from(message)
+
+      switch incoming {
+      case .connectionAck:
+        self.connectionState = .connected
+
+      case .next(let id, let payload):
+        subscribers[id]?.yield(payload)
+
+      case .error(let id, let errors):
+        // TODO: Forward errors to subscriber
+        _ = errors
+        _ = id
+
+      case .complete(let id):
+        subscribers[id]?.finish()
+        subscribers.removeValue(forKey: id)
+
+      case .ping, .pong:
+        break
+      }
+    } catch {
+      // Unrecognized message — ignore for now
+    }
   }
 
   // MARK: - Network Transport Protocol Conformance
@@ -91,14 +164,27 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     fetchBehavior: Apollo.FetchBehavior,
     requestConfiguration: Apollo.RequestConfiguration
   ) throws -> AsyncThrowingStream<Apollo.GraphQLResponse<Subscription>, any Swift.Error> {
-    Task {
-      try await startWebSocketConnection()
-    }
 
-    return AsyncThrowingStream {
-      try await Task.sleep(nanoseconds: 5_000_000_000)
+    return AsyncThrowingStream { continuation in
+      Task {
+        do {
+          let (operationID, payloadStream) = await self.registerSubscriber()
+          try await self.startWebSocketConnection()
+          await self.sendSubscribeMessage(operationID: operationID, subscription: subscription)
 
-      return nil
+          for try await payload in payloadStream {
+            let handler = JSONResponseParser.SingleResponseExecutionHandler<Subscription>(
+              responseBody: payload,
+              operationVariables: subscription.__variables
+            )
+            let parsedResult = try await handler.execute(includeCacheRecords: false)
+            continuation.yield(parsedResult.result)
+          }
+          continuation.finish()
+        } catch {
+          continuation.finish(throwing: error)
+        }
+      }
     }
   }
 

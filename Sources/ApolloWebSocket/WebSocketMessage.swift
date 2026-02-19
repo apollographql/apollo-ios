@@ -61,6 +61,12 @@ extension WebSocketTransport {
       /// ConnectionAck message, if the connection is not acknowledged, the socket will be closed immediately with the
       /// event `4401: Unauthorized.`
       case subscribe(id: OperationID, payload: SubscribePayload)
+
+      /// Indicates that the client has stopped listening and wants to complete the subscription.
+      /// No further events, relevant to the original subscription, should be sent through.
+      /// Even if the client completed a subscription before it was acknowledged by the server
+      /// through the `Next`/`Error` message, the server should NOT continue sending those messages.
+      case complete(id: OperationID)
     }
 
     enum Incoming {
@@ -97,6 +103,10 @@ extension WebSocketTransport {
       /// This can occur before execution starts, usually due to validation errors, or during the execution of the
       /// request. This message terminates the operation and no further messages will be sent.
       case error(id: OperationID, payload: [GraphQLError])
+
+      /// Indicates that the requested subscription execution has completed. If the server dispatched
+      /// the `Error` message relative to the original `Subscribe` message, no `Complete` message will be emitted.
+      case complete(id: OperationID)
     }
 
   }
@@ -168,6 +178,11 @@ extension WebSocketTransport.Message.Outgoing {
       data.append(contentsOf: #"","payload":"#.utf8)
       data.append(try JSONSerializationFormat.serialize(value: payload.jsonPayload))
       data.append(UInt8(ascii: "}"))
+
+    case .complete(let id):
+      data = Data(#"{"type":"complete","id":""#.utf8)
+      data.append(contentsOf: "\(id)".utf8)
+      data.append(contentsOf: #""}"#.utf8)
     }
 
     return .data(data)
@@ -183,6 +198,89 @@ extension WebSocketTransport.Message.Incoming {
     case .pong: return "pong"
     case .next: return "next"
     case .error: return "error"
+    case .complete: return "complete"
     }
+  }
+}
+
+// MARK: - Message Deserialization
+
+extension WebSocketTransport.Message.Incoming {
+
+  static func from(_ webSocketMessage: URLSessionWebSocketTask.Message) throws -> Self {
+    let data: Data
+    switch webSocketMessage {
+    case .string(let string):
+      data = Data(string.utf8)
+    case .data(let d):
+      data = d
+    @unknown default:
+      throw WebSocketTransport.Error.unrecognizedMessage
+    }
+
+    let json: JSONObject = try JSONSerializationFormat.deserialize(data: data)
+
+    guard let type = json["type"] as? String else {
+      throw WebSocketTransport.Error.unrecognizedMessage
+    }
+
+    switch type {
+    case "connection_ack":
+      return .connectionAck(payload: json["payload"] as? JSONObject)
+
+    case "ping":
+      return .ping(payload: json["payload"] as? JSONObject)
+
+    case "pong":
+      return .pong(payload: json["payload"] as? JSONObject)
+
+    case "next":
+      guard
+        let idValue = json["id"],
+        let id = Self.parseOperationID(idValue)
+      else {
+        throw WebSocketTransport.Error.unrecognizedMessage
+      }
+      guard let payload = json["payload"] as? JSONObject else {
+        throw WebSocketTransport.Error.unrecognizedMessage
+      }
+      return .next(id: id, payload: payload)
+
+    case "error":
+      guard
+        let idValue = json["id"],
+        let id = Self.parseOperationID(idValue)
+      else {
+        throw WebSocketTransport.Error.unrecognizedMessage
+      }
+      let errorObjects = (json["payload"] as? [JSONObject]) ?? []
+      return .error(id: id, payload: errorObjects.map { GraphQLError($0) })
+
+    case "complete":
+      guard
+        let idValue = json["id"],
+        let id = Self.parseOperationID(idValue)
+      else {
+        throw WebSocketTransport.Error.unrecognizedMessage
+      }
+      return .complete(id: id)
+
+    default:
+      throw WebSocketTransport.Error.unrecognizedMessage
+    }
+  }
+
+  /// Parses an operation ID from a JSON value.
+  ///
+  /// The `graphql-transport-ws` protocol transmits IDs as strings, but our internal representation
+  /// uses `Int`. This handles both string and numeric JSON values.
+  private static func parseOperationID(_ value: Any) -> WebSocketTransport.OperationID? {
+    if let stringID = value as? String {
+      return Int(stringID)
+    }
+    if let intID = value as? Int {
+      return intID
+    }
+    return nil
   }
 }

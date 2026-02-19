@@ -3,12 +3,14 @@ import Foundation
 final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate {
 
   //  private unowned let transport: WebSocketTransport
-  private let webSocketTask: URLSessionWebSocketTask
+  private let webSocketTask: any WebSocketTask
 
-  init(task: URLSessionWebSocketTask) {
+  init(task: any WebSocketTask) {
     self.webSocketTask = task
     super.init()
-    task.delegate = self
+    if let urlSessionTask = task as? URLSessionWebSocketTask {
+      urlSessionTask.delegate = self
+    }
   }
 
   deinit {

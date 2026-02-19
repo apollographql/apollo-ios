@@ -591,7 +591,7 @@ public final class ApolloClient: Sendable {
     subscription: Subscription,
     cachePolicy: CachePolicy.Subscription = .cacheThenNetwork,
     requestConfiguration: RequestConfiguration? = nil
-  ) async throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Swift.Error> {
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Swift.Error> {
     guard let subscriptionTransport = self.networkTransport as? (any SubscriptionNetworkTransport) else {
       assertionFailure(
         "Trying to subscribe without a subscription transport. Please make sure your network transport conforms to `SubscriptionNetworkTransport`."
