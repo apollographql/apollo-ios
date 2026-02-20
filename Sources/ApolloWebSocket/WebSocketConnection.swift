@@ -2,13 +2,13 @@ import Foundation
 
 final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate {
 
-  //  private unowned let transport: WebSocketTransport
   private let webSocketTask: any WebSocketTask
 
   init(task: any WebSocketTask) {
     self.webSocketTask = task
     super.init()
     if let urlSessionTask = task as? URLSessionWebSocketTask {
+      #warning("TODO: this might be a retain cycle")
       urlSessionTask.delegate = self
     }
   }
