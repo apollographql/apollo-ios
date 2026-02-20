@@ -10,6 +10,10 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case notImplemented
     /// The received WebSocket message could not be parsed as a valid `graphql-transport-ws` message.
     case unrecognizedMessage
+    /// The WebSocket connection was closed before the server acknowledged the connection.
+    case connectionClosed
+    /// The subscription operation does not have a query document definition.
+    case missingQueryDocument
   }
 
   struct Constants {
@@ -41,6 +45,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// per-subscriber.
   private var subscribers: [OperationID: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation] = [:]
 
+  /// Continuations of callers waiting for the connection to reach the `connected` state.
+  /// Populated only while `connectionState == .connecting`. Resumed when `connectionAck` arrives
+  /// or failed if the connection stream terminates before acknowledgement.
+  private var connectionWaiters: [CheckedContinuation<Void, any Swift.Error>] = []
+
   public init(
     urlSession: WebSocketURLSession,
     store: ApolloStore,
@@ -66,12 +75,38 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   // MARK: - Connection Management
 
-  private func startWebSocketConnection() throws {
-    guard case .notStarted = self.connectionState else {
-      return
-    }
-    self.connectionState = .connecting
+  /// Ensures the WebSocket connection is established before returning.
+  ///
+  /// Handles all four connection states:
+  /// - `notStarted`: Opens the connection and waits for `connection_ack`.
+  /// - `connecting`: Waits for the in-progress connection to receive `connection_ack`.
+  /// - `connected`: Returns immediately.
+  /// - `disconnected`: Creates a fresh connection and waits for `connection_ack`.
+  private func ensureConnected() async throws {
+    switch connectionState {
+    case .notStarted:
+      connectionState = .connecting
+      startConnectionReceiveLoop()
+      try await waitForConnectionAck()
 
+    case .connecting:
+      try await waitForConnectionAck()
+
+    case .connected:
+      return
+
+    case .disconnected:
+      connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
+      connectionState = .connecting
+      startConnectionReceiveLoop()
+      try await waitForConnectionAck()
+    }
+  }
+
+  /// Spawns a task that iterates the connection's message stream and routes incoming messages.
+  /// When the stream terminates (normally or with error), transitions to `disconnected`,
+  /// fails any pending connection waiters, and finishes all subscribers.
+  private func startConnectionReceiveLoop() {
     let connectionStream = self.connection.openConnection()
 
     Task {
@@ -79,14 +114,50 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         for try await message in connectionStream {
           didReceive(message: message)
         }
+        self.connectionState = .disconnected
+        failConnectionWaiters(with: Error.connectionClosed)
         finishAllSubscribers()
+
       } catch is CancellationError {
         self.connectionState = .disconnected
+        failConnectionWaiters(with: Error.connectionClosed)
         finishAllSubscribers()
+
       } catch {
         self.connectionState = .disconnected
+        failConnectionWaiters(with: error)
         finishAllSubscribers(throwing: error)
       }
+    }
+  }
+
+  /// Suspends the caller until the connection transitions to `connected`.
+  ///
+  /// If the connection is already `connected` (e.g. because `connection_ack` was buffered and
+  /// processed before this method runs), returns immediately without suspending.
+  private func waitForConnectionAck() async throws {
+    if connectionState == .connected { return }
+
+    try await withCheckedThrowingContinuation { continuation in
+      connectionWaiters.append(continuation)
+    }
+  }
+
+  /// Resumes all pending connection waiters with success.
+  private func resumeConnectionWaiters() {
+    let waiters = connectionWaiters
+    connectionWaiters.removeAll()
+    for waiter in waiters {
+      waiter.resume()
+    }
+  }
+
+  /// Resumes all pending connection waiters with the given error.
+  private func failConnectionWaiters(with error: any Swift.Error) {
+    let waiters = connectionWaiters
+    connectionWaiters.removeAll()
+    for waiter in waiters {
+      waiter.resume(throwing: error)
     }
   }
 
@@ -105,19 +176,19 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   private func sendSubscribeMessage<Subscription: GraphQLSubscription>(
     operationID: OperationID,
     subscription: Subscription
-  ) {
+  ) throws {
+    guard let queryDocument = Subscription.definition?.queryDocument else {
+      throw Error.missingQueryDocument
+    }
+
     let payload = SubscribePayload(
       operationName: Subscription.operationName,
-      query: Subscription.definition?.queryDocument ?? "",
+      query: queryDocument,
       variables: subscription.__variables,
       extensions: nil
     )
     let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
-    do {
-      connection.send(try message.toWebSocketMessage())
-    } catch {
-      // Serialization error — subscriber will be notified when connection drops
-    }
+    connection.send(try message.toWebSocketMessage())
   }
 
   private func finishAllSubscribers(throwing error: (any Swift.Error)? = nil) {
@@ -136,6 +207,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       switch incoming {
       case .connectionAck:
         self.connectionState = .connected
+        resumeConnectionWaiters()
 
       case .next(let id, let payload):
         subscribers[id]?.yield(payload)
@@ -169,8 +241,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       Task {
         do {
           let (operationID, payloadStream) = await self.registerSubscriber()
-          try await self.startWebSocketConnection()
-          await self.sendSubscribeMessage(operationID: operationID, subscription: subscription)
+          try await self.ensureConnected()
+          try await self.sendSubscribeMessage(operationID: operationID, subscription: subscription)
 
           for try await payload in payloadStream {
             let handler = JSONResponseParser.SingleResponseExecutionHandler<Subscription>(
