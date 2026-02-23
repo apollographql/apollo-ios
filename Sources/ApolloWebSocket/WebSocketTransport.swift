@@ -5,16 +5,13 @@ import Foundation
 public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport {
 
   public enum Error: Swift.Error {
-    /// WebSocketTransport has not yet been implemented for Apollo iOS 2.0.
-    /// This will be implemented in a future release.
-    case notImplemented
     /// The received WebSocket message could not be parsed as a valid `graphql-transport-ws` message.
     case unrecognizedMessage
     /// The WebSocket connection was closed before the server acknowledged the connection.
     case connectionClosed
-    /// The subscription operation does not have a query document definition.
+    /// The operation does not have a query document definition.
     case missingQueryDocument
-    /// The server sent one or more GraphQL errors for a subscription operation.
+    /// The server sent one or more GraphQL errors for an operation.
     case graphQLErrors([GraphQLError])
   }
 
@@ -66,7 +63,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     }
 
     let continuation: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation
-    let operation: any GraphQLSubscription
+    let operation: any GraphQLOperation
     var status: Status
   }
 
@@ -181,9 +178,17 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// When `error` is nil, this is a normal disconnection (stream ended cleanly or task was
   /// cancelled). When non-nil, the error is forwarded to connection waiters and subscribers
   /// if reconnection is not attempted.
+  ///
+  /// One-shot operations (queries and mutations) are always terminated immediately on
+  /// disconnect — they should never be retried across a reconnection, as replaying a
+  /// mutation could cause duplicate side effects.
   private func handleDisconnection(error: (any Swift.Error)? = nil) async {
     let wasConnected = (self.connectionState == .connected)
     self.connectionState = .disconnected
+
+    // Terminate one-shot operations (queries/mutations) immediately, regardless of
+    // whether reconnection is enabled. Only subscriptions survive reconnection.
+    finishNonSubscriptionSubscribers(throwing: error ?? Error.connectionClosed)
 
     if wasConnected && !subscribers.isEmpty && configuration.isReconnectEnabled {
       await attemptReconnection()
@@ -272,7 +277,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   // MARK: - Subscriber Management
 
   private func registerSubscriber(
-    for operation: any GraphQLSubscription
+    for operation: any GraphQLOperation
   ) -> (OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
     let id = nextOperationID
     nextOperationID += 1
@@ -300,18 +305,18 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     }
   }
 
-  private func sendSubscribeMessage<Subscription: GraphQLSubscription>(
+  private func sendSubscribeMessage<Operation: GraphQLOperation>(
     operationID: OperationID,
-    subscription: Subscription
+    operation: Operation
   ) throws {
-    guard let queryDocument = Subscription.definition?.queryDocument else {
+    guard let queryDocument = Operation.definition?.queryDocument else {
       throw Error.missingQueryDocument
     }
 
     let payload = SubscribePayload(
-      operationName: Subscription.operationName,
+      operationName: Operation.operationName,
       query: queryDocument,
-      variables: subscription.__variables,
+      variables: operation.__variables,
       extensions: nil
     )
     let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
@@ -327,7 +332,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   private func resubscribeActiveSubscribers() {
     for (id, record) in subscribers where record.status == .subscribed {
       do {
-        try sendSubscribeMessage(operationID: id, subscription: record.operation)
+        try sendSubscribeMessage(operationID: id, operation: record.operation)
       } catch {
         // Defensive: if re-subscribe fails (e.g. missing query document — shouldn't happen
         // since the first subscribe succeeded), terminate this individual subscriber.
@@ -341,6 +346,18 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     let active = subscribers
     subscribers.removeAll()
     for (_, record) in active {
+      record.continuation.finish(throwing: error)
+    }
+  }
+
+  /// Terminates all non-subscription (query/mutation) subscribers with the given error.
+  ///
+  /// Called on disconnect before any reconnection attempt. One-shot operations should not
+  /// survive reconnection — replaying a mutation could cause duplicate side effects.
+  private func finishNonSubscriptionSubscribers(throwing error: any Swift.Error) {
+    for (id, record) in subscribers {
+      guard type(of: record.operation).operationType != .subscription else { continue }
+      subscribers.removeValue(forKey: id)
       record.continuation.finish(throwing: error)
     }
   }
@@ -384,25 +401,28 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     }
   }
 
-  // MARK: - Network Transport Protocol Conformance
+  // MARK: - Operation Execution
 
-  nonisolated public func send<Subscription: GraphQLSubscription>(
-    subscription: Subscription,
-    fetchBehavior: Apollo.FetchBehavior,
-    requestConfiguration: Apollo.RequestConfiguration
-  ) throws -> AsyncThrowingStream<Apollo.GraphQLResponse<Subscription>, any Swift.Error> {
-    return AsyncThrowingStream { continuation in
+  /// Sends a GraphQL operation over the WebSocket connection and returns a stream of responses.
+  ///
+  /// This is the shared implementation for queries, mutations, and subscriptions. All three
+  /// use the same `subscribe` message type in the `graphql-transport-ws` protocol. The server
+  /// replies with `next` (results) and `complete` (stream end) messages.
+  private nonisolated func sendOperation<Operation: GraphQLOperation>(
+    operation: Operation
+  ) -> AsyncThrowingStream<GraphQLResponse<Operation>, any Swift.Error> {
+    AsyncThrowingStream { continuation in
       let innerTask = Task {
-        let (operationID, payloadStream) = await self.registerSubscriber(for: subscription)
+        let (operationID, payloadStream) = await self.registerSubscriber(for: operation)
         do {
           try await self.ensureConnected()
           try Task.checkCancellation()
-          try await self.sendSubscribeMessage(operationID: operationID, subscription: subscription)
+          try await self.sendSubscribeMessage(operationID: operationID, operation: operation)
 
           for try await payload in payloadStream {
-            let handler = JSONResponseParser.SingleResponseExecutionHandler<Subscription>(
+            let handler = JSONResponseParser.SingleResponseExecutionHandler<Operation>(
               responseBody: payload,
-              operationVariables: subscription.__variables
+              operationVariables: operation.__variables
             )
             let parsedResult = try await handler.execute(includeCacheRecords: false)
             continuation.yield(parsedResult.result)
@@ -426,21 +446,29 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     }
   }
 
-  nonisolated public func send<Mutation: GraphQLMutation>(
-    mutation: Mutation,
-    requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Swift.Error> {
-    throw Error.notImplemented
-  }
+  // MARK: - Network Transport Protocol Conformance
 
   nonisolated public func send<Query: GraphQLQuery>(
     query: Query,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws
-    -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error>
-  {
-    throw Error.notImplemented
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Query>, any Swift.Error> {
+    sendOperation(operation: query)
+  }
+
+  nonisolated public func send<Mutation: GraphQLMutation>(
+    mutation: Mutation,
+    requestConfiguration: RequestConfiguration
+  ) throws -> AsyncThrowingStream<GraphQLResponse<Mutation>, any Swift.Error> {
+    sendOperation(operation: mutation)
+  }
+
+  nonisolated public func send<Subscription: GraphQLSubscription>(
+    subscription: Subscription,
+    fetchBehavior: Apollo.FetchBehavior,
+    requestConfiguration: Apollo.RequestConfiguration
+  ) throws -> AsyncThrowingStream<Apollo.GraphQLResponse<Subscription>, any Swift.Error> {
+    sendOperation(operation: subscription)
   }
 
 }
