@@ -14,6 +14,33 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case connectionClosed
     /// The subscription operation does not have a query document definition.
     case missingQueryDocument
+    /// The server sent one or more GraphQL errors for a subscription operation.
+    case graphQLErrors([GraphQLError])
+  }
+
+  /// Configuration options for ``WebSocketTransport``.
+  public struct Configuration: Sendable {
+    /// The interval to wait before attempting to reconnect after a disconnect.
+    ///
+    /// - A value of `0` means reconnect immediately with no delay.
+    /// - A negative value (e.g. `-1`) disables auto-reconnection entirely.
+    ///
+    /// When auto-reconnection is enabled and the connection drops while there are active
+    /// subscribers, the transport will automatically reconnect and re-subscribe all active
+    /// operations on the new connection. Subscriber streams are kept alive across the
+    /// reconnection — callers are unaware the disconnect happened.
+    ///
+    /// Default: `-1` (disabled).
+    public var reconnectionInterval: TimeInterval
+
+    /// Whether auto-reconnection is enabled based on the configuration.
+    public var isReconnectEnabled: Bool {
+      reconnectionInterval >= 0
+    }
+
+    public init(reconnectionInterval: TimeInterval = -1) {
+      self.reconnectionInterval = reconnectionInterval
+    }
   }
 
   struct Constants {
@@ -28,9 +55,26 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case disconnected
   }
 
+  /// Tracks a single subscriber's continuation, operation, and lifecycle status.
+  struct SubscriberRecord {
+    enum Status {
+      /// Registered but the subscribe message has not yet been sent to the server
+      /// (e.g. still waiting for the connection to be established).
+      case pending
+      /// The subscribe message has been sent to the server.
+      case subscribed
+    }
+
+    let continuation: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation
+    let operation: any GraphQLSubscription
+    var status: Status
+  }
+
   public let urlSession: WebSocketURLSession
 
   public let store: ApolloStore
+
+  public let configuration: Configuration
 
   private let request: URLRequest
 
@@ -40,10 +84,10 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   private var nextOperationID: OperationID = 1
 
-  /// Active subscribers keyed by operation ID. Each continuation receives raw JSON payloads
-  /// from incoming `next` messages that are then parsed into typed `GraphQLResponse`s
-  /// per-subscriber.
-  var subscribers: [OperationID: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation] = [:]
+  /// Active subscribers keyed by operation ID. Each record contains the continuation that
+  /// receives raw JSON payloads from incoming `next` messages, the operation reference
+  /// (used to re-subscribe on reconnection), and the current lifecycle status.
+  var subscribers: [OperationID: SubscriberRecord] = [:]
 
   /// Continuations of callers waiting for the connection to reach the `connected` state.
   /// Populated only while `connectionState == .connecting`. Resumed when `connectionAck` arrives
@@ -54,10 +98,12 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   public init(
     urlSession: WebSocketURLSession,
     store: ApolloStore,
-    endpointURL: URL
+    endpointURL: URL,
+    configuration: Configuration = Configuration()
   ) throws {
     self.urlSession = urlSession
     self.store = store
+    self.configuration = configuration
     self.request = try Self.createURLRequest(endpointURL: endpointURL)
     self.connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
   }
@@ -105,8 +151,12 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   }
 
   /// Spawns a task that iterates the connection's message stream and routes incoming messages.
-  /// When the stream terminates (normally or with error), transitions to `disconnected`,
-  /// fails any pending connection waiters, and finishes all subscribers.
+  ///
+  /// When the stream terminates (normally or with error), the behavior depends on state:
+  /// - If the connection was previously `connected`, there are active subscribers, and
+  ///   auto-reconnection is enabled: attempts reconnection without terminating subscriber streams.
+  /// - Otherwise: transitions to `disconnected`, fails pending connection waiters, and finishes
+  ///   all subscriber streams.
   private func startConnectionReceiveLoop() {
     let connectionStream = self.connection.openConnection()
 
@@ -115,21 +165,59 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         for try await message in connectionStream {
           didReceive(message: message)
         }
-        self.connectionState = .disconnected
-        failConnectionWaiters(with: Error.connectionClosed)
-        finishAllSubscribers()
-
-      } catch is CancellationError {
-        self.connectionState = .disconnected
-        failConnectionWaiters(with: Error.connectionClosed)
-        finishAllSubscribers()
-
+        await handleDisconnection()
       } catch {
-        self.connectionState = .disconnected
-        failConnectionWaiters(with: error)
-        finishAllSubscribers(throwing: error)
+        // Use Task.isCancelled to distinguish genuine task cancellation from
+        // connection errors. The WebSocket task's receive() may throw errors
+        // (including CancellationError) when the connection closes, which should
+        // be treated as a disconnection — not as task cancellation.
+        await handleDisconnection(error: Task.isCancelled ? nil : error)
       }
     }
+  }
+
+  /// Handles a disconnection from the receive loop.
+  ///
+  /// When `error` is nil, this is a normal disconnection (stream ended cleanly or task was
+  /// cancelled). When non-nil, the error is forwarded to connection waiters and subscribers
+  /// if reconnection is not attempted.
+  private func handleDisconnection(error: (any Swift.Error)? = nil) async {
+    let wasConnected = (self.connectionState == .connected)
+    self.connectionState = .disconnected
+
+    if wasConnected && !subscribers.isEmpty && configuration.isReconnectEnabled {
+      await attemptReconnection()
+    } else {
+      failConnectionWaiters(with: error ?? Error.connectionClosed)
+      finishAllSubscribers(throwing: error)
+    }
+  }
+
+  /// Attempts to reconnect after a disconnect by creating a new connection.
+  ///
+  /// Waits for `reconnectionInterval` (if > 0) before connecting. Subscriber continuations
+  /// are kept alive — they will receive data from the new connection after reconnection
+  /// succeeds. If the reconnection attempt itself fails, `startConnectionReceiveLoop` will
+  /// detect that the state was never `connected` and terminate everything.
+  private func attemptReconnection() async {
+    if configuration.reconnectionInterval > 0 {
+      do {
+        try await Task.sleep(nanoseconds: UInt64(configuration.reconnectionInterval * 1_000_000_000))
+      } catch {
+        // Sleep was cancelled — terminate everything
+        finishAllSubscribers()
+        return
+      }
+    }
+
+    // If all subscribers were cancelled during the reconnection delay, no need to reconnect.
+    guard !subscribers.isEmpty else {
+      return
+    }
+
+    connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
+    connectionState = .connecting
+    startConnectionReceiveLoop()
   }
 
   /// Suspends the caller until the connection transitions to `connected`.
@@ -183,12 +271,18 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   // MARK: - Subscriber Management
 
-  private func registerSubscriber() -> (OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
+  private func registerSubscriber(
+    for operation: any GraphQLSubscription
+  ) -> (OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
     let id = nextOperationID
     nextOperationID += 1
 
     let (stream, continuation) = AsyncThrowingStream<JSONObject, any Swift.Error>.makeStream()
-    subscribers[id] = continuation
+    subscribers[id] = SubscriberRecord(
+      continuation: continuation,
+      operation: operation,
+      status: .pending
+    )
 
     return (id, stream)
   }
@@ -197,8 +291,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// finishes its payload stream, and sends a `complete` message to the server.
   /// No-ops if the subscriber was already removed (e.g. server already completed it).
   private func cancelSubscription(operationID: OperationID) {
-    guard let continuation = subscribers.removeValue(forKey: operationID) else { return }
-    continuation.finish()
+    guard let record = subscribers.removeValue(forKey: operationID) else { return }
+    record.continuation.finish()
 
     let message = Message.Outgoing.complete(id: operationID)
     if let wsMessage = try? message.toWebSocketMessage() {
@@ -222,13 +316,32 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     )
     let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
     connection.send(try message.toWebSocketMessage())
+    subscribers[operationID]?.status = .subscribed
+  }
+
+  /// Re-sends subscribe messages for all subscribers that were previously subscribed.
+  ///
+  /// Called after a successful reconnection (on `connection_ack`). Only re-subscribes entries
+  /// with status `.subscribed` — entries with status `.pending` are new subscribers whose
+  /// inner tasks will send their own subscribe message after `ensureConnected()` returns.
+  private func resubscribeActiveSubscribers() {
+    for (id, record) in subscribers where record.status == .subscribed {
+      do {
+        try sendSubscribeMessage(operationID: id, subscription: record.operation)
+      } catch {
+        // Defensive: if re-subscribe fails (e.g. missing query document — shouldn't happen
+        // since the first subscribe succeeded), terminate this individual subscriber.
+        let removed = subscribers.removeValue(forKey: id)
+        removed?.continuation.finish(throwing: error)
+      }
+    }
   }
 
   private func finishAllSubscribers(throwing error: (any Swift.Error)? = nil) {
     let active = subscribers
     subscribers.removeAll()
-    for (_, continuation) in active {
-      continuation.finish(throwing: error)
+    for (_, record) in active {
+      record.continuation.finish(throwing: error)
     }
   }
 
@@ -242,18 +355,18 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       case .connectionAck:
         self.connectionState = .connected
         resumeConnectionWaiters()
+        resubscribeActiveSubscribers()
 
       case .next(let id, let payload):
-        subscribers[id]?.yield(payload)
+        subscribers[id]?.continuation.yield(payload)
 
       case .error(let id, let errors):
-        // TODO: Forward errors to subscriber
-        _ = errors
-        _ = id
+        let record = subscribers.removeValue(forKey: id)
+        record?.continuation.finish(throwing: Error.graphQLErrors(errors))
 
       case .complete(let id):
-        let continuation = subscribers.removeValue(forKey: id)
-        continuation?.finish()
+        let record = subscribers.removeValue(forKey: id)
+        record?.continuation.finish()
 
       case .ping, .pong:
         break
@@ -272,7 +385,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   ) throws -> AsyncThrowingStream<Apollo.GraphQLResponse<Subscription>, any Swift.Error> {
     return AsyncThrowingStream { continuation in
       let innerTask = Task {
-        let (operationID, payloadStream) = await self.registerSubscriber()
+        let (operationID, payloadStream) = await self.registerSubscriber(for: subscription)
         do {
           try await self.ensureConnected()
           try Task.checkCancellation()
@@ -291,6 +404,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
             await self.cancelSubscription(operationID: operationID)
           }
           continuation.finish()
+
         } catch {
           await self.cancelSubscription(operationID: operationID)
           continuation.finish(throwing: error)

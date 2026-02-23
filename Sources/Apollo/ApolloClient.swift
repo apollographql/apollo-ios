@@ -833,7 +833,7 @@ extension ApolloClient {
   ) -> any Cancellable {
     return awaitStreamInTask(
       {
-        try await self.subscribe(subscription: subscription)
+        try self.subscribe(subscription: subscription)
       },
       callbackQueue: queue,
       completion: resultHandler

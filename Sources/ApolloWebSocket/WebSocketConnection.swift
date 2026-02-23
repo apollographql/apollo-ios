@@ -33,9 +33,18 @@ final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate
 
       try Task.checkCancellation()
 
-      let message = try await self.webSocketTask.receive()
+      do {
+        let message = try await self.webSocketTask.receive()
+        return Task.isCancelled ? nil : message
 
-      return Task.isCancelled ? nil : message
+      } catch let error as POSIXError where error.code == .ENOTCONN || error.code == .ECONNRESET {
+        // Server-initiated disconnection: URLSessionWebSocketTask.receive() throws
+        // POSIXError.ENOTCONN (57) on graceful server close and
+        // POSIXError.ECONNRESET (54) when the server drops the connection.
+        // Convert these to normal stream completion so the transport's receive loop
+        // can handle reconnection through its own state machine.
+        return nil
+      }
     }
   }
 
