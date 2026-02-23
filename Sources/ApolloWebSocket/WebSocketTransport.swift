@@ -368,11 +368,19 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         let record = subscribers.removeValue(forKey: id)
         record?.continuation.finish()
 
-      case .ping, .pong:
+      case .ping:
+        // Per the graphql-transport-ws protocol, a pong must be sent in response
+        // to a ping "as soon as possible".
+        if let pongMessage = try? Message.Outgoing.pong(payload: nil).toWebSocketMessage() {
+          connection.send(pongMessage)
+        }
+
+      case .pong:
+        // Unsolicited or response pongs require no action from the transport.
         break
       }
     } catch {
-      // Unrecognized message — ignore for now
+      finishAllSubscribers(throwing: Error.unrecognizedMessage)
     }
   }
 
