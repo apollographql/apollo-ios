@@ -3,7 +3,6 @@
 import Foundation
 
 extension WebSocketTransport {
-  typealias OperationID = Int
 
   /// GraphQL Websocket Transport Protocol Messages
   ///

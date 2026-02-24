@@ -4,6 +4,9 @@ import Foundation
 
 public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport {
 
+  ///
+  typealias OperationID = Int
+  
   public enum Error: Swift.Error {
     /// The received WebSocket message could not be parsed as a valid `graphql-transport-ws` message.
     case unrecognizedMessage
@@ -52,21 +55,6 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case disconnected
   }
 
-  /// Tracks a single subscriber's continuation, operation, and lifecycle status.
-  struct SubscriberRecord {
-    enum Status {
-      /// Registered but the subscribe message has not yet been sent to the server
-      /// (e.g. still waiting for the connection to be established).
-      case pending
-      /// The subscribe message has been sent to the server.
-      case subscribed
-    }
-
-    let continuation: AsyncThrowingStream<JSONObject, any Swift.Error>.Continuation
-    let operation: any GraphQLOperation
-    var status: Status
-  }
-
   public let urlSession: WebSocketURLSession
 
   public let store: ApolloStore
@@ -79,18 +67,12 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   var connectionState: ConnectionState = .notStarted
 
-  private var nextOperationID: OperationID = 1
+  private var subscriberRegistry = SubscriberRegistry()
 
-  /// Active subscribers keyed by operation ID. Each record contains the continuation that
-  /// receives raw JSON payloads from incoming `next` messages, the operation reference
-  /// (used to re-subscribe on reconnection), and the current lifecycle status.
-  var subscribers: [OperationID: SubscriberRecord] = [:]
+  private var connectionWaiters = ConnectionWaiterQueue()
 
-  /// Continuations of callers waiting for the connection to reach the `connected` state.
-  /// Populated only while `connectionState == .connecting`. Resumed when `connectionAck` arrives
-  /// or failed if the connection stream terminates before acknowledgement.
-  /// Keyed by UUID so individual waiters can be cancelled via `withTaskCancellationHandler`.
-  private var connectionWaiters: [UUID: CheckedContinuation<Void, any Swift.Error>] = [:]
+  /// The number of active subscribers. Exposed for test assertions.
+  var subscriberCount: Int { subscriberRegistry.count }
 
   public init(
     urlSession: WebSocketURLSession,
@@ -188,13 +170,13 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
     // Terminate one-shot operations (queries/mutations) immediately, regardless of
     // whether reconnection is enabled. Only subscriptions survive reconnection.
-    finishNonSubscriptionSubscribers(throwing: error ?? Error.connectionClosed)
+    subscriberRegistry.finishNonSubscriptions(throwing: error ?? Error.connectionClosed)
 
-    if wasConnected && !subscribers.isEmpty && configuration.isReconnectEnabled {
+    if wasConnected && !subscriberRegistry.isEmpty && configuration.isReconnectEnabled {
       await attemptReconnection()
     } else {
-      failConnectionWaiters(with: error ?? Error.connectionClosed)
-      finishAllSubscribers(throwing: error)
+      connectionWaiters.failAll(with: error ?? Error.connectionClosed)
+      subscriberRegistry.finishAll(throwing: error)
     }
   }
 
@@ -210,13 +192,13 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         try await Task.sleep(nanoseconds: UInt64(configuration.reconnectionInterval * 1_000_000_000))
       } catch {
         // Sleep was cancelled — terminate everything
-        finishAllSubscribers()
+        subscriberRegistry.finishAll()
         return
       }
     }
 
     // If all subscribers were cancelled during the reconnection delay, no need to reconnect.
-    guard !subscribers.isEmpty else {
+    guard !subscriberRegistry.isEmpty else {
       return
     }
 
@@ -239,7 +221,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         if Task.isCancelled {
           continuation.resume(throwing: CancellationError())
         } else {
-          connectionWaiters[waiterID] = continuation
+          connectionWaiters.add(id: waiterID, continuation: continuation)
         }
       }
     } onCancel: {
@@ -251,27 +233,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// Called from the `onCancel` handler of `withTaskCancellationHandler` when the
   /// waiting task is cancelled before `connection_ack` arrives.
   private func cancelConnectionWaiter(id: UUID) {
-    if let waiter = connectionWaiters.removeValue(forKey: id) {
-      waiter.resume(throwing: CancellationError())
-    }
-  }
-
-  /// Resumes all pending connection waiters with success.
-  private func resumeConnectionWaiters() {
-    let waiters = connectionWaiters
-    connectionWaiters.removeAll()
-    for (_, waiter) in waiters {
-      waiter.resume()
-    }
-  }
-
-  /// Resumes all pending connection waiters with the given error.
-  private func failConnectionWaiters(with error: any Swift.Error) {
-    let waiters = connectionWaiters
-    connectionWaiters.removeAll()
-    for (_, waiter) in waiters {
-      waiter.resume(throwing: error)
-    }
+    connectionWaiters.cancel(id: id)
   }
 
   // MARK: - Subscriber Management
@@ -279,25 +241,14 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   private func registerSubscriber(
     for operation: any GraphQLOperation
   ) -> (OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
-    let id = nextOperationID
-    nextOperationID += 1
-
-    let (stream, continuation) = AsyncThrowingStream<JSONObject, any Swift.Error>.makeStream()
-    subscribers[id] = SubscriberRecord(
-      continuation: continuation,
-      operation: operation,
-      status: .pending
-    )
-
-    return (id, stream)
+    subscriberRegistry.register(for: operation)
   }
 
   /// Cancels a subscription from the client side. Removes the subscriber from the registry,
   /// finishes its payload stream, and sends a `complete` message to the server.
   /// No-ops if the subscriber was already removed (e.g. server already completed it).
   private func cancelSubscription(operationID: OperationID) {
-    guard let record = subscribers.removeValue(forKey: operationID) else { return }
-    record.continuation.finish()
+    guard subscriberRegistry.finish(operationID) else { return }
 
     let message = Message.Outgoing.complete(id: operationID)
     if let wsMessage = try? message.toWebSocketMessage() {
@@ -321,7 +272,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     )
     let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
     connection.send(try message.toWebSocketMessage())
-    subscribers[operationID]?.status = .subscribed
+    subscriberRegistry.markSubscribed(operationID)
   }
 
   /// Re-sends subscribe messages for all subscribers that were previously subscribed.
@@ -330,35 +281,14 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// with status `.subscribed` — entries with status `.pending` are new subscribers whose
   /// inner tasks will send their own subscribe message after `ensureConnected()` returns.
   private func resubscribeActiveSubscribers() {
-    for (id, record) in subscribers where record.status == .subscribed {
+    for (id, operation) in subscriberRegistry.activeSubscriptions {
       do {
-        try sendSubscribeMessage(operationID: id, operation: record.operation)
+        try sendSubscribeMessage(operationID: id, operation: operation)
       } catch {
         // Defensive: if re-subscribe fails (e.g. missing query document — shouldn't happen
         // since the first subscribe succeeded), terminate this individual subscriber.
-        let removed = subscribers.removeValue(forKey: id)
-        removed?.continuation.finish(throwing: error)
+        subscriberRegistry.finish(id, throwing: error)
       }
-    }
-  }
-
-  private func finishAllSubscribers(throwing error: (any Swift.Error)? = nil) {
-    let active = subscribers
-    subscribers.removeAll()
-    for (_, record) in active {
-      record.continuation.finish(throwing: error)
-    }
-  }
-
-  /// Terminates all non-subscription (query/mutation) subscribers with the given error.
-  ///
-  /// Called on disconnect before any reconnection attempt. One-shot operations should not
-  /// survive reconnection — replaying a mutation could cause duplicate side effects.
-  private func finishNonSubscriptionSubscribers(throwing error: any Swift.Error) {
-    for (id, record) in subscribers {
-      guard type(of: record.operation).operationType != .subscription else { continue }
-      subscribers.removeValue(forKey: id)
-      record.continuation.finish(throwing: error)
     }
   }
 
@@ -371,19 +301,17 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       switch incoming {
       case .connectionAck:
         self.connectionState = .connected
-        resumeConnectionWaiters()
+        connectionWaiters.resumeAll()
         resubscribeActiveSubscribers()
 
       case .next(let id, let payload):
-        subscribers[id]?.continuation.yield(payload)
+        subscriberRegistry.yield(payload, for: id)
 
       case .error(let id, let errors):
-        let record = subscribers.removeValue(forKey: id)
-        record?.continuation.finish(throwing: Error.graphQLErrors(errors))
+        subscriberRegistry.finish(id, throwing: Error.graphQLErrors(errors))
 
       case .complete(let id):
-        let record = subscribers.removeValue(forKey: id)
-        record?.continuation.finish()
+        subscriberRegistry.finish(id)
 
       case .ping:
         // Per the graphql-transport-ws protocol, a pong must be sent in response
@@ -397,7 +325,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         break
       }
     } catch {
-      finishAllSubscribers(throwing: Error.unrecognizedMessage)
+      subscriberRegistry.finishAll(throwing: Error.unrecognizedMessage)
     }
   }
 
