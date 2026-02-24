@@ -58,7 +58,7 @@ public struct FetchBehavior: Sendable, Hashable {
 
   public let networkFetch: NetworkFetchBehavior
 
-  fileprivate init(
+  internal init(
     cacheRead: CacheReadBehavior,
     networkFetch: NetworkFetchBehavior
   ) {
