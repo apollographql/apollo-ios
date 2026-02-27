@@ -1,17 +1,12 @@
 import ApolloAPI
 import Foundation
 
-final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate {
+final class WebSocketConnection: Sendable {
 
   private let webSocketTask: any WebSocketTask
 
   init(task: any WebSocketTask) {
-    self.webSocketTask = task
-    super.init()
-    if let urlSessionTask = task as? URLSessionWebSocketTask {
-      #warning("TODO: this might be a retain cycle")
-      urlSessionTask.delegate = self
-    }
+    self.webSocketTask = task    
   }
 
   deinit {
@@ -57,60 +52,4 @@ final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate
     }
   }
 
-  // MARK: URLSessionWebSocketDelegate
-
-  func urlSession(
-    _ session: URLSession,
-    webSocketTask: URLSessionWebSocketTask,
-    didOpenWithProtocol protocol: String?
-  ) {
-    print("did open!")
-//    send()
-  }
-
-  func urlSession(
-    _ session: URLSession,
-    webSocketTask: URLSessionWebSocketTask,
-    didCloseWith closeCode: URLSessionWebSocketTask.CloseCode,
-    reason: Data?
-  ) {
-    print("Closed")
-    print(closeCode.rawValue)
-  }
-
-  func urlSession(
-    _ session: URLSession,
-    task: URLSessionTask,
-    didSendBodyData bytesSent: Int64,
-    totalBytesSent: Int64,
-    totalBytesExpectedToSend: Int64
-  ) {
-    print(bytesSent)
-  }
-
-  func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
-    print(error)
-  }
-}
-
-#warning("TODO")
-import Apollo
-import ApolloAPI
-
-public protocol GraphQLWebSocketRequest<Operation>: Sendable {
-  associatedtype Operation: GraphQLOperation
-
-  /// The GraphQL Operation to execute
-  var operation: Operation { get set }
-
-  /// The ``FetchBehavior`` to use for this request.
-  /// Determines if fetching will include cache/network.
-  var fetchBehavior: FetchBehavior { get set }
-
-  /// Determines if the results of a network fetch should be written to the local cache.
-  var writeResultsToCache: Bool { get set }
-
-  /// The timeout interval specifies the limit on the idle interval allotted to a request in the process of
-  /// loading. This timeout interval is measured in seconds.
-  var requestTimeout: TimeInterval? { get set }
 }

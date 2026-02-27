@@ -24,7 +24,11 @@ struct SubscriberRegistry {
   /// Active subscribers keyed by operation ID.
   private var records: [WebSocketTransport.OperationID: Record] = [:]
 
-  private var nextOperationID: WebSocketTransport.OperationID = 1
+  private var operationMessageIdCreator: any OperationMessageIdCreator
+
+  init(operationMessageIdCreator: any OperationMessageIdCreator) {
+    self.operationMessageIdCreator = operationMessageIdCreator
+  }
 
   /// Whether there are any active subscribers.
   var isEmpty: Bool { records.isEmpty }
@@ -39,8 +43,7 @@ struct SubscriberRegistry {
   mutating func register(
     for operation: any GraphQLOperation
   ) -> (WebSocketTransport.OperationID, AsyncThrowingStream<JSONObject, any Swift.Error>) {
-    let id = nextOperationID
-    nextOperationID += 1
+    let id = operationMessageIdCreator.requestId()
 
     let (stream, continuation) = AsyncThrowingStream<JSONObject, any Swift.Error>.makeStream()
     records[id] = Record(

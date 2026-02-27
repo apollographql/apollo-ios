@@ -247,14 +247,14 @@ extension WebSocketTransport.Message.Incoming {
 
   /// Parses an operation ID from a JSON value.
   ///
-  /// The `graphql-transport-ws` protocol transmits IDs as strings, but our internal representation
-  /// uses `Int`. This handles both string and numeric JSON values.
+  /// The `graphql-transport-ws` protocol transmits IDs as strings. This also handles numeric
+  /// JSON values by converting them to their string representation.
   private static func parseOperationID(_ value: Any) -> WebSocketTransport.OperationID? {
     if let stringID = value as? String {
-      return Int(stringID)
+      return stringID
     }
     if let intID = value as? Int {
-      return intID
+      return "\(intID)"
     }
     return nil
   }
