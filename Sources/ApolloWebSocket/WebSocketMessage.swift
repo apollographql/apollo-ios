@@ -11,6 +11,8 @@ extension WebSocketTransport {
   /// https://github.com/enisdenjo/graphql-ws/blob/6a31f46cce25644d30253da351978e452ae583a7/PROTOCOL.md
   enum Message {
     enum Outgoing {
+      typealias SubscribePayload = JSONEncodableDictionary
+
       /// Indicates that the client wants to establish a connection within the existing socket.
       /// This connection is not the actual WebSocket communication channel, but is rather a frame within it asking
       /// the server to allow future operation requests.
@@ -110,32 +112,6 @@ extension WebSocketTransport {
 
   }
 
-  struct SubscribePayload {
-    let operationName: String?
-    let query: String
-    let variables: GraphQLOperation.Variables?
-    let extensions: JSONObject?
-
-    var jsonPayload: JSONObject {
-      var payload: JSONObject = [
-        "query": query
-      ]
-
-      if let operationName {
-        payload["operationName"] = operationName
-      }
-
-      if let variables {
-        payload["variables"] = variables._jsonEncodableObject._jsonValue
-      }
-
-      if let extensions {
-        payload["extensions"] = extensions as JSONValue
-      }
-      return payload
-    }
-  }
-
 }
 
 // MARK: - Message Serialization
@@ -175,7 +151,7 @@ extension WebSocketTransport.Message.Outgoing {
       data = Data(#"{"type":"subscribe","id":""#.utf8)
       data.append(contentsOf: "\(id)".utf8)
       data.append(contentsOf: #"","payload":"#.utf8)
-      data.append(try JSONSerializationFormat.serialize(value: payload.jsonPayload))
+      data.append(try JSONSerializationFormat.serialize(value: payload))
       data.append(UInt8(ascii: "}"))
 
     case .complete(let id):

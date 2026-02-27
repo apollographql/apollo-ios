@@ -3,8 +3,7 @@
 import Foundation
 
 public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport {
-
-  ///
+  
   typealias OperationID = Int
   
   public enum Error: Swift.Error {
@@ -12,8 +11,6 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case unrecognizedMessage
     /// The WebSocket connection was closed before the server acknowledged the connection.
     case connectionClosed
-    /// The operation does not have a query document definition.
-    case missingQueryDocument
     /// The server sent one or more GraphQL errors for an operation.
     case graphQLErrors([GraphQLError])
   }
@@ -38,8 +35,19 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       reconnectionInterval >= 0
     }
 
-    public init(reconnectionInterval: TimeInterval = -1) {
+    /// The request body creator used to build the JSON payload for `subscribe` messages.
+    ///
+    /// This is always called with `sendQueryDocument: true` and `autoPersistQuery: false`.
+    /// The default ``DefaultRequestBodyCreator`` includes `clientAwarenessMetadata` in the
+    /// payload when available.
+    public var requestBodyCreator: any JSONRequestBodyCreator
+
+    public init(
+      reconnectionInterval: TimeInterval = -1,
+      requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator()
+    ) {
       self.reconnectionInterval = reconnectionInterval
+      self.requestBodyCreator = requestBodyCreator
     }
   }
 
@@ -260,15 +268,10 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     operationID: OperationID,
     operation: Operation
   ) throws {
-    guard let queryDocument = Operation.definition?.queryDocument else {
-      throw Error.missingQueryDocument
-    }
-
-    let payload = SubscribePayload(
-      operationName: Operation.operationName,
-      query: queryDocument,
-      variables: operation.__variables,
-      extensions: nil
+    let payload = configuration.requestBodyCreator.requestBody(
+      for: operation,
+      sendQueryDocument: true,
+      autoPersistQuery: false
     )
     let message = Message.Outgoing.subscribe(id: operationID, payload: payload)
     connection.send(try message.toWebSocketMessage())
