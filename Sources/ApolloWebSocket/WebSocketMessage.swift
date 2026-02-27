@@ -29,7 +29,7 @@ extension WebSocketTransport {
       /// If the server wishes to reject the connection, for example during authentication, it is recommended to close
       /// the socket with
       /// `4403: Forbidden.`
-      case connectionInit(payload: JSONObject?)
+      case connectionInit(payload: JSONEncodableDictionary?)
 
       /// Useful for detecting failed connections, displaying latency metrics or other types of network probing.
       ///

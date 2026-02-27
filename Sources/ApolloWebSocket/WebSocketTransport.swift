@@ -42,12 +42,17 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     /// payload when available.
     public var requestBodyCreator: any JSONRequestBodyCreator
 
+    /// The payload to send on connection. Defaults to `nil`.
+    public var connectingPayload: JSONEncodableDictionary?
+
     public init(
       reconnectionInterval: TimeInterval = -1,
-      requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator()
+      requestBodyCreator: any JSONRequestBodyCreator = DefaultRequestBodyCreator(),
+      connectingPayload: JSONEncodableDictionary? = nil
     ) {
       self.reconnectionInterval = reconnectionInterval
       self.requestBodyCreator = requestBodyCreator
+      self.connectingPayload = connectingPayload
     }
   }
 
@@ -145,7 +150,9 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// - Otherwise: transitions to `disconnected`, fails pending connection waiters, and finishes
   ///   all subscriber streams.
   private func startConnectionReceiveLoop() {
-    let connectionStream = self.connection.openConnection()
+    let connectionStream = self.connection.openConnection(
+      connectingPayload: configuration.connectingPayload
+    )
 
     Task {
       do {

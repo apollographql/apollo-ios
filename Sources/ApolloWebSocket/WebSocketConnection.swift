@@ -1,3 +1,4 @@
+import ApolloAPI
 import Foundation
 
 final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate {
@@ -17,10 +18,12 @@ final class WebSocketConnection: NSObject, Sendable, URLSessionWebSocketDelegate
     self.webSocketTask.cancel(with: .goingAway, reason: nil)
   }
 
-  func openConnection() -> AsyncThrowingStream<URLSessionWebSocketTask.Message, any Swift.Error> {
+  func openConnection(
+    connectingPayload: JSONEncodableDictionary? = nil
+  ) -> AsyncThrowingStream<URLSessionWebSocketTask.Message, any Swift.Error> {
     do {
       webSocketTask.resume()
-      try send(WebSocketTransport.Message.Outgoing.connectionInit(payload: nil).toWebSocketMessage())
+      try send(WebSocketTransport.Message.Outgoing.connectionInit(payload: connectingPayload).toWebSocketMessage())
 
     } catch {
       return AsyncThrowingStream {
