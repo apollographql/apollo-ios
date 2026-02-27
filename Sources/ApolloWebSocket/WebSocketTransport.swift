@@ -72,6 +72,9 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     case connecting
     case connected
     case disconnected
+    /// The connection was intentionally paused by the caller. The underlying WebSocket is
+    /// closed, but subscription streams remain alive for seamless resumption.
+    case paused
   }
 
   /// The delegate that receives lifecycle events from this transport.
@@ -141,11 +144,12 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   /// Ensures the WebSocket connection is established before returning.
   ///
-  /// Handles all four connection states:
+  /// Handles all connection states:
   /// - `notStarted`: Opens the connection and waits for `connection_ack`.
   /// - `connecting`: Waits for the in-progress connection to receive `connection_ack`.
   /// - `connected`: Returns immediately.
   /// - `disconnected`: Creates a fresh connection and waits for `connection_ack`.
+  /// - `paused`: Waits for `resume()` to re-establish the connection.
   private func ensureConnected() async throws {
     switch connectionState {
     case .notStarted:
@@ -163,6 +167,9 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
       connectionState = .connecting
       startConnectionReceiveLoop()
+      try await waitForConnectionAck()
+
+    case .paused:
       try await waitForConnectionAck()
     }
   }
@@ -211,6 +218,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// disconnect — they should never be retried across a reconnection, as replaying a
   /// mutation could cause duplicate side effects.
   private func handleDisconnection(error: (any Swift.Error)? = nil) async {
+    guard connectionState != .paused else { return }
+
     let wasConnected = (self.connectionState == .connected)
     self.connectionState = .disconnected
 
@@ -255,6 +264,9 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     guard !subscriberRegistry.isEmpty else {
       return
     }
+
+    // If the transport was paused during the reconnection delay, don't reconnect.
+    guard connectionState != .paused else { return }
 
     connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
     connectionState = .connecting
@@ -341,6 +353,80 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
     connectionState = .connecting
     startConnectionReceiveLoop()
+  }
+
+  // MARK: - Pause / Resume
+
+  /// Gracefully pauses the WebSocket connection without terminating subscriber streams.
+  ///
+  /// The underlying WebSocket task is closed and the transport transitions to a `paused` state.
+  /// Active subscription streams remain alive and will automatically be re-subscribed when
+  /// ``resume()`` is called and the new connection is acknowledged by the server.
+  ///
+  /// Auto-reconnection is suppressed while paused. One-shot operations (queries and mutations)
+  /// that are in-flight are terminated immediately, as they cannot safely survive a
+  /// connection interruption.
+  ///
+  /// This method is a no-op if the transport has not yet started or is already paused.
+  ///
+  /// Typical usage:
+  /// ```swift
+  /// // App entering background
+  /// await transport.pause()
+  ///
+  /// // App returning to foreground
+  /// await transport.resume()
+  /// ```
+  public func pause() {
+    switch connectionState {
+    case .notStarted, .paused:
+      return
+    case .connected, .connecting, .disconnected:
+      break
+    }
+
+    connectionState = .paused
+
+    // Terminate one-shot operations — they cannot survive a pause because replaying
+    // a mutation could cause duplicate side effects.
+    subscriberRegistry.finishNonSubscriptions(throwing: Error.connectionClosed)
+
+    // Close the underlying WebSocket task. This causes the receive loop's stream to
+    // end, at which point the loop checks connectionState, sees `.paused`, and exits
+    // without triggering auto-reconnection or finishing subscriber streams.
+    connection.close()
+  }
+
+  /// Re-establishes the WebSocket connection after a ``pause()``, or opens a new connection
+  /// from a stopped or disconnected state.
+  ///
+  /// Creates a fresh WebSocket task and begins the connection handshake. Once the server
+  /// sends `connection_ack`, all surviving subscription streams are automatically
+  /// re-subscribed on the new connection.
+  ///
+  /// This method is a no-op if the transport is already connecting or connected.
+  ///
+  /// Can also be used to eagerly open a connection before any ``subscribe`` calls:
+  /// ```swift
+  /// let transport = try WebSocketTransport(...)
+  /// await transport.resume()
+  /// // Connection is now being established; subsequent subscribe() calls
+  /// // will use this connection without additional setup delay.
+  /// ```
+  public func resume() {
+    switch connectionState {
+    case .notStarted:
+      connectionState = .connecting
+      startConnectionReceiveLoop()
+
+    case .paused, .disconnected:
+      connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
+      connectionState = .connecting
+      startConnectionReceiveLoop()
+
+    case .connecting, .connected:
+      return
+    }
   }
 
   // MARK: - Subscriber Management

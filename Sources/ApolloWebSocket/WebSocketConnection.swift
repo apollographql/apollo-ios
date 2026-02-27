@@ -46,6 +46,14 @@ final class WebSocketConnection: Sendable {
     }
   }
 
+  /// Gracefully closes the WebSocket connection by cancelling the underlying task.
+  ///
+  /// This causes any pending `receive()` call to throw, ending the connection's message stream.
+  /// Safe to call multiple times — subsequent calls are no-ops on an already-cancelled task.
+  func close(with closeCode: URLSessionWebSocketTask.CloseCode = .goingAway) {
+    webSocketTask.cancel(with: closeCode, reason: nil)
+  }
+
   func send(_ message: URLSessionWebSocketTask.Message) {
     Task {
       try await webSocketTask.send(message)
