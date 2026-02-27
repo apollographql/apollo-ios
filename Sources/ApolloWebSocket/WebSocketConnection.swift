@@ -42,6 +42,11 @@ final class WebSocketConnection: Sendable {
         // Convert these to normal stream completion so the transport's receive loop
         // can handle reconnection through its own state machine.
         return nil
+      } catch let error as URLError where error.code == .cancelled {
+        // Client-initiated cancellation: URLSessionWebSocketTask.receive() throws
+        // URLError(.cancelled) when the task is cancelled (e.g. via close() or deinit).
+        // Convert to normal stream completion like server-initiated disconnection.
+        return nil
       }
     }
   }
