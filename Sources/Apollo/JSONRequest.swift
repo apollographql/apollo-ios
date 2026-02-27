@@ -37,7 +37,7 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
   /// to cache the results of queries that rarely change.
   ///
   /// Mutation operations always use POST, even when this is `false`
-  public let useGETForQueries: Bool
+  public var useGETForQueries: Bool
 
   /// Designated initializer
   ///
