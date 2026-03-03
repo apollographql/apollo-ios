@@ -122,6 +122,15 @@ public struct JSONRequest<Operation: GraphQLOperation>: GraphQLRequest, AutoPers
 
         // GET requests shouldn't have a content-type since they do not provide actual content.
         request.allHTTPHeaderFields?.removeValue(forKey: "Content-Type")
+
+        // Note: Apollo Server's CSRF prevention feature (introduced in AS3.7 and intended to be
+        // the default in AS4) includes this in the set of headers that indicate that a GET
+        // request couldn't have been a non-preflighted simple request and thus is safe to execute.
+        //
+        // See https://www.apollographql.com/docs/apollo-server/security/cors/#preventing-cross-site-request-forgery-csrf
+        // for details.
+        request.addValue("true", forHTTPHeaderField: "Apollo-Require-Preflight")
+
       } else {
         throw GraphQLHTTPRequestError.serializedQueryParamsMessageError
       }
