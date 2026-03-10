@@ -160,7 +160,7 @@ extension WebSocketTransport.Message.Outgoing {
       data.append(contentsOf: #""}"#.utf8)
     }
 
-    return .data(data)
+    return .string(String(data: data, encoding: .utf8)!)
   }
 
 }

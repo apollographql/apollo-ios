@@ -150,7 +150,7 @@ extension RequestChainNetworkTransport: SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error> where Subscription: GraphQLSubscription {
+  ) throws -> SubscriptionStream<GraphQLResponse<Subscription>> where Subscription: GraphQLSubscription {
     let request = self.constructRequest(
       for: subscription,
       fetchBehavior: fetchBehavior,
@@ -158,8 +158,31 @@ extension RequestChainNetworkTransport: SubscriptionNetworkTransport {
     )
 
     let chain = makeChain(for: request)
-    
-    return chain.kickoff(request: request)
+    let stateStorage = SubscriptionStateStorage()
+    let innerStream = chain.kickoff(request: request)
+
+    let stream = AsyncThrowingStream<GraphQLResponse<Subscription>, any Error> { continuation in
+      let task = Task {
+        do {
+          for try await value in innerStream {
+            stateStorage.set(.active)
+            continuation.yield(value)
+          }
+          stateStorage.set(.finished(Task.isCancelled ? .cancelled : .completed))
+          continuation.finish()
+        } catch {
+          if error is CancellationError {
+            stateStorage.set(.finished(.cancelled))
+          } else {
+            stateStorage.set(.finished(.error(error)))
+          }
+          continuation.finish(throwing: error)
+        }
+      }
+      continuation.onTermination = { @Sendable _ in task.cancel() }
+    }
+
+    return SubscriptionStream(stream: stream, stateProvider: { stateStorage.state })
   }
 }
 
