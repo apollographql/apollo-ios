@@ -5,7 +5,8 @@ import Foundation
 /// This protocol allows you to provide a custom networking implementation to Apollo.
 ///
 /// For ease of use, `URLSession` already conforms to this protocol. You may configure a custom `URLSession` and
-/// implement your own delegate.
+/// implement your own delegate. If your delegate also conforms to `URLSessionTaskDelegate`, it will be set as 
+/// the delegate of all tasks created by the session.
 public protocol ApolloURLSession: Sendable {
 
   /// Returns a data stream of the response chunks for the request.
@@ -21,7 +22,7 @@ public protocol ApolloURLSession: Sendable {
 extension URLSession: ApolloURLSession {
   public func chunks(for request: URLRequest) async throws -> (any AsyncChunkSequence, URLResponse) {
     try Task.checkCancellation()
-    let (bytes, response) = try await bytes(for: request, delegate: nil)
+    let (bytes, response) = try await bytes(for: request, delegate: self.delegate as? URLSessionTaskDelegate)
     return (bytes.chunks, response)
   }
 }
