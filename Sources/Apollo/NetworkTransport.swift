@@ -51,12 +51,12 @@ public protocol SubscriptionNetworkTransport {
   ///   - fetchBehavior: The `FetchBehavior` to use for this request.
   ///   Determines if fetching will include cache/network fetches.
   ///   - requestConfiguration: A configuration used to configure per-request behaviors for this request
-  /// - Returns: A stream of `GraphQLResult`s for each response.
+  /// - Returns: A ``SubscriptionStream`` of `GraphQLResponse` results for each response.
   func send<Subscription: GraphQLSubscription>(
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error>
+  ) throws -> SubscriptionStream<GraphQLResponse<Subscription>>
 
 }
 

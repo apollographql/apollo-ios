@@ -67,7 +67,7 @@ where SubscriptionTransport: SubscriptionNetworkTransport {
     subscription: Subscription,
     fetchBehavior: FetchBehavior,
     requestConfiguration: RequestConfiguration
-  ) throws -> AsyncThrowingStream<GraphQLResponse<Subscription>, any Error> {
+  ) throws -> SubscriptionStream<GraphQLResponse<Subscription>> {
     return try subscriptionTransport.send(
       subscription: subscription,
       fetchBehavior: fetchBehavior,
