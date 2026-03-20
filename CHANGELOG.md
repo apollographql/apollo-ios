@@ -2,6 +2,16 @@
 
 ## v2.1.0-rc-1
 
+### New
+- **WebSocket Transport:** Apollo iOS 2.0 now supports WebSocket connections using the `graphql-transport-ws` protocol for subscriptions, queries, and mutations. See the [WebSocket Transport documentation](https://www.apollographql.com/docs/ios/networking/websocket-transport) for setup and usage details.
+- **ApolloURLSession delegate injection ([#899](https://github.com/apollographql/apollo-ios-dev/pull/899)):** Added support for injecting a custom `URLSessionTaskDelegate` into `ApolloURLSession`, enabling delegate callback handling. _Thank you to [@hammy-e](https://github.com/hammy-e) for the contribution._
+- **Make `JSONRequest.useGetForQueries` mutable ([#897](https://github.com/apollographql/apollo-ios-dev/pull/897)):** The `useGetForQueries` property on `JSONRequest` is now a `var`, allowing interceptors to mutate the request directly instead of copying it. _Thank you to [@nevil](https://github.com/nevil) for the contribution._
+
+### Fixed
+- **Add preflight HTTP header for CSRF prevention ([#900](https://github.com/apollographql/apollo-ios-dev/pull/900)):** Added the `X-Apollo-Operation-Name` header to requests to satisfy Apollo Router's CSRF prevention requirements.
+
+### Improved
+- **Use dictionary for `objectType(forTypename:)` lookup ([#918](https://github.com/apollographql/apollo-ios-dev/pull/918)):** Replaced the generated `switch` statement in `SchemaMetadata.objectType(forTypename:)` with a static dictionary lookup, improving deserialization performance by ~75% for schemas with many types (4000+). _Thank you to [@erneestoc](https://github.com/erneestoc) for the contribution._
 
 ## v2.0.6
 
