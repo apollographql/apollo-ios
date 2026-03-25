@@ -2,6 +2,9 @@
 
 ## v1.25.4
 
+### Improvement
+
+- **Use dictionary instead of switch for `objectType(forTypename:)` lookup ([#3631](https://github.com/apollographql/apollo-ios/issues/3631)):** The generated `SchemaMetadata.objectType(forTypename:)` method now uses a static dictionary for O(1) hash-based lookup instead of a switch statement that performed O(n) linear scanning. For schemas with many object types (~4300 types), this improves deserialization times by approximately 75%. See PR [#926](https://github.com/apollographql/apollo-ios-dev/pull/926).
 
 ## v1.25.3
 
