@@ -51,6 +51,7 @@ public class ObjectExecutionInfo {
       return schema.objectType(forTypename: objectType.typename)
     }
     return schema.objectType(forTypename: __typename)
+      ?? Object(typename: __typename, implementedInterfaces: [])
   }
 }
 
