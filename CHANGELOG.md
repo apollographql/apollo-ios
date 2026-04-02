@@ -2,6 +2,13 @@
 
 ## v2.1.0
 
+### New
+- **WebSocket Transport:** Apollo iOS 2.0 now supports WebSocket connections using the `graphql-transport-ws` protocol for subscriptions, queries, and mutations. See the [WebSocket Transport documentation](https://www.apollographql.com/docs/ios/networking/websocket-transport) for setup and usage details.
+- **Swift 6.2 MainActor default isolation support ([#925](https://github.com/apollographql/apollo-ios-dev/pull/925)):** Added a `markTypesNonisolated` codegen option that emits `nonisolated` on all generated type declarations. This prevents compilation errors when `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` is enabled. The option defaults to `true` when the codegen tool is compiled with Swift 6.2+.
+- **ApolloURLSession delegate injection ([#899](https://github.com/apollographql/apollo-ios-dev/pull/899)):** Added support for injecting a custom `URLSessionTaskDelegate` into `ApolloURLSession`, enabling delegate callback handling. _Thank you to [@hammy-e](https://github.com/hammy-e) for the contribution._
+
+### Fixed
+- **Fix concurrency issue in `compileGraphQLResult` ([#929](https://github.com/apollographql/apollo-ios-dev/pull/929)):** Resolved a Swift compiler crash triggered by `async let` stack management during code generation in `AsyncParsableCommand` contexts. _Thank you to [@m4p](https://github.com/m4p) for the contribution._
 
 ## v2.1.0-rc-1
 
