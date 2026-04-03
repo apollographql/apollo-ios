@@ -41,25 +41,7 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
         return deferredResolve(reference: reference).map { $0 as JSONValue }
 
       case let referenceList as [JSONValue]:
-        return referenceList
-          .enumerated()
-          .deferredFlatMap { index, element in
-            guard let cacheReference = element as? CacheReference else {
-              return .immediate(.success(element))
-            }
-
-            return self.deferredResolve(reference: cacheReference)
-              .mapError { error in
-                if !(error is GraphQLExecutionError) {
-                  return GraphQLExecutionError(
-                    path: info.responsePath.appending(String(index)),
-                    underlying: error
-                  )
-                } else {
-                  return error
-                }
-              }.map { $0 as JSONValue }
-          }.map { $0 as JSONValue }
+        return resolveReferences(in: referenceList, info: info).map { $0 as JSONValue? }
 
       default:
         return .immediate(.success(value))
@@ -139,6 +121,33 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     default:
       return nil
     }
+  }
+
+  private func resolveReferences(
+    in list: [JSONValue],
+    info: FieldExecutionInfo
+  ) -> PossiblyDeferred<JSONValue> {
+    return list
+      .enumerated()
+      .deferredFlatMap { index, element in
+        if let cacheReference = element as? CacheReference {
+          return self.deferredResolve(reference: cacheReference)
+            .mapError { error in
+              if !(error is GraphQLExecutionError) {
+                return GraphQLExecutionError(
+                  path: info.responsePath.appending(String(index)),
+                  underlying: error
+                )
+              } else {
+                return error
+              }
+            }.map { $0 as JSONValue }
+        } else if let nestedList = element as? [JSONValue] {
+          return self.resolveReferences(in: nestedList, info: info)
+        } else {
+          return .immediate(.success(element))
+        }
+      }.map { $0 as JSONValue }
   }
 
   private func deferredResolve(reference: CacheReference) -> PossiblyDeferred<Record> {
