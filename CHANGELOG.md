@@ -2,6 +2,9 @@
 
 ## v1.25.5
 
+### Fixed
+
+- **Fixed concurrency crash in `compileGraphQLResult` on Swift 6.3/macOS 26 ([#929](https://github.com/apollographql/apollo-ios-dev/pull/929)):** Serialized `async let` calls in `compileGraphQLResult` to work around a [Swift concurrency runtime crash](https://github.com/swiftlang/swift/pull/87665) triggered when code generation is used in an `AsyncParsableCommand`. See PR [#942](https://github.com/apollographql/apollo-ios-dev/pull/942). _Thank you to [@m4p](https://github.com/m4p) for the contribution._
 
 ## v1.25.4
 
