@@ -1,7 +1,5 @@
 import Foundation
-#if !COCOAPODS
 @_spi(Internal) import ApolloAPI
-#endif
 
 enum FieldPolicyResult {
   case single(CacheKeyInfo)
