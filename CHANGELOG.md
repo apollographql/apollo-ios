@@ -2,6 +2,10 @@
 
 ## v2.1.1
 
+### Fixed
+- **Fix cache read failure for nested arrays of objects ([#938](https://github.com/apollographql/apollo-ios-dev/pull/938)):** Reading nested arrays of objects (2D, 3D, etc.) from the normalized cache threw a `JSONDecodingError.wrongType` error. Reference resolution now handles array nesting at any depth. Fixes [#3609](https://github.com/apollographql/apollo-ios/issues/3609). _Thank you to [@gurusekhar-ibm](https://github.com/gurusekhar-ibm) for raising the issue._
+- **Fix incorrect default mock value when first enum case is deprecated ([#949](https://github.com/apollographql/apollo-ios-dev/pull/949)):** When `deprecatedEnumCases` was set to `.exclude`, the mock codegen incorrectly used the first enum case as the default value in convenience initializers — even if that case was deprecated and excluded from the generated enum, causing a compile error. Fixes [#3634](https://github.com/apollographql/apollo-ios/issues/3634). _Thank you to [@cswelin](https://github.com/cswelin) for raising the issue._
+- **Fix recursive `OneOf` input object enum cases not marked `indirect` ([#954](https://github.com/apollographql/apollo-ios-dev/pull/954)):** A `@oneOf` input object that directly references itself generated a Swift enum that failed to compile with `Recursive enum is not marked 'indirect'`. Self-referencing cases are now correctly marked `indirect`. Fixes [#3633](https://github.com/apollographql/apollo-ios/issues/3633). _Thank you to [@ahou8](https://github.com/ahou8) for raising the issue._
 
 ## v2.1.0
 
