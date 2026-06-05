@@ -149,3 +149,16 @@ extension GraphQLResponse {
       return val
   }
 }
+
+
+extension GraphQLResponse {
+  public func dataOrThrow() throws -> Operation.Data {
+    guard let data else {
+      if let errors, !errors.isEmpty {
+        throw  throw Error.missingData
+      }
+      throw Error.missingData
+    }
+    return data
+  }
+}
