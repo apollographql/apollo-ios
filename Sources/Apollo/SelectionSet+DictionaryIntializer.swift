@@ -1,4 +1,5 @@
 import ApolloAPI
+import Foundation
 
 public enum RootSelectionSetInitializeError: Error {
   case hasNonHashableValue
@@ -36,8 +37,8 @@ extension RootSelectionSet {
       } else  {
         if let dictValue = value as? [String: Any] {
           result[key] = try convertToAnyHashableValueDict(dict: dictValue) as JSONValue
-        } else if let hashableValue = value as? AnyHashable {
-          result[key] = hashableValue as JSONValue
+        } else if let scalarValue = scalarJSONValue(from: value) {
+          result[key] = scalarValue
         } else {
           throw RootSelectionSetInitializeError.hasNonHashableValue
         }
@@ -56,12 +57,23 @@ extension RootSelectionSet {
         result.append(try convertToAnyHashableArray(array: array) as JSONValue)
       } else if let dict = value as? [String: Any] {
         result.append(try convertToAnyHashableValueDict(dict: dict) as JSONValue)
-      } else if let hashable = value as? AnyHashable {
-        result.append(hashable as JSONValue)
+      } else if let scalarValue = scalarJSONValue(from: value) {
+        result.append(scalarValue)
       } else {
         throw RootSelectionSetInitializeError.hasNonHashableValue
       }
     }
     return result
+  }
+
+  /// Converts a scalar JSON value to a `JSONValue`, preserving its Foundation
+  /// representation. An `AnyHashable` can no longer be cast to `JSONValue`
+  /// (`any Sendable & Hashable`) because `AnyHashable`'s `Sendable` conformance
+  /// is unavailable, so the concrete scalar types are matched directly.
+  private static func scalarJSONValue(from value: Any) -> JSONValue? {
+    if let value = value as? String { return value }
+    if let value = value as? NSNumber { return value }
+    if let value = value as? NSNull { return value }
+    return nil
   }
 }
