@@ -99,8 +99,10 @@ public extension GraphQLOperation {
     case (.none, .none): return true
     case (.some, .none), (.none, .some): return false
     case let (.some(lhsVariables), .some(rhsVariables)):
-      return AnyHashable(lhsVariables._jsonEncodableObject._jsonValue)
-        == AnyHashable(rhsVariables._jsonEncodableObject._jsonValue)
+      return AnySendableHashable.equatableCheck(
+        lhsVariables._jsonEncodableObject._jsonValue,
+        rhsVariables._jsonEncodableObject._jsonValue
+      )
     }
   }
 }

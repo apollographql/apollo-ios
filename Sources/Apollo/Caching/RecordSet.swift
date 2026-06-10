@@ -1,3 +1,5 @@
+@_spi(Internal) import ApolloAPI
+
 /// A set of cache records.
 public struct RecordSet: Sendable, Hashable {
   public private(set) var storage: [CacheKey: Record] = [:]
@@ -60,7 +62,7 @@ public struct RecordSet: Sendable, Hashable {
       var updatedRecord = oldRecord
       
       for (key, value) in record.fields {
-        if let oldValue = oldRecord.fields[key], AnyHashable(oldValue) == AnyHashable(value) {
+        if let oldValue = oldRecord.fields[key], AnySendableHashable.equatableCheck(oldValue, value) {
           continue
         }
         updatedRecord[key] = value

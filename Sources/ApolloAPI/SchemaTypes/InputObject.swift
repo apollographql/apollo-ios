@@ -68,8 +68,10 @@ public struct InputDict: GraphQLOperationVariableValue, Hashable {
   }
 
   public static func == (lhs: InputDict, rhs: InputDict) -> Bool {
-    AnyHashable(lhs.data._jsonEncodableObject._jsonValue) ==
-    AnyHashable(rhs.data._jsonEncodableObject._jsonValue)
+    AnySendableHashable.equatableCheck(
+      lhs.data._jsonEncodableObject._jsonValue,
+      rhs.data._jsonEncodableObject._jsonValue
+    )
   }
 
   public func hash(into hasher: inout Hasher) {

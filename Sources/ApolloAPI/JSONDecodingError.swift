@@ -39,7 +39,7 @@ public enum JSONDecodingError: Error, LocalizedError, Hashable {
 
     case let (.couldNotConvert(value: lhsValue, to: lhsType),
               .couldNotConvert(value: rhsValue, to: rhsType)):
-      return AnyHashable(lhsValue) == AnyHashable(rhsValue) && lhsType == rhsType
+      return AnySendableHashable.equatableCheck(lhsValue, rhsValue) && lhsType == rhsType
 
     default:
       return false

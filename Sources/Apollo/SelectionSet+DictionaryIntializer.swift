@@ -20,24 +20,26 @@ extension RootSelectionSet {
     data: [String: Any],
     variables: GraphQLOperation.Variables? = nil
   ) async throws {
-    let jsonObject = try Self.convertToAnyHashableValueDict(dict: data)
+    let jsonObject = try Self.convertToSendableHashableValueDict(dict: data)
     try await self.init(data: jsonObject, variables: variables)
   }
   
-  /// Convert dictionary type [String: Any] to [String: AnyHashable]
+  /// Convert dictionary type [String: Any] to [String: any Sendable & Hashable]
   /// - Parameter dict: [String: Any] type dictionary
-  /// - Returns: converted [String: AnyHashable] type dictionary
-  private static func convertToAnyHashableValueDict(dict: [String: Any]) throws -> JSONObject {
+  /// - Returns: converted [String: any Sendable & Hashable] type dictionary
+  private static func convertToSendableHashableValueDict(dict: [String: Any]) throws -> JSONObject {
     var result = JSONObject()
 
     for (key, value) in dict {
       if let arrayValue = value as? [Any] {
-        result[key] = try convertToAnyHashableArray(array: arrayValue) as JSONValue
+        result[key] = try convertToSendableHashableArray(array: arrayValue) as JSONValue
       } else  {
         if let dictValue = value as? [String: Any] {
-          result[key] = try convertToAnyHashableValueDict(dict: dictValue) as JSONValue
-        } else if let hashableValue = value as? AnyHashable {
-          result[key] = hashableValue as JSONValue
+          result[key] = try convertToSendableHashableValueDict(dict: dictValue) as JSONValue
+        } else if value is any Hashable {
+          // Conditional casts to compositions with the marker protocol `Sendable` are not allowed, so we verify `Hashable` conformance and force cast (matching `JSONSerializationFormat`).
+          let hashableValue = value as! JSONValue
+          result[key] = hashableValue
         } else {
           throw RootSelectionSetInitializeError.hasNonHashableValue
         }
@@ -46,18 +48,19 @@ extension RootSelectionSet {
     return result
   }
 
-  /// Convert Any type Array type to AnyHashable type Array
+  /// Convert Any type Array type to (any Sendable & Hashable) type Array
   /// - Parameter array: Any type Array
-  /// - Returns: AnyHashable type Array
-  private static func convertToAnyHashableArray(array: [Any]) throws -> [JSONValue] {
+  /// - Returns: (any Sendable & Hashable) type Array
+  private static func convertToSendableHashableArray(array: [Any]) throws -> [JSONValue] {
     var result: [JSONValue] = []
     for value in array {
       if let array = value as? [Any] {
-        result.append(try convertToAnyHashableArray(array: array) as JSONValue)
+        result.append(try convertToSendableHashableArray(array: array) as JSONValue)
       } else if let dict = value as? [String: Any] {
-        result.append(try convertToAnyHashableValueDict(dict: dict) as JSONValue)
-      } else if let hashable = value as? AnyHashable {
-        result.append(hashable as JSONValue)
+        result.append(try convertToSendableHashableValueDict(dict: dict) as JSONValue)
+      } else if value is any Hashable {
+        // Conditional casts to compositions with the marker protocol `Sendable` are not allowed, so we verify `Hashable` conformance and force cast (matching `JSONSerializationFormat`).
+        result.append(value as! JSONValue)
       } else {
         throw RootSelectionSetInitializeError.hasNonHashableValue
       }

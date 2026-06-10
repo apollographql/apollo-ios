@@ -102,7 +102,8 @@ public class Mock<O: MockObject>: AnyMock, Hashable {
       if let mockArray = $0 as? Array<Any> {
         return mockArray._unsafelyConvertToSelectionSetData() as JSONValue
       }
-      return $0 as JSONValue
+      // `AnyHashable` no longer conforms to `Sendable`, so unwrap the box and force cast its `Hashable` base (Sendable is unchecked, matching the previous behavior).
+      return $0.base as! JSONValue
     }
   }
 
