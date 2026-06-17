@@ -37,7 +37,10 @@ extension RootSelectionSet {
         if let dictValue = value as? [String: Any] {
           result[key] = try convertToAnyHashableValueDict(dict: dictValue) as JSONValue
         } else if let hashableValue = value as? AnyHashable {
-          result[key] = hashableValue as JSONValue
+          // `AnyHashable: Sendable` is unavailable as of Swift 6.4, so a static `as JSONValue`
+          // (any Sendable & Hashable) coercion no longer compiles. Force-cast instead, matching
+          // the existing `as! JSONValue` usage in JSONSerializationFormat.
+          result[key] = hashableValue as! JSONValue
         } else {
           throw RootSelectionSetInitializeError.hasNonHashableValue
         }
@@ -57,7 +60,8 @@ extension RootSelectionSet {
       } else if let dict = value as? [String: Any] {
         result.append(try convertToAnyHashableValueDict(dict: dict) as JSONValue)
       } else if let hashable = value as? AnyHashable {
-        result.append(hashable as JSONValue)
+        // See note above: `AnyHashable: Sendable` is unavailable as of Swift 6.4.
+        result.append(hashable as! JSONValue)
       } else {
         throw RootSelectionSetInitializeError.hasNonHashableValue
       }
