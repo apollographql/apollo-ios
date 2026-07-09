@@ -150,11 +150,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     store: ApolloStore,
     endpointURL: URL,
     configuration: Configuration = Configuration()
-  ) throws {
+  ) {
     self.urlSession = urlSession
     self.store = store
     self.configuration = configuration
-    self.request = try Self.createURLRequest(
+    self.request = Self.createURLRequest(
       endpointURL: endpointURL,
       clientAwarenessMetadata: configuration.clientAwarenessMetadata
     )
@@ -174,7 +174,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   private static func createURLRequest(
     endpointURL: URL,
     clientAwarenessMetadata: ClientAwarenessMetadata
-  ) throws -> URLRequest {
+  ) -> URLRequest {
     var request = URLRequest(url: endpointURL)
 
     request.setValue(Constants.headerWSProtocolValue, forHTTPHeaderField: Constants.headerWSProtocolName)
@@ -499,7 +499,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   ///
   /// Can also be used to eagerly open a connection before any ``subscribe`` calls:
   /// ```swift
-  /// let transport = try WebSocketTransport(...)
+  /// let transport = WebSocketTransport(...)
   /// await transport.resume()
   /// // Connection is now being established; subsequent subscribe() calls
   /// // will use this connection without additional setup delay.
