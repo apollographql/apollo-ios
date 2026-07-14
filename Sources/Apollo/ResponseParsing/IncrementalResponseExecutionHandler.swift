@@ -31,13 +31,18 @@ extension JSONResponseParser {
 
     init(
       responseBody: JSONObject,
-      operationVariables: GraphQLOperation.Variables?
+      operationVariables: GraphQLOperation.Variables?,
+      existingRecords: RecordSet?
     ) throws {
       guard let path = responseBody["path"] as? [JSONValue] else {
         throw IncrementalResponseError.missingPath
       }
 
-      let rootKey = try CacheReference.rootCacheReference(for: Operation.operationType, path: path)
+      let rootKey = try CacheReference.rootCacheReference(
+        for: Operation.operationType,
+        path: path,
+        resolvingAgainst: existingRecords
+      )
 
       self.base = BaseResponseExecutionHandler(
         responseBody: responseBody,
@@ -146,14 +151,58 @@ extension JSONResponseParser {
 extension CacheReference {
   fileprivate static func rootCacheReference(
     for operationType: GraphQLOperationType,
-    path: [JSONValue]
+    path: [JSONValue],
+    resolvingAgainst records: RecordSet?
   ) throws -> CacheReference {
-    var keys: [String] = [rootCacheReference(for: operationType).key]
+    let rootKey = rootCacheReference(for: operationType).key
+
+    if let records,
+       let resolvedKey = resolveCacheKey(forPath: path, fromRootKey: rootKey, in: records) {
+      return CacheReference(resolvedKey)
+    }
+
+    var keys: [String] = [rootKey]
     for component in path {
       keys.append(try String(_jsonValue: component))
     }
 
     return CacheReference(keys.joined(separator: "."))
+  }
+
+  private static func resolveCacheKey(
+    forPath path: [JSONValue],
+    fromRootKey rootKey: String,
+    in records: RecordSet
+  ) -> String? {
+    var current: JSONValue? = CacheReference(rootKey)
+
+    for component in path {
+      switch current {
+      case let reference as CacheReference:
+        guard let fieldName = component as? String,
+              let record = records[reference.key] else {
+          return nil
+        }
+        current = record[fieldName]
+
+      case let list as [JSONValue]:
+        guard let index = pathIndex(from: component), list.indices.contains(index) else {
+          return nil
+        }
+        current = list[index]
+
+      default:
+        return nil
+      }
+    }
+
+    return (current as? CacheReference)?.key
+  }
+
+  private static func pathIndex(from component: JSONValue) -> Int? {
+    if let index = component as? Int { return index }
+    if let string = component as? String { return Int(string) }
+    return nil
   }
 }
 

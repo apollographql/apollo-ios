@@ -162,7 +162,8 @@ public struct JSONResponseParser: Sendable {
     for item in incrementalItems {
       let (incrementalResult, incrementalCacheRecords) = try await executeIncrementalItem(
         itemBody: item,
-        for: Operation.self
+        for: Operation.self,
+        existingRecords: currentCacheRecords
       )
       try Task.checkCancellation()
 
@@ -178,11 +179,13 @@ public struct JSONResponseParser: Sendable {
 
   private func executeIncrementalItem<Operation: GraphQLOperation>(
     itemBody: JSONObject,
-    for operationType: Operation.Type
+    for operationType: Operation.Type,
+    existingRecords: RecordSet?
   ) async throws -> (IncrementalGraphQLResult, RecordSet?) {
     let incrementalExecutionHandler = try IncrementalResponseExecutionHandler<Operation>(
       responseBody: itemBody,
-      operationVariables: operationVariables
+      operationVariables: operationVariables,
+      existingRecords: existingRecords
     )
 
     return try await incrementalExecutionHandler.execute(includeCacheRecords: includeCacheRecords)
