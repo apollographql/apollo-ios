@@ -41,6 +41,8 @@ extension JSONResponseParser {
       let rootKey = try CacheReference.rootCacheReference(
         for: Operation.operationType,
         path: path,
+        rootSelectionSet: Operation.Data.self,
+        variables: operationVariables,
         resolvingAgainst: existingRecords
       )
 
@@ -152,12 +154,20 @@ extension CacheReference {
   fileprivate static func rootCacheReference(
     for operationType: GraphQLOperationType,
     path: [JSONValue],
+    rootSelectionSet: any SelectionSet.Type,
+    variables: GraphQLOperation.Variables?,
     resolvingAgainst records: RecordSet?
   ) throws -> CacheReference {
     let rootKey = rootCacheReference(for: operationType).key
 
     if let records,
-       let resolvedKey = resolveCacheKey(forPath: path, fromRootKey: rootKey, in: records) {
+       let resolvedKey = resolveCacheKey(
+        forPath: path,
+        fromRootKey: rootKey,
+        rootSelectionSet: rootSelectionSet,
+        variables: variables,
+        in: records
+       ) {
       return CacheReference(resolvedKey)
     }
 
@@ -172,20 +182,27 @@ extension CacheReference {
   private static func resolveCacheKey(
     forPath path: [JSONValue],
     fromRootKey rootKey: String,
+    rootSelectionSet: any SelectionSet.Type,
+    variables: GraphQLOperation.Variables?,
     in records: RecordSet
   ) -> String? {
     var current: JSONValue? = CacheReference(rootKey)
+    var currentSelectionSet: (any SelectionSet.Type)? = rootSelectionSet
 
     for component in path {
       switch current {
       case let reference as CacheReference:
-        guard let fieldName = component as? String,
-              let record = records[reference.key] else {
+        guard let responseKey = component as? String,
+              let record = records[reference.key],
+              let selectionSet = currentSelectionSet,
+              let field = field(matching: responseKey, in: selectionSet.__selections, variables: variables),
+              let cacheKey = try? field.cacheKey(with: variables) else {
           return nil
         }
-        current = record[fieldName]
+        current = record[cacheKey]
+        currentSelectionSet = objectType(of: field.type)
 
-      case let list as [JSONValue]:
+      case let list as [JSONValue?]:
         guard let index = pathIndex(from: component), list.indices.contains(index) else {
           return nil
         }
@@ -197,6 +214,52 @@ extension CacheReference {
     }
 
     return (current as? CacheReference)?.key
+  }
+
+  private static func field(
+    matching responseKey: String,
+    in selections: [Selection],
+    variables: GraphQLOperation.Variables?
+  ) -> Selection.Field? {
+    var matches: [Selection.Field] = []
+    collectFields(forResponseKey: responseKey, in: selections, into: &matches)
+
+    guard let first = matches.first else { return nil }
+    let firstCacheKey = try? first.cacheKey(with: variables)
+    for match in matches.dropFirst() where (try? match.cacheKey(with: variables)) != firstCacheKey {
+      return nil
+    }
+    return first
+  }
+
+  private static func collectFields(
+    forResponseKey responseKey: String,
+    in selections: [Selection],
+    into matches: inout [Selection.Field]
+  ) {
+    for selection in selections {
+      switch selection {
+      case let .field(field):
+        if field.responseKey == responseKey {
+          matches.append(field)
+        }
+      case let .fragment(fragment):
+        collectFields(forResponseKey: responseKey, in: fragment.__selections, into: &matches)
+      case let .inlineFragment(inlineFragment):
+        collectFields(forResponseKey: responseKey, in: inlineFragment.__selections, into: &matches)
+      case let .deferred(_, deferred, _):
+        collectFields(forResponseKey: responseKey, in: deferred.__selections, into: &matches)
+      case let .conditional(_, conditionalSelections):
+        collectFields(forResponseKey: responseKey, in: conditionalSelections, into: &matches)
+      }
+    }
+  }
+
+  private static func objectType(of outputType: Selection.Field.OutputType) -> (any SelectionSet.Type)? {
+    if case let .object(rootSelectionSetType) = outputType.namedType {
+      return rootSelectionSetType
+    }
+    return nil
   }
 
   private static func pathIndex(from component: JSONValue) -> Int? {
