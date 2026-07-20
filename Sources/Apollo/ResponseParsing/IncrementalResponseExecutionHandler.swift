@@ -6,6 +6,7 @@ public enum IncrementalResponseError: Error, LocalizedError, Equatable {
   case missingPath
   case missingLabel
   case missingDeferredSelectionSetType(String, String)
+  case unresolvablePath(String)
 
   public var errorDescription: String? {
     switch self {
@@ -19,6 +20,11 @@ public enum IncrementalResponseError: Error, LocalizedError, Equatable {
 
     case let .missingDeferredSelectionSetType(label, path):
       return "The operation does not have a deferred selection set for label '\(label)' at field path '\(path)'."
+
+    case let .unresolvablePath(path):
+      return "Could not resolve incremental response path '\(path)' to a record in the initial "
+        + "response's normalized cache records. The deferred container must be present in the "
+        + "initial response, so this indicates a malformed response or an unsupported selection shape."
     }
   }
 }
@@ -160,17 +166,26 @@ extension CacheReference {
   ) throws -> CacheReference {
     let rootKey = rootCacheReference(for: operationType).key
 
-    if let records,
-       let resolvedKey = resolveCacheKey(
+    // When cache records are available (`includeCacheRecords == true`), resolving the deferred path
+    // against them is authoritative. A resolution failure here is never benign: the only paths the
+    // naive join keys correctly are exactly the ones the walk also resolves, so falling back would
+    // silently write the deferred fields onto a phantom `rootKey.<path>` record — the very bug this
+    // resolution exists to fix. Surface it instead.
+    if let records {
+      guard let resolvedKey = resolveCacheKey(
         forPath: path,
         fromRootKey: rootKey,
         rootSelectionSet: rootSelectionSet,
         variables: variables,
         in: records
-       ) {
+      ) else {
+        throw IncrementalResponseError.unresolvablePath(pathDescription(path))
+      }
       return CacheReference(resolvedKey)
     }
 
+    // No cache records are being produced, so `rootKey` never reaches the cache and the naive join
+    // has no observable effect on the result. Preserve the original behavior for this path.
     var keys: [String] = [rootKey]
     for component in path {
       keys.append(try String(_jsonValue: component))
@@ -266,6 +281,10 @@ extension CacheReference {
     if let index = component as? Int { return index }
     if let string = component as? String { return Int(string) }
     return nil
+  }
+
+  private static func pathDescription(_ path: [JSONValue]) -> String {
+    path.map { (try? String(_jsonValue: $0)) ?? String(describing: $0) }.joined(separator: ".")
   }
 }
 
