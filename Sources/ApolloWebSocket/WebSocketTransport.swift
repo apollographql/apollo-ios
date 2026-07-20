@@ -433,10 +433,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   /// Disconnects the current WebSocket connection and immediately starts a new one.
   ///
-  /// Replaces the connection, which invalidates the old receive loop (it will see that
-  /// `self.connection` no longer matches and exit). Active subscribers will be resubscribed
-  /// when the new `connection_ack` arrives.
+  /// Closes the old connection before replacing it, which invalidates the old receive loop
+  /// (it will see that `self.connection` no longer matches and exit). Active subscribers will
+  /// be resubscribed when the new `connection_ack` arrives.
   private func disconnectAndReconnect() {
+    connection.close()
     connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
     connectionState = .connecting
     startConnectionReceiveLoop()
