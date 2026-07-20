@@ -7,6 +7,7 @@ public enum IncrementalResponseError: Error, LocalizedError, Equatable {
   case missingLabel
   case missingDeferredSelectionSetType(String, String)
   case unresolvablePath(String)
+  case ambiguousPathField(String)
 
   public var errorDescription: String? {
     switch self {
@@ -25,6 +26,11 @@ public enum IncrementalResponseError: Error, LocalizedError, Equatable {
       return "Could not resolve incremental response path '\(path)' to a record in the initial "
         + "response's normalized cache records. The deferred container must be present in the "
         + "initial response, so this indicates a malformed response or an unsupported selection shape."
+
+    case let .ambiguousPathField(responseKey):
+      return "Could not resolve incremental response path: the response key '\(responseKey)' matches "
+        + "multiple fields with differing cache keys in the operation's selections, so the deferred "
+        + "container's cache key is ambiguous."
     }
   }
 }
@@ -172,7 +178,7 @@ extension CacheReference {
     // silently write the deferred fields onto a phantom `rootKey.<path>` record — the very bug this
     // resolution exists to fix. Surface it instead.
     if let records {
-      guard let resolvedKey = resolveCacheKey(
+      guard let resolvedKey = try resolveCacheKey(
         forPath: path,
         fromRootKey: rootKey,
         rootSelectionSet: rootSelectionSet,
@@ -200,7 +206,7 @@ extension CacheReference {
     rootSelectionSet: any SelectionSet.Type,
     variables: GraphQLOperation.Variables?,
     in records: RecordSet
-  ) -> String? {
+  ) throws -> String? {
     var current: JSONValue? = CacheReference(rootKey)
     var currentSelectionSet: (any SelectionSet.Type)? = rootSelectionSet
 
@@ -210,7 +216,7 @@ extension CacheReference {
         guard let responseKey = component as? String,
               let record = records[reference.key],
               let selectionSet = currentSelectionSet,
-              let field = field(matching: responseKey, in: selectionSet.__selections, variables: variables),
+              let field = try field(matching: responseKey, in: selectionSet.__selections, variables: variables),
               let cacheKey = try? field.cacheKey(with: variables) else {
           return nil
         }
@@ -231,18 +237,24 @@ extension CacheReference {
     return (current as? CacheReference)?.key
   }
 
+  /// Returns the single field in `selections` matching `responseKey`, or `nil` if none matches.
+  ///
+  /// Throws `IncrementalResponseError.ambiguousPathField` if the response key matches more than one
+  /// field with differing cache keys — the deferred container's real cache key can't be determined
+  /// in that case, and (with cache records present) silently falling back would write onto a phantom
+  /// record, so this is surfaced rather than swallowed.
   private static func field(
     matching responseKey: String,
     in selections: [Selection],
     variables: GraphQLOperation.Variables?
-  ) -> Selection.Field? {
+  ) throws -> Selection.Field? {
     var matches: [Selection.Field] = []
     collectFields(forResponseKey: responseKey, in: selections, into: &matches)
 
     guard let first = matches.first else { return nil }
     let firstCacheKey = try? first.cacheKey(with: variables)
     for match in matches.dropFirst() where (try? match.cacheKey(with: variables)) != firstCacheKey {
-      return nil
+      throw IncrementalResponseError.ambiguousPathField(responseKey)
     }
     return first
   }
