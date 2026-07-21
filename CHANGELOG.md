@@ -2,6 +2,8 @@
 
 ## v1.25.7
 
+### Improved
+- **Expose `DatabaseRow` stored properties for `SQLiteDatabase` extensibility ([#1056](https://github.com/apollographql/apollo-ios-dev/pull/1056)):** `DatabaseRow`'s stored properties (`cacheKey` and `storedInfo`) are now `public`, complementing the public initializer added in [#664](https://github.com/apollographql/apollo-ios-dev/pull/664). This lets adopters build wrapper or decorator implementations of the public `SQLiteDatabase` protocol — for encryption, compression, logging, metrics, and similar use cases — without duplicating Apollo's SQLite implementation. This change only expands the public API surface and introduces no behavioral changes. _Thank you to [@ErShubhShankar](https://github.com/ErShubhShankar) for the contribution._
 
 ## v1.25.6
 
