@@ -2,8 +2,8 @@ import Foundation
 import Apollo
 
 public struct DatabaseRow {
-  let cacheKey: CacheKey
-  let storedInfo: String
+  public let cacheKey: CacheKey
+  public let storedInfo: String
 
   public init(cacheKey: CacheKey, storedInfo: String) {
     self.cacheKey = cacheKey
