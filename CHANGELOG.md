@@ -2,6 +2,11 @@
 
 ## v2.4.0
 
+### New
+- **Expose `DatabaseRow` properties for `SQLiteDatabase` extensibility ([#1067](https://github.com/apollographql/apollo-ios-dev/pull/1067)):** `DatabaseRow` is surfaced through the public `SQLiteDatabase` protocol, but its stored properties were not publicly accessible, preventing wrapper implementations (encryption, compression, logging) from reusing `ApolloSQLiteDatabase` through composition. The required `DatabaseRow` members are now `public`, so custom `SQLiteDatabase` implementations can inspect and transform row contents while still leveraging Apollo's existing SQLite implementation. This brings the v1 improvement from [#1056](https://github.com/apollographql/apollo-ios-dev/pull/1056) to v2. _Thank you to [@ErShubhShankar](https://github.com/ErShubhShankar) for the contribution._
+
+### Improvement
+- **Apply `additionalCapitalizationRules` to generated operation & fragment type names ([#1063](https://github.com/apollographql/apollo-ios-dev/pull/1063)):** A follow-on to [#1037](https://github.com/apollographql/apollo-ios-dev/pull/1037), which applied the opt-in `additionalCapitalizationRules` to property-level names only. The rules now also apply to the generated Swift type names of GraphQL operations and named fragments, so an `id` → `ID` rule generates `SomethingByIDSubscription` instead of `SomethingByIdSubscription`. The `operationName` string is unchanged. Generated file names are re-cased to match the type names, and case-only renames are now safe on case-insensitive volumes — the pruner skips old paths that differ only by case unless the volume is known to be case-sensitive, and `ApolloFileManager` renames an existing file whose on-disk name differs only by case before writing. The option remains fully opt-in, so output is unchanged when no rules are configured. _Thank you to [@3redrubies](https://github.com/3redrubies) for the contribution._
 
 ## v2.3.0
 
