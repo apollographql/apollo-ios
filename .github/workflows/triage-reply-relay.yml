@@ -1,0 +1,33 @@
+name: Post automated triage reply
+
+# Receives a reply drafted by the maintainers' triage automation (which runs in
+# apollo-ios-dev) and posts it on the referenced issue using this repository's
+# own token, so the comment is authored by github-actions[bot].
+
+on:
+  repository_dispatch:
+    types: [post-triage-reply]
+
+permissions:
+  issues: write
+
+jobs:
+  post-reply:
+    runs-on: ubuntu-latest
+    if: github.repository == 'apollographql/apollo-ios'
+    steps:
+      - name: Post comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          BODY: ${{ github.event.client_payload.body }}
+        run: |
+          if ! [[ "$ISSUE_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "Invalid issue number: $ISSUE_NUMBER" >&2
+            exit 1
+          fi
+          if [[ -z "$BODY" ]]; then
+            echo "Empty body" >&2
+            exit 1
+          fi
+          printf '%s' "$BODY" | gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file -
