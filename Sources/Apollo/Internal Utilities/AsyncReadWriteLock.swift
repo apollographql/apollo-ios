@@ -124,9 +124,9 @@ actor AsyncReadWriteLock {
     }
 
     mutating func addReadTask(_ continuation: CheckedContinuation<Void, Never>) {
-      if case var .readBatch(batch) = queueItems.first {
+      if case var .readBatch(batch) = queueItems.last {
         batch.append(continuation)
-        queueItems[0] = .readBatch(batch)
+        queueItems[queueItems.count - 1] = .readBatch(batch)
 
       } else {
         queueItems.append(.readBatch([continuation]))
