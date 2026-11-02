@@ -126,7 +126,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   private var request: URLRequest
 
-  private var connection: WebSocketConnection
+  private(set) var connection: WebSocketConnection
 
   var connectionState: ConnectionState = .notStarted
 
@@ -227,7 +227,9 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   ///   all subscriber streams.
   private func startConnectionReceiveLoop() {
     /// Keeps a reference to the connection the receive loop was opened on. If a reconnect occurs,
-    /// `self.connection` will be a new connection and we should ignore disconnection events for this loop.
+    /// `self.connection` will be a new connection and we should ignore messages and disconnection
+    /// events from this loop. The handlers check this themselves: this task isn't isolated to the
+    /// actor, so a check made here can be stale by the time a handler runs.
     let loopConnection = self.connection
     let connectionStream = self.connection.openConnection(
       connectingPayload: configuration.connectingPayload
@@ -236,23 +238,23 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     Task { [weak self] in
       do {
         for try await message in connectionStream {
-          await self?.didReceive(message: message)
+          await self?.didReceive(message: message, from: loopConnection)
         }
 
-        guard await self?.connection === loopConnection else { return }
-        await self?.handleDisconnection()
+        await self?.handleDisconnection(of: loopConnection)
       } catch {
-        guard await self?.connection === loopConnection else { return }
         // Use Task.isCancelled to distinguish genuine task cancellation from
         // connection errors. The WebSocket task's receive() may throw errors
         // (including CancellationError) when the connection closes, which should
         // be treated as a disconnection — not as task cancellation.
-        await self?.handleDisconnection(error: Task.isCancelled ? nil : error)
+        await self?.handleDisconnection(of: loopConnection, error: Task.isCancelled ? nil : error)
       }
     }
   }
 
-  /// Handles a disconnection from the receive loop.
+  /// Handles a disconnection from the receive loop opened on `loopConnection`.
+  ///
+  /// Ignored if `loopConnection` is no longer the current connection or the transport is paused.
   ///
   /// When `error` is nil, this is a normal disconnection (stream ended cleanly or task was
   /// cancelled). When non-nil, the error is forwarded to connection waiters and subscribers
@@ -261,8 +263,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// One-shot operations (queries and mutations) are always terminated immediately on
   /// disconnect — they should never be retried across a reconnection, as replaying a
   /// mutation could cause duplicate side effects.
-  private func handleDisconnection(error: (any Swift.Error)? = nil) async {
-    guard connectionState != .paused else { return }
+  func handleDisconnection(
+    of loopConnection: WebSocketConnection,
+    error: (any Swift.Error)? = nil
+  ) async {
+    guard connection === loopConnection, connectionState != .paused else { return }
 
     let wasConnected = (self.connectionState == .connected)
     self.connectionState = .disconnected
@@ -582,12 +587,23 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   // MARK: - Processing Messages
 
-  private func didReceive(message: URLSessionWebSocketTask.Message) {
+  /// Routes a message from the receive loop opened on `loopConnection`, ignoring it if that
+  /// connection has been replaced.
+  func didReceive(
+    message: URLSessionWebSocketTask.Message,
+    from loopConnection: WebSocketConnection
+  ) {
+    guard connection === loopConnection else { return }
+
     do {
       let incoming = try Message.Incoming.from(message)
 
       switch incoming {
       case .connectionAck:
+        // `pause()` keeps the closed connection current, so an ack it received before closing must
+        // not mark the transport connected.
+        guard connectionState == .connecting else { return }
+
         let isReconnect = hasBeenConnected
         self.connectionState = .connected
         self.hasBeenConnected = true
