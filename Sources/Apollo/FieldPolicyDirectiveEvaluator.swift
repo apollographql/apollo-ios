@@ -43,7 +43,7 @@ struct FieldPolicyDirectiveEvaluator {
       }
 
       guard let resolved = argVal.resolveValue(
-        keyPath: arg.path,
+        keyPath: arg.path[...],
         variables: variables
       ), !resolved.values.isEmpty else {
         return nil
@@ -108,14 +108,14 @@ struct FieldPolicyDirectiveEvaluator {
         let rest = key[key.index(after: dot)...]
         return ParsedKey(name: name, path: rest.split(separator: ".").map(String.init))
       } else {
-        return ParsedKey(name: key, path: nil)
+        return ParsedKey(name: key, path: [])
       }
     }
   }
   
   private struct ParsedKey {
     let name: String
-    let path: [String]?
+    let path: [String]
   }
 }
 
@@ -143,20 +143,6 @@ extension ScalarType {
   }
 }
 
-extension JSONObject {
-  fileprivate func traverse(
-    to path: ArraySlice<String>
-  ) -> JSONValue? {
-    guard let head = path.first else { return self as JSONValue }
-    guard let next = self[head] else { return nil }
-    if path.count == 1 { return next }
-    if let nested = next as? JSONObject {
-      return nested.traverse(to: path.dropFirst())
-    }
-    return nil
-  }
-}
-
 private struct ResolvedKeyArgValue {
   let values: [String]
   let isList: Bool
@@ -173,77 +159,119 @@ private struct ResolvedKeyArgValue {
 }
 
 extension InputValue {
-  fileprivate func resolveValue(keyPath: [String]? = nil, variables: [String: (any GraphQLOperationVariableValue)]? = nil) -> ResolvedKeyArgValue? {
+  /// Resolves the cache key components at the end of `keyPath`, with one component for each element of
+  /// a list along the path. Returns `nil` if any element can't be resolved to a single leaf value.
+  fileprivate func resolveValue(
+    keyPath: ArraySlice<String>,
+    variables: GraphQLOperation.Variables?
+  ) -> ResolvedKeyArgValue? {
     switch self {
-    case .scalar(let scalar):
-      return ResolvedKeyArgValue(single: scalar.cacheKeyComponentStringValue)
-    case .variable(let varName):
-      guard let varValue = variables?[varName] else {
-        return nil
+    case .list(let elements):
+      var values: [String] = []
+      values.reserveCapacity(elements.count)
+      for element in elements {
+        guard let value = element.resolveLeafValue(keyPath: keyPath, variables: variables) else {
+          return nil
+        }
+        values.append(value)
       }
-      if let encodableValue = varValue._jsonEncodableValue {
-        return cacheKeyComponentStringValue(encodableValue._jsonValue, keyPath: keyPath)
-      }
-      return nil
-    case .list(let list):
-      if list.contains(where: { if case .list = $0 { return true } else { return false } }) {
-        return nil
-      }
-      let values = list.compactMap { $0.resolveValue()?.values.first }
-      guard !values.isEmpty else { return nil }
-      return ResolvedKeyArgValue(list: values)
+      return values.isEmpty ? nil : ResolvedKeyArgValue(list: values)
+
     case .object(let dict):
-      guard let keyPath, !keyPath.isEmpty else { return nil }
-      guard let targetValue = self.traverse(through: dict, to: keyPath[...]) else { return nil }
-      return targetValue.resolveValue()
+      guard let head = keyPath.first, let next = dict[head] else { return nil }
+      return next.resolveValue(keyPath: keyPath.dropFirst(), variables: variables)
+
+    case .variable(let varName):
+      guard let jsonValue = variables?[varName]?._jsonEncodableValue?._jsonValue else {
+        return nil
+      }
+      return Self.cacheKeyComponentStringValues(jsonValue, keyPath: keyPath)
+
     default:
-      return nil
-    }
-  }
-  
-  fileprivate func traverse(
-    through dict: [String: InputValue],
-    to path: ArraySlice<String>
-  ) -> InputValue? {
-    guard let head = path.first else { return .object(dict) }
-    guard let next = dict[head] else { return nil }
-    if path.count == 1 { return next }
-    if case .object(let nested) = next {
-      return traverse(through: nested, to: path.dropFirst())
-    }
-    return nil
-  }
-  
-  fileprivate func cacheKeyComponentStringValue(_ jsonValue: JSONValue, keyPath: [String]? = nil) -> ResolvedKeyArgValue? {
-    switch jsonValue {
-    case let strVal as String:
-      return ResolvedKeyArgValue(single: strVal)
-      
-    case let boolVal as Bool:
-      return ResolvedKeyArgValue(single: boolVal ? "true" : "false")
-      
-    case let intVal as Int:
-      return ResolvedKeyArgValue(single: String(intVal))
-      
-    case let doubleVal as Double:
-      return ResolvedKeyArgValue(single: String(doubleVal))
-      
-    case let floatVal as Float:
-      return ResolvedKeyArgValue(single: String(floatVal))
-      
-    case let arrVal as [JSONValue]:
-      let values: [String] = arrVal.compactMap { cacheKeyComponentStringValue($0)?.values.first }
-      guard !values.isEmpty else { return nil }
-      return ResolvedKeyArgValue(list: values)
-      
-    case let objVal as JSONObject:
-      guard let keyPath, !keyPath.isEmpty else { return nil }
-      guard let targetValue = objVal.traverse(to: keyPath[...]) else { return nil }
-      return cacheKeyComponentStringValue(targetValue)
-      
-    default:
-      return ResolvedKeyArgValue(single: String(describing: jsonValue))
+      return resolveLeafValue(keyPath: keyPath, variables: variables).map(ResolvedKeyArgValue.init(single:))
     }
   }
 
+  private func resolveLeafValue(
+    keyPath: ArraySlice<String>,
+    variables: GraphQLOperation.Variables?
+  ) -> String? {
+    switch self {
+    case .scalar(let scalar):
+      return keyPath.isEmpty ? scalar.cacheKeyComponentStringValue : nil
+
+    case .object(let dict):
+      guard let head = keyPath.first, let next = dict[head] else { return nil }
+      return next.resolveLeafValue(keyPath: keyPath.dropFirst(), variables: variables)
+
+    case .variable(let varName):
+      guard let jsonValue = variables?[varName]?._jsonEncodableValue?._jsonValue else {
+        return nil
+      }
+      return Self.cacheKeyComponentStringValue(jsonValue, keyPath: keyPath)
+
+    default:
+      return nil
+    }
+  }
+
+  private static func cacheKeyComponentStringValues(
+    _ jsonValue: JSONValue,
+    keyPath: ArraySlice<String>
+  ) -> ResolvedKeyArgValue? {
+    switch jsonValue {
+    case let arrVal as [JSONValue]:
+      var values: [String] = []
+      values.reserveCapacity(arrVal.count)
+      for element in arrVal {
+        guard let value = cacheKeyComponentStringValue(element, keyPath: keyPath) else {
+          return nil
+        }
+        values.append(value)
+      }
+      return values.isEmpty ? nil : ResolvedKeyArgValue(list: values)
+
+    case let objVal as JSONObject:
+      guard let head = keyPath.first, let next = objVal[head] else { return nil }
+      return cacheKeyComponentStringValues(next, keyPath: keyPath.dropFirst())
+
+    default:
+      return cacheKeyComponentStringValue(jsonValue, keyPath: keyPath).map(ResolvedKeyArgValue.init(single:))
+    }
+  }
+
+  private static func cacheKeyComponentStringValue(
+    _ jsonValue: JSONValue,
+    keyPath: ArraySlice<String>
+  ) -> String? {
+    if let objVal = jsonValue as? JSONObject {
+      guard let head = keyPath.first, let next = objVal[head] else { return nil }
+      return cacheKeyComponentStringValue(next, keyPath: keyPath.dropFirst())
+    }
+
+    guard keyPath.isEmpty else { return nil }
+
+    switch jsonValue {
+    case let strVal as String:
+      return strVal
+
+    case let boolVal as Bool:
+      return boolVal ? "true" : "false"
+
+    case let intVal as Int:
+      return String(intVal)
+
+    case let doubleVal as Double:
+      return String(doubleVal)
+
+    case let floatVal as Float:
+      return String(floatVal)
+
+    case is [JSONValue], is NSNull:
+      return nil
+
+    default:
+      return String(describing: jsonValue)
+    }
+  }
 }
