@@ -49,13 +49,14 @@ actor AsyncReadWriteLock {
       // is waiting, we should queue the new reader for after the write.
       if !queue.isEmpty {
         await addToQueueAndWait(isWriter: false)
+      } else {
+        runningReadCount += 1
       }
       
     case .idle:
       state = .reading
+      runningReadCount += 1
     }
-
-    runningReadCount += 1
 
     defer { readTaskDidFinish() }
 
@@ -101,6 +102,8 @@ actor AsyncReadWriteLock {
 
     case let .readBatch(continuations):
       state = .reading
+      // Count readers before resuming them, because they re-enter the actor in priority order.
+      runningReadCount += UInt(continuations.count)
       for continuation in continuations {
         continuation.resume()
       }
