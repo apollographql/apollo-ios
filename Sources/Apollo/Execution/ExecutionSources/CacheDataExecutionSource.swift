@@ -53,17 +53,18 @@ struct CacheDataExecutionSource: GraphQLExecutionSource {
     with info: FieldExecutionInfo,
     on object: Record
   ) throws -> JSONValue? {
-    if let fieldPolicyValue = resolveFieldPolicyValue(with: info) {
-      return fieldPolicyValue
+    let key = try info.cacheKeyForField()
+    if let storedValue = object[key] {
+      return storedValue
     }
 
-    let key = try info.cacheKeyForField()
-    return object[key]
+    return resolveFieldPolicyValue(with: info)
   }
 
-  /// Field policies resolve a single key to an object field, or a list of keys to a flat list field.
-  /// Fields returning nested lists, and policy results that don't match the shape of the field's
-  /// type, are read from the parent record like any other field.
+  /// Field policies resolve a single key to an object field, or a list of keys to a flat list field,
+  /// when the field has no value stored on the parent record for its arguments. Fields returning
+  /// nested lists, and policy results that don't match the shape of the field's type, have no
+  /// field policy value.
   private func resolveFieldPolicyValue(with info: FieldExecutionInfo) -> JSONValue? {
     let depth = listDepth(of: info.field.type)
 

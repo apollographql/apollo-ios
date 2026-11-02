@@ -8,6 +8,8 @@ public enum FieldPolicy {
     /// The entry point for resolving a cache key to read an object from the `NormalizedCache` for a field
     /// that returns a single object.
     ///
+    /// This function is not called when the field has a value stored in the cache for its arguments.
+    ///
     /// - Parameters:
     ///   - field: The ``FieldPolicy.Field`` of the operation being executed.
     ///   - inputData: The ``FieldPolicy.InputData`` representing the arguments and variables for the operation being executed.
@@ -22,7 +24,8 @@ public enum FieldPolicy {
     /// The entry point for resolving cache keys to read objects from the `NormalizedCache` for a field
     /// that returns a list of objects.
     ///
-    /// This function is not called for fields that return a nested list, such as `[[Hero]]`.
+    /// This function is not called for fields that return a nested list, such as `[[Hero]]`, or when the
+    /// field has a value stored in the cache for its arguments.
     ///
     /// - Parameters:
     ///   - field: The ``FieldPolicy.Field`` of the operation being executed.
