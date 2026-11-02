@@ -45,18 +45,18 @@ struct FieldPolicyDirectiveEvaluator {
       guard let resolved = argVal.resolveValue(
         keyPath: arg.path,
         variables: variables
-      ), !resolved.isEmpty else {
+      ), !resolved.values.isEmpty else {
         return nil
       }
       
-      if resolved.count > 1 {
-        listArgIndex = index
-        listArgValues = resolved
-      } else {
-        guard let value = resolved.first else {
+      if resolved.isList {
+        guard listArgIndex == nil else {
           return nil
         }
-        singleValueArgs[index] = value
+        listArgIndex = index
+        listArgValues = resolved.values
+      } else {
+        singleValueArgs[index] = resolved.values.first
       }
     }
 
@@ -157,11 +157,26 @@ extension JSONObject {
   }
 }
 
+private struct ResolvedKeyArgValue {
+  let values: [String]
+  let isList: Bool
+
+  init(single value: String) {
+    self.values = [value]
+    self.isList = false
+  }
+
+  init(list values: [String]) {
+    self.values = values
+    self.isList = true
+  }
+}
+
 extension InputValue {
-  fileprivate func resolveValue(keyPath: [String]? = nil, variables: [String: (any GraphQLOperationVariableValue)]? = nil) -> [String]? {
+  fileprivate func resolveValue(keyPath: [String]? = nil, variables: [String: (any GraphQLOperationVariableValue)]? = nil) -> ResolvedKeyArgValue? {
     switch self {
     case .scalar(let scalar):
-      return [scalar.cacheKeyComponentStringValue]
+      return ResolvedKeyArgValue(single: scalar.cacheKeyComponentStringValue)
     case .variable(let varName):
       guard let varValue = variables?[varName] else {
         return nil
@@ -174,9 +189,9 @@ extension InputValue {
       if list.contains(where: { if case .list = $0 { return true } else { return false } }) {
         return nil
       }
-      let values = list.compactMap { $0.resolveValue()?.first }
+      let values = list.compactMap { $0.resolveValue()?.values.first }
       guard !values.isEmpty else { return nil }
-      return values
+      return ResolvedKeyArgValue(list: values)
     case .object(let dict):
       guard let keyPath, !keyPath.isEmpty else { return nil }
       guard let targetValue = self.traverse(through: dict, to: keyPath[...]) else { return nil }
@@ -199,27 +214,27 @@ extension InputValue {
     return nil
   }
   
-  fileprivate func cacheKeyComponentStringValue(_ jsonValue: JSONValue, keyPath: [String]? = nil) -> [String]? {
+  fileprivate func cacheKeyComponentStringValue(_ jsonValue: JSONValue, keyPath: [String]? = nil) -> ResolvedKeyArgValue? {
     switch jsonValue {
     case let strVal as String:
-      return [strVal]
+      return ResolvedKeyArgValue(single: strVal)
       
     case let boolVal as Bool:
-      return boolVal ? ["true"] : ["false"]
+      return ResolvedKeyArgValue(single: boolVal ? "true" : "false")
       
     case let intVal as Int:
-      return [String(intVal)]
+      return ResolvedKeyArgValue(single: String(intVal))
       
     case let doubleVal as Double:
-      return [String(doubleVal)]
+      return ResolvedKeyArgValue(single: String(doubleVal))
       
     case let floatVal as Float:
-      return [String(floatVal)]
+      return ResolvedKeyArgValue(single: String(floatVal))
       
     case let arrVal as [JSONValue]:
-      let values: [String] = arrVal.compactMap { cacheKeyComponentStringValue($0)?.first }
+      let values: [String] = arrVal.compactMap { cacheKeyComponentStringValue($0)?.values.first }
       guard !values.isEmpty else { return nil }
-      return values
+      return ResolvedKeyArgValue(list: values)
       
     case let objVal as JSONObject:
       guard let keyPath, !keyPath.isEmpty else { return nil }
@@ -227,7 +242,7 @@ extension InputValue {
       return cacheKeyComponentStringValue(targetValue)
       
     default:
-      return [String(describing: self)]
+      return ResolvedKeyArgValue(single: String(describing: jsonValue))
     }
   }
 
