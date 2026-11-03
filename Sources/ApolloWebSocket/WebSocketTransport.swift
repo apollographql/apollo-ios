@@ -126,7 +126,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   private var request: URLRequest
 
-  private(set) var connection: WebSocketConnection
+  /// The connection for the most recent connection attempt, or `nil` before the first attempt.
+  private(set) var connection: WebSocketConnection?
 
   var connectionState: ConnectionState = .notStarted
 
@@ -158,7 +159,6 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
       endpointURL: endpointURL,
       clientAwarenessMetadata: configuration.clientAwarenessMetadata
     )
-    self.connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
     self.subscriberRegistry = SubscriberRegistry(
       operationMessageIdCreator: configuration.operationMessageIdCreator
     )
@@ -166,7 +166,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
   deinit {
     pingTimerTask?.cancel()
-    connection.close()
+    connection?.close()
   }
 
   // MARK: - Request Setup
@@ -189,33 +189,35 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// Ensures the WebSocket connection is established before returning.
   ///
   /// Handles all connection states:
-  /// - `notStarted`: Opens the connection and waits for `connection_ack`.
+  /// - `notStarted`, `disconnected`: Opens a new connection and waits for `connection_ack`.
   /// - `connecting`: Waits for the in-progress connection to receive `connection_ack`.
   /// - `connected`: Returns immediately.
-  /// - `disconnected`: Creates a fresh connection and waits for `connection_ack`.
   /// - `paused`: Waits for `resume()` to re-establish the connection.
   private func ensureConnected() async throws {
     switch connectionState {
-    case .notStarted:
-      connectionState = .connecting
-      startConnectionReceiveLoop()
+    case .notStarted, .disconnected:
+      openNewConnection()
       try await waitForConnectionAck()
 
-    case .connecting:
+    case .connecting, .paused:
       try await waitForConnectionAck()
 
     case .connected:
       return
-
-    case .disconnected:
-      connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
-      connectionState = .connecting
-      startConnectionReceiveLoop()
-      try await waitForConnectionAck()
-
-    case .paused:
-      try await waitForConnectionAck()
     }
+  }
+
+  /// Replaces the current connection with one on a newly created WebSocket task and starts its
+  /// handshake.
+  ///
+  /// Tasks are only created here, immediately before they are resumed. `URLSession` measures
+  /// `timeoutIntervalForResource` from when a task is created, so a task created ahead of time can
+  /// time out the moment it is resumed.
+  private func openNewConnection() {
+    let connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
+    self.connection = connection
+    connectionState = .connecting
+    startConnectionReceiveLoop(on: connection)
   }
 
   /// Spawns a task that iterates the connection's message stream and routes incoming messages.
@@ -225,13 +227,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   ///   auto-reconnection is enabled: attempts reconnection without terminating subscriber streams.
   /// - Otherwise: transitions to `disconnected`, fails pending connection waiters, and finishes
   ///   all subscriber streams.
-  private func startConnectionReceiveLoop() {
-    /// Keeps a reference to the connection the receive loop was opened on. If a reconnect occurs,
-    /// `self.connection` will be a new connection and we should ignore messages and disconnection
-    /// events from this loop. The handlers check this themselves: this task isn't isolated to the
-    /// actor, so a check made here can be stale by the time a handler runs.
-    let loopConnection = self.connection
-    let connectionStream = self.connection.openConnection(
+  private func startConnectionReceiveLoop(on loopConnection: WebSocketConnection) {
+    /// If a reconnect occurs, `self.connection` will be a new connection and we should ignore
+    /// messages and disconnection events from this loop. The handlers check this themselves: this
+    /// task isn't isolated to the actor, so a check made here can be stale by the time a handler runs.
+    let connectionStream = loopConnection.openConnection(
       connectingPayload: configuration.connectingPayload
     )
 
@@ -323,9 +323,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     // If the transport was paused during the reconnection delay, don't reconnect.
     guard connectionState != .paused else { return }
 
-    connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
-    connectionState = .connecting
-    startConnectionReceiveLoop()
+    openNewConnection()
   }
 
   /// Suspends the caller until the connection transitions to `connected`.
@@ -363,12 +361,11 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   ///
   /// Spawns a task that sends a `ping` message at the configured interval. The task
   /// runs until cancelled (via ``stopPingTimer()``). Called after `connection_ack`.
-  private func startPingTimer() {
+  private func startPingTimer(on connection: WebSocketConnection) {
     guard let interval = configuration.pingInterval, interval > 0 else { return }
 
     stopPingTimer()
 
-    let connection = self.connection
     pingTimerTask = Task { [weak self] in
       let nanoseconds = UInt64(interval * 1_000_000_000)
       while !Task.isCancelled {
@@ -442,10 +439,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// (it will see that `self.connection` no longer matches and exit). Active subscribers will
   /// be resubscribed when the new `connection_ack` arrives.
   private func disconnectAndReconnect() {
-    connection.close()
-    connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
-    connectionState = .connecting
-    startConnectionReceiveLoop()
+    connection?.close()
+    openNewConnection()
   }
 
   // MARK: - Pause / Resume
@@ -491,7 +486,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     // Close the underlying WebSocket task. This causes the receive loop's stream to
     // end, at which point the loop checks connectionState, sees `.paused`, and exits
     // without triggering auto-reconnection or finishing subscriber streams.
-    connection.close()
+    connection?.close()
   }
 
   /// Re-establishes the WebSocket connection after a ``pause()``, or opens a new connection
@@ -512,14 +507,8 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
   /// ```
   public func resume() {
     switch connectionState {
-    case .notStarted:
-      connectionState = .connecting
-      startConnectionReceiveLoop()
-
-    case .paused, .disconnected:
-      connection = WebSocketConnection(task: urlSession.webSocketTask(with: request))
-      connectionState = .connecting
-      startConnectionReceiveLoop()
+    case .notStarted, .paused, .disconnected:
+      openNewConnection()
 
     case .connecting, .connected:
       return
@@ -543,7 +532,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
 
     let message = Message.Outgoing.complete(id: operationID)
     if let wsMessage = try? message.toWebSocketMessage() {
-      connection.send(wsMessage)
+      connection?.send(wsMessage)
     }
   }
 
@@ -558,6 +547,12 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
     operationID: OperationID,
     operation: Operation
   ) throws {
+    // Throw rather than drop the message: a subscriber that is marked subscribed without
+    // its message having been sent would wait forever.
+    guard let connection else {
+      throw Error.connectionClosed
+    }
+
     let payload = configuration.requestBodyCreator.requestBody(
       for: operation,
       sendQueryDocument: true,
@@ -609,7 +604,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         self.hasBeenConnected = true
         connectionWaiters.resumeAll()
         resubscribeActiveSubscribers()
-        startPingTimer()
+        startPingTimer(on: loopConnection)
 
         if isReconnect {
           delegate?.webSocketTransportDidReconnect(self)
@@ -630,7 +625,7 @@ public actor WebSocketTransport: SubscriptionNetworkTransport, NetworkTransport 
         // Per the graphql-transport-ws protocol, a pong must be sent in response
         // to a ping "as soon as possible".
         if let pongMessage = try? Message.Outgoing.pong(payload: nil).toWebSocketMessage() {
-          connection.send(pongMessage)
+          loopConnection.send(pongMessage)
         }
         delegate?.webSocketTransport(self, didReceivePingWithPayload: payload)
 
