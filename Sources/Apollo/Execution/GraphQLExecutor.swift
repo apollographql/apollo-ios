@@ -162,7 +162,7 @@ public struct GraphQLExecutionError: Error, LocalizedError {
 
   /// A description of the error which includes the path where the error occurred.
   public var errorDescription: String? {
-    return "Error at path \"\(path))\": \(underlying)"
+    return "Error at path \"\(path)\": \(underlying)"
   }
 }
 
